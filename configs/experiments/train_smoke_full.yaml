@@ -1,0 +1,30 @@
+# Two-epoch smoke test for the full dual-anchor/tree-axis training path.
+default_args:
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/dataset_train.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/_train_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: True
+  upper_offset_loss_weight: 1.0
+  axis_loss_weight: 0.1
+  offset_loss_type: 'l2'
+
+dataloader:
+  train:
+    batch_size: 1
+    num_workers: 2
+  test:
+    batch_size: 1
+    num_workers: 1
+
+scheduler:
+  t_initial: 2
+  warmup_t: 0
+
+epochs: 2
+examples_per_epoch: 20
+save_frequency: 1
+validation_frequency: 1

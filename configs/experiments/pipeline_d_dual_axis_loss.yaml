@@ -1,0 +1,25 @@
+# D: dual-anchor XY clustering with tree-axis loss, but without axis-height feature.
+default_args:
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/_pipeline_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: True
+  upper_offset_loss_weight: 1.0
+  axis_loss_weight: 0.1
+  offset_loss_type: 'l2'
+
+grouping:
+  upper_anchor_weight: 1.0
+  axis_height_weight: 0.0
+
+# D and E deliberately share checkpoint T2.
+pretrain: 'work_dirs/t2_dual_axis/epoch_1000.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_d_dual_axis_loss'

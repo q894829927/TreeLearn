@@ -42,6 +42,8 @@ If you want to train a custom model for forest segmentation, we refer to the [tr
 
 For the dual-anchor/tree-axis extension on AutoDL, see the
 [Chinese AutoDL guide](docs/dual_anchor_autodl_zh.md).
+Ready-to-run ablation configurations and result tables are documented in the
+[Chinese dual-anchor experiment guide](docs/dual_anchor_experiments_zh.md).
 
 ## Evaluation
 

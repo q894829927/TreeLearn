@@ -1,0 +1,13 @@
+# T0: original single-anchor TreeLearn baseline.
+default_args:
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/dataset_train.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/_train_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  upper_offset_loss_weight: 0.0
+  axis_loss_weight: 0.0
+  offset_loss_type: 'l2'

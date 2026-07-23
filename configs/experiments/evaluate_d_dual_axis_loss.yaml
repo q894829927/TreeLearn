@@ -1,0 +1,4 @@
+default_args: ["configs/experiments/_evaluation_common.yaml"]
+
+paths:
+  pred_forest_path: 'data/pipeline/L1W/results_d_dual_axis_loss/full_forest/L1W.laz'
