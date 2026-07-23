@@ -16,13 +16,29 @@ class TreeDataset(Dataset):
                  inner_square_edge_length,
                  training,
                  logger,
-                 data_augmentations=None):
+                 data_augmentations=None,
+                 base_anchor_height=0.5,
+                 base_anchor_floor_quantile=0.01,
+                 upper_anchor_lower_ratio=0.55,
+                 upper_anchor_upper_ratio=0.75,
+                 upper_anchor_min_points=3):
 
-        self.data_paths = [os.path.join(data_root, path) for path in os.listdir(data_root)]
+        self.data_paths = sorted(os.path.join(data_root, path) for path in os.listdir(data_root))
         self.inner_square_edge_length = inner_square_edge_length
         self.logger = logger
         self.training = training
         self.data_augmentations = data_augmentations
+        self.base_anchor_height = base_anchor_height
+        self.base_anchor_floor_quantile = base_anchor_floor_quantile
+        self.upper_anchor_lower_ratio = upper_anchor_lower_ratio
+        self.upper_anchor_upper_ratio = upper_anchor_upper_ratio
+        self.upper_anchor_min_points = upper_anchor_min_points
+        if not 0 <= self.base_anchor_floor_quantile < 0.5:
+            raise ValueError('base_anchor_floor_quantile must be in [0, 0.5).')
+        if not 0 <= self.upper_anchor_lower_ratio < self.upper_anchor_upper_ratio <= 1:
+            raise ValueError('upper anchor ratios must satisfy 0 <= lower < upper <= 1.')
+        if self.upper_anchor_min_points < 1:
+            raise ValueError('upper_anchor_min_points must be positive.')
         mode = 'train' if training else 'test'
         self.logger.info(f'Load {mode} dataset: {len(self.data_paths)} scans')
 
@@ -54,13 +70,15 @@ class TreeDataset(Dataset):
         # transform data
         xyz = self.transform_train(xyz) if self.training else self.transform_test(xyz)
 
-        # get offset
-        pt_offset_label, mask_valid_offset = self.getOffset(xyz, instance_label, semantic_label)
+        # Generate base- and upper-anchor offsets online from existing instance labels.
+        pt_offset_label, upper_offset_label, mask_valid_offset, mask_valid_upper = \
+            self.getOffset(xyz, instance_label, semantic_label)
         
         # get masks for loss calculation
         mask_inner = self.get_mask_inner(xyz)
         mask_not_ignore = self.get_mask_not_ignore(instance_label)
         mask_off = mask_inner & mask_not_ignore & (semantic_label != NON_TREE_CLASS_IN_PYTORCH_DATASET) & mask_valid_offset
+        mask_upper = mask_inner & mask_not_ignore & (semantic_label != NON_TREE_CLASS_IN_PYTORCH_DATASET) & mask_valid_upper
         mask_sem = mask_inner & mask_not_ignore
 
         xyz = torch.from_numpy(xyz)
@@ -68,12 +86,15 @@ class TreeDataset(Dataset):
         semantic_label = torch.from_numpy(semantic_label)
         mask_inner = torch.from_numpy(mask_inner)
         mask_off = torch.from_numpy(mask_off)
+        mask_upper = torch.from_numpy(mask_upper)
         mask_sem = torch.from_numpy(mask_sem)
         pt_offset_label = torch.from_numpy(pt_offset_label)
+        upper_offset_label = torch.from_numpy(upper_offset_label)
         input_feat = torch.from_numpy(input_feat)
         center = torch.from_numpy(center)
 
-        return xyz, input_feat, instance_label, semantic_label, pt_offset_label, center, mask_inner, mask_off, mask_sem
+        return (xyz, input_feat, instance_label, semantic_label, pt_offset_label,
+                upper_offset_label, center, mask_inner, mask_off, mask_upper, mask_sem)
 
 
     def get_mask_not_ignore(self, instance_label):
@@ -107,37 +128,66 @@ class TreeDataset(Dataset):
         return xyz
 
 
-    # unlike stated in the paper, we simply use the mean of the lowest 0.5m of the tree points as the tree base here
+    # B is a robust base anchor. U is a robust upper morphological anchor.
+    # The connection B -> U provides a compact tree-axis morphology target.
     def getOffset(self, xyz, instance_label, semantic_label):
-        position = np.ones_like(xyz, dtype=np.float32)
+        base_position = np.zeros_like(xyz, dtype=np.float32)
+        upper_position = np.zeros_like(xyz, dtype=np.float32)
         instances = np.unique(instance_label)
         mask_valid_offset = np.zeros_like(instance_label, dtype=bool)
+        mask_valid_upper = np.zeros_like(instance_label, dtype=bool)
 
         for instance in instances:
+            if instance in (INSTANCE_LABEL_IGNORE_IN_RAW_DATA, NON_TREE_CLASS_IN_RAW_DATA):
+                continue
+
             inst_idx = np.where(instance_label == instance)
             first_idx = inst_idx[0][0]
 
             if semantic_label[first_idx] != NON_TREE_CLASS_IN_PYTORCH_DATASET:
                 tree_points = xyz[inst_idx]
-                if len(tree_points[:, 2]) > 11:
-                    min_z = np.partition(tree_points[:, 2], 10)[3] # select 3rd lowest point as regualrization to avoid outliers
-                else:
-                    min_z = tree_points[:, 2].min()
+                min_z = np.quantile(tree_points[:, 2], self.base_anchor_floor_quantile)
 
-                z_thresh_upper = min_z + 0.5
-                mask_thres_upper = tree_points[:, 2] <= z_thresh_upper
-
-                tree_points_of_interest = tree_points[mask_thres_upper]
-                if len(tree_points_of_interest) > 0:
-                    position_instance = np.mean(tree_points_of_interest, axis=0)
+                base_band_top = min_z + self.base_anchor_height
+                mask_base_band = (
+                    (tree_points[:, 2] >= min_z) &
+                    (tree_points[:, 2] <= base_band_top)
+                )
+                base_points = tree_points[mask_base_band]
+                if len(base_points) > 0:
+                    base_position_instance = np.median(base_points, axis=0)
                     mask_valid_offset[inst_idx] = True
                 else:
-                    position_instance = np.array([0, 0, 0])
+                    base_position_instance = np.zeros(3, dtype=np.float32)
 
-                position[inst_idx] = position_instance
+                max_z = tree_points[:, 2].max()
+                tree_height = max_z - min_z
+                if tree_height > 0:
+                    relative_height = (tree_points[:, 2] - min_z) / tree_height
+                    mask_upper_band = (
+                        (relative_height >= self.upper_anchor_lower_ratio) &
+                        (relative_height <= self.upper_anchor_upper_ratio)
+                    )
+                    upper_points = tree_points[mask_upper_band]
+                else:
+                    upper_points = np.empty((0, 3), dtype=tree_points.dtype)
 
-        pt_offset_label = position - xyz
-        return pt_offset_label, mask_valid_offset
+                if len(upper_points) >= self.upper_anchor_min_points:
+                    upper_position_instance = np.empty(3, dtype=np.float32)
+                    upper_position_instance[:2] = np.median(upper_points[:, :2], axis=0)
+                    upper_anchor_ratio = (
+                        self.upper_anchor_lower_ratio + self.upper_anchor_upper_ratio) / 2
+                    upper_position_instance[2] = min_z + upper_anchor_ratio * tree_height
+                    mask_valid_upper[inst_idx] = True
+                else:
+                    upper_position_instance = np.zeros(3, dtype=np.float32)
+
+                base_position[inst_idx] = base_position_instance
+                upper_position[inst_idx] = upper_position_instance
+
+        pt_offset_label = base_position - xyz
+        upper_offset_label = upper_position - xyz
+        return pt_offset_label, upper_offset_label, mask_valid_offset, mask_valid_upper
 
 
     def dataAugment(self, xyz, data_augmentations, prob=0.6):
@@ -171,9 +221,11 @@ class TreeDataset(Dataset):
         instance_labels = []
         semantic_labels = []
         pt_offset_labels = []
+        upper_offset_labels = []
         centers = []
         masks_inner = []
         masks_off = []
+        masks_upper = []
         masks_sem = []
 
         total_points_num = 0
@@ -181,7 +233,8 @@ class TreeDataset(Dataset):
 
 
         for data in batch:
-            xyz, input_feat, instance_label, semantic_label, pt_offset_label, center, mask_inner, mask_off, mask_sem = data
+            (xyz, input_feat, instance_label, semantic_label, pt_offset_label,
+             upper_offset_label, center, mask_inner, mask_off, mask_upper, mask_sem) = data
             total_points_num += len(xyz)
 
             xyzs.append(xyz)
@@ -191,8 +244,10 @@ class TreeDataset(Dataset):
             instance_labels.append(instance_label)
             masks_inner.append(mask_inner)
             masks_off.append(mask_off)
+            masks_upper.append(mask_upper)
             masks_sem.append(mask_sem)
             pt_offset_labels.append(pt_offset_label)
+            upper_offset_labels.append(upper_offset_label)
             centers.append(center)           
             batch_id += 1
             
@@ -207,8 +262,10 @@ class TreeDataset(Dataset):
         instance_labels = torch.cat(instance_labels, 0).long()
         masks_inner = torch.cat(masks_inner, 0).bool()
         masks_off = torch.cat(masks_off, 0).bool()
+        masks_upper = torch.cat(masks_upper, 0).bool()
         masks_sem = torch.cat(masks_sem, 0).bool()
         pt_offset_labels = torch.cat(pt_offset_labels, 0).float()
+        upper_offset_labels = torch.cat(upper_offset_labels, 0).float()
         centers = torch.cat(centers, 0).float()
         
         return {
@@ -219,9 +276,10 @@ class TreeDataset(Dataset):
             'instance_labels': instance_labels,
             'masks_inner': masks_inner,
             'masks_off': masks_off,
+            'masks_upper': masks_upper,
             'masks_sem': masks_sem,
             'offset_labels': pt_offset_labels,
+            'upper_offset_labels': upper_offset_labels,
             'batch_size': batch_id,
             'centers': centers
         }
-    

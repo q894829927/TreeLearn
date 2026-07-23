@@ -8,3 +8,8 @@ dataset_train:
     scaled: True
     point_jitter: True
   inner_square_edge_length: 8 # Length of inner square to be used for training. E.g. if tiles/crops are 30mx30m, this indicates that only inner 8x8 is taken into account (see paper for details)
+  base_anchor_height: 0.5 # height in metres of the robust base-anchor band
+  base_anchor_floor_quantile: 0.01 # robust lower-height estimate
+  upper_anchor_lower_ratio: 0.55 # lower relative tree height of upper-anchor band
+  upper_anchor_upper_ratio: 0.75 # upper relative tree height of upper-anchor band
+  upper_anchor_min_points: 3 # minimum points required for upper-anchor supervision

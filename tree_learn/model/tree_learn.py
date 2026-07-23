@@ -2,9 +2,10 @@ import functools
 import spconv.pytorch as spconv
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from spconv.pytorch.utils import PointToVoxel
 from .blocks import MLP, ResidualBlock, UBlock
-from tree_learn.util.train import cuda_cast, point_wise_loss
+from tree_learn.util.train import cuda_cast, masked_offset_loss, point_wise_loss
 
 LOSS_MULTIPLIER_SEMANTIC = 50 # multiply semantic loss for similar magnitude with offset loss
 
@@ -21,6 +22,11 @@ class TreeLearn(nn.Module):
                  spatial_shape=None,
                  max_num_points_per_voxel=3,
                  voxel_size=0.1,
+                 use_upper_anchor=True,
+                 upper_offset_loss_weight=1.0,
+                 axis_loss_weight=0.1,
+                 offset_loss_type='smooth_l1',
+                 smooth_l1_beta=1.0,
                  **kwargs):
 
         super().__init__()
@@ -30,6 +36,11 @@ class TreeLearn(nn.Module):
         self.use_coords = use_coords
         self.spatial_shape = spatial_shape
         self.max_num_points_per_voxel = max_num_points_per_voxel
+        self.use_upper_anchor = use_upper_anchor
+        self.upper_offset_loss_weight = upper_offset_loss_weight
+        self.axis_loss_weight = axis_loss_weight
+        self.offset_loss_type = offset_loss_type
+        self.smooth_l1_beta = smooth_l1_beta
 
         norm_fn = functools.partial(nn.BatchNorm1d, eps=1e-4, momentum=0.1)
         
@@ -44,6 +55,8 @@ class TreeLearn(nn.Module):
         # head
         self.semantic_linear = MLP(channels, 2, norm_fn=norm_fn, num_layers=2)
         self.offset_linear = MLP(channels, 3, norm_fn=norm_fn, num_layers=2)
+        if use_upper_anchor:
+            self.upper_offset_linear = MLP(channels, 3, norm_fn=norm_fn, num_layers=2)
         self.init_weights()
 
         # weight init
@@ -100,11 +113,14 @@ class TreeLearn(nn.Module):
         output['backbone_feats'] = backbone_feats
         output['semantic_prediction_logits'] = self.semantic_linear(backbone_feats)
         output['offset_predictions'] = self.offset_linear(backbone_feats)
+        if self.use_upper_anchor:
+            output['upper_offset_predictions'] = self.upper_offset_linear(backbone_feats)
         return output
 
 
     @cuda_cast
-    def get_loss(self, model_output, semantic_labels, offset_labels, masks_off, masks_sem, **kwargs):
+    def get_loss(self, model_output, semantic_labels, offset_labels, masks_off, masks_sem,
+                 upper_offset_labels=None, masks_upper=None, **kwargs):
         loss_dict = dict()
         
         # Define variables
@@ -116,10 +132,39 @@ class TreeLearn(nn.Module):
             semantic_prediction_logits,
             offset_predictions, 
             masks_sem, masks_off,
-            semantic_labels, offset_labels
+            semantic_labels, offset_labels,
+            offset_loss_type=self.offset_loss_type,
+            smooth_l1_beta=self.smooth_l1_beta
         )
         loss_dict['semantic_loss'] = semantic_loss * LOSS_MULTIPLIER_SEMANTIC
         loss_dict['offset_loss'] = offset_loss
+
+        if self.use_upper_anchor:
+            upper_offset_predictions = model_output['upper_offset_predictions'].float()
+            if upper_offset_labels is None or masks_upper is None:
+                upper_offset_loss = 0 * upper_offset_predictions.sum()
+            else:
+                upper_offset_loss = masked_offset_loss(
+                    upper_offset_predictions,
+                    upper_offset_labels,
+                    masks_upper,
+                    loss_type=self.offset_loss_type,
+                    smooth_l1_beta=self.smooth_l1_beta)
+            loss_dict['upper_offset_loss'] = (
+                upper_offset_loss * self.upper_offset_loss_weight)
+
+            masks_axis = masks_off if masks_upper is None else (masks_off & masks_upper)
+            if upper_offset_labels is None or masks_axis.sum() == 0:
+                axis_loss = 0 * upper_offset_predictions.sum()
+            else:
+                predicted_axis = (
+                    upper_offset_predictions[masks_axis] - offset_predictions[masks_axis])
+                target_axis = upper_offset_labels[masks_axis] - offset_labels[masks_axis]
+                axis_loss = (
+                    1 - F.cosine_similarity(
+                        predicted_axis, target_axis, dim=1, eps=1e-6)
+                ).mean()
+            loss_dict['axis_loss'] = axis_loss * self.axis_loss_weight
 
         # Sum all losses
         loss = sum(_value for _value in loss_dict.values())

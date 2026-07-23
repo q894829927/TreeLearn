@@ -10,3 +10,8 @@ model:
   fixed_modules: [] # modules whose parameters are not updated during training
   spatial_shape: ~ # spatial shape of the tiles/crops (technical detail, not that important).
   voxel_size: 0.1 # determines the voxel size in m for generating the sparse voxel grid
+  use_upper_anchor: True # predict the upper morphological anchor in addition to the tree base
+  upper_offset_loss_weight: 1.0 # weight of upper-anchor offset regression
+  axis_loss_weight: 0.1 # weight of base-to-upper tree-axis cosine loss
+  offset_loss_type: 'smooth_l1' # smooth_l1 for robustness; l2 reproduces the original loss
+  smooth_l1_beta: 1.0 # transition point of Smooth L1

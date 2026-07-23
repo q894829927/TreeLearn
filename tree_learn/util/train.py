@@ -141,9 +141,27 @@ def build_dataloader(dataset, batch_size=1, num_workers=1, training=True, dist=F
     )
 
 
+def masked_offset_loss(predictions, targets, mask, loss_type='smooth_l1', smooth_l1_beta=1.0):
+    """Calculate a robust offset loss over valid points only."""
+    if mask.sum() == 0:
+        return 0 * predictions.sum()
+
+    predictions = predictions[mask]
+    targets = targets[mask]
+    if loss_type == 'smooth_l1':
+        component_losses = F.smooth_l1_loss(
+            predictions, targets, reduction='none', beta=smooth_l1_beta)
+        return component_losses.sum(dim=1).mean()
+    if loss_type == 'l2':
+        return (predictions - targets).pow(2).sum(dim=1).sqrt().mean()
+    raise ValueError(f'Unsupported offset loss type: {loss_type}')
+
+
 # loss functions for semantic and offset prediction
 @cuda_cast
-def point_wise_loss(semantic_prediction_logits, offset_predictions, masks_sem, masks_off, semantic_labels, offset_labels, weights=None):
+def point_wise_loss(semantic_prediction_logits, offset_predictions, masks_sem, masks_off,
+                    semantic_labels, offset_labels, weights=None,
+                    offset_loss_type='smooth_l1', smooth_l1_beta=1.0):
     if masks_sem.sum() == 0:
         semantic_loss = 0 * semantic_prediction_logits.sum()
     else:
@@ -156,11 +174,11 @@ def point_wise_loss(semantic_prediction_logits, offset_predictions, masks_sem, m
             semantic_loss = (F.cross_entropy(
                 semantic_prediction_logits[masks_sem], semantic_labels[masks_sem], reduction='none') * weights).sum() / len(semantic_prediction_logits[masks_sem])
         
-    if masks_off.sum() == 0:
-        offset_loss = 0 * offset_predictions.sum()
-    else:
-        # offset loss
-        offset_losses = (offset_predictions[masks_off] - offset_labels[masks_off]).pow(2).sum(1).sqrt()
-        offset_loss = offset_losses.mean()
+    offset_loss = masked_offset_loss(
+        offset_predictions,
+        offset_labels,
+        masks_off,
+        loss_type=offset_loss_type,
+        smooth_l1_beta=smooth_l1_beta)
 
     return semantic_loss, offset_loss

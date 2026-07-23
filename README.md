@@ -40,6 +40,9 @@ If you are not interested in training your own models, but only want to use pre-
 
 If you want to train a custom model for forest segmentation, we refer to the [training guide](docs/training.md)
 
+For the dual-anchor/tree-axis extension on AutoDL, see the
+[Chinese AutoDL guide](docs/dual_anchor_autodl_zh.md).
+
 ## Evaluation
 
 To evaluate the segmentation results of arbitrary methods on arbitrary benchmark datasets, we refer to the [evaluation guide](docs/evaluation.md)

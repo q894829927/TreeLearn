@@ -10,7 +10,8 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              get_coords_within_shape, get_hull_buffer, get_hull, get_cluster_means,
                              propagate_preds, save_treewise, load_data, save_data, make_labels_consecutive, 
                              get_config, generate_tiles, assign_remaining_points_nearest_neighbor,
-                             get_pointwise_preds, get_instances, propagate_preds_hash_full, propagate_preds_hash_vox)
+                             get_pointwise_preds, get_instances, get_dual_anchor_features,
+                             propagate_preds_hash_full, propagate_preds_hash_vox)
 
 TREE_CLASS_IN_PYTORCH_DATASET = 0
 NON_TREES_LABEL_IN_GROUPING = 0
@@ -68,14 +69,18 @@ def run_treelearn_pipeline(config, config_path=None):
     dataloader = build_dataloader(dataset, training=False, **config.dataloader)
     load_checkpoint(config.pretrain, logger, model)
     pointwise_results = get_pointwise_preds(model, dataloader, config.model, logger)
-    semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels, coords, instance_labels, backbone_feats, input_feats = pointwise_results
+    (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
+     upper_offset_predictions, upper_offset_labels, coords, instance_labels,
+     backbone_feats, input_feats) = pointwise_results
     del model
 
     # ensemble predictions from overlapping tiles
     logger.info(f'{plot_name}: #################### ensembling predictions ####################')
-    data = ensemble(coords, semantic_prediction_logits, semantic_labels, offset_predictions, 
-                    offset_labels, instance_labels, backbone_feats, input_feats)
-    coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels, instance_labels, backbone_feats, input_feats = data
+    data = ensemble(
+        coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
+        upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats, input_feats)
+    (coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
+     upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats, input_feats) = data
 
     # get mask of inner coords if outer points should be removed
     if config.shape_cfg.outer_remove:
@@ -86,12 +91,24 @@ def run_treelearn_pipeline(config, config_path=None):
 
     # get tree detections
     logger.info(f'{plot_name}: #################### getting predicted instances ####################')
-    instance_preds = get_instances(coords, offset_predictions, semantic_prediction_logits, config.grouping, input_feats[:, -1], TREE_CLASS_IN_PYTORCH_DATASET, NON_TREES_LABEL_IN_GROUPING, NOT_ASSIGNED_LABEL_IN_GROUPING, START_NUM_PREDS)
+    grouping_cfg = config.grouping
+    if not config.model.use_upper_anchor:
+        grouping_cfg.upper_anchor_weight = 0.0
+        grouping_cfg.axis_height_weight = 0.0
+    instance_preds = get_instances(
+        coords, offset_predictions, upper_offset_predictions, semantic_prediction_logits,
+        grouping_cfg, input_feats[:, -1], TREE_CLASS_IN_PYTORCH_DATASET,
+        NON_TREES_LABEL_IN_GROUPING, NOT_ASSIGNED_LABEL_IN_GROUPING, START_NUM_PREDS)
     instance_preds_after_initial_clustering = np.copy(instance_preds)
 
     # assign remaining points
     tree_mask = instance_preds != NON_TREES_LABEL_IN_GROUPING
-    instance_preds[tree_mask] = assign_remaining_points_nearest_neighbor(coords[tree_mask] + offset_predictions[tree_mask], instance_preds[tree_mask], NOT_ASSIGNED_LABEL_IN_GROUPING)
+    dual_anchor_features = get_dual_anchor_features(
+        coords, offset_predictions, upper_offset_predictions,
+        grouping_cfg.upper_anchor_weight, grouping_cfg.axis_height_weight)
+    instance_preds[tree_mask] = assign_remaining_points_nearest_neighbor(
+        dual_anchor_features[tree_mask], instance_preds[tree_mask],
+        NOT_ASSIGNED_LABEL_IN_GROUPING)
     
     # save pointwise results
     if config.save_cfg.save_pointwise:
@@ -101,6 +118,8 @@ def run_treelearn_pipeline(config, config_path=None):
             'coords': coords,
             'offset_predictions': offset_predictions,
             'offset_labels': offset_labels,
+            'upper_offset_predictions': upper_offset_predictions,
+            'upper_offset_labels': upper_offset_labels,
             'semantic_prediction_logits': semantic_prediction_logits,
             'semantic_labels': semantic_labels,
             'instance_labels': instance_labels,
@@ -117,9 +136,15 @@ def run_treelearn_pipeline(config, config_path=None):
         # offset-shifted coordinates filtered by verticality and offset (initial clustering results); save as laz file for visualization
         verticality = input_feats[:, -1]
         verticality_mask = verticality >= config.grouping.tau_vert
-        offset_mask = np.abs(offset_predictions[:, 2]) <= config.grouping.tau_off
+        base_seed_mask = verticality_mask & (
+            np.abs(offset_predictions[:, 2]) <= config.grouping.tau_off)
+        if config.model.use_upper_anchor:
+            upper_seed_mask = (
+                np.abs(upper_offset_predictions[:, 2]) <= config.grouping.tau_upper_off)
+        else:
+            upper_seed_mask = np.zeros_like(base_seed_mask)
         sem_mask = instance_preds != NON_TREES_LABEL_IN_GROUPING
-        mask = verticality_mask & offset_mask & sem_mask
+        mask = (base_seed_mask | upper_seed_mask) & sem_mask
         cluster_coords = coords[mask] + offset_predictions[mask]
         cluster_coords = np.hstack([cluster_coords, instance_preds[mask].reshape(-1, 1)])
         save_data(cluster_coords, 'laz', 'cluster_coords_initial', pointwise_dir)
@@ -130,12 +155,24 @@ def run_treelearn_pipeline(config, config_path=None):
         cluster_coords = np.hstack([cluster_coords, instance_preds[instance_preds != NON_TREES_LABEL_IN_GROUPING].reshape(-1, 1)])
         save_data(cluster_coords, 'laz', 'cluster_coords', pointwise_dir)
 
+        if config.model.use_upper_anchor:
+            upper_cluster_coords = coords + upper_offset_predictions
+            upper_cluster_coords = upper_cluster_coords[
+                instance_preds != NON_TREES_LABEL_IN_GROUPING]
+            upper_cluster_coords = np.hstack([
+                upper_cluster_coords,
+                instance_preds[
+                    instance_preds != NON_TREES_LABEL_IN_GROUPING].reshape(-1, 1)
+            ])
+            save_data(upper_cluster_coords, 'laz', 'cluster_coords_upper', pointwise_dir)
+
     # remove outer points with buffer
     if config.shape_cfg.outer_remove:
-        coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels, instance_labels, instance_preds, input_feats = \
+        coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels, upper_offset_predictions, upper_offset_labels, instance_labels, instance_preds, input_feats = \
             coords[masks_inner_coords], semantic_prediction_logits[masks_inner_coords], \
             semantic_labels[masks_inner_coords], offset_predictions[masks_inner_coords], \
-            offset_labels[masks_inner_coords], instance_labels[masks_inner_coords], \
+            offset_labels[masks_inner_coords], upper_offset_predictions[masks_inner_coords], \
+            upper_offset_labels[masks_inner_coords], instance_labels[masks_inner_coords], \
             instance_preds[masks_inner_coords], input_feats[masks_inner_coords]
         instance_preds[instance_preds != NON_TREES_LABEL_IN_GROUPING], _ = make_labels_consecutive(instance_preds[instance_preds != NON_TREES_LABEL_IN_GROUPING], start_num=1)
 

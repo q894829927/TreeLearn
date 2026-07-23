@@ -79,15 +79,24 @@ def generate_tiles(cfg, forest_path, logger, return_type='voxelized'):
 def get_pointwise_preds(model, dataloader, config, logger=None):
     with torch.no_grad():
         model.eval()
-        semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels, coords, instance_labels, backbone_feats, input_feats = [], [], [], [], [], [], [], []
+        semantic_prediction_logits, offset_predictions, upper_offset_predictions = [], [], []
+        semantic_labels, offset_labels, upper_offset_labels = [], [], []
+        coords, instance_labels, backbone_feats, input_feats = [], [], [], []
         for batch in tqdm.tqdm(dataloader):
             # get voxel_sizes to use in forward
             batch['voxel_size'] = config.voxel_size
             # forward
             try:
                 output = model(batch, return_loss=False)
-                offset_prediction, semantic_prediction_logit, backbone_feat = output['offset_predictions'], output['semantic_prediction_logits'], output['backbone_feats']
-                offset_prediction, semantic_prediction_logit, backbone_feat = offset_prediction.cpu(), semantic_prediction_logit.cpu(), backbone_feat.cpu()
+                offset_prediction = output['offset_predictions']
+                upper_offset_prediction = output.get(
+                    'upper_offset_predictions', torch.zeros_like(offset_prediction))
+                semantic_prediction_logit = output['semantic_prediction_logits']
+                backbone_feat = output['backbone_feats']
+                offset_prediction = offset_prediction.cpu()
+                upper_offset_prediction = upper_offset_prediction.cpu()
+                semantic_prediction_logit = semantic_prediction_logit.cpu()
+                backbone_feat = backbone_feat.cpu()
             except Exception as e:
                 if "reach zero!!!" in str(e):
                     if logger:
@@ -100,17 +109,24 @@ def get_pointwise_preds(model, dataloader, config, logger=None):
             input_feats.append(batch['input_feats'][batch['masks_inner']])
             semantic_prediction_logits.append(semantic_prediction_logit[batch['masks_inner']]), semantic_labels.append(batch['semantic_labels'][batch['masks_inner']])
             offset_predictions.append(offset_prediction[batch['masks_inner']]), offset_labels.append(batch['offset_labels'][batch['masks_inner']])
+            upper_offset_predictions.append(upper_offset_prediction[batch['masks_inner']])
+            upper_offset_labels.append(batch['upper_offset_labels'][batch['masks_inner']])
             coords.append(batch['coords'][batch['masks_inner']]), instance_labels.append(batch['instance_labels'][batch['masks_inner']]), backbone_feats.append(backbone_feat[batch['masks_inner']])
 
     input_feats = torch.cat(input_feats, 0).numpy()
     semantic_prediction_logits, semantic_labels = torch.cat(semantic_prediction_logits, 0).numpy(), torch.cat(semantic_labels, 0).numpy()
     offset_predictions, offset_labels = torch.cat(offset_predictions, 0).numpy(), torch.cat(offset_labels, 0).numpy()
+    upper_offset_predictions = torch.cat(upper_offset_predictions, 0).numpy()
+    upper_offset_labels = torch.cat(upper_offset_labels, 0).numpy()
     coords, instance_labels, backbone_feats = torch.cat(coords, 0).numpy(), torch.cat(instance_labels).numpy(), torch.cat(backbone_feats, 0).numpy()
-    return semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels, coords, instance_labels, backbone_feats, input_feats
+    return (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
+            upper_offset_predictions, upper_offset_labels, coords, instance_labels,
+            backbone_feats, input_feats)
 
 
 # ensemble pointwise predictions of overlapping tiles to get a single offset and semantic prediction for each point
-def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offset_labels, instance_labels, feats, input_feats):
+def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offset_labels,
+             upper_offset_predictions, upper_offset_labels, instance_labels, feats, input_feats):
     feats_col_names = [f'feats{i}' for i in range(feats.shape[1])]
     feats = pd.DataFrame(feats, columns=feats_col_names)
     
@@ -122,9 +138,18 @@ def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offse
     semantic_labels = pd.DataFrame(semantic_labels.reshape(-1, 1), columns=['semantic_labels'])
     offset_predictions = pd.DataFrame(offset_predictions, columns=['offset_pred1', 'offset_pred2', 'offset_pred3'])
     offset_labels = pd.DataFrame(offset_labels, columns=['offset_lab1', 'offset_lab2', 'offset_lab3'])
+    upper_offset_predictions = pd.DataFrame(
+        upper_offset_predictions,
+        columns=['upper_offset_pred1', 'upper_offset_pred2', 'upper_offset_pred3'])
+    upper_offset_labels = pd.DataFrame(
+        upper_offset_labels,
+        columns=['upper_offset_lab1', 'upper_offset_lab2', 'upper_offset_lab3'])
     instance_labels = pd.DataFrame(instance_labels.reshape(-1, 1), columns=['instance_labels'])
 
-    df = pd.concat([coords, semantic_scores, semantic_labels, offset_predictions, offset_labels, instance_labels, feats, input_feats], axis=1)
+    df = pd.concat([
+        coords, semantic_scores, semantic_labels, offset_predictions, offset_labels,
+        upper_offset_predictions, upper_offset_labels, instance_labels, feats, input_feats
+    ], axis=1)
 
     df = df.round({'x': 2, 'y': 2, 'z': 2})
     grouped = df.groupby(['x', 'y', 'z']).mean().reset_index()
@@ -135,42 +160,77 @@ def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offse
     semantic_labels = grouped[['semantic_labels']].to_numpy().astype('int64').flatten()
     offset_predictions = grouped[['offset_pred1', 'offset_pred2', 'offset_pred3']].to_numpy().astype('float32')
     offset_labels = grouped[['offset_lab1', 'offset_lab2', 'offset_lab3']].to_numpy().astype('float32')
+    upper_offset_predictions = grouped[
+        ['upper_offset_pred1', 'upper_offset_pred2', 'upper_offset_pred3']].to_numpy().astype('float32')
+    upper_offset_labels = grouped[
+        ['upper_offset_lab1', 'upper_offset_lab2', 'upper_offset_lab3']].to_numpy().astype('float32')
     instance_labels = grouped[['instance_labels']].to_numpy().astype('int64').flatten()
     feats = grouped[feats_col_names].to_numpy().astype('float32')
     input_feats = grouped[input_feats_col_names].to_numpy().astype('float32')
-    return coords, semantic_scores, semantic_labels, offset_predictions, offset_labels, instance_labels, feats, input_feats
+    return (coords, semantic_scores, semantic_labels, offset_predictions, offset_labels,
+            upper_offset_predictions, upper_offset_labels, instance_labels, feats, input_feats)
+
+
+def get_dual_anchor_features(coords, offset, upper_offset, upper_anchor_weight=1.0,
+                             axis_height_weight=0.1):
+    """Build a joint base/upper voting space with a mild tree-height cue."""
+    base_votes = coords + offset
+    if upper_anchor_weight <= 0 or upper_offset is None:
+        return base_votes[:, :2]
+
+    upper_votes = coords + upper_offset
+    feature_parts = [
+        base_votes[:, :2],
+        upper_votes[:, :2] * upper_anchor_weight,
+    ]
+    squared_scale = 1 + upper_anchor_weight ** 2
+    if axis_height_weight > 0:
+        axis_height = (upper_votes[:, 2] - base_votes[:, 2]).reshape(-1, 1)
+        feature_parts.append(axis_height * axis_height_weight)
+        squared_scale += axis_height_weight ** 2
+    return np.hstack(feature_parts) / np.sqrt(squared_scale)
 
 
 # get tree predictions for all points by using DBSCAN.
-def get_instances(coords, offset, semantic_prediction_logits, grouping_cfg, verticality_feat, tree_class_in_dataset, non_trees_label_in_grouping, not_assigned_label_in_grouping, start_num_preds):
-    cluster_coords = coords + offset
-    cluster_coords = cluster_coords[:, :3]
+def get_instances(coords, offset, upper_offset, semantic_prediction_logits, grouping_cfg,
+                  verticality_feat, tree_class_in_dataset, non_trees_label_in_grouping,
+                  not_assigned_label_in_grouping, start_num_preds):
+    cluster_features = get_dual_anchor_features(
+        coords, offset, upper_offset, grouping_cfg.upper_anchor_weight,
+        grouping_cfg.axis_height_weight)
 
     # get tree coords whose offset magnitude and verticality feature is appropriate
     semantic_prediction_probs = torch.from_numpy(semantic_prediction_logits).float().softmax(dim=-1)
     tree_mask = semantic_prediction_probs[:, tree_class_in_dataset] >= grouping_cfg.tree_conf_thresh
     vertical_mask = verticality_feat > grouping_cfg.tau_vert
-    offset_mask = np.abs(offset[:, 2]) < grouping_cfg.tau_off
-    mask_cluster = tree_mask.numpy() & vertical_mask & offset_mask
+    base_seed_mask = vertical_mask & (np.abs(offset[:, 2]) < grouping_cfg.tau_off)
+    if grouping_cfg.upper_anchor_weight > 0:
+        upper_seed_mask = np.abs(upper_offset[:, 2]) < grouping_cfg.tau_upper_off
+    else:
+        upper_seed_mask = np.zeros_like(base_seed_mask)
+    mask_cluster = tree_mask.numpy() & (base_seed_mask | upper_seed_mask)
     ind_cluster = np.where(mask_cluster)[0]
-    cluster_coords_filtered = cluster_coords[ind_cluster]
-    cluster_coords_filtered = cluster_coords_filtered[:, :2]
+    cluster_features_filtered = cluster_features[ind_cluster]
     
     # get predictions
-    predictions = non_trees_label_in_grouping * np.ones(len(cluster_coords))
+    predictions = non_trees_label_in_grouping * np.ones(len(cluster_features))
     predictions[tree_mask] = not_assigned_label_in_grouping
+    if len(cluster_features_filtered) < grouping_cfg.tau_min:
+        return predictions.astype(np.int64)
 
     # get predicted instances
     if grouping_cfg.use_hdbscan:
-        pred_instances = group_hdbscan(cluster_coords_filtered, grouping_cfg.tau_min, not_assigned_label_in_grouping, start_num_preds)
+        pred_instances = group_hdbscan(cluster_features_filtered, grouping_cfg.tau_min, not_assigned_label_in_grouping, start_num_preds)
     else:
-        pred_instances = group_dbscan(cluster_coords_filtered, grouping_cfg.tau_group, grouping_cfg.tau_min, not_assigned_label_in_grouping, start_num_preds)
+        pred_instances = group_dbscan(cluster_features_filtered, grouping_cfg.tau_group, grouping_cfg.tau_min, not_assigned_label_in_grouping, start_num_preds)
     predictions[ind_cluster] = pred_instances 
     return predictions.astype(np.int64)
 
 
 # DBSCAN
 def group_dbscan(cluster_coords, radius, npoint_thr, not_assigned_label_in_grouping, start_num_preds):
+    if len(cluster_coords) < npoint_thr:
+        return np.full(len(cluster_coords), not_assigned_label_in_grouping, dtype=np.int64)
     clustering = DBSCAN(eps=radius, min_samples=2, n_jobs=N_JOBS).fit(cluster_coords)
     cluster_nums, n_points = np.unique(clustering.labels_, return_counts=True)
     valid_cluster_nums = cluster_nums[(n_points >= npoint_thr) & (cluster_nums != -1)]
@@ -182,6 +242,8 @@ def group_dbscan(cluster_coords, radius, npoint_thr, not_assigned_label_in_group
 
 # HDBSCAN
 def group_hdbscan(cluster_coords, npoint_thr, not_assigned_label_in_grouping, start_num_preds):
+    if len(cluster_coords) < npoint_thr:
+        return np.full(len(cluster_coords), not_assigned_label_in_grouping, dtype=np.int64)
     clustering = HDBSCAN(min_cluster_size=npoint_thr, n_jobs=N_JOBS).fit(cluster_coords)
     cluster_nums, n_points = np.unique(clustering.labels_, return_counts=True)
     valid_cluster_nums = cluster_nums[(n_points >= npoint_thr) & (cluster_nums != -1)]
@@ -289,7 +351,9 @@ def assign_remaining_points_nearest_neighbor(coords, predictions, remaining_poin
     assert len(coords) == len(predictions) # input variable should be of same size
     query_idx = np.argwhere(predictions == remaining_points_idx).reshape(-1)
     reference_idx = np.argwhere(predictions != remaining_points_idx).reshape(-1)
-    knn = KNeighborsClassifier(n_neighbors=n_neighbors, n_jobs=N_JOBS)
+    if len(query_idx) == 0 or len(reference_idx) == 0:
+        return predictions.astype(np.int64)
+    knn = KNeighborsClassifier(n_neighbors=min(n_neighbors, len(reference_idx)), n_jobs=N_JOBS)
     knn.fit(coords[reference_idx].copy(), predictions[reference_idx].copy())
     neighbors_predictions = knn.predict(coords[query_idx].copy())
     predictions[query_idx] = neighbors_predictions
