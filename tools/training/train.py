@@ -86,7 +86,8 @@ def validate(config, epoch, model, val_loader, logger, writer):
                         upper_offset_prediction[masks_axis] - offset_prediction[masks_axis])
                     target_axis = (
                         batch['upper_offset_labels'][masks_axis] -
-                        batch['offset_labels'][masks_axis])
+                        batch['offset_labels'][masks_axis]).to(
+                            predicted_axis.device)
                     axis_cosine_errors.append(
                         1 - torch.nn.functional.cosine_similarity(
                             predicted_axis.float(), target_axis.float(), dim=1, eps=1e-6))
@@ -125,6 +126,8 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
     if upper_offset_predictions is None or len(upper_offset_predictions) == 0:
         upper_offset_loss = None
     else:
+        upper_offset_labels = upper_offset_labels.to(
+            upper_offset_predictions.device)
         upper_masks = torch.ones(
             len(upper_offset_predictions),
             dtype=torch.bool,
