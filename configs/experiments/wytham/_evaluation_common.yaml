@@ -1,7 +1,7 @@
 # Shared official TreeLearn evaluation protocol for Wytham.
 
 paths:
-  gt_forest_path: 'data/pipeline/wytham/wytham_vox0.1.laz'
+  gt_forest_path: 'data/benchmark/wytham_vox0.1.laz'
 
 thresholds:
   min_iou_for_match: 0.5

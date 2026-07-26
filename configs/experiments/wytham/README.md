@@ -3,7 +3,7 @@
 Ground truth:
 
 ```text
-data/pipeline/wytham/wytham_vox0.1.laz
+data/benchmark/wytham_vox0.1.laz
 ```
 
 Pipeline input:
