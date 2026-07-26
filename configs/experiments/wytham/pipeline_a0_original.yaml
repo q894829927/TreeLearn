@@ -18,6 +18,7 @@ grouping:
   upper_anchor_weight: 0.0
   axis_height_weight: 0.0
   use_upper_seeds: False
+  max_cluster_seed_points: 1500000
 
 pretrain: 'data/model_weights/model_weights_20241213.pth'
 tile_generation: False

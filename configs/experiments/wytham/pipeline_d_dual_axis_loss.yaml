@@ -18,6 +18,7 @@ grouping:
   upper_anchor_weight: 1.0
   axis_height_weight: 0.0
   use_upper_seeds: False
+  max_cluster_seed_points: 1500000
 
 pretrain: 'work_dirs/t2_dual_axis/epoch_980.pth'
 tile_generation: True

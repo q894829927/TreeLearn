@@ -39,3 +39,7 @@ Full ablation order after the go/no-go comparison:
 
 All benchmark runs use the same 0.1 m Wytham ground truth, grouping thresholds,
 base-seed policy, evaluation thresholds, and partition definitions.
+
+Wytham contains substantially more points than L1W, so its configs use
+`max_cluster_seed_points: 1500000`. This only raises the safety guard and does
+not subsample or otherwise change the seed population.
