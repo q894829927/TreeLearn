@@ -37,6 +37,11 @@ Full ablation order after the go/no-go comparison:
 2. A after T0 is available.
 3. F only as an optional extension experiment.
 
+If D underperforms A0 on Wytham, run `pipeline_t2_base_only.yaml` as the only
+additional diagnostic. It uses the same T2 checkpoint and base seeds as D but
+sets `upper_anchor_weight: 0.0`, reducing the grouping feature from dual-anchor
+4D to base-only 2D. Its evaluation config is `evaluate_t2_base_only.yaml`.
+
 All benchmark runs use the same 0.1 m Wytham ground truth, grouping thresholds,
 base-seed policy, evaluation thresholds, and partition definitions.
 

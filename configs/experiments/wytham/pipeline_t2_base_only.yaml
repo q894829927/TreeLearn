@@ -1,0 +1,30 @@
+# Diagnostic: use the trained T2 network but ignore its upper-anchor prediction
+# during grouping. Compare with D to isolate the effect of 4D dual-anchor
+# clustering without retraining or changing semantic/base-offset predictions.
+default_args:
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/wytham/_pipeline_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: True
+  upper_offset_loss_weight: 1.0
+  axis_loss_weight: 0.1
+  offset_loss_type: 'l2'
+
+grouping:
+  # A zero upper-anchor weight makes get_dual_anchor_features return only
+  # the two-dimensional base-anchor XY vote.
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_upper_seeds: False
+  max_cluster_seed_points: 1500000
+
+pretrain: 'work_dirs/t2_dual_axis/epoch_980.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_t2_base_only'
