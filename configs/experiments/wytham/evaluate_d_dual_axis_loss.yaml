@@ -1,0 +1,4 @@
+default_args: ["configs/experiments/wytham/_evaluation_common.yaml"]
+
+paths:
+  pred_forest_path: 'data/pipeline/wytham/results_d_dual_axis_loss/full_forest/wytham_vox0.1.laz'

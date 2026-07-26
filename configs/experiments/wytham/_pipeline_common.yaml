@@ -1,0 +1,23 @@
+# Shared Wytham inference settings.
+# The input must be placed (or symlinked) under forest/ so pipeline-generated
+# tiles and results remain isolated in data/pipeline/wytham/.
+
+forest_path: 'data/pipeline/wytham/forest/wytham_vox0.1.laz'
+fp16: True
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+shape_cfg:
+  outer_remove: ~
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+save_cfg:
+  save_formats: ['laz']
+  save_treewise: False
+  save_pointwise: False
+  # The Wytham input is already voxelized at 0.1 m. Avoid propagating the
+  # predictions to the 464-million-point raw cloud for benchmark evaluation.
+  return_type: 'voxelized_and_filtered'

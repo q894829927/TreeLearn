@@ -1,0 +1,23 @@
+# A: robust-base single-anchor baseline.
+default_args:
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/wytham/_pipeline_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  offset_loss_type: 'l2'
+
+grouping:
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_upper_seeds: False
+
+pretrain: 'work_dirs/t0_baseline/epoch_1000.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_a_baseline'

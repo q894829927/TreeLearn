@@ -1,0 +1,25 @@
+# E: D plus the axis-height inference feature.
+default_args:
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/wytham/_pipeline_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: True
+  upper_offset_loss_weight: 1.0
+  axis_loss_weight: 0.1
+  offset_loss_type: 'l2'
+
+grouping:
+  upper_anchor_weight: 1.0
+  axis_height_weight: 0.1
+  use_upper_seeds: False
+
+pretrain: 'work_dirs/t2_dual_axis/epoch_980.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_e_full'

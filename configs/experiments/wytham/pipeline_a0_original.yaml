@@ -1,0 +1,26 @@
+# A0: official original TreeLearn checkpoint and single-anchor grouping.
+default_args:
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/wytham/_pipeline_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  offset_loss_type: 'l2'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+grouping:
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_upper_seeds: False
+
+pretrain: 'data/model_weights/model_weights_20241213.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_a0_original'
