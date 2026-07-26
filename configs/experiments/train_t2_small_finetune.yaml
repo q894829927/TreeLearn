@@ -4,7 +4,16 @@ default_args:
   - "configs/_modular/model.yaml"
   - "configs/_modular/dataset_train.yaml"
   - "configs/_modular/dataset_test.yaml"
-  - "configs/experiments/_train_common.yaml"
+
+seed: 42
+
+dataloader:
+  train:
+    batch_size: 2
+    num_workers: 2
+  test:
+    batch_size: 1
+    num_workers: 1
 
 model:
   spatial_shape: [500, 500, 1000]
@@ -35,6 +44,9 @@ scheduler:
   t_in_epochs: True
 
 epochs: 300
+examples_per_epoch: 500
+fp16: True
 pretrain: 'work_dirs/t2_small_warmup/epoch_50.pth'
+grad_norm_clip: True
 save_frequency: 20
 validation_frequency: 20

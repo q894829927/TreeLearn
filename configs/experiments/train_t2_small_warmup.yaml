@@ -5,7 +5,16 @@ default_args:
   - "configs/_modular/model.yaml"
   - "configs/_modular/dataset_train.yaml"
   - "configs/_modular/dataset_test.yaml"
-  - "configs/experiments/_train_common.yaml"
+
+seed: 42
+
+dataloader:
+  train:
+    batch_size: 2
+    num_workers: 2
+  test:
+    batch_size: 1
+    num_workers: 1
 
 model:
   spatial_shape: [500, 500, 1000]
@@ -41,6 +50,9 @@ scheduler:
   t_in_epochs: True
 
 epochs: 50
+examples_per_epoch: 500
+fp16: True
 pretrain: 'data/model_weights/model_weights_with_small_20241213.pth'
+grad_norm_clip: True
 save_frequency: 10
 validation_frequency: 10
