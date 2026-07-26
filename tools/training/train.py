@@ -3,7 +3,7 @@ import time
 import torch
 import tqdm
 import numpy as np
-import time
+import random
 from collections import defaultdict
 from tree_learn.util import (checkpoint_save, init_train_logger, load_checkpoint,
                             is_multiple, get_args_and_cfg, build_cosine_scheduler, build_optimizer,
@@ -15,6 +15,15 @@ from tree_learn.dataset import TreeDataset
 TREE_CLASS_IN_DATASET = 0 # semantic label for tree class in pytorch dataset
 NON_TREE_CLASS_IN_DATASET = 1 # semantic label for non-tree class in pytorch dataset
 TREE_CONF_THRESHOLD = 0.5 # minimum confidence for tree prediction
+
+
+def set_random_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 
 def train(config, epoch, model, optimizer, scheduler, scaler, train_loader, logger, writer):
@@ -62,7 +71,8 @@ def train(config, epoch, model, optimizer, scheduler, scaler, train_loader, logg
 def validate(config, epoch, model, val_loader, logger, writer):  
     with torch.no_grad():
         model.eval()
-        semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels, coords, instance_labels = [], [], [], [], [], []
+        semantic_prediction_logits, offset_predictions = [], []
+        semantic_labels, offset_labels = [], []
         upper_offset_predictions, upper_offset_labels = [], []
         axis_cosine_errors = []
         for batch in tqdm.tqdm(val_loader):
@@ -72,14 +82,20 @@ def validate(config, epoch, model, val_loader, logger, writer):
             offset_prediction, semantic_prediction_logit = output['offset_predictions'], output['semantic_prediction_logits']
             upper_offset_prediction = output.get('upper_offset_predictions')
 
-            batch['coords'] = batch['coords'] + batch['centers']
-            semantic_prediction_logits.append(semantic_prediction_logit[batch['masks_sem']])
-            semantic_labels.append(batch['semantic_labels'][batch['masks_sem']])
-            offset_predictions.append(offset_prediction[batch['masks_sem']])
-            offset_labels.append(batch['offset_labels'][batch['masks_sem']])
+            semantic_prediction_logits.append(
+                semantic_prediction_logit[batch['masks_sem']].detach().cpu())
+            semantic_labels.append(
+                batch['semantic_labels'][batch['masks_sem']].cpu())
+            offset_predictions.append(
+                offset_prediction[batch['masks_sem']].detach().cpu())
+            offset_labels.append(
+                batch['offset_labels'][batch['masks_sem']].cpu())
             if upper_offset_prediction is not None:
-                upper_offset_predictions.append(upper_offset_prediction[batch['masks_upper']])
-                upper_offset_labels.append(batch['upper_offset_labels'][batch['masks_upper']])
+                upper_offset_predictions.append(
+                    upper_offset_prediction[
+                        batch['masks_upper']].detach().cpu())
+                upper_offset_labels.append(
+                    batch['upper_offset_labels'][batch['masks_upper']].cpu())
                 masks_axis = batch['masks_off'] & batch['masks_upper']
                 if masks_axis.sum() > 0:
                     predicted_axis = (
@@ -90,9 +106,8 @@ def validate(config, epoch, model, val_loader, logger, writer):
                             predicted_axis.device)
                     axis_cosine_errors.append(
                         1 - torch.nn.functional.cosine_similarity(
-                            predicted_axis.float(), target_axis.float(), dim=1, eps=1e-6))
-            coords.append(batch['coords'][batch['masks_sem']]), 
-            instance_labels.append(batch['instance_labels'][batch['masks_sem']])
+                            predicted_axis.float(), target_axis.float(),
+                            dim=1, eps=1e-6).detach().cpu())
 
     # concatenate all batches
     semantic_prediction_logits, semantic_labels = torch.cat(semantic_prediction_logits, 0), torch.cat(semantic_labels, 0)
@@ -104,8 +119,6 @@ def validate(config, epoch, model, val_loader, logger, writer):
         upper_offset_predictions, upper_offset_labels = None, None
     axis_cosine_error = (
         torch.cat(axis_cosine_errors, 0).mean() if axis_cosine_errors else None)
-    coords, instance_labels = torch.cat(coords, 0), torch.cat(instance_labels).cpu().numpy()
-
     # evaluate semantic and offset predictions
     pointwise_eval(
         semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels,
@@ -167,6 +180,9 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
 def main():
     args, config = get_args_and_cfg()
     logger, writer = init_train_logger(config, args)
+    seed = int(getattr(config, 'seed', 42))
+    set_random_seed(seed)
+    logger.info(f'Random seed: {seed}')
 
     # training objects
     model = TreeLearn(**config.model).cuda()
@@ -175,8 +191,10 @@ def main():
     scaler = torch.cuda.amp.GradScaler(enabled=config.fp16)
     train_set = TreeDataset(**config.dataset_train, logger=logger)
     val_set = TreeDataset(**config.dataset_test, logger=logger)
-    train_loader = build_dataloader(train_set, training=True, **config.dataloader.train)
-    val_loader = build_dataloader(val_set, training=False, **config.dataloader.test)
+    train_loader = build_dataloader(
+        train_set, training=True, seed=seed, **config.dataloader.train)
+    val_loader = build_dataloader(
+        val_set, training=False, seed=seed + 1, **config.dataloader.test)
     
     # optionally pretrain or resume
     start_epoch = 1

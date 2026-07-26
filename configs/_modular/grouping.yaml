@@ -3,8 +3,11 @@ grouping: # see paper for details on these hyperparameters
   tau_vert: 0.6 # minimum verticality for a point to be considered during clustering
   tau_off: 4 # maximum distance from the tree base for a point to be considered during clustering
   tau_upper_off: 4 # maximum vertical distance from the upper anchor for a seed point
+  use_upper_seeds: False # keep False for A-E so every core ablation clusters the same base-seed population
   upper_anchor_weight: 1.0 # weight of upper-anchor XY votes; set 0 for single-anchor inference
   axis_height_weight: 0.1 # conservative upper-to-base height weight
+  max_cluster_seed_points: 500000 # fail fast instead of launching an accidental multi-hour global clustering job
+  knn_chunk_size: 200000 # bound memory while assigning non-seed tree points
   tau_group: 0.15 # grouping radius of offset-shifted coordinates for clustering
   tau_min: 50 # After grouping, clusters containing less points than this are discarded immediately since they are deemed to small to be a tree
   use_hdbscan: True # use hdbscan instead of dbscan for flexible clustering based on one hyperparameter only (tau_min) instead of two for dbscan (tau_min, tau_group)

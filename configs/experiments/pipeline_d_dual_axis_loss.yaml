@@ -17,8 +17,8 @@ grouping:
   upper_anchor_weight: 1.0
   axis_height_weight: 0.0
 
-# D and E deliberately share checkpoint T2.
-pretrain: 'work_dirs/t2_dual_axis/epoch_1000.pth'
+# D and E deliberately share the selected T2 checkpoint.
+pretrain: 'work_dirs/t2_dual_axis/epoch_980.pth'
 tile_generation: False
 
 save_cfg:

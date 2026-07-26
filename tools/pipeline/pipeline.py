@@ -54,7 +54,9 @@ def run_treelearn_pipeline(config, config_path=None):
     logger = get_root_logger(os.path.join(documentation_dir, 'log_pipeline.txt'))
     logger.info(pprint.pformat(munch_to_dict(config), indent=2))
     if config_path is not None:
-        shutil.copy(args.config, os.path.join(documentation_dir, os.path.basename(args.config)))
+        shutil.copy(
+            config_path,
+            os.path.join(documentation_dir, os.path.basename(config_path)))
 
     # generate tiles used for inference and specify path to it in dataset config
     config.dataset_test.data_root = os.path.join(tiles_dir, 'npz')
@@ -68,7 +70,9 @@ def run_treelearn_pipeline(config, config_path=None):
     dataset = TreeDataset(**config.dataset_test, logger=logger)
     dataloader = build_dataloader(dataset, training=False, **config.dataloader)
     load_checkpoint(config.pretrain, logger, model)
-    pointwise_results = get_pointwise_preds(model, dataloader, config.model, logger)
+    pointwise_results = get_pointwise_preds(
+        model, dataloader, config.model, logger,
+        return_backbone_feats=config.save_cfg.save_pointwise)
     (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, coords, instance_labels,
      backbone_feats, input_feats) = pointwise_results
@@ -78,7 +82,8 @@ def run_treelearn_pipeline(config, config_path=None):
     logger.info(f'{plot_name}: #################### ensembling predictions ####################')
     data = ensemble(
         coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
-        upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats, input_feats)
+        upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats,
+        input_feats, logger=logger)
     (coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats, input_feats) = data
 
@@ -98,20 +103,43 @@ def run_treelearn_pipeline(config, config_path=None):
     instance_preds = get_instances(
         coords, offset_predictions, upper_offset_predictions, semantic_prediction_logits,
         grouping_cfg, input_feats[:, -1], TREE_CLASS_IN_PYTORCH_DATASET,
-        NON_TREES_LABEL_IN_GROUPING, NOT_ASSIGNED_LABEL_IN_GROUPING, START_NUM_PREDS)
+        NON_TREES_LABEL_IN_GROUPING, NOT_ASSIGNED_LABEL_IN_GROUPING, START_NUM_PREDS,
+        logger=logger)
     instance_preds_after_initial_clustering = np.copy(instance_preds)
 
     # assign remaining points
+    logger.info(
+        f'{plot_name}: #################### assigning remaining points ####################')
     tree_mask = instance_preds != NON_TREES_LABEL_IN_GROUPING
-    dual_anchor_features = get_dual_anchor_features(
-        coords, offset_predictions, upper_offset_predictions,
+    if (
+        np.any(tree_mask) and
+        not np.any(
+            instance_preds[tree_mask] != NOT_ASSIGNED_LABEL_IN_GROUPING)
+    ):
+        raise RuntimeError(
+            'Initial clustering produced no valid tree instances. No output was '
+            'saved; inspect the clustering seed count and grouping thresholds.')
+    tree_features = get_dual_anchor_features(
+        coords[tree_mask], offset_predictions[tree_mask],
+        upper_offset_predictions[tree_mask],
         grouping_cfg.upper_anchor_weight, grouping_cfg.axis_height_weight)
     instance_preds[tree_mask] = assign_remaining_points_nearest_neighbor(
-        dual_anchor_features[tree_mask], instance_preds[tree_mask],
-        NOT_ASSIGNED_LABEL_IN_GROUPING)
+        tree_features, instance_preds[tree_mask],
+        NOT_ASSIGNED_LABEL_IN_GROUPING,
+        chunk_size=getattr(grouping_cfg, 'knn_chunk_size', 200000),
+        logger=logger)
+    num_unassigned = np.count_nonzero(
+        instance_preds == NOT_ASSIGNED_LABEL_IN_GROUPING)
+    if num_unassigned:
+        raise RuntimeError(
+            f'{num_unassigned:,} predicted tree points remain unassigned because '
+            'initial clustering produced no usable reference instances. '
+            'No output was saved; inspect the clustering seed count and thresholds.')
     
     # save pointwise results
     if config.save_cfg.save_pointwise:
+        logger.info(
+            f'{plot_name}: #################### saving pointwise results ####################')
         pointwise_dir = os.path.join(results_dir, 'pointwise_results')
         os.makedirs(pointwise_dir, exist_ok=True)
         pointwise_results = {
@@ -138,8 +166,11 @@ def run_treelearn_pipeline(config, config_path=None):
         verticality_mask = verticality >= config.grouping.tau_vert
         base_seed_mask = verticality_mask & (
             np.abs(offset_predictions[:, 2]) <= config.grouping.tau_off)
-        if config.model.use_upper_anchor:
-            upper_seed_mask = (
+        if (
+            getattr(config.grouping, 'use_upper_seeds', False) and
+            config.model.use_upper_anchor
+        ):
+            upper_seed_mask = verticality_mask & (
                 np.abs(upper_offset_predictions[:, 2]) <= config.grouping.tau_upper_off)
         else:
             upper_seed_mask = np.zeros_like(base_seed_mask)
@@ -178,6 +209,8 @@ def run_treelearn_pipeline(config, config_path=None):
 
     # get information whether tree clusters are within or outside hull (used for saving tree in different categories later)
     if config.save_cfg.save_treewise:
+        logger.info(
+            f'{plot_name}: #################### preparing treewise output ####################')
         cluster_means = get_cluster_means(coords[instance_preds != NON_TREES_LABEL_IN_GROUPING] + offset_predictions[instance_preds != NON_TREES_LABEL_IN_GROUPING], 
                                           instance_preds[instance_preds != NON_TREES_LABEL_IN_GROUPING])
         hull = get_hull(coords[:, :2], config.shape_cfg.alpha)

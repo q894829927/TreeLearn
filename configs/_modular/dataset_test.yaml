@@ -2,6 +2,7 @@ dataset_test:
   training: False # True if dataset used for training; False if used for validation
   data_root: 'data/val/tiles/npz' # folder where tiles for model validation are located
   inner_square_edge_length: 8 # Length of inner square to be used for validation. E.g. if tiles are 30mx30m, this indicates that only inner 8x8 is taken into account (see paper for details)
+  base_anchor_mode: 'robust' # use 'legacy' only for the separately reported original TreeLearn reference
   base_anchor_height: 0.5 # height in metres of the robust base-anchor band
   base_anchor_floor_quantile: 0.01 # robust lower-height estimate
   upper_anchor_lower_ratio: 0.55 # lower relative tree height of upper-anchor band

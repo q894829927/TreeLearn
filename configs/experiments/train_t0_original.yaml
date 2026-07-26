@@ -1,4 +1,5 @@
-# T0: single-anchor baseline with the same robust base anchor used by T1/T2.
+# T0-original: exact legacy base-anchor reference from the original TreeLearn.
+# Report separately from the clean A-E ablation because A-E share robust anchors.
 default_args:
   - "configs/_modular/model.yaml"
   - "configs/_modular/dataset_train.yaml"
@@ -11,3 +12,9 @@ model:
   upper_offset_loss_weight: 0.0
   axis_loss_weight: 0.0
   offset_loss_type: 'l2'
+
+dataset_train:
+  base_anchor_mode: 'legacy'
+
+dataset_test:
+  base_anchor_mode: 'legacy'

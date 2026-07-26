@@ -1,6 +1,8 @@
 # Shared runtime settings for all dual-anchor ablation training runs.
 # Keep this file unchanged across T0/T1/T2 to ensure a fair comparison.
 
+seed: 42
+
 dataloader:
   train:
     batch_size: 2

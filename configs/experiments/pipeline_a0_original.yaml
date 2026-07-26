@@ -1,4 +1,4 @@
-# A: robust-base single-anchor baseline using checkpoint T0.
+# A0: exact original TreeLearn base anchor and single-anchor grouping.
 default_args:
   - "configs/_modular/sample_generation.yaml"
   - "configs/_modular/model.yaml"
@@ -11,13 +11,16 @@ model:
   use_upper_anchor: False
   offset_loss_type: 'l2'
 
+dataset_test:
+  base_anchor_mode: 'legacy'
+
 grouping:
   upper_anchor_weight: 0.0
   axis_height_weight: 0.0
+  use_upper_seeds: False
 
-# Replace epoch_1000.pth if validation selects another checkpoint.
-pretrain: 'work_dirs/t0_baseline/epoch_1000.pth'
-tile_generation: True
+pretrain: 'work_dirs/t0_original/epoch_1000.pth'
+tile_generation: False
 
 save_cfg:
-  results_dir: 'results_a_baseline'
+  results_dir: 'results_a0_original'

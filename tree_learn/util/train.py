@@ -1,5 +1,7 @@
 import functools
 import os
+import random
+import numpy as np
 import torch
 from collections import OrderedDict
 from timm.scheduler import CosineLRScheduler
@@ -122,9 +124,23 @@ def build_cosine_scheduler(cfg, optimizer):
     return scheduler
 
         
-def build_dataloader(dataset, batch_size=1, num_workers=1, training=True, dist=False):
+def _seed_dataloader_worker(worker_id):
+    worker_seed = torch.initial_seed() % (2 ** 32)
+    np.random.seed(worker_seed)
+    random.seed(worker_seed)
+
+
+def build_dataloader(
+        dataset, batch_size=1, num_workers=1, training=True, dist=False,
+        seed=None):
     shuffle = training
     sampler = None
+    generator = None
+    worker_init_fn = None
+    if seed is not None:
+        generator = torch.Generator()
+        generator.manual_seed(seed)
+        worker_init_fn = _seed_dataloader_worker
     if dist and training:
         sampler = torch.utils.data.distributed.DistributedSampler(dataset)
         shuffle = False
@@ -137,7 +153,9 @@ def build_dataloader(dataset, batch_size=1, num_workers=1, training=True, dist=F
         shuffle=shuffle if sampler is None else False,
         sampler=sampler,
         drop_last=training,
-        pin_memory=True
+        pin_memory=True,
+        generator=generator,
+        worker_init_fn=worker_init_fn
     )
 
 

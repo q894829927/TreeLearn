@@ -17,6 +17,7 @@ class TreeDataset(Dataset):
                  training,
                  logger,
                  data_augmentations=None,
+                 base_anchor_mode='robust',
                  base_anchor_height=0.5,
                  base_anchor_floor_quantile=0.01,
                  upper_anchor_lower_ratio=0.55,
@@ -28,11 +29,14 @@ class TreeDataset(Dataset):
         self.logger = logger
         self.training = training
         self.data_augmentations = data_augmentations
+        self.base_anchor_mode = base_anchor_mode
         self.base_anchor_height = base_anchor_height
         self.base_anchor_floor_quantile = base_anchor_floor_quantile
         self.upper_anchor_lower_ratio = upper_anchor_lower_ratio
         self.upper_anchor_upper_ratio = upper_anchor_upper_ratio
         self.upper_anchor_min_points = upper_anchor_min_points
+        if self.base_anchor_mode not in ('legacy', 'robust'):
+            raise ValueError("base_anchor_mode must be either 'legacy' or 'robust'.")
         if not 0 <= self.base_anchor_floor_quantile < 0.5:
             raise ValueError('base_anchor_floor_quantile must be in [0, 0.5).')
         if not 0 <= self.upper_anchor_lower_ratio < self.upper_anchor_upper_ratio <= 1:
@@ -146,16 +150,29 @@ class TreeDataset(Dataset):
 
             if semantic_label[first_idx] != NON_TREE_CLASS_IN_PYTORCH_DATASET:
                 tree_points = xyz[inst_idx]
-                min_z = np.quantile(tree_points[:, 2], self.base_anchor_floor_quantile)
-
-                base_band_top = min_z + self.base_anchor_height
-                mask_base_band = (
-                    (tree_points[:, 2] >= min_z) &
-                    (tree_points[:, 2] <= base_band_top)
-                )
+                if self.base_anchor_mode == 'legacy':
+                    # Preserve the original TreeLearn implementation exactly for
+                    # a separately reported reference baseline.
+                    if len(tree_points) > 11:
+                        min_z = np.partition(tree_points[:, 2], 10)[3]
+                    else:
+                        min_z = tree_points[:, 2].min()
+                    mask_base_band = (
+                        tree_points[:, 2] <= min_z + self.base_anchor_height)
+                else:
+                    min_z = np.quantile(
+                        tree_points[:, 2], self.base_anchor_floor_quantile)
+                    base_band_top = min_z + self.base_anchor_height
+                    mask_base_band = (
+                        (tree_points[:, 2] >= min_z) &
+                        (tree_points[:, 2] <= base_band_top)
+                    )
                 base_points = tree_points[mask_base_band]
                 if len(base_points) > 0:
-                    base_position_instance = np.median(base_points, axis=0)
+                    if self.base_anchor_mode == 'legacy':
+                        base_position_instance = np.mean(base_points, axis=0)
+                    else:
+                        base_position_instance = np.median(base_points, axis=0)
                     mask_valid_offset[inst_idx] = True
                 else:
                     base_position_instance = np.zeros(3, dtype=np.float32)
