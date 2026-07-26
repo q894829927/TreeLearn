@@ -1,0 +1,31 @@
+# Candidate initialized from the official small-tree model, then augmented with
+# upper-anchor and tree-axis supervision. Replace the checkpoint if validation
+# selects an epoch earlier than 300.
+default_args:
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/wytham/_pipeline_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: True
+  upper_offset_loss_weight: 1.0
+  axis_loss_weight: 0.1
+  offset_loss_type: 'l2'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+grouping:
+  upper_anchor_weight: 1.0
+  axis_height_weight: 0.0
+  use_upper_seeds: False
+  max_cluster_seed_points: 1500000
+
+pretrain: 'work_dirs/t2_small_finetune/epoch_300.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_d_small_init'

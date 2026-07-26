@@ -1,0 +1,40 @@
+# Stage 2: load the warmed-up upper head, unfreeze the full network, and use a
+# conservative learning rate to retain the official small-tree generalization.
+default_args:
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/dataset_train.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/_train_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: True
+  upper_offset_loss_weight: 1.0
+  axis_loss_weight: 0.1
+  offset_loss_type: 'l2'
+  fixed_modules: []
+
+dataset_train:
+  base_anchor_mode: 'legacy'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+optimizer:
+  type: 'AdamW'
+  lr: 0.0001
+  weight_decay: 0.001
+
+scheduler:
+  t_initial: 300
+  lr_min: 0.000001
+  cycle_decay: 1
+  warmup_lr_init: 0.00001
+  warmup_t: 10
+  cycle_limit: 1
+  t_in_epochs: True
+
+epochs: 300
+pretrain: 'work_dirs/t2_small_warmup/epoch_50.pth'
+save_frequency: 20
+validation_frequency: 20
