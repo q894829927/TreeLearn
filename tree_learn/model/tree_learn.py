@@ -40,6 +40,8 @@ class TreeLearn(nn.Module):
                  axis_log_variance_min=-4.0,
                  axis_log_variance_max=4.0,
                  axis_branch_only=True,
+                 axis_loss_mode='heteroscedastic',
+                 axis_confidence_loss_weight=0.1,
                  **kwargs):
 
         super().__init__()
@@ -60,6 +62,8 @@ class TreeLearn(nn.Module):
         self.axis_log_variance_min = axis_log_variance_min
         self.axis_log_variance_max = axis_log_variance_max
         self.axis_branch_only = axis_branch_only
+        self.axis_loss_mode = axis_loss_mode
+        self.axis_confidence_loss_weight = axis_confidence_loss_weight
 
         if axis_log_variance_min >= axis_log_variance_max:
             raise ValueError(
@@ -68,6 +72,12 @@ class TreeLearn(nn.Module):
         if axis_branch_type not in ('mlp', 'point_transformer'):
             raise ValueError(
                 "axis_branch_type must be 'mlp' or 'point_transformer'.")
+        if axis_loss_mode not in ('heteroscedastic', 'decoupled'):
+            raise ValueError(
+                "axis_loss_mode must be 'heteroscedastic' or 'decoupled'.")
+        if axis_confidence_loss_weight < 0:
+            raise ValueError(
+                'axis_confidence_loss_weight must be non-negative.')
 
         norm_fn = functools.partial(nn.BatchNorm1d, eps=1e-4, momentum=0.1)
         
@@ -238,8 +248,12 @@ class TreeLearn(nn.Module):
                 branch_features = self.axis_point_transformer(branch_features)
 
             axis_xy[candidate_indices] = self.axis_xy_head(branch_features)
+            uncertainty_features = (
+                branch_features.detach()
+                if self.axis_loss_mode == 'decoupled'
+                else branch_features)
             raw_log_variance[candidate_indices] = \
-                self.axis_uncertainty_head(branch_features)
+                self.axis_uncertainty_head(uncertainty_features)
 
         log_variance = raw_log_variance.clamp(
             self.axis_log_variance_min,
@@ -317,7 +331,11 @@ class TreeLearn(nn.Module):
                 offset_labels is None or
                 masks_axis.sum() == 0
             ):
-                axis_xy_loss = branch_zero
+                if self.axis_loss_mode == 'decoupled':
+                    loss_dict['axis_xy_reg_loss'] = branch_zero
+                    loss_dict['axis_confidence_loss'] = branch_zero
+                else:
+                    loss_dict['axis_xy_loss'] = branch_zero
             else:
                 target_axis_xy = (
                     upper_offset_labels[masks_axis, :2].to(
@@ -331,11 +349,23 @@ class TreeLearn(nn.Module):
                     beta=self.smooth_l1_beta).sum(dim=1)
                 log_variance = axis_log_variance[
                     masks_axis, 0]
-                axis_xy_loss = (
-                    torch.exp(-log_variance) * point_error +
-                    log_variance).mean()
-            loss_dict['axis_xy_loss'] = (
-                axis_xy_loss * self.axis_loss_weight)
+                if self.axis_loss_mode == 'decoupled':
+                    axis_reg_loss = point_error.mean()
+                    confidence_loss = (
+                        torch.exp(-log_variance) *
+                        point_error.detach() +
+                        log_variance).mean()
+                    loss_dict['axis_xy_reg_loss'] = (
+                        axis_reg_loss * self.axis_loss_weight)
+                    loss_dict['axis_confidence_loss'] = (
+                        confidence_loss *
+                        self.axis_confidence_loss_weight)
+                else:
+                    axis_xy_loss = (
+                        torch.exp(-log_variance) * point_error +
+                        log_variance).mean()
+                    loss_dict['axis_xy_loss'] = (
+                        axis_xy_loss * self.axis_loss_weight)
 
         # Sum all losses
         loss = sum(_value for _value in loss_dict.values())

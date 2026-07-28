@@ -185,8 +185,61 @@ grep "axis_xy_mean_error" logs/train_axis_pt_frozen.log
 1. Point Transformer 的平均 Axis-XY 误差比 MLP 至少降低 5%；
 2. Point Transformer 的 P90 误差不高于 MLP。
 
-如果没有达到条件，应停止外部测试，优先重新设计 upper-anchor 标签，而不是
-继续增加更多注意力层。
+如果没有达到条件，先停止外部测试，并只运行一次下面的损失解耦补救实验。
+不得继续增加更多注意力层。
+
+### 4.1 损失解耦补救实验
+
+该实验保持主干、Point Transformer、邻域、数据和 upper-anchor 标签不变，
+只将直接 Axis-XY 回归与 Confidence 辅助损失解耦：
+
+```text
+axis_reg_loss = SmoothL1(axis_prediction, axis_target)
+
+confidence_loss =
+    exp(-log_variance) * stop_gradient(point_error)
+    + log_variance
+
+total_axis_loss =
+    axis_reg_loss + 0.1 * confidence_loss
+```
+
+Confidence head 不再反向修改 Point Transformer 特征。实验从官方 small-tree
+checkpoint 重新初始化，不能从原异方差 PT checkpoint 续训。
+
+```bash
+nohup env PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128 \
+  python -u tools/training/train.py \
+  --config configs/experiments/point_transformer/train_axis_pt_decoupled.yaml \
+  --work_dir axis_pt_decoupled \
+  > logs/train_axis_pt_decoupled.log 2>&1 < /dev/null &
+
+echo $! | tee logs/train_axis_pt_decoupled.pid
+tail -f logs/train_axis_pt_decoupled.log
+```
+
+该实验训练 30 epochs，仍然按验证集 mean Axis-XY error 自动保存：
+
+```text
+work_dirs/axis_pt_decoupled/best_axis_xy.pth
+```
+
+完成后检查冻结参数：
+
+```bash
+python tools/diagnostics/verify_axis_checkpoint.py \
+  --reference data/model_weights/model_weights_with_small_20241213.pth \
+  --candidate work_dirs/axis_pt_decoupled/best_axis_xy.pth
+```
+
+损失解耦实验只有满足以下条件才进入阶段 C：
+
+```text
+mean Axis-XY error <= 1.417 m
+P90 Axis-XY error  <= 2.691 m
+```
+
+如果仍未达到条件，应停止修改网络，转向重新设计 upper-anchor 标签。
 
 ## 5. 阶段 C：在 L1W 上选择融合权重
 

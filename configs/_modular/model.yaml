@@ -27,3 +27,5 @@ model:
   axis_log_variance_min: -4.0
   axis_log_variance_max: 4.0
   axis_branch_only: True # automatically freeze the original TreeLearn modules
+  axis_loss_mode: 'heteroscedastic' # heteroscedastic or decoupled
+  axis_confidence_loss_weight: 0.1 # used only by decoupled loss
