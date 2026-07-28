@@ -8,7 +8,7 @@ from collections import defaultdict
 from tree_learn.util import (checkpoint_save, init_train_logger, load_checkpoint,
                             is_multiple, get_args_and_cfg, build_cosine_scheduler, build_optimizer,
                             masked_offset_loss, point_wise_loss, get_eval_components,
-                            build_dataloader)
+                            build_dataloader, checkpoint_save_named)
 from tree_learn.model import TreeLearn
 from tree_learn.dataset import TreeDataset
 
@@ -75,12 +75,15 @@ def validate(config, epoch, model, val_loader, logger, writer):
         semantic_labels, offset_labels = [], []
         upper_offset_predictions, upper_offset_labels = [], []
         axis_cosine_errors = []
+        axis_xy_errors = []
+        axis_confidences = []
         for batch in tqdm.tqdm(val_loader):
 
             # forward
             output = model(batch, return_loss=False)
             offset_prediction, semantic_prediction_logit = output['offset_predictions'], output['semantic_prediction_logits']
             upper_offset_prediction = output.get('upper_offset_predictions')
+            axis_xy_prediction = output.get('axis_xy_predictions')
 
             semantic_prediction_logits.append(
                 semantic_prediction_logit[batch['masks_sem']].detach().cpu())
@@ -108,6 +111,26 @@ def validate(config, epoch, model, val_loader, logger, writer):
                         1 - torch.nn.functional.cosine_similarity(
                             predicted_axis.float(), target_axis.float(),
                             dim=1, eps=1e-6).detach().cpu())
+            if axis_xy_prediction is not None:
+                candidate_mask = output['axis_candidate_mask']
+                masks_axis_xy = (
+                    batch['masks_off'].to(candidate_mask.device) &
+                    batch['masks_upper'].to(candidate_mask.device) &
+                    candidate_mask)
+                if masks_axis_xy.sum() > 0:
+                    target_axis_xy = (
+                        batch['upper_offset_labels'][
+                            masks_axis_xy.cpu(), :2] -
+                        batch['offset_labels'][
+                            masks_axis_xy.cpu(), :2]).to(
+                                axis_xy_prediction.device)
+                    axis_xy_errors.append(torch.linalg.vector_norm(
+                        axis_xy_prediction[masks_axis_xy].float() -
+                        target_axis_xy.float(),
+                        dim=1).detach().cpu())
+                    axis_confidences.append(
+                        output['axis_confidence'][
+                            masks_axis_xy, 0].detach().float().cpu())
 
     # concatenate all batches
     semantic_prediction_logits, semantic_labels = torch.cat(semantic_prediction_logits, 0), torch.cat(semantic_labels, 0)
@@ -119,16 +142,22 @@ def validate(config, epoch, model, val_loader, logger, writer):
         upper_offset_predictions, upper_offset_labels = None, None
     axis_cosine_error = (
         torch.cat(axis_cosine_errors, 0).mean() if axis_cosine_errors else None)
+    if axis_xy_errors:
+        axis_xy_errors = torch.cat(axis_xy_errors, 0)
+        axis_confidences = torch.cat(axis_confidences, 0)
+    else:
+        axis_xy_errors, axis_confidences = None, None
     # evaluate semantic and offset predictions
-    pointwise_eval(
+    return pointwise_eval(
         semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels,
         upper_offset_predictions, upper_offset_labels, axis_cosine_error,
-        config, epoch, writer, logger)
+        config, epoch, writer, logger, axis_xy_errors, axis_confidences)
 
 
 def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels,
                    upper_offset_predictions, upper_offset_labels, axis_cosine_error,
-                   config, epoch, writer, logger):
+                   config, epoch, writer, logger, axis_xy_errors=None,
+                   axis_confidences=None):
     # get offset loss
     masks_sem = torch.ones_like(semantic_labels).bool()
     masks_off = semantic_labels == TREE_CLASS_IN_DATASET
@@ -168,6 +197,46 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
         log_str += f', val/upper_offset_loss {upper_offset_loss.item():.3f}'
     if axis_cosine_error is not None:
         log_str += f', val/axis_cosine_error {axis_cosine_error.item():.3f}'
+    axis_metrics = None
+    if axis_xy_errors is not None and len(axis_xy_errors) > 0:
+        errors_np = axis_xy_errors.numpy()
+        confidences_np = axis_confidences.numpy()
+        axis_metrics = {
+            'mean': float(np.mean(errors_np)),
+            'median': float(np.median(errors_np)),
+            'p90': float(np.percentile(errors_np, 90)),
+        }
+        if (
+            len(errors_np) > 1 and
+            np.std(errors_np) > 0 and
+            np.std(confidences_np) > 0
+        ):
+            axis_metrics['confidence_error_corr'] = float(
+                np.corrcoef(confidences_np, errors_np)[0, 1])
+        else:
+            axis_metrics['confidence_error_corr'] = 0.0
+        log_str += (
+            f", val/axis_xy_mean_error {axis_metrics['mean']:.3f}, "
+            f"val/axis_xy_median_error {axis_metrics['median']:.3f}, "
+            f"val/axis_xy_p90_error {axis_metrics['p90']:.3f}, "
+            'val/axis_confidence_error_corr '
+            f"{axis_metrics['confidence_error_corr']:.3f}")
+
+        confidence_order = np.argsort(confidences_np)
+        confidence_bins = np.array_split(confidence_order, 4)
+        for bin_idx, indices in enumerate(confidence_bins, start=1):
+            if len(indices) == 0:
+                continue
+            mean_confidence = float(np.mean(confidences_np[indices]))
+            mean_error = float(np.mean(errors_np[indices]))
+            log_str += (
+                f', val/conf_bin{bin_idx}_confidence '
+                f'{mean_confidence:.3f}, val/conf_bin{bin_idx}_error '
+                f'{mean_error:.3f}')
+            writer.add_scalar(
+                f'val/Axis_Confidence_Bin_{bin_idx}', mean_confidence, epoch)
+            writer.add_scalar(
+                f'val/Axis_Error_Bin_{bin_idx}', mean_error, epoch)
     logger.info(log_str)
     writer.add_scalar(f'val/acc', acc if not np.isnan(acc) else 0, epoch)
     writer.add_scalar('val/Offset_Loss', offset_loss, epoch)
@@ -175,6 +244,17 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
         writer.add_scalar('val/Upper_Offset_Loss', upper_offset_loss, epoch)
     if axis_cosine_error is not None:
         writer.add_scalar('val/Axis_Cosine_Error', axis_cosine_error, epoch)
+    if axis_metrics is not None:
+        writer.add_scalar(
+            'val/Axis_XY_Mean_Error', axis_metrics['mean'], epoch)
+        writer.add_scalar(
+            'val/Axis_XY_Median_Error', axis_metrics['median'], epoch)
+        writer.add_scalar(
+            'val/Axis_XY_P90_Error', axis_metrics['p90'], epoch)
+        writer.add_scalar(
+            'val/Axis_Confidence_Error_Correlation',
+            axis_metrics['confidence_error_corr'], epoch)
+    return axis_metrics
 
 
 def main():
@@ -186,6 +266,18 @@ def main():
 
     # training objects
     model = TreeLearn(**config.model).cuda()
+    if (
+        getattr(config.model, 'use_axis_branch', False) and
+        getattr(config.model, 'axis_branch_only', True)
+    ):
+        unexpected_trainable = [
+            name for name, parameter in model.named_parameters()
+            if parameter.requires_grad and not name.startswith('axis_')
+        ]
+        if unexpected_trainable:
+            raise RuntimeError(
+                'Axis branch-only training found unfrozen original '
+                f'parameters: {", ".join(unexpected_trainable)}')
     optimizer = build_optimizer(model, config.optimizer)
     scheduler = build_cosine_scheduler(config.scheduler, optimizer)
     scaler = torch.cuda.amp.GradScaler(enabled=config.fp16)
@@ -207,13 +299,26 @@ def main():
 
     # train and val
     logger.info('Training')
+    best_axis_xy_mean = float('inf')
     for epoch in range(start_epoch, config.epochs + 1):
         train(config, epoch, model, optimizer, scheduler, scaler, train_loader, logger, writer)
         if is_multiple(epoch, config.validation_frequency):
             optimizer.zero_grad()
             logger.info('Validation')
             torch.cuda.empty_cache()
-            validate(config, epoch, model, val_loader, logger, writer)
+            axis_metrics = validate(
+                config, epoch, model, val_loader, logger, writer)
+            if (
+                axis_metrics is not None and
+                axis_metrics['mean'] < best_axis_xy_mean
+            ):
+                best_axis_xy_mean = axis_metrics['mean']
+                checkpoint_save_named(
+                    epoch, model, optimizer, config.work_dir,
+                    'best_axis_xy.pth')
+                logger.info(
+                    'Saved best_axis_xy.pth at epoch '
+                    f'{epoch} (mean XY error {best_axis_xy_mean:.3f} m)')
         writer.flush()
 
 

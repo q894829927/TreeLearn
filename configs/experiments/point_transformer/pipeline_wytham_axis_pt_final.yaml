@@ -1,0 +1,38 @@
+# Copy the L1W-selected axis_fusion_weight here before the first Wytham run.
+default_args:
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/wytham/_pipeline_common.yaml"
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: True
+  axis_branch_type: 'point_transformer'
+  axis_hidden_dim: 32
+  axis_num_neighbors: 8
+  axis_support_voxel_size: 0.4
+  axis_max_support_points: 32768
+  axis_tree_conf_thresh: 0.5
+  axis_branch_only: True
+  offset_loss_type: 'l2'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+grouping:
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_upper_seeds: False
+  use_axis_fusion: True
+  axis_fusion_weight: 0.25
+  use_axis_confidence: True
+  max_cluster_seed_points: 1500000
+
+pretrain: 'work_dirs/axis_pt_frozen/best_axis_xy.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_axis_pt_final'

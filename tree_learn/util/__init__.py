@@ -6,4 +6,5 @@ from .parser import *
 from .plot import *
 from .eval import *
 from .train import *
+from .axis import *
 from .pipeline import *

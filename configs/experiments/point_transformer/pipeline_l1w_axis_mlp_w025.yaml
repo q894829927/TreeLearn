@@ -1,0 +1,18 @@
+default_args:
+  - "configs/experiments/point_transformer/_pipeline_axis_model_common.yaml"
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/point_transformer/_pipeline_l1w_axis_common.yaml"
+
+model:
+  axis_branch_type: 'mlp'
+
+grouping:
+  axis_fusion_weight: 0.25
+
+pretrain: 'work_dirs/axis_mlp_frozen/best_axis_xy.pth'
+
+save_cfg:
+  results_dir: 'results_axis_mlp_w025'

@@ -15,3 +15,13 @@ model:
   axis_loss_weight: 0.1 # weight of base-to-upper tree-axis cosine loss
   offset_loss_type: 'smooth_l1' # smooth_l1 for robustness; l2 reproduces the original loss
   smooth_l1_beta: 1.0 # transition point of Smooth L1
+  use_axis_branch: False # enable the frozen-backbone Axis-XY/confidence branch
+  axis_branch_type: 'point_transformer' # point_transformer or mlp control
+  axis_hidden_dim: 32
+  axis_num_neighbors: 8
+  axis_support_voxel_size: 0.4
+  axis_max_support_points: 32768
+  axis_tree_conf_thresh: 0.5
+  axis_log_variance_min: -4.0
+  axis_log_variance_max: 4.0
+  axis_branch_only: True # automatically freeze the original TreeLearn modules

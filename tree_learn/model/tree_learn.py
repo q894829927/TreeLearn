@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from spconv.pytorch.utils import PointToVoxel
 from .blocks import MLP, ResidualBlock, UBlock
+from .point_transformer import LocalPointTransformerLayer
 from tree_learn.util.train import cuda_cast, masked_offset_loss, point_wise_loss
 
 LOSS_MULTIPLIER_SEMANTIC = 50 # multiply semantic loss for similar magnitude with offset loss
@@ -27,11 +28,21 @@ class TreeLearn(nn.Module):
                  axis_loss_weight=0.1,
                  offset_loss_type='smooth_l1',
                  smooth_l1_beta=1.0,
+                 use_axis_branch=False,
+                 axis_branch_type='point_transformer',
+                 axis_hidden_dim=32,
+                 axis_num_neighbors=8,
+                 axis_support_voxel_size=0.4,
+                 axis_max_support_points=32768,
+                 axis_tree_conf_thresh=0.5,
+                 axis_log_variance_min=-4.0,
+                 axis_log_variance_max=4.0,
+                 axis_branch_only=True,
                  **kwargs):
 
         super().__init__()
         self.voxel_size = voxel_size
-        self.fixed_modules = fixed_modules
+        self.fixed_modules = list(fixed_modules)
         self.use_feats = use_feats
         self.use_coords = use_coords
         self.spatial_shape = spatial_shape
@@ -41,6 +52,20 @@ class TreeLearn(nn.Module):
         self.axis_loss_weight = axis_loss_weight
         self.offset_loss_type = offset_loss_type
         self.smooth_l1_beta = smooth_l1_beta
+        self.use_axis_branch = use_axis_branch
+        self.axis_branch_type = axis_branch_type
+        self.axis_tree_conf_thresh = axis_tree_conf_thresh
+        self.axis_log_variance_min = axis_log_variance_min
+        self.axis_log_variance_max = axis_log_variance_max
+        self.axis_branch_only = axis_branch_only
+
+        if axis_log_variance_min >= axis_log_variance_max:
+            raise ValueError(
+                'axis_log_variance_min must be smaller than '
+                'axis_log_variance_max.')
+        if axis_branch_type not in ('mlp', 'point_transformer'):
+            raise ValueError(
+                "axis_branch_type must be 'mlp' or 'point_transformer'.")
 
         norm_fn = functools.partial(nn.BatchNorm1d, eps=1e-4, momentum=0.1)
         
@@ -57,10 +82,41 @@ class TreeLearn(nn.Module):
         self.offset_linear = MLP(channels, 3, norm_fn=norm_fn, num_layers=2)
         if use_upper_anchor:
             self.upper_offset_linear = MLP(channels, 3, norm_fn=norm_fn, num_layers=2)
+        if use_axis_branch:
+            self.axis_input_projection = nn.Sequential(
+                nn.Linear(channels + 2, axis_hidden_dim),
+                nn.LayerNorm(axis_hidden_dim),
+                nn.ReLU())
+            if axis_branch_type == 'point_transformer':
+                self.axis_point_transformer = LocalPointTransformerLayer(
+                    axis_hidden_dim,
+                    num_neighbors=axis_num_neighbors,
+                    support_voxel_size=axis_support_voxel_size,
+                    max_support_points=axis_max_support_points)
+            else:
+                self.axis_point_transformer = nn.Identity()
+            self.axis_xy_head = nn.Linear(axis_hidden_dim, 2)
+            self.axis_uncertainty_head = nn.Linear(axis_hidden_dim, 1)
         self.init_weights()
+        if use_axis_branch:
+            nn.init.zeros_(self.axis_xy_head.weight)
+            nn.init.zeros_(self.axis_xy_head.bias)
+            nn.init.zeros_(self.axis_uncertainty_head.weight)
+            nn.init.constant_(self.axis_uncertainty_head.bias, 2.0)
+
+        if use_axis_branch and axis_branch_only:
+            frozen_axis_base = [
+                'input_conv',
+                'unet',
+                'output_layer',
+                'semantic_linear',
+                'offset_linear',
+            ]
+            self.fixed_modules = list(dict.fromkeys(
+                self.fixed_modules + frozen_axis_base))
 
         # weight init
-        for mod in fixed_modules:
+        for mod in self.fixed_modules:
             mod = getattr(self, mod)
             for param in mod.parameters():
                 param.requires_grad = False
@@ -87,7 +143,12 @@ class TreeLearn(nn.Module):
 
     def forward(self, batch, return_loss):
         backbone_output, v2p_map = self.forward_backbone(**batch)
-        output = self.forward_head(backbone_output, v2p_map)
+        output = self.forward_head(
+            backbone_output,
+            v2p_map,
+            coords=batch['coords'],
+            input_feats=batch['input_feats'],
+            batch_ids=batch['batch_ids'])
         if return_loss:
             output = self.get_loss(model_output=output, **batch)
         
@@ -107,7 +168,9 @@ class TreeLearn(nn.Module):
         return output, v2p_map
     
 
-    def forward_head(self, backbone_output, v2p_map):
+    def forward_head(
+            self, backbone_output, v2p_map, coords=None, input_feats=None,
+            batch_ids=None):
         output = dict()
         backbone_feats = backbone_output.features[v2p_map]
         output['backbone_feats'] = backbone_feats
@@ -115,7 +178,75 @@ class TreeLearn(nn.Module):
         output['offset_predictions'] = self.offset_linear(backbone_feats)
         if self.use_upper_anchor:
             output['upper_offset_predictions'] = self.upper_offset_linear(backbone_feats)
+        if self.use_axis_branch:
+            if coords is None or input_feats is None or batch_ids is None:
+                raise ValueError(
+                    'coords, input_feats and batch_ids are required when '
+                    'use_axis_branch=True.')
+            output.update(self.forward_axis_branch(
+                backbone_feats,
+                output['semantic_prediction_logits'],
+                output['offset_predictions'],
+                coords.to(backbone_feats.device),
+                input_feats.to(backbone_feats.device),
+                batch_ids.to(backbone_feats.device)))
         return output
+
+
+    def forward_axis_branch(
+            self, backbone_feats, semantic_logits, offset_predictions,
+            coords, input_feats, batch_ids):
+        semantic_probs = semantic_logits.detach().float().softmax(dim=-1)
+        candidate_mask = (
+            semantic_probs[:, 0] >= self.axis_tree_conf_thresh)
+        candidate_indices = torch.where(candidate_mask)[0]
+
+        num_points = len(backbone_feats)
+        axis_xy = backbone_feats.new_zeros((num_points, 2))
+        raw_log_variance = backbone_feats.new_full(
+            (num_points, 1), self.axis_log_variance_max)
+
+        if len(candidate_indices) > 0:
+            candidate_batches = batch_ids[candidate_indices]
+            heights = torch.relu(
+                -offset_predictions[candidate_indices, 2].detach().float())
+            normalized_heights = torch.zeros_like(heights)
+            for batch_id in torch.unique(candidate_batches, sorted=True):
+                batch_mask = candidate_batches == batch_id
+                scale = torch.quantile(
+                    heights[batch_mask], 0.95).clamp_min(1.0)
+                normalized_heights[batch_mask] = (
+                    heights[batch_mask] / scale).clamp(0, 1)
+
+            verticality = input_feats[candidate_indices, -1].float()
+            branch_inputs = torch.cat([
+                backbone_feats[candidate_indices],
+                verticality[:, None].to(backbone_feats.dtype),
+                normalized_heights[:, None].to(backbone_feats.dtype),
+            ], dim=1)
+            branch_features = self.axis_input_projection(branch_inputs)
+            if self.axis_branch_type == 'point_transformer':
+                branch_features = self.axis_point_transformer(
+                    branch_features,
+                    coords[candidate_indices],
+                    candidate_batches)
+            else:
+                branch_features = self.axis_point_transformer(branch_features)
+
+            axis_xy[candidate_indices] = self.axis_xy_head(branch_features)
+            raw_log_variance[candidate_indices] = \
+                self.axis_uncertainty_head(branch_features)
+
+        log_variance = raw_log_variance.clamp(
+            self.axis_log_variance_min,
+            self.axis_log_variance_max)
+        confidence = torch.sigmoid(-log_variance)
+        return {
+            'axis_xy_predictions': axis_xy,
+            'axis_log_variance': log_variance,
+            'axis_confidence': confidence,
+            'axis_candidate_mask': candidate_mask,
+        }
 
 
     @cuda_cast
@@ -165,6 +296,42 @@ class TreeLearn(nn.Module):
                         predicted_axis, target_axis, dim=1, eps=1e-6)
                 ).mean()
             loss_dict['axis_loss'] = axis_loss * self.axis_loss_weight
+
+        if self.use_axis_branch:
+            axis_predictions = model_output['axis_xy_predictions'].float()
+            axis_log_variance = model_output['axis_log_variance'].float()
+            candidate_mask = model_output['axis_candidate_mask']
+            masks_axis = masks_off if masks_upper is None else (
+                masks_off & masks_upper)
+            masks_axis = masks_axis.to(candidate_mask.device) & candidate_mask
+            branch_zero = sum(
+                parameter.sum() * 0
+                for name, parameter in self.named_parameters()
+                if name.startswith('axis_'))
+            if (
+                upper_offset_labels is None or
+                offset_labels is None or
+                masks_axis.sum() == 0
+            ):
+                axis_xy_loss = branch_zero
+            else:
+                target_axis_xy = (
+                    upper_offset_labels[masks_axis, :2].to(
+                        axis_predictions.device) -
+                    offset_labels[masks_axis, :2].to(
+                        axis_predictions.device))
+                point_error = F.smooth_l1_loss(
+                    axis_predictions[masks_axis],
+                    target_axis_xy.float(),
+                    reduction='none',
+                    beta=self.smooth_l1_beta).sum(dim=1)
+                log_variance = axis_log_variance[
+                    masks_axis, 0]
+                axis_xy_loss = (
+                    torch.exp(-log_variance) * point_error +
+                    log_variance).mean()
+            loss_dict['axis_xy_loss'] = (
+                axis_xy_loss * self.axis_loss_weight)
 
         # Sum all losses
         loss = sum(_value for _value in loss_dict.values())

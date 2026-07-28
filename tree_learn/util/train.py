@@ -64,6 +64,18 @@ def checkpoint_save(epoch, model, optimizer, work_dir, save_freq=1):
             os.remove(f)
 
 
+def checkpoint_save_named(epoch, model, optimizer, work_dir, filename):
+    """Save a checkpoint under a stable experiment-selection filename."""
+    if hasattr(model, 'module'):
+        model = model.module
+    checkpoint = {
+        'net': weights_to_cpu(model.state_dict()),
+        'optimizer': optimizer.state_dict(),
+        'epoch': epoch,
+    }
+    torch.save(checkpoint, os.path.join(work_dir, filename))
+
+
 def load_checkpoint(checkpoint, logger, model, optimizer=None, strict=False):
     if hasattr(model, 'module'):
         model = model.module

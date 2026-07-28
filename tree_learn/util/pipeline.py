@@ -15,6 +15,7 @@ from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
 from scipy import stats
 from sklearn.cluster import DBSCAN, HDBSCAN
 from tree_learn.util.data_preparation import voxelize, compute_features, load_data, SampleGenerator
+from tree_learn.util.axis import get_axis_fused_features
 
 
 N_JOBS = 10 # number of threads/processes to use for several functions that have multiprocessing/multithreading enabled
@@ -82,6 +83,7 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
     with torch.no_grad():
         model.eval()
         semantic_prediction_logits, offset_predictions, upper_offset_predictions = [], [], []
+        axis_xy_predictions, axis_log_variances = [], []
         semantic_labels, offset_labels, upper_offset_labels = [], [], []
         coords, instance_labels, backbone_feats, input_feats = [], [], [], []
         for batch in tqdm.tqdm(dataloader):
@@ -93,10 +95,15 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
                 offset_prediction = output['offset_predictions']
                 upper_offset_prediction = output.get(
                     'upper_offset_predictions', torch.zeros_like(offset_prediction))
+                axis_xy_prediction = output.get('axis_xy_predictions')
+                axis_log_variance = output.get('axis_log_variance')
                 semantic_prediction_logit = output['semantic_prediction_logits']
                 backbone_feat = output['backbone_feats'] if return_backbone_feats else None
                 offset_prediction = offset_prediction.cpu()
                 upper_offset_prediction = upper_offset_prediction.cpu()
+                if axis_xy_prediction is not None:
+                    axis_xy_prediction = axis_xy_prediction.cpu()
+                    axis_log_variance = axis_log_variance.cpu()
                 semantic_prediction_logit = semantic_prediction_logit.cpu()
                 if backbone_feat is not None:
                     backbone_feat = backbone_feat.cpu()
@@ -114,6 +121,11 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
             offset_predictions.append(offset_prediction[batch['masks_inner']]), offset_labels.append(batch['offset_labels'][batch['masks_inner']])
             upper_offset_predictions.append(upper_offset_prediction[batch['masks_inner']])
             upper_offset_labels.append(batch['upper_offset_labels'][batch['masks_inner']])
+            if axis_xy_prediction is not None:
+                axis_xy_predictions.append(
+                    axis_xy_prediction[batch['masks_inner']])
+                axis_log_variances.append(
+                    axis_log_variance[batch['masks_inner']])
             coords.append(batch['coords'][batch['masks_inner']])
             instance_labels.append(batch['instance_labels'][batch['masks_inner']])
             if backbone_feat is not None:
@@ -124,13 +136,18 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
     offset_predictions, offset_labels = torch.cat(offset_predictions, 0).numpy(), torch.cat(offset_labels, 0).numpy()
     upper_offset_predictions = torch.cat(upper_offset_predictions, 0).numpy()
     upper_offset_labels = torch.cat(upper_offset_labels, 0).numpy()
+    if axis_xy_predictions:
+        axis_xy_predictions = torch.cat(axis_xy_predictions, 0).numpy()
+        axis_log_variances = torch.cat(axis_log_variances, 0).numpy()
+    else:
+        axis_xy_predictions, axis_log_variances = None, None
     coords = torch.cat(coords, 0).numpy()
     instance_labels = torch.cat(instance_labels).numpy()
     backbone_feats = (
         torch.cat(backbone_feats, 0).numpy() if backbone_feats else None)
     return (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
             upper_offset_predictions, upper_offset_labels, coords, instance_labels,
-            backbone_feats, input_feats)
+            backbone_feats, input_feats, axis_xy_predictions, axis_log_variances)
 
 
 def _grouped_mean(values, inverse, counts, output_dtype=np.float32):
@@ -160,7 +177,8 @@ def _grouped_mean(values, inverse, counts, output_dtype=np.float32):
 # materialized in memory.
 def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offset_labels,
              upper_offset_predictions, upper_offset_labels, instance_labels, feats,
-             input_feats, logger=None):
+             input_feats, axis_xy_predictions=None, axis_log_variances=None,
+             logger=None):
     ensemble_start = time.time()
     num_input_points = len(coords)
 
@@ -193,6 +211,10 @@ def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offse
         instance_labels, inverse, counts, np.float64).astype(np.int64)
     feats = _grouped_mean(feats, inverse, counts, np.float32)
     input_feats = _grouped_mean(input_feats, inverse, counts, np.float32)
+    axis_xy_predictions = _grouped_mean(
+        axis_xy_predictions, inverse, counts, np.float32)
+    axis_log_variances = _grouped_mean(
+        axis_log_variances, inverse, counts, np.float32)
 
     if logger is not None:
         logger.info(
@@ -200,7 +222,8 @@ def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offse
             f'points to {len(coords):,} unique points in '
             f'{time.time() - ensemble_start:.1f}s')
     return (coords, semantic_scores, semantic_labels, offset_predictions, offset_labels,
-            upper_offset_predictions, upper_offset_labels, instance_labels, feats, input_feats)
+            upper_offset_predictions, upper_offset_labels, instance_labels, feats,
+            input_feats, axis_xy_predictions, axis_log_variances)
 
 
 def get_dual_anchor_features(coords, offset, upper_offset, upper_anchor_weight=1.0,
@@ -226,7 +249,8 @@ def get_dual_anchor_features(coords, offset, upper_offset, upper_anchor_weight=1
 # get tree predictions for all points by using DBSCAN.
 def get_instances(coords, offset, upper_offset, semantic_prediction_logits, grouping_cfg,
                   verticality_feat, tree_class_in_dataset, non_trees_label_in_grouping,
-                  not_assigned_label_in_grouping, start_num_preds, logger=None):
+                  not_assigned_label_in_grouping, start_num_preds, logger=None,
+                  axis_xy=None, axis_confidence=None):
     # get tree coords whose offset magnitude and verticality feature is appropriate
     semantic_prediction_probs = torch.from_numpy(semantic_prediction_logits).float().softmax(dim=-1)
     tree_mask = (
@@ -261,10 +285,22 @@ def get_instances(coords, offset, upper_offset, semantic_prediction_logits, grou
             logger.error(message)
         raise RuntimeError(message)
 
-    cluster_features_filtered = get_dual_anchor_features(
-        coords[ind_cluster], offset[ind_cluster],
-        upper_offset[ind_cluster] if upper_offset is not None else None,
-        grouping_cfg.upper_anchor_weight, grouping_cfg.axis_height_weight)
+    use_axis_fusion = bool(
+        getattr(grouping_cfg, 'use_axis_fusion', False))
+    if use_axis_fusion:
+        cluster_features_filtered = get_axis_fused_features(
+            coords[ind_cluster],
+            offset[ind_cluster],
+            axis_xy[ind_cluster] if axis_xy is not None else None,
+            axis_confidence[ind_cluster]
+            if axis_confidence is not None else None,
+            getattr(grouping_cfg, 'axis_fusion_weight', 0.0),
+            getattr(grouping_cfg, 'use_axis_confidence', True))
+    else:
+        cluster_features_filtered = get_dual_anchor_features(
+            coords[ind_cluster], offset[ind_cluster],
+            upper_offset[ind_cluster] if upper_offset is not None else None,
+            grouping_cfg.upper_anchor_weight, grouping_cfg.axis_height_weight)
     if logger is not None:
         logger.info(
             f'Clustering {len(cluster_features_filtered):,} seed points '

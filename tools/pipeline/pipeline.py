@@ -11,6 +11,7 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              propagate_preds, save_treewise, load_data, save_data, make_labels_consecutive, 
                              get_config, generate_tiles, assign_remaining_points_nearest_neighbor,
                              get_pointwise_preds, get_instances, get_dual_anchor_features,
+                             get_axis_fused_features,
                              propagate_preds_hash_full, propagate_preds_hash_vox)
 
 TREE_CLASS_IN_PYTORCH_DATASET = 0
@@ -75,7 +76,8 @@ def run_treelearn_pipeline(config, config_path=None):
         return_backbone_feats=config.save_cfg.save_pointwise)
     (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, coords, instance_labels,
-     backbone_feats, input_feats) = pointwise_results
+     backbone_feats, input_feats, axis_xy_predictions,
+     axis_log_variances) = pointwise_results
     del model
 
     # ensemble predictions from overlapping tiles
@@ -83,9 +85,13 @@ def run_treelearn_pipeline(config, config_path=None):
     data = ensemble(
         coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
         upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats,
-        input_feats, logger=logger)
+        input_feats, axis_xy_predictions, axis_log_variances, logger=logger)
     (coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
-     upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats, input_feats) = data
+     upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats,
+     input_feats, axis_xy_predictions, axis_log_variances) = data
+    axis_confidence = (
+        1.0 / (1.0 + np.exp(axis_log_variances))
+        if axis_log_variances is not None else None)
 
     # get mask of inner coords if outer points should be removed
     if config.shape_cfg.outer_remove:
@@ -104,7 +110,8 @@ def run_treelearn_pipeline(config, config_path=None):
         coords, offset_predictions, upper_offset_predictions, semantic_prediction_logits,
         grouping_cfg, input_feats[:, -1], TREE_CLASS_IN_PYTORCH_DATASET,
         NON_TREES_LABEL_IN_GROUPING, NOT_ASSIGNED_LABEL_IN_GROUPING, START_NUM_PREDS,
-        logger=logger)
+        logger=logger, axis_xy=axis_xy_predictions,
+        axis_confidence=axis_confidence)
     instance_preds_after_initial_clustering = np.copy(instance_preds)
 
     # assign remaining points
@@ -119,10 +126,21 @@ def run_treelearn_pipeline(config, config_path=None):
         raise RuntimeError(
             'Initial clustering produced no valid tree instances. No output was '
             'saved; inspect the clustering seed count and grouping thresholds.')
-    tree_features = get_dual_anchor_features(
-        coords[tree_mask], offset_predictions[tree_mask],
-        upper_offset_predictions[tree_mask],
-        grouping_cfg.upper_anchor_weight, grouping_cfg.axis_height_weight)
+    if getattr(grouping_cfg, 'use_axis_fusion', False):
+        tree_features = get_axis_fused_features(
+            coords[tree_mask],
+            offset_predictions[tree_mask],
+            axis_xy_predictions[tree_mask]
+            if axis_xy_predictions is not None else None,
+            axis_confidence[tree_mask]
+            if axis_confidence is not None else None,
+            getattr(grouping_cfg, 'axis_fusion_weight', 0.0),
+            getattr(grouping_cfg, 'use_axis_confidence', True))
+    else:
+        tree_features = get_dual_anchor_features(
+            coords[tree_mask], offset_predictions[tree_mask],
+            upper_offset_predictions[tree_mask],
+            grouping_cfg.upper_anchor_weight, grouping_cfg.axis_height_weight)
     instance_preds[tree_mask] = assign_remaining_points_nearest_neighbor(
         tree_features, instance_preds[tree_mask],
         NOT_ASSIGNED_LABEL_IN_GROUPING,
@@ -156,6 +174,12 @@ def run_treelearn_pipeline(config, config_path=None):
             'instance_preds': instance_preds,
             'instance_preds_after_initial_clustering': instance_preds_after_initial_clustering
         }
+        if axis_xy_predictions is not None:
+            pointwise_results.update({
+                'axis_xy_predictions': axis_xy_predictions,
+                'axis_log_variances': axis_log_variances,
+                'axis_confidence': axis_confidence,
+            })
         if config.shape_cfg.outer_remove:
             pointwise_results['masks_inner_coords'] = masks_inner_coords
             hull_buffer_large.to_pickle(os.path.join(pointwise_dir, 'hull_buffer_large.pkl'))
@@ -205,6 +229,10 @@ def run_treelearn_pipeline(config, config_path=None):
             offset_labels[masks_inner_coords], upper_offset_predictions[masks_inner_coords], \
             upper_offset_labels[masks_inner_coords], instance_labels[masks_inner_coords], \
             instance_preds[masks_inner_coords], input_feats[masks_inner_coords]
+        if axis_xy_predictions is not None:
+            axis_xy_predictions = axis_xy_predictions[masks_inner_coords]
+            axis_log_variances = axis_log_variances[masks_inner_coords]
+            axis_confidence = axis_confidence[masks_inner_coords]
         instance_preds[instance_preds != NON_TREES_LABEL_IN_GROUPING], _ = make_labels_consecutive(instance_preds[instance_preds != NON_TREES_LABEL_IN_GROUPING], start_num=1)
 
     # get information whether tree clusters are within or outside hull (used for saving tree in different categories later)
