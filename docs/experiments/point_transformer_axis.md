@@ -27,6 +27,10 @@ Point Transformer 只处理语义分支预测为树的候选点。候选点首�
 选择最近的 8 个已占用体素作为局部邻居。该实现完全基于 PyTorch，不需要
 安装 `torch-cluster` 或编译额外 CUDA 扩展。
 
+为兼容 24GB 显存设备，Point Transformer 训练配置默认使用
+`batch_size: 1`，并将 query 按 8192 个点分块，通过梯度检查点重算注意力
+中间结果。query 分块只改变峰值显存和运行时间，不改变邻域或预测公式。
+
 监督目标和损失定义如下：
 
 ```text
@@ -363,9 +367,10 @@ tail -n 100 logs/pipeline_wytham_axis_pt_final.log
 如果出现 CUDA OOM，先将训练配置中的：
 
 ```yaml
-dataloader:
-  train:
-    batch_size: 1
+model:
+  axis_query_chunk_size: 4096
 ```
 
-不要先修改邻域数量、体素尺寸或网络维度，否则会使 MLP/PT 的公平对比失效。
+当前 Point Transformer 配置已经使用 `batch_size: 1`。如果 4096 仍然 OOM，
+再改为 2048。不要先修改邻域数量、体素尺寸或网络维度，因为 query 分块不改变
+计算结果，而这些结构参数会使 MLP/PT 的对比协议发生变化。

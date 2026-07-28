@@ -2,6 +2,7 @@ import warnings
 
 import torch
 import torch.nn as nn
+from torch.utils.checkpoint import checkpoint
 
 
 class LocalPointTransformerLayer(nn.Module):
@@ -18,17 +19,23 @@ class LocalPointTransformerLayer(nn.Module):
             channels,
             num_neighbors=8,
             support_voxel_size=0.4,
-            max_support_points=32768):
+            max_support_points=32768,
+            query_chunk_size=8192,
+            gradient_checkpointing=True):
         super().__init__()
         if num_neighbors < 1 or num_neighbors > 27:
             raise ValueError('num_neighbors must be between 1 and 27.')
         if support_voxel_size <= 0:
             raise ValueError('support_voxel_size must be positive.')
+        if query_chunk_size < 1:
+            raise ValueError('query_chunk_size must be positive.')
 
         self.channels = channels
         self.num_neighbors = num_neighbors
         self.support_voxel_size = support_voxel_size
         self.max_support_points = max_support_points
+        self.query_chunk_size = query_chunk_size
+        self.gradient_checkpointing = gradient_checkpointing
         self._warned_support_cap = False
 
         self.query_projection = nn.Linear(channels, channels, bias=False)
@@ -148,6 +155,34 @@ class LocalPointTransformerLayer(nn.Module):
             neighbour_valid = torch.gather(occupied, 1, closest)
         return neighbour_indices, neighbour_valid
 
+    def _forward_query_chunk(
+            self, query_features, query_coords, query_cells,
+            support_features, support_coords, support_cells):
+        neighbour_indices, neighbour_valid = self._get_neighbours(
+            query_coords, query_cells, support_cells, support_coords)
+        neighbour_features = support_features[neighbour_indices]
+        neighbour_coords = support_coords[neighbour_indices]
+
+        query = self.query_projection(query_features)[:, None, :]
+        key = self.key_projection(neighbour_features)
+        value = self.value_projection(neighbour_features)
+        relative_xyz = (
+            query_coords[:, None, :] - neighbour_coords).to(
+                query_features.dtype)
+        position = self.position_mlp(relative_xyz)
+        attention_logits = self.attention_mlp(query - key + position)
+        attention_logits = attention_logits.masked_fill(
+            ~neighbour_valid[..., None], -1e4)
+        attention = torch.softmax(attention_logits, dim=1)
+        attention = attention * neighbour_valid[..., None].to(
+            attention.dtype)
+        attention = attention / attention.sum(
+            dim=1, keepdim=True).clamp_min(1e-6)
+
+        transformed = (attention * (value + position)).sum(dim=1)
+        transformed = self.output_projection(transformed)
+        return self.output_norm(query_features + transformed)
+
     def forward(self, features, coords, batch_ids):
         if len(features) == 0:
             return features
@@ -168,31 +203,25 @@ class LocalPointTransformerLayer(nn.Module):
                 self._cap_supports(
                     support_cells, support_coords, support_features)
 
-            neighbour_indices, neighbour_valid = self._get_neighbours(
-                batch_coords, cell_coords, support_cells, support_coords)
-            neighbour_features = support_features[neighbour_indices]
-            neighbour_coords = support_coords[neighbour_indices]
-
-            query = self.query_projection(batch_features)[:, None, :]
-            key = self.key_projection(neighbour_features)
-            value = self.value_projection(neighbour_features)
-            relative_xyz = (
-                batch_coords[:, None, :] - neighbour_coords).to(
-                    batch_features.dtype)
-            position = self.position_mlp(relative_xyz)
-            attention_logits = self.attention_mlp(
-                query - key + position)
-            attention_logits = attention_logits.masked_fill(
-                ~neighbour_valid[..., None], -1e4)
-            attention = torch.softmax(attention_logits, dim=1)
-            attention = attention * neighbour_valid[..., None].to(
-                attention.dtype)
-            attention = attention / attention.sum(
-                dim=1, keepdim=True).clamp_min(1e-6)
-
-            transformed = (
-                attention * (value + position)).sum(dim=1)
-            transformed = self.output_projection(transformed)
-            output[batch_indices] = self.output_norm(
-                batch_features + transformed)
+            chunk_outputs = []
+            for start in range(0, len(batch_features), self.query_chunk_size):
+                end = min(start + self.query_chunk_size, len(batch_features))
+                arguments = (
+                    batch_features[start:end],
+                    batch_coords[start:end],
+                    cell_coords[start:end],
+                    support_features,
+                    support_coords,
+                    support_cells,
+                )
+                if self.training and self.gradient_checkpointing:
+                    chunk_output = checkpoint(
+                        self._forward_query_chunk,
+                        *arguments,
+                        use_reentrant=False,
+                        preserve_rng_state=False)
+                else:
+                    chunk_output = self._forward_query_chunk(*arguments)
+                chunk_outputs.append(chunk_output)
+            output[batch_indices] = torch.cat(chunk_outputs, dim=0)
         return output

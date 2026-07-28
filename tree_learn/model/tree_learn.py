@@ -34,6 +34,8 @@ class TreeLearn(nn.Module):
                  axis_num_neighbors=8,
                  axis_support_voxel_size=0.4,
                  axis_max_support_points=32768,
+                 axis_query_chunk_size=8192,
+                 axis_gradient_checkpointing=True,
                  axis_tree_conf_thresh=0.5,
                  axis_log_variance_min=-4.0,
                  axis_log_variance_max=4.0,
@@ -92,7 +94,9 @@ class TreeLearn(nn.Module):
                     axis_hidden_dim,
                     num_neighbors=axis_num_neighbors,
                     support_voxel_size=axis_support_voxel_size,
-                    max_support_points=axis_max_support_points)
+                    max_support_points=axis_max_support_points,
+                    query_chunk_size=axis_query_chunk_size,
+                    gradient_checkpointing=axis_gradient_checkpointing)
             else:
                 self.axis_point_transformer = nn.Identity()
             self.axis_xy_head = nn.Linear(axis_hidden_dim, 2)
