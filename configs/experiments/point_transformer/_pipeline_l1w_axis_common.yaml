@@ -1,4 +1,4 @@
-forest_path: 'data/pipeline/L1W/forest/L1W.laz'
+forest_path: 'data/pipeline/L1W/forest/L1W.npz'
 fp16: True
 tile_generation: False
 
