@@ -23,8 +23,9 @@ START_NUM_PREDS = 1
 
 def run_treelearn_pipeline(config, config_path=None):
     # make dirs
-    plot_name = os.path.basename(config.forest_path)[:-4]
-    base_dir = os.path.dirname(os.path.dirname(config.forest_path))
+    source_forest_path = config.forest_path
+    plot_name = os.path.splitext(os.path.basename(source_forest_path))[0]
+    base_dir = os.path.dirname(os.path.dirname(source_forest_path))
     documentation_dir = os.path.join(base_dir, 'documentation')
     unvoxelized_data_dir = os.path.join(base_dir, 'forest')
     voxelized_data_dir = os.path.join(base_dir, f'forest_voxelized{config.sample_generation.voxel_size}')
@@ -40,16 +41,20 @@ def run_treelearn_pipeline(config, config_path=None):
     
     # quick and dirty fix for the fact that method throws errors/does not work with high-magnitude coords
     # --> center coords and de-center at the end
-    data = load_data(config.forest_path)
+    data = load_data(source_forest_path)
     xyz = data[:, :3].astype(np.float64)
     xyz_mean = np.mean(xyz, 0).astype(np.float64)
     xyz_centered = xyz - xyz_mean
-    # avoids overwriting of original file
-    if not config.forest_path.endswith('.npz'):
-        config.forest_path = config.forest_path[:-4] + '.npz'
+    # Never overwrite an NPZ source. np.savez_compressed appends ".npz" when
+    # the destination has another suffix, so the old ".npy" fallback created
+    # "forest.npy.npz" and then attempted to read the nonexistent "forest.npy".
+    source_root, source_extension = os.path.splitext(source_forest_path)
+    if source_extension.lower() == '.npz':
+        centered_forest_path = source_root + '_centered.npz'
     else:
-        config.forest_path = config.forest_path[:-4] + '.npy'
-    np.savez_compressed(config.forest_path, points=xyz_centered)
+        centered_forest_path = source_root + '.npz'
+    np.savez_compressed(centered_forest_path, points=xyz_centered)
+    config.forest_path = centered_forest_path
     
     # documentation
     logger = get_root_logger(os.path.join(documentation_dir, 'log_pipeline.txt'))
