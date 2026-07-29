@@ -153,6 +153,8 @@ class TreeLearn(nn.Module):
             for m in mod.modules():
                 if isinstance(m, nn.BatchNorm1d):
                     m.eval()
+        # Preserve torch.nn.Module.train/eval's fluent API contract.
+        return self
 
 
     def forward(self, batch, return_loss):
