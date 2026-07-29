@@ -1,429 +1,321 @@
-# 冻结 TreeLearn 主干的 Point Transformer Axis-XY 实验
+# 冻结 TreeLearn 主干的 Point Transformer 树轴实验
 
-## 1. 实验目的与固定协议
+## 1. 当前结论
 
-本实验用于验证：在不修改官方 TreeLearn 表征能力的前提下，轻量级局部
-Point Transformer 是否能够有效补充树轴形态信息。
+旧冠层锚点实验已经完成：
 
-下列原始模块全部冻结，其 BatchNorm 层始终保持评估模式：
+| 实验 | 最佳 epoch | Mean（m） | Median（m） | P90（m） |
+|---|---:|---:|---:|---:|
+| MLP + 异方差损失 | 5 | 1.492 | 1.334 | 2.691 |
+| Point Transformer + 异方差损失 | 25 | 1.471 | 1.311 | 2.674 |
+| Point Transformer + 解耦损失 | 25 | 1.480 | 1.323 | 2.684 |
 
-```text
-input_conv、unet、output_layer、semantic_linear、offset_linear
-```
+Point Transformer 相对 MLP 的 Mean 只降低约 1.4%，没有达到预定的 5% 门槛；换成解耦损失也没有改善。因此暂停 L1W 和 Wytham 测试，先检查并修改 Axis-XY 标签，不再增加网络层数。
 
-可训练分支结构如下：
-
-```text
-32维逐点主干特征
-  + verticality
-  + 根据预测基部计算的归一化离地高度
-  -> 输入投影
-  -> 可选的单层局部 Point Transformer
-  -> Axis-XY 和 log variance
-```
-
-Point Transformer 只处理语义分支预测为树的候选点。候选点首先在
-`0.4 m` 体素网格中进行平均池化，每个查询点在相邻的 `3×3×3` 个体素中
-选择最近的 8 个已占用体素作为局部邻居。该实现完全基于 PyTorch，不需要
-安装 `torch-cluster` 或编译额外 CUDA 扩展。
-
-为兼容 24GB 显存设备，Point Transformer 训练配置默认使用
-`batch_size: 1`，并将 query 按 8192 个点分块，通过梯度检查点重算注意力
-中间结果。query 分块只改变峰值显存和运行时间，不改变邻域或预测公式。
-
-监督目标和损失定义如下：
+新标签使用树干下部拟合轴线：
 
 ```text
-Axis-XY target = upper_offset[:2] - base_offset[:2]
-有效掩码       = masks_off & masks_upper & predicted_tree_mask
-逐点误差       = SmoothL1(predicted Axis-XY, target Axis-XY)
-损失           = exp(-log_variance) * point_error + log_variance
-置信度         = sigmoid(-log_variance)
+树高 10%～50% 范围
+        ↓
+verticality >= 0.60 的树干候选点
+        ↓
+沿高度划分 4 个区间，每区间取 XY 中位数
+        ↓
+至少 3 个有效区间
+        ↓
+Theil–Sen 稳健直线拟合
+        ↓
+外推到 65% 树高，得到 upper anchor
+        ↓
+Axis-XY = upper anchor XY - base anchor XY
 ```
 
-本轮实验继续沿用树高 55%～75% 范围内的 upper anchor，不同时修改标签定义。
-Wytham 作为最终外部测试集，不得用于选择 checkpoint 或融合权重。
+旧配置默认仍使用 `upper_anchor_mode: crown_median`，不会改变已经完成的实验。新实验显式使用 `upper_anchor_mode: stem_axis`。
 
-## 2. 环境与运行前检查
+## 2. 固定实验协议
 
-在 TreeLearn 仓库根目录运行：
+所有实验从以下官方 checkpoint 初始化：
+
+```text
+data/model_weights/model_weights_with_small_20241213.pth
+```
+
+始终冻结：
+
+```text
+input_conv
+unet
+output_layer
+semantic_linear
+offset_linear
+```
+
+只训练：
+
+```text
+axis_input_projection
+axis_point_transformer（仅 PT 组）
+axis_xy_head
+axis_uncertainty_head
+```
+
+Wytham 是最终外部测试集，不允许用于选择 checkpoint、标签参数或融合权重。
+
+## 3. 第一步：环境和代码检查
+
+在 Linux 服务器的 TreeLearn 根目录运行：
 
 ```bash
 conda activate TreeLearn
 mkdir -p logs
 git branch --show-current
+
+python -m unittest discover -s tests -p 'test_stem_axis_labels.py' -v
 python -m unittest discover -s tests -p 'test_axis_point_transformer.py' -v
 ```
 
-当前分支应为：
+分支应为：
 
 ```text
 point-transformer
 ```
 
-训练前检查关键配置能否正常加载：
+检查配置：
 
 ```bash
 python - <<'PY'
 from tree_learn.util import get_config
 
 files = [
-    "configs/experiments/point_transformer/train_axis_mlp_frozen.yaml",
-    "configs/experiments/point_transformer/train_axis_pt_frozen.yaml",
-    "configs/experiments/point_transformer/pipeline_l1w_axis_pt_w000.yaml",
-    "configs/experiments/point_transformer/pipeline_wytham_axis_pt_final.yaml",
+    "configs/experiments/point_transformer/train_axis_mlp_stem_axis.yaml",
+    "configs/experiments/point_transformer/train_axis_pt_stem_axis.yaml",
+    "configs/experiments/point_transformer/pipeline_l1w_axis_pt_stem_w000.yaml",
+    "configs/experiments/point_transformer/pipeline_wytham_axis_pt_stem_final.yaml",
 ]
 
 for path in files:
     cfg = get_config(path)
     print(path, "OK")
+    if hasattr(cfg, "dataset_train"):
+        print("  upper anchor:", cfg.dataset_train.upper_anchor_mode)
     if hasattr(cfg, "model"):
-        print("  branch:", getattr(cfg.model, "axis_branch_type", None))
-        print("  use_axis:", getattr(cfg.model, "use_axis_branch", False))
+        print("  branch:", cfg.model.axis_branch_type)
 PY
-```
 
-确认官方 small-tree checkpoint 存在：
-
-```bash
 test -f data/model_weights/model_weights_with_small_20241213.pth
 ```
 
-如果该命令返回非零状态，必须先补齐 checkpoint，不能直接开始训练。
+## 4. 第二步：先诊断标签，不启动训练
 
-## 3. 阶段 A：逐点 MLP 控制组
+运行全部 323 个验证 tile 的标签诊断：
 
-MLP 控制组不使用局部注意力，仅使用相同的基础特征预测 Axis-XY 和
-Confidence。它用于判断后续性能提升是否确实来自 Point Transformer。
+```bash
+python tools/diagnostics/diagnose_stem_axis_labels.py \
+  --config configs/experiments/point_transformer/train_axis_mlp_stem_axis.yaml \
+  --max_scans 323 \
+  --output_dir logs/stem_axis_diagnostic \
+  2>&1 | tee logs/diagnose_stem_axis_labels.log
+```
 
-启动训练：
+输出：
+
+```text
+logs/stem_axis_diagnostic/summary.json
+logs/stem_axis_diagnostic/label_examples.png
+```
+
+同时满足以下条件才继续：
+
+1. `stem_to_crown_coverage_ratio >= 0.70`；
+2. `stem_axis_xy_length.mean >= 0.30 m`；
+3. 查看 `label_examples.png`，蓝色树干轴锚点应沿树干倾斜方向，不能明显落到相邻树冠。
+
+若日志输出 `STOP`，不要训练 MLP/PT。此时优先降低 `stem_axis_verticality_threshold` 到 `0.50`，重新诊断一次；仍失败则说明现有 verticality 或点密度不足，需要重新设计标签。
+
+## 5. 第三步：只跑 stem-axis MLP 控制组
+
+标签诊断通过后运行：
 
 ```bash
 nohup python -u tools/training/train.py \
-  --config configs/experiments/point_transformer/train_axis_mlp_frozen.yaml \
-  --work_dir axis_mlp_frozen \
-  > logs/train_axis_mlp_frozen.log 2>&1 < /dev/null &
+  --config configs/experiments/point_transformer/train_axis_mlp_stem_axis.yaml \
+  --work_dir axis_mlp_stem_axis \
+  > logs/train_axis_mlp_stem_axis.log 2>&1 < /dev/null &
 
-echo $! | tee logs/train_axis_mlp_frozen.pid
-tail -f logs/train_axis_mlp_frozen.log
+echo $! | tee logs/train_axis_mlp_stem_axis.pid
+tail -f logs/train_axis_mlp_stem_axis.log
 ```
 
-验证阶段每当平均 Axis-XY 误差下降时，程序会自动保存：
-
-```text
-work_dirs/axis_mlp_frozen/best_axis_xy.pth
-```
-
-训练结束后，检查所有官方共享参数是否保持逐位不变：
+查看结果：
 
 ```bash
+grep "axis_xy_mean_error" logs/train_axis_mlp_stem_axis.log
+grep "Saved best_axis_xy" logs/train_axis_mlp_stem_axis.log
+
 python tools/diagnostics/verify_axis_checkpoint.py \
   --reference data/model_weights/model_weights_with_small_20241213.pth \
-  --candidate work_dirs/axis_mlp_frozen/best_axis_xy.pth
+  --candidate work_dirs/axis_mlp_stem_axis/best_axis_xy.pth
 ```
 
-只有输出以下信息才能继续：
+验证日志新增两个与标签尺度有关的指标：
 
-```text
-PASS: original TreeLearn tensors are bitwise unchanged.
-```
+- `axis_target_xy_mean_length`：目标 Axis-XY 的平均长度；
+- `axis_normalized_mean_error`：Mean Error / Mean Target Length。
 
-## 4. 阶段 B：单层 Point Transformer
+只有同时满足以下条件才运行 PT：
 
-阶段 A 完成后再启动 Point Transformer 实验：
+1. 冻结参数检查输出 `PASS`；
+2. 最佳 `axis_normalized_mean_error <= 0.80`。
 
-```bash
-nohup python -u tools/training/train.py \
-  --config configs/experiments/point_transformer/train_axis_pt_frozen.yaml \
-  --work_dir axis_pt_frozen \
-  > logs/train_axis_pt_frozen.log 2>&1 < /dev/null &
+归一化误差为 1 表示效果接近始终预测零向量。MLP 若不能低于 0.80，说明新标签仍缺乏可学习信号，此时不应运行更昂贵的 PT。
 
-echo $! | tee logs/train_axis_pt_frozen.pid
-tail -f logs/train_axis_pt_frozen.log
-```
+## 6. 第四步：运行 stem-axis Point Transformer
 
-检查训练进程、显存和最新日志：
-
-```bash
-pgrep -af "[t]ools/training/train.py"
-nvidia-smi
-tail -n 50 logs/train_axis_pt_frozen.log
-```
-
-训练完成后检查冻结参数：
-
-```bash
-python tools/diagnostics/verify_axis_checkpoint.py \
-  --reference data/model_weights/model_weights_with_small_20241213.pth \
-  --candidate work_dirs/axis_pt_frozen/best_axis_xy.pth
-```
-
-运行单 tile 的预测、聚合、聚类和保存 smoke test：
-
-```bash
-python tools/diagnostics/smoke_axis_pipeline.py \
-  --config configs/experiments/point_transformer/pipeline_l1w_axis_pt_w000.yaml \
-  --output logs/axis_pipeline_smoke.npz
-```
-
-提取两组实验的验证指标：
-
-```bash
-grep "axis_xy_mean_error" logs/train_axis_mlp_frozen.log
-grep "axis_xy_mean_error" logs/train_axis_pt_frozen.log
-```
-
-主要比较：
-
-- `axis_xy_mean_error`
-- `axis_xy_median_error`
-- `axis_xy_p90_error`
-- `axis_confidence_error_corr`
-
-只有同时满足以下条件，才继续进行完整实例分割：
-
-1. Point Transformer 的平均 Axis-XY 误差比 MLP 至少降低 5%；
-2. Point Transformer 的 P90 误差不高于 MLP。
-
-如果没有达到条件，先停止外部测试，并只运行一次下面的损失解耦补救实验。
-不得继续增加更多注意力层。
-
-### 4.1 损失解耦补救实验
-
-该实验保持主干、Point Transformer、邻域、数据和 upper-anchor 标签不变，
-只将直接 Axis-XY 回归与 Confidence 辅助损失解耦：
-
-```text
-axis_reg_loss = SmoothL1(axis_prediction, axis_target)
-
-confidence_loss =
-    exp(-log_variance) * stop_gradient(point_error)
-    + log_variance
-
-total_axis_loss =
-    axis_reg_loss + 0.1 * confidence_loss
-```
-
-Confidence head 不再反向修改 Point Transformer 特征。实验从官方 small-tree
-checkpoint 重新初始化，不能从原异方差 PT checkpoint 续训。
+MLP 通过门槛后运行：
 
 ```bash
 nohup env PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128 \
   python -u tools/training/train.py \
-  --config configs/experiments/point_transformer/train_axis_pt_decoupled.yaml \
-  --work_dir axis_pt_decoupled \
-  > logs/train_axis_pt_decoupled.log 2>&1 < /dev/null &
+  --config configs/experiments/point_transformer/train_axis_pt_stem_axis.yaml \
+  --work_dir axis_pt_stem_axis \
+  > logs/train_axis_pt_stem_axis.log 2>&1 < /dev/null &
 
-echo $! | tee logs/train_axis_pt_decoupled.pid
-tail -f logs/train_axis_pt_decoupled.log
+echo $! | tee logs/train_axis_pt_stem_axis.pid
+tail -f logs/train_axis_pt_stem_axis.log
 ```
 
-该实验训练 30 epochs，仍然按验证集 mean Axis-XY error 自动保存：
-
-```text
-work_dirs/axis_pt_decoupled/best_axis_xy.pth
-```
-
-完成后检查冻结参数：
+监控：
 
 ```bash
+pgrep -af "[t]ools/training/train.py"
+nvidia-smi
+tail -n 50 logs/train_axis_pt_stem_axis.log
+```
+
+训练完成后：
+
+```bash
+grep "axis_xy_mean_error" logs/train_axis_pt_stem_axis.log
+grep "Saved best_axis_xy" logs/train_axis_pt_stem_axis.log
+
 python tools/diagnostics/verify_axis_checkpoint.py \
   --reference data/model_weights/model_weights_with_small_20241213.pth \
-  --candidate work_dirs/axis_pt_decoupled/best_axis_xy.pth
+  --candidate work_dirs/axis_pt_stem_axis/best_axis_xy.pth
 ```
 
-损失解耦实验只有满足以下条件才进入阶段 C：
+PT 必须同时满足：
 
-```text
-mean Axis-XY error <= 1.417 m
-P90 Axis-XY error  <= 2.691 m
-```
+1. PT 最佳 Mean ≤ MLP 最佳 Mean × 0.95；
+2. PT 最佳 P90 ≤ MLP 最佳 P90；
+3. PT 最佳归一化 Mean ≤ 0.80；
+4. 冻结参数检查输出 `PASS`。
 
-如果仍未达到条件，应停止修改网络，转向重新设计 upper-anchor 标签。
+任一条件失败，停止 L1W/Wytham，不继续增加注意力层。
 
-## 5. 阶段 C：在 L1W 上选择融合权重
+## 7. 第五步：L1W 选择融合权重
 
-置信度门控的二维投票为：
-
-```text
-base_vote_xy + weight * confidence * Axis-XY
-```
-
-固定测试以下四个权重：
-
-```text
-0、0.1、0.25、0.5
-```
-
-四组实验必须使用同一个 Point Transformer checkpoint。权重为 0 的实验必须
-严格退化为 base-only 二维聚类，用于确认 pipeline 兼容性。
-
-依次运行 pipeline 和评估：
+PT 达标后测试固定权重 `0、0.1、0.25、0.5`：
 
 ```bash
 for weight in 000 010 025 050; do
   nohup python -u tools/pipeline/pipeline.py \
-    --config configs/experiments/point_transformer/pipeline_l1w_axis_pt_w${weight}.yaml \
-    > logs/pipeline_l1w_axis_pt_w${weight}.log 2>&1 < /dev/null &
+    --config configs/experiments/point_transformer/pipeline_l1w_axis_pt_stem_w${weight}.yaml \
+    > logs/pipeline_l1w_axis_pt_stem_w${weight}.log 2>&1 < /dev/null &
 
   pid=$!
-  echo "$pid" | tee logs/pipeline_l1w_axis_pt_w${weight}.pid
+  echo "$pid" | tee logs/pipeline_l1w_axis_pt_stem_w${weight}.pid
   wait "$pid" || exit 1
 
   python -u tools/evaluation/evaluate.py \
-    --config configs/experiments/point_transformer/evaluate_l1w_axis_pt_w${weight}.yaml \
-    2>&1 | tee logs/evaluate_l1w_axis_pt_w${weight}.log
+    --config configs/experiments/point_transformer/evaluate_l1w_axis_pt_stem_w${weight}.yaml \
+    2>&1 | tee logs/evaluate_l1w_axis_pt_stem_w${weight}.log
 done
 ```
 
-这些配置默认：
+选择规则：
 
-```yaml
-tile_generation: False
-```
+1. Detection F1 最高；
+2. F1 相同时选择 Coverage 更高者；
+3. 两者仍相同时选择更小权重。
 
-因为可以复用已有的 L1W tiles。如果 `data/pipeline/L1W/tiles/npz` 不存在，
-只将第一次 `w000` 实验的 `tile_generation` 改为 `True`。生成完成后立即恢复
-为 `False`，后面三组实验必须复用完全相同的 tiles。
+`w000` 必须与 base-only 2D 聚类一致。四组配置默认 `tile_generation: False`，复用完全相同的 L1W tiles。
 
-融合权重选择规则：
+## 8. 第六步：Wytham 只运行一次
 
-1. 优先选择 detection F1 最高的权重；
-2. F1 相同时选择 Coverage 更高的权重；
-3. F1 和 Coverage 都相同时选择更小的权重。
-
-选定权重后先写入实验记录，再运行 Wytham。不能根据 Wytham 结果返回修改
-融合权重。
-
-## 6. 阶段 D：Wytham 最终测试
-
-在第一次运行 Wytham 之前，将 L1W 选出的唯一融合权重写入：
+将 L1W 选定的唯一权重写入：
 
 ```text
-configs/experiments/point_transformer/pipeline_wytham_axis_pt_final.yaml
+configs/experiments/point_transformer/pipeline_wytham_axis_pt_stem_final.yaml
 ```
 
-只允许修改：
+只修改：
 
 ```yaml
 grouping:
-  axis_fusion_weight: 选定的L1W权重
+  axis_fusion_weight: 选定权重
 ```
 
-不得修改其他 Wytham 参数。
-
-启动最终 pipeline：
+然后运行：
 
 ```bash
 nohup python -u tools/pipeline/pipeline.py \
-  --config configs/experiments/point_transformer/pipeline_wytham_axis_pt_final.yaml \
-  > logs/pipeline_wytham_axis_pt_final.log 2>&1 < /dev/null &
+  --config configs/experiments/point_transformer/pipeline_wytham_axis_pt_stem_final.yaml \
+  > logs/pipeline_wytham_axis_pt_stem_final.log 2>&1 < /dev/null &
 
-echo $! | tee logs/pipeline_wytham_axis_pt_final.pid
-tail -f logs/pipeline_wytham_axis_pt_final.log
+echo $! | tee logs/pipeline_wytham_axis_pt_stem_final.pid
+tail -f logs/pipeline_wytham_axis_pt_stem_final.log
 ```
 
-pipeline 完成后执行评估：
+完成后评估：
 
 ```bash
 python -u tools/evaluation/evaluate.py \
-  --config configs/experiments/point_transformer/evaluate_wytham_axis_pt_final.yaml \
-  2>&1 | tee logs/evaluate_wytham_axis_pt_final.log
+  --config configs/experiments/point_transformer/evaluate_wytham_axis_pt_stem_final.yaml \
+  2>&1 | tee logs/evaluate_wytham_axis_pt_stem_final.log
 ```
 
-当前 Wytham 官方参考结果：
+官方 A0 参考值：
 
-```text
-Detection F1：72.0%
-Coverage：    57.7%
-Precision：   62.5%
-Recall：      80.5%
-```
+| F1 | Precision | Recall | Coverage |
+|---:|---:|---:|---:|
+| 72.0% | 62.5% | 80.5% | 57.7% |
 
-只有满足以下任一条件，才继续进行论文消融：
+进入论文消融的门槛：
 
-- Detection F1 至少提升 0.5 个百分点；
-- Coverage 至少提升 1.0 个百分点，同时 Precision 下降不超过 1.0 个百分点。
+- F1 至少提升 0.5 个百分点；或
+- Coverage 至少提升 1.0 个百分点，且 Precision 下降不超过 1.0 个百分点。
 
-如果两个条件都不满足，应停止增加注意力模块，下一步改为重新设计 upper-anchor
-标签。
+## 9. 结果记录表
 
-## 7. 达标后进行最小消融
-
-只有 Wytham 的 go/no-go 测试成功后，才运行以下四组消融：
-
-1. 官方 base-only；
-2. `pipeline_l1w_axis_mlp_w025.yaml`；
-3. 选定融合权重的 Point Transformer；
-4. `pipeline_l1w_axis_pt_no_conf.yaml`。
-
-MLP 和关闭 Confidence 的评估 YAML 位于同一配置目录。
-
-如果 L1W 最终选出的权重不是 `0.25`，在运行消融前，需要将 MLP 和
-no-confidence 配置中的 `axis_fusion_weight` 同步改为已经锁定的权重。
-
-## 8. 实验结果记录
-
-训练完成后先填写以下信息，再分析结果：
-
-| 项目 | MLP | Point Transformer |
+| 项目 | Stem MLP | Stem PT |
 |---|---:|---:|
 | Git commit | | |
-| Checkpoint 路径 | | |
+| 最佳 checkpoint | | |
 | 最佳 epoch | | |
-| 验证集 Axis-XY 平均误差（m） | | |
-| 验证集 Axis-XY 中位误差（m） | | |
-| 验证集 Axis-XY P90 误差（m） | | |
-| Confidence 与误差相关系数 | | |
-| 冻结参数检查是否 PASS | | |
-| 峰值 GPU 显存 | | |
+| Mean error（m） | | |
+| Median error（m） | | |
+| P90 error（m） | | |
+| Target mean length（m） | | |
+| Normalized mean error | | |
+| Confidence/error correlation | | |
+| 冻结检查 | | |
+| GPU 与峰值显存 | | |
 
-实例分割结果记录：
+| L1W 权重 | Completeness | Commission | F1 | Precision | Recall | Coverage |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0 | | | | | | |
+| 0.1 | | | | | | |
+| 0.25 | | | | | | |
+| 0.5 | | | | | | |
 
-| 数据集/配置 | Completeness | Commission | F1 | Precision | Recall | Coverage |
-|---|---:|---:|---:|---:|---:|---:|
-| L1W weight 0 | | | | | | |
-| L1W weight 0.1 | | | | | | |
-| L1W weight 0.25 | | | | | | |
-| L1W weight 0.5 | | | | | | |
-| Wytham 官方 A0 | 64.8 | 18.9 | 72.0 | 62.5 | 80.5 | 57.7 |
-| Wytham Point Transformer | | | | | | |
-
-## 9. 常用故障排查
-
-判断训练是否仍在运行：
+## 10. 常用排查
 
 ```bash
 pgrep -af "[t]ools/training/train.py"
-```
-
-判断 pipeline 是否仍在运行：
-
-```bash
 pgrep -af "[t]ools/pipeline/pipeline.py"
-```
-
-查看内存和显存：
-
-```bash
 free -h
 nvidia-smi
+tail -n 100 logs/train_axis_pt_stem_axis.log
 ```
 
-查看最近日志：
-
-```bash
-tail -n 100 logs/train_axis_pt_frozen.log
-tail -n 100 logs/pipeline_wytham_axis_pt_final.log
-```
-
-如果出现 CUDA OOM，先将训练配置中的：
-
-```yaml
-model:
-  axis_query_chunk_size: 4096
-```
-
-当前 Point Transformer 配置已经使用 `batch_size: 1`。如果 4096 仍然 OOM，
-再改为 2048。不要先修改邻域数量、体素尺寸或网络维度，因为 query 分块不改变
-计算结果，而这些结构参数会使 MLP/PT 的对比协议发生变化。
+如果 PT 出现 CUDA OOM，只把 `axis_query_chunk_size` 从 `8192` 改为 `4096`，仍不足再改为 `2048`。不要先改邻居数、体素大小或隐藏维度，否则 MLP/PT 的对比协议会改变。

@@ -76,6 +76,7 @@ def validate(config, epoch, model, val_loader, logger, writer):
         upper_offset_predictions, upper_offset_labels = [], []
         axis_cosine_errors = []
         axis_xy_errors = []
+        axis_target_xy_lengths = []
         axis_confidences = []
         for batch in tqdm.tqdm(val_loader):
 
@@ -128,6 +129,9 @@ def validate(config, epoch, model, val_loader, logger, writer):
                         axis_xy_prediction[masks_axis_xy].float() -
                         target_axis_xy.float(),
                         dim=1).detach().cpu())
+                    axis_target_xy_lengths.append(
+                        torch.linalg.vector_norm(
+                            target_axis_xy.float(), dim=1).detach().cpu())
                     axis_confidences.append(
                         output['axis_confidence'][
                             masks_axis_xy, 0].detach().float().cpu())
@@ -144,20 +148,23 @@ def validate(config, epoch, model, val_loader, logger, writer):
         torch.cat(axis_cosine_errors, 0).mean() if axis_cosine_errors else None)
     if axis_xy_errors:
         axis_xy_errors = torch.cat(axis_xy_errors, 0)
+        axis_target_xy_lengths = torch.cat(axis_target_xy_lengths, 0)
         axis_confidences = torch.cat(axis_confidences, 0)
     else:
-        axis_xy_errors, axis_confidences = None, None
+        axis_xy_errors, axis_target_xy_lengths, axis_confidences = \
+            None, None, None
     # evaluate semantic and offset predictions
     return pointwise_eval(
         semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels,
         upper_offset_predictions, upper_offset_labels, axis_cosine_error,
-        config, epoch, writer, logger, axis_xy_errors, axis_confidences)
+        config, epoch, writer, logger, axis_xy_errors, axis_confidences,
+        axis_target_xy_lengths)
 
 
 def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels,
                    upper_offset_predictions, upper_offset_labels, axis_cosine_error,
                    config, epoch, writer, logger, axis_xy_errors=None,
-                   axis_confidences=None):
+                   axis_confidences=None, axis_target_xy_lengths=None):
     # get offset loss
     masks_sem = torch.ones_like(semantic_labels).bool()
     masks_off = semantic_labels == TREE_CLASS_IN_DATASET
@@ -207,6 +214,15 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
             'p90': float(np.percentile(errors_np, 90)),
         }
         if (
+            axis_target_xy_lengths is not None and
+            len(axis_target_xy_lengths) == len(axis_xy_errors)
+        ):
+            target_lengths_np = axis_target_xy_lengths.numpy()
+            target_mean_length = float(np.mean(target_lengths_np))
+            axis_metrics['target_mean_length'] = target_mean_length
+            axis_metrics['normalized_mean_error'] = (
+                axis_metrics['mean'] / max(target_mean_length, 1e-6))
+        if (
             len(errors_np) > 1 and
             np.std(errors_np) > 0 and
             np.std(confidences_np) > 0
@@ -221,6 +237,12 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
             f"val/axis_xy_p90_error {axis_metrics['p90']:.3f}, "
             'val/axis_confidence_error_corr '
             f"{axis_metrics['confidence_error_corr']:.3f}")
+        if 'target_mean_length' in axis_metrics:
+            log_str += (
+                ', val/axis_target_xy_mean_length '
+                f"{axis_metrics['target_mean_length']:.3f}, "
+                'val/axis_normalized_mean_error '
+                f"{axis_metrics['normalized_mean_error']:.3f}")
 
         confidence_order = np.argsort(confidences_np)
         confidence_bins = np.array_split(confidence_order, 4)
@@ -254,6 +276,13 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
         writer.add_scalar(
             'val/Axis_Confidence_Error_Correlation',
             axis_metrics['confidence_error_corr'], epoch)
+        if 'target_mean_length' in axis_metrics:
+            writer.add_scalar(
+                'val/Axis_Target_XY_Mean_Length',
+                axis_metrics['target_mean_length'], epoch)
+            writer.add_scalar(
+                'val/Axis_Normalized_Mean_Error',
+                axis_metrics['normalized_mean_error'], epoch)
     return axis_metrics
 
 

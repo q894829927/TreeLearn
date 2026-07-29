@@ -5,6 +5,14 @@ dataset_test:
   base_anchor_mode: 'robust' # use 'legacy' only for the separately reported original TreeLearn reference
   base_anchor_height: 0.5 # height in metres of the robust base-anchor band
   base_anchor_floor_quantile: 0.01 # robust lower-height estimate
+  upper_anchor_mode: 'crown_median' # crown_median preserves existing experiments; stem_axis fits the lower stem
   upper_anchor_lower_ratio: 0.55 # lower relative tree height of upper-anchor band
   upper_anchor_upper_ratio: 0.75 # upper relative tree height of upper-anchor band
   upper_anchor_min_points: 3 # minimum points required for upper-anchor supervision
+  stem_axis_lower_ratio: 0.10 # lower relative height used to fit the stem axis
+  stem_axis_upper_ratio: 0.50 # upper relative height used to fit the stem axis
+  stem_axis_num_bins: 4 # robust vertical bins used for fitting
+  stem_axis_verticality_threshold: 0.60 # retain stem-like points only
+  stem_axis_min_points_per_bin: 3
+  stem_axis_min_valid_bins: 3
+  upper_anchor_target_ratio: 0.65 # height to which the fitted stem axis is extrapolated

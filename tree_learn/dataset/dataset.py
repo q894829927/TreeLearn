@@ -20,9 +20,17 @@ class TreeDataset(Dataset):
                  base_anchor_mode='robust',
                  base_anchor_height=0.5,
                  base_anchor_floor_quantile=0.01,
+                 upper_anchor_mode='crown_median',
                  upper_anchor_lower_ratio=0.55,
                  upper_anchor_upper_ratio=0.75,
-                 upper_anchor_min_points=3):
+                 upper_anchor_min_points=3,
+                 stem_axis_lower_ratio=0.10,
+                 stem_axis_upper_ratio=0.50,
+                 stem_axis_num_bins=4,
+                 stem_axis_verticality_threshold=0.60,
+                 stem_axis_min_points_per_bin=3,
+                 stem_axis_min_valid_bins=3,
+                 upper_anchor_target_ratio=0.65):
 
         self.data_paths = sorted(os.path.join(data_root, path) for path in os.listdir(data_root))
         self.inner_square_edge_length = inner_square_edge_length
@@ -32,17 +40,50 @@ class TreeDataset(Dataset):
         self.base_anchor_mode = base_anchor_mode
         self.base_anchor_height = base_anchor_height
         self.base_anchor_floor_quantile = base_anchor_floor_quantile
+        self.upper_anchor_mode = upper_anchor_mode
         self.upper_anchor_lower_ratio = upper_anchor_lower_ratio
         self.upper_anchor_upper_ratio = upper_anchor_upper_ratio
         self.upper_anchor_min_points = upper_anchor_min_points
+        self.stem_axis_lower_ratio = stem_axis_lower_ratio
+        self.stem_axis_upper_ratio = stem_axis_upper_ratio
+        self.stem_axis_num_bins = stem_axis_num_bins
+        self.stem_axis_verticality_threshold = \
+            stem_axis_verticality_threshold
+        self.stem_axis_min_points_per_bin = \
+            stem_axis_min_points_per_bin
+        self.stem_axis_min_valid_bins = stem_axis_min_valid_bins
+        self.upper_anchor_target_ratio = upper_anchor_target_ratio
         if self.base_anchor_mode not in ('legacy', 'robust'):
             raise ValueError("base_anchor_mode must be either 'legacy' or 'robust'.")
+        if self.upper_anchor_mode not in ('crown_median', 'stem_axis'):
+            raise ValueError(
+                "upper_anchor_mode must be 'crown_median' or 'stem_axis'.")
         if not 0 <= self.base_anchor_floor_quantile < 0.5:
             raise ValueError('base_anchor_floor_quantile must be in [0, 0.5).')
         if not 0 <= self.upper_anchor_lower_ratio < self.upper_anchor_upper_ratio <= 1:
             raise ValueError('upper anchor ratios must satisfy 0 <= lower < upper <= 1.')
         if self.upper_anchor_min_points < 1:
             raise ValueError('upper_anchor_min_points must be positive.')
+        if not 0 <= self.stem_axis_lower_ratio < \
+                self.stem_axis_upper_ratio <= 1:
+            raise ValueError(
+                'stem-axis ratios must satisfy 0 <= lower < upper <= 1.')
+        if self.stem_axis_num_bins < 1:
+            raise ValueError('stem_axis_num_bins must be positive.')
+        if not 0 <= self.stem_axis_verticality_threshold <= 1:
+            raise ValueError(
+                'stem_axis_verticality_threshold must be in [0, 1].')
+        if self.stem_axis_min_points_per_bin < 1:
+            raise ValueError(
+                'stem_axis_min_points_per_bin must be positive.')
+        if not 2 <= self.stem_axis_min_valid_bins <= \
+                self.stem_axis_num_bins:
+            raise ValueError(
+                'stem_axis_min_valid_bins must be between 2 and '
+                'stem_axis_num_bins.')
+        if not 0 <= self.upper_anchor_target_ratio <= 1:
+            raise ValueError(
+                'upper_anchor_target_ratio must be in [0, 1].')
         mode = 'train' if training else 'test'
         self.logger.info(f'Load {mode} dataset: {len(self.data_paths)} scans')
 
@@ -76,7 +117,8 @@ class TreeDataset(Dataset):
 
         # Generate base- and upper-anchor offsets online from existing instance labels.
         pt_offset_label, upper_offset_label, mask_valid_offset, mask_valid_upper = \
-            self.getOffset(xyz, instance_label, semantic_label)
+            self.getOffset(
+                xyz, instance_label, semantic_label, input_feat=input_feat)
         
         # get masks for loss calculation
         mask_inner = self.get_mask_inner(xyz)
@@ -132,9 +174,85 @@ class TreeDataset(Dataset):
         return xyz
 
 
-    # B is a robust base anchor. U is a robust upper morphological anchor.
-    # The connection B -> U provides a compact tree-axis morphology target.
-    def getOffset(self, xyz, instance_label, semantic_label):
+    @staticmethod
+    def _theil_sen_line(values_z, values_xy):
+        """Fit x(z), y(z) from a few robust bin centres."""
+        slopes = []
+        for first in range(len(values_z)):
+            for second in range(first + 1, len(values_z)):
+                delta_z = values_z[second] - values_z[first]
+                if abs(delta_z) > 1e-6:
+                    slopes.append(
+                        (values_xy[second] - values_xy[first]) / delta_z)
+        if not slopes:
+            return None
+        slope = np.median(np.asarray(slopes), axis=0)
+        intercept = np.median(
+            values_xy - values_z[:, None] * slope[None, :], axis=0)
+        return slope, intercept
+
+
+    def _get_stem_axis_upper_anchor(
+            self, tree_points, tree_verticality, min_z, tree_height):
+        """Estimate a stable upper anchor by extrapolating a lower-stem axis."""
+        if tree_height <= 0 or tree_verticality is None:
+            return None, 0
+
+        relative_height = (tree_points[:, 2] - min_z) / tree_height
+        verticality = np.asarray(tree_verticality).reshape(-1)
+        candidate_mask = (
+            np.isfinite(verticality) &
+            (verticality >= self.stem_axis_verticality_threshold) &
+            (relative_height >= self.stem_axis_lower_ratio) &
+            (relative_height <= self.stem_axis_upper_ratio))
+
+        bin_edges = np.linspace(
+            self.stem_axis_lower_ratio,
+            self.stem_axis_upper_ratio,
+            self.stem_axis_num_bins + 1)
+        centre_heights = []
+        centre_xy = []
+        for bin_index in range(self.stem_axis_num_bins):
+            if bin_index == self.stem_axis_num_bins - 1:
+                height_mask = (
+                    (relative_height >= bin_edges[bin_index]) &
+                    (relative_height <= bin_edges[bin_index + 1]))
+            else:
+                height_mask = (
+                    (relative_height >= bin_edges[bin_index]) &
+                    (relative_height < bin_edges[bin_index + 1]))
+            points_in_bin = tree_points[candidate_mask & height_mask]
+            if len(points_in_bin) < self.stem_axis_min_points_per_bin:
+                continue
+            centre_heights.append(
+                np.median((points_in_bin[:, 2] - min_z) / tree_height))
+            centre_xy.append(np.median(points_in_bin[:, :2], axis=0))
+
+        num_valid_bins = len(centre_heights)
+        if num_valid_bins < self.stem_axis_min_valid_bins:
+            return None, num_valid_bins
+
+        centre_heights = np.asarray(centre_heights, dtype=np.float64)
+        centre_xy = np.asarray(centre_xy, dtype=np.float64)
+        fitted_line = self._theil_sen_line(centre_heights, centre_xy)
+        if fitted_line is None:
+            return None, num_valid_bins
+        slope, intercept = fitted_line
+
+        upper_anchor = np.empty(3, dtype=np.float32)
+        upper_anchor[:2] = (
+            intercept + slope * self.upper_anchor_target_ratio)
+        upper_anchor[2] = (
+            min_z + self.upper_anchor_target_ratio * tree_height)
+        if not np.isfinite(upper_anchor).all():
+            return None, num_valid_bins
+        return upper_anchor, num_valid_bins
+
+
+    # B is a robust base anchor. U is either a crown median or an extrapolated
+    # lower-stem axis anchor. B -> U is the tree-axis morphology target.
+    def getOffset(
+            self, xyz, instance_label, semantic_label, input_feat=None):
         base_position = np.zeros_like(xyz, dtype=np.float32)
         upper_position = np.zeros_like(xyz, dtype=np.float32)
         instances = np.unique(instance_label)
@@ -179,24 +297,52 @@ class TreeDataset(Dataset):
 
                 max_z = tree_points[:, 2].max()
                 tree_height = max_z - min_z
-                if tree_height > 0:
-                    relative_height = (tree_points[:, 2] - min_z) / tree_height
-                    mask_upper_band = (
-                        (relative_height >= self.upper_anchor_lower_ratio) &
-                        (relative_height <= self.upper_anchor_upper_ratio)
-                    )
-                    upper_points = tree_points[mask_upper_band]
+                if self.upper_anchor_mode == 'stem_axis':
+                    if input_feat is None:
+                        tree_verticality = None
+                    else:
+                        tree_features = input_feat[inst_idx]
+                        tree_verticality = (
+                            tree_features if tree_features.ndim == 1
+                            else tree_features[:, -1])
+                    upper_position_instance, _ = \
+                        self._get_stem_axis_upper_anchor(
+                            tree_points,
+                            tree_verticality,
+                            min_z,
+                            tree_height)
+                    if upper_position_instance is not None:
+                        mask_valid_upper[inst_idx] = True
                 else:
-                    upper_points = np.empty((0, 3), dtype=tree_points.dtype)
+                    if tree_height > 0:
+                        relative_height = (
+                            tree_points[:, 2] - min_z) / tree_height
+                        mask_upper_band = (
+                            (relative_height >=
+                             self.upper_anchor_lower_ratio) &
+                            (relative_height <=
+                             self.upper_anchor_upper_ratio)
+                        )
+                        upper_points = tree_points[mask_upper_band]
+                    else:
+                        upper_points = np.empty(
+                            (0, 3), dtype=tree_points.dtype)
 
-                if len(upper_points) >= self.upper_anchor_min_points:
-                    upper_position_instance = np.empty(3, dtype=np.float32)
-                    upper_position_instance[:2] = np.median(upper_points[:, :2], axis=0)
-                    upper_anchor_ratio = (
-                        self.upper_anchor_lower_ratio + self.upper_anchor_upper_ratio) / 2
-                    upper_position_instance[2] = min_z + upper_anchor_ratio * tree_height
-                    mask_valid_upper[inst_idx] = True
-                else:
+                    if len(upper_points) >= self.upper_anchor_min_points:
+                        upper_position_instance = np.empty(
+                            3, dtype=np.float32)
+                        upper_position_instance[:2] = np.median(
+                            upper_points[:, :2], axis=0)
+                        upper_anchor_ratio = (
+                            self.upper_anchor_lower_ratio +
+                            self.upper_anchor_upper_ratio) / 2
+                        upper_position_instance[2] = (
+                            min_z + upper_anchor_ratio * tree_height)
+                        mask_valid_upper[inst_idx] = True
+                    else:
+                        upper_position_instance = None
+
+                if upper_position_instance is None:
                     upper_position_instance = np.zeros(3, dtype=np.float32)
 
                 base_position[inst_idx] = base_position_instance
