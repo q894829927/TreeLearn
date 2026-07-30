@@ -10,6 +10,7 @@ from tree_learn.util import (checkpoint_save, init_train_logger, load_checkpoint
                             masked_offset_loss, point_wise_loss, get_eval_components,
                             build_dataloader, checkpoint_save_named)
 from tree_learn.model import TreeLearn
+from tree_learn.model.point_transformer import get_axis_branch_target_xy
 from tree_learn.dataset import TreeDataset
 
 TREE_CLASS_IN_DATASET = 0 # semantic label for tree class in pytorch dataset
@@ -116,15 +117,25 @@ def validate(config, epoch, model, val_loader, logger, writer):
                 candidate_mask = output['axis_candidate_mask']
                 masks_axis_xy = (
                     batch['masks_off'].to(candidate_mask.device) &
-                    batch['masks_upper'].to(candidate_mask.device) &
                     candidate_mask)
+                axis_target_mode = getattr(
+                    config.model, 'axis_target_mode', 'upper_axis')
+                if axis_target_mode == 'upper_axis':
+                    masks_axis_xy = (
+                        masks_axis_xy &
+                        batch['masks_upper'].to(candidate_mask.device))
                 if masks_axis_xy.sum() > 0:
-                    target_axis_xy = (
-                        batch['upper_offset_labels'][
-                            masks_axis_xy.cpu(), :2] -
-                        batch['offset_labels'][
-                            masks_axis_xy.cpu(), :2]).to(
-                                axis_xy_prediction.device)
+                    mask_cpu = masks_axis_xy.cpu()
+                    selected_upper_labels = (
+                        batch['upper_offset_labels'][mask_cpu].to(
+                            axis_xy_prediction.device)
+                        if axis_target_mode == 'upper_axis' else None)
+                    target_axis_xy = get_axis_branch_target_xy(
+                        offset_prediction[masks_axis_xy],
+                        batch['offset_labels'][mask_cpu].to(
+                            axis_xy_prediction.device),
+                        selected_upper_labels,
+                        axis_target_mode)
                     axis_xy_errors.append(torch.linalg.vector_norm(
                         axis_xy_prediction[masks_axis_xy].float() -
                         target_axis_xy.float(),
@@ -231,10 +242,19 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
                 np.corrcoef(confidences_np, errors_np)[0, 1])
         else:
             axis_metrics['confidence_error_corr'] = 0.0
+        metric_prefix = (
+            'base_residual_xy'
+            if getattr(
+                config.model, 'axis_target_mode', 'upper_axis') ==
+            'base_residual'
+            else 'axis_xy')
         log_str += (
-            f", val/axis_xy_mean_error {axis_metrics['mean']:.3f}, "
-            f"val/axis_xy_median_error {axis_metrics['median']:.3f}, "
-            f"val/axis_xy_p90_error {axis_metrics['p90']:.3f}, "
+            f", val/{metric_prefix}_mean_error "
+            f"{axis_metrics['mean']:.3f}, "
+            f"val/{metric_prefix}_median_error "
+            f"{axis_metrics['median']:.3f}, "
+            f"val/{metric_prefix}_p90_error "
+            f"{axis_metrics['p90']:.3f}, "
             'val/axis_confidence_error_corr '
             f"{axis_metrics['confidence_error_corr']:.3f}")
         if 'target_mean_length' in axis_metrics:
@@ -329,6 +349,12 @@ def main():
     # train and val
     logger.info('Training')
     best_axis_xy_mean = float('inf')
+    best_checkpoint_name = (
+        'best_base_residual_xy.pth'
+        if getattr(
+            config.model, 'axis_target_mode', 'upper_axis') ==
+        'base_residual'
+        else 'best_axis_xy.pth')
     for epoch in range(start_epoch, config.epochs + 1):
         train(config, epoch, model, optimizer, scheduler, scaler, train_loader, logger, writer)
         if is_multiple(epoch, config.validation_frequency):
@@ -344,9 +370,9 @@ def main():
                 best_axis_xy_mean = axis_metrics['mean']
                 checkpoint_save_named(
                     epoch, model, optimizer, config.work_dir,
-                    'best_axis_xy.pth')
+                    best_checkpoint_name)
                 logger.info(
-                    'Saved best_axis_xy.pth at epoch '
+                    f'Saved {best_checkpoint_name} at epoch '
                     f'{epoch} (mean XY error {best_axis_xy_mean:.3f} m)')
         writer.flush()
 

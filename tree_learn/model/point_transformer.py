@@ -5,6 +5,25 @@ import torch.nn as nn
 from torch.utils.checkpoint import checkpoint
 
 
+def get_axis_branch_target_xy(
+        offset_predictions, offset_labels, upper_offset_labels=None,
+        target_mode='upper_axis'):
+    """Build the 2D branch target without updating the frozen base head."""
+    if target_mode == 'base_residual':
+        return (
+            offset_labels[..., :2] -
+            offset_predictions.detach()[..., :2])
+    if target_mode == 'upper_axis':
+        if upper_offset_labels is None:
+            raise ValueError(
+                'upper_offset_labels are required for upper_axis targets.')
+        return (
+            upper_offset_labels[..., :2] -
+            offset_labels[..., :2])
+    raise ValueError(
+        "target_mode must be 'upper_axis' or 'base_residual'.")
+
+
 class LocalPointTransformerLayer(nn.Module):
     """A single Point Transformer layer over voxel-sampled local supports.
 

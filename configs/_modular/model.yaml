@@ -16,6 +16,7 @@ model:
   offset_loss_type: 'smooth_l1' # smooth_l1 for robustness; l2 reproduces the original loss
   smooth_l1_beta: 1.0 # transition point of Smooth L1
   use_axis_branch: False # enable the frozen-backbone Axis-XY/confidence branch
+  axis_target_mode: 'upper_axis' # upper_axis preserves old experiments; base_residual corrects the frozen base vote
   axis_branch_type: 'point_transformer' # point_transformer or mlp control
   axis_hidden_dim: 32
   axis_num_neighbors: 8

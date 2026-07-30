@@ -1,6 +1,119 @@
 # 冻结 TreeLearn 主干的 Point Transformer 树轴实验
 
-## 1. 当前结论
+## 0. 2026-07-30 当前结论与下一阶段
+
+下部树干 Axis-XY 在 L1W 上的融合权重实验已经完成：
+
+| 融合权重 | Detection F1 | Precision | Recall | Coverage |
+|---:|---:|---:|---:|---:|
+| 0 | 98.4227% | 98.915% | 99.070% | 98.023% |
+| 0.1 | 98.4227% | 98.907% | 99.064% | 98.010% |
+| 0.25 | 98.4227% | 98.894% | 99.056% | 97.991% |
+| 0.5 | 98.4227% | 98.867% | 99.038% | 97.949% |
+
+权重 `0` 胜出。直接把 base vote 沿 base→upper 轴线平移没有改变检测结果，
+并且随着权重增加，分割 Coverage 单调下降。因此：
+
+- 不使用 stem-axis 结果运行 Wytham；
+- 不再继续放大 axis 融合权重；
+- 不删除旧实验，保留为“直接树轴平移无效”的负结果；
+- 下一阶段改为预测冻结 base-offset 的 XY 残差。
+
+新目标为：
+
+```text
+base_residual_xy_target
+  = ground_truth_base_offset_xy - frozen_base_offset_prediction_xy
+
+refined_base_vote_xy
+  = point_xy
+  + frozen_base_offset_prediction_xy
+  + fusion_weight × confidence × predicted_base_residual_xy
+```
+
+这样 Point Transformer 学习的是“把已有 base vote 拉回真实树基位置”，而不是把
+base vote 推向树冠或上部树干。旧配置默认
+`axis_target_mode: upper_axis`，新配置显式使用
+`axis_target_mode: base_residual`，两类实验互不影响。
+
+### 0.1 现在只运行 MLP 控制组
+
+先同步本次代码，然后在服务器仓库根目录运行：
+
+```bash
+conda activate TreeLearn
+mkdir -p logs
+
+nohup python -u tools/training/train.py \
+  --config configs/experiments/point_transformer/train_base_residual_mlp_frozen.yaml \
+  --work_dir base_residual_mlp_frozen \
+  > logs/train_base_residual_mlp_frozen.log 2>&1 < /dev/null &
+
+echo $! | tee logs/train_base_residual_mlp_frozen.pid
+tail -f logs/train_base_residual_mlp_frozen.log
+```
+
+训练时检查：
+
+```bash
+grep "base_residual_xy_mean_error" \
+  logs/train_base_residual_mlp_frozen.log
+
+grep "Saved best_base_residual_xy" \
+  logs/train_base_residual_mlp_frozen.log
+
+python tools/diagnostics/verify_axis_checkpoint.py \
+  --reference data/model_weights/model_weights_with_small_20241213.pth \
+  --candidate work_dirs/base_residual_mlp_frozen/best_base_residual_xy.pth
+```
+
+此前同一验证集上冻结 base head 的 XY 平均误差约为 `0.333 m`。MLP 只有同时满足
+以下条件才算通过：
+
+1. 最佳 Mean `< 0.333 m`；
+2. 推荐门槛为 Mean `<= 0.316 m`，即至少降低约 5%；
+3. P90 不高于未校正 base head；
+4. checkpoint 冻结检查输出 `PASS`。
+
+如果 MLP 连 `0.333 m` 都无法低于，立即停止，不训练 PT，也不跑 L1W/Wytham。
+
+### 0.2 MLP 通过后再运行 Point Transformer
+
+```bash
+nohup env PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128 \
+  python -u tools/training/train.py \
+  --config configs/experiments/point_transformer/train_base_residual_pt_frozen.yaml \
+  --work_dir base_residual_pt_frozen \
+  > logs/train_base_residual_pt_frozen.log 2>&1 < /dev/null &
+
+echo $! | tee logs/train_base_residual_pt_frozen.pid
+tail -f logs/train_base_residual_pt_frozen.log
+```
+
+训练完成后：
+
+```bash
+grep "base_residual_xy_mean_error" \
+  logs/train_base_residual_pt_frozen.log
+
+grep "Saved best_base_residual_xy" \
+  logs/train_base_residual_pt_frozen.log
+
+python tools/diagnostics/verify_axis_checkpoint.py \
+  --reference data/model_weights/model_weights_with_small_20241213.pth \
+  --candidate work_dirs/base_residual_pt_frozen/best_base_residual_xy.pth
+```
+
+PT 必须满足：
+
+1. Mean 比 MLP 最佳 Mean 至少降低 2%；理想门槛为 5%；
+2. P90 不恶化；
+3. 冻结检查输出 `PASS`。
+
+只有 PT 通过后才生成 L1W 的残差融合权重配置，并测试
+`{0, 0.5, 1.0, 1.5}`。权重在 L1W 锁定后，Wytham 仍只运行一次。
+
+## 1. 历史结论：冠层与下部树干 Axis-XY
 
 旧冠层锚点实验已经完成：
 

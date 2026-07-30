@@ -5,7 +5,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from spconv.pytorch.utils import PointToVoxel
 from .blocks import MLP, ResidualBlock, UBlock
-from .point_transformer import LocalPointTransformerLayer
+from .point_transformer import (
+    LocalPointTransformerLayer,
+    get_axis_branch_target_xy,
+)
 from tree_learn.util.train import cuda_cast, masked_offset_loss, point_wise_loss
 
 LOSS_MULTIPLIER_SEMANTIC = 50 # multiply semantic loss for similar magnitude with offset loss
@@ -40,6 +43,7 @@ class TreeLearn(nn.Module):
                  axis_log_variance_min=-4.0,
                  axis_log_variance_max=4.0,
                  axis_branch_only=True,
+                 axis_target_mode='upper_axis',
                  axis_loss_mode='heteroscedastic',
                  axis_confidence_loss_weight=0.1,
                  **kwargs):
@@ -62,6 +66,7 @@ class TreeLearn(nn.Module):
         self.axis_log_variance_min = axis_log_variance_min
         self.axis_log_variance_max = axis_log_variance_max
         self.axis_branch_only = axis_branch_only
+        self.axis_target_mode = axis_target_mode
         self.axis_loss_mode = axis_loss_mode
         self.axis_confidence_loss_weight = axis_confidence_loss_weight
 
@@ -75,6 +80,9 @@ class TreeLearn(nn.Module):
         if axis_loss_mode not in ('heteroscedastic', 'decoupled'):
             raise ValueError(
                 "axis_loss_mode must be 'heteroscedastic' or 'decoupled'.")
+        if axis_target_mode not in ('upper_axis', 'base_residual'):
+            raise ValueError(
+                "axis_target_mode must be 'upper_axis' or 'base_residual'.")
         if axis_confidence_loss_weight < 0:
             raise ValueError(
                 'axis_confidence_loss_weight must be non-negative.')
@@ -321,15 +329,21 @@ class TreeLearn(nn.Module):
             axis_predictions = model_output['axis_xy_predictions'].float()
             axis_log_variance = model_output['axis_log_variance'].float()
             candidate_mask = model_output['axis_candidate_mask']
-            masks_axis = masks_off if masks_upper is None else (
-                masks_off & masks_upper)
+            if self.axis_target_mode == 'base_residual':
+                masks_axis = masks_off
+            else:
+                masks_axis = masks_off if masks_upper is None else (
+                    masks_off & masks_upper)
             masks_axis = masks_axis.to(candidate_mask.device) & candidate_mask
             branch_zero = sum(
                 parameter.sum() * 0
                 for name, parameter in self.named_parameters()
                 if name.startswith('axis_'))
             if (
-                upper_offset_labels is None or
+                (
+                    self.axis_target_mode == 'upper_axis' and
+                    upper_offset_labels is None
+                ) or
                 offset_labels is None or
                 masks_axis.sum() == 0
             ):
@@ -339,11 +353,15 @@ class TreeLearn(nn.Module):
                 else:
                     loss_dict['axis_xy_loss'] = branch_zero
             else:
-                target_axis_xy = (
-                    upper_offset_labels[masks_axis, :2].to(
-                        axis_predictions.device) -
-                    offset_labels[masks_axis, :2].to(
-                        axis_predictions.device))
+                selected_upper_labels = (
+                    upper_offset_labels[masks_axis].to(
+                        axis_predictions.device)
+                    if upper_offset_labels is not None else None)
+                target_axis_xy = get_axis_branch_target_xy(
+                    offset_predictions[masks_axis],
+                    offset_labels[masks_axis].to(axis_predictions.device),
+                    selected_upper_labels,
+                    self.axis_target_mode)
                 point_error = F.smooth_l1_loss(
                     axis_predictions[masks_axis],
                     target_axis_xy.float(),

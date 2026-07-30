@@ -14,6 +14,8 @@ POINT_TRANSFORMER_MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(POINT_TRANSFORMER_MODULE)
 LocalPointTransformerLayer = \
     POINT_TRANSFORMER_MODULE.LocalPointTransformerLayer
+get_axis_branch_target_xy = \
+    POINT_TRANSFORMER_MODULE.get_axis_branch_target_xy
 AXIS_MODULE_PATH = REPO_ROOT / 'tree_learn' / 'util' / 'axis.py'
 AXIS_SPEC = importlib.util.spec_from_file_location(
     'axis_fusion_standalone', AXIS_MODULE_PATH)
@@ -130,6 +132,34 @@ class AxisFusionTests(unittest.TestCase):
             axis_fusion_weight=0.25,
             use_axis_confidence=False)
         np.testing.assert_array_equal(fused, axis * 0.25)
+
+
+class AxisTargetTests(unittest.TestCase):
+
+    def test_base_residual_target_corrects_frozen_vote(self):
+        prediction = torch.tensor([
+            [0.5, -0.5, 1.0],
+            [1.0, 2.0, 3.0],
+        ], requires_grad=True)
+        label = torch.tensor([
+            [0.75, -0.25, 1.0],
+            [0.5, 2.5, 3.0],
+        ])
+        residual = get_axis_branch_target_xy(
+            prediction, label, target_mode='base_residual')
+        torch.testing.assert_close(
+            prediction[:, :2] + residual,
+            label[:, :2])
+        self.assertFalse(residual.requires_grad)
+
+    def test_upper_axis_target_is_unchanged(self):
+        base = torch.tensor([[1.0, 2.0, 3.0]])
+        upper = torch.tensor([[4.0, 6.0, 8.0]])
+        prediction = torch.zeros_like(base)
+        target = get_axis_branch_target_xy(
+            prediction, base, upper, target_mode='upper_axis')
+        torch.testing.assert_close(
+            target, torch.tensor([[3.0, 4.0]]))
 
 
 if __name__ == '__main__':
