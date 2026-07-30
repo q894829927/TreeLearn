@@ -77,6 +77,40 @@ python tools/diagnostics/verify_axis_checkpoint.py \
 
 如果 MLP 连 `0.333 m` 都无法低于，立即停止，不训练 PT，也不跑 L1W/Wytham。
 
+本次 MLP 的最佳结果出现在 epoch 15：
+
+| Mean | Median | P90 | Confidence/Error correlation |
+|---:|---:|---:|---:|
+| 0.332 m | 0.233 m | 0.545 m | -0.287 |
+
+Mean 相对 base-only 只改善约 0.3%，没有达到 5% 门槛。不过置信度分桶显示最高
+置信度组误差为 0.206 m、最低置信度组为 0.526 m，因此在最终停止前，只对现有
+checkpoint 做一次门控残差诊断，不重新训练：
+
+```bash
+python tools/diagnostics/evaluate_base_residual_fusion.py \
+  --config configs/experiments/point_transformer/train_base_residual_mlp_frozen.yaml \
+  --checkpoint work_dirs/base_residual_mlp_frozen/best_base_residual_xy.pth \
+  --weights 0 0.25 0.5 0.75 1.0 1.5 \
+  --output logs/base_residual_mlp_fusion.json \
+  2>&1 | tee logs/base_residual_mlp_fusion.log
+```
+
+该工具直接计算：
+
+```text
+error(weight)
+  = || target_base_residual
+       - weight × confidence × predicted_base_residual ||
+```
+
+判断规则：
+
+- 最佳门控 Mean 相对 `weight=0` 改善不足 1%：停止残差路线；
+- 改善 1%～5%：暂不跑 PT，先检查误差按树高、树大小的分层分布；
+- 改善至少 5% 且 P90 不恶化：才运行 PT；
+- 这一步仍然只使用 323 个验证 tiles，不运行 L1W 或 Wytham。
+
 ### 0.2 MLP 通过后再运行 Point Transformer
 
 ```bash
