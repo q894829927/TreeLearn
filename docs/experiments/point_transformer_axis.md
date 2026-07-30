@@ -293,6 +293,46 @@ Coverage `57.7%`。进入论文主结果的门槛为：
 - F1 至少达到 `72.5%`；或者
 - Coverage 至少达到 `58.7%`，且 Precision 不低于 `61.5%`。
 
+实际 `t080` Wytham 结果未通过：
+
+| 方法 | Completeness | Commission | F1 | Precision | Recall | Coverage |
+|---|---:|---:|---:|---:|---:|---:|
+| 官方 A0（历史结果） | 64.8% | 18.9% | 72.0% | 62.5% | 80.5% | 57.7% |
+| Seed confidence t080 | 57.5% | 11.1% | 69.8% | 54.1% | 81.1% | 52.0% |
+
+日志显示同一个 `0.80` 绝对阈值在 L1W 保留 78.23% seeds，在 Wytham 只保留
+48.24%，存在约 30 个百分点的跨域置信度校准漂移。不得继续在 Wytham 扫描
+其他绝对阈值。
+
+为排除历史 A0 来自另一台服务器、代码版本或数据副本差异，运行一个同环境
+`t000` 控制。它使用相同 MLP checkpoint，但阈值 0 精确保留全部 seeds：
+
+```bash
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/point_transformer/pipeline_wytham_seed_conf_t000_control.yaml \
+  > logs/pipeline_wytham_seed_conf_t000_control.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/point_transformer/evaluate_wytham_seed_conf_t000_control.yaml \
+  > logs/evaluate_wytham_seed_conf_t000_control.log 2>&1
+' > logs/wytham_seed_conf_t000_control_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/wytham_seed_conf_t000_control.pid
+tail -f logs/wytham_seed_conf_t000_control_runner.log
+```
+
+控制组只用于验证因果关系，不用于选择新阈值：
+
+- 若 `t000` 复现 A0，则确认 `t080` 的下降来自跨域过度筛选；
+- 若 `t000` 也明显低于 A0，先核对 Git commit、输入森林、GT 和 checkpoint
+  SHA256，不进行方法比较；
+- 后续方案改为由 L1W 决定固定 seed 保留比例，而不是固定 confidence 数值；
+- Wytham 已经被查看，后续如基于此失败修改方法，必须使用另一个未见外部数据集
+  作为正式最终测试。
+
 ### 0.3 历史备用方案：MLP 通过后训练 Point Transformer
 
 ```bash
