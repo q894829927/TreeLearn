@@ -19,3 +19,24 @@ def get_axis_fused_features(
     return (
         base_votes +
         axis_fusion_weight * confidence * np.asarray(axis_xy))
+
+
+def filter_base_seeds_by_confidence(
+        base_seed_mask, axis_confidence=None, enabled=False,
+        threshold=0.0):
+    """Optionally retain only base seeds whose learned confidence is high."""
+    base_seed_mask = np.asarray(base_seed_mask, dtype=bool)
+    if not enabled:
+        return base_seed_mask
+    if axis_confidence is None:
+        raise ValueError(
+            'axis_confidence is required when seed confidence filtering '
+            'is enabled.')
+    if not 0.0 <= threshold <= 1.0:
+        raise ValueError(
+            'seed_confidence_threshold must be between 0 and 1.')
+    confidence = np.asarray(axis_confidence).reshape(-1)
+    if len(confidence) != len(base_seed_mask):
+        raise ValueError(
+            'axis_confidence and base_seed_mask must have the same length.')
+    return base_seed_mask & (confidence >= threshold)

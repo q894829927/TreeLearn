@@ -1,0 +1,23 @@
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: True
+  axis_target_mode: 'base_residual'
+  axis_branch_type: 'mlp'
+  axis_hidden_dim: 32
+  axis_tree_conf_thresh: 0.5
+  axis_branch_only: True
+  offset_loss_type: 'l2'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+grouping:
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_upper_seeds: False
+  use_axis_fusion: False
+  axis_fusion_weight: 0.0
+  use_axis_confidence: True
+  use_seed_confidence_filter: True
+  seed_confidence_threshold: 0.0

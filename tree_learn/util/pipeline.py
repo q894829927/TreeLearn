@@ -15,7 +15,10 @@ from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
 from scipy import stats
 from sklearn.cluster import DBSCAN, HDBSCAN
 from tree_learn.util.data_preparation import voxelize, compute_features, load_data, SampleGenerator
-from tree_learn.util.axis import get_axis_fused_features
+from tree_learn.util.axis import (
+    filter_base_seeds_by_confidence,
+    get_axis_fused_features,
+)
 
 
 N_JOBS = 10 # number of threads/processes to use for several functions that have multiprocessing/multithreading enabled
@@ -266,6 +269,22 @@ def get_instances(coords, offset, upper_offset, semantic_prediction_logits, grou
         upper_seed_mask = np.zeros_like(base_seed_mask)
     base_seed_mask &= tree_mask
     upper_seed_mask &= tree_mask
+    num_base_seeds_before_confidence = int(base_seed_mask.sum())
+    use_seed_confidence_filter = bool(getattr(
+        grouping_cfg, 'use_seed_confidence_filter', False))
+    seed_confidence_threshold = float(getattr(
+        grouping_cfg, 'seed_confidence_threshold', 0.0))
+    base_seed_mask = filter_base_seeds_by_confidence(
+        base_seed_mask,
+        axis_confidence=axis_confidence,
+        enabled=use_seed_confidence_filter,
+        threshold=seed_confidence_threshold)
+    if use_seed_confidence_filter and logger is not None:
+        logger.info(
+            'Confidence-filtered base seeds from '
+            f'{num_base_seeds_before_confidence:,} to '
+            f'{base_seed_mask.sum():,} '
+            f'(threshold: {seed_confidence_threshold:.2f})')
     mask_cluster = base_seed_mask | upper_seed_mask
     ind_cluster = np.where(mask_cluster)[0]
 

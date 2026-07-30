@@ -22,6 +22,8 @@ AXIS_SPEC = importlib.util.spec_from_file_location(
 AXIS_MODULE = importlib.util.module_from_spec(AXIS_SPEC)
 AXIS_SPEC.loader.exec_module(AXIS_MODULE)
 get_axis_fused_features = AXIS_MODULE.get_axis_fused_features
+filter_base_seeds_by_confidence = \
+    AXIS_MODULE.filter_base_seeds_by_confidence
 
 
 class LocalPointTransformerTests(unittest.TestCase):
@@ -132,6 +134,38 @@ class AxisFusionTests(unittest.TestCase):
             axis_fusion_weight=0.25,
             use_axis_confidence=False)
         np.testing.assert_array_equal(fused, axis * 0.25)
+
+    def test_disabled_seed_filter_is_exact_noop(self):
+        seed_mask = np.array([True, False, True, True])
+        filtered = filter_base_seeds_by_confidence(
+            seed_mask, axis_confidence=None, enabled=False, threshold=0.75)
+        np.testing.assert_array_equal(filtered, seed_mask)
+
+    def test_seed_filter_applies_confidence_threshold(self):
+        seed_mask = np.array([True, False, True, True])
+        confidence = np.array([[0.9], [0.9], [0.65], [0.75]])
+        filtered = filter_base_seeds_by_confidence(
+            seed_mask,
+            axis_confidence=confidence,
+            enabled=True,
+            threshold=0.75)
+        np.testing.assert_array_equal(
+            filtered, np.array([True, False, False, True]))
+
+    def test_zero_seed_threshold_is_exact_baseline(self):
+        seed_mask = np.array([True, False, True, True])
+        confidence = np.array([0.01, 0.25, 0.5, 1.0])
+        filtered = filter_base_seeds_by_confidence(
+            seed_mask,
+            axis_confidence=confidence,
+            enabled=True,
+            threshold=0.0)
+        np.testing.assert_array_equal(filtered, seed_mask)
+
+    def test_seed_filter_requires_confidence(self):
+        with self.assertRaisesRegex(ValueError, 'axis_confidence'):
+            filter_base_seeds_by_confidence(
+                np.array([True]), enabled=True, threshold=0.5)
 
 
 class AxisTargetTests(unittest.TestCase):

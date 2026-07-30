@@ -9,6 +9,8 @@ grouping: # see paper for details on these hyperparameters
   use_axis_fusion: False # use confidence-gated Axis-XY 2D votes instead of dual-anchor features
   axis_fusion_weight: 0.0 # 0 exactly recovers base-only XY votes
   use_axis_confidence: True # set False only for the post-success confidence ablation
+  use_seed_confidence_filter: False # optionally filter only initial base seeds; remaining tree points are still assigned normally
+  seed_confidence_threshold: 0.0 # confidence threshold in [0, 1]; ignored unless filtering is enabled
   max_cluster_seed_points: 500000 # fail fast instead of launching an accidental multi-hour global clustering job
   knn_chunk_size: 200000 # bound memory while assigning non-seed tree points
   tau_group: 0.15 # grouping radius of offset-shifted coordinates for clustering

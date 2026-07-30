@@ -111,7 +111,108 @@ error(weight)
 - 改善至少 5% 且 P90 不恶化：才运行 PT；
 - 这一步仍然只使用 323 个验证 tiles，不运行 L1W 或 Wytham。
 
-### 0.2 MLP 通过后再运行 Point Transformer
+实际门控结果为：
+
+| Base Mean | 最佳门控 Mean | 最佳权重 | 相对改善 |
+|---:|---:|---:|---:|
+| 0.333029 m | 0.330855 m | 1.0 | 0.653% |
+
+该结果低于 1% 门槛，因此停止 residual vote 修正，不运行 residual PT。
+
+### 0.2 下一阶段：置信度引导的 base-seed 筛选
+
+残差方向本身不足以修改 vote，但 confidence 与误差具有稳定负相关。新阶段保持
+base vote、HDBSCAN 和剩余点分配不变，只筛选初始 base seeds：
+
+```text
+semantic tree
+  ∩ verticality > 0.6
+  ∩ |base offset-z| < 4
+        ↓
+confidence >= threshold
+        ↓
+HDBSCAN
+        ↓
+所有未分配树点照常最近邻分配
+```
+
+首先重新运行验证诊断，新增参数只统计实际 base seeds：
+
+```bash
+python tools/diagnostics/evaluate_base_residual_fusion.py \
+  --config configs/experiments/point_transformer/train_base_residual_mlp_frozen.yaml \
+  --checkpoint work_dirs/base_residual_mlp_frozen/best_base_residual_xy.pth \
+  --weights 0 1 \
+  --seed_confidence_thresholds 0 0.5 0.65 0.75 \
+  --tree_conf_thresh 0.5 \
+  --tau_vert 0.6 \
+  --tau_off 4 \
+  --output logs/base_seed_confidence_diagnostic.json \
+  2>&1 | tee logs/base_seed_confidence_diagnostic.log
+```
+
+查看 seed 结果：
+
+```bash
+python - <<'PY'
+import json
+
+with open(
+    "logs/base_seed_confidence_diagnostic.json",
+    encoding="utf-8",
+) as file:
+    result = json.load(file)["actual_base_seeds"]
+
+print("seed count:", result["count"])
+print("confidence/error corr:", result["confidence_error_corr"])
+for threshold, metrics in result["thresholds"].items():
+    print(
+        threshold,
+        "retained:", f'{100 * metrics["retained_rate"]:.2f}%',
+        "mean:", metrics["mean_base_xy_error"],
+        "p90:", metrics["p90_base_xy_error"],
+    )
+PY
+```
+
+只有同时满足以下条件才运行 L1W：
+
+1. seed confidence/error correlation `<= -0.15`；
+2. 至少一个非零阈值保留 `>= 25%` 的 seeds；
+3. 该阈值下 seed Mean error 相对阈值 0 降低 `>= 15%`。
+
+通过后依次运行阈值 `0、0.5、0.65、0.75`：
+
+```bash
+nohup bash -c '
+set -e
+
+for threshold in 000 050 065 075; do
+  echo "===== START pipeline t${threshold} $(date) ====="
+
+  python -u tools/pipeline/pipeline.py \
+    --config configs/experiments/point_transformer/pipeline_l1w_seed_conf_t${threshold}.yaml \
+    > logs/pipeline_l1w_seed_conf_t${threshold}.log 2>&1
+
+  echo "===== START evaluation t${threshold} $(date) ====="
+
+  python -u tools/evaluation/evaluate.py \
+    --config configs/experiments/point_transformer/evaluate_l1w_seed_conf_t${threshold}.yaml \
+    > logs/evaluate_l1w_seed_conf_t${threshold}.log 2>&1
+
+  echo "===== FINISHED t${threshold} $(date) ====="
+done
+' > logs/l1w_seed_conf_sweep.log 2>&1 < /dev/null &
+
+echo $! | tee logs/l1w_seed_conf_sweep.pid
+tail -f logs/l1w_seed_conf_sweep.log
+```
+
+`t000` 必须逐项复现 base-only 结果。候选阈值按 Detection F1、Coverage、较小
+阈值的顺序选择。只有 L1W 的 F1 至少提升 0.1 个百分点，或者 Coverage 至少提升
+0.2 个百分点且 F1 不下降，才准备一次 Wytham 最终测试。
+
+### 0.3 历史备用方案：MLP 通过后训练 Point Transformer
 
 ```bash
 nohup env PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128 \

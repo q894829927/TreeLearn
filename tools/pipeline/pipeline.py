@@ -11,6 +11,7 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              propagate_preds, save_treewise, load_data, save_data, make_labels_consecutive, 
                              get_config, generate_tiles, assign_remaining_points_nearest_neighbor,
                              get_pointwise_preds, get_instances, get_dual_anchor_features,
+                             filter_base_seeds_by_confidence,
                              get_axis_fused_features,
                              propagate_preds_hash_full, propagate_preds_hash_vox)
 
@@ -204,7 +205,15 @@ def run_treelearn_pipeline(config, config_path=None):
         else:
             upper_seed_mask = np.zeros_like(base_seed_mask)
         sem_mask = instance_preds != NON_TREES_LABEL_IN_GROUPING
-        mask = (base_seed_mask | upper_seed_mask) & sem_mask
+        base_seed_mask &= sem_mask
+        base_seed_mask = filter_base_seeds_by_confidence(
+            base_seed_mask,
+            axis_confidence=axis_confidence,
+            enabled=bool(getattr(
+                config.grouping, 'use_seed_confidence_filter', False)),
+            threshold=float(getattr(
+                config.grouping, 'seed_confidence_threshold', 0.0)))
+        mask = base_seed_mask | (upper_seed_mask & sem_mask)
         cluster_coords = coords[mask] + offset_predictions[mask]
         cluster_coords = np.hstack([cluster_coords, instance_preds[mask].reshape(-1, 1)])
         save_data(cluster_coords, 'laz', 'cluster_coords_initial', pointwise_dir)
