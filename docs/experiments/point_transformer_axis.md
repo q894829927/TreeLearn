@@ -225,6 +225,74 @@ tail -f logs/l1w_seed_conf_sweep.log
 提升 0.1 个百分点，或者 Coverage 至少提升 0.2 个百分点且 F1 不下降，才准备
 一次 Wytham 最终测试。
 
+实际 L1W 结果：
+
+| 阈值 | Completeness | Commission | F1 | Precision | Recall | Coverage |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0 | 100.0% | 3.1% | 98.4% | 98.9% | 99.1% | 98.0% |
+| 0.80 | 99.4% | 0.0% | 99.7% | 98.5% | 99.2% | 97.7% |
+| 0.825 | 96.2% | 0.0% | 98.0% | 95.2% | 99.1% | 94.4% |
+| 0.85 | 67.3% | 6.2% | 78.4% | 71.4% | 99.1% | 70.9% |
+
+锁定 `0.80`。它将 Commission 从 3.1% 降到 0%，Detection F1 提升约 1.3 个
+百分点；之后不允许根据 Wytham 结果修改 threshold。
+
+运行前检查：
+
+```bash
+python - <<'PY'
+from tree_learn.util import get_config
+
+path = (
+    "configs/experiments/point_transformer/"
+    "pipeline_wytham_seed_conf_t080_final.yaml"
+)
+cfg = get_config(path)
+print("checkpoint:", cfg.pretrain)
+print("threshold:", cfg.grouping.seed_confidence_threshold)
+print("seed filter:", cfg.grouping.use_seed_confidence_filter)
+print("axis fusion:", cfg.grouping.use_axis_fusion)
+print("tile generation:", cfg.tile_generation)
+print("results:", cfg.save_cfg.results_dir)
+PY
+
+test -f data/pipeline/wytham/forest/wytham_vox0.1.laz
+test -f data/benchmark/wytham_vox0.1.laz
+test -f work_dirs/base_residual_mlp_frozen/best_base_residual_xy.pth
+git rev-parse HEAD
+sha256sum work_dirs/base_residual_mlp_frozen/best_base_residual_xy.pth
+```
+
+最终 Wytham pipeline 和 evaluation 只运行一次：
+
+```bash
+nohup bash -c '
+set -e
+echo "===== START Wytham pipeline $(date) ====="
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/point_transformer/pipeline_wytham_seed_conf_t080_final.yaml \
+  > logs/pipeline_wytham_seed_conf_t080_final.log 2>&1
+
+echo "===== START Wytham evaluation $(date) ====="
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/point_transformer/evaluate_wytham_seed_conf_t080_final.yaml \
+  > logs/evaluate_wytham_seed_conf_t080_final.log 2>&1
+
+echo "===== FINISHED Wytham $(date) ====="
+' > logs/wytham_seed_conf_t080_final_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/wytham_seed_conf_t080_final.pid
+tail -f logs/wytham_seed_conf_t080_final_runner.log
+```
+
+官方 A0 参考为 F1 `72.0%`、Precision `62.5%`、Recall `80.5%`、
+Coverage `57.7%`。进入论文主结果的门槛为：
+
+- F1 至少达到 `72.5%`；或者
+- Coverage 至少达到 `58.7%`，且 Precision 不低于 `61.5%`。
+
 ### 0.3 历史备用方案：MLP 通过后训练 Point Transformer
 
 ```bash
