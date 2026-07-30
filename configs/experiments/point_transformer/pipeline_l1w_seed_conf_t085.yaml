@@ -1,0 +1,13 @@
+default_args:
+  - "configs/experiments/point_transformer/_pipeline_base_residual_mlp_seed_common.yaml"
+  - "configs/_modular/sample_generation.yaml"
+  - "configs/_modular/model.yaml"
+  - "configs/_modular/grouping.yaml"
+  - "configs/_modular/dataset_test.yaml"
+  - "configs/experiments/point_transformer/_pipeline_l1w_axis_common.yaml"
+
+grouping:
+  seed_confidence_threshold: 0.85
+pretrain: 'work_dirs/base_residual_mlp_frozen/best_base_residual_xy.pth'
+save_cfg:
+  results_dir: 'results_seed_conf_t085'
