@@ -836,3 +836,16 @@ done
 - 差距在 0.1–0.2 个百分点：结果边界，补做一次“保留最低 confidence 的 78%”反向对照后再判断。
 
 随机对照没有通过前，不在 Wytham 上重复随机实验，也不继续增加 Point Transformer 模块。若通过，再把 confidence r078 作为当前候选方法，并在一个新的、未用于调参的带真值数据集上完成最终测试。
+
+## 12. MLP 训练随机种子复现
+
+PT Top-78% 在 L1W 上得到 F1 98.4%、Commission 0.7%、Coverage 95.5%，明显低于 MLP Top-78% 的 F1 99.7%、Commission 0%、Coverage 97.7%，因此停止 PT 路线。
+
+锁定 MLP、Top-78% 和全部聚类参数，不再调参。使用训练随机种子 43、44 重复训练，并分别运行：
+
+- `train_base_residual_mlp_frozen_s43.yaml`；
+- `train_base_residual_mlp_frozen_s44.yaml`；
+- `pipeline_l1w_seed_ratio_mlp_s43_r078.yaml`；
+- `pipeline_l1w_seed_ratio_mlp_s44_r078.yaml`。
+
+三个训练种子的 L1W F1 均值应明显高于 random-78% 的 98.8%，且至少两次运行的 Commission 不超过 1.0%，才能把 MLP confidence Top-78% 锁定为最终方法。复现完成前不再运行 Wytham。

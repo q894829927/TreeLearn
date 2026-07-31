@@ -1,0 +1,59 @@
+# Random-seed replication of the frozen base-residual MLP control.
+default_args:
+  - configs/_modular/model.yaml
+  - configs/_modular/dataset_train.yaml
+  - configs/_modular/dataset_test.yaml
+
+seed: 43
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: True
+  axis_target_mode: 'base_residual'
+  axis_branch_type: 'mlp'
+  axis_hidden_dim: 32
+  axis_tree_conf_thresh: 0.5
+  axis_loss_weight: 1.0
+  axis_log_variance_min: -4.0
+  axis_log_variance_max: 4.0
+  axis_branch_only: True
+  axis_loss_mode: 'heteroscedastic'
+  offset_loss_type: 'l2'
+  smooth_l1_beta: 1.0
+
+dataset_train:
+  base_anchor_mode: 'legacy'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+dataloader:
+  train:
+    batch_size: 1
+    num_workers: 2
+  test:
+    batch_size: 1
+    num_workers: 1
+
+optimizer:
+  type: 'AdamW'
+  lr: 0.001
+  weight_decay: 0.001
+
+scheduler:
+  t_initial: 30
+  lr_min: 0.00001
+  cycle_decay: 1
+  warmup_lr_init: 0.00001
+  warmup_t: 5
+  cycle_limit: 1
+  t_in_epochs: True
+
+epochs: 30
+examples_per_epoch: 500
+fp16: True
+pretrain: 'data/model_weights/model_weights_with_small_20241213.pth'
+grad_norm_clip: True
+save_frequency: 10
+validation_frequency: 5
