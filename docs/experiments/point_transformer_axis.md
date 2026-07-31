@@ -333,6 +333,40 @@ tail -f logs/wytham_seed_conf_t000_control_runner.log
 - Wytham 已经被查看，后续如基于此失败修改方法，必须使用另一个未见外部数据集
   作为正式最终测试。
 
+同环境 `t000` 实际得到 F1 `72.1%`、Precision `62.5%`、Recall `80.5%`、
+Coverage `57.7%`，复现 A0，确认失败完全来自绝对阈值的跨域过度筛选。
+
+下一版新增 `top_ratio` 模式：在每个森林的原始 base seeds 中按 confidence 排序，
+固定保留最高置信度的一定比例。`ratio=1` 精确退化为基线。L1W 的 `t080`
+实际保留 78.23%，因此只验证 `r100` 和预注册的 `r078`，不扫描更多比例：
+
+```bash
+nohup bash -c '
+set -e
+
+for ratio in 100 078; do
+  python -u tools/pipeline/pipeline.py \
+    --config configs/experiments/point_transformer/pipeline_l1w_seed_ratio_r${ratio}.yaml \
+    > logs/pipeline_l1w_seed_ratio_r${ratio}.log 2>&1
+
+  python -u tools/evaluation/evaluate.py \
+    --config configs/experiments/point_transformer/evaluate_l1w_seed_ratio_r${ratio}.yaml \
+    > logs/evaluate_l1w_seed_ratio_r${ratio}.log 2>&1
+done
+' > logs/l1w_seed_ratio_check.log 2>&1 < /dev/null &
+
+echo $! | tee logs/l1w_seed_ratio_check.pid
+tail -f logs/l1w_seed_ratio_check.log
+```
+
+检查规则：
+
+- `r100` 必须复现 L1W `t000`；
+- `r078` 必须日志显示保留约 78% seeds；
+- `r078` 的 F1 应接近或高于绝对阈值 `t080` 的 99.7%；
+- 若通过，固定比例方案可作为下一版方法，但 Wytham 只能作为开发诊断，不能再
+  宣称为未见最终测试。
+
 ### 0.3 历史备用方案：MLP 通过后训练 Point Transformer
 
 ```bash

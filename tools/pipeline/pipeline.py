@@ -212,7 +212,12 @@ def run_treelearn_pipeline(config, config_path=None):
             enabled=bool(getattr(
                 config.grouping, 'use_seed_confidence_filter', False)),
             threshold=float(getattr(
-                config.grouping, 'seed_confidence_threshold', 0.0)))
+                config.grouping, 'seed_confidence_threshold', 0.0)),
+            mode=str(getattr(
+                config.grouping, 'seed_confidence_filter_mode',
+                'threshold')),
+            keep_ratio=float(getattr(
+                config.grouping, 'seed_confidence_keep_ratio', 1.0)))
         mask = base_seed_mask | (upper_seed_mask & sem_mask)
         cluster_coords = coords[mask] + offset_predictions[mask]
         cluster_coords = np.hstack([cluster_coords, instance_preds[mask].reshape(-1, 1)])

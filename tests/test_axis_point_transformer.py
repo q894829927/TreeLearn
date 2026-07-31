@@ -167,6 +167,30 @@ class AxisFusionTests(unittest.TestCase):
             filter_base_seeds_by_confidence(
                 np.array([True]), enabled=True, threshold=0.5)
 
+    def test_top_ratio_retains_exact_highest_confidence_count(self):
+        seed_mask = np.array([True, False, True, True, True, True])
+        confidence = np.array([0.2, 1.0, 0.9, 0.5, 0.8, 0.1])
+        filtered = filter_base_seeds_by_confidence(
+            seed_mask,
+            axis_confidence=confidence,
+            enabled=True,
+            mode='top_ratio',
+            keep_ratio=0.4)
+        np.testing.assert_array_equal(
+            filtered,
+            np.array([False, False, True, False, True, False]))
+
+    def test_top_ratio_one_is_exact_baseline(self):
+        seed_mask = np.array([True, False, True])
+        confidence = np.array([0.1, 0.9, 0.2])
+        filtered = filter_base_seeds_by_confidence(
+            seed_mask,
+            axis_confidence=confidence,
+            enabled=True,
+            mode='top_ratio',
+            keep_ratio=1.0)
+        np.testing.assert_array_equal(filtered, seed_mask)
+
 
 class AxisTargetTests(unittest.TestCase):
 
