@@ -311,6 +311,8 @@ Coverage `57.7%`。进入论文主结果的门槛为：
 nohup bash -c '
 set -e
 
+echo ===== START Wytham r078 pipeline =====
+
 python -u tools/pipeline/pipeline.py \
   --config configs/experiments/point_transformer/pipeline_wytham_seed_conf_t000_control.yaml \
   > logs/pipeline_wytham_seed_conf_t000_control.log 2>&1
@@ -366,6 +368,41 @@ tail -f logs/l1w_seed_ratio_check.log
 - `r078` 的 F1 应接近或高于绝对阈值 `t080` 的 99.7%；
 - 若通过，固定比例方案可作为下一版方法，但 Wytham 只能作为开发诊断，不能再
   宣称为未见最终测试。
+
+实际 `r100/r078` L1W 结果分别复现 `t000/t080`：
+
+| 比例 | Completeness | Commission | F1 | Precision | Recall | Coverage |
+|---:|---:|---:|---:|---:|---:|---:|
+| 100% | 100.0% | 3.1% | 98.4% | 98.9% | 99.1% | 98.0% |
+| 78% | 99.4% | 0.0% | 99.7% | 98.5% | 99.2% | 97.7% |
+
+固定比例实现通过。仓库没有第三个带 GT 的未见外部基准，因此 Wytham `r078`
+只能运行成开发诊断，用来判断跨域校准是否被修复：
+
+```bash
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/point_transformer/pipeline_wytham_seed_ratio_r078_development.yaml \
+  > logs/pipeline_wytham_seed_ratio_r078_development.log 2>&1
+
+echo ===== START Wytham r078 evaluation =====
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/point_transformer/evaluate_wytham_seed_ratio_r078_development.yaml \
+  > logs/evaluate_wytham_seed_ratio_r078_development.log 2>&1
+
+echo ===== FINISHED Wytham r078 =====
+' > logs/wytham_seed_ratio_r078_development_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/wytham_seed_ratio_r078_development.pid
+tail -f logs/wytham_seed_ratio_r078_development_runner.log
+```
+
+运行后首先确认日志保留约 78% seeds。若 Wytham 指标仍低于 `t000`，停止 seed
+筛选路线；若恢复或超过 `t000`，说明固定比例解决了校准问题，但论文仍需新增
+一个未见外部数据集或采用预先定义的数据划分。
 
 ### 0.3 历史备用方案：MLP 通过后训练 Point Transformer
 

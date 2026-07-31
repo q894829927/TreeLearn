@@ -1,0 +1,20 @@
+# Development-only cross-domain diagnostic. Wytham has already been observed
+# after the failed absolute-threshold experiment and is no longer untouched.
+default_args:
+  - configs/experiments/point_transformer/_pipeline_base_residual_mlp_seed_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+  - configs/experiments/wytham/_pipeline_common.yaml
+
+grouping:
+  seed_confidence_filter_mode: 'top_ratio'
+  seed_confidence_keep_ratio: 0.78
+  max_cluster_seed_points: 1500000
+
+pretrain: 'work_dirs/base_residual_mlp_frozen/best_base_residual_xy.pth'
+tile_generation: False
+
+save_cfg:
+  results_dir: 'results_seed_ratio_r078_development'
