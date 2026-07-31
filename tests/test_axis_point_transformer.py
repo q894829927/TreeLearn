@@ -191,6 +191,38 @@ class AxisFusionTests(unittest.TestCase):
             keep_ratio=1.0)
         np.testing.assert_array_equal(filtered, seed_mask)
 
+    def test_random_ratio_is_deterministic_and_ignores_confidence(self):
+        seed_mask = np.array(
+            [True, False, True, True, True, True, True, True])
+        first = filter_base_seeds_by_confidence(
+            seed_mask,
+            axis_confidence=None,
+            enabled=True,
+            mode='random_ratio',
+            keep_ratio=0.5,
+            random_seed=42)
+        second = filter_base_seeds_by_confidence(
+            seed_mask,
+            axis_confidence=None,
+            enabled=True,
+            mode='random_ratio',
+            keep_ratio=0.5,
+            random_seed=42)
+        np.testing.assert_array_equal(first, second)
+        self.assertEqual(first.sum(), 4)
+        self.assertTrue(np.all(np.logical_not(first) | seed_mask))
+
+    def test_random_ratio_one_is_exact_baseline(self):
+        seed_mask = np.array([True, False, True])
+        filtered = filter_base_seeds_by_confidence(
+            seed_mask,
+            axis_confidence=None,
+            enabled=True,
+            mode='random_ratio',
+            keep_ratio=1.0,
+            random_seed=7)
+        np.testing.assert_array_equal(filtered, seed_mask)
+
 
 class AxisTargetTests(unittest.TestCase):
 

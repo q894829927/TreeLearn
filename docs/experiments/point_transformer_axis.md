@@ -759,3 +759,80 @@ tail -n 100 logs/train_axis_pt_stem_axis.log
 ```
 
 如果 PT 出现 CUDA OOM，只把 `axis_query_chunk_size` 从 `8192` 改为 `4096`，仍不足再改为 `2048`。不要先改邻居数、体素大小或隐藏维度，否则 MLP/PT 的对比协议会改变。
+
+## 11. 固定比例 seed 筛选结果与随机对照
+
+当前 MLP confidence 的固定比例筛选结果如下。`r078` 表示按照 confidence 从高到低保留 78% 的 base seeds：
+
+| 数据集/设置 | Completeness | Commission | F1 | Precision | Recall | Coverage |
+|---|---:|---:|---:|---:|---:|---:|
+| L1W r100 | 100.0% | 3.1% | 98.4% | 98.9% | 99.1% | 98.0% |
+| L1W confidence r078 | 99.4% | 0.0% | 99.7% | 98.5% | 99.2% | 97.7% |
+| Wytham r100 | 64.8% | 18.7% | 72.1% | 62.5% | 80.5% | 57.7% |
+| Wytham confidence r078（开发诊断） | 64.5% | 12.5% | 74.3% | 60.0% | 81.1% | 56.7% |
+
+Wytham 的提升主要来自 Commission 从 18.7% 降至 12.5%，说明筛选后减少了假阳性树；同时 Precision 和 Coverage 有所下降。由于此前已经查看过 Wytham 结果，`r078` 应标为开发集诊断，不能再称为完全未见的最终外部测试。
+
+在继续训练或加入 Point Transformer 前，必须先做“随机保留相同 78% seeds”的控制实验。它用于区分：
+
+1. learned confidence 确实选出了质量更高的 seeds；
+2. 仅仅减少 HDBSCAN 输入点数就能得到相同收益。
+
+只在 L1W 上运行三个固定随机种子：
+
+```bash
+conda activate TreeLearn
+mkdir -p logs
+
+nohup bash -c '
+set -e
+
+for seed in 42 43 44; do
+  echo ===== START random s${seed} pipeline =====
+
+  python -u tools/pipeline/pipeline.py \
+    --config configs/experiments/point_transformer/pipeline_l1w_seed_random_r078_s${seed}.yaml \
+    > logs/pipeline_l1w_seed_random_r078_s${seed}.log 2>&1
+
+  echo ===== START random s${seed} evaluation =====
+
+  python -u tools/evaluation/evaluate.py \
+    --config configs/experiments/point_transformer/evaluate_l1w_seed_random_r078_s${seed}.yaml \
+    > logs/evaluate_l1w_seed_random_r078_s${seed}.log 2>&1
+
+  echo ===== FINISHED random s${seed} =====
+done
+' > logs/l1w_seed_random_r078_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/l1w_seed_random_r078.pid
+tail -f logs/l1w_seed_random_r078_runner.log
+```
+
+检查每组实际 seed 数量：
+
+```bash
+for seed in 42 43 44; do
+  echo ===== random s${seed} =====
+  grep -E 'Confidence-filtered base seeds|Clustering .*seed points' \
+    logs/pipeline_l1w_seed_random_r078_s${seed}.log
+done
+```
+
+三组必须从相同的原始 base-seed 数量出发，并保留相同数量的 seeds；只有被保留的索引不同。查看指标：
+
+```bash
+for seed in 42 43 44; do
+  echo ===== random s${seed} =====
+  grep -E \
+    'Completeness:|Commission Error Rate:|F1 Score:|Precision:|Recall:|Coverage:' \
+    logs/evaluate_l1w_seed_random_r078_s${seed}.log
+done
+```
+
+判断规则使用三个随机种子的 F1 均值：
+
+- confidence r078 的 F1 比随机均值高至少 0.2 个百分点，且 Commission 不高于随机均值：支持“置信度选点有效”；
+- 差距小于 0.1 个百分点：不能证明 confidence 有效，收益应归因于通用的 seed 下采样；
+- 差距在 0.1–0.2 个百分点：结果边界，补做一次“保留最低 confidence 的 78%”反向对照后再判断。
+
+随机对照没有通过前，不在 Wytham 上重复随机实验，也不继续增加 Point Transformer 模块。若通过，再把 confidence r078 作为当前候选方法，并在一个新的、未用于调参的带真值数据集上完成最终测试。

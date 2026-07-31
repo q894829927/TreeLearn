@@ -278,18 +278,27 @@ def get_instances(coords, offset, upper_offset, semantic_prediction_logits, grou
         grouping_cfg, 'seed_confidence_threshold', 0.0))
     seed_confidence_keep_ratio = float(getattr(
         grouping_cfg, 'seed_confidence_keep_ratio', 1.0))
+    seed_confidence_random_seed = int(getattr(
+        grouping_cfg, 'seed_confidence_random_seed', 42))
     base_seed_mask = filter_base_seeds_by_confidence(
         base_seed_mask,
         axis_confidence=axis_confidence,
         enabled=use_seed_confidence_filter,
         threshold=seed_confidence_threshold,
         mode=seed_confidence_filter_mode,
-        keep_ratio=seed_confidence_keep_ratio)
+        keep_ratio=seed_confidence_keep_ratio,
+        random_seed=seed_confidence_random_seed)
     if use_seed_confidence_filter and logger is not None:
-        filter_description = (
-            f'threshold: {seed_confidence_threshold:.3f}'
-            if seed_confidence_filter_mode == 'threshold'
-            else f'top-ratio: {seed_confidence_keep_ratio:.3f}')
+        if seed_confidence_filter_mode == 'threshold':
+            filter_description = (
+                f'threshold: {seed_confidence_threshold:.3f}')
+        elif seed_confidence_filter_mode == 'top_ratio':
+            filter_description = (
+                f'top-ratio: {seed_confidence_keep_ratio:.3f}')
+        else:
+            filter_description = (
+                f'random-ratio: {seed_confidence_keep_ratio:.3f}, '
+                f'seed: {seed_confidence_random_seed}')
         logger.info(
             'Confidence-filtered base seeds from '
             f'{num_base_seeds_before_confidence:,} to '
