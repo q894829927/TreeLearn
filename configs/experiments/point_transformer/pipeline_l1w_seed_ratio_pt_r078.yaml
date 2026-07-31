@@ -1,0 +1,22 @@
+default_args:
+  - configs/experiments/point_transformer/_pipeline_axis_model_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+  - configs/experiments/point_transformer/_pipeline_l1w_axis_common.yaml
+
+model:
+  axis_target_mode: 'base_residual'
+
+grouping:
+  use_axis_fusion: False
+  axis_fusion_weight: 0.0
+  use_seed_confidence_filter: True
+  seed_confidence_filter_mode: 'top_ratio'
+  seed_confidence_keep_ratio: 0.78
+
+pretrain: 'work_dirs/base_residual_pt_frozen/best_base_residual_xy.pth'
+
+save_cfg:
+  results_dir: 'results_seed_ratio_pt_r078'
