@@ -67,39 +67,24 @@ data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/
 data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv
 ```
 
-## 4. 验证诊断聚类与 baseline 完全相同
+## 4. 验证诊断聚类与 baseline 分区完全相同
 
-新的 pipeline 只增加特征记录，预测标签必须逐点等于既有 r100 baseline：
+HDBSCAN 可能为完全相同的聚类分区分配不同的数字 ID，因此不能直接使用
+`np.array_equal` 比较原始标签。第 5 节的 AUC 工具会自动完成更严格的验证：
 
-```bash
-python - <<'PY'
-import numpy as np
-from tree_learn.util import load_data
+1. 检查点数和逐点坐标一致；
+2. 建立 diagnostic ID 到 baseline ID 的一一映射；
+3. 映射后要求每个点的实例标签完全一致；
+4. 验证成功后，把 CSV 中的实例 ID 映射为 baseline ID，再复用既有 evaluation。
 
-pairs = [
-    (
-        'L1W',
-        'data/pipeline/L1W/results_seed_ratio_r100/full_forest/L1W.laz',
-        'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/L1W.laz',
-    ),
-    (
-        'Wytham',
-        'data/pipeline/wytham/results_seed_conf_t000_control/full_forest/wytham_vox0.1.laz',
-        'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/wytham_vox0.1.laz',
-    ),
-]
+输出中必须出现：
 
-for name, baseline_path, diagnostic_path in pairs:
-    baseline = load_data(baseline_path)
-    diagnostic = load_data(diagnostic_path)
-    assert baseline.shape == diagnostic.shape, (name, baseline.shape, diagnostic.shape)
-    assert np.allclose(baseline[:, :3], diagnostic[:, :3]), name
-    assert np.array_equal(baseline[:, 3], diagnostic[:, 3]), name
-    print(name, 'PASS:', len(baseline), 'point labels are identical')
-PY
+```text
+PASS: predicted-instance partitions are identical after a one-to-one label-ID remapping.
 ```
 
-只有两组均输出 `PASS` 才可复用既有 evaluation 匹配结果。若失败，停止并排查，不能继续算 AUC。
+如果点集分区真的变化，工具会报出 differing points 并停止。此时不能复用旧
+evaluation，必须重新评估诊断预测。
 
 ## 5. 计算 TP/FP 特征 AUC
 
@@ -107,12 +92,16 @@ PY
 python tools/diagnostics/diagnose_instance_separability.py \
   --features data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv \
   --evaluation data/pipeline/L1W/results_seed_ratio_r100/full_forest/evaluation/evaluation_results.pt \
+  --reference_predictions data/pipeline/L1W/results_seed_ratio_r100/full_forest/L1W.laz \
+  --diagnostic_predictions data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/L1W.laz \
   --output_dir logs/instance_separability_l1w \
   2>&1 | tee logs/instance_separability_l1w.log
 
 python tools/diagnostics/diagnose_instance_separability.py \
   --features data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv \
   --evaluation data/pipeline/wytham/results_seed_conf_t000_control/full_forest/evaluation/evaluation_results.pt \
+  --reference_predictions data/pipeline/wytham/results_seed_conf_t000_control/full_forest/wytham_vox0.1.laz \
+  --diagnostic_predictions data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/wytham_vox0.1.laz \
   --output_dir logs/instance_separability_wytham \
   2>&1 | tee logs/instance_separability_wytham.log
 ```

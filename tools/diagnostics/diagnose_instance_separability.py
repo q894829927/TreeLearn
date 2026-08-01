@@ -17,6 +17,12 @@ def parse_args():
     parser.add_argument('--features', required=True)
     parser.add_argument('--evaluation', required=True)
     parser.add_argument('--output_dir', required=True)
+    parser.add_argument(
+        '--reference_predictions',
+        help='Baseline full-forest prediction file used by evaluation.')
+    parser.add_argument(
+        '--diagnostic_predictions',
+        help='Diagnostic full-forest prediction file that produced features.')
     parser.add_argument('--auc_threshold', type=float, default=0.75)
     parser.add_argument('--min_false_positives', type=int, default=20)
     return parser.parse_args()
@@ -27,6 +33,86 @@ def load_evaluation(path):
         return torch.load(path, map_location='cpu', weights_only=False)
     except TypeError:
         return torch.load(path, map_location='cpu')
+
+
+def remap_equivalent_partition(features, reference_labels, diagnostic_labels):
+    'Map diagnostic IDs to reference IDs after proving equal partitions.'
+    reference_labels = np.asarray(reference_labels, dtype=np.int64).reshape(-1)
+    diagnostic_labels = np.asarray(diagnostic_labels, dtype=np.int64).reshape(-1)
+    if reference_labels.shape != diagnostic_labels.shape:
+        raise ValueError(
+            'Reference and diagnostic label arrays have different shapes: '
+            f'{reference_labels.shape} versus {diagnostic_labels.shape}.')
+
+    diagnostic_ids, first_indices = np.unique(
+        diagnostic_labels, return_index=True)
+    reference_ids = np.unique(reference_labels)
+    mapped_reference_ids = reference_labels[first_indices]
+    if (
+            len(diagnostic_ids) != len(reference_ids) or
+            len(np.unique(mapped_reference_ids)) != len(reference_ids)):
+        raise ValueError(
+            'Predicted-instance partitions are not related by a one-to-one '
+            'label permutation; a fresh evaluation is required.')
+
+    diagnostic_positions = np.searchsorted(diagnostic_ids, diagnostic_labels)
+    remapped_labels = mapped_reference_ids[diagnostic_positions]
+    differing_points = int(np.count_nonzero(
+        remapped_labels != reference_labels))
+    if differing_points:
+        raise ValueError(
+            'Predicted-instance point sets changed after label remapping '
+            f'({differing_points:,} differing points); a fresh evaluation is '
+            'required.')
+
+    frame = features.copy()
+    feature_ids = frame['instance_id'].to_numpy(dtype=np.int64)
+    feature_positions = np.searchsorted(diagnostic_ids, feature_ids)
+    valid_positions = feature_positions < len(diagnostic_ids)
+    if np.any(valid_positions):
+        valid_positions[valid_positions] &= (
+            diagnostic_ids[feature_positions[valid_positions]] ==
+            feature_ids[valid_positions])
+    if not np.all(valid_positions):
+        missing = np.unique(feature_ids[~valid_positions])[:10].tolist()
+        raise ValueError(
+            'Feature table contains labels absent from diagnostic predictions: '
+            f'{missing}.')
+    frame['instance_id'] = mapped_reference_ids[feature_positions]
+
+    mapping = {
+        int(source): int(target)
+        for source, target in zip(diagnostic_ids, mapped_reference_ids)
+    }
+    metadata = {
+        'verified': True,
+        'num_points': int(len(reference_labels)),
+        'num_labels': int(len(reference_ids)),
+        'num_changed_numeric_ids': int(sum(
+            source != target for source, target in mapping.items())),
+        'mapping': mapping,
+    }
+    return frame, metadata
+
+
+def verify_prediction_partition(features, reference_path, diagnostic_path):
+    from tree_learn.util import load_data
+
+    reference = load_data(reference_path)
+    diagnostic = load_data(diagnostic_path)
+    if reference.shape != diagnostic.shape:
+        raise ValueError(
+            'Reference and diagnostic prediction arrays have different shapes: '
+            f'{reference.shape} versus {diagnostic.shape}.')
+    if not np.allclose(reference[:, :3], diagnostic[:, :3]):
+        raise ValueError(
+            'Reference and diagnostic point coordinates differ; a fresh '
+            'evaluation is required.')
+    frame, metadata = remap_equivalent_partition(
+        features, reference[:, 3], diagnostic[:, 3])
+    metadata['reference_predictions'] = str(reference_path)
+    metadata['diagnostic_predictions'] = str(diagnostic_path)
+    return frame, metadata
 
 
 def attach_detection_targets(features, evaluation):
@@ -117,7 +203,7 @@ def _serializable_row(row):
     return output
 
 
-def build_summary(labeled, auc_table, args):
+def build_summary(labeled, auc_table, args, partition_verification=None):
     counts = labeled['target_status'].value_counts().to_dict()
     confidence_rows = auc_table[
         auc_table['feature'].str.startswith(('confidence_', 'seed_confidence_'))]
@@ -139,6 +225,7 @@ def build_summary(labeled, auc_table, args):
     return {
         'features_path': str(args.features),
         'evaluation_path': str(args.evaluation),
+        'partition_verification': partition_verification,
         'status_counts': {key: int(value) for key, value in counts.items()},
         'best_confidence_feature': best_confidence,
         'best_overall_feature': best_overall,
@@ -152,9 +239,20 @@ def build_summary(labeled, auc_table, args):
 
 def format_markdown(summary, auc_table):
     rows = [
-        '# Predicted-instance TP/FP separability', '',
+        '# Predicted-instance TP/FP separability', '']
+    verification = summary.get('partition_verification')
+    if verification is not None:
+        rows.extend([
+            '## Partition verification', '',
+            '- verified: **{}**'.format(verification['verified']),
+            '- points: {:,}'.format(verification['num_points']),
+            '- labels: {:,}'.format(verification['num_labels']),
+            '- numerically remapped labels: {:,}'.format(
+                verification['num_changed_numeric_ids']),
+            ''])
+    rows.extend([
         '## Counts', '',
-        '| Status | Count |', '|---|---:|']
+        '| Status | Count |', '|---|---:|'])
     for status, count in summary['status_counts'].items():
         rows.append(f'| {status} | {count} |')
     rows.extend([
@@ -177,10 +275,27 @@ def format_markdown(summary, auc_table):
 def main():
     args = parse_args()
     features = pd.read_csv(args.features)
+    provided_prediction_paths = (
+        args.reference_predictions is not None,
+        args.diagnostic_predictions is not None)
+    if provided_prediction_paths[0] != provided_prediction_paths[1]:
+        raise ValueError(
+            '--reference_predictions and --diagnostic_predictions must be '
+            'provided together.')
+    partition_verification = None
+    if all(provided_prediction_paths):
+        features, partition_verification = verify_prediction_partition(
+            features,
+            args.reference_predictions,
+            args.diagnostic_predictions)
+        print(
+            'PASS: predicted-instance partitions are identical after a '
+            'one-to-one label-ID remapping.')
     evaluation = load_evaluation(args.evaluation)
     labeled = attach_detection_targets(features, evaluation)
     auc_table = calculate_feature_auc(labeled)
-    summary = build_summary(labeled, auc_table, args)
+    summary = build_summary(
+        labeled, auc_table, args, partition_verification)
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)

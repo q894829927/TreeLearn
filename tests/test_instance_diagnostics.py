@@ -27,6 +27,8 @@ if HAS_DIAGNOSTIC_DEPENDENCIES:
     diagnostic_spec.loader.exec_module(diagnostic_module)
     attach_detection_targets = diagnostic_module.attach_detection_targets
     calculate_feature_auc = diagnostic_module.calculate_feature_auc
+    remap_equivalent_partition = (
+        diagnostic_module.remap_equivalent_partition)
 
 
 @unittest.skipUnless(
@@ -84,6 +86,34 @@ class InstanceFeatureTests(unittest.TestCase):
         self.assertEqual(
             labeled['target_status'].tolist(),
             ['tp', 'tp', 'fp_counted', 'fp_counted'])
+
+    def test_remaps_equivalent_instance_partition(self):
+        features = pd.DataFrame({
+            'instance_id': [7, 3],
+            'confidence_mean': [0.9, 0.2],
+        })
+        reference = np.array([0, 1, 1, 2, 2])
+        diagnostic = np.array([0, 7, 7, 3, 3])
+
+        remapped, metadata = remap_equivalent_partition(
+            features, reference, diagnostic)
+
+        self.assertEqual(remapped['instance_id'].tolist(), [1, 2])
+        self.assertTrue(metadata['verified'])
+        self.assertEqual(metadata['num_labels'], 3)
+        self.assertEqual(metadata['mapping'], {0: 0, 3: 2, 7: 1})
+
+    def test_rejects_changed_instance_partition(self):
+        features = pd.DataFrame({
+            'instance_id': [7, 3],
+            'confidence_mean': [0.9, 0.2],
+        })
+        reference = np.array([0, 1, 1, 2, 2])
+        diagnostic = np.array([0, 7, 3, 3, 3])
+
+        with self.assertRaisesRegex(
+                ValueError, 'point sets changed|one-to-one'):
+            remap_equivalent_partition(features, reference, diagnostic)
 
 
 if __name__ == '__main__':
