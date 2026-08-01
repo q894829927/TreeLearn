@@ -7,4 +7,5 @@ from .plot import *
 from .eval import *
 from .train import *
 from .axis import *
+from .instance_diagnostics import *
 from .pipeline import *

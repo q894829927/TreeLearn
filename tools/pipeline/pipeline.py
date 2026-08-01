@@ -13,6 +13,7 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              get_pointwise_preds, get_instances, get_dual_anchor_features,
                              filter_base_seeds_by_confidence,
                              get_axis_fused_features,
+                             compute_instance_features, save_instance_features,
                              propagate_preds_hash_full, propagate_preds_hash_vox)
 
 TREE_CLASS_IN_PYTORCH_DATASET = 0
@@ -159,6 +160,34 @@ def run_treelearn_pipeline(config, config_path=None):
             f'{num_unassigned:,} predicted tree points remain unassigned because '
             'initial clustering produced no usable reference instances. '
             'No output was saved; inspect the clustering seed count and thresholds.')
+
+    if bool(getattr(config.save_cfg, 'save_instance_diagnostics', False)):
+        logger.info(
+            f'{plot_name}: #################### saving instance diagnostics '
+            '####################')
+        instance_features = compute_instance_features(
+            coords=coords,
+            instance_predictions=instance_preds,
+            initial_instance_predictions=instance_preds_after_initial_clustering,
+            semantic_prediction_logits=semantic_prediction_logits,
+            offset_predictions=offset_predictions,
+            verticality=input_feats[:, -1],
+            axis_confidence=axis_confidence,
+            tree_class_index=TREE_CLASS_IN_PYTORCH_DATASET)
+        diagnostics_dir = os.path.join(results_dir, 'instance_diagnostics')
+        csv_path, metadata_path = save_instance_features(
+            instance_features, diagnostics_dir,
+            metadata={
+                'plot_name': plot_name,
+                'checkpoint': str(config.pretrain),
+                'seed_filter_mode': str(getattr(
+                    grouping_cfg, 'seed_confidence_filter_mode', 'threshold')),
+                'seed_keep_ratio': float(getattr(
+                    grouping_cfg, 'seed_confidence_keep_ratio', 1.0)),
+            })
+        logger.info(
+            f'Saved {len(instance_features):,} instance feature rows to '
+            f'{csv_path} (metadata: {metadata_path})')
     
     # save pointwise results
     if config.save_cfg.save_pointwise:

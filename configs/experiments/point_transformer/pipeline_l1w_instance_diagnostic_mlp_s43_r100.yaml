@@ -1,0 +1,19 @@
+# Base-only clustering with the locked MLP checkpoint. The MLP residual is not
+# fused and confidence does not filter seeds; it is used only for diagnostics.
+default_args:
+  - configs/experiments/point_transformer/_pipeline_base_residual_mlp_seed_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+  - configs/experiments/point_transformer/_pipeline_l1w_axis_common.yaml
+
+grouping:
+  seed_confidence_filter_mode: 'top_ratio'
+  seed_confidence_keep_ratio: 1.0
+
+pretrain: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+
+save_cfg:
+  results_dir: 'results_instance_diagnostic_mlp_s43_r100'
+  save_instance_diagnostics: True
