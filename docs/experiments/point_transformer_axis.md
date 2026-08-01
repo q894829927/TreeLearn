@@ -849,3 +849,7 @@ PT Top-78% 在 L1W 上得到 F1 98.4%、Commission 0.7%、Coverage 95.5%，明�
 - `pipeline_l1w_seed_ratio_mlp_s44_r078.yaml`。
 
 三个训练种子的 L1W F1 均值应明显高于 random-78% 的 98.8%，且至少两次运行的 Commission 不超过 1.0%，才能把 MLP confidence Top-78% 锁定为最终方法。复现完成前不再运行 Wytham。
+
+实际复现结果：seed 42、43、44 的 L1W F1 分别为 99.7%、99.7%、100.0%，平均约 99.8%；Commission 分别为 0%、0.6%、0%，平均约 0.2%。稳定性门槛通过。正式 checkpoint 按验证误差选择 seed 43（0.326 m），而不是按 L1W 结果选择 seed 44。
+
+锁定配置后，只允许运行一次 `pipeline_wytham_seed_ratio_mlp_s43_r078_locked.yaml`。该结果用于跨域稳定性确认；由于 Wytham 在早期开发中已被观察，不能描述为完全未见测试。运行后不得继续修改 keep ratio、模型或聚类参数。
