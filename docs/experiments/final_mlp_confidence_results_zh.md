@@ -101,3 +101,23 @@ seed 43 锁定结果相对 baseline：
 3. 生成 baseline 与最终方法的定性对比图，重点展示假阳性树减少的区域；
 4. 准备第三个未见带真值数据集，或在论文中明确 Wytham 的开发使用限制；
 5. 撰写方法、实验设置、消融和局限性章节。
+
+## 7. 精确指标汇总命令
+
+`evaluation_results.pt` 中原有的汇总百分比已经被评估程序四舍五入到 0.1%。使用以下脚本从匹配数量和逐树结果重新计算未四舍五入指标：
+
+```bash
+python tools/diagnostics/summarize_final_results.py \
+  --output_json logs/final_exact_metrics.json \
+  --output_md logs/final_exact_metrics.md \
+  2>&1 | tee logs/summarize_final_results.log
+```
+
+正常情况下必须找到 11 组结果并生成：
+
+```text
+logs/final_exact_metrics.json
+logs/final_exact_metrics.md
+```
+
+脚本同时计算 L1W Random-78% 和 MLP confidence-78% 三个 seed 的均值与样本标准差（`ddof=1`）。如果报告缺少结果文件，先检查对应 pipeline/evaluation 输出目录，不要使用 `--allow_missing` 生成正式论文表格。
