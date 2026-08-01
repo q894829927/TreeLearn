@@ -60,10 +60,11 @@ def remap_equivalent_partition(features, reference_labels, diagnostic_labels):
     differing_points = int(np.count_nonzero(
         remapped_labels != reference_labels))
     if differing_points:
+        differing_rate = differing_points / max(len(reference_labels), 1)
         raise ValueError(
             'Predicted-instance point sets changed after label remapping '
-            f'({differing_points:,} differing points); a fresh evaluation is '
-            'required.')
+            f'({differing_points:,} differing points, '
+            f'{100 * differing_rate:.6f}%); a fresh evaluation is required.')
 
     frame = features.copy()
     feature_ids = frame['instance_id'].to_numpy(dtype=np.int64)

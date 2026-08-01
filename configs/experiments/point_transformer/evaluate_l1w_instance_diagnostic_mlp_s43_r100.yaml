@@ -1,0 +1,4 @@
+default_args: ["configs/experiments/_evaluation_common.yaml"]
+
+paths:
+  pred_forest_path: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/L1W.laz'

@@ -86,22 +86,31 @@ PASS: predicted-instance partitions are identical after a one-to-one label-ID re
 如果点集分区真的变化，工具会报出 differing points 并停止。此时不能复用旧
 evaluation，必须重新评估诊断预测。
 
+为了避免 HDBSCAN 重复运行时的少量非确定性，推荐直接为 diagnostic 输出运行
+一次匹配评估：
+
+```bash
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/point_transformer/evaluate_l1w_instance_diagnostic_mlp_s43_r100.yaml \
+  2>&1 | tee logs/evaluate_l1w_instance_diagnostic_mlp_s43_r100.log
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/point_transformer/evaluate_wytham_instance_diagnostic_mlp_s43_r100.yaml \
+  2>&1 | tee logs/evaluate_wytham_instance_diagnostic_mlp_s43_r100.log
+```
+
 ## 5. 计算 TP/FP 特征 AUC
 
 ```bash
 python tools/diagnostics/diagnose_instance_separability.py \
   --features data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv \
-  --evaluation data/pipeline/L1W/results_seed_ratio_r100/full_forest/evaluation/evaluation_results.pt \
-  --reference_predictions data/pipeline/L1W/results_seed_ratio_r100/full_forest/L1W.laz \
-  --diagnostic_predictions data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/L1W.laz \
+  --evaluation data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt \
   --output_dir logs/instance_separability_l1w \
   2>&1 | tee logs/instance_separability_l1w.log
 
 python tools/diagnostics/diagnose_instance_separability.py \
   --features data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv \
-  --evaluation data/pipeline/wytham/results_seed_conf_t000_control/full_forest/evaluation/evaluation_results.pt \
-  --reference_predictions data/pipeline/wytham/results_seed_conf_t000_control/full_forest/wytham_vox0.1.laz \
-  --diagnostic_predictions data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/wytham_vox0.1.laz \
+  --evaluation data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt \
   --output_dir logs/instance_separability_wytham \
   2>&1 | tee logs/instance_separability_wytham.log
 ```
