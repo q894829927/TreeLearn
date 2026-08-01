@@ -131,3 +131,34 @@ L1W baseline 只有 5 个 FP，因此 L1W AUC 仅作参考；是否继续主要�
 - Wytham confidence 和 overall AUC 都较低：停止该路线，当前论文只保留置信度 seed 筛选。
 
 Wytham 已用于开发诊断；本阶段之后不能把它描述成完全未见测试，也不能根据其结果反复调阈值。
+
+## 7. 实例可靠性 MLP 控制实验
+
+Wytham gate 通过后，先运行聚合特征控制组，不直接实现 Attention：
+
+```bash
+python tools/diagnostics/evaluate_instance_mlp_control.py \
+  --features logs/instance_separability_wytham/labeled_instance_features.csv \
+  --output_dir logs/instance_mlp_control_wytham \
+  --seeds 42 43 44 \
+  --folds 5 \
+  --min_mlp_auc 0.88 \
+  --min_gain_over_single 0.02 \
+  2>&1 | tee logs/instance_mlp_control_wytham.log
+
+cat logs/instance_mlp_control_wytham/summary.md
+```
+
+该工具使用 3 个随机种子、每个种子 5 折分层交叉验证，并在每个训练折内重新
+选择最佳单特征，避免使用测试折选择特征。它同时比较：
+
+1. nested single feature；
+2. balanced logistic regression；
+3. 两层实例 MLP。
+
+只有 MLP 平均 ROC-AUC 不低于 0.88、超过 nested single feature 至少 0.02，
+且不明显差于 logistic regression 时才输出 `PASS`。
+
+这里仍属于 Wytham 内部开发验证，不是最终泛化证据。若通过，下一步先加入实例
+XY 中心并进行空间分块验证，然后才实现 mean-pooling 与 Attention-pooling
+对照；若失败，停止 Attention 路线。
