@@ -25,6 +25,8 @@ def parse_args():
     parser.add_argument('--max_completeness_drop_pp', type=float, default=1.0)
     parser.add_argument('--min_f1_gain_pp', type=float, default=1.0)
     parser.add_argument('--chunk_size', type=int, default=2_000_000)
+    parser.add_argument(
+        '--coordinate_tolerance_m', type=float, default=0.002)
     return parser.parse_args()
 
 
@@ -89,6 +91,7 @@ def _update_pair_counts(target, gt_labels, pred_labels):
 def new_accumulator():
     return {
         'point_count': 0,
+        'max_coordinate_difference_m': 0.0,
         'gt_counts': {},
         'pred_counts': {},
         'pair_counts': {},
@@ -128,7 +131,9 @@ def _labels_from_las_points(points, tree_dimension, class_dimension):
     return labels
 
 
-def scan_aligned_las(ground_truth, propagated_predictions, chunk_size):
+def scan_aligned_las(
+        ground_truth, propagated_predictions, chunk_size,
+        coordinate_tolerance_m=0.002):
     import laspy
 
     accumulator = new_accumulator()
@@ -158,12 +163,18 @@ def scan_aligned_las(ground_truth, propagated_predictions, chunk_size):
             if len(gt_points) != len(pred_points):
                 raise ValueError(f'Chunk {chunk_index} differs in size.')
             for axis in ('x', 'y', 'z'):
-                if not np.allclose(
-                        np.asarray(getattr(gt_points, axis)),
-                        np.asarray(getattr(pred_points, axis)),
-                        rtol=0.0, atol=1e-6):
+                gt_axis = np.asarray(getattr(gt_points, axis))
+                pred_axis = np.asarray(getattr(pred_points, axis))
+                maximum_difference = float(np.max(np.abs(
+                    gt_axis - pred_axis))) if len(gt_axis) else 0.0
+                accumulator['max_coordinate_difference_m'] = max(
+                    accumulator['max_coordinate_difference_m'],
+                    maximum_difference)
+                if maximum_difference > coordinate_tolerance_m:
                     raise ValueError(
-                        f'Coordinates differ in chunk {chunk_index}, axis {axis}.')
+                        f'Coordinates differ in chunk {chunk_index}, axis {axis}: '
+                        f'max difference {maximum_difference:.6f} m exceeds '
+                        f'{coordinate_tolerance_m:.6f} m.')
             gt_labels = _labels_from_las_points(
                 gt_points, *gt_dimensions)
             pred_labels = _labels_from_las_points(
@@ -391,7 +402,8 @@ def run_oracle(name, spec, settings):
     print(f'===== E1 Oracle: {name} =====', flush=True)
     accumulator = scan_aligned_las(
         paths['ground_truth'], paths['propagated_predictions'],
-        int(settings['chunk_size']))
+        int(settings['chunk_size']),
+        float(settings['coordinate_tolerance_m']))
     tables = contingency_from_accumulator(accumulator)
     quality = tables['iou'].max(axis=1)
     print(
@@ -453,6 +465,8 @@ def run_oracle(name, spec, settings):
             'thresholds_fixed_before_run': settings['thresholds'],
             'min_iou_for_match': settings['min_iou_for_match'],
             'min_precision_for_pred': settings['min_precision_for_pred'],
+            'coordinate_tolerance_m': settings['coordinate_tolerance_m'],
+            'max_coordinate_difference_m': accumulator['max_coordinate_difference_m'],
         },
         'provenance': {
             'git_branch': git_value('branch', '--show-current'),
@@ -461,6 +475,7 @@ def run_oracle(name, spec, settings):
         },
         'point_count': accumulator['point_count'],
         'num_gt_instances': int(len(tables['gt_ids'])),
+        'max_coordinate_difference_m': accumulator['max_coordinate_difference_m'],
         'num_pred_instances': int(len(tables['pred_ids'])),
         'artifact_counts': artifact_counts,
         'baseline': baseline,
@@ -491,6 +506,7 @@ def settings_from_args(args):
         'max_completeness_drop_pp': args.max_completeness_drop_pp,
         'min_f1_gain_pp': args.min_f1_gain_pp,
         'chunk_size': args.chunk_size,
+        'coordinate_tolerance_m': args.coordinate_tolerance_m,
     }
 
 
@@ -500,7 +516,7 @@ def run_config(path):
         key: config[key] for key in [
             'thresholds', 'min_iou_for_match',
             'min_precision_for_pred', 'max_completeness_drop_pp',
-            'min_f1_gain_pp', 'chunk_size']}
+            'min_f1_gain_pp', 'chunk_size', 'coordinate_tolerance_m']}
     reports = {}
     primary = []
     for spec in config['runs']:

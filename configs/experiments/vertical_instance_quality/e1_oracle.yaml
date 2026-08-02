@@ -28,6 +28,7 @@ min_precision_for_pred: 0.5
 max_completeness_drop_pp: 1.0
 min_f1_gain_pp: 1.0
 chunk_size: 2000000
+coordinate_tolerance_m: 0.002
 
 runs:
   - name: 'l1w_sanity'

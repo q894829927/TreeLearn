@@ -226,6 +226,9 @@ python -u tools/diagnostics/evaluate_instance_quality_oracle.py \
 artifact 的 TP、FP、FN 和预测实例数，否则工具立即停止，不能解释 Oracle 结果。
 Oracle 选择仅在 Completeness 下降不超过 1.0 个百分点的候选中最大化 F1；F1
 相同时依次选择 Completeness 更高、阈值更低的结果。
+GT 与 propagated LAZ 坐标允许最大 0.002 m 差异，用于容纳 `0.001 m` LAS scale
+造成的重新量化；实际最大误差写入 JSON。超过该容差仍立即停止。
+
 
 新增产物：
 
