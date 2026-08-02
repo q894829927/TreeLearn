@@ -1,0 +1,44 @@
+# E2 template resolved per forest by gen_instance_quality_data.py.
+default_args:
+  - configs/experiments/point_transformer/_pipeline_base_residual_mlp_seed_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+forest_path: '__FOREST_PATH__'
+pipeline_base_dir: '__PIPELINE_BASE_DIR__'
+quality_split: 'unspecified'
+fp16: True
+tile_generation: True
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+shape_cfg:
+  outer_remove: ~
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+grouping:
+  seed_confidence_filter_mode: 'top_ratio'
+  seed_confidence_keep_ratio: 1.0
+  max_cluster_seed_points: 1500000
+
+pretrain: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+
+save_cfg:
+  results_dir: 'results_quality_candidates'
+  return_type: 'voxelized_and_filtered'
+  save_formats: ['npz']
+  save_pointwise: False
+  save_treewise: False
+  save_full_forest: False
+  save_instance_diagnostics: False
+  save_quality_training_data: True
+  quality_num_layers: 8
+  quality_min_labeled_fraction: 0.5
+  quality_match_iou_threshold: 0.5
+  quality_negative_iou_threshold: 0.25
+  quality_edge_margin_m: 0.5

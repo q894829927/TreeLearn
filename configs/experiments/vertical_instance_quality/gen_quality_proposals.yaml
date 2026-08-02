@@ -1,0 +1,38 @@
+output_root: 'data/instance_quality'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/vertical_instance_quality/pipeline_quality_template.yaml'
+checkpoint: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+cleanup_intermediates: True
+
+splits:
+  train:
+    - A1N
+    - A1W
+    - G1N
+    - G1W
+    - G2N
+    - G2W
+    - G3N
+    - G3W
+    - L2N
+    - L2W
+    - LG1
+    - LG2
+    - LG3
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+# Fast integrity run before generating all 18 forests.
+pilot_plots:
+  - A1N
+  - G4N
+
+gate:
+  min_positive_instances: 500
+  min_negative_instances: 100
+  min_independent_groups: 3
+  min_random_audit_instances: 50

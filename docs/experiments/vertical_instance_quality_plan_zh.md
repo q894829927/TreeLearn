@@ -310,6 +310,76 @@ data/instance_quality/manifest.csv
 - 任一 `source_plot` 不能同时出现在 train 和 validation；
 - 随机抽查至少 50 个实例，IoU 与边界标记正确。
 
+### E2 已实现流程（2026-08-02）
+
+实现文件：
+
+    configs/experiments/vertical_instance_quality/pipeline_quality_template.yaml
+    configs/experiments/vertical_instance_quality/gen_quality_proposals.yaml
+    tools/data_gen/gen_instance_quality_data.py
+    tree_learn/util/instance_quality.py
+
+固定森林级划分：
+
+- train：A1、G1、G2、G3、L2 的 N/W 扫描，以及 LG1、LG2、LG3；
+- validation：G4 的 N/W 扫描、L1N、O1 的 N/W 扫描；
+- 同一地块的 N/W 扫描永远处于同一 split；
+- Wytham、L1W 和后续外部测试集均不进入质量头训练。
+
+每个候选实例保存 35 维全局特征、8 层垂直 token、最大 GT IoU、分类有效掩码、边界掩码和来源地块。分类标签固定为：
+
+    positive: IoU >= 0.50
+    negative: IoU < 0.25
+    ambiguous: 0.25 <= IoU < 0.50，仅用于 IoU 回归
+
+完整训练森林中，标签 0 表示已标注非树点，仍属于有效监督；只有标签 -1 的未分类点不计入标注覆盖率。这样不会错误丢弃由非树点形成的假阳性候选。
+
+服务器先执行两森林 pilot：
+
+    conda activate TreeLearn
+    mkdir -p logs/vertical_quality
+    set -o pipefail
+
+    python -m unittest tests.test_instance_quality_data tests.test_instance_quality_generator -v 2>&1 | tee logs/vertical_quality/e2_unit_tests.log
+
+    python - <<'PY'
+    from tree_learn.util import get_config
+    path = 'configs/experiments/vertical_instance_quality/pipeline_quality_template.yaml'
+    cfg = get_config(path)
+    print('checkpoint:', cfg.pretrain)
+    print('save quality:', cfg.save_cfg.save_quality_training_data)
+    print('layers:', cfg.save_cfg.quality_num_layers)
+    print('seed ratio:', cfg.grouping.seed_confidence_keep_ratio)
+    print('full forest save:', cfg.save_cfg.save_full_forest)
+    PY
+
+    nohup python -u tools/data_gen/gen_instance_quality_data.py \
+      --config configs/experiments/vertical_instance_quality/gen_quality_proposals.yaml \
+      --pilot \
+      > logs/vertical_quality/e2_pilot_runner.log 2>&1 < /dev/null &
+
+    echo $! | tee logs/vertical_quality/e2_pilot.pid
+    tail -f logs/vertical_quality/e2_pilot_runner.log
+
+pilot 运行期间，逐森林 pipeline 详情位于：
+
+    tail -f data/instance_quality/logs/A1N.log
+    tail -f data/instance_quality/logs/G4N.log
+
+pilot 完成后检查：
+
+    cat data/instance_quality/generation_summary.md
+
+只有 gate.passed=True 才执行完整 18 森林生成：
+
+    nohup python -u tools/data_gen/gen_instance_quality_data.py \
+      --config configs/experiments/vertical_instance_quality/gen_quality_proposals.yaml \
+      > logs/vertical_quality/e2_full_runner.log 2>&1 < /dev/null &
+
+    echo $! | tee logs/vertical_quality/e2_full.pid
+    tail -f logs/vertical_quality/e2_full_runner.log
+
+生成器支持断点恢复：已存在且通过结构校验的森林会被跳过。每个森林的最终 NPZ、targets CSV 和 metadata 复制完成后，默认删除该森林的 tiles、体素化点云和临时预测，控制磁盘占用。完整生成后会固定抽取 50 个实例写入 data/instance_quality/manual_audit_sample.csv；在人工抽查完成前，E2 总 gate 保持 False，不得进入 E3。
 ## 8. E3：简单质量评分基线
 
 依次训练并固定三个基线：

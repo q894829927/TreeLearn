@@ -14,6 +14,9 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              filter_base_seeds_by_confidence,
                              get_axis_fused_features,
                              compute_instance_features, save_instance_features,
+                             compute_vertical_instance_tokens,
+                             compute_instance_quality_targets,
+                             save_instance_quality_data,
                              propagate_preds_hash_full, propagate_preds_hash_vox)
 
 TREE_CLASS_IN_PYTORCH_DATASET = 0
@@ -27,7 +30,9 @@ def run_treelearn_pipeline(config, config_path=None):
     # make dirs
     source_forest_path = config.forest_path
     plot_name = os.path.splitext(os.path.basename(source_forest_path))[0]
-    base_dir = os.path.dirname(os.path.dirname(source_forest_path))
+    base_dir = str(getattr(
+        config, 'pipeline_base_dir',
+        os.path.dirname(os.path.dirname(source_forest_path))))
     documentation_dir = os.path.join(base_dir, 'documentation')
     unvoxelized_data_dir = os.path.join(base_dir, 'forest')
     voxelized_data_dir = os.path.join(base_dir, f'forest_voxelized{config.sample_generation.voxel_size}')
@@ -50,12 +55,13 @@ def run_treelearn_pipeline(config, config_path=None):
     # Never overwrite an NPZ source. np.savez_compressed appends ".npz" when
     # the destination has another suffix, so the old ".npy" fallback created
     # "forest.npy.npz" and then attempted to read the nonexistent "forest.npy".
-    source_root, source_extension = os.path.splitext(source_forest_path)
-    if source_extension.lower() == '.npz':
-        centered_forest_path = source_root + '_centered.npz'
-    else:
-        centered_forest_path = source_root + '.npz'
-    np.savez_compressed(centered_forest_path, points=xyz_centered)
+    centered_forest_path = os.path.join(
+        unvoxelized_data_dir, f'{plot_name}.npz')
+    if os.path.abspath(centered_forest_path) == os.path.abspath(source_forest_path):
+        centered_forest_path = os.path.join(
+            unvoxelized_data_dir, f'{plot_name}_centered.npz')
+    np.savez_compressed(
+        centered_forest_path, points=xyz_centered, labels=data[:, 3])
     config.forest_path = centered_forest_path
     
     # documentation
@@ -80,7 +86,9 @@ def run_treelearn_pipeline(config, config_path=None):
     load_checkpoint(config.pretrain, logger, model)
     pointwise_results = get_pointwise_preds(
         model, dataloader, config.model, logger,
-        return_backbone_feats=config.save_cfg.save_pointwise)
+        return_backbone_feats=bool(
+            config.save_cfg.save_pointwise or getattr(
+                config.save_cfg, 'save_quality_training_data', False)))
     (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, coords, instance_labels,
      backbone_feats, input_feats, axis_xy_predictions,
@@ -161,9 +169,14 @@ def run_treelearn_pipeline(config, config_path=None):
             'initial clustering produced no usable reference instances. '
             'No output was saved; inspect the clustering seed count and thresholds.')
 
-    if bool(getattr(config.save_cfg, 'save_instance_diagnostics', False)):
+    save_diagnostics = bool(getattr(
+        config.save_cfg, 'save_instance_diagnostics', False))
+    save_quality_data = bool(getattr(
+        config.save_cfg, 'save_quality_training_data', False))
+    instance_features = None
+    if save_diagnostics or save_quality_data:
         logger.info(
-            f'{plot_name}: #################### saving instance diagnostics '
+            f'{plot_name}: #################### computing instance diagnostics '
             '####################')
         instance_features = compute_instance_features(
             coords=coords,
@@ -174,20 +187,80 @@ def run_treelearn_pipeline(config, config_path=None):
             verticality=input_feats[:, -1],
             axis_confidence=axis_confidence,
             tree_class_index=TREE_CLASS_IN_PYTORCH_DATASET)
+
+    diagnostic_metadata = {
+        'plot_name': plot_name,
+        'checkpoint': str(config.pretrain),
+        'seed_filter_mode': str(getattr(
+            grouping_cfg, 'seed_confidence_filter_mode', 'threshold')),
+        'seed_keep_ratio': float(getattr(
+            grouping_cfg, 'seed_confidence_keep_ratio', 1.0)),
+    }
+    if save_diagnostics:
         diagnostics_dir = os.path.join(results_dir, 'instance_diagnostics')
         csv_path, metadata_path = save_instance_features(
             instance_features, diagnostics_dir,
-            metadata={
-                'plot_name': plot_name,
-                'checkpoint': str(config.pretrain),
-                'seed_filter_mode': str(getattr(
-                    grouping_cfg, 'seed_confidence_filter_mode', 'threshold')),
-                'seed_keep_ratio': float(getattr(
-                    grouping_cfg, 'seed_confidence_keep_ratio', 1.0)),
-            })
+            metadata=diagnostic_metadata)
         logger.info(
             f'Saved {len(instance_features):,} instance feature rows to '
             f'{csv_path} (metadata: {metadata_path})')
+
+    if save_quality_data:
+        if backbone_feats is None:
+            raise RuntimeError(
+                'Quality training data requires frozen backbone features.')
+        logger.info(
+            f'{plot_name}: #################### saving quality training data '
+            '####################')
+        token_data = compute_vertical_instance_tokens(
+            coords=coords,
+            instance_predictions=instance_preds,
+            backbone_features=backbone_feats,
+            semantic_prediction_logits=semantic_prediction_logits,
+            offset_predictions=offset_predictions,
+            verticality=input_feats[:, -1],
+            axis_confidence=axis_confidence,
+            num_layers=int(getattr(
+                config.save_cfg, 'quality_num_layers', 8)),
+            tree_class_index=TREE_CLASS_IN_PYTORCH_DATASET)
+        target_data = compute_instance_quality_targets(
+            coords=coords,
+            instance_predictions=instance_preds,
+            instance_labels=instance_labels,
+            min_labeled_fraction=float(getattr(
+                config.save_cfg,
+                'quality_min_labeled_fraction', 0.5)),
+            match_iou_threshold=float(getattr(
+                config.save_cfg, 'quality_match_iou_threshold', 0.5)),
+            negative_iou_threshold=float(getattr(
+                config.save_cfg, 'quality_negative_iou_threshold', 0.25)),
+            edge_margin_m=float(getattr(
+                config.save_cfg, 'quality_edge_margin_m', 0.5)))
+        quality_dir = os.path.join(results_dir, 'instance_quality')
+        quality_paths = save_instance_quality_data(
+            instance_features, token_data, target_data, quality_dir,
+            source_plot=plot_name,
+            split=str(getattr(config, 'quality_split', 'unspecified')),
+            metadata=diagnostic_metadata)
+        valid = target_data['target_valid']
+        classification_valid = target_data['target_classification_valid']
+        positives = (
+            target_data['target_is_true_tree'] & classification_valid)
+        negatives = (
+            ~target_data['target_is_true_tree'] & classification_valid)
+        logger.info(
+            f'Saved quality data for {len(valid):,} candidates '
+            f'({valid.sum():,} valid, {positives.sum():,} positive, '
+            f'{negatives.sum():,} negative) to {quality_paths[0]}')
+
+    if (
+            save_quality_data and
+            not bool(config.save_cfg.save_pointwise) and
+            not bool(getattr(config.save_cfg, 'save_full_forest', True)) and
+            not bool(config.save_cfg.save_treewise)):
+        logger.info(
+            f'{plot_name}: quality artifact complete; skipping full-forest save')
+        return
     
     # save pointwise results
     if config.save_cfg.save_pointwise:
