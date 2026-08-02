@@ -169,6 +169,22 @@ logs/vertical_quality/e0_data_audit.md
 
 不满足时先补数据，不训练质量头。
 
+### 实际结果（2026-08-02）
+
+- 状态：**PASS，E0 完成**；
+- 审计代码 commit：`175e247ec13c9f20154c6b8d476350dc4abf29cd`；
+- 18 个训练森林全部满足完整标注要求，标签覆盖率均为 100%；
+- L1W 含 200 棵人工修正树，标签覆盖率 72.814%，满足人工验证集角色要求；
+- L1W 与 Wytham 的 prediction、evaluation、instance feature CSV 和 checkpoint 均通过同源性检查；
+- Wytham 继续仅作为 development 数据，不进入质量头训练或模型选择；
+- FOR-instance 当前不可用，但属于可选外部测试集，不阻塞 E1；
+- 所有 Gate 均为 `True`。完整报告位于：
+
+```text
+logs/vertical_quality/e0_data_audit.json
+logs/vertical_quality/e0_data_audit.md
+```
+
 ## 6. E1：Oracle IoU 过滤上限
 
 ### 目的
