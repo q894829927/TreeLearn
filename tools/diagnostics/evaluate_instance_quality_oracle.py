@@ -8,6 +8,9 @@ import numpy as np
 
 
 DEFAULT_THRESHOLDS = [value / 20 for value in range(21)]
+REQUIRED_RUN_FIELDS = (
+    'name', 'predictions', 'ground_truth', 'evaluation', 'output_dir')
+
 
 
 def parse_args():
@@ -388,7 +391,7 @@ def resolve_propagated_path(spec):
 
 
 def run_oracle(name, spec, settings):
-    required = ['predictions', 'ground_truth', 'evaluation', 'output_dir']
+    required = REQUIRED_RUN_FIELDS[1:]
     missing_fields = [key for key in required if not spec.get(key)]
     if missing_fields:
         raise ValueError(f'Missing run fields: {missing_fields}')
@@ -510,8 +513,35 @@ def settings_from_args(args):
     }
 
 
+def validate_config_runs(config):
+    runs = config.get('runs')
+    if not isinstance(runs, list) or not runs:
+        raise ValueError('E1 config must contain a non-empty runs list.')
+    errors = []
+    names = []
+    for index, spec in enumerate(runs):
+        if not isinstance(spec, dict):
+            errors.append(f'runs[{index}] is not a mapping')
+            continue
+        missing = [key for key in REQUIRED_RUN_FIELDS if not spec.get(key)]
+        if missing:
+            errors.append(f"runs[{index}] missing {missing}")
+        names.append(spec.get('name'))
+    valid_names = [name for name in names if name]
+    if len(valid_names) != len(set(valid_names)):
+        errors.append('run names must be unique')
+    if not any(
+            isinstance(spec, dict) and spec.get('primary_gate', False)
+            for spec in runs):
+        errors.append('at least one run must set primary_gate: true')
+    if errors:
+        raise ValueError('Invalid E1 config: ' + '; '.join(errors))
+    return runs
+
+
 def run_config(path):
     config = load_yaml(path)
+    run_specs = validate_config_runs(config)
     settings = {
         key: config[key] for key in [
             'thresholds', 'min_iou_for_match',
@@ -519,7 +549,7 @@ def run_config(path):
             'min_f1_gain_pp', 'chunk_size', 'coordinate_tolerance_m']}
     reports = {}
     primary = []
-    for spec in config['runs']:
+    for spec in run_specs:
         name = spec['name']
         reports[name] = run_oracle(name, spec, settings)
         if spec.get('primary_gate', False):

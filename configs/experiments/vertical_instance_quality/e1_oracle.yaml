@@ -39,3 +39,8 @@ runs:
     primary_gate: false
 
   - name: 'wytham_primary'
+    predictions: 'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/wytham_vox0.1.laz'
+    ground_truth: 'data/benchmark/wytham_vox0.1.laz'
+    evaluation: 'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt'
+    output_dir: 'logs/vertical_quality/e1_oracle_wytham'
+    primary_gate: true

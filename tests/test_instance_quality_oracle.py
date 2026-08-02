@@ -85,5 +85,15 @@ class InstanceQualityOracleTests(unittest.TestCase):
             chunked['gt_sizes'], self.tables['gt_sizes'])
 
 
+    def test_config_validation_checks_every_run_before_execution(self):
+        complete = {
+            key: key for key in module.REQUIRED_RUN_FIELDS}
+        complete['primary_gate'] = True
+        incomplete = {'name': 'broken'}
+
+        with self.assertRaisesRegex(ValueError, 'runs\\[1\\] missing'):
+            module.validate_config_runs({
+                'runs': [complete, incomplete]})
+
 if __name__ == '__main__':
     unittest.main()
