@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import pathlib
 import tempfile
 import unittest
@@ -16,6 +17,20 @@ module_spec.loader.exec_module(module)
 
 
 class VerticalQualityAuditTests(unittest.TestCase):
+
+    def test_json_default_converts_numpy_scalars_and_arrays(self):
+        payload = {
+            'passed': np.bool_(True),
+            'count': np.int64(3),
+            'values': np.asarray([0.25, 0.5], dtype=np.float32),
+        }
+
+        serialized = json.dumps(payload, default=module.json_default)
+        restored = json.loads(serialized)
+
+        self.assertIs(restored['passed'], True)
+        self.assertEqual(restored['count'], 3)
+        self.assertEqual(len(restored['values']), 2)
 
     def test_summarizes_labels_and_boundary_trees(self):
         coords = np.array([

@@ -15,6 +15,18 @@ import numpy as np
 SUPPORTED_EXTENSIONS = {'.las', '.laz', '.npz', '.npy', '.txt'}
 
 
+def json_default(value):
+    """Convert NumPy containers/scalars used by audit checks to JSON types."""
+    if isinstance(value, np.generic):
+        return value.item()
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, set):
+        return sorted(value)
+    raise TypeError(
+        f'Object of type {value.__class__.__name__} is not JSON serializable')
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Audit full-forest data for vertical quality scoring.')
@@ -549,7 +561,9 @@ def main():
     json_path = output_dir / 'e0_data_audit.json'
     markdown_path = output_dir / 'e0_data_audit.md'
     json_path.write_text(
-        json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')
+        json.dumps(
+            report, indent=2, ensure_ascii=False, default=json_default),
+        encoding='utf-8')
     markdown = format_markdown(report)
     markdown_path.write_text(markdown, encoding='utf-8')
     print(markdown)
