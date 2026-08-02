@@ -1,0 +1,79 @@
+output_dir: 'logs/vertical_quality'
+
+audit:
+  chunk_size: 2000000
+  edge_margin_m: 0.5
+  min_label_coverage: 0.95
+  min_training_forests: 3
+  min_validation_forests: 1
+  expected_branch: 'vertical-instance-quality'
+
+reproducibility:
+  random_seeds: [42, 43, 44]
+  fixed_configs:
+    - 'configs/experiments/point_transformer/pipeline_l1w_instance_diagnostic_mlp_s43_r100.yaml'
+    - 'configs/experiments/point_transformer/pipeline_wytham_instance_diagnostic_mlp_s43_r100.yaml'
+    - 'configs/experiments/point_transformer/evaluate_l1w_instance_diagnostic_mlp_s43_r100.yaml'
+    - 'configs/experiments/point_transformer/evaluate_wytham_instance_diagnostic_mlp_s43_r100.yaml'
+  checkpoints:
+    - name: 'base_residual_mlp_s43'
+      path: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+      sha256: true
+
+forest_sources:
+  - name: 'treelearn_lidar360_training'
+    role: 'train'
+    glob: 'data/train/forests/*'
+    sensor: 'GeoSLAM ZEB-Horizon MLS'
+    country: 'Germany'
+    forest_type: 'temperate deciduous forest'
+    label_quality: 'automatic_lidar360'
+    split_group: 'filename'
+    source: 'https://doi.org/10.1016/j.ecoinf.2024.102888'
+
+  - name: 'treelearn_l1w_validation'
+    role: 'validation'
+    paths:
+      - 'data/val/forest/L1W.laz'
+    sensor: 'GeoSLAM ZEB-Horizon MLS'
+    country: 'Germany'
+    forest_type: 'temperate deciduous forest'
+    label_quality: 'manually_corrected'
+    split_group: 'L1W'
+    source: 'https://doi.org/10.1016/j.ecoinf.2024.102888'
+
+  - name: 'wytham_development_gt'
+    role: 'development'
+    paths:
+      - 'data/benchmark/wytham_vox0.1.laz'
+    sensor: 'terrestrial laser scanning'
+    country: 'United Kingdom'
+    forest_type: 'temperate broadleaf forest'
+    label_quality: 'quality_checked_and_propagated'
+    split_group: 'Wytham'
+    source: 'development only; already observed'
+
+external_test_candidates:
+  - name: 'for_instance'
+    glob: 'data/external/FOR-instance/**/*'
+    required_now: false
+    source: 'https://arxiv.org/abs/2309.01279'
+
+diagnostic_artifacts:
+  - name: 'L1W'
+    prediction: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/L1W.laz'
+    ground_truth: 'data/benchmark/L1W_voxelized01_for_eval.laz'
+    features: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv'
+    metadata: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/metadata.json'
+    evaluation: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt'
+    expected_plot_name: 'L1W'
+    expected_seed_keep_ratio: 1.0
+
+  - name: 'Wytham'
+    prediction: 'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/wytham_vox0.1.laz'
+    ground_truth: 'data/benchmark/wytham_vox0.1.laz'
+    features: 'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv'
+    metadata: 'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/metadata.json'
+    evaluation: 'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt'
+    expected_plot_name: 'wytham_vox0.1'
+    expected_seed_keep_ratio: 1.0
