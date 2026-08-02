@@ -378,6 +378,30 @@ def expand_source_files(source):
     return files
 
 
+def forest_eligibility(row, settings):
+    """Return strict full-label and role-specific quality-data eligibility."""
+    base_requirements = bool(
+        row.get('num_trees', 0) > 0 and
+        row.get('non_tree_point_count', 0) > 0 and
+        row.get('label_conflict_count', 0) == 0)
+    coverage = row.get('label_coverage_rate', 0.0)
+    full_forest = bool(
+        base_requirements and coverage >= settings['min_label_coverage'])
+
+    if row.get('role') == 'validation':
+        role_eligible = bool(
+            base_requirements and
+            coverage >= settings['min_validation_label_coverage'] and
+            row.get('num_trees', 0) >= settings['min_validation_trees'])
+        threshold = settings['min_validation_label_coverage']
+        minimum_trees = settings['min_validation_trees']
+    else:
+        role_eligible = full_forest
+        threshold = settings['min_label_coverage']
+        minimum_trees = 1
+    return full_forest, role_eligible, threshold, minimum_trees
+
+
 def audit_forest_sources(config, scan_cache):
     settings = config['audit']
     rows = []
@@ -397,12 +421,12 @@ def audit_forest_sources(config, scan_cache):
             })
             if row.get('split_group') == 'filename':
                 row['split_group'] = Path(path).stem
-            row['eligible_full_forest'] = bool(
-                row.get('num_trees', 0) > 0 and
-                row.get('non_tree_point_count', 0) > 0 and
-                row.get('label_conflict_count', 0) == 0 and
-                row.get('label_coverage_rate', 0.0) >=
-                settings['min_label_coverage'])
+            full, role_eligible, threshold, minimum_trees = (
+                forest_eligibility(row, settings))
+            row['eligible_full_forest'] = full
+            row['eligible_for_role'] = role_eligible
+            row['role_label_coverage_threshold'] = threshold
+            row['role_minimum_trees'] = minimum_trees
             rows.append(row)
     return rows
 
@@ -459,11 +483,11 @@ def build_gate(config, forests, diagnostics, reproducibility):
     eligible_train = [
         item for item in forests
         if item.get('role') == 'train' and
-        item.get('eligible_full_forest')]
+        item.get('eligible_for_role', item.get('eligible_full_forest'))]
     eligible_validation = [
         item for item in forests
         if item.get('role') == 'validation' and
-        item.get('eligible_full_forest')]
+        item.get('eligible_for_role', item.get('eligible_full_forest'))]
     manual_validation = [
         item for item in eligible_validation
         if 'manual' in str(item.get('label_quality', '')).lower()]
@@ -480,7 +504,7 @@ def build_gate(config, forests, diagnostics, reproducibility):
             settings['expected_branch']),
         'enough_complete_training_forests': (
             len(eligible_train) >= settings['min_training_forests']),
-        'enough_complete_validation_forests': (
+        'enough_usable_validation_forests': (
             len(eligible_validation) >= settings['min_validation_forests']),
         'manual_validation_available': bool(manual_validation),
         'forest_metadata_complete': known_metadata,
@@ -501,7 +525,7 @@ def format_markdown(report):
         f"- Git commit：`{report['reproducibility']['git']['commit']}`",
         f"- Git clean：{report['reproducibility']['git']['status_clean']}",
         '', '## 完整森林', '',
-        '| Role | Plot | Points | Trees | Label coverage | Boundary trees | Eligible |',
+        '| Role | Plot | Points | Trees | Label coverage | Boundary trees | Role eligible |',
         '|---|---|---:|---:|---:|---:|---|']
     for item in report['forests']:
         rows.append(
@@ -509,7 +533,7 @@ def format_markdown(report):
             f"{item.get('point_count', 0):,} | {item.get('num_trees', 0):,} | "
             f"{100 * item.get('label_coverage_rate', 0):.3f}% | "
             f"{item.get('boundary_tree_count_bbox', 0):,} | "
-            f"{item.get('eligible_full_forest', False)} |")
+            f"{item.get('eligible_for_role', item.get('eligible_full_forest', False))} |")
     rows.extend(['', '## 诊断 artifact 一致性', ''])
     for item in report['diagnostic_artifacts']:
         rows.append(

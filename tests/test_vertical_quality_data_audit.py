@@ -32,6 +32,28 @@ class VerticalQualityAuditTests(unittest.TestCase):
         self.assertEqual(restored['count'], 3)
         self.assertEqual(len(restored['values']), 2)
 
+    def test_partial_manual_validation_is_role_eligible_not_full(self):
+        settings = {
+            'min_label_coverage': 0.95,
+            'min_validation_label_coverage': 0.50,
+            'min_validation_trees': 100,
+        }
+        row = {
+            'role': 'validation',
+            'num_trees': 200,
+            'non_tree_point_count': 1_000,
+            'label_conflict_count': 0,
+            'label_coverage_rate': 0.72814,
+        }
+
+        full, role_eligible, threshold, minimum_trees = (
+            module.forest_eligibility(row, settings))
+
+        self.assertFalse(full)
+        self.assertTrue(role_eligible)
+        self.assertEqual(threshold, 0.50)
+        self.assertEqual(minimum_trees, 100)
+
     def test_summarizes_labels_and_boundary_trees(self):
         coords = np.array([
             [0.0, 0.0, 0.0],

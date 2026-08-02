@@ -4,6 +4,8 @@ audit:
   chunk_size: 2000000
   edge_margin_m: 0.5
   min_label_coverage: 0.95
+  min_validation_label_coverage: 0.50
+  min_validation_trees: 100
   min_training_forests: 3
   min_validation_forests: 1
   expected_branch: 'vertical-instance-quality'
