@@ -138,6 +138,10 @@ def scan_aligned_las(ground_truth, propagated_predictions, chunk_size):
             raise ValueError(
                 'Propagated predictions and ground truth have different '
                 'point counts.')
+        total_points = int(gt_reader.header.point_count)
+        print(
+            f'Scanning {total_points:,} aligned GT/prediction points...',
+            flush=True)
         gt_dimensions = _label_dimensions(gt_reader)
         pred_dimensions = _label_dimensions(pred_reader)
         gt_iterator = gt_reader.chunk_iterator(chunk_size)
@@ -165,6 +169,12 @@ def scan_aligned_las(ground_truth, propagated_predictions, chunk_size):
             pred_labels = _labels_from_las_points(
                 pred_points, *pred_dimensions)
             accumulate_label_chunk(accumulator, gt_labels, pred_labels)
+            processed = accumulator['point_count']
+            if chunk_index == 1 or chunk_index % 5 == 0 or processed == total_points:
+                print(
+                    f'  processed {processed:,}/{total_points:,} points '
+                    f'({100 * processed / total_points:.1f}%)',
+                    flush=True)
     return accumulator
 
 
@@ -378,11 +388,16 @@ def run_oracle(name, spec, settings):
         raise FileNotFoundError(
             'Required E1 inputs are missing: ' + ', '.join(missing_paths))
 
+    print(f'===== E1 Oracle: {name} =====', flush=True)
     accumulator = scan_aligned_las(
         paths['ground_truth'], paths['propagated_predictions'],
         int(settings['chunk_size']))
     tables = contingency_from_accumulator(accumulator)
     quality = tables['iou'].max(axis=1)
+    print(
+        f"Built IoU table for {len(tables['pred_ids']):,} predictions and "
+        f"{len(tables['gt_ids']):,} GT trees.",
+        flush=True)
     best_gt_indices = tables['iou'].argmax(axis=1)
     best_gt_ids = tables['gt_ids'][best_gt_indices]
     row_indices = np.arange(len(tables['pred_ids']))
