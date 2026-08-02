@@ -208,6 +208,39 @@ python tools/diagnostics/evaluate_instance_quality_oracle.py \
   --output_dir logs/vertical_quality/e1_oracle_wytham
 ```
 
+实现后推荐使用固定配置一次运行 L1W sanity 与 Wytham primary gate：
+
+```bash
+mkdir -p logs/vertical_quality
+set -o pipefail
+
+python -m unittest tests.test_instance_quality_oracle -v \
+  2>&1 | tee logs/vertical_quality/e1_oracle_tests.log
+
+python -u tools/diagnostics/evaluate_instance_quality_oracle.py \
+  --config configs/experiments/vertical_instance_quality/e1_oracle.yaml \
+  2>&1 | tee logs/vertical_quality/e1_oracle_run.log
+```
+
+固定扫描阈值为 0.00–1.00、步长 0.05。阈值 0 必须逐项复现已有 evaluation
+artifact 的 TP、FP、FN 和预测实例数，否则工具立即停止，不能解释 Oracle 结果。
+Oracle 选择仅在 Completeness 下降不超过 1.0 个百分点的候选中最大化 F1；F1
+相同时依次选择 Completeness 更高、阈值更低的结果。
+
+新增产物：
+
+```text
+logs/vertical_quality/e1_oracle_l1w/oracle_results.json
+logs/vertical_quality/e1_oracle_l1w/oracle_thresholds.csv
+logs/vertical_quality/e1_oracle_l1w/oracle_instance_quality.csv
+logs/vertical_quality/e1_oracle_l1w/oracle_f1_completeness.png
+logs/vertical_quality/e1_oracle_wytham/oracle_results.json
+logs/vertical_quality/e1_oracle_wytham/oracle_thresholds.csv
+logs/vertical_quality/e1_oracle_wytham/oracle_instance_quality.csv
+logs/vertical_quality/e1_oracle_wytham/oracle_f1_completeness.png
+logs/vertical_quality/e1_oracle_summary.md
+```
+
 ### 产物
 
 - 所有质量阈值下的 TP、FP、FN、Completeness、Commission 和 F1；

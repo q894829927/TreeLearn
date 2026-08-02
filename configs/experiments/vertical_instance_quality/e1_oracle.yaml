@@ -1,0 +1,40 @@
+summary_output_dir: 'logs/vertical_quality'
+
+thresholds:
+  - 0.00
+  - 0.05
+  - 0.10
+  - 0.15
+  - 0.20
+  - 0.25
+  - 0.30
+  - 0.35
+  - 0.40
+  - 0.45
+  - 0.50
+  - 0.55
+  - 0.60
+  - 0.65
+  - 0.70
+  - 0.75
+  - 0.80
+  - 0.85
+  - 0.90
+  - 0.95
+  - 1.00
+
+min_iou_for_match: 0.5
+min_precision_for_pred: 0.5
+max_completeness_drop_pp: 1.0
+min_f1_gain_pp: 1.0
+chunk_size: 2000000
+
+runs:
+  - name: 'l1w_sanity'
+    predictions: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/L1W.laz'
+    ground_truth: 'data/benchmark/L1W_voxelized01_for_eval.laz'
+    evaluation: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt'
+    output_dir: 'logs/vertical_quality/e1_oracle_l1w'
+    primary_gate: false
+
+  - name: 'wytham_primary'
