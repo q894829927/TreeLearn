@@ -259,6 +259,29 @@ logs/vertical_quality/e1_oracle_summary.md
 
 失败则终止整个实例质量评分方向。
 
+### 实际结果（2026-08-02）
+
+- 状态：**PASS，E1 完成**；
+- L1W sanity：
+  - baseline F1：98.422713%；
+  - best Oracle F1：100.000000%；
+  - F1 提升：1.577287 个百分点；
+  - Completeness：100.000000% → 100.000000%；
+  - Oracle threshold：0.10；
+- Wytham primary：
+  - baseline：TP=568、FP=131、FN=309、F1=72.081218%；
+  - best Oracle：TP=568、FP=0、FN=309、F1=78.615917%；
+  - F1 提升：6.534699 个百分点；
+  - Completeness：64.766249% → 64.766249%，下降 0；
+  - Oracle threshold：0.50；
+- Primary Gate：`True`。
+
+解释边界：Oracle 使用真实 GT 最大 IoU，阈值 0.50 与官方匹配阈值一致，因而
+可以理想地去除全部不可匹配预测。它只证明实例质量筛选存在足够上限，不证明该
+质量可以从模型特征中学习；E2/E3 必须继续验证可学习性，且不得把 Oracle 阈值
+直接当成最终推理阈值。
+
+
 ## 7. E2：生成候选实例训练数据
 
 ### 原则
