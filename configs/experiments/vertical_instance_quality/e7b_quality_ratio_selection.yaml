@@ -1,0 +1,10 @@
+validation_predictions: 'logs/vertical_quality/e4_vertical_mlp/validation_predictions.csv'
+seeds: [42, 43, 44]
+max_completeness_drop: 0.01
+
+ratio_grid:
+  start: 0.50
+  stop: 1.00
+  step: 0.01
+
+output_dir: 'logs/vertical_quality/e7b_keep_ratio_selection'

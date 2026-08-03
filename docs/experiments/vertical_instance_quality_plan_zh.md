@@ -900,3 +900,41 @@ Gate 沿用预注册规则：Completeness 下降不超过 1.0 个百分点，并
 0.5 个百分点，或 Commission 至少降低 2.0 个百分点。失败时记录跨域失败，
 不允许在 Wytham 上重新调参。通过后下一步不是消融，而是准备从未参与方法选择的
 独立外部测试森林。
+
+## 18. E7 Wytham 失败与 E7b 域稳健校准诊断
+
+E7 固定绝对阈值 0.01 在 Wytham 上失败：
+
+| 指标 | Baseline | Filtered | Delta |
+|---|---:|---:|---:|
+| Completeness | 64.766249% | 57.468643% | -7.297605 pp |
+| Commission | 18.741059% | 7.692308% | -11.048751 pp |
+| F1 | 72.081218% | 70.836261% | -1.244957 pp |
+| Coverage | 57.718038% | 50.777961% | -6.940077 pp |
+
+该结果说明质量分数仍具有误检排序能力，但绝对分值存在明显跨域校准偏移。
+阈值删除了 612 / 1862 个候选，误删真实树，因此不能继续使用固定阈值 0.01，
+也不能直接在 Wytham 上搜索另一个阈值。
+
+E7b 只使用 E4 固定 validation forests 的预测，跨三个随机种子选择每森林
+top-ratio 保留比例。选择规则预先固定为：
+
+1. 三个种子的候选实例 Completeness 均下降不超过 1%；
+2. 最大化三个种子的平均 F1；
+3. 再最大化最低种子 F1；
+4. 仍相同时选择更小的保留比例；
+5. Wytham 标签完全不参与比例选择。
+
+服务器运行：
+
+~~~bash
+python -u tools/diagnostics/select_quality_keep_ratio.py \
+  --config configs/experiments/vertical_instance_quality/e7b_quality_ratio_selection.yaml \
+  2>&1 | tee logs/vertical_quality/e7b_keep_ratio_selection_run.log
+
+cat logs/vertical_quality/e7b_keep_ratio_selection/summary.md
+~~~
+
+拿到 selected keep ratio 后再实现 pipeline top-ratio 过滤，并在 L1W 做回归。
+比例锁定后才允许再运行一次 Wytham development 复核；若再次失败，停止实例质量
+过滤路线，不进入消融。
