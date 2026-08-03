@@ -1,0 +1,15 @@
+data_root: 'data/instance_quality'
+sample_path: 'data/instance_quality/manual_audit_sample.csv'
+output_dir: 'logs/vertical_quality/e2_artifact_audit'
+
+thresholds:
+  positive_iou: 0.5
+  negative_iou: 0.25
+
+gate:
+  min_sample_count: 50
+  min_plot_count: 3
+  require_train: True
+  require_validation: True
+  require_ambiguous: True
+  require_edge: True

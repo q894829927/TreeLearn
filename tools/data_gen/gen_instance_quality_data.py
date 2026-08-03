@@ -364,23 +364,60 @@ def summarize(rows, settings, selected_plots, pilot, manual_audit_confirmed):
 
 
 def write_audit_sample(rows, output_root, sample_size, seed=42):
-    valid_rows = [row for row in rows if bool_value(row['target_valid'])]
-    if not valid_rows:
+    if not rows:
         return None
     generator = np.random.default_rng(seed)
-    indices = generator.choice(
-        len(valid_rows),
-        size=min(sample_size, len(valid_rows)),
-        replace=False,
-    )
-    sampled = [valid_rows[int(index)] for index in indices]
+    sample_size = min(int(sample_size), len(rows))
+    sampled = []
+    selected = set()
+
+    def row_key(row):
+        return row['artifact_path'], row['instance_id']
+
+    def add_stratum(predicate, quota):
+        candidates = [
+            row for row in rows
+            if row_key(row) not in selected and predicate(row)]
+        if not candidates:
+            return
+        chosen = generator.choice(
+            len(candidates), size=min(quota, len(candidates)), replace=False)
+        for index in np.atleast_1d(chosen):
+            row = candidates[int(index)]
+            sampled.append(row)
+            selected.add(row_key(row))
+
+    add_stratum(
+        lambda row: bool_value(row['target_is_edge']), 5)
+    add_stratum(
+        lambda row: (
+            bool_value(row['target_valid']) and
+            0.25 <= float(row['target_max_iou']) < 0.5), 10)
+    add_stratum(
+        lambda row: (
+            bool_value(row['target_classification_valid']) and
+            not bool_value(row['target_is_true_tree'])), 15)
+    add_stratum(
+        lambda row: (
+            bool_value(row['target_classification_valid']) and
+            bool_value(row['target_is_true_tree'])), 15)
+    add_stratum(lambda row: row['split'] == 'validation', 5)
+
+    remaining_slots = sample_size - len(sampled)
+    if remaining_slots > 0:
+        candidates = [
+            row for row in rows if row_key(row) not in selected]
+        chosen = generator.choice(
+            len(candidates), size=remaining_slots, replace=False)
+        sampled.extend(candidates[int(index)] for index in chosen)
+    sampled = sampled[:sample_size]
+
     path = Path(output_root) / 'manual_audit_sample.csv'
     with path.open('w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=list(sampled[0]))
         writer.writeheader()
         writer.writerows(sampled)
     return path
-
 
 def write_summary(summary, output_root):
     root = Path(output_root)

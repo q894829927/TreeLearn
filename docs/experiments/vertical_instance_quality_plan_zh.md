@@ -380,6 +380,31 @@ pilot 完成后检查：
     tail -f logs/vertical_quality/e2_full_runner.log
 
 生成器支持断点恢复：已存在且通过结构校验的森林会被跳过。每个森林的最终 NPZ、targets CSV 和 metadata 复制完成后，默认删除该森林的 tiles、体素化点云和临时预测，控制磁盘占用。完整生成后会固定抽取 50 个实例写入 data/instance_quality/manual_audit_sample.csv；在人工抽查完成前，E2 总 gate 保持 False，不得进入 E3。
+先用更新后的分层策略重新生成 50 条审计清单；该命令只校验已有 NPZ 并重写 manifest/抽样 CSV，不会重新运行森林 pipeline：
+
+    python -u tools/data_gen/gen_instance_quality_data.py \
+      --config configs/experiments/vertical_instance_quality/gen_quality_proposals.yaml \
+      2>&1 | tee logs/vertical_quality/e2_refresh_audit_sample.log
+
+对固定 50 个实例执行 artifact 一致性审计：
+
+    python -u tools/diagnostics/audit_instance_quality_artifacts.py \
+      --config configs/experiments/vertical_instance_quality/e2_artifact_audit.yaml \
+      2>&1 | tee logs/vertical_quality/e2_artifact_audit.log
+
+    cat logs/vertical_quality/e2_artifact_audit/summary.md
+    head -n 16 logs/vertical_quality/e2_artifact_audit/audited_instances.csv
+
+该审计逐条核对 CSV/NPZ、正负与模糊 IoU 阈值、边界有效性、来源 split、8 层 occupancy、空层和有限值。它不重新生成已经清理的逐点候选几何；逐点 IoU 算法正确性由 E1 Oracle 对齐检查与 E2 单元测试覆盖。只有审计报告全部为 True，且人工查看 audited_instances.csv 未发现异常后，才显式确认 E2：
+
+    python -u tools/data_gen/gen_instance_quality_data.py \
+      --config configs/experiments/vertical_instance_quality/gen_quality_proposals.yaml \
+      --manual-audit-confirmed \
+      2>&1 | tee logs/vertical_quality/e2_confirm.log
+
+    cat data/instance_quality/generation_summary.md
+
+最终必须显示 manual_audit_confirmed=True 和 passed=True，之后才进入 E3。
 ## 8. E3：简单质量评分基线
 
 依次训练并固定三个基线：

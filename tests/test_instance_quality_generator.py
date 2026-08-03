@@ -1,3 +1,4 @@
+import csv
 import importlib.util
 import tempfile
 import unittest
@@ -48,6 +49,57 @@ class InstanceQualityGeneratorTests(unittest.TestCase):
                 GENERATOR.safe_cleanup_runtime(root, root)
 
 
+    def test_audit_sample_is_stratified_and_deterministic(self):
+        rows = []
+        for index in range(80):
+            if index < 5:
+                iou = 0.0
+                is_edge = True
+                valid = False
+            elif index < 15:
+                iou = 0.35
+                is_edge = False
+                valid = True
+            elif index < 40:
+                iou = 0.1
+                is_edge = False
+                valid = True
+            else:
+                iou = 0.8
+                is_edge = False
+                valid = True
+            rows.append({
+                'instance_id': str(index + 1),
+                'artifact_path': f'plot_{index // 20}.npz',
+                'target_is_edge': str(is_edge),
+                'target_valid': str(valid),
+                'target_max_iou': str(iou),
+                'target_classification_valid': str(
+                    valid and (iou < 0.25 or iou >= 0.5)),
+                'target_is_true_tree': str(iou >= 0.5),
+                'split': 'validation' if index >= 60 else 'train',
+            })
+
+        with tempfile.TemporaryDirectory() as directory:
+            first_path = GENERATOR.write_audit_sample(
+                rows, directory, sample_size=50, seed=42)
+            first = first_path.read_text(encoding='utf-8')
+            second_path = GENERATOR.write_audit_sample(
+                rows, directory, sample_size=50, seed=42)
+            second = second_path.read_text(encoding='utf-8')
+            with second_path.open(newline='', encoding='utf-8') as file:
+                sampled = list(csv.DictReader(file))
+
+        self.assertEqual(first, second)
+        self.assertEqual(len(sampled), 50)
+        self.assertTrue(any(
+            GENERATOR.bool_value(row['target_is_edge'])
+            for row in sampled))
+        self.assertTrue(any(
+            0.25 <= float(row['target_max_iou']) < 0.5
+            for row in sampled))
+        self.assertTrue(any(
+            row['split'] == 'validation' for row in sampled))
     def test_full_gate_requires_every_fixed_plot(self):
         settings = {
             'splits': {
