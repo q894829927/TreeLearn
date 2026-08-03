@@ -1,0 +1,22 @@
+artifact_root: 'data/instance_quality_e8b'
+quality_checkpoint: 'logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth'
+output_dir: 'data/instance_merge_pairs_e8b'
+device: 'cuda'
+
+# Locked by E7b validation selection; not reselected from Wytham.
+keep_ratio: 0.85
+
+# Broad candidate graph only. These values are not deployment merge thresholds.
+num_neighbors: 8
+max_base_vote_distance_m: 8.0
+
+pilot_plots:
+  - A1N
+  - G4N
+
+gate:
+  min_train_positive_pairs: 100
+  min_validation_positive_pairs: 30
+  min_negative_pairs: 500
+  min_neighbor_coverage: 0.80
+  min_positive_source_coverage: 0.05

@@ -18,6 +18,7 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              compute_instance_features, save_instance_features,
                              compute_vertical_instance_tokens,
                              compute_instance_quality_targets,
+                             compute_instance_geometry,
                              save_instance_quality_data,
                              predict_vertical_instance_quality,
                              apply_instance_quality_filter,
@@ -353,12 +354,17 @@ def run_treelearn_pipeline(config, config_path=None):
                 config.save_cfg, 'quality_negative_iou_threshold', 0.25)),
             edge_margin_m=float(getattr(
                 config.save_cfg, 'quality_edge_margin_m', 0.5)))
+        geometry_data = compute_instance_geometry(
+            coords=coords,
+            instance_predictions=instance_preds,
+            offset_predictions=offset_predictions)
         quality_dir = os.path.join(results_dir, 'instance_quality')
         quality_paths = save_instance_quality_data(
             instance_features, token_data, target_data, quality_dir,
             source_plot=plot_name,
             split=str(getattr(config, 'quality_split', 'unspecified')),
-            metadata=diagnostic_metadata)
+            metadata=diagnostic_metadata,
+            geometry_data=geometry_data)
         valid = target_data['target_valid']
         classification_valid = target_data['target_classification_valid']
         positives = (

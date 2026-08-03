@@ -1134,3 +1134,126 @@ Completeness 约束选择模型和阈值。锁定后才允许做 Wytham developm
 若 E8a 为 `STOP`，说明即便知道 GT，同树碎片合并也没有足够收益；停止实例质量修复
 路线，把 E7b 作为“误检—漏检权衡”消融，下一条主线改为直接提升基础实例分组或语义
 召回，而不是继续添加质量头。
+
+## 21. E8a 实际结果与 E8b 邻接对数据阶段（2026-08-04）
+
+E8a Primary Gate 已通过，证明“对低质量碎片进行安全合并”值得继续：
+
+| 数据 | Baseline F1 | Oracle F1 | F1 提升 | Commission 降低 | Completeness 变化 |
+|---|---:|---:|---:|---:|---:|
+| L1W | 98.422713% | 99.680511% | +1.257798 pp | 2.468647 pp | 0.000000 pp |
+| Wytham development upper bound | 72.081218% | 73.123797% | +1.042579 pp | 2.318771 pp | +0.228050 pp |
+
+Wytham 的 Oracle 仅用于确认机制上限，不用于 E8b 的特征、邻居数、候选半径、模型或阈值
+选择。E8b 先生成无 Wytham 的邻接对数据。原 data/instance_quality 不覆盖；带绝对几何
+信息的新 artifact 单独写到 data/instance_quality_e8b。
+
+### 21.1 E8b 数据定义
+
+对每个森林分别按已锁定的 Vertical-MLP 分数排序，前 85% 是高质量目标候选，后 15%
+是待修复源实例。每个源实例在 base-vote XY 中心周围 8 m 的宽松图内最多保留 8 个
+最近目标。8 m 和 8 邻居只用于候选召回，不是部署合并规则。
+
+正配对要求源和目标的有效 GT 匹配 ID 相同；其他有效配对为负配对。GT ID、IoU 和
+真假树标记只能作为标签或审计字段，后续训练器不得把这些列输入模型。输入特征包括：
+
+- 源/目标质量分数与质量差；
+- base-vote 中心距离和原始 XY 中心距离；
+- 树高、树高比、Z 范围重叠；
+- 有效垂直层重叠和垂直 token cosine；
+- occupancy、semantic、verticality、base-vote radius 的垂直剖面差；
+- 点数比例。
+
+固定拆分仍为 13 个训练森林和 5 个验证森林，并显式检查森林无跨 split 泄漏。
+
+### 21.2 先运行两森林 pilot
+
+更新代码后，在服务器执行：
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+
+nohup python -u tools/data_gen/gen_instance_quality_data.py \
+  --config configs/experiments/vertical_instance_quality/e8b_generate_pair_geometry.yaml \
+  --pilot \
+  > logs/vertical_quality/e8b_geometry_pilot.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e8b_geometry_pilot.pid
+tail -f logs/vertical_quality/e8b_geometry_pilot.log
+~~~
+
+几何 pilot 完成后生成 A1N 和 G4N 的邻接对：
+
+~~~bash
+set -o pipefail
+
+python -u tools/data_gen/gen_instance_merge_pairs.py \
+  --config configs/experiments/vertical_instance_quality/e8b_merge_pair_data.yaml \
+  --pilot \
+  2>&1 | tee logs/vertical_quality/e8b_pair_pilot.log
+
+cat data/instance_merge_pairs_e8b/pilot_summary.md
+~~~
+
+pilot 必须同时满足：存在正配对、存在负配对、所有特征有限、没有 plot split 泄漏。
+若 STOP，先查看 positive_source_coverage 和 neighbor_coverage；不得直接训练 E8c。
+
+### 21.3 pilot PASS 后生成完整数据
+
+~~~bash
+nohup python -u tools/data_gen/gen_instance_quality_data.py \
+  --config configs/experiments/vertical_instance_quality/e8b_generate_pair_geometry.yaml \
+  --manual-audit-confirmed \
+  > logs/vertical_quality/e8b_geometry_full.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e8b_geometry_full.pid
+tail -f logs/vertical_quality/e8b_geometry_full.log
+~~~
+
+生成器会校验并复用已完成的 pilot artifact。若某一个 artifact 不完整，只针对该 plot
+使用 --plots PLOT_NAME --force，不要删除整个 output root。
+
+几何完整数据 PASS 后：
+
+~~~bash
+set -o pipefail
+
+python -u tools/data_gen/gen_instance_merge_pairs.py \
+  --config configs/experiments/vertical_instance_quality/e8b_merge_pair_data.yaml \
+  2>&1 | tee logs/vertical_quality/e8b_pair_full.log
+
+cat data/instance_merge_pairs_e8b/full_summary.md
+~~~
+
+完整 Gate 要求：
+
+- 训练正配对至少 100；
+- 验证正配对至少 30；
+- 负配对至少 500；
+- 低质量源实例至少 80% 能找到候选邻居；
+- 至少 5% 的低质量源实例存在同树正目标；
+- 特征全部有限且没有森林拆分泄漏。
+
+### 21.4 E8b PASS 后自动进入 E8c
+
+E8c 固定使用上述 train/validation 拆分，依次比较：
+
+1. 单特征规则（base-vote 距离）；
+2. Logistic Regression；
+3. 轻量 pair-MLP。
+
+每个源实例只允许选择分数最高的一个目标。模型和合并阈值只在固定 validation forests
+上选择。建议预注册 Gate 为：验证 pair precision 不低于 95%，正源实例 recall 不低于
+30%，错误合并率不超过 0.5%；pair-MLP 只有在 AP 或约束下 recall 明显优于 Logistic
+时才保留。之后先集成并复核 L1W，再锁定一次运行 Wytham development，禁止在 Wytham
+结果出来后重新扫描阈值。
+
+如果 E8b 的正目标覆盖率不足 5%，说明当前几何邻接图召回不足。只允许依据训练/验证
+森林把候选图扩大一次，再重新审计；若仍不足则停止合并学习路线。如果 E8b PASS 但
+E8c 不优于 Logistic，论文方法采用“Vertical-MLP 质量排序 + Logistic 安全合并”，
+不为了形式复杂而强行保留神经 pair head。

@@ -190,6 +190,58 @@ def compute_vertical_instance_tokens(
     }
 
 
+def compute_instance_geometry(
+        coords, instance_predictions, offset_predictions):
+    """Summarize absolute instance geometry for candidate-pair generation."""
+    coords = np.asarray(coords, dtype=np.float64)
+    predictions = np.asarray(instance_predictions, dtype=np.int64).reshape(-1)
+    offsets = np.asarray(offset_predictions, dtype=np.float64)
+    if (
+            coords.ndim != 2 or coords.shape[1] < 3 or
+            offsets.ndim != 2 or offsets.shape[1] < 2 or
+            len(coords) != len(predictions) or len(offsets) != len(predictions)):
+        raise ValueError(
+            'coords [N,3+], predictions [N], and offsets [N,2+] must align.')
+    positive = predictions > 0
+    if not np.any(positive):
+        raise ValueError('No positive predicted instances are available.')
+    labels = predictions[positive]
+    points = coords[positive]
+    votes = points[:, :2] + offsets[positive, :2]
+    max_label = int(labels.max())
+    counts = np.bincount(labels, minlength=max_label + 1).astype(np.int64)
+    instance_ids = np.flatnonzero(counts > 0)
+    instance_ids = instance_ids[instance_ids > 0]
+
+    def grouped_mean(values):
+        sums = np.bincount(
+            labels, weights=values, minlength=max_label + 1)
+        return np.divide(
+            sums, counts,
+            out=np.zeros(max_label + 1, dtype=np.float64),
+            where=counts > 0)
+
+    xy_centroid = np.stack([
+        grouped_mean(points[:, 0]),
+        grouped_mean(points[:, 1]),
+    ], axis=1)
+    base_vote_xy_centroid = np.stack([
+        grouped_mean(votes[:, 0]),
+        grouped_mean(votes[:, 1]),
+    ], axis=1)
+    z_min = np.full(max_label + 1, np.inf, dtype=np.float64)
+    z_max = np.full(max_label + 1, -np.inf, dtype=np.float64)
+    np.minimum.at(z_min, labels, points[:, 2])
+    np.maximum.at(z_max, labels, points[:, 2])
+    return {
+        'instance_ids': instance_ids.astype(np.int64),
+        'xy_centroid': xy_centroid[instance_ids].astype(np.float32),
+        'base_vote_xy_centroid': (
+            base_vote_xy_centroid[instance_ids].astype(np.float32)),
+        'z_min': z_min[instance_ids].astype(np.float32),
+        'z_max': z_max[instance_ids].astype(np.float32),
+    }
+
 def compute_instance_quality_targets(
         coords, instance_predictions, instance_labels,
         min_labeled_fraction=0.5, match_iou_threshold=0.5,
@@ -278,11 +330,14 @@ def compute_instance_quality_targets(
 
 def save_instance_quality_data(
         global_features, token_data, target_data, output_dir,
-        source_plot, split, metadata=None):
+        source_plot, split, metadata=None, geometry_data=None):
     os.makedirs(output_dir, exist_ok=True)
     instance_ids = np.asarray(token_data['instance_ids'], dtype=np.int64)
     if not np.array_equal(instance_ids, target_data['instance_ids']):
         raise ValueError('Token and target instance IDs are not aligned.')
+    if geometry_data is not None and not np.array_equal(
+            instance_ids, geometry_data['instance_ids']):
+        raise ValueError('Token and geometry instance IDs are not aligned.')
     indexed = global_features.set_index('instance_id')
     missing = set(instance_ids.tolist()) - set(indexed.index.astype(int))
     if missing:
@@ -312,6 +367,13 @@ def save_instance_quality_data(
         target_is_true_tree=target_data['target_is_true_tree'],
         source_plot=np.asarray(source_plot),
         split=np.asarray(split),
+        **({
+            'instance_xy_centroid': geometry_data['xy_centroid'],
+            'instance_base_vote_xy_centroid': (
+                geometry_data['base_vote_xy_centroid']),
+            'instance_z_min': geometry_data['z_min'],
+            'instance_z_max': geometry_data['z_max'],
+        } if geometry_data is not None else {}),
     )
 
     csv_path = os.path.join(output_dir, 'quality_targets.csv')

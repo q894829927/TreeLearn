@@ -74,6 +74,95 @@ class VerticalInstanceTokenTests(unittest.TestCase):
         np.testing.assert_array_equal(baseline[1], modified[1])
 
 
+class InstanceGeometryTests(unittest.TestCase):
+
+    def test_geometry_centroids_votes_and_z_ranges_align_by_instance(self):
+        coords = np.asarray([
+            [0.0, 0.0, 1.0],
+            [2.0, 0.0, 3.0],
+            [10.0, 4.0, 2.0],
+            [12.0, 6.0, 8.0],
+            [99.0, 99.0, 0.0],
+        ])
+        predictions = np.asarray([1, 1, 3, 3, 0])
+        offsets = np.asarray([
+            [1.0, 0.0, 0.0],
+            [-1.0, 0.0, 0.0],
+            [0.0, 2.0, 0.0],
+            [0.0, -2.0, 0.0],
+            [0.0, 0.0, 0.0],
+        ])
+        result = INSTANCE_QUALITY.compute_instance_geometry(
+            coords, predictions, offsets)
+        np.testing.assert_array_equal(result['instance_ids'], [1, 3])
+        np.testing.assert_allclose(
+            result['xy_centroid'], [[1.0, 0.0], [11.0, 5.0]])
+        np.testing.assert_allclose(
+            result['base_vote_xy_centroid'],
+            [[1.0, 0.0], [11.0, 5.0]])
+        np.testing.assert_allclose(result['z_min'], [1.0, 2.0])
+        np.testing.assert_allclose(result['z_max'], [3.0, 8.0])
+
+    def test_quality_artifact_persists_optional_geometry(self):
+        try:
+            import pandas as pd
+        except ModuleNotFoundError:
+            self.skipTest('Pandas is required for artifact persistence.')
+        instance_ids = np.asarray([1, 3], dtype=np.int64)
+        global_features = pd.DataFrame({
+            'instance_id': instance_ids,
+            'num_points': [2.0, 2.0],
+        })
+        token_data = {
+            'instance_ids': instance_ids,
+            'vertical_tokens': np.ones((2, 2, 1), dtype=np.float32),
+            'layer_valid_mask': np.ones((2, 2), dtype=bool),
+            'token_feature_names': ['occupancy_fraction'],
+            'num_layers': 2,
+        }
+        target_data = {
+            'instance_ids': instance_ids,
+            'target_max_iou': np.asarray([0.8, 0.2], dtype=np.float32),
+            'target_best_gt_id': np.asarray([10, 10], dtype=np.int64),
+            'target_labeled_fraction': np.ones(2, dtype=np.float32),
+            'target_tree_point_fraction': np.ones(2, dtype=np.float32),
+            'target_is_edge': np.zeros(2, dtype=bool),
+            'target_valid': np.ones(2, dtype=bool),
+            'target_classification_valid': np.ones(2, dtype=bool),
+            'target_is_true_tree': np.asarray([True, False]),
+        }
+        geometry_data = {
+            'instance_ids': instance_ids,
+            'xy_centroid': np.asarray(
+                [[1.0, 0.0], [11.0, 5.0]], dtype=np.float32),
+            'base_vote_xy_centroid': np.asarray(
+                [[1.0, 0.0], [11.0, 5.0]], dtype=np.float32),
+            'z_min': np.asarray([1.0, 2.0], dtype=np.float32),
+            'z_max': np.asarray([3.0, 8.0], dtype=np.float32),
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            npz_path, _, _ = INSTANCE_QUALITY.save_instance_quality_data(
+                global_features,
+                token_data,
+                target_data,
+                directory,
+                source_plot='P1',
+                split='train',
+                geometry_data=geometry_data,
+            )
+            with np.load(npz_path, allow_pickle=False) as artifact:
+                np.testing.assert_allclose(
+                    artifact['instance_xy_centroid'],
+                    geometry_data['xy_centroid'])
+                np.testing.assert_allclose(
+                    artifact['instance_base_vote_xy_centroid'],
+                    geometry_data['base_vote_xy_centroid'])
+                np.testing.assert_allclose(
+                    artifact['instance_z_min'], geometry_data['z_min'])
+                np.testing.assert_allclose(
+                    artifact['instance_z_max'], geometry_data['z_max'])
+
+
 class InstanceQualityTargetTests(unittest.TestCase):
 
     def test_positive_ambiguous_and_validity_targets(self):
