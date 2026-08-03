@@ -302,6 +302,15 @@ def parse_args():
     return parser.parse_args()
 
 
+def validate_vertical_layer_count(dataset, model_config):
+    expected = int(model_config['num_vertical_layers'])
+    actual = int(dataset['vertical_tokens'].shape[1])
+    if actual != expected:
+        raise ValueError(
+            f'E5 dataset has {actual} vertical layers, expected {expected}.')
+    return expected
+
+
 def main():
     args = parse_args()
 
@@ -313,12 +322,7 @@ def main():
         settings = yaml.safe_load(file)
     dataset = E4.load_vertical_quality_dataset(
         settings['data_root'], settings['manifest_path'])
-    if dataset['vertical_tokens'].shape[1] != int(
-            settings['expected_num_layers']):
-        raise ValueError('E5 vertical-layer count differs from the config.')
-    if int(settings['model']['num_vertical_layers']) != int(
-            settings['expected_num_layers']):
-        raise ValueError('Model and dataset vertical-layer configs differ.')
+    validate_vertical_layer_count(dataset, settings['model'])
     with open(settings['e4_summary_path'], encoding='utf-8') as file:
         e4_summary = json.load(file)
     e4_metrics = load_e4_metrics(settings['e4_metrics_path'])

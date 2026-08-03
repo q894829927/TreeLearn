@@ -149,5 +149,17 @@ class VerticalAttentionTests(unittest.TestCase):
         self.assertFalse(summary['gate']['passed'])
 
 
+    def test_layer_count_uses_model_config_without_duplicate_top_level_key(self):
+        dataset = {
+            'vertical_tokens': np.zeros((2, 8, 4), dtype=np.float32)}
+        self.assertEqual(
+            ATTENTION.validate_vertical_layer_count(
+                dataset, {'num_vertical_layers': 8}),
+            8)
+        with self.assertRaises(ValueError):
+            ATTENTION.validate_vertical_layer_count(
+                dataset, {'num_vertical_layers': 6})
+
+
 if __name__ == '__main__':
     unittest.main()
