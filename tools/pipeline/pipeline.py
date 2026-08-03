@@ -199,6 +199,10 @@ def run_treelearn_pipeline(config, config_path=None):
                 'quality_filter.checkpoint is required when quality scoring '
                 'is enabled.')
         threshold = float(getattr(quality_filter_cfg, 'threshold', 0.0))
+        quality_filter_mode = str(getattr(
+            quality_filter_cfg, 'mode', 'threshold')).lower()
+        quality_keep_ratio = float(getattr(
+            quality_filter_cfg, 'keep_ratio', 1.0))
         num_layers = int(getattr(quality_filter_cfg, 'num_layers', 8))
         logger.info(
             f'{plot_name}: #################### scoring instance quality '
@@ -223,20 +227,24 @@ def run_treelearn_pipeline(config, config_path=None):
 
         label_mapping = None
         rejected_ids = np.empty(0, dtype=np.int64)
+        kept_instance_ids = quality_score_result['instance_ids']
         if quality_filter_enabled:
             filter_result = apply_instance_quality_filter(
                 instance_preds,
                 quality_score_result['instance_ids'],
                 quality_score_result['quality_score'],
                 threshold,
-                non_tree_label=NON_TREES_LABEL_IN_GROUPING)
+                non_tree_label=NON_TREES_LABEL_IN_GROUPING,
+                mode=quality_filter_mode,
+                keep_ratio=quality_keep_ratio)
             if len(filter_result['kept_instance_ids']) == 0:
                 raise RuntimeError(
-                    'The instance-quality threshold rejected every candidate. '
-                    'No output was saved; lower quality_filter.threshold.')
+                    'The instance-quality filter rejected every candidate. '
+                    'No output was saved; relax the quality filter.')
             instance_preds = filter_result['predictions']
             label_mapping = filter_result['label_mapping']
             rejected_ids = filter_result['rejected_instance_ids']
+            kept_instance_ids = filter_result['kept_instance_ids']
             instance_preds_after_initial_clustering = remap_instance_predictions(
                 instance_preds_after_initial_clustering,
                 label_mapping,
@@ -246,7 +254,8 @@ def run_treelearn_pipeline(config, config_path=None):
                 f'Quality-filtered instances from '
                 f"{len(quality_score_result['instance_ids']):,} to "
                 f"{len(filter_result['kept_instance_ids']):,} "
-                f'(threshold: {threshold:.4f})')
+                f'(mode: {quality_filter_mode}, threshold: {threshold:.4f}, '
+                f'keep ratio: {quality_keep_ratio:.4f})')
         post_quality_label_digest = hashlib.sha256(
             np.ascontiguousarray(instance_preds).view(np.uint8)).hexdigest()
         if (
@@ -266,7 +275,10 @@ def run_treelearn_pipeline(config, config_path=None):
             quality_dir,
             threshold=threshold,
             filter_enabled=quality_filter_enabled,
-            label_mapping=label_mapping)
+            label_mapping=label_mapping,
+            kept_instance_ids=kept_instance_ids,
+            filter_mode=quality_filter_mode,
+            keep_ratio=quality_keep_ratio)
         logger.info(
             f'Instance-quality scoring finished in '
             f'{quality_elapsed:.1f}s; scores: {score_paths[0]}')

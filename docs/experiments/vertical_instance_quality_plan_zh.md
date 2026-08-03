@@ -938,3 +938,104 @@ cat logs/vertical_quality/e7b_keep_ratio_selection/summary.md
 拿到 selected keep ratio 后再实现 pipeline top-ratio 过滤，并在 L1W 做回归。
 比例锁定后才允许再运行一次 Wytham development 复核；若再次失败，停止实例质量
 过滤路线，不进入消融。
+
+## 19. E7b 实际选择结果与锁定执行（2026-08-03）
+
+E7b 的比例仅由 E4 固定 validation forests、随机种子 42/43/44 选择，未使用
+Wytham 标签。预注册的 Completeness 最大下降为 1.00 个百分点。最终锁定：
+
+- keep ratio：`0.85`；
+- validation 平均候选 F1：`0.867846`；
+- validation 最低 Completeness：`0.993180`；
+- `0.85` 是满足 Completeness 约束的可行比例中平均 F1 最高者；
+- 后续不得依据 Wytham 结果修改该比例。
+
+过滤采用每个完整森林内的确定性排序：按质量分数降序、实例 ID 升序打破同分，
+保留 `ceil(0.85 * N)` 个候选实例。`keep_ratio=1.0` 必须退化为不删除候选实例。
+
+### 19.1 第一阶段：L1W 回归 Gate
+
+先同步代码并确认两个 checkpoint 存在：
+
+~~~bash
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+
+test -f logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth
+test -f work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth
+~~~
+
+运行 L1W pipeline 与官方评估：
+
+~~~bash
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/vertical_instance_quality/e7b_pipeline_l1w_quality_r085.yaml \
+  > logs/vertical_quality/e7b_pipeline_l1w_r085.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/vertical_instance_quality/e7b_evaluate_l1w_quality_r085.yaml \
+  > logs/vertical_quality/e7b_evaluate_l1w_r085.log 2>&1
+
+echo "===== E7b L1W FINISHED $(date) ====="
+' > logs/vertical_quality/e7b_l1w_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e7b_l1w.pid
+tail -f logs/vertical_quality/e7b_l1w_runner.log
+~~~
+
+运行自动汇总：
+
+~~~bash
+python -u tools/diagnostics/summarize_e7b_ratio_quality.py \
+  --config configs/experiments/vertical_instance_quality/e7b_summary_l1w.yaml \
+  2>&1 | tee logs/vertical_quality/e7b_summary_l1w_run.log
+
+cat logs/vertical_quality/e7b_l1w_summary/summary.md
+~~~
+
+L1W Gate 同时检查 checkpoint seed、过滤模式、比例、`ceil(0.85 * N)` 保留数、
+Completeness 下降不超过 1 个百分点、F1 不低于固定 baseline、质量评分耗时不超过
+完整 pipeline 的 10%。只有输出 `PASS` 才能进入下一阶段。
+
+### 19.2 第二阶段：Wytham 锁定 development 复核
+
+只有 L1W Gate 通过后才执行。本阶段仍使用已经锁定的 checkpoint 和 `0.85`，只运行
+一次，不重新选比例：
+
+~~~bash
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/vertical_instance_quality/e7b_pipeline_wytham_quality_r085_locked.yaml \
+  > logs/vertical_quality/e7b_pipeline_wytham_r085_locked.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/vertical_instance_quality/e7b_evaluate_wytham_quality_r085_locked.yaml \
+  > logs/vertical_quality/e7b_evaluate_wytham_r085_locked.log 2>&1
+
+echo "===== E7b WYTHAM FINISHED $(date) ====="
+' > logs/vertical_quality/e7b_wytham_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e7b_wytham.pid
+tail -f logs/vertical_quality/e7b_wytham_runner.log
+~~~
+
+完成后汇总：
+
+~~~bash
+python -u tools/diagnostics/summarize_e7b_ratio_quality.py \
+  --config configs/experiments/vertical_instance_quality/e7b_summary_wytham.yaml \
+  2>&1 | tee logs/vertical_quality/e7b_summary_wytham_run.log
+
+cat logs/vertical_quality/e7b_wytham_summary/summary.md
+~~~
+
+Wytham Gate 沿用预注册条件：Completeness 下降不超过 1.0 个百分点，并且 F1 至少
+提高 0.5 个百分点，或 Commission 至少降低 2.0 个百分点；质量评分耗时不超过完整
+pipeline 的 10%。若失败，则确认实例质量分数的跨域排序也不足以安全硬过滤，停止硬
+删除路线，不在 Wytham 上调整比例；下一步改为保留所有实例、将质量分数用于软加权
+或训练域不变的排序目标。若通过，则进入未参与选择的独立外部森林测试，再准备消融。

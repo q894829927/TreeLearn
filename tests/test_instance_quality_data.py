@@ -158,6 +158,24 @@ class InstanceQualityFilterTests(unittest.TestCase):
         )
         np.testing.assert_array_equal(remapped, [-1, 1, 0, 2, 0])
 
+    def test_top_ratio_filter_is_deterministic_and_uses_ceiling(self):
+        predictions = np.asarray([10, 10, 20, 20, 30, 30])
+        result = INSTANCE_QUALITY.apply_instance_quality_filter(
+            predictions,
+            np.asarray([30, 10, 20]),
+            np.asarray([0.5, 0.5, 0.5]),
+            threshold=0.0,
+            mode='top_ratio',
+            keep_ratio=0.34,
+        )
+        np.testing.assert_array_equal(
+            result['kept_instance_ids'], [10, 20])
+        np.testing.assert_array_equal(
+            result['rejected_instance_ids'], [30])
+        np.testing.assert_array_equal(
+            result['predictions'], [1, 1, 2, 2, 0, 0])
+        self.assertEqual(result['filter_mode'], 'top_ratio')
+        self.assertEqual(result['keep_ratio'], 0.34)
     def test_filter_rejects_missing_instance_scores(self):
         with self.assertRaises(ValueError):
             INSTANCE_QUALITY.apply_instance_quality_filter(

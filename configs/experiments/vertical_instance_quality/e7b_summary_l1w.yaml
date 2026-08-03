@@ -1,0 +1,23 @@
+dataset_name: 'L1W'
+dataset_role: 'regression_validation'
+
+evaluations:
+  baseline: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt'
+  filtered: 'data/pipeline/L1W/results_vertical_quality_e7b_r085/full_forest/evaluation/evaluation_results.pt'
+
+metadata: 'data/pipeline/L1W/results_vertical_quality_e7b_r085/instance_quality_scores/metadata.json'
+pipeline_log: 'logs/vertical_quality/e7b_pipeline_l1w_r085.log'
+
+locked:
+  checkpoint_seed: 42
+  filter_mode: 'top_ratio'
+  keep_ratio: 0.85
+
+gate:
+  effect_mode: 'f1_not_below'
+  max_completeness_drop_pp: 1.0
+  min_f1_gain_pp: 0.0
+  min_commission_reduction_pp: 0.0
+  max_quality_runtime_fraction: 0.10
+
+output_dir: 'logs/vertical_quality/e7b_l1w_summary'

@@ -500,7 +500,7 @@ def predict_vertical_instance_quality(
 
 def apply_instance_quality_filter(
         instance_predictions, instance_ids, quality_scores, threshold,
-        non_tree_label=0):
+        non_tree_label=0, mode='threshold', keep_ratio=1.0):
     """Remove low-quality instances and keep surviving labels consecutive."""
     predictions = np.asarray(instance_predictions)
     instance_ids = np.asarray(instance_ids, dtype=np.int64)
@@ -514,13 +514,28 @@ def apply_instance_quality_filter(
     if not np.isfinite(quality_scores).all():
         raise ValueError('Quality scores must be finite.')
 
+    filter_mode = str(mode).lower()
+    if filter_mode == 'threshold':
+        keep_mask = quality_scores >= float(threshold)
+    elif filter_mode == 'top_ratio':
+        keep_ratio = float(keep_ratio)
+        if not 0.0 < keep_ratio <= 1.0:
+            raise ValueError('Quality keep_ratio must be in (0, 1].')
+        keep_count = max(
+            1, int(np.ceil(keep_ratio * len(instance_ids))))
+        order = np.lexsort((instance_ids, -quality_scores))
+        keep_mask = np.zeros(len(instance_ids), dtype=bool)
+        keep_mask[order[:keep_count]] = True
+    else:
+        raise ValueError(
+            'Quality filter mode must be threshold or top_ratio.')
+
     predicted_ids = np.unique(predictions[predictions > non_tree_label]).astype(
         np.int64)
     missing = set(predicted_ids.tolist()) - set(instance_ids.tolist())
     if missing:
         raise ValueError(
             f'Quality scores miss predicted instance IDs: {sorted(missing)[:10]}')
-    keep_mask = quality_scores >= float(threshold)
     kept_ids = instance_ids[keep_mask]
     rejected_ids = instance_ids[~keep_mask]
     output = predictions.copy()
@@ -541,8 +556,9 @@ def apply_instance_quality_filter(
         'rejected_instance_ids': rejected_ids,
         'label_mapping': label_mapping,
         'threshold': float(threshold),
+        'filter_mode': filter_mode,
+        'keep_ratio': float(keep_ratio),
     }
-
 
 def remap_instance_predictions(
         instance_predictions, label_mapping, rejected_instance_ids,
@@ -566,10 +582,22 @@ def remap_instance_predictions(
 
 def save_instance_quality_scores(
         score_result, output_dir, threshold, filter_enabled,
-        label_mapping=None):
+        label_mapping=None, kept_instance_ids=None,
+        filter_mode='threshold', keep_ratio=1.0):
     os.makedirs(output_dir, exist_ok=True)
     instance_ids = score_result['instance_ids']
     mapping = dict(label_mapping or {})
+    if not filter_enabled:
+        kept_set = set(int(value) for value in instance_ids)
+    elif kept_instance_ids is not None:
+        kept_set = set(int(value) for value in kept_instance_ids)
+    else:
+        kept_set = set(
+            int(instance_id)
+            for instance_id, score in zip(
+                instance_ids, score_result['quality_score'])
+            if score >= float(threshold))
+
     csv_path = os.path.join(output_dir, 'instance_quality_scores.csv')
     with open(csv_path, 'w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=[
@@ -578,7 +606,7 @@ def save_instance_quality_scores(
         writer.writeheader()
         for index, instance_id in enumerate(instance_ids):
             score = float(score_result['quality_score'][index])
-            kept = (not filter_enabled) or score >= float(threshold)
+            kept = int(instance_id) in kept_set
             writer.writerow({
                 'instance_id': int(instance_id),
                 'filtered_instance_id': int(mapping.get(
@@ -593,10 +621,10 @@ def save_instance_quality_scores(
     metadata = {
         'num_instances': int(len(instance_ids)),
         'threshold': float(threshold),
+        'filter_mode': str(filter_mode),
+        'keep_ratio': float(keep_ratio),
         'filter_enabled': bool(filter_enabled),
-        'num_kept': int(sum(
-            (not filter_enabled) or value >= float(threshold)
-            for value in score_result['quality_score'])),
+        'num_kept': int(len(kept_set)),
         'checkpoint_seed': score_result['checkpoint_seed'],
         'checkpoint_best_epoch': score_result['checkpoint_best_epoch'],
         'device': score_result['device'],
