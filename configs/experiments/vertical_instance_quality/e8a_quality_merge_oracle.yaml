@@ -1,0 +1,31 @@
+# E8a only measures the upper bound of merging low-quality fragments.
+# GT labels choose oracle merge partners; no deployable threshold is selected.
+summary_output_dir: 'logs/vertical_quality/e8a_merge_oracle_summary'
+
+keep_ratio: 0.85
+min_iou_for_match: 0.5
+min_precision_for_pred: 0.5
+min_f1_gain_pp: 0.5
+min_commission_reduction_pp: 2.0
+max_completeness_drop_pp: 0.5
+chunk_size: 2000000
+coordinate_tolerance_m: 0.002
+
+runs:
+  - name: 'l1w_sanity'
+    dataset_role: 'regression_validation'
+    ground_truth: 'data/benchmark/L1W_voxelized01_for_eval.laz'
+    evaluation: 'data/pipeline/L1W/results_vertical_quality_e6_control/full_forest/evaluation/evaluation_results.pt'
+    quality_scores: 'data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/instance_quality_scores.csv'
+    quality_metadata: 'data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/metadata.json'
+    output_dir: 'logs/vertical_quality/e8a_merge_oracle_l1w'
+    primary_gate: false
+
+  - name: 'wytham_development_upper_bound'
+    dataset_role: 'development_only'
+    ground_truth: 'data/benchmark/wytham_vox0.1.laz'
+    evaluation: 'data/pipeline/wytham/results_vertical_quality_e8a_control/full_forest/evaluation/evaluation_results.pt'
+    quality_scores: 'data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/instance_quality_scores.csv'
+    quality_metadata: 'data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/metadata.json'
+    output_dir: 'logs/vertical_quality/e8a_merge_oracle_wytham'
+    primary_gate: true

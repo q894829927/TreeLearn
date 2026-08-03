@@ -1039,3 +1039,98 @@ Wytham Gate 沿用预注册条件：Completeness 下降不超过 1.0 个百分�
 pipeline 的 10%。若失败，则确认实例质量分数的跨域排序也不足以安全硬过滤，停止硬
 删除路线，不在 Wytham 上调整比例；下一步改为保留所有实例、将质量分数用于软加权
 或训练域不变的排序目标。若通过，则进入未参与选择的独立外部森林测试，再准备消融。
+## 20. E8a 质量引导合并 Oracle
+
+E7b 在 Wytham 上将 568 TP / 131 FP 变为 554 TP / 82 FP：质量排序删除了约
+49 个 counted FP，但同时误删约 14 棵真实树。F1 提升 1.150771 个百分点、
+Commission 降低 5.847977 个百分点，但 Completeness 下降 1.596351 个百分点，
+超过预注册的 1.0 个百分点，因此硬过滤路线正式停止，不能继续在 Wytham 上扫描比例。
+
+E8a 只评估“合并而不删除”的上限。继续使用已经锁定的质量排序和 `keep_ratio=0.85`：
+
+1. 前 85% 为高质量候选，后 15% 为待修复候选；
+2. GT 仅在 Oracle 中用于判断两个候选是否属于同一真实树；
+3. 低质量候选若存在属于同一 GT 的高质量候选，则将两者点集在 contingency table
+   中合并；
+4. 找不到安全合并目标的低质量候选保持原样，不删除；
+5. Oracle 不产生可部署距离阈值，也不把 Wytham 结果用于调整 `0.85`。
+
+预注册 Gate 同时要求：
+
+- detection F1 至少提高 `0.5` 个百分点；
+- Commission 至少降低 `2.0` 个百分点；
+- Completeness 下降不超过 `0.5` 个百分点。
+
+L1W 仅作一致性 sanity check；Wytham 仍标记为 development upper bound，不是独立
+外部测试。
+
+为保证实例编号、点集分区和质量分数来自同一次运行，Oracle 只接受
+`filter_enabled=false` 且 `score_only_labels_identical=true` 的 control artifact。L1W
+复用已经验证的 E6 control；Wytham 先生成新的 score-only control：
+
+~~~bash
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+
+test -f \
+  data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/metadata.json
+
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/vertical_instance_quality/e8a_pipeline_wytham_quality_control.yaml \
+  > logs/vertical_quality/e8a_pipeline_wytham_control.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/vertical_instance_quality/e8a_evaluate_wytham_quality_control.yaml \
+  > logs/vertical_quality/e8a_evaluate_wytham_control.log 2>&1
+
+echo "===== E8a CONTROL FINISHED $(date) ====="
+' > logs/vertical_quality/e8a_control_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e8a_control.pid
+tail -f logs/vertical_quality/e8a_control_runner.log
+~~~
+
+control 完成后先检查 metadata：
+
+~~~bash
+cat \
+  data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/metadata.json
+~~~
+
+必须满足 `filter_enabled=false`、`score_only_labels_identical=true`、
+`num_instances=1862`，再运行 Oracle：
+
+~~~bash
+nohup python -u tools/diagnostics/evaluate_quality_guided_merge_oracle.py \
+  --config configs/experiments/vertical_instance_quality/e8a_quality_merge_oracle.yaml \
+  > logs/vertical_quality/e8a_merge_oracle_run.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e8a_merge_oracle.pid
+tail -f logs/vertical_quality/e8a_merge_oracle_run.log
+~~~
+
+运行中可用以下命令确认进程：
+
+~~~bash
+pid=$(cat logs/vertical_quality/e8a_merge_oracle.pid)
+ps -p "$pid" -o pid,%cpu,%mem,rss,etime,stat,cmd
+~~~
+
+完成后查看：
+
+~~~bash
+cat logs/vertical_quality/e8a_merge_oracle_summary/e8a_merge_oracle_summary.md
+cat logs/vertical_quality/e8a_merge_oracle_wytham/summary.md
+~~~
+
+若 Primary Gate 为 `PASS`，下一步 E8b 不直接写死合并距离，而是重新生成固定 validation
+forests 的候选邻接对，保存 base-vote 中心距离、XY 中心距离、树高比、垂直层重叠、
+垂直 token 相似度和质量差；先比较单规则、Logistic 与轻量 pair-MLP，再以每森林
+Completeness 约束选择模型和阈值。锁定后才允许做 Wytham development 复核。
+
+若 E8a 为 `STOP`，说明即便知道 GT，同树碎片合并也没有足够收益；停止实例质量修复
+路线，把 E7b 作为“误检—漏检权衡”消融，下一条主线改为直接提升基础实例分组或语义
+召回，而不是继续添加质量头。
