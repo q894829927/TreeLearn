@@ -474,6 +474,16 @@ Global-MLP 固定为 64/32 hidden、dropout 0.1、AdamW、lr=1e-3、weight decay
 
 E3 中的 filtered F1 是 validation 候选实例级诊断指标，不冒充完整森林官方 detection F1；完整 pipeline 指标只在 E6 集成后报告。E3 gate 通过后，下一步实现 E4 Vertical-MLP；若 Logistic 最优仍可继续，但 E4/E5 必须超过 Logistic。
 
+### E3 实际结果（2026-08-03）
+
+- 状态：**PASS，E3 完成**；
+- 固定对照：Global-MLP；
+- Global-MLP ROC-AUC：0.992655，FP AP：0.987779；
+- IoU MAE：0.092260，优于 Logistic 的 0.118456；
+- Spearman：0.815461，优于 Logistic 的 0.772575；
+- 三个种子的 ROC-AUC 范围约 0.0016，无明显崩溃；
+- 三个模型的候选实例级最佳阈值均为 0.0，说明 E3 尚未证明实际过滤增益。E4 仍须先证明有序垂直 token 提供额外信息，之后才能实现 Attention。
+
 ## 9. E4：Vertical-MLP
 
 ### 模型
@@ -500,6 +510,36 @@ checkpoint selection: validation IoU MAE，其次 FP AP
 - 三个种子的 F1 样本标准差不超过 1.0 个百分点。
 
 失败则不实现 Attention，因为新增垂直结构本身没有提供信息。
+
+### E4 已实现流程
+
+实现文件：
+
+    configs/experiments/vertical_instance_quality/e4_vertical_mlp.yaml
+    tools/training/train_vertical_instance_quality.py
+    tests/test_vertical_instance_quality.py
+
+模型只使用 E2 的 8 层垂直 token，不拼接 35 维全局特征，也不包含 Attention。每层 token 先经过共享的两层 64 维 MLP，再进行带有效层 mask 的 mean/max pooling，最后通过 64/32 维实例 MLP 输出有效概率和 IoU。标准化参数只由训练森林的有效层计算，空层在标准化后强制保持为 0。
+
+训练参数、损失、随机种子、early stopping 和阈值规则与 E3 一致。E4 直接读取 E3 的固定 `summary.json`，不允许手工抄写或更换对照结果。“明确改善”在运行前固定为：IoU MAE 至少降低 0.002，或 FP AP 至少提高 0.002；同时候选实例级 F1 不下降，三种子 F1 样本标准差不超过 0.01。
+
+服务器执行：
+
+    conda activate TreeLearn
+    mkdir -p logs/vertical_quality
+
+    python -m unittest tests.test_vertical_instance_quality tests.test_instance_quality_baselines -v \
+      2>&1 | tee logs/vertical_quality/e4_unit_tests.log
+
+    nohup env CUBLAS_WORKSPACE_CONFIG=:4096:8 \
+      python -u tools/training/train_vertical_instance_quality.py \
+      --config configs/experiments/vertical_instance_quality/e4_vertical_mlp.yaml \
+      > logs/vertical_quality/e4_vertical_mlp.log 2>&1 < /dev/null &
+
+    echo $! | tee logs/vertical_quality/e4_vertical_mlp.pid
+    tail -f logs/vertical_quality/e4_vertical_mlp.log
+
+结果保存到 `logs/vertical_quality/e4_vertical_mlp/`。脚本只有在全部 E4 Gate 通过后才输出 `PASS: proceed to E5 Vertical-Attention.`；失败时仍保存完整结果，但以非零状态退出并禁止进入 E5。
 
 ## 10. E5：Vertical-Attention
 
