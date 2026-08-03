@@ -1,0 +1,25 @@
+evaluations:
+  baseline: 'data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt'
+  control: 'data/pipeline/L1W/results_vertical_quality_e6_control/full_forest/evaluation/evaluation_results.pt'
+  filtered: 'data/pipeline/L1W/results_vertical_quality_e6_t001/full_forest/evaluation/evaluation_results.pt'
+
+metadata:
+  control: 'data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/metadata.json'
+  filtered: 'data/pipeline/L1W/results_vertical_quality_e6_t001/instance_quality_scores/metadata.json'
+
+pipeline_logs:
+  control: 'logs/vertical_quality/e6_pipeline_l1w_quality_control.log'
+  filtered: 'logs/vertical_quality/e6_pipeline_l1w_quality_filtered.log'
+
+locked:
+  checkpoint: 'logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth'
+  checkpoint_seed: 42
+  threshold: 0.01
+
+gate:
+  control_metric_tolerance: 0.000000001
+  max_completeness_drop_pp: 1.0
+  min_f1_gain_pp: 0.0
+  max_quality_runtime_fraction: 0.10
+
+output_dir: 'logs/vertical_quality/e6_l1w_summary'

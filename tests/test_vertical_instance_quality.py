@@ -15,6 +15,14 @@ SPEC = importlib.util.spec_from_file_location(
 VERTICAL = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(VERTICAL)
 
+QUALITY_MODULE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / 'tree_learn' / 'util' / 'instance_quality.py')
+QUALITY_SPEC = importlib.util.spec_from_file_location(
+    'instance_quality_runtime_standalone', QUALITY_MODULE_PATH)
+QUALITY = importlib.util.module_from_spec(QUALITY_SPEC)
+QUALITY_SPEC.loader.exec_module(QUALITY)
+
 
 class VerticalInstanceQualityTests(unittest.TestCase):
 
@@ -169,6 +177,82 @@ class VerticalInstanceQualityTests(unittest.TestCase):
         self.assertTrue(torch.allclose(first[0][0], second[0][0]))
         self.assertTrue(torch.allclose(first[1][0], second[1][0]))
         self.assertTrue(torch.all((first[1] >= 0) & (first[1] <= 1)))
+
+
+    @unittest.skipUnless(
+        importlib.util.find_spec('torch') is not None,
+        'PyTorch is unavailable in this test environment.')
+    def test_runtime_model_is_checkpoint_compatible_with_e4(self):
+        import torch
+
+        config = {
+            'token_hidden_dim': 8,
+            'token_mlp_layers': 2,
+            'instance_hidden_dims': [8, 4],
+            'dropout': 0.0,
+        }
+        torch.manual_seed(12)
+        training_model = VERTICAL.build_vertical_mlp(6, config).eval()
+        runtime_model = QUALITY.build_vertical_quality_mlp(6, config).eval()
+        self.assertEqual(
+            list(training_model.state_dict()),
+            list(runtime_model.state_dict()))
+        runtime_model.load_state_dict(training_model.state_dict(), strict=True)
+
+        tokens = torch.randn(3, 4, 6)
+        mask = torch.tensor([
+            [True, True, False, False],
+            [True, True, True, False],
+            [True, True, True, True],
+        ])
+        expected = training_model(tokens, mask)
+        actual = runtime_model(tokens, mask)
+        self.assertTrue(torch.equal(expected[0], actual[0]))
+        self.assertTrue(torch.equal(expected[1], actual[1]))
+
+    @unittest.skipUnless(
+        importlib.util.find_spec('torch') is not None,
+        'PyTorch is unavailable in this test environment.')
+    def test_runtime_checkpoint_scoring_is_finite_and_bounded(self):
+        import torch
+
+        config = {
+            'token_hidden_dim': 8,
+            'token_mlp_layers': 1,
+            'instance_hidden_dims': [4],
+            'dropout': 0.0,
+        }
+        model = VERTICAL.build_vertical_mlp(3, config).eval()
+        token_data = {
+            'instance_ids': np.asarray([7, 9]),
+            'vertical_tokens': np.asarray([
+                [[1.0, 2.0, 3.0], [2.0, 3.0, 4.0]],
+                [[3.0, 4.0, 5.0], [0.0, 0.0, 0.0]],
+            ], dtype=np.float32),
+            'layer_valid_mask': np.asarray([
+                [True, True], [True, False]]),
+            'token_feature_names': ['a', 'b', 'c'],
+        }
+        checkpoint = {
+            'state_dict': model.state_dict(),
+            'token_feature_names': ['a', 'b', 'c'],
+            'token_median': np.zeros(3, dtype=np.float32),
+            'token_scale': np.ones(3, dtype=np.float32),
+            'model_config': config,
+            'seed': 42,
+            'best_epoch': 5,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'quality.pth'
+            torch.save(checkpoint, path)
+            result = QUALITY.predict_vertical_instance_quality(
+                token_data, path, device='cpu')
+        np.testing.assert_array_equal(result['instance_ids'], [7, 9])
+        for name in (
+                'validity_probability', 'predicted_iou', 'quality_score'):
+            values = result[name]
+            self.assertTrue(np.isfinite(values).all())
+            self.assertTrue(np.all((values >= 0.0) & (values <= 1.0)))
 
 
 if __name__ == '__main__':

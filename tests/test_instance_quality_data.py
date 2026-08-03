@@ -1,4 +1,6 @@
 import importlib.util
+import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -117,6 +119,80 @@ class InstanceQualityTargetTests(unittest.TestCase):
                 edge_margin_m=0.0,
             )
 
+
+class InstanceQualityFilterTests(unittest.TestCase):
+
+    def test_zero_threshold_preserves_labels_exactly(self):
+        predictions = np.asarray([0, 10, 10, 20, 30, 30], dtype=np.int64)
+        result = INSTANCE_QUALITY.apply_instance_quality_filter(
+            predictions,
+            np.asarray([10, 20, 30]),
+            np.asarray([0.2, 0.4, 0.8]),
+            threshold=0.0,
+        )
+        np.testing.assert_array_equal(result['predictions'], predictions)
+        self.assertEqual(result['rejected_instance_ids'].size, 0)
+        self.assertEqual(result['label_mapping'], {10: 10, 20: 20, 30: 30})
+
+    def test_filter_removes_low_score_and_remaps_both_stages(self):
+        final_predictions = np.asarray(
+            [0, 10, 10, 20, 20, 30, 30], dtype=np.int64)
+        result = INSTANCE_QUALITY.apply_instance_quality_filter(
+            final_predictions,
+            np.asarray([10, 20, 30]),
+            np.asarray([0.9, 0.1, 0.8]),
+            threshold=0.5,
+        )
+        np.testing.assert_array_equal(
+            result['predictions'], [0, 1, 1, 0, 0, 2, 2])
+        self.assertEqual(result['label_mapping'], {10: 1, 30: 2})
+        np.testing.assert_array_equal(
+            result['rejected_instance_ids'], [20])
+
+        initial_predictions = np.asarray(
+            [-1, 10, 20, 30, 0], dtype=np.int64)
+        remapped = INSTANCE_QUALITY.remap_instance_predictions(
+            initial_predictions,
+            result['label_mapping'],
+            result['rejected_instance_ids'],
+        )
+        np.testing.assert_array_equal(remapped, [-1, 1, 0, 2, 0])
+
+    def test_filter_rejects_missing_instance_scores(self):
+        with self.assertRaises(ValueError):
+            INSTANCE_QUALITY.apply_instance_quality_filter(
+                np.asarray([0, 1, 2]),
+                np.asarray([1]),
+                np.asarray([0.9]),
+                threshold=0.5,
+            )
+
+    def test_score_only_metadata_records_identical_label_digest(self):
+        score_result = {
+            'instance_ids': np.asarray([1, 2]),
+            'validity_probability': np.asarray([0.8, 0.4]),
+            'predicted_iou': np.asarray([0.9, 0.5]),
+            'quality_score': np.asarray([0.72, 0.2]),
+            'checkpoint_seed': 42,
+            'checkpoint_best_epoch': 15,
+            'device': 'cpu',
+            'parameter_count': 123,
+            'scoring_seconds': 0.25,
+            'pre_filter_label_sha256': 'same',
+            'post_filter_label_sha256': 'same',
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            _, metadata_path = (
+                INSTANCE_QUALITY.save_instance_quality_scores(
+                    score_result,
+                    directory,
+                    threshold=0.5,
+                    filter_enabled=False))
+            with open(metadata_path, encoding='utf-8') as file:
+                metadata = json.load(file)
+        self.assertTrue(metadata['score_only_labels_identical'])
+        self.assertEqual(metadata['num_kept'], 2)
+        self.assertEqual(metadata['num_passes_threshold'], 1)
 
 if __name__ == '__main__':
     unittest.main()

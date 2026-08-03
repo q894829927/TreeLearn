@@ -1,9 +1,11 @@
 import os
 import numpy as np
 import argparse
+import hashlib
 import pickle
 import pprint
 import shutil
+import time
 from tree_learn.dataset import TreeDataset
 from tree_learn.model import TreeLearn
 from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, load_checkpoint, ensemble, 
@@ -17,6 +19,10 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              compute_vertical_instance_tokens,
                              compute_instance_quality_targets,
                              save_instance_quality_data,
+                             predict_vertical_instance_quality,
+                             apply_instance_quality_filter,
+                             remap_instance_predictions,
+                             save_instance_quality_scores,
                              propagate_preds_hash_full, propagate_preds_hash_vox)
 
 TREE_CLASS_IN_PYTORCH_DATASET = 0
@@ -27,6 +33,7 @@ START_NUM_PREDS = 1
 
 
 def run_treelearn_pipeline(config, config_path=None):
+    pipeline_start_time = time.time()
     # make dirs
     source_forest_path = config.forest_path
     plot_name = os.path.splitext(os.path.basename(source_forest_path))[0]
@@ -79,6 +86,14 @@ def run_treelearn_pipeline(config, config_path=None):
         generate_tiles(config.sample_generation, config.forest_path, logger, config.save_cfg.return_type)
 
     # Make pointwise predictions with pretrained model
+    quality_filter_cfg = getattr(config, 'quality_filter', None)
+    quality_filter_enabled = bool(
+        quality_filter_cfg is not None and
+        getattr(quality_filter_cfg, 'enabled', False))
+    quality_scoring_enabled = bool(
+        quality_filter_cfg is not None and (
+            quality_filter_enabled or
+            getattr(quality_filter_cfg, 'score_instances', False)))
     logger.info(f'{plot_name}: #################### getting pointwise predictions ####################')
     model = TreeLearn(**config.model).cuda()
     dataset = TreeDataset(**config.dataset_test, logger=logger)
@@ -88,7 +103,8 @@ def run_treelearn_pipeline(config, config_path=None):
         model, dataloader, config.model, logger,
         return_backbone_feats=bool(
             config.save_cfg.save_pointwise or getattr(
-                config.save_cfg, 'save_quality_training_data', False)))
+                config.save_cfg, 'save_quality_training_data', False) or
+            quality_scoring_enabled))
     (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, coords, instance_labels,
      backbone_feats, input_feats, axis_xy_predictions,
@@ -169,6 +185,92 @@ def run_treelearn_pipeline(config, config_path=None):
             'initial clustering produced no usable reference instances. '
             'No output was saved; inspect the clustering seed count and thresholds.')
 
+    quality_token_data = None
+    quality_score_result = None
+    pre_quality_label_digest = None
+    if quality_scoring_enabled:
+        if backbone_feats is None:
+            raise RuntimeError(
+                'Instance-quality scoring requires frozen backbone features.')
+        checkpoint_path = str(getattr(
+            quality_filter_cfg, 'checkpoint', '')).strip()
+        if not checkpoint_path:
+            raise ValueError(
+                'quality_filter.checkpoint is required when quality scoring '
+                'is enabled.')
+        threshold = float(getattr(quality_filter_cfg, 'threshold', 0.0))
+        num_layers = int(getattr(quality_filter_cfg, 'num_layers', 8))
+        logger.info(
+            f'{plot_name}: #################### scoring instance quality '
+            '####################')
+        quality_start_time = time.time()
+        pre_quality_label_digest = hashlib.sha256(
+            np.ascontiguousarray(instance_preds).view(np.uint8)).hexdigest()
+        quality_token_data = compute_vertical_instance_tokens(
+            coords=coords,
+            instance_predictions=instance_preds,
+            backbone_features=backbone_feats,
+            semantic_prediction_logits=semantic_prediction_logits,
+            offset_predictions=offset_predictions,
+            verticality=input_feats[:, -1],
+            axis_confidence=axis_confidence,
+            num_layers=num_layers,
+            tree_class_index=TREE_CLASS_IN_PYTORCH_DATASET)
+        quality_score_result = predict_vertical_instance_quality(
+            quality_token_data,
+            checkpoint_path,
+            device=getattr(quality_filter_cfg, 'device', None))
+
+        label_mapping = None
+        rejected_ids = np.empty(0, dtype=np.int64)
+        if quality_filter_enabled:
+            filter_result = apply_instance_quality_filter(
+                instance_preds,
+                quality_score_result['instance_ids'],
+                quality_score_result['quality_score'],
+                threshold,
+                non_tree_label=NON_TREES_LABEL_IN_GROUPING)
+            if len(filter_result['kept_instance_ids']) == 0:
+                raise RuntimeError(
+                    'The instance-quality threshold rejected every candidate. '
+                    'No output was saved; lower quality_filter.threshold.')
+            instance_preds = filter_result['predictions']
+            label_mapping = filter_result['label_mapping']
+            rejected_ids = filter_result['rejected_instance_ids']
+            instance_preds_after_initial_clustering = remap_instance_predictions(
+                instance_preds_after_initial_clustering,
+                label_mapping,
+                rejected_ids,
+                non_tree_label=NON_TREES_LABEL_IN_GROUPING)
+            logger.info(
+                f'Quality-filtered instances from '
+                f"{len(quality_score_result['instance_ids']):,} to "
+                f"{len(filter_result['kept_instance_ids']):,} "
+                f'(threshold: {threshold:.4f})')
+        post_quality_label_digest = hashlib.sha256(
+            np.ascontiguousarray(instance_preds).view(np.uint8)).hexdigest()
+        if (
+                not quality_filter_enabled and
+                post_quality_label_digest != pre_quality_label_digest):
+            raise RuntimeError(
+                'Score-only instance quality unexpectedly changed predictions.')
+        quality_score_result['pre_filter_label_sha256'] = (
+            pre_quality_label_digest)
+        quality_score_result['post_filter_label_sha256'] = (
+            post_quality_label_digest)
+        quality_elapsed = time.time() - quality_start_time
+        quality_score_result['scoring_seconds'] = quality_elapsed
+        quality_dir = os.path.join(results_dir, 'instance_quality_scores')
+        score_paths = save_instance_quality_scores(
+            quality_score_result,
+            quality_dir,
+            threshold=threshold,
+            filter_enabled=quality_filter_enabled,
+            label_mapping=label_mapping)
+        logger.info(
+            f'Instance-quality scoring finished in '
+            f'{quality_elapsed:.1f}s; scores: {score_paths[0]}')
+
     save_diagnostics = bool(getattr(
         config.save_cfg, 'save_instance_diagnostics', False))
     save_quality_data = bool(getattr(
@@ -212,17 +314,20 @@ def run_treelearn_pipeline(config, config_path=None):
         logger.info(
             f'{plot_name}: #################### saving quality training data '
             '####################')
-        token_data = compute_vertical_instance_tokens(
-            coords=coords,
-            instance_predictions=instance_preds,
-            backbone_features=backbone_feats,
-            semantic_prediction_logits=semantic_prediction_logits,
-            offset_predictions=offset_predictions,
-            verticality=input_feats[:, -1],
-            axis_confidence=axis_confidence,
-            num_layers=int(getattr(
-                config.save_cfg, 'quality_num_layers', 8)),
-            tree_class_index=TREE_CLASS_IN_PYTORCH_DATASET)
+        token_data = (
+            quality_token_data if not quality_filter_enabled else None)
+        if token_data is None:
+            token_data = compute_vertical_instance_tokens(
+                coords=coords,
+                instance_predictions=instance_preds,
+                backbone_features=backbone_feats,
+                semantic_prediction_logits=semantic_prediction_logits,
+                offset_predictions=offset_predictions,
+                verticality=input_feats[:, -1],
+                axis_confidence=axis_confidence,
+                num_layers=int(getattr(
+                    config.save_cfg, 'quality_num_layers', 8)),
+                tree_class_index=TREE_CLASS_IN_PYTORCH_DATASET)
         target_data = compute_instance_quality_targets(
             coords=coords,
             instance_predictions=instance_preds,
@@ -418,6 +523,9 @@ def run_treelearn_pipeline(config, config_path=None):
         trees_dir = os.path.join(results_dir, 'individual_trees')
         os.makedirs(trees_dir, exist_ok=True)
         save_treewise(coords_to_return, preds_to_return, cluster_means_within_hull, insts_not_at_edge, "las", trees_dir, NON_TREES_LABEL_IN_GROUPING)
+    logger.info(
+        f'{plot_name}: pipeline finished in '
+        f'{time.time() - pipeline_start_time:.1f}s')
     return
 
 

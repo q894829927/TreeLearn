@@ -704,3 +704,157 @@ GPU / CUDA / PyTorch：
 - 提升只存在于 Wytham，而在独立森林上不能复现。
 
 论文可以保留数据支持的简单方法，但不得以“加入 Attention”本身作为贡献。
+
+## 16. E5 实际结论与 E6 锁定实现（2026-08-03）
+
+### 16.1 E5 实际结果：FAIL
+
+E5 Vertical-Attention 已完整运行，但没有通过预注册 Gate，因此不作为主方法继续：
+
+| 模型 | ROC-AUC | FP AP | IoU MAE | Filtered F1 |
+|---|---:|---:|---:|---:|
+| E4 Vertical-MLP | 0.995627 | 0.991869 | 0.086063 | 0.976172 |
+| E5 Vertical-Attention | 0.995634 | 0.991556 | 0.086244 | 0.853377 |
+
+相对 E4，E5 的 Filtered F1 下降 0.122795，Commission 明显恶化，FP AP 和
+IoU MAE 均未改善，且三个配对随机种子中胜出数为 0/3。该结果属于方法失败，
+不是程序崩溃。按停止规则：
+
+- 停止继续调整 Transformer 层数、head 数和 dropout；
+- 论文主方法锁定为 E4 Vertical-MLP；
+- Attention 只可作为负结果或对照，不得包装为有效贡献；
+- E6 固定使用 E4 seed 42 checkpoint，因为它在三个 E4 checkpoint 中验证
+  IoU MAE 最低（0.085285），且 filtered F1 最高（0.977071）。
+
+### 16.2 E6 固定项
+
+E6 不再重新扫描 Wytham，也不重新选择模型。固定如下：
+
+~~~text
+quality checkpoint:
+logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth
+
+quality score:
+sigmoid(validity_logit) * predicted_iou
+
+threshold:
+0.01（E4 五个 validation forests 上预先选择）
+
+candidate pipeline:
+base-residual MLP seed 43 + r100 base-only 2D clustering
+~~~
+
+新增 pipeline 行为：
+
+1. 完成实例聚类和剩余点分配；
+2. 从冻结 backbone 特征生成 8 层垂直 token；
+3. 严格加载 E4 Vertical-MLP checkpoint；
+4. 保存每个实例的 validity、predicted IoU 和 quality score；
+5. 当 enabled=True 时将 score < 0.01 的实例设为背景并连续重编号；
+6. 当 enabled=False 时只评分，过滤前后标签 SHA256 必须完全相同，否则立即失败；
+7. 记录质量评分耗时和完整 pipeline 总耗时。
+
+### 16.3 服务器执行顺序
+
+先更新代码并运行测试：
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+
+python -m unittest \
+  tests.test_instance_quality_data \
+  tests.test_vertical_instance_quality -v \
+  2>&1 | tee logs/vertical_quality/e6_unit_tests.log
+~~~
+
+确认锁定 checkpoint 和原网络 checkpoint 都存在：
+
+~~~bash
+test -f logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth
+test -f work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth
+~~~
+
+第一阶段只运行 score-only control：
+
+~~~bash
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/vertical_instance_quality/e6_pipeline_l1w_quality_control.yaml \
+  > logs/vertical_quality/e6_pipeline_l1w_quality_control.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/vertical_instance_quality/e6_evaluate_l1w_quality_control.yaml \
+  > logs/vertical_quality/e6_evaluate_l1w_quality_control.log 2>&1
+' > logs/vertical_quality/e6_control_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e6_control.pid
+tail -f logs/vertical_quality/e6_control_runner.log
+~~~
+
+control 完成后必须先检查：
+
+~~~bash
+cat \
+  data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/metadata.json
+
+grep -E \
+  "Instance-quality scoring finished|pipeline finished in|Completeness:|Commission Error Rate:|F1 Score:|Coverage:" \
+  logs/vertical_quality/e6_pipeline_l1w_quality_control.log \
+  logs/vertical_quality/e6_evaluate_l1w_quality_control.log
+~~~
+
+只有 metadata 中同时满足以下条件才运行过滤组：
+
+~~~text
+filter_enabled = false
+score_only_labels_identical = true
+checkpoint_seed = 42
+threshold = 0.01
+~~~
+
+第二阶段运行锁定阈值过滤组：
+
+~~~bash
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/vertical_instance_quality/e6_pipeline_l1w_quality_filtered.yaml \
+  > logs/vertical_quality/e6_pipeline_l1w_quality_filtered.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/vertical_instance_quality/e6_evaluate_l1w_quality_filtered.yaml \
+  > logs/vertical_quality/e6_evaluate_l1w_quality_filtered.log 2>&1
+' > logs/vertical_quality/e6_filtered_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e6_filtered.pid
+tail -f logs/vertical_quality/e6_filtered_runner.log
+~~~
+
+最后自动汇总并执行 E6 Gate：
+
+~~~bash
+python -u tools/diagnostics/summarize_e6_quality_filter.py \
+  --config configs/experiments/vertical_instance_quality/e6_summary_l1w.yaml \
+  2>&1 | tee logs/vertical_quality/e6_summary_run.log
+
+cat logs/vertical_quality/e6_l1w_summary/summary.md
+~~~
+
+E6 只有在以下条件全部满足时才进入 E7：
+
+- score-only 标签摘要完全一致；
+- control 与固定 r100 baseline 的精确评估计数和指标一致；
+- Completeness 下降不超过 1.0 个百分点；
+- F1 不低于 baseline；
+- 质量评分耗时不超过完整 pipeline 的 10%；
+- checkpoint seed 和阈值与 locked YAML 一致。
+
+如果汇总脚本输出 STOP，不在 Wytham 上改阈值；先定位具体失败 Gate。

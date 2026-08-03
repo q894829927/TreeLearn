@@ -366,3 +366,255 @@ def save_instance_quality_data(
     with open(metadata_path, 'w', encoding='utf-8') as file:
         json.dump(payload, file, indent=2, ensure_ascii=False)
     return npz_path, csv_path, metadata_path
+
+
+def build_vertical_quality_mlp(input_dim, model_config):
+    """Build the E4 Vertical-MLP with checkpoint-compatible parameter names."""
+    import torch
+    from torch import nn
+
+    token_hidden_dim = int(model_config['token_hidden_dim'])
+    num_token_layers = int(model_config['token_mlp_layers'])
+    dropout = float(model_config['dropout'])
+    if token_hidden_dim <= 0 or num_token_layers <= 0:
+        raise ValueError('Token MLP dimensions must be positive.')
+
+    class VerticalQualityMLP(nn.Module):
+        def __init__(self):
+            super().__init__()
+            token_layers = []
+            current_dim = int(input_dim)
+            for _ in range(num_token_layers):
+                token_layers.extend([
+                    nn.Linear(current_dim, token_hidden_dim),
+                    nn.ReLU(),
+                    nn.Dropout(dropout),
+                ])
+                current_dim = token_hidden_dim
+            self.token_encoder = nn.Sequential(*token_layers)
+
+            instance_layers = []
+            current_dim = 2 * token_hidden_dim
+            for hidden_dim in model_config['instance_hidden_dims']:
+                hidden_dim = int(hidden_dim)
+                instance_layers.extend([
+                    nn.Linear(current_dim, hidden_dim),
+                    nn.ReLU(),
+                    nn.Dropout(dropout),
+                ])
+                current_dim = hidden_dim
+            self.instance_encoder = nn.Sequential(*instance_layers)
+            self.validity = nn.Linear(current_dim, 1)
+            self.iou = nn.Linear(current_dim, 1)
+
+        def forward(self, tokens, layer_mask):
+            layer_mask = layer_mask.bool()
+            if tokens.ndim != 3 or layer_mask.shape != tokens.shape[:2]:
+                raise ValueError('Token and layer-mask shapes are inconsistent.')
+            if not torch.all(layer_mask.any(dim=1)):
+                raise ValueError('Every instance must have a valid layer.')
+            encoded = self.token_encoder(tokens)
+            mask_values = layer_mask.unsqueeze(-1)
+            mean = (encoded * mask_values).sum(dim=1) / mask_values.sum(
+                dim=1).clamp_min(1)
+            maximum = encoded.masked_fill(~mask_values, -torch.inf).max(
+                dim=1).values
+            pooled = torch.cat([mean, maximum], dim=1)
+            instance = self.instance_encoder(pooled)
+            return (
+                self.validity(instance).squeeze(1),
+                torch.sigmoid(self.iou(instance).squeeze(1)),
+            )
+
+    return VerticalQualityMLP()
+
+
+def predict_vertical_instance_quality(
+        token_data, checkpoint_path, device=None):
+    """Score candidate instances with a frozen E4 Vertical-MLP checkpoint."""
+    import torch
+
+    try:
+        checkpoint = torch.load(
+            checkpoint_path, map_location='cpu', weights_only=False)
+    except TypeError:
+        checkpoint = torch.load(checkpoint_path, map_location='cpu')
+    required = {
+        'state_dict', 'token_feature_names', 'token_median', 'token_scale',
+        'model_config'}
+    missing = required - set(checkpoint)
+    if missing:
+        raise ValueError(
+            f'Quality checkpoint misses fields: {sorted(missing)}')
+    checkpoint_names = [str(name) for name in checkpoint['token_feature_names']]
+    token_names = [str(name) for name in token_data['token_feature_names']]
+    if checkpoint_names != token_names:
+        raise ValueError('Quality checkpoint and runtime token schemas differ.')
+
+    tokens = np.asarray(token_data['vertical_tokens'], dtype=np.float32)
+    layer_mask = np.asarray(token_data['layer_valid_mask'], dtype=bool)
+    if tokens.ndim != 3 or layer_mask.shape != tokens.shape[:2]:
+        raise ValueError('Runtime token and layer-mask shapes are inconsistent.')
+    instance_ids = np.asarray(token_data['instance_ids'], dtype=np.int64)
+    if instance_ids.shape != (len(tokens),):
+        raise ValueError('Runtime instance IDs must align with vertical tokens.')
+    if np.any(layer_mask.sum(axis=1) == 0):
+        raise ValueError('A runtime instance has no valid vertical layer.')
+    median = np.asarray(checkpoint['token_median'], dtype=np.float32)
+    scale = np.asarray(checkpoint['token_scale'], dtype=np.float32)
+    if median.shape != (tokens.shape[-1],) or scale.shape != median.shape:
+        raise ValueError('Quality checkpoint standardization shape is invalid.')
+    if np.any(~np.isfinite(scale)) or np.any(scale <= 0):
+        raise ValueError('Quality checkpoint token scales must be positive.')
+    standardized = ((tokens - median) / scale).astype(np.float32)
+    standardized[~layer_mask] = 0.0
+    if not np.isfinite(standardized).all():
+        raise ValueError('Runtime standardized quality tokens are non-finite.')
+
+    target_device = torch.device(
+        device if device is not None else
+        ('cuda' if torch.cuda.is_available() else 'cpu'))
+    model = build_vertical_quality_mlp(
+        tokens.shape[-1], checkpoint['model_config'])
+    model.load_state_dict(checkpoint['state_dict'], strict=True)
+    model = model.to(target_device).eval()
+    with torch.no_grad():
+        logits, predicted_iou = model(
+            torch.from_numpy(standardized).to(target_device),
+            torch.from_numpy(layer_mask).to(target_device))
+        validity_probability = torch.sigmoid(logits)
+        final_score = validity_probability * predicted_iou
+    return {
+        'instance_ids': instance_ids,
+        'validity_probability': validity_probability.cpu().numpy(),
+        'predicted_iou': predicted_iou.cpu().numpy(),
+        'quality_score': final_score.cpu().numpy(),
+        'checkpoint_seed': int(checkpoint.get('seed', -1)),
+        'checkpoint_best_epoch': int(checkpoint.get('best_epoch', -1)),
+        'device': str(target_device),
+        'parameter_count': int(sum(
+            parameter.numel() for parameter in model.parameters()
+            if parameter.requires_grad)),
+    }
+
+
+def apply_instance_quality_filter(
+        instance_predictions, instance_ids, quality_scores, threshold,
+        non_tree_label=0):
+    """Remove low-quality instances and keep surviving labels consecutive."""
+    predictions = np.asarray(instance_predictions)
+    instance_ids = np.asarray(instance_ids, dtype=np.int64)
+    quality_scores = np.asarray(quality_scores, dtype=np.float64)
+    if instance_ids.ndim != 1 or quality_scores.shape != instance_ids.shape:
+        raise ValueError('Quality instance IDs and scores must be aligned 1D arrays.')
+    if len(np.unique(instance_ids)) != len(instance_ids):
+        raise ValueError('Quality instance IDs must be unique.')
+    if not 0.0 <= float(threshold) <= 1.0:
+        raise ValueError('Quality threshold must be in [0, 1].')
+    if not np.isfinite(quality_scores).all():
+        raise ValueError('Quality scores must be finite.')
+
+    predicted_ids = np.unique(predictions[predictions > non_tree_label]).astype(
+        np.int64)
+    missing = set(predicted_ids.tolist()) - set(instance_ids.tolist())
+    if missing:
+        raise ValueError(
+            f'Quality scores miss predicted instance IDs: {sorted(missing)[:10]}')
+    keep_mask = quality_scores >= float(threshold)
+    kept_ids = instance_ids[keep_mask]
+    rejected_ids = instance_ids[~keep_mask]
+    output = predictions.copy()
+    if len(rejected_ids):
+        output[np.isin(output, rejected_ids)] = non_tree_label
+    surviving_ids = np.unique(output[output > non_tree_label]).astype(np.int64)
+    if len(rejected_ids) == 0:
+        label_mapping = {int(value): int(value) for value in surviving_ids}
+    else:
+        label_mapping = {
+            int(old): int(new)
+            for new, old in enumerate(surviving_ids, start=1)}
+        for old, new in label_mapping.items():
+            output[predictions == old] = new
+    return {
+        'predictions': output,
+        'kept_instance_ids': kept_ids,
+        'rejected_instance_ids': rejected_ids,
+        'label_mapping': label_mapping,
+        'threshold': float(threshold),
+    }
+
+
+def remap_instance_predictions(
+        instance_predictions, label_mapping, rejected_instance_ids,
+        non_tree_label=0):
+    """Apply a final-quality label mapping to another prediction stage."""
+    predictions = np.asarray(instance_predictions)
+    output = predictions.copy()
+    rejected = np.asarray(rejected_instance_ids, dtype=np.int64)
+    if len(rejected):
+        output[np.isin(output, rejected)] = non_tree_label
+    for old, new in label_mapping.items():
+        output[predictions == old] = new
+    known = set(label_mapping) | set(rejected.tolist())
+    positive = set(np.unique(predictions[predictions > non_tree_label]).tolist())
+    missing = positive - known
+    if missing:
+        raise ValueError(
+            f'Quality remapping misses instance IDs: {sorted(missing)[:10]}')
+    return output
+
+
+def save_instance_quality_scores(
+        score_result, output_dir, threshold, filter_enabled,
+        label_mapping=None):
+    os.makedirs(output_dir, exist_ok=True)
+    instance_ids = score_result['instance_ids']
+    mapping = dict(label_mapping or {})
+    csv_path = os.path.join(output_dir, 'instance_quality_scores.csv')
+    with open(csv_path, 'w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=[
+            'instance_id', 'filtered_instance_id', 'validity_probability',
+            'predicted_iou', 'quality_score', 'passes_threshold', 'kept'])
+        writer.writeheader()
+        for index, instance_id in enumerate(instance_ids):
+            score = float(score_result['quality_score'][index])
+            kept = (not filter_enabled) or score >= float(threshold)
+            writer.writerow({
+                'instance_id': int(instance_id),
+                'filtered_instance_id': int(mapping.get(
+                    int(instance_id), int(instance_id) if kept else 0)),
+                'validity_probability': float(
+                    score_result['validity_probability'][index]),
+                'predicted_iou': float(score_result['predicted_iou'][index]),
+                'quality_score': score,
+                'passes_threshold': bool(score >= float(threshold)),
+                'kept': bool(kept),
+            })
+    metadata = {
+        'num_instances': int(len(instance_ids)),
+        'threshold': float(threshold),
+        'filter_enabled': bool(filter_enabled),
+        'num_kept': int(sum(
+            (not filter_enabled) or value >= float(threshold)
+            for value in score_result['quality_score'])),
+        'checkpoint_seed': score_result['checkpoint_seed'],
+        'checkpoint_best_epoch': score_result['checkpoint_best_epoch'],
+        'device': score_result['device'],
+        'parameter_count': score_result['parameter_count'],
+        'scoring_seconds': float(score_result.get('scoring_seconds', 0.0)),
+        'pre_filter_label_sha256': score_result.get(
+            'pre_filter_label_sha256'),
+        'post_filter_label_sha256': score_result.get(
+            'post_filter_label_sha256'),
+        'score_only_labels_identical': bool(
+            not filter_enabled and
+            score_result.get('pre_filter_label_sha256') ==
+            score_result.get('post_filter_label_sha256')),
+        'num_passes_threshold': int(sum(
+            value >= float(threshold)
+            for value in score_result['quality_score'])),
+    }
+    metadata_path = os.path.join(output_dir, 'metadata.json')
+    with open(metadata_path, 'w', encoding='utf-8') as file:
+        json.dump(metadata, file, indent=2, ensure_ascii=False)
+    return csv_path, metadata_path
