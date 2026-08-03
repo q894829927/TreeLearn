@@ -541,6 +541,19 @@ checkpoint selection: validation IoU MAE，其次 FP AP
 
 结果保存到 `logs/vertical_quality/e4_vertical_mlp/`。脚本只有在全部 E4 Gate 通过后才输出 `PASS: proceed to E5 Vertical-Attention.`；失败时仍保存完整结果，但以非零状态退出并禁止进入 E5。
 
+### E4 实际结果（2026-08-03）
+
+- 状态：**PASS，E4 完成**；
+- Vertical-MLP ROC-AUC：0.995627，较 E3 Global-MLP 提高 0.002972；
+- FP AP：0.991869，提高 0.004090；
+- IoU MAE：0.086063，降低 0.006198；
+- 候选实例级 filtered F1：0.976172，三种子样本标准差 0.001295；
+- 三个种子均选择阈值 0.01，Completeness 约 99.0%，Commission 约 3.6%–4.1%；
+- Spearman 略降 0.005187，但不影响预注册 Gate；
+- 所有 E4 Gate 为 True。
+
+该 F1 是固定 validation 候选实例级指标，不能替代 E6 完整 pipeline 和官方匹配评估。E5 必须与 E4 对应种子配对比较，不能只比较最佳单次结果。
+
 ## 10. E5：Vertical-Attention
 
 除聚合器外，数据、token、损失、优化器、epoch、随机种子和阈值选择均与
@@ -561,6 +574,36 @@ Vertical-MLP 相同。
 - 至少 2/3 个随机种子优于对应的 Vertical-MLP。
 
 失败时删除论文主方法中的 Attention，保留更简单的最佳质量头。
+
+### E5 已实现流程
+
+实现文件：
+
+    configs/experiments/vertical_instance_quality/e5_vertical_attention.yaml
+    tools/training/train_vertical_attention.py
+    tests/test_vertical_attention.py
+
+E5 与 E4 共用同一数据加载器、训练集 token 标准化、双任务损失、AdamW、100 epochs、patience 15、随机种子 42/43/44 和阈值规则。共享的两层 Token-MLP 后加入 8 层固定正弦高度编码、隐藏维度 64 的单层 4-head Transformer、128 维 FFN 和 attention pooling；不拼接 35 维全局特征。
+
+E5 直接读取 E4 的 `summary.json` 和 `per_seed_metrics.csv`。继续条件在运行前固定为：平均候选实例 F1 提高至少 0.005，或 Commission 降低至少 0.02 且 Completeness 下降不超过 0.01；FP AP 下降不得超过 0.0001；至少 2/3 个对应种子严格优于 E4。脚本记录参数量和验证实例推理耗时；“完整 pipeline 额外耗时不超过 10%”只能在 E6 集成后正式判定，不以脱离 pipeline 的微基准冒充该结论。
+
+服务器执行：
+
+    conda activate TreeLearn
+    mkdir -p logs/vertical_quality
+
+    python -m unittest tests.test_vertical_attention tests.test_vertical_instance_quality -v \
+      2>&1 | tee logs/vertical_quality/e5_unit_tests.log
+
+    nohup env CUBLAS_WORKSPACE_CONFIG=:4096:8 \
+      python -u tools/training/train_vertical_attention.py \
+      --config configs/experiments/vertical_instance_quality/e5_vertical_attention.yaml \
+      > logs/vertical_quality/e5_vertical_attention.log 2>&1 < /dev/null &
+
+    echo $! | tee logs/vertical_quality/e5_vertical_attention.pid
+    tail -f logs/vertical_quality/e5_vertical_attention.log
+
+结果保存到 `logs/vertical_quality/e5_vertical_attention/`。只有日志出现 `PASS: proceed to E6 quality-filter integration.` 才保留 Attention 并进入 E6；否则以 Vertical-MLP 作为最佳质量头。
 
 ## 11. E6：集成 pipeline 与阈值锁定
 

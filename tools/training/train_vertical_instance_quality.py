@@ -175,7 +175,7 @@ def train_vertical_mlp(
         train_class_mask, train_valid_mask,
         validation_tokens, validation_layer_mask, validation_true,
         validation_iou, validation_class_mask, validation_valid_mask,
-        model_config, training_config, seed):
+        model_config, training_config, seed, model_builder=None):
     os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
     import torch
     from torch import nn
@@ -183,7 +183,10 @@ def train_vertical_mlp(
 
     BASELINES._set_seed(seed)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = build_vertical_mlp(train_tokens.shape[-1], model_config).to(device)
+    if model_builder is None:
+        model_builder = build_vertical_mlp
+    model = model_builder(
+        train_tokens.shape[-1], model_config).to(device)
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=float(training_config['learning_rate']),
         weight_decay=float(training_config['weight_decay']))
