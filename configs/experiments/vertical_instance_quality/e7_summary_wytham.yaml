@@ -1,0 +1,22 @@
+dataset_name: 'Wytham'
+dataset_role: 'development_only'
+
+evaluations:
+  baseline: 'data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt'
+  filtered: 'data/pipeline/wytham/results_vertical_quality_e7_t001_locked/full_forest/evaluation/evaluation_results.pt'
+
+metadata: 'data/pipeline/wytham/results_vertical_quality_e7_t001_locked/instance_quality_scores/metadata.json'
+pipeline_log: 'logs/vertical_quality/e7_pipeline_wytham_quality_locked.log'
+
+locked:
+  checkpoint: 'logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth'
+  checkpoint_seed: 42
+  threshold: 0.01
+
+gate:
+  max_completeness_drop_pp: 1.0
+  min_f1_gain_pp: 0.5
+  min_commission_reduction_pp: 2.0
+  max_quality_runtime_fraction: 0.10
+
+output_dir: 'logs/vertical_quality/e7_wytham_summary'

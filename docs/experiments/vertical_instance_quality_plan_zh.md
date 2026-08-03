@@ -858,3 +858,45 @@ E6 只有在以下条件全部满足时才进入 E7：
 - checkpoint seed 和阈值与 locked YAML 一致。
 
 如果汇总脚本输出 STOP，不在 Wytham 上改阈值；先定位具体失败 Gate。
+
+## 17. E7 锁定 Wytham 复核
+
+E6 已通过：F1 提升 1.257798 个百分点，Commission 降低 2.468647 个百分点，
+Completeness 不下降，质量评分耗时占比 3.777%。因此进入 E7。
+
+Wytham 已参与前期分析，只能标记为 development。E7 固定使用 E4 seed 42
+checkpoint 和阈值 0.01，只运行一次，不得根据结果改阈值。
+
+~~~bash
+nohup bash -c '
+set -e
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/vertical_instance_quality/e7_pipeline_wytham_quality_locked.yaml \
+  > logs/vertical_quality/e7_pipeline_wytham_quality_locked.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/vertical_instance_quality/e7_evaluate_wytham_quality_locked.yaml \
+  > logs/vertical_quality/e7_evaluate_wytham_quality_locked.log 2>&1
+
+echo "===== E7 WYTHAM FINISHED $(date) ====="
+' > logs/vertical_quality/e7_wytham_runner.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e7_wytham.pid
+tail -f logs/vertical_quality/e7_wytham_runner.log
+~~~
+
+完成后执行自动汇总：
+
+~~~bash
+python -u tools/diagnostics/summarize_e7_locked_quality.py \
+  --config configs/experiments/vertical_instance_quality/e7_summary_wytham.yaml \
+  2>&1 | tee logs/vertical_quality/e7_summary_wytham_run.log
+
+cat logs/vertical_quality/e7_wytham_summary/summary.md
+~~~
+
+Gate 沿用预注册规则：Completeness 下降不超过 1.0 个百分点，并且 F1 至少提高
+0.5 个百分点，或 Commission 至少降低 2.0 个百分点。失败时记录跨域失败，
+不允许在 Wytham 上重新调参。通过后下一步不是消融，而是准备从未参与方法选择的
+独立外部测试森林。
