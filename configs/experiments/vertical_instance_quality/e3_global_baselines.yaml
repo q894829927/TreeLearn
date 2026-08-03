@@ -1,0 +1,23 @@
+data_root: 'data/instance_quality'
+manifest_path: 'data/instance_quality/manifest.csv'
+output_dir: 'logs/vertical_quality/e3_global_baselines'
+seeds: [42, 43, 44]
+
+mlp:
+  hidden_dims: [64, 32]
+  dropout: 0.1
+  batch_size: 128
+  epochs: 100
+  patience: 15
+  learning_rate: 0.001
+  weight_decay: 0.001
+  iou_loss_weight: 0.5
+
+threshold_selection:
+  max_completeness_drop: 0.01
+  step: 0.01
+
+gate:
+  min_validation_roc_auc: 0.85
+  min_validation_fp_ap: 0.65
+  max_mlp_auc_range: 0.05

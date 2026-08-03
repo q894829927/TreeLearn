@@ -254,18 +254,20 @@ def save_report(report, audited_rows, output_dir):
         f'- {name}: {count}'
         for name, count in report['class_counts'].items())
     markdown = (
-        '# E2 固定 50 实例 artifact 审计\n\n'
-        f'- 样本数：{report["sample_count"]}\n'
-        f'- 地块数：{report["plot_count"]}\n'
-        f'- split：{", ".join(report["splits"])}\n'
-        f'- 一致性错误：{report["error_count"]}\n\n'
-        '## 类别分布\n\n'
-        f'{class_lines}\n\n'
-        '## Gate\n\n'
-        f'{gate_lines}\n\n'
-        '该审计逐条验证 CSV/NPZ、标签阈值、边界有效性、来源 split、'
-        '8 层占比和空层数值。它不重新生成逐点候选几何；IoU 算法的'
-        '逐点正确性由 E1 Oracle 对齐检查和 E2 单元测试覆盖。\n')
+        "# E2 fixed 50-instance artifact audit\n\n"
+        f"- Samples: {report['sample_count']}\n"
+        f"- Plots: {report['plot_count']}\n"
+        f"- Splits: {', '.join(report['splits'])}\n"
+        f"- Edge instances: {report['edge_count']}\n"
+        f"- Consistency errors: {report['error_count']}\n\n"
+        "## Class distribution\n\n"
+        f"{class_lines}\n\n"
+        "## Gate\n\n"
+        f"{gate_lines}\n\n"
+        "This audit checks CSV/NPZ agreement, target thresholds, edge "
+        "validity, source split, layer occupancy, empty layers, and finite "
+        "values. Per-point IoU correctness is covered by the E1 Oracle "
+        "alignment check and E2 unit tests.\n")
     markdown_path.write_text(markdown, encoding='utf-8')
     return json_path, csv_path, markdown_path
 

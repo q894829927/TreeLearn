@@ -405,6 +405,20 @@ pilot 完成后检查：
     cat data/instance_quality/generation_summary.md
 
 最终必须显示 manual_audit_confirmed=True 和 passed=True，之后才进入 E3。
+### E2 实际结果（2026-08-03）
+
+- 状态：**PASS，E2 完成**；
+- 候选实例：9,402；
+- 有效实例：9,276；
+- 分类有效实例：8,978；
+- 正实例：6,179；
+- 负实例：2,799；
+- train：13 个森林，validation：5 个森林；
+- plot/group 泄漏：0；
+- 固定 50 实例审计覆盖 14 个地块：positive 22、negative 16、ambiguous 12，并包含边界实例；
+- artifact 一致性错误：0；
+- manual_audit_confirmed=True，最终 gate=True。
+
 ## 8. E3：简单质量评分基线
 
 依次训练并固定三个基线：
@@ -424,6 +438,41 @@ pilot 完成后检查：
 - 3 个随机种子均无明显崩溃。
 
 如果 Logistic 最优，仍可进入 Vertical-MLP；但后续模型必须超过 Logistic。
+
+### E3 已实现流程
+
+实现文件：
+
+    configs/experiments/vertical_instance_quality/e3_global_baselines.yaml
+    tools/training/train_instance_quality_baselines.py
+    tests/test_instance_quality_baselines.py
+
+三组基线严格复用 E2 森林级划分：
+
+1. single_feature：只在 train 上选择方向与最佳单特征；
+2. logistic_regression：35 维全局特征、训练集标准化和类别平衡；
+3. global_mlp：共享两层 MLP，同时预测有效概率和 IoU，三个随机种子 42/43/44。
+
+Global-MLP 固定为 64/32 hidden、dropout 0.1、AdamW、lr=1e-3、weight decay=1e-3、最多 100 epochs、patience 15。checkpoint 只按 validation IoU MAE、其次 FP AP 选择。候选过滤阈值要求 completeness 下降不超过 1%。
+
+服务器执行：
+
+    python -m unittest tests.test_instance_quality_baselines -v       2>&1 | tee logs/vertical_quality/e3_unit_tests.log
+
+    nohup python -u tools/training/train_instance_quality_baselines.py       --config configs/experiments/vertical_instance_quality/e3_global_baselines.yaml       > logs/vertical_quality/e3_global_baselines.log 2>&1 < /dev/null &
+
+    echo $! | tee logs/vertical_quality/e3_global_baselines.pid
+    tail -f logs/vertical_quality/e3_global_baselines.log
+
+结果文件：
+
+    logs/vertical_quality/e3_global_baselines/summary.md
+    logs/vertical_quality/e3_global_baselines/summary.json
+    logs/vertical_quality/e3_global_baselines/per_seed_metrics.csv
+    logs/vertical_quality/e3_global_baselines/validation_predictions.csv
+    logs/vertical_quality/e3_global_baselines/checkpoints/global_mlp_seed*.pth
+
+E3 中的 filtered F1 是 validation 候选实例级诊断指标，不冒充完整森林官方 detection F1；完整 pipeline 指标只在 E6 集成后报告。E3 gate 通过后，下一步实现 E4 Vertical-MLP；若 Logistic 最优仍可继续，但 E4/E5 必须超过 Logistic。
 
 ## 9. E4：Vertical-MLP
 
