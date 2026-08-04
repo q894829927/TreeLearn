@@ -154,8 +154,15 @@ def write_csv(path, rows):
     path.parent.mkdir(parents=True, exist_ok=True)
     if not rows:
         raise ValueError('Cannot write an empty CSV.')
+    fieldnames = []
+    seen_fields = set()
+    for row in rows:
+        for field in row:
+            if field not in seen_fields:
+                seen_fields.add(field)
+                fieldnames.append(field)
     with path.open('w', encoding='utf-8', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 

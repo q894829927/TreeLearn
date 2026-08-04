@@ -27,6 +27,18 @@ def record(key, confidence, correct, positive=True):
 
 class GroupwiseMergeTradeoffTests(unittest.TestCase):
 
+    def test_csv_writer_accepts_optional_fields_in_later_rows(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'mixed.csv'
+            TRADEOFF.write_csv(path, [
+                {'seed': 42, 'recall': 0.1},
+                {'seed': 43, 'recall': 0.2, 'recall_passed': False},
+            ])
+            with path.open('r', encoding='utf-8', newline='') as file:
+                rows = list(csv.DictReader(file))
+            self.assertIn('recall_passed', rows[0])
+            self.assertEqual(rows[0]['recall_passed'], '')
+            self.assertEqual(rows[1]['recall_passed'], 'False')
     def test_frontier_uses_all_sources_for_unsafe_rate(self):
         rows = [
             record('P:1', 0.9, True),
