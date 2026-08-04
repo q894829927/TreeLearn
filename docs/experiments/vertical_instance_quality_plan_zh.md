@@ -1532,3 +1532,77 @@ cat logs/vertical_quality/e9_selective_wytham/summary.md
   和 F1-area gain 计算 95% 置信区间，并整理 Vertical-MLP、Global-MLP、随机排序的论文表格。
 - 若 E9 STOP：当前 Vertical-MLP 只能作为数据集内质量分类器，缺少跨域风险控制证据；停止
   以实例质量作为论文主创新，转回需要重新训练的分割/聚类机制，不再用后处理筛选包装精度。
+
+## 26. E9 结果与 E10 统计证据（2026-08-04）
+
+E9 已在两个 score-only control 上通过：
+
+| Dataset | Counted FP | Commission-area reduction vs random | F1-area gain vs random |
+|---|---:|---:|---:|
+| L1W | 5 | 77.855% | +10.962 pp |
+| Wytham | 131 | 41.322% | +10.293 pp |
+
+Wytham 未参与 checkpoint、比例网格或 Gate 选择，因此是主要跨域证据。其 85% 保留率固定点为
+F1 `73.232%`、Commission `12.893%`、Completeness `63.170%`；完整输出仍保持 100% 实例，
+E9 曲线只表示用户主动要求选择性输出时的风险—覆盖率权衡。
+
+L1W 只有 5 个 counted FP，因此 Commission 曲线呈明显阶梯，只作为回归验证，不能单独用于
+统计显著性结论。E10 不再训练模型，也不选择 ratio，而是补充两类预注册统计证据。
+
+### 26.1 固定 validation 的配对消融
+
+使用 E3 `global_mlp` 与 E4 `vertical_mlp` 的同一批五个 validation forests、同一组
+`[42, 43, 44]` 训练 seed 和相同实例标签。保留比例仍为 0.50 到 1.00、步长 0.01。
+
+- 每个森林内部独立按分数排序；
+- invalid/edge 实例参与保留比例计数，但不参与 TP/FP；
+- 同时对森林和训练 seed 做 5000 次配对 bootstrap；
+- 两个模型在每次 bootstrap 中使用完全相同的森林和 seed 样本；
+- 报告 Commission-area reduction 与 F1-area gain 的配对 95% percentile CI；
+- 平均差值必须有利于 Vertical-MLP，且至少 2/3 seed 同方向获胜。
+
+置信区间用于描述样本不确定性；由于只有五个验证森林，不把“CI 必须完全高于零”设为 Gate，
+但论文必须如实报告 CI 是否跨零。
+
+### 26.2 Wytham 锁定置换检验
+
+在 Wytham 已锁定的 Vertical-MLP 分数和 E9 固定实例身份上执行 10000 次随机排序。每次随机
+排序计算完整 Commission-area 和 F1-area，形成随机零假设分布。Vertical-MLP 的单侧 p 值为：
+
+- 随机 Commission-area 不高于观测值的概率；
+- 随机 F1-area 不低于观测值的概率。
+
+两个单侧 p 值都必须不超过 0.01。该检验不改变分数、不重新训练、不选择比例，也不重新运行
+Hungarian matching。
+
+### 26.3 服务器运行
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+set -o pipefail
+
+python -u tools/diagnostics/evaluate_quality_statistical_evidence.py \
+  --config configs/experiments/vertical_instance_quality/e10_statistical_evidence.yaml \
+  2>&1 | tee logs/vertical_quality/e10_statistical_evidence_run.log
+
+cat logs/vertical_quality/e10_statistical_evidence/summary.md
+cat logs/vertical_quality/e10_statistical_evidence/validation_ablation.md
+cat logs/vertical_quality/e10_statistical_evidence/wytham_permutation.md
+~~~
+
+E10 只读取现有小型 CSV、PT 和 score metadata，不处理点云、不占 GPU；预计在 CPU 上数十秒到
+数分钟完成。输出还包括 `validation_bootstrap.csv` 和 `external_permutations.csv`，用于论文
+复核和绘图。
+
+### 26.4 E10 后续决策
+
+- 若 E10 PASS：进入 E11 论文结果冻结，生成主结果表、Global/Vertical 消融表、统计显著性表、
+  两张选择性曲线的论文版图片，以及方法与实验章节初稿；不再增加模型或调参数。
+- 若 validation 消融失败但 Wytham 置换通过：可以声称质量分数优于随机排序，但不能声称垂直
+  token 优于全局实例特征；需要把方法降级为质量估计框架而非垂直结构创新。
+- 若 Wytham 置换失败：停止跨域选择性风险控制主张，E9 只能作为数据集内分析。

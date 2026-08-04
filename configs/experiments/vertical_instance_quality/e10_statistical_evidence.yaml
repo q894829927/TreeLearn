@@ -1,0 +1,33 @@
+output_dir: 'logs/vertical_quality/e10_statistical_evidence'
+
+ratio_grid:
+  start: 0.50
+  stop: 1.00
+  step: 0.01
+
+validation:
+  global_predictions: 'logs/vertical_quality/e3_global_baselines/validation_predictions.csv'
+  vertical_predictions: 'logs/vertical_quality/e4_vertical_mlp/validation_predictions.csv'
+  global_model: 'global_mlp'
+  vertical_model: 'vertical_mlp'
+  seeds: [42, 43, 44]
+  plots: [G4N, G4W, L1N, O1N, O1W]
+
+bootstrap:
+  repeats: 5000
+  seed: 20260804
+
+external:
+  dataset_name: 'Wytham'
+  dataset_role: 'final_evaluation_no_tuning'
+  evaluation: 'data/pipeline/wytham/results_vertical_quality_e8a_control/full_forest/evaluation/evaluation_results.pt'
+  quality_scores: 'data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/instance_quality_scores.csv'
+  quality_metadata: 'data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/metadata.json'
+
+permutation:
+  repeats: 10000
+  seed: 20260804
+
+gate:
+  min_validation_seed_wins: 2
+  max_external_one_sided_p: 0.01
