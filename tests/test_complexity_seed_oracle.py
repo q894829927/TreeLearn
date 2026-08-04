@@ -53,6 +53,17 @@ class ComplexitySeedOracleTests(unittest.TestCase):
         self.assertFalse(ORACLE.baseline_matches_reference(
             {'tp': 155, 'fp': 5, 'fn': 1, 'f1': 0.9}, reference))
 
+    def test_neighbour_vote_matches_majority_and_smaller_label_ties(self):
+        source_labels = np.asarray([-1, 1, 2, 3])
+        neighbours = np.asarray([
+            [1, 1, 2, 2, 3],
+            [0, 0, 2, 3, 3],
+            [2, 2, 2, 1, 3],
+        ])
+        propagated = ORACLE.propagate_labels_by_neighbours(
+            source_labels, neighbours, chunk_size=2)
+        np.testing.assert_array_equal(propagated, [1, -1, 2])
+
     def test_vote_cell_purity_separates_mixed_and_pure_cells(self):
         votes = np.asarray([
             [0.1, 0.1], [0.2, 0.1], [0.3, 0.2], [1.2, 0.1],

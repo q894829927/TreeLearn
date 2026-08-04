@@ -207,41 +207,82 @@ def streaming_xyz_mean(path, chunk_size=2_000_000):
 
 
 def nearest_source_indices(
-        source_coords, target_coords, logger=None, chunk_size=1_000_000):
-    """Map every target point to one source point with bounded query memory."""
+        source_coords, target_coords, logger=None, chunk_size=1_000_000,
+        n_neighbors=1):
+    """Map every target point to its K nearest source points."""
     from scipy.spatial import cKDTree
 
     source = np.asarray(source_coords, dtype=np.float64)
     target = np.asarray(target_coords)
+    num_neighbors = int(n_neighbors)
     if len(source) == 0 or len(target) == 0:
         raise ValueError('Nearest-neighbour alignment requires non-empty arrays.')
+    if not 1 <= num_neighbors <= len(source):
+        raise ValueError('n_neighbors must be between 1 and source size.')
+    if len(source) > np.iinfo(np.int32).max:
+        raise ValueError('Source array is too large for int32 neighbour indices.')
     tree = cKDTree(source)
-    indices = np.empty(len(target), dtype=np.int32)
+    output_shape = (
+        (len(target),) if num_neighbors == 1
+        else (len(target), num_neighbors))
+    indices = np.empty(output_shape, dtype=np.int32)
     distances = np.empty(len(target), dtype=np.float32)
     for start in range(0, len(target), int(chunk_size)):
         end = min(start + int(chunk_size), len(target))
         query_coords = np.asarray(target[start:end], dtype=np.float64)
         try:
-            distance, index = tree.query(query_coords, k=1, workers=-1)
+            distance, index = tree.query(
+                query_coords, k=num_neighbors, workers=-1)
         except TypeError:
             try:
                 distance, index = tree.query(
-                    query_coords, k=1, n_jobs=-1)
+                    query_coords, k=num_neighbors, n_jobs=-1)
             except TypeError:
-                distance, index = tree.query(query_coords, k=1)
+                distance, index = tree.query(
+                    query_coords, k=num_neighbors)
         indices[start:end] = index.astype(np.int32, copy=False)
-        distances[start:end] = distance.astype(np.float32, copy=False)
+        nearest_distance = distance if num_neighbors == 1 else distance[:, 0]
+        distances[start:end] = nearest_distance.astype(np.float32, copy=False)
         if logger is not None and (
                 end == len(target) or end % 5_000_000 == 0):
             logger.info(
                 f'Aligned {end:,}/{len(target):,} target points '
-                f'({100 * end / len(target):.1f}%).')
+                f'with {num_neighbors}-NN ({100 * end / len(target):.1f}%).')
     del tree
     return indices, {
+        'num_neighbors': num_neighbors,
         'mean_distance_m': float(distances.mean()),
         'p99_distance_m': float(np.quantile(distances, 0.99)),
         'max_distance_m': float(distances.max()),
     }
+
+
+def propagate_labels_by_neighbours(
+        source_labels, neighbour_indices, chunk_size=1_000_000):
+    """Apply TreeLearn's majority vote with smaller-label tie breaking."""
+    labels = np.asarray(source_labels, dtype=np.int64).reshape(-1)
+    neighbours = np.asarray(neighbour_indices)
+    if neighbours.ndim == 1:
+        return labels[neighbours]
+    if neighbours.ndim != 2 or neighbours.shape[1] < 1:
+        raise ValueError('Neighbour indices must have shape [N] or [N, K].')
+    if neighbours.min() < 0 or neighbours.max() >= len(labels):
+        raise ValueError('Neighbour indices are outside source-label bounds.')
+    propagated = np.empty(len(neighbours), dtype=np.int64)
+    for start in range(0, len(neighbours), int(chunk_size)):
+        end = min(start + int(chunk_size), len(neighbours))
+        values = np.sort(labels[neighbours[start:end]], axis=1)
+        best_values = values[:, 0].copy()
+        best_counts = np.zeros(len(values), dtype=np.int16)
+        for column in range(values.shape[1]):
+            candidate = values[:, column]
+            counts = np.count_nonzero(
+                values == candidate[:, None], axis=1)
+            improved = counts > best_counts
+            best_values[improved] = candidate[improved]
+            best_counts[improved] = counts[improved]
+        propagated[start:end] = best_values
+    return propagated
 
 
 def legacy_base_anchors(coords, labels, base_anchor_height=0.5):
@@ -316,8 +357,9 @@ def prepare_ground_truth(config, settings, arrays, logger):
         ground_truth_coords, arrays['coords'], logger=logger)
     labels_at_ensemble = ground_truth_labels[gt_index_for_ensemble]
     logger.info('Aligning ensembled predictions to official GT points...')
-    ensemble_index_for_gt, ensemble_to_gt_stats = nearest_source_indices(
-        arrays['coords'], ground_truth_coords, logger=logger)
+    ensemble_neighbours_for_gt, ensemble_to_gt_stats = nearest_source_indices(
+        arrays['coords'], ground_truth_coords, logger=logger,
+        n_neighbors=5)
 
     tree_ids, anchors = legacy_base_anchors(
         ground_truth_coords, ground_truth_labels,
@@ -328,7 +370,7 @@ def prepare_ground_truth(config, settings, arrays, logger):
         'ground_truth_labels': ground_truth_labels,
         'labels_at_ensemble': labels_at_ensemble,
         'offset_targets_at_ensemble': offset_targets,
-        'ensemble_index_for_gt': ensemble_index_for_gt,
+        'ensemble_neighbours_for_gt': ensemble_neighbours_for_gt,
         'alignment': {
             'gt_to_ensemble': gt_to_ensemble_stats,
             'ensemble_to_gt': ensemble_to_gt_stats,
@@ -649,8 +691,8 @@ def run(config_path):
             score = balanced_scores
         predictions = cluster_mode(
             mode, config, arrays, score, keep_ratio, 0, logger)
-        evaluation_predictions = predictions[
-            oracle_gt['ensemble_index_for_gt']]
+        evaluation_predictions = propagate_labels_by_neighbours(
+            predictions, oracle_gt['ensemble_neighbours_for_gt'])
         mode_metrics[mode] = detection_metrics(
             oracle_gt['ground_truth_labels'], evaluation_predictions,
             thresholds)
@@ -670,8 +712,8 @@ def run(config_path):
         logger.info(f'===== START random seed {seed} clustering =====')
         predictions = cluster_mode(
             'random', config, arrays, None, keep_ratio, int(seed), logger)
-        evaluation_predictions = predictions[
-            oracle_gt['ensemble_index_for_gt']]
+        evaluation_predictions = propagate_labels_by_neighbours(
+            predictions, oracle_gt['ensemble_neighbours_for_gt'])
         metrics = detection_metrics(
             oracle_gt['ground_truth_labels'], evaluation_predictions, thresholds)
         metrics['seed'] = int(seed)
