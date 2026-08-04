@@ -1,0 +1,23 @@
+# E0 uses only L1W/validation-side labels. Do not use Wytham to design the
+# utility, keep ratio, or Gate. Wytham remains a later stress test.
+pipeline_config: 'configs/experiments/point_transformer/pipeline_l1w_seed_ratio_r100.yaml'
+output_dir: 'logs/complexity_seed_attention/e0_seed_oracle_l1w'
+
+keep_ratio: 0.78
+random_seeds: [42, 43, 44]
+
+utility:
+  sigma_m: 0.30
+  purity_voxel_size: 0.60
+  purity_power: 1.0
+
+evaluation_thresholds:
+  min_iou_for_match: 0.5
+  min_precision_for_pred: 0.5
+  min_recall_for_gt: 0.5
+
+gate:
+  min_f1_gain_pp: 0.50
+  min_commission_reduction_pp: 1.00
+  max_completeness_drop_pp: 0.50
+  min_gain_over_random_pp: 0.25

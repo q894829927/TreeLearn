@@ -1,0 +1,553 @@
+"""Diagnose the upper bound of GT-guided sparse seed selection.
+
+The diagnostic performs pointwise inference and overlap ensembling once, then
+reuses the identical predictions for full-seed, random-ratio, global-oracle,
+and tree-balanced-oracle clustering.  It is deliberately an offline Oracle:
+ground-truth labels and offset targets must never enter a deployable pipeline.
+"""
+
+import argparse
+import copy
+import csv
+import json
+import os
+from pathlib import Path
+
+import numpy as np
+
+
+TREE_CLASS = 0
+NON_TREE = 0
+NOT_ASSIGNED = -1
+START_INSTANCE = 1
+
+
+def candidate_base_seed_mask(
+        semantic_logits, verticality, offset_predictions,
+        tree_conf_thresh, tau_vert, tau_off):
+    # Match get_instances exactly: its candidate mask uses a FP32 PyTorch
+    # softmax. Keeping this identical matters for points close to the semantic
+    # threshold because the Oracle score is passed back into get_instances.
+    import torch
+
+    logits = np.asarray(semantic_logits)
+    probabilities = torch.from_numpy(logits).float().softmax(dim=-1).numpy()
+    return (
+        (probabilities[:, TREE_CLASS] >= float(tree_conf_thresh)) &
+        (np.asarray(verticality).reshape(-1) > float(tau_vert)) &
+        (np.abs(np.asarray(offset_predictions)[:, 2]) < float(tau_off)))
+
+
+def vote_cell_purity(base_votes_xy, labels, voxel_size):
+    """Return same-GT-label fraction inside each quantized vote cell."""
+    votes = np.asarray(base_votes_xy, dtype=np.float64)
+    labels = np.asarray(labels, dtype=np.int64).reshape(-1)
+    if votes.shape != (len(labels), 2):
+        raise ValueError('base_votes_xy and labels are not aligned.')
+    if float(voxel_size) <= 0:
+        raise ValueError('purity voxel size must be positive.')
+    cells = np.floor(votes / float(voxel_size)).astype(np.int64)
+    cell_dtype = np.dtype([('x', '<i8'), ('y', '<i8')])
+    cell_keys = np.ascontiguousarray(cells).view(cell_dtype).reshape(-1)
+    _, cell_inverse, cell_counts = np.unique(
+        cell_keys, return_inverse=True, return_counts=True)
+
+    pair_values = np.column_stack([cells, labels])
+    pair_dtype = np.dtype([('x', '<i8'), ('y', '<i8'), ('label', '<i8')])
+    pair_keys = np.ascontiguousarray(pair_values).view(pair_dtype).reshape(-1)
+    _, pair_inverse, pair_counts = np.unique(
+        pair_keys, return_inverse=True, return_counts=True)
+    return (
+        pair_counts[pair_inverse] / cell_counts[cell_inverse]
+    ).astype(np.float32)
+
+
+def compute_seed_utility(
+        coords, offset_predictions, offset_labels, instance_labels,
+        candidate_mask, sigma_m=0.30, purity_voxel_size=0.60,
+        purity_power=1.0):
+    """Compute a GT-only seed utility from vote accuracy and local purity."""
+    coords = np.asarray(coords, dtype=np.float64)
+    predictions = np.asarray(offset_predictions, dtype=np.float64)
+    targets = np.asarray(offset_labels, dtype=np.float64)
+    labels = np.asarray(instance_labels, dtype=np.int64).reshape(-1)
+    candidate_mask = np.asarray(candidate_mask, dtype=bool).reshape(-1)
+    num_points = len(coords)
+    if (
+            predictions.shape != (num_points, 3) or
+            targets.shape != (num_points, 3) or
+            len(labels) != num_points or len(candidate_mask) != num_points):
+        raise ValueError('Oracle point arrays are not aligned.')
+    if float(sigma_m) <= 0 or float(purity_power) < 0:
+        raise ValueError('sigma must be positive and purity_power non-negative.')
+
+    candidate_indices = np.flatnonzero(candidate_mask)
+    utility = np.zeros(num_points, dtype=np.float32)
+    vote_error = np.full(num_points, np.nan, dtype=np.float32)
+    purity = np.zeros(num_points, dtype=np.float32)
+    if len(candidate_indices) == 0:
+        return {
+            'utility': utility,
+            'vote_error_xy': vote_error,
+            'purity': purity,
+        }
+
+    candidate_error = np.linalg.norm(
+        predictions[candidate_indices, :2] -
+        targets[candidate_indices, :2], axis=1)
+    base_votes = (
+        coords[candidate_indices, :2] +
+        predictions[candidate_indices, :2])
+    candidate_purity = vote_cell_purity(
+        base_votes, labels[candidate_indices], purity_voxel_size)
+    accuracy = np.exp(
+        -0.5 * (candidate_error / float(sigma_m)) ** 2)
+    candidate_utility = accuracy * np.power(
+        candidate_purity, float(purity_power))
+    candidate_utility[labels[candidate_indices] <= 0] = 0.0
+    utility[candidate_indices] = candidate_utility.astype(np.float32)
+    vote_error[candidate_indices] = candidate_error.astype(np.float32)
+    purity[candidate_indices] = candidate_purity
+    if not np.isfinite(utility).all():
+        raise ValueError('Oracle utility contains non-finite values.')
+    return {
+        'utility': utility,
+        'vote_error_xy': vote_error,
+        'purity': purity,
+    }
+
+
+def tree_balanced_oracle_scores(raw_utility, instance_labels, candidate_mask):
+    """Convert raw utility to deterministic within-tree percentile scores."""
+    utility = np.asarray(raw_utility, dtype=np.float64).reshape(-1)
+    labels = np.asarray(instance_labels, dtype=np.int64).reshape(-1)
+    candidate_mask = np.asarray(candidate_mask, dtype=bool).reshape(-1)
+    if len(utility) != len(labels) or len(labels) != len(candidate_mask):
+        raise ValueError('Balanced-oracle arrays are not aligned.')
+    scores = np.zeros(len(utility), dtype=np.float32)
+    indices = np.arange(len(utility), dtype=np.int64)
+    for tree_id in np.unique(labels[candidate_mask & (labels > 0)]):
+        tree_indices = indices[candidate_mask & (labels == tree_id)]
+        order = np.lexsort((tree_indices, utility[tree_indices]))
+        ranks = np.empty(len(tree_indices), dtype=np.float64)
+        ranks[order] = np.arange(1, len(tree_indices) + 1)
+        scores[tree_indices] = (ranks / len(tree_indices)).astype(np.float32)
+    return scores
+
+
+def seed_set_metrics(
+        selected_mask, candidate_mask, labels, vote_error, utility,
+        tau_min):
+    selected = np.asarray(selected_mask, dtype=bool)
+    candidates = np.asarray(candidate_mask, dtype=bool)
+    labels = np.asarray(labels, dtype=np.int64)
+    valid_selected = selected & candidates
+    selected_labels = labels[valid_selected]
+    all_tree_ids = np.unique(labels[candidates & (labels > 0)])
+    selected_tree_ids, selected_counts = np.unique(
+        selected_labels[selected_labels > 0], return_counts=True)
+    enough_ids = selected_tree_ids[selected_counts >= int(tau_min)]
+    selected_errors = np.asarray(vote_error)[valid_selected]
+    selected_errors = selected_errors[np.isfinite(selected_errors)]
+    selected_utilities = np.asarray(utility)[valid_selected]
+    return {
+        'candidate_count': int(candidates.sum()),
+        'selected_count': int(valid_selected.sum()),
+        'selected_ratio': float(
+            valid_selected.sum() / max(candidates.sum(), 1)),
+        'tree_seed_coverage': float(
+            len(selected_tree_ids) / max(len(all_tree_ids), 1)),
+        'tree_tau_min_coverage': float(
+            len(enough_ids) / max(len(all_tree_ids), 1)),
+        'mean_vote_error_xy': float(
+            selected_errors.mean() if len(selected_errors) else np.nan),
+        'p90_vote_error_xy': float(
+            np.quantile(selected_errors, 0.9)
+            if len(selected_errors) else np.nan),
+        'mean_raw_utility': float(
+            selected_utilities.mean() if len(selected_utilities) else 0.0),
+    }
+
+
+def exact_top_ratio_mask(candidate_mask, scores, keep_ratio):
+    candidates = np.flatnonzero(np.asarray(candidate_mask, dtype=bool))
+    scores = np.asarray(scores, dtype=np.float64).reshape(-1)
+    if len(scores) != len(candidate_mask):
+        raise ValueError('Selection scores must match candidate_mask.')
+    if not 0 < float(keep_ratio) <= 1:
+        raise ValueError('keep_ratio must be in (0, 1].')
+    keep_count = int(np.ceil(float(keep_ratio) * len(candidates)))
+    order = np.lexsort((candidates, -scores[candidates]))
+    selected = np.zeros(len(candidate_mask), dtype=bool)
+    selected[candidates[order[:keep_count]]] = True
+    return selected
+
+
+def detection_metrics(gt_labels, predictions, thresholds):
+    from tree_learn.util import (
+        get_detections, get_detection_failures, make_labels_consecutive)
+
+    gt = np.asarray(gt_labels, dtype=np.int64).copy()
+    pred = np.asarray(predictions, dtype=np.int64).copy()
+    if len(gt) != len(pred):
+        raise ValueError('GT and predictions must be point-aligned.')
+    gt[gt == 0] = -1
+    pred[pred == 0] = -1
+    gt_mask = gt != -1
+    pred_mask = pred != -1
+    if not np.any(gt_mask) or not np.any(pred_mask):
+        raise ValueError('Detection evaluation needs GT and predicted trees.')
+    gt[gt_mask], _ = make_labels_consecutive(gt[gt_mask], start_num=0)
+    pred[pred_mask], _ = make_labels_consecutive(pred[pred_mask], start_num=0)
+    matched_gt, matched_pred, iou, precision, recall = get_detections(
+        gt, pred, float(thresholds['min_iou_for_match']), -1)
+    failures = get_detection_failures(
+        matched_gt, matched_pred,
+        np.arange(np.max(gt) + 1), np.arange(np.max(pred) + 1),
+        iou, precision, recall,
+        float(thresholds['min_precision_for_pred']),
+        float(thresholds['min_recall_for_gt']))
+    nonmatched_gt = failures[0]
+    nonmatched_pred_corresponding_gt = failures[2]
+    counted_fp = int(np.count_nonzero(
+        ~np.isnan(nonmatched_pred_corresponding_gt)))
+    tp = int(len(matched_gt))
+    fn = int(len(nonmatched_gt))
+    completeness = tp / max(tp + fn, 1)
+    commission = counted_fp / max(tp + counted_fp, 1)
+    f1 = 2 * tp / max(2 * tp + counted_fp + fn, 1)
+    return {
+        'tp': tp,
+        'fp': counted_fp,
+        'fn': fn,
+        'completeness': float(completeness),
+        'commission': float(commission),
+        'f1': float(f1),
+    }
+
+
+def assess_gate(mode_metrics, random_metrics, settings):
+    baseline = mode_metrics['baseline']
+    oracle = mode_metrics['oracle_balanced']
+    random_f1 = float(np.mean([row['f1'] for row in random_metrics]))
+    f1_gain = 100 * (oracle['f1'] - baseline['f1'])
+    commission_reduction = 100 * (
+        baseline['commission'] - oracle['commission'])
+    completeness_drop = 100 * (
+        baseline['completeness'] - oracle['completeness'])
+    random_gain = 100 * (oracle['f1'] - random_f1)
+    gate = {
+        'minimum_f1_gain_pp': bool(
+            f1_gain >= float(settings['min_f1_gain_pp'])),
+        'minimum_commission_reduction_pp': bool(
+            commission_reduction >= float(
+                settings['min_commission_reduction_pp'])),
+        'maximum_completeness_drop_pp': bool(
+            completeness_drop <= float(
+                settings['max_completeness_drop_pp'])),
+        'minimum_gain_over_random_pp': bool(
+            random_gain >= float(settings['min_gain_over_random_pp'])),
+    }
+    gate['passed'] = bool(all(gate.values()))
+    return gate, {
+        'f1_gain_pp': float(f1_gain),
+        'commission_reduction_pp': float(commission_reduction),
+        'completeness_drop_pp': float(completeness_drop),
+        'f1_gain_over_random_mean_pp': float(random_gain),
+        'random_mean_f1': random_f1,
+    }
+
+
+def cluster_mode(
+        mode, config, arrays, oracle_scores, keep_ratio, random_seed,
+        logger):
+    from tree_learn.util import (
+        assign_remaining_points_nearest_neighbor,
+        get_dual_anchor_features,
+        get_instances,
+    )
+
+    grouping = copy.deepcopy(config.grouping)
+    confidence = None
+    if mode == 'baseline':
+        grouping.use_seed_confidence_filter = False
+    elif mode == 'random':
+        grouping.use_seed_confidence_filter = True
+        grouping.seed_confidence_filter_mode = 'random_ratio'
+        grouping.seed_confidence_keep_ratio = float(keep_ratio)
+        grouping.seed_confidence_random_seed = int(random_seed)
+    else:
+        grouping.use_seed_confidence_filter = True
+        grouping.seed_confidence_filter_mode = 'top_ratio'
+        grouping.seed_confidence_keep_ratio = float(keep_ratio)
+        confidence = oracle_scores
+
+    predictions = get_instances(
+        arrays['coords'], arrays['offset_predictions'],
+        arrays['upper_offset_predictions'], arrays['semantic_logits'],
+        grouping, arrays['verticality'], TREE_CLASS, NON_TREE,
+        NOT_ASSIGNED, START_INSTANCE, logger=logger,
+        axis_xy=None, axis_confidence=confidence)
+    tree_mask = predictions != NON_TREE
+    if not np.any(
+            predictions[tree_mask] != NOT_ASSIGNED):
+        raise RuntimeError(f'{mode} clustering produced no usable instance.')
+    features = get_dual_anchor_features(
+        arrays['coords'][tree_mask], arrays['offset_predictions'][tree_mask],
+        arrays['upper_offset_predictions'][tree_mask],
+        grouping.upper_anchor_weight, grouping.axis_height_weight)
+    predictions[tree_mask] = assign_remaining_points_nearest_neighbor(
+        features, predictions[tree_mask], NOT_ASSIGNED,
+        chunk_size=getattr(grouping, 'knn_chunk_size', 200000),
+        logger=logger)
+    if np.any(predictions == NOT_ASSIGNED):
+        raise RuntimeError(f'{mode} left unassigned tree points.')
+    return predictions
+
+
+def pointwise_and_ensemble(config, logger):
+    import torch
+    from tree_learn.dataset import TreeDataset
+    from tree_learn.model import TreeLearn
+    from tree_learn.util import (
+        build_dataloader, ensemble, get_pointwise_preds, load_checkpoint)
+
+    base_dir = str(getattr(
+        config, 'pipeline_base_dir',
+        os.path.dirname(os.path.dirname(config.forest_path))))
+    config.dataset_test.data_root = os.path.join(base_dir, 'tiles', 'npz')
+    if not os.path.isdir(config.dataset_test.data_root):
+        raise FileNotFoundError(
+            'Pipeline tiles do not exist: '
+            f'{config.dataset_test.data_root}. Generate them before E0.')
+    if not os.path.isfile(config.pretrain):
+        raise FileNotFoundError(
+            f'Pipeline checkpoint does not exist: {config.pretrain}')
+
+    model = TreeLearn(**config.model).cuda()
+    dataset = TreeDataset(**config.dataset_test, logger=logger)
+    loader = build_dataloader(
+        dataset, training=False, **config.dataloader)
+    load_checkpoint(config.pretrain, logger, model)
+    pointwise = get_pointwise_preds(
+        model, loader, config.model, logger, return_backbone_feats=False)
+    del model
+    torch.cuda.empty_cache()
+    ensembled = ensemble(
+        pointwise[6], pointwise[0], pointwise[1], pointwise[2], pointwise[3],
+        pointwise[4], pointwise[5], pointwise[7], pointwise[8],
+        pointwise[9], pointwise[10], pointwise[11], logger=logger)
+    return {
+        'coords': ensembled[0],
+        'semantic_logits': ensembled[1],
+        'offset_predictions': ensembled[3],
+        'offset_labels': ensembled[4],
+        'upper_offset_predictions': ensembled[5],
+        'instance_labels': ensembled[7].astype(np.int64),
+        'verticality': ensembled[9][:, -1],
+    }
+
+
+def format_markdown(report):
+    lines = [
+        '# E0 复杂度感知种子注意力：Oracle 诊断',
+        '',
+        f"- Pipeline config：`{report['pipeline_config']}`",
+        f"- 点数：{report['num_points']:,}",
+        f"- 基础候选种子：{report['num_candidate_seeds']:,}",
+        f"- 固定保留率：{report['keep_ratio']:.3f}",
+        '',
+        '## 聚类检测结果',
+        '',
+        '| Mode | TP | FP | FN | Completeness | Commission | F1 |',
+        '|---|---:|---:|---:|---:|---:|---:|',
+    ]
+    for name, metrics in report['mode_metrics'].items():
+        lines.append(
+            f"| {name} | {metrics['tp']} | {metrics['fp']} | "
+            f"{metrics['fn']} | {100 * metrics['completeness']:.3f}% | "
+            f"{100 * metrics['commission']:.3f}% | "
+            f"{100 * metrics['f1']:.3f}% |")
+    for row in report['random_metrics']:
+        lines.append(
+            f"| random_s{row['seed']} | {row['tp']} | {row['fp']} | "
+            f"{row['fn']} | {100 * row['completeness']:.3f}% | "
+            f"{100 * row['commission']:.3f}% | {100 * row['f1']:.3f}% |")
+    lines.extend([
+        '',
+        '## Oracle 相对收益',
+        '',
+        f"- F1 gain：{report['effects']['f1_gain_pp']:+.3f} pp",
+        f"- Commission reduction："
+        f"{report['effects']['commission_reduction_pp']:+.3f} pp",
+        f"- Completeness drop："
+        f"{report['effects']['completeness_drop_pp']:+.3f} pp",
+        f"- F1 gain over random mean："
+        f"{report['effects']['f1_gain_over_random_mean_pp']:+.3f} pp",
+        '',
+        '## 种子质量',
+        '',
+        '| Mode | Selected | Tree coverage | ≥tau_min coverage | '
+        'Mean vote error | P90 vote error | Mean utility |',
+        '|---|---:|---:|---:|---:|---:|---:|',
+    ])
+    for name, metrics in report['seed_metrics'].items():
+        lines.append(
+            f"| {name} | {metrics['selected_count']:,} | "
+            f"{100 * metrics['tree_seed_coverage']:.3f}% | "
+            f"{100 * metrics['tree_tau_min_coverage']:.3f}% | "
+            f"{metrics['mean_vote_error_xy']:.4f} m | "
+            f"{metrics['p90_vote_error_xy']:.4f} m | "
+            f"{metrics['mean_raw_utility']:.4f} |")
+    lines.extend(['', '## Gate', ''])
+    for name, passed in report['gate'].items():
+        lines.append(f'- {name}: **{passed}**')
+    lines.extend([''])
+    if report['gate']['passed']:
+        lines.append('PASS：Oracle 上限足够，下一步实现 MLP 控制组和种子 Point Transformer。')
+    else:
+        lines.append('STOP：种子选择上限不足，不训练复杂度感知种子注意力网络。')
+    return '\n'.join(lines) + '\n'
+
+
+def run(config_path):
+    import yaml
+    from tree_learn.util import get_config, get_root_logger
+
+    with open(config_path, encoding='utf-8') as file:
+        settings = yaml.safe_load(file)
+    required = {
+        'pipeline_config', 'output_dir', 'keep_ratio', 'random_seeds',
+        'utility', 'evaluation_thresholds', 'gate',
+    }
+    missing = sorted(required.difference(settings))
+    if missing:
+        raise ValueError(f'Missing E0 config fields: {missing}')
+    if not 0 < float(settings['keep_ratio']) <= 1:
+        raise ValueError('keep_ratio must be in (0, 1].')
+    if not settings['random_seeds']:
+        raise ValueError('At least one random control seed is required.')
+    if not os.path.isfile(str(settings['pipeline_config'])):
+        raise FileNotFoundError(
+            'Pipeline config does not exist: '
+            f"{settings['pipeline_config']}")
+    pipeline_config = str(settings['pipeline_config'])
+    config = get_config(pipeline_config)
+    output_dir = Path(settings['output_dir'])
+    output_dir.mkdir(parents=True, exist_ok=True)
+    logger = get_root_logger(str(output_dir / 'oracle.log'))
+    logger.info('Getting the shared pointwise predictions and ensemble...')
+    arrays = pointwise_and_ensemble(config, logger)
+    candidate_mask = candidate_base_seed_mask(
+        arrays['semantic_logits'], arrays['verticality'],
+        arrays['offset_predictions'], config.grouping.tree_conf_thresh,
+        config.grouping.tau_vert, config.grouping.tau_off)
+    utility_result = compute_seed_utility(
+        arrays['coords'], arrays['offset_predictions'],
+        arrays['offset_labels'], arrays['instance_labels'], candidate_mask,
+        sigma_m=float(settings['utility']['sigma_m']),
+        purity_voxel_size=float(
+            settings['utility']['purity_voxel_size']),
+        purity_power=float(settings['utility']['purity_power']))
+    balanced_scores = tree_balanced_oracle_scores(
+        utility_result['utility'], arrays['instance_labels'], candidate_mask)
+    keep_ratio = float(settings['keep_ratio'])
+
+    selection_masks = {
+        'baseline': candidate_mask.copy(),
+        'oracle_global': exact_top_ratio_mask(
+            candidate_mask, utility_result['utility'], keep_ratio),
+        'oracle_balanced': exact_top_ratio_mask(
+            candidate_mask, balanced_scores, keep_ratio),
+    }
+    seed_metrics = {
+        name: seed_set_metrics(
+            selected, candidate_mask, arrays['instance_labels'],
+            utility_result['vote_error_xy'], utility_result['utility'],
+            config.grouping.tau_min)
+        for name, selected in selection_masks.items()
+    }
+    thresholds = settings['evaluation_thresholds']
+    mode_metrics = {}
+    for mode in ('baseline', 'oracle_global', 'oracle_balanced'):
+        logger.info(f'===== START {mode} clustering =====')
+        score = None
+        if mode == 'oracle_global':
+            score = utility_result['utility']
+        elif mode == 'oracle_balanced':
+            score = balanced_scores
+        predictions = cluster_mode(
+            mode, config, arrays, score, keep_ratio, 0, logger)
+        mode_metrics[mode] = detection_metrics(
+            arrays['instance_labels'], predictions, thresholds)
+        logger.info(
+            f"DONE {mode}: F1={100 * mode_metrics[mode]['f1']:.3f}%, "
+            f"Commission={100 * mode_metrics[mode]['commission']:.3f}%")
+        del predictions
+
+    random_metrics = []
+    for seed in settings['random_seeds']:
+        logger.info(f'===== START random seed {seed} clustering =====')
+        predictions = cluster_mode(
+            'random', config, arrays, None, keep_ratio, int(seed), logger)
+        metrics = detection_metrics(
+            arrays['instance_labels'], predictions, thresholds)
+        metrics['seed'] = int(seed)
+        random_metrics.append(metrics)
+        logger.info(
+            f"DONE random seed {seed}: F1={100 * metrics['f1']:.3f}%, "
+            f"Commission={100 * metrics['commission']:.3f}%")
+        del predictions
+
+    gate, effects = assess_gate(
+        mode_metrics, random_metrics, settings['gate'])
+    report = {
+        'config': str(config_path),
+        'pipeline_config': pipeline_config,
+        'evaluation_scope': 'ensembled_labeled_validation_points',
+        'num_points': int(len(arrays['coords'])),
+        'num_candidate_seeds': int(candidate_mask.sum()),
+        'keep_ratio': keep_ratio,
+        'random_seeds': [int(value) for value in settings['random_seeds']],
+        'utility': settings['utility'],
+        'mode_metrics': mode_metrics,
+        'random_metrics': random_metrics,
+        'seed_metrics': seed_metrics,
+        'effects': effects,
+        'gate': gate,
+    }
+    (output_dir / 'summary.json').write_text(
+        json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')
+    markdown = format_markdown(report)
+    (output_dir / 'summary.md').write_text(markdown, encoding='utf-8')
+    with (output_dir / 'metrics.csv').open(
+            'w', newline='', encoding='utf-8') as file:
+        rows = [
+            {'mode': name, **metrics}
+            for name, metrics in mode_metrics.items()
+        ] + [
+            {'mode': f"random_s{metrics['seed']}", **metrics}
+            for metrics in random_metrics
+        ]
+        fieldnames = list(dict.fromkeys(
+            key for row in rows for key in row))
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+    print(markdown, flush=True)
+    if not gate['passed']:
+        raise RuntimeError(
+            'Seed Oracle gate failed; do not train the attention branch.')
+    return report
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='GT Oracle diagnostic for sparse clustering seeds.')
+    parser.add_argument('--config', required=True)
+    args = parser.parse_args()
+    run(args.config)
+
+
+if __name__ == '__main__':
+    main()
