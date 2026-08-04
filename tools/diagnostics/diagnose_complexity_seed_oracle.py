@@ -182,6 +182,167 @@ def exact_top_ratio_mask(candidate_mask, scores, keep_ratio):
     selected[candidates[order[:keep_count]]] = True
     return selected
 
+def streaming_xyz_mean(path, chunk_size=2_000_000):
+    """Compute a source-forest mean without loading a large LAS/LAZ at once."""
+    if str(path).lower().endswith(('.las', '.laz')):
+        import laspy
+
+        coordinate_sum = np.zeros(3, dtype=np.float64)
+        count = 0
+        with laspy.open(path) as reader:
+            for points in reader.chunk_iterator(int(chunk_size)):
+                coordinate_sum[0] += np.asarray(points.x).sum(dtype=np.float64)
+                coordinate_sum[1] += np.asarray(points.y).sum(dtype=np.float64)
+                coordinate_sum[2] += np.asarray(points.z).sum(dtype=np.float64)
+                count += len(points)
+        if count == 0:
+            raise ValueError(f'Cannot compute coordinate mean of empty file: {path}')
+        return coordinate_sum / count
+
+    from tree_learn.util import load_data
+    coords = load_data(path)[:, :3]
+    if len(coords) == 0:
+        raise ValueError(f'Cannot compute coordinate mean of empty file: {path}')
+    return coords.astype(np.float64).mean(axis=0)
+
+
+def nearest_source_indices(
+        source_coords, target_coords, logger=None, chunk_size=1_000_000):
+    """Map every target point to one source point with bounded query memory."""
+    from scipy.spatial import cKDTree
+
+    source = np.asarray(source_coords, dtype=np.float64)
+    target = np.asarray(target_coords)
+    if len(source) == 0 or len(target) == 0:
+        raise ValueError('Nearest-neighbour alignment requires non-empty arrays.')
+    tree = cKDTree(source)
+    indices = np.empty(len(target), dtype=np.int32)
+    distances = np.empty(len(target), dtype=np.float32)
+    for start in range(0, len(target), int(chunk_size)):
+        end = min(start + int(chunk_size), len(target))
+        query_coords = np.asarray(target[start:end], dtype=np.float64)
+        try:
+            distance, index = tree.query(query_coords, k=1, workers=-1)
+        except TypeError:
+            try:
+                distance, index = tree.query(
+                    query_coords, k=1, n_jobs=-1)
+            except TypeError:
+                distance, index = tree.query(query_coords, k=1)
+        indices[start:end] = index.astype(np.int32, copy=False)
+        distances[start:end] = distance.astype(np.float32, copy=False)
+        if logger is not None and (
+                end == len(target) or end % 5_000_000 == 0):
+            logger.info(
+                f'Aligned {end:,}/{len(target):,} target points '
+                f'({100 * end / len(target):.1f}%).')
+    del tree
+    return indices, {
+        'mean_distance_m': float(distances.mean()),
+        'p99_distance_m': float(np.quantile(distances, 0.99)),
+        'max_distance_m': float(distances.max()),
+    }
+
+
+def legacy_base_anchors(coords, labels, base_anchor_height=0.5):
+    """Reproduce TreeDataset legacy base anchors from a labeled forest."""
+    coords = np.asarray(coords, dtype=np.float64)
+    labels = np.asarray(labels, dtype=np.int64).reshape(-1)
+    if len(coords) != len(labels):
+        raise ValueError('Base-anchor coordinates and labels are not aligned.')
+    valid_indices = np.flatnonzero(labels > 0)
+    if len(valid_indices) == 0:
+        raise ValueError('Ground truth contains no labeled trees.')
+    order = np.argsort(labels[valid_indices], kind='stable')
+    sorted_indices = valid_indices[order]
+    sorted_labels = labels[sorted_indices]
+    boundaries = np.r_[
+        0, np.flatnonzero(np.diff(sorted_labels)) + 1, len(sorted_labels)]
+    tree_ids = []
+    anchors = []
+    for start, end in zip(boundaries[:-1], boundaries[1:]):
+        tree_id = int(sorted_labels[start])
+        tree_points = coords[sorted_indices[start:end]]
+        if len(tree_points) > 11:
+            min_z = np.partition(tree_points[:, 2], 10)[3]
+        else:
+            min_z = tree_points[:, 2].min()
+        base_points = tree_points[
+            tree_points[:, 2] <= min_z + float(base_anchor_height)]
+        if len(base_points) == 0:
+            continue
+        tree_ids.append(tree_id)
+        anchors.append(base_points.mean(axis=0))
+    if not tree_ids:
+        raise ValueError('No valid legacy base anchors could be generated.')
+    return (
+        np.asarray(tree_ids, dtype=np.int64),
+        np.asarray(anchors, dtype=np.float32))
+
+
+def offsets_from_anchors(coords, labels, tree_ids, anchors):
+    coords = np.asarray(coords)
+    labels = np.asarray(labels, dtype=np.int64).reshape(-1)
+    tree_ids = np.asarray(tree_ids, dtype=np.int64).reshape(-1)
+    anchors = np.asarray(anchors, dtype=np.float32)
+    targets = np.zeros((len(coords), 3), dtype=np.float32)
+    positions = np.searchsorted(tree_ids, labels)
+    safe_positions = np.minimum(positions, len(tree_ids) - 1)
+    valid = (
+        (labels > 0) & (positions < len(tree_ids)) &
+        (tree_ids[safe_positions] == labels))
+    targets[valid] = (
+        anchors[safe_positions[valid]] - coords[valid]).astype(np.float32)
+    return targets
+
+
+def prepare_ground_truth(config, settings, arrays, logger):
+    from tree_learn.util import load_data
+
+    ground_truth_path = str(settings['ground_truth_path'])
+    logger.info(f'Loading Oracle ground truth from {ground_truth_path}...')
+    ground_truth = load_data(ground_truth_path)
+    ground_truth_labels = ground_truth[:, 3].astype(np.int64)
+    if not np.any(ground_truth_labels > 0):
+        raise ValueError('Oracle ground truth contains no labeled trees.')
+    logger.info('Computing the original-forest coordinate mean...')
+    xyz_mean = streaming_xyz_mean(config.forest_path)
+    ground_truth_coords = (
+        ground_truth[:, :3].astype(np.float64) - xyz_mean)
+    del ground_truth
+
+    logger.info('Aligning GT labels to ensembled points...')
+    gt_index_for_ensemble, gt_to_ensemble_stats = nearest_source_indices(
+        ground_truth_coords, arrays['coords'], logger=logger)
+    labels_at_ensemble = ground_truth_labels[gt_index_for_ensemble]
+    logger.info('Aligning ensembled predictions to official GT points...')
+    ensemble_index_for_gt, ensemble_to_gt_stats = nearest_source_indices(
+        arrays['coords'], ground_truth_coords, logger=logger)
+
+    tree_ids, anchors = legacy_base_anchors(
+        ground_truth_coords, ground_truth_labels,
+        base_anchor_height=float(config.dataset_test.base_anchor_height))
+    offset_targets = offsets_from_anchors(
+        arrays['coords'], labels_at_ensemble, tree_ids, anchors)
+    return {
+        'ground_truth_labels': ground_truth_labels,
+        'labels_at_ensemble': labels_at_ensemble,
+        'offset_targets_at_ensemble': offset_targets,
+        'ensemble_index_for_gt': ensemble_index_for_gt,
+        'alignment': {
+            'gt_to_ensemble': gt_to_ensemble_stats,
+            'ensemble_to_gt': ensemble_to_gt_stats,
+            'xyz_mean': xyz_mean.tolist(),
+        },
+    }
+
+
+def baseline_matches_reference(metrics, reference):
+    return all(
+        int(metrics[name]) == int(reference[name])
+        for name in ('tp', 'fp', 'fn'))
+
+
 
 def detection_metrics(gt_labels, predictions, thresholds):
     from tree_learn.util import (
@@ -417,8 +578,9 @@ def run(config_path):
     with open(config_path, encoding='utf-8') as file:
         settings = yaml.safe_load(file)
     required = {
-        'pipeline_config', 'output_dir', 'keep_ratio', 'random_seeds',
-        'utility', 'evaluation_thresholds', 'gate',
+        'pipeline_config', 'ground_truth_path', 'output_dir', 'keep_ratio',
+        'random_seeds', 'utility', 'evaluation_thresholds', 'gate',
+        'baseline_reference',
     }
     missing = sorted(required.difference(settings))
     if missing:
@@ -431,6 +593,10 @@ def run(config_path):
         raise FileNotFoundError(
             'Pipeline config does not exist: '
             f"{settings['pipeline_config']}")
+    if not os.path.isfile(str(settings['ground_truth_path'])):
+        raise FileNotFoundError(
+            'Ground-truth file does not exist: '
+            f"{settings['ground_truth_path']}")
     pipeline_config = str(settings['pipeline_config'])
     config = get_config(pipeline_config)
     output_dir = Path(settings['output_dir'])
@@ -438,6 +604,11 @@ def run(config_path):
     logger = get_root_logger(str(output_dir / 'oracle.log'))
     logger.info('Getting the shared pointwise predictions and ensemble...')
     arrays = pointwise_and_ensemble(config, logger)
+    oracle_gt = prepare_ground_truth(config, settings, arrays, logger)
+    arrays['instance_labels'] = oracle_gt['labels_at_ensemble']
+    arrays['offset_labels'] = oracle_gt['offset_targets_at_ensemble']
+    logger.info('Oracle GT alignment and legacy base targets are ready.')
+
     candidate_mask = candidate_base_seed_mask(
         arrays['semantic_logits'], arrays['verticality'],
         arrays['offset_predictions'], config.grouping.tree_conf_thresh,
@@ -478,8 +649,17 @@ def run(config_path):
             score = balanced_scores
         predictions = cluster_mode(
             mode, config, arrays, score, keep_ratio, 0, logger)
+        evaluation_predictions = predictions[
+            oracle_gt['ensemble_index_for_gt']]
         mode_metrics[mode] = detection_metrics(
-            arrays['instance_labels'], predictions, thresholds)
+            oracle_gt['ground_truth_labels'], evaluation_predictions,
+            thresholds)
+        if mode == 'baseline' and not baseline_matches_reference(
+                mode_metrics[mode], settings['baseline_reference']):
+            raise RuntimeError(
+                'Baseline reproduction failed before Oracle comparison: '
+                f"observed={mode_metrics[mode]}, "
+                f"expected={settings['baseline_reference']}")
         logger.info(
             f"DONE {mode}: F1={100 * mode_metrics[mode]['f1']:.3f}%, "
             f"Commission={100 * mode_metrics[mode]['commission']:.3f}%")
@@ -490,8 +670,10 @@ def run(config_path):
         logger.info(f'===== START random seed {seed} clustering =====')
         predictions = cluster_mode(
             'random', config, arrays, None, keep_ratio, int(seed), logger)
+        evaluation_predictions = predictions[
+            oracle_gt['ensemble_index_for_gt']]
         metrics = detection_metrics(
-            arrays['instance_labels'], predictions, thresholds)
+            oracle_gt['ground_truth_labels'], evaluation_predictions, thresholds)
         metrics['seed'] = int(seed)
         random_metrics.append(metrics)
         logger.info(
@@ -504,7 +686,9 @@ def run(config_path):
     report = {
         'config': str(config_path),
         'pipeline_config': pipeline_config,
-        'evaluation_scope': 'ensembled_labeled_validation_points',
+        'ground_truth_path': str(settings['ground_truth_path']),
+        'evaluation_scope': 'official_gt_with_nearest_ensemble_predictions',
+        'alignment': oracle_gt['alignment'],
         'num_points': int(len(arrays['coords'])),
         'num_candidate_seeds': int(candidate_mask.sum()),
         'keep_ratio': keep_ratio,

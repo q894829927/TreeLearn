@@ -30,6 +30,29 @@ class ComplexitySeedOracleTests(unittest.TestCase):
             tree_conf_thresh=0.5, tau_vert=0.6, tau_off=4.0)
         np.testing.assert_array_equal(selected, [True, False, False])
 
+    def test_legacy_base_anchor_and_offsets_match_expected_geometry(self):
+        coords = np.asarray([
+            [0.0, 0.0, 0.0], [2.0, 0.0, 0.2], [10.0, 0.0, 1.0],
+            [4.0, 4.0, 0.0], [6.0, 4.0, 0.4], [9.0, 4.0, 1.0],
+        ])
+        labels = np.asarray([1, 1, 1, 2, 2, 2])
+        tree_ids, anchors = ORACLE.legacy_base_anchors(
+            coords, labels, base_anchor_height=0.5)
+        np.testing.assert_array_equal(tree_ids, [1, 2])
+        np.testing.assert_allclose(
+            anchors, [[1.0, 0.0, 0.1], [5.0, 4.0, 0.2]])
+        offsets = ORACLE.offsets_from_anchors(
+            coords, labels, tree_ids, anchors)
+        np.testing.assert_allclose(offsets[0], [1.0, 0.0, 0.1])
+        np.testing.assert_allclose(offsets[4], [-1.0, 0.0, -0.2])
+
+    def test_baseline_reference_requires_exact_detection_counts(self):
+        reference = {'tp': 156, 'fp': 5, 'fn': 0}
+        self.assertTrue(ORACLE.baseline_matches_reference(
+            {'tp': 156, 'fp': 5, 'fn': 0, 'f1': 0.9}, reference))
+        self.assertFalse(ORACLE.baseline_matches_reference(
+            {'tp': 155, 'fp': 5, 'fn': 1, 'f1': 0.9}, reference))
+
     def test_vote_cell_purity_separates_mixed_and_pure_cells(self):
         votes = np.asarray([
             [0.1, 0.1], [0.2, 0.1], [0.3, 0.2], [1.2, 0.1],
