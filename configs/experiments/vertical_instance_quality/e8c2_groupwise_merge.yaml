@@ -1,0 +1,23 @@
+pointwise_config_path: 'configs/experiments/vertical_instance_quality/e8c_pair_merge_models.yaml'
+pointwise_summary_path: 'logs/vertical_quality/e8c_pair_merge_models/summary.json'
+output_dir: 'logs/vertical_quality/e8c2_groupwise_merge'
+seeds: [42, 43, 44]
+
+model:
+  hidden_dims: [64, 32]
+  dropout: 0.1
+
+training:
+  batch_size: 128
+  epochs: 150
+  patience: 20
+  learning_rate: 0.001
+  weight_decay: 0.001
+
+selection:
+  locked_seed: 42
+  min_gate_pass_seeds: 2
+
+gate:
+  max_recall_sample_std: 0.05
+  min_mean_recall_gain_over_pointwise: 0.10

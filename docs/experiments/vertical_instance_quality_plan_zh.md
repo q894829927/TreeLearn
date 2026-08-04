@@ -1341,3 +1341,63 @@ L1W 通过后才锁定运行一次 Wytham development。不得根据 Wytham 结�
 如果 E8c STOP，不实现 pipeline 合并。先检查是否所有模型都因 0.5% 错误合并约束失败；
 只允许在固定 validation forests 上把该上限预注册放宽到 1.0% 做一次敏感性分析。
 若仍无法达到30%正源 recall，则记录 Oracle 与可学习规则之间的差距，停止该路线。
+
+## 23. E8c 失败与 E8c2 Groupwise 合并头（2026-08-04）
+
+E8c pointwise 三组模型均未通过安全 Gate：
+
+| Model | Pair AUC | Pair AP | Precision | Safe positive-source recall |
+|---|---:|---:|---:|---:|
+| distance_rule | 0.720212 | 0.446211 | 1.000000 | 2.325581% |
+| logistic_regression | 0.783986 | 0.466935 | 1.000000 | 0.387597% |
+| pair_mlp | 0.794093 | 0.508841 | 1.000000 | 1.679587% |
+
+E8b 已证明 73.699% 的低质量源实例存在正确候选目标，因此失败原因不是邻居召回不足。
+Pointwise BCE 独立判断每个 pair，但部署时实际需要在同一源实例的最多8个候选与“不合并”
+之间做一次联合决策；Pair AUC/AP 的改善没有转化为高精度源级召回。
+
+当前0.5%错误合并率在370个验证源上已经允许最多1个错误，但95% precision 仍使召回
+低于2.4%，说明主要瓶颈是候选间排序与置信度，不应直接通过放宽错误率进入 pipeline。
+
+### 23.1 E8c2 方法
+
+E8c2 使用共享候选编码器，对每个源实例的候选 target 产生 logits，同时由候选集合的
+masked pooling 产生一个 no-merge logit。训练使用 groupwise set likelihood：
+
+- 有正确候选时，最大化所有正确候选概率之和；
+- 没有正确候选时，最大化 no-merge 概率；
+- padding 候选严格 mask；
+- 推理时每个源最多选择一个 target；
+- top target 概率作为可校准合并置信度。
+
+仍使用与 E8c 完全相同的17维特征、train/validation forests、95% precision、
+30%正源 recall 和0.5%错误合并率。锁定 seed 42，另外要求至少2/3 seeds 通过，
+召回标准差不超过0.05，并且平均安全召回至少比 pointwise pair-MLP 提高10个百分点。
+
+### 23.2 服务器运行
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+
+nohup env CUBLAS_WORKSPACE_CONFIG=:4096:8 python -u tools/training/train_groupwise_instance_merge.py --config configs/experiments/vertical_instance_quality/e8c2_groupwise_merge.yaml > logs/vertical_quality/e8c2_groupwise_merge_run.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e8c2_groupwise_merge.pid
+tail -f logs/vertical_quality/e8c2_groupwise_merge_run.log
+~~~
+
+完成后查看：
+
+~~~bash
+cat logs/vertical_quality/e8c2_groupwise_merge/summary.md
+cat logs/vertical_quality/e8c2_groupwise_merge/per_seed_metrics.csv
+~~~
+
+如果 E8c2 PASS，锁定 seed42 checkpoint 和 summary 中阈值，进入 E8d L1W 真实标签合并
+集成。如果 E8c2 STOP，则不继续堆叠注意力或扩大模型；生成固定 validation 的
+source-level precision/recall 曲线，执行预注册的一次1.0%错误率敏感性分析。若仍无法
+达到30%正源 recall，则停止学习式合并路线，并将 E8a Oracle 作为上限分析而非方法结果。
