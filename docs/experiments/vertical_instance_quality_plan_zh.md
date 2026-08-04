@@ -1463,3 +1463,72 @@ cat logs/vertical_quality/e8c3_groupwise_sensitivity/summary.md
 - 若主 Gate STOP：终止学习式实例合并，不再尝试新的 pair/groupwise 网络，也不实现
   E8d。论文中将 E8a 作为 Oracle 上限，把 E8c/E8c2/E8c3 作为可学习安全合并的负结果，
   主线回到 Vertical-MLP 质量排序及域稳健的软使用方式，而不是删除或合并实例。
+
+## 25. E8 路线关闭与 E9 选择性实例分割（2026-08-04）
+
+E8c3 的最终结果为：95% precision、1% unsafe merge rate 下，三个 seed 的安全正源召回仅为
+`1.550% / 0.775% / 1.163%`，平均 `1.163%`；即使把 precision 降至 85%，平均召回也仅
+`8.140%`。因此学习式实例合并路线正式关闭，不实现 E8d，不再增加 pair/groupwise 网络，
+也不得在 Wytham 上重新选择阈值。
+
+E9 将 Vertical-MLP 定位为垂直结构感知的实例可靠性估计器。默认输出仍保留全部实例和原始
+TreeLearn 标签；质量分数只用于：
+
+- 给每个预测树输出可靠性；
+- 绘制保留率从 50% 到 100% 的 Commission-risk 曲线；
+- 绘制相同保留率下的 detection F1 曲线；
+- 与 500 次固定随机实例排序进行对照；
+- 评价模型是否能把 counted FP 稳定排到低质量端。
+
+E9 使用原始官方评估中固定的 matched TP、counted FP 和 ignored unmatched 身份。它衡量
+选择性预测的风险排序，不会在每个保留率重新做 Hungarian matching，也不报告经过删除后的
+点级 segmentation precision/recall/coverage。论文中必须把它表述为 selective prediction，
+不能表述成默认完整森林输出的精度提升。
+
+### 25.1 固定设置与 Gate
+
+- Vertical-MLP checkpoint 仍锁定为 E4 seed 42；
+- 比例网格固定为 `[0.50, 1.00]`，步长 0.01；
+- 随机对照固定 500 次，随机种子 `20260804`；
+- L1W 使用 E6 score-only control；
+- Wytham 使用 E8a score-only control，角色为 final evaluation，无参数选择；
+- Commission-area 相对随机排序至少降低 10%；
+- F1-area 相对随机排序至少提高 0.5 个百分点；
+- 两个数据集均须复现 baseline TP/FP/FN，且 score-only 标签摘要一致。
+
+这些 Gate 只判断质量排序是否形成可发表的风险控制证据，不选择保留率。尤其不得从 Wytham
+曲线中挑选最优 ratio 再回到 pipeline 生成新结果。
+
+### 25.2 服务器运行
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+set -o pipefail
+
+python -u tools/diagnostics/evaluate_selective_instance_quality.py \
+  --config configs/experiments/vertical_instance_quality/e9_selective_quality.yaml \
+  2>&1 | tee logs/vertical_quality/e9_selective_quality_run.log
+
+cat logs/vertical_quality/e9_selective_summary/summary.md
+cat logs/vertical_quality/e9_selective_l1w/summary.md
+cat logs/vertical_quality/e9_selective_wytham/summary.md
+~~~
+
+主要输出为：
+
+- `score_curve.csv`：Vertical-MLP 排序的逐比例指标；
+- `random_curve.csv`：500 次随机对照的均值和标准差；
+- `selective_curve.png`：Commission 与 detection F1 双曲线；
+- `summary.json` 与 `summary.md`：面积指标和 Gate。
+
+### 25.3 E9 后续决策
+
+- 若 E9 PASS：进入 E10，固定当前所有设置，使用森林级 bootstrap 给 Commission-area reduction
+  和 F1-area gain 计算 95% 置信区间，并整理 Vertical-MLP、Global-MLP、随机排序的论文表格。
+- 若 E9 STOP：当前 Vertical-MLP 只能作为数据集内质量分类器，缺少跨域风险控制证据；停止
+  以实例质量作为论文主创新，转回需要重新训练的分割/聚类机制，不再用后处理筛选包装精度。

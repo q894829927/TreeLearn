@@ -1,0 +1,30 @@
+summary_output_dir: 'logs/vertical_quality/e9_selective_summary'
+primary_run: 'wytham_final'
+
+ratio_grid:
+  start: 0.50
+  stop: 1.00
+  step: 0.01
+
+random_control:
+  repeats: 500
+  seed: 20260804
+
+gate:
+  min_relative_commission_area_reduction: 0.10
+  min_f1_area_gain_pp: 0.50
+
+runs:
+  - name: 'l1w_regression'
+    dataset_role: 'regression_validation'
+    evaluation: 'data/pipeline/L1W/results_vertical_quality_e6_control/full_forest/evaluation/evaluation_results.pt'
+    quality_scores: 'data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/instance_quality_scores.csv'
+    quality_metadata: 'data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/metadata.json'
+    output_dir: 'logs/vertical_quality/e9_selective_l1w'
+
+  - name: 'wytham_final'
+    dataset_role: 'final_evaluation_no_tuning'
+    evaluation: 'data/pipeline/wytham/results_vertical_quality_e8a_control/full_forest/evaluation/evaluation_results.pt'
+    quality_scores: 'data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/instance_quality_scores.csv'
+    quality_metadata: 'data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/metadata.json'
+    output_dir: 'logs/vertical_quality/e9_selective_wytham'
