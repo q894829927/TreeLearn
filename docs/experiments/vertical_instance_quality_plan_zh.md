@@ -1257,3 +1257,87 @@ E8c 固定使用上述 train/validation 拆分，依次比较：
 森林把候选图扩大一次，再重新审计；若仍不足则停止合并学习路线。如果 E8b PASS 但
 E8c 不优于 Logistic，论文方法采用“Vertical-MLP 质量排序 + Logistic 安全合并”，
 不为了形式复杂而强行保留神经 pair head。
+
+## 22. E8b 实际结果与 E8c 合并模型比较（2026-08-04）
+
+E8b 完整数据 Gate 已通过：
+
+- 9404 个候选实例，其中 9278 个有效；
+- 8156 个邻接对，其中 8027 个有效；
+- 1602 个正配对、6425 个负配对；
+- 训练正配对 1171，验证正配对 431；
+- 邻居覆盖率 98.218%；
+- 低质量源实例正目标覆盖率 73.699%；
+- 特征全部有限，无 plot split 泄漏。
+
+正目标覆盖率显著高于预注册的 5%，因此候选邻接图不是当前瓶颈，不扩大 8 m 候选半径，
+直接进入 E8c。
+
+### 22.1 E8c 固定比较
+
+E8c 只使用 data/instance_merge_pairs_e8b/pairs.csv 中的固定 train/validation 拆分，
+不读取 Wytham。依次比较：
+
+1. base-vote 中心距离规则；
+2. 标准化特征 Logistic Regression；
+3. 两层轻量 pair-MLP。
+
+每个低质量源实例只保留得分最高的一个目标；得分相同时选择较小 target instance ID。
+合并阈值只在5个固定 validation forests 上选择，必须同时满足：
+
+- pair precision 不低于 95%；
+- 正目标源实例 recall 不低于 30%；
+- 错误合并数 / 可评估源实例数不超过 0.5%。
+
+部署 seed 预先锁定为 42，43/44 仅用于稳定性。Logistic 至少比距离规则提高1个百分点
+正源 recall 才替换距离规则；pair-MLP 至少比当前简单模型提高2个百分点才会被选中。
+
+### 22.2 服务器运行
+
+先更新代码，然后运行：
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+
+nohup env CUBLAS_WORKSPACE_CONFIG=:4096:8 python -u tools/training/train_instance_merge_pairs.py --config configs/experiments/vertical_instance_quality/e8c_pair_merge_models.yaml > logs/vertical_quality/e8c_pair_merge_models_run.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e8c_pair_merge_models.pid
+tail -f logs/vertical_quality/e8c_pair_merge_models_run.log
+~~~
+
+判断是否结束：
+
+~~~bash
+pid=$(cat logs/vertical_quality/e8c_pair_merge_models.pid)
+ps -p "$pid" -o pid,%cpu,%mem,rss,etime,stat,cmd
+~~~
+
+完成后查看：
+
+~~~bash
+cat logs/vertical_quality/e8c_pair_merge_models/summary.md
+cat logs/vertical_quality/e8c_pair_merge_models/per_seed_metrics.csv
+~~~
+
+### 22.3 E8c 后续决策
+
+如果 E8c 为 PASS，使用 summary 中的 selected_model、locked seed 42 和
+selected_threshold 进入 E8d。E8d 先在 L1W score-only control 上执行真实点标签合并，
+必须满足：
+
+- control 标签摘要与 baseline 一致；
+- Completeness 下降不超过 0.5 个百分点；
+- F1 至少提升 0.5 个百分点或 Commission 至少降低 2.0 个百分点；
+- 错误合并后不存在一个源实例同时被合并到多个目标；
+- 合并推理耗时不超过完整 pipeline 的 10%。
+
+L1W 通过后才锁定运行一次 Wytham development。不得根据 Wytham 结果重选模型或阈值。
+
+如果 E8c STOP，不实现 pipeline 合并。先检查是否所有模型都因 0.5% 错误合并约束失败；
+只允许在固定 validation forests 上把该上限预注册放宽到 1.0% 做一次敏感性分析。
+若仍无法达到30%正源 recall，则记录 Oracle 与可学习规则之间的差距，停止该路线。

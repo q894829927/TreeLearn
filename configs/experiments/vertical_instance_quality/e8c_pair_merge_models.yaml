@@ -1,0 +1,53 @@
+pairs_path: 'data/instance_merge_pairs_e8b/pairs.csv'
+output_dir: 'logs/vertical_quality/e8c_pair_merge_models'
+seeds: [42, 43, 44]
+
+# Label, IoU, GT IDs, plot IDs and instance IDs are intentionally excluded.
+feature_names:
+  - neighbor_rank
+  - source_quality
+  - target_quality
+  - quality_gap
+  - base_vote_distance
+  - xy_centroid_distance
+  - source_height
+  - target_height
+  - abs_log_height_ratio
+  - z_overlap_min_ratio
+  - layer_overlap_ratio
+  - vertical_token_cosine
+  - occupancy_profile_l1
+  - semantic_profile_l1
+  - verticality_profile_l1
+  - base_vote_radius_profile_l1
+  - abs_log_num_points_ratio
+
+logistic_regression:
+  c: 1.0
+  max_iter: 2000
+
+pair_mlp:
+  model:
+    hidden_dims: [32, 16]
+    dropout: 0.1
+  training:
+    batch_size: 256
+    epochs: 100
+    patience: 15
+    learning_rate: 0.001
+    weight_decay: 0.001
+
+# Selected only on the five fixed validation forests.
+constraints:
+  min_pair_precision: 0.95
+  min_positive_source_recall: 0.30
+  max_unsafe_merge_rate: 0.005
+
+selection:
+  locked_seed: 42
+  min_gate_pass_seeds: 2
+  min_logistic_recall_gain_over_distance: 0.01
+  min_mlp_recall_gain_over_simpler: 0.02
+
+gate:
+  max_mlp_recall_sample_std: 0.05
