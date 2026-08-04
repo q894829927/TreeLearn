@@ -1606,3 +1606,70 @@ E10 只读取现有小型 CSV、PT 和 score metadata，不处理点云、不占
 - 若 validation 消融失败但 Wytham 置换通过：可以声称质量分数优于随机排序，但不能声称垂直
   token 优于全局实例特征；需要把方法降级为质量估计框架而非垂直结构创新。
 - 若 Wytham 置换失败：停止跨域选择性风险控制主张，E9 只能作为数据集内分析。
+
+## 27. E10 结论与 E10b 最终互补性验证（2026-08-04）
+
+E10 得到的是部分成功，而不是整体失败：
+
+- 在固定 validation 上，Vertical-MLP 相对 Global-MLP 的 Commission-area reduction 为
+  `-0.105 pp`，95% CI 为 `[-0.459, +0.315]`；F1-area gain 为 `-0.175 pp`，
+  95% CI 为 `[-0.451, +0.137]`。三个训练 seed 均未获胜，因此不能声称垂直 token
+  优于全局实例特征。
+- 在完全锁定的 Wytham 上，Vertical-MLP 相对随机排序的 Commission-area 与 F1-area
+  单侧置换检验均为 `p=0.0001`。因此可以声称该质量分数具有显著的跨域风险排序能力，
+  但该结果不能证明增益来自垂直结构。
+
+为区分“全局基线容量不足”和“垂直信息没有互补性”，只允许再进行一次 E10b。E10b 不读取
+Wytham，不改变 E2 数据划分、训练 seed、标签、损失、选择性曲线范围或评价规则。
+
+### 27.1 参数匹配模型
+
+- `global_wide`：仅输入 35 维全局实例特征，隐藏层为 `[112, 64]`；
+- `global_vertical_fusion`：35 维全局特征投影为 32 维，8×72 垂直 token 经共享 MLP 后做
+  masked mean/max pooling，再通过 `[64, 32]` 融合头；
+- 两者分别约为 11,394 与 11,842 个参数，差异约 3.8%，满足 10% 参数匹配约束；
+- 两个模型都训练 seed `42/43/44`，使用相同 train/validation forests、优化器和早停规则；
+- 每个模型同时预测实例有效概率与 IoU，质量分数仍为两者乘积。
+
+### 27.2 严格 Gate
+
+只有以下条件全部满足，才允许锁定 Fusion 并做一次 Wytham score-only 验证：
+
+- 参数量差异不超过 10%；
+- Fusion 的平均 Commission-area 与平均 F1-area 均不差于 Global-Wide；
+- 两项面积指标都至少在 2/3 个 seed 上获胜；
+- 至少一项平均改善达到 0.25 个百分点。
+
+若 Gate 失败，立即关闭“垂直结构增量”路线，不再更换网络、阈值或在 Wytham 上试验。论文只能
+把现有模型表述为通用实例质量估计与选择性风险控制框架；若必须保留垂直结构为主创新，则需要
+重新设计监督目标或回到分割主干，而不是继续增加后处理分类器。
+
+### 27.3 服务器运行
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+
+nohup env CUBLAS_WORKSPACE_CONFIG=:4096:8 \
+  python -u tools/training/train_global_vertical_fusion.py \
+  --config configs/experiments/vertical_instance_quality/e10b_global_vertical_fusion.yaml \
+  > logs/vertical_quality/e10b_global_vertical_fusion_run.log 2>&1 < /dev/null &
+
+echo $! | tee logs/vertical_quality/e10b_global_vertical_fusion.pid
+tail -f logs/vertical_quality/e10b_global_vertical_fusion_run.log
+~~~
+
+完成后查看：
+
+~~~bash
+cat logs/vertical_quality/e10b_global_vertical_fusion/summary.md
+cat logs/vertical_quality/e10b_global_vertical_fusion/per_seed_metrics.csv
+~~~
+
+脚本若以 `RuntimeError: E10b fusion gate failed` 结束，表示实验正常完成但科学 Gate 未通过，
+不是程序崩溃。此时不得运行 Wytham。只有摘要明确显示 `passed: True` 时，下一步才是把锁定的
+seed 42 Fusion checkpoint 接入 score-only 推理，并与 Global-Wide 在 Wytham 上做一次配对外部验证。

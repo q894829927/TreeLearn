@@ -466,13 +466,24 @@ def run(config_path):
     ]
     if summary['gate']['passed']:
         summary_lines.append('PASS：可以整理论文主表、消融表和统计显著性描述。')
+    elif (
+            summary['gate']['external_permutation_passed'] and
+            not summary['gate']['validation_ablation_passed']):
+        summary_lines.append(
+            'PARTIAL：跨域质量排序显著优于随机，但垂直特征未优于全局特征；'
+            '不得声称垂直结构带来增量。')
     else:
-        summary_lines.append('STOP：不得声称垂直结构优于全局特征或具有跨域显著性。')
+        summary_lines.append(
+            'STOP：当前证据不足以支持垂直增量或跨域风险控制主张。')
     summary_markdown = '\n'.join(summary_lines) + '\n'
     (output_dir / 'summary.md').write_text(
         summary_markdown, encoding='utf-8')
     print(summary_markdown, flush=True)
     if not summary['gate']['passed']:
+        if summary['gate']['external_permutation_passed']:
+            raise RuntimeError(
+                'E10 is partial: external ranking passed, but vertical '
+                'features did not beat the global baseline.')
         raise RuntimeError('E10 statistical evidence gate failed.')
     return summary
 
