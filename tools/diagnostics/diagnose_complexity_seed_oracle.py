@@ -205,6 +205,62 @@ def streaming_xyz_mean(path, chunk_size=2_000_000):
         raise ValueError(f'Cannot compute coordinate mean of empty file: {path}')
     return coords.astype(np.float64).mean(axis=0)
 
+def load_xyz_bounded(path, chunk_size=2_000_000):
+    """Load XYZ while bounding temporary LAS/LAZ decompression memory."""
+    if str(path).lower().endswith(('.las', '.laz')):
+        import laspy
+
+        with laspy.open(path) as reader:
+            coords = np.empty(
+                (reader.header.point_count, 3), dtype=np.float64)
+            start = 0
+            for points in reader.chunk_iterator(int(chunk_size)):
+                end = start + len(points)
+                coords[start:end, 0] = np.asarray(points.x)
+                coords[start:end, 1] = np.asarray(points.y)
+                coords[start:end, 2] = np.asarray(points.z)
+                start = end
+        if start != len(coords):
+            raise RuntimeError('LAS/LAZ point count changed while loading XYZ.')
+        return coords
+
+    from tree_learn.util import load_data
+    return load_data(path)[:, :3].astype(np.float64, copy=True)
+
+
+
+def load_prediction_xyz_labels_bounded(path, chunk_size=2_000_000):
+    """Load saved prediction XYZ and tree IDs with bounded decode memory."""
+    if str(path).lower().endswith(('.las', '.laz')):
+        import laspy
+
+        with laspy.open(path) as reader:
+            num_points = int(reader.header.point_count)
+            coords = np.empty((num_points, 3), dtype=np.float64)
+            labels = np.empty(num_points, dtype=np.int64)
+            start = 0
+            for points in reader.chunk_iterator(int(chunk_size)):
+                end = start + len(points)
+                coords[start:end, 0] = np.asarray(points.x)
+                coords[start:end, 1] = np.asarray(points.y)
+                coords[start:end, 2] = np.asarray(points.z)
+                try:
+                    labels[start:end] = np.asarray(
+                        points.treeID, dtype=np.int64)
+                except AttributeError as error:
+                    raise ValueError(
+                        f'Prediction file has no treeID field: {path}') from error
+                start = end
+        if start != len(coords):
+            raise RuntimeError('LAS/LAZ point count changed while loading.')
+        return coords, labels
+
+    from tree_learn.util import load_data
+    data = load_data(path)
+    return (
+        data[:, :3].astype(np.float64, copy=True),
+        data[:, 3].astype(np.int64, copy=True))
+
 
 def nearest_source_indices(
         source_coords, target_coords, logger=None, chunk_size=1_000_000,
@@ -256,6 +312,63 @@ def nearest_source_indices(
         'max_distance_m': float(distances.max()),
     }
 
+def production_neighbour_indices(
+        source_coords, target_coords, logger=None, chunk_size=1_000_000,
+        n_neighbors=5):
+    """Reproduce propagate_preds FP32 sklearn neighbour lookup.
+
+    The production pipeline casts both coordinate arrays to FP32 and uses
+    NearestNeighbors with algorithm auto and n_jobs 1. SciPy's FP64 cKDTree is
+    close but not equivalent for boundary/equidistant points, which is enough
+    to change an official detection count by one instance.
+    """
+    from sklearn.neighbors import NearestNeighbors
+
+    source = np.asarray(source_coords, dtype=np.float32)
+    target = np.asarray(target_coords, dtype=np.float32)
+    num_neighbors = int(n_neighbors)
+    if len(source) == 0 or len(target) == 0:
+        raise ValueError('Nearest-neighbour alignment requires non-empty arrays.')
+    if not 1 <= num_neighbors <= len(source):
+        raise ValueError('n_neighbors must be between 1 and source size.')
+    if len(source) > np.iinfo(np.int32).max:
+        raise ValueError('Source array is too large for int32 neighbour indices.')
+
+    model = NearestNeighbors(
+        n_neighbors=num_neighbors, algorithm='auto', n_jobs=1)
+    model.fit(source)
+    output_shape = (
+        (len(target),) if num_neighbors == 1
+        else (len(target), num_neighbors))
+    indices = np.empty(output_shape, dtype=np.int32)
+    distances = np.empty(len(target), dtype=np.float32)
+    for start in range(0, len(target), int(chunk_size)):
+        end = min(start + int(chunk_size), len(target))
+        distance, index = model.kneighbors(
+            target[start:end], num_neighbors, return_distance=True)
+        if num_neighbors == 1:
+            indices[start:end] = index[:, 0].astype(np.int32, copy=False)
+            distances[start:end] = distance[:, 0].astype(
+                np.float32, copy=False)
+        else:
+            indices[start:end] = index.astype(np.int32, copy=False)
+            distances[start:end] = distance[:, 0].astype(
+                np.float32, copy=False)
+        if logger is not None and (
+                end == len(target) or end % 5_000_000 == 0):
+            logger.info(
+                f'Production-aligned {end:,}/{len(target):,} target points '
+                f'with {num_neighbors}-NN ({100 * end / len(target):.1f}%).')
+    del model
+    return indices, {
+        'backend': 'sklearn_fp32_production',
+        'num_neighbors': num_neighbors,
+        'mean_distance_m': float(distances.mean()),
+        'p99_distance_m': float(np.quantile(distances, 0.99)),
+        'max_distance_m': float(distances.max()),
+    }
+
+
 
 def propagate_labels_by_neighbours(
         source_labels, neighbour_indices, chunk_size=1_000_000):
@@ -283,6 +396,68 @@ def propagate_labels_by_neighbours(
             best_counts[improved] = counts[improved]
         propagated[start:end] = best_values
     return propagated
+
+def build_ensemble_to_original_mapping(
+        config, ensemble_coords, original_coords, logger):
+    """Precompute the hash propagation used by the production pipeline."""
+    import pickle
+    from tree_learn.util import propagate_preds_hash_full
+
+    base_dir = str(getattr(
+        config, 'pipeline_base_dir',
+        os.path.dirname(os.path.dirname(config.forest_path))))
+    plot_name = os.path.splitext(os.path.basename(config.forest_path))[0]
+    voxelized_dir = os.path.join(
+        base_dir,
+        f'forest_voxelized{config.sample_generation.voxel_size}')
+    hash_mapping_path = os.path.join(
+        voxelized_dir, f'{plot_name}_hash_mapping.pkl')
+    if not os.path.isfile(hash_mapping_path):
+        raise FileNotFoundError(
+            f'Production hash mapping does not exist: {hash_mapping_path}')
+    logger.info(f'Loading production hash mapping: {hash_mapping_path}')
+    with open(hash_mapping_path, 'rb') as file:
+        hash_mapping = pickle.load(file)
+
+    source_indices = np.arange(len(ensemble_coords), dtype=np.int64)
+    original_mapping, missing_mask = propagate_preds_hash_full(
+        ensemble_coords, source_indices, original_coords, hash_mapping)
+    del source_indices, hash_mapping
+    missing_indices = np.flatnonzero(missing_mask).astype(np.int32)
+    original_mapping[missing_mask] = 0
+    original_mapping = original_mapping.astype(np.int32, copy=False)
+    missing_neighbours = None
+    missing_stats = None
+    if len(missing_indices):
+        logger.info(
+            f'Preparing 5-NN fallback for {len(missing_indices):,} '
+            'original points not covered by the voxel hash.')
+        missing_neighbours, missing_stats = production_neighbour_indices(
+            ensemble_coords, original_coords[missing_indices],
+            logger=logger, n_neighbors=5)
+    return {
+        'ensemble_index_for_original': original_mapping,
+        'missing_original_indices': missing_indices,
+        'ensemble_neighbours_for_missing_original': missing_neighbours,
+        'missing_alignment': missing_stats,
+        'hash_mapping_path': hash_mapping_path,
+    }
+
+
+def predictions_on_official_gt(predictions, propagation):
+    """Apply production ensemble->original->GT label propagation."""
+    predictions = np.asarray(predictions, dtype=np.int64)
+    original_predictions = predictions[
+        propagation['ensemble_index_for_original']]
+    missing_indices = propagation['missing_original_indices']
+    if len(missing_indices):
+        original_predictions[missing_indices] = \
+            propagate_labels_by_neighbours(
+                predictions,
+                propagation['ensemble_neighbours_for_missing_original'])
+    return propagate_labels_by_neighbours(
+        original_predictions, propagation['original_neighbours_for_gt'])
+
 
 
 def legacy_base_anchors(coords, labels, base_anchor_height=0.5):
@@ -344,22 +519,88 @@ def prepare_ground_truth(config, settings, arrays, logger):
     logger.info(f'Loading Oracle ground truth from {ground_truth_path}...')
     ground_truth = load_data(ground_truth_path)
     ground_truth_labels = ground_truth[:, 3].astype(np.int64)
+    ground_truth_coords_absolute = ground_truth[:, :3].astype(
+        np.float64, copy=True)
     if not np.any(ground_truth_labels > 0):
         raise ValueError('Oracle ground truth contains no labeled trees.')
-    logger.info('Computing the original-forest coordinate mean...')
-    xyz_mean = streaming_xyz_mean(config.forest_path)
-    ground_truth_coords = (
-        ground_truth[:, :3].astype(np.float64) - xyz_mean)
+    logger.info(
+        'Loading original forest coordinates for production propagation...')
+    original_coords_absolute = load_xyz_bounded(config.forest_path)
+    xyz_mean = original_coords_absolute.mean(axis=0)
+    original_coords_centered = original_coords_absolute - xyz_mean
+    ground_truth_coords = ground_truth_coords_absolute - xyz_mean
     del ground_truth
 
     logger.info('Aligning GT labels to ensembled points...')
     gt_index_for_ensemble, gt_to_ensemble_stats = nearest_source_indices(
         ground_truth_coords, arrays['coords'], logger=logger)
     labels_at_ensemble = ground_truth_labels[gt_index_for_ensemble]
-    logger.info('Aligning ensembled predictions to official GT points...')
-    ensemble_neighbours_for_gt, ensemble_to_gt_stats = nearest_source_indices(
-        arrays['coords'], ground_truth_coords, logger=logger,
-        n_neighbors=5)
+    logger.info(
+        'Preparing production ensemble-to-original hash propagation...')
+    propagation = build_ensemble_to_original_mapping(
+        config, arrays['coords'], original_coords_centered, logger)
+    del original_coords_centered
+
+    base_dir = str(getattr(
+        config, 'pipeline_base_dir',
+        os.path.dirname(os.path.dirname(config.forest_path))))
+    plot_name = os.path.splitext(os.path.basename(config.forest_path))[0]
+    evaluation_coords_path = os.path.join(
+        base_dir, str(config.save_cfg.results_dir), 'full_forest',
+        f'{plot_name}.laz')
+    if not os.path.isfile(evaluation_coords_path):
+        raise FileNotFoundError(
+            'Baseline prediction coordinate template does not exist: '
+            f'{evaluation_coords_path}')
+    logger.info(
+        'Loading saved baseline coordinates used by official evaluation: '
+        f'{evaluation_coords_path}')
+    evaluation_original_coords, baseline_original_predictions = \
+        load_prediction_xyz_labels_bounded(evaluation_coords_path)
+    if len(evaluation_original_coords) != len(original_coords_absolute):
+        raise ValueError(
+            'Saved baseline and source forest point counts differ; exact '
+            'production propagation cannot be reproduced.')
+    max_coordinate_difference = 0.0
+    for start in range(0, len(original_coords_absolute), 2_000_000):
+        end = min(start + 2_000_000, len(original_coords_absolute))
+        max_coordinate_difference = max(
+            max_coordinate_difference,
+            float(np.max(np.abs(
+                evaluation_original_coords[start:end] -
+                original_coords_absolute[start:end]))))
+    if max_coordinate_difference > 0.002:
+        raise ValueError(
+            'Saved baseline coordinates are not in source-forest order '
+            f'(max difference {max_coordinate_difference:.6f} m).')
+    del original_coords_absolute
+
+    logger.info(
+        'Aligning saved original points to official GT with production 5-NN...')
+    original_neighbours_for_gt, original_to_gt_stats = \
+        production_neighbour_indices(
+            evaluation_original_coords, ground_truth_coords_absolute,
+            logger=logger, n_neighbors=5)
+    propagation['original_neighbours_for_gt'] = original_neighbours_for_gt
+    baseline_evaluation_predictions = propagate_labels_by_neighbours(
+        baseline_original_predictions, original_neighbours_for_gt)
+    baseline_evaluation_metrics = detection_metrics(
+        ground_truth_labels, baseline_evaluation_predictions,
+        settings['evaluation_thresholds'])
+    if not baseline_matches_reference(
+            baseline_evaluation_metrics, settings['baseline_reference']):
+        raise RuntimeError(
+            'Official saved baseline evaluation reproduction failed before '
+            'clustering. This indicates a coordinate/KNN mismatch: '
+            f'observed={baseline_evaluation_metrics}, '
+            f"expected={settings['baseline_reference']}")
+    logger.info(
+        'Official saved baseline evaluation reproduced exactly: '
+        f"TP={baseline_evaluation_metrics['tp']}, "
+        f"FP={baseline_evaluation_metrics['fp']}, "
+        f"FN={baseline_evaluation_metrics['fn']}.")
+    del baseline_original_predictions, baseline_evaluation_predictions
+    del evaluation_original_coords, ground_truth_coords_absolute
 
     tree_ids, anchors = legacy_base_anchors(
         ground_truth_coords, ground_truth_labels,
@@ -370,10 +611,14 @@ def prepare_ground_truth(config, settings, arrays, logger):
         'ground_truth_labels': ground_truth_labels,
         'labels_at_ensemble': labels_at_ensemble,
         'offset_targets_at_ensemble': offset_targets,
-        'ensemble_neighbours_for_gt': ensemble_neighbours_for_gt,
+        'propagation': propagation,
         'alignment': {
             'gt_to_ensemble': gt_to_ensemble_stats,
-            'ensemble_to_gt': ensemble_to_gt_stats,
+            'original_to_gt': original_to_gt_stats,
+            'saved_baseline_metrics': baseline_evaluation_metrics,
+            'missing_original': propagation['missing_alignment'],
+            'evaluation_coords_path': evaluation_coords_path,
+            'max_coordinate_difference_m': max_coordinate_difference,
             'xyz_mean': xyz_mean.tolist(),
         },
     }
@@ -691,8 +936,8 @@ def run(config_path):
             score = balanced_scores
         predictions = cluster_mode(
             mode, config, arrays, score, keep_ratio, 0, logger)
-        evaluation_predictions = propagate_labels_by_neighbours(
-            predictions, oracle_gt['ensemble_neighbours_for_gt'])
+        evaluation_predictions = predictions_on_official_gt(
+            predictions, oracle_gt['propagation'])
         mode_metrics[mode] = detection_metrics(
             oracle_gt['ground_truth_labels'], evaluation_predictions,
             thresholds)
@@ -712,8 +957,8 @@ def run(config_path):
         logger.info(f'===== START random seed {seed} clustering =====')
         predictions = cluster_mode(
             'random', config, arrays, None, keep_ratio, int(seed), logger)
-        evaluation_predictions = propagate_labels_by_neighbours(
-            predictions, oracle_gt['ensemble_neighbours_for_gt'])
+        evaluation_predictions = predictions_on_official_gt(
+            predictions, oracle_gt['propagation'])
         metrics = detection_metrics(
             oracle_gt['ground_truth_labels'], evaluation_predictions, thresholds)
         metrics['seed'] = int(seed)

@@ -127,5 +127,23 @@ class ComplexitySeedOracleTests(unittest.TestCase):
         self.assertAlmostEqual(effects['f1_gain_pp'], 3.0)
 
 
+    def test_official_prediction_path_uses_both_propagation_stages(self):
+        ensemble_predictions = np.asarray([10, 20, 30])
+        propagation = {
+            'ensemble_index_for_original': np.asarray([0, 0, 1, 2]),
+            'missing_original_indices': np.asarray([1]),
+            'ensemble_neighbours_for_missing_original': np.asarray([
+                [1, 1, 1, 0, 2],
+            ]),
+            'original_neighbours_for_gt': np.asarray([
+                [0, 1, 2, 2, 3],
+                [0, 0, 1, 1, 3],
+            ]),
+        }
+        propagated = ORACLE.predictions_on_official_gt(
+            ensemble_predictions, propagation)
+        np.testing.assert_array_equal(propagated, [20, 10])
+
+
 if __name__ == '__main__':
     unittest.main()
