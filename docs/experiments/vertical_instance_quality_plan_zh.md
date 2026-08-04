@@ -1401,3 +1401,65 @@ cat logs/vertical_quality/e8c2_groupwise_merge/per_seed_metrics.csv
 集成。如果 E8c2 STOP，则不继续堆叠注意力或扩大模型；生成固定 validation 的
 source-level precision/recall 曲线，执行预注册的一次1.0%错误率敏感性分析。若仍无法
 达到30%正源 recall，则停止学习式合并路线，并将 E8a Oracle 作为上限分析而非方法结果。
+
+## 24. E8c2 失败与 E8c3 最终安全敏感性审计（2026-08-04）
+
+E8c2 的实际验证结果为：
+
+- source AP：`0.642634 ± 0.005392`；
+- 正源实例 Top-1 correct rate：`0.645995 ± 0.004476`；
+- pair precision：`100%`；
+- positive-source safe recall：`0.011628 ± 0.003876`；
+- unsafe merge rate：`0%`；
+- 相对 E8c pointwise safe recall 的增益：`-0.005168`；
+- 通过 seed 数：`0/3`。
+
+这说明模型约有 64.6% 的正源实例能够把正确目标排到第一名，但其 top-target 概率无法在
+95% precision 约束下区分安全选择和错误选择。候选召回不是主要瓶颈，继续增加注意力层、
+隐藏维度或训练轮数没有充分依据。
+
+E8c3 不训练新模型，也不读取 Wytham。它只使用 E8c2 在五个固定 validation forests 上
+保存的 `validation_predictions.csv`，生成逐 seed 的完整 source-level 阈值前沿。
+
+### 24.1 唯一决策 Gate
+
+预注册的最后一次放宽为：
+
+- pair precision 不低于 95%；
+- unsafe merge rate 从 0.5% 放宽到 1.0%；
+- positive-source recall 仍须不低于 30%；
+- 锁定 seed 42 必须通过；
+- 至少 2/3 seeds 通过；
+- 三个 seed 的 recall 样本标准差不超过 0.05。
+
+报告同时给出 90% 和 85% precision、0.5% 和 1.0% unsafe rate 的组合，但低于 95%
+precision 的行只用于解释置信度瓶颈，不得用于选择阈值、进入 pipeline 或在 Wytham 上调参。
+
+### 24.2 服务器运行
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+mkdir -p logs/vertical_quality
+set -o pipefail
+
+python -u tools/diagnostics/diagnose_groupwise_merge_tradeoff.py \
+  --config configs/experiments/vertical_instance_quality/e8c3_groupwise_sensitivity.yaml \
+  2>&1 | tee logs/vertical_quality/e8c3_groupwise_sensitivity_run.log
+
+cat logs/vertical_quality/e8c3_groupwise_sensitivity/summary.md
+~~~
+
+该诊断只读取 3 × 370 条源级预测，通常数秒内完成。即使 Gate 为 STOP，脚本也会先完整
+保存 `frontier.csv`、`sensitivity.csv`、`summary.json` 和 `summary.md`，随后以非零状态退出。
+
+### 24.3 E8c3 后续决策
+
+- 若主 Gate PASS：只锁定 seed 42 在 95% precision、1% unsafe rate 下得到的阈值，进入
+  E8d L1W score-only control 和真实合并；L1W 通过后才运行一次 Wytham。
+- 若主 Gate STOP：终止学习式实例合并，不再尝试新的 pair/groupwise 网络，也不实现
+  E8d。论文中将 E8a 作为 Oracle 上限，把 E8c/E8c2/E8c3 作为可学习安全合并的负结果，
+  主线回到 Vertical-MLP 质量排序及域稳健的软使用方式，而不是删除或合并实例。

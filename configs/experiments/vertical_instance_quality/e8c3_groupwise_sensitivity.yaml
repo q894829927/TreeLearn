@@ -1,0 +1,20 @@
+predictions_path: 'logs/vertical_quality/e8c2_groupwise_merge/validation_predictions.csv'
+output_dir: 'logs/vertical_quality/e8c3_groupwise_sensitivity'
+seeds: [42, 43, 44]
+
+selection:
+  locked_seed: 42
+  min_gate_pass_seeds: 2
+
+# This is the only decision condition allowed after the E8c2 failure.
+primary:
+  min_pair_precision: 0.95
+  max_unsafe_merge_rate: 0.01
+  min_positive_source_recall: 0.30
+  max_recall_sample_std: 0.05
+
+# The lower precision rows are diagnostic only. They cannot select a model,
+# threshold, or authorize pipeline integration.
+diagnostic:
+  precision_levels: [0.95, 0.90, 0.85]
+  unsafe_rate_levels: [0.005, 0.01]
