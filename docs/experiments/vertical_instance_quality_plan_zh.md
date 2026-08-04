@@ -1673,3 +1673,27 @@ cat logs/vertical_quality/e10b_global_vertical_fusion/per_seed_metrics.csv
 脚本若以 `RuntimeError: E10b fusion gate failed` 结束，表示实验正常完成但科学 Gate 未通过，
 不是程序崩溃。此时不得运行 Wytham。只有摘要明确显示 `passed: True` 时，下一步才是把锁定的
 seed 42 Fusion checkpoint 接入 score-only 推理，并与 Global-Wide 在 Wytham 上做一次配对外部验证。
+
+### 27.4 E10b 实际结果与最终决策
+
+E10b 已完成，参数匹配条件成立（Global-Wide 11,394 参数，Fusion 11,842 参数，差异
+3.783%），但互补性 Gate 失败：
+
+| Seed | Commission-area reduction | F1-area gain |
+|---:|---:|---:|
+| 42 | +0.023 pp | -0.034 pp |
+| 43 | +0.087 pp | +0.035 pp |
+| 44 | -0.004 pp | -0.048 pp |
+
+- 平均 Commission-area reduction：`+0.035 pp`；
+- 平均 F1-area gain：`-0.015 pp`；
+- Fusion 的 FP-AP、ROC-AUC 与 IoU MAE 较好，但 Spearman 从 `0.822146` 降至 `0.805056`；
+- F1-area 只有 1/3 seed 获胜，且改善量远低于预注册的 `0.25 pp`。
+
+因此垂直 token 没有证明对全局实例特征存在稳定、具有部署意义的互补增益。该结论优先于
+单点分类指标的轻微改善。正式关闭垂直 MLP、垂直注意力和 Global+Vertical Fusion 路线，
+不再运行 Fusion 的 Wytham 实验，也不再通过更换网络或 Gate 寻找正结果。
+
+后续论文路线冻结为“后处理实例质量估计与选择性风险控制”：保留 E9 的风险—覆盖率曲线和
+Wytham 随机排序置换证据，但不得把改善归因于垂直结构。若论文必须以注意力或垂直结构为
+核心创新，则当前证据不足，需要重新设计分割主干或监督目标，并视为一个全新的研究阶段。
