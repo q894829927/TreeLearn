@@ -1,0 +1,9 @@
+test_baseline_validation_and_completeness_constrained_selection (tests.test_instance_quality_oracle.InstanceQualityOracleTests) ... ok
+test_chunk_accumulation_matches_single_pass (tests.test_instance_quality_oracle.InstanceQualityOracleTests) ... ok
+test_contingency_uses_all_prediction_points_in_iou (tests.test_instance_quality_oracle.InstanceQualityOracleTests) ... ok
+test_oracle_filter_removes_counted_false_without_losing_gt (tests.test_instance_quality_oracle.InstanceQualityOracleTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.123s
+
+OK

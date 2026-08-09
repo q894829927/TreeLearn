@@ -1,0 +1,44 @@
+SKIP A1N: validated existing artifact.
+SKIP A1W: validated existing artifact.
+SKIP G1N: validated existing artifact.
+SKIP G1W: validated existing artifact.
+SKIP G2N: validated existing artifact.
+SKIP G2W: validated existing artifact.
+SKIP G3N: validated existing artifact.
+SKIP G3W: validated existing artifact.
+SKIP L2N: validated existing artifact.
+SKIP L2W: validated existing artifact.
+SKIP LG1: validated existing artifact.
+SKIP LG2: validated existing artifact.
+SKIP LG3: validated existing artifact.
+SKIP G4N: validated existing artifact.
+SKIP G4W: validated existing artifact.
+SKIP L1N: validated existing artifact.
+SKIP O1N: validated existing artifact.
+SKIP O1W: validated existing artifact.
+# E2 candidate-instance data generation
+
+- mode: full
+- instances: 9402
+- valid: 9276
+- classification valid: 8978
+- positive: 6179
+- negative: 2799
+- train plots: A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3
+- validation plots: G4N, G4W, L1N, O1N, O1W
+
+## Gate
+
+- all_fixed_plots_present: **True**
+- enough_positive_instances: **True**
+- enough_negative_instances: **True**
+- enough_train_groups: **True**
+- validation_available: **True**
+- no_plot_leakage: **True**
+- no_group_leakage: **True**
+- random_audit_sample_prepared: **True**
+- manual_audit_confirmed: **True**
+- passed: **True**
+
+Saved manifest: data/instance_quality/manifest.csv
+PASS: E2 data are ready for the next experiment stage.

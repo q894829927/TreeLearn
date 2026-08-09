@@ -1,0 +1,43 @@
+{
+  "features_path": "data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv",
+  "evaluation_path": "data/pipeline/L1W/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt",
+  "partition_verification": null,
+  "status_counts": {
+    "unmatched_ignored": 210,
+    "tp": 156,
+    "fp_counted": 5
+  },
+  "best_confidence_feature": {
+    "feature": "confidence_p90",
+    "auc": 0.9891025641025641,
+    "separability_auc": 0.9891025641025641,
+    "higher_for_tp": true,
+    "num_tp": 156,
+    "num_fp": 5,
+    "tp_median": 0.875,
+    "fp_median": 0.795,
+    "tp_mean": 0.8667307692307691,
+    "fp_mean": 0.7909999999999999
+  },
+  "best_overall_feature": {
+    "feature": "seed_fraction",
+    "auc": 0.0,
+    "separability_auc": 1.0,
+    "higher_for_tp": false,
+    "num_tp": 156,
+    "num_fp": 5,
+    "tp_median": 0.01936582193706195,
+    "fp_median": 0.1743486973947896,
+    "tp_mean": 0.021733157037981378,
+    "fp_mean": 0.2423381642138737
+  },
+  "gate": {
+    "enough_false_positives": false,
+    "confidence_auc_passed": true,
+    "passed": false
+  },
+  "thresholds": {
+    "auc_threshold": 0.75,
+    "min_false_positives": 20
+  }
+}

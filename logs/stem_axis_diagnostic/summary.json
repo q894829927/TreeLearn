@@ -1,0 +1,34 @@
+{
+  "config": "configs/experiments/point_transformer/train_axis_mlp_stem_axis.yaml",
+  "scans": 323,
+  "raw_tree_occurrences": 6531,
+  "supervised_tree_occurrences": 988,
+  "crown_valid_trees": 988,
+  "stem_valid_trees": 988,
+  "both_valid_trees": 988,
+  "crown_valid_rate": 1.0,
+  "stem_valid_rate": 1.0,
+  "stem_to_crown_coverage_ratio": 1.0,
+  "crown_axis_xy_length": {
+    "mean": 1.6763317034342269,
+    "median": 1.5164751410484314,
+    "p90": 2.986935043334961
+  },
+  "stem_axis_xy_length": {
+    "mean": 0.9337421295361269,
+    "median": 0.7696720063686371,
+    "p90": 1.6959629297256475
+  },
+  "stem_valid_bin_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 988
+  },
+  "gate": {
+    "coverage_ratio_at_least_0_70": true,
+    "mean_axis_length_at_least_0_30m": true,
+    "passed": true
+  }
+}

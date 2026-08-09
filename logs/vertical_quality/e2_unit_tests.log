@@ -1,0 +1,14 @@
+test_invalid_iou_threshold_order_is_rejected (tests.test_instance_quality_data.InstanceQualityTargetTests) ... ok
+test_positive_ambiguous_and_validity_targets (tests.test_instance_quality_data.InstanceQualityTargetTests) ... ok
+test_instance_features_are_isolated (tests.test_instance_quality_data.VerticalInstanceTokenTests) ... ok
+test_shapes_masks_and_finite_values (tests.test_instance_quality_data.VerticalInstanceTokenTests) ... ok
+test_full_gate_requires_every_fixed_plot (tests.test_instance_quality_generator.InstanceQualityGeneratorTests) ... ok
+test_plot_group_keeps_paired_scans_together (tests.test_instance_quality_generator.InstanceQualityGeneratorTests) ... ok
+test_runtime_cleanup_is_scoped_below_runtime_root (tests.test_instance_quality_generator.InstanceQualityGeneratorTests) ... ok
+test_split_validation_accepts_independent_groups (tests.test_instance_quality_generator.InstanceQualityGeneratorTests) ... ok
+test_split_validation_rejects_paired_plot_leakage (tests.test_instance_quality_generator.InstanceQualityGeneratorTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.006s
+
+OK

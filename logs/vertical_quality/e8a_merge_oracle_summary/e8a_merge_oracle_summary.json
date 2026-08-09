@@ -1,0 +1,145 @@
+{
+  "config": "configs/experiments/vertical_instance_quality/e8a_quality_merge_oracle.yaml",
+  "primary_runs": [
+    "wytham_development_upper_bound"
+  ],
+  "runs": {
+    "l1w_sanity": {
+      "name": "l1w_sanity",
+      "dataset_role": "regression_validation",
+      "keep_ratio": 0.85,
+      "num_predictions": 371,
+      "num_low_quality": 55,
+      "num_oracle_merged": 10,
+      "num_low_retained": 45,
+      "low_quality_status": {
+        "tp": 0,
+        "fp_counted": 4,
+        "unmatched_ignored": 51,
+        "not_referenced": 0
+      },
+      "merged_source_status": {
+        "tp": 0,
+        "fp_counted": 4,
+        "unmatched_ignored": 6,
+        "not_referenced": 0
+      },
+      "baseline": {
+        "threshold": 0.0,
+        "retained_predictions": 371,
+        "removed_predictions": 0,
+        "tp": 156,
+        "fp": 5,
+        "fn": 0,
+        "completeness": 100.0,
+        "commission_error_rate": 3.1055900621118013,
+        "f1_score": 98.42271293375394
+      },
+      "merge_oracle": {
+        "threshold": 0.0,
+        "retained_predictions": 361,
+        "removed_predictions": 0,
+        "tp": 156,
+        "fp": 1,
+        "fn": 0,
+        "completeness": 100.0,
+        "commission_error_rate": 0.6369426751592357,
+        "f1_score": 99.68051118210862
+      },
+      "gate": {
+        "minimum_f1_gain_pp": 0.5,
+        "minimum_commission_reduction_pp": 2.0,
+        "maximum_completeness_drop_pp": 0.5,
+        "f1_gain_pp": 1.2577982483546748,
+        "commission_reduction_pp": 2.468647386952566,
+        "completeness_drop_pp": 0.0,
+        "f1_gain_passed": true,
+        "commission_reduction_passed": true,
+        "completeness_passed": true,
+        "passed": true
+      },
+      "score_only_checks": {
+        "filter_disabled": true,
+        "labels_identical": true,
+        "instance_count_matches": true
+      },
+      "provenance": {
+        "ground_truth": "data/benchmark/L1W_voxelized01_for_eval.laz",
+        "evaluation": "data/pipeline/L1W/results_vertical_quality_e6_control/full_forest/evaluation/evaluation_results.pt",
+        "quality_scores": "data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/instance_quality_scores.csv",
+        "quality_metadata": "data/pipeline/L1W/results_vertical_quality_e6_control/instance_quality_scores/metadata.json",
+        "propagated_predictions": "data/pipeline/L1W/results_vertical_quality_e6_control/full_forest/evaluation/pred_forest_propagated_to_gt_pointcloud.laz"
+      },
+      "max_coordinate_difference_m": 0.00035272092772231645
+    },
+    "wytham_development_upper_bound": {
+      "name": "wytham_development_upper_bound",
+      "dataset_role": "development_only",
+      "keep_ratio": 0.85,
+      "num_predictions": 1862,
+      "num_low_quality": 279,
+      "num_oracle_merged": 44,
+      "num_low_retained": 235,
+      "low_quality_status": {
+        "tp": 14,
+        "fp_counted": 49,
+        "unmatched_ignored": 216,
+        "not_referenced": 0
+      },
+      "merged_source_status": {
+        "tp": 0,
+        "fp_counted": 15,
+        "unmatched_ignored": 29,
+        "not_referenced": 0
+      },
+      "baseline": {
+        "threshold": 0.0,
+        "retained_predictions": 1862,
+        "removed_predictions": 0,
+        "tp": 568,
+        "fp": 131,
+        "fn": 309,
+        "completeness": 64.76624857468643,
+        "commission_error_rate": 18.741058655221746,
+        "f1_score": 72.08121827411168
+      },
+      "merge_oracle": {
+        "threshold": 0.0,
+        "retained_predictions": 1818,
+        "removed_predictions": 0,
+        "tp": 570,
+        "fp": 112,
+        "fn": 307,
+        "completeness": 64.99429874572405,
+        "commission_error_rate": 16.422287390029325,
+        "f1_score": 73.12379730596537
+      },
+      "gate": {
+        "minimum_f1_gain_pp": 0.5,
+        "minimum_commission_reduction_pp": 2.0,
+        "maximum_completeness_drop_pp": 0.5,
+        "f1_gain_pp": 1.0425790318536912,
+        "commission_reduction_pp": 2.318771265192421,
+        "completeness_drop_pp": -0.22805017103762282,
+        "f1_gain_passed": true,
+        "commission_reduction_passed": true,
+        "completeness_passed": true,
+        "passed": true
+      },
+      "score_only_checks": {
+        "filter_disabled": true,
+        "labels_identical": true,
+        "instance_count_matches": true
+      },
+      "provenance": {
+        "ground_truth": "data/benchmark/wytham_vox0.1.laz",
+        "evaluation": "data/pipeline/wytham/results_vertical_quality_e8a_control/full_forest/evaluation/evaluation_results.pt",
+        "quality_scores": "data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/instance_quality_scores.csv",
+        "quality_metadata": "data/pipeline/wytham/results_vertical_quality_e8a_control/instance_quality_scores/metadata.json",
+        "propagated_predictions": "data/pipeline/wytham/results_vertical_quality_e8a_control/full_forest/evaluation/pred_forest_propagated_to_gt_pointcloud.laz"
+      },
+      "max_coordinate_difference_m": 0.00048819217805728954
+    }
+  },
+  "passed": true
+}

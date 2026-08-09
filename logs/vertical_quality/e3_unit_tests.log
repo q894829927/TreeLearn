@@ -1,0 +1,9 @@
+test_dataset_loader_preserves_forest_split_and_manifest_ids (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+test_rank_correlation_handles_order_and_reverse_order (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+test_summary_gate_accepts_stable_aggregate_baseline (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+test_threshold_selection_respects_completeness (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.012s
+
+OK

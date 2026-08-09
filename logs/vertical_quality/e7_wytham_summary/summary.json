@@ -1,0 +1,65 @@
+{
+  "dataset_name": "Wytham",
+  "dataset_role": "development_only",
+  "checkpoint": "logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth",
+  "threshold": 0.01,
+  "baseline": {
+    "completeness": 64.76624857468643,
+    "commission_error_rate": 18.741058655221746,
+    "f1_score": 72.08121827411168,
+    "precision": 62.45891350283317,
+    "recall": 80.49376150235213,
+    "coverage": 57.718037824399936,
+    "counts": {
+      "matched_gt": 568,
+      "missed_gt": 309,
+      "matched_pred": 568,
+      "false_pred": 131
+    }
+  },
+  "filtered": {
+    "completeness": 57.46864310148233,
+    "commission_error_rate": 7.6923076923076925,
+    "f1_score": 70.8362614195362,
+    "precision": 52.540328606574874,
+    "recall": 71.7935200601734,
+    "coverage": 50.777960553993715,
+    "counts": {
+      "matched_gt": 504,
+      "missed_gt": 373,
+      "matched_pred": 504,
+      "false_pred": 42
+    }
+  },
+  "delta": {
+    "f1_gain_pp": -1.2449568545754772,
+    "commission_reduction_pp": 11.048750962914053,
+    "completeness_drop_pp": 7.297605473204101
+  },
+  "metadata": {
+    "num_instances": 1862,
+    "threshold": 0.01,
+    "filter_enabled": true,
+    "num_kept": 1250,
+    "checkpoint_seed": 42,
+    "checkpoint_best_epoch": 15,
+    "device": "cuda",
+    "parameter_count": 19234,
+    "scoring_seconds": 102.54089689254761,
+    "pre_filter_label_sha256": "2020dd597ba24ed4e6aee072dd6ededced1bccd833dc25ded2f4da0885baea93",
+    "post_filter_label_sha256": "42264242d8cdb2b2b368e241d1ceb67313c65f7181045bf31711c0a2b1d9a3f5",
+    "score_only_labels_identical": false,
+    "num_passes_threshold": 1250
+  },
+  "pipeline_seconds": 2165.7,
+  "quality_runtime_fraction": 0.04734769215152035,
+  "gate": {
+    "checkpoint_seed_locked": true,
+    "threshold_locked": true,
+    "filter_enabled": true,
+    "completeness_drop_passed": false,
+    "effect_size_passed": false,
+    "runtime_overhead_passed": true,
+    "passed": false
+  }
+}

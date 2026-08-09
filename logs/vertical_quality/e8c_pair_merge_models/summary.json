@@ -1,0 +1,231 @@
+{
+  "config": "configs/experiments/vertical_instance_quality/e8c_pair_merge_models.yaml",
+  "pairs_path": "data/instance_merge_pairs_e8b/pairs.csv",
+  "num_pairs": 8156,
+  "num_valid_pairs": 8027,
+  "num_features": 17,
+  "feature_names": [
+    "neighbor_rank",
+    "source_quality",
+    "target_quality",
+    "quality_gap",
+    "base_vote_distance",
+    "xy_centroid_distance",
+    "source_height",
+    "target_height",
+    "abs_log_height_ratio",
+    "z_overlap_min_ratio",
+    "layer_overlap_ratio",
+    "vertical_token_cosine",
+    "occupancy_profile_l1",
+    "semantic_profile_l1",
+    "verticality_profile_l1",
+    "base_vote_radius_profile_l1",
+    "abs_log_num_points_ratio"
+  ],
+  "train_plots": [
+    "A1N",
+    "A1W",
+    "G1N",
+    "G1W",
+    "G2N",
+    "G2W",
+    "G3N",
+    "G3W",
+    "L2N",
+    "L2W",
+    "LG1",
+    "LG2",
+    "LG3"
+  ],
+  "validation_plots": [
+    "G4N",
+    "G4W",
+    "L1N",
+    "O1N",
+    "O1W"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "locked_seed": 42,
+  "models": {
+    "distance_rule": {
+      "num_seeds": 3,
+      "num_gate_passed": 0,
+      "pair_roc_auc": {
+        "mean": 0.7202119215021711,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7202119215021712,
+        "max": 0.7202119215021712
+      },
+      "pair_average_precision": {
+        "mean": 0.44621065554524514,
+        "sample_std": 6.798699777552591e-17,
+        "min": 0.4462106555452451,
+        "max": 0.4462106555452451
+      },
+      "pair_precision": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "positive_source_recall": {
+        "mean": 0.023255813953488372,
+        "sample_std": 0.0,
+        "min": 0.023255813953488372,
+        "max": 0.023255813953488372
+      },
+      "unsafe_merge_rate": {
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "num_proposed_merges": {
+        "mean": 6.0,
+        "sample_std": 0.0,
+        "min": 6.0,
+        "max": 6.0
+      },
+      "num_correct_merges": {
+        "mean": 6.0,
+        "sample_std": 0.0,
+        "min": 6.0,
+        "max": 6.0
+      },
+      "num_unsafe_merges": {
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "logistic_regression": {
+      "num_seeds": 3,
+      "num_gate_passed": 0,
+      "pair_roc_auc": {
+        "mean": 0.7839856720508637,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7839856720508636,
+        "max": 0.7839856720508636
+      },
+      "pair_average_precision": {
+        "mean": 0.46693504781777156,
+        "sample_std": 6.798699777552591e-17,
+        "min": 0.4669350478177715,
+        "max": 0.4669350478177715
+      },
+      "pair_precision": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "positive_source_recall": {
+        "mean": 0.003875968992248062,
+        "sample_std": 0.0,
+        "min": 0.003875968992248062,
+        "max": 0.003875968992248062
+      },
+      "unsafe_merge_rate": {
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "num_proposed_merges": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "num_correct_merges": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "num_unsafe_merges": {
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "pair_mlp": {
+      "num_seeds": 3,
+      "num_gate_passed": 0,
+      "pair_roc_auc": {
+        "mean": 0.7940928308762613,
+        "sample_std": 0.0021215747697037883,
+        "min": 0.7916681323958784,
+        "max": 0.7956080125170726
+      },
+      "pair_average_precision": {
+        "mean": 0.5088413024099253,
+        "sample_std": 0.004488415814129727,
+        "min": 0.5036713059907425,
+        "max": 0.511741307428582
+      },
+      "pair_precision": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "positive_source_recall": {
+        "mean": 0.016795865633074936,
+        "sample_std": 0.005920640432759483,
+        "min": 0.011627906976744186,
+        "max": 0.023255813953488372
+      },
+      "unsafe_merge_rate": {
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "num_proposed_merges": {
+        "mean": 4.333333333333333,
+        "sample_std": 1.5275252316519465,
+        "min": 3.0,
+        "max": 6.0
+      },
+      "num_correct_merges": {
+        "mean": 4.333333333333333,
+        "sample_std": 1.5275252316519465,
+        "min": 3.0,
+        "max": 6.0
+      },
+      "num_unsafe_merges": {
+        "mean": 0.0,
+        "sample_std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  "eligible_models": {
+    "distance_rule": false,
+    "logistic_regression": false,
+    "pair_mlp": false
+  },
+  "selected_model": null,
+  "selected_threshold": null,
+  "selected_seed_metrics": null,
+  "constraints": {
+    "min_pair_precision": 0.95,
+    "min_positive_source_recall": 0.3,
+    "max_unsafe_merge_rate": 0.005
+  },
+  "gate": {
+    "at_least_one_deployable_model": false,
+    "locked_seed_passed": false,
+    "mlp_stability_passed_if_selected": true,
+    "passed": false
+  }
+}

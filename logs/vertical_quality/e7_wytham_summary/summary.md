@@ -1,0 +1,32 @@
+# E7 锁定复核：Wytham
+
+- 数据角色：**development_only**
+- 本结果不得用于重新选择 checkpoint 或阈值。
+- checkpoint：logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth
+- threshold：0.0100
+- 质量评分耗时：102.541s
+- 评分耗时占完整 pipeline：4.735%
+- 保留实例：1250 / 1862
+
+| Run | Completeness | Commission | F1 | Precision | Recall | Coverage |
+|---|---:|---:|---:|---:|---:|---:|
+| baseline | 64.766249% | 18.741059% | 72.081218% | 62.458914% | 80.493762% | 57.718038% |
+| filtered | 57.468643% | 7.692308% | 70.836261% | 52.540329% | 71.793520% | 50.777961% |
+
+## Delta: filtered minus baseline
+
+- F1：-1.244957 个百分点
+- Commission 降低：+11.048751 个百分点
+- Completeness 下降：+7.297605 个百分点
+
+## Gate
+
+- checkpoint_seed_locked: **True**
+- threshold_locked: **True**
+- filter_enabled: **True**
+- completeness_drop_passed: **False**
+- effect_size_passed: **False**
+- runtime_overhead_passed: **True**
+- passed: **False**
+
+STOP：记录跨域失败，不得在 Wytham 上修改阈值。

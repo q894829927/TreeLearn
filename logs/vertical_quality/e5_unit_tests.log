@@ -1,0 +1,15 @@
+test_attention_masks_layers_and_isolates_batches (tests.test_vertical_attention.VerticalAttentionTests) ... ok
+test_gate_passes_mean_gain_and_paired_seed_rules (tests.test_vertical_attention.VerticalAttentionTests) ... ok
+test_gate_rejects_small_effect_size (tests.test_vertical_attention.VerticalAttentionTests) ... ok
+test_gate_requires_two_paired_seed_wins (tests.test_vertical_attention.VerticalAttentionTests) ... ok
+test_height_encoding_is_finite_and_position_dependent (tests.test_vertical_attention.VerticalAttentionTests) ... ok
+test_gate_passes_when_vertical_iou_clearly_improves (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_gate_stops_without_vertical_information_gain (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_token_standardizer_ignores_and_zeros_invalid_layers (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_vertical_loader_aligns_tokens_with_forest_instances (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_vertical_mlp_masks_layers_and_isolates_batches (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.566s
+
+OK

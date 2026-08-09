@@ -1,0 +1,30 @@
+# E4 Vertical-MLP
+
+- Instances: 9402
+- Vertical tokens: 8 x 72
+- Fixed E3 baseline: global_mlp
+
+| Model | ROC-AUC | FP AP | IoU MAE | Spearman | Filtered F1 | F1 std |
+|---|---:|---:|---:|---:|---:|---:|
+| global_mlp | 0.992655 | 0.987779 | 0.092260 | 0.815461 | 0.793019 | 0.000000 |
+| vertical_mlp | 0.995627 | 0.991869 | 0.086063 | 0.810275 | 0.976172 | 0.001295 |
+
+## Delta: Vertical-MLP minus fixed baseline
+
+- Filtered F1: +0.183154
+- IoU MAE reduction: +0.006198
+- FP AP: +0.004090
+- ROC-AUC: +0.002972
+- Spearman: -0.005187
+
+## Gate
+
+- e3_baseline_passed: **True**
+- f1_not_below_global_baseline: **True**
+- iou_mae_improved: **True**
+- fp_ap_improved: **True**
+- f1_seed_stability_passed: **True**
+- vertical_information_improved: **True**
+- passed: **True**
+
+PASS: proceed to E5 Vertical-Attention.

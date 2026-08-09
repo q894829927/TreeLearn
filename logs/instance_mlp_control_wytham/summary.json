@@ -1,0 +1,116 @@
+{
+  "features_path": "logs/instance_separability_wytham/labeled_instance_features.csv",
+  "num_supervised_instances": 699,
+  "num_true_instances": 568,
+  "num_false_instances": 131,
+  "num_features": 35,
+  "feature_names": [
+    "num_points",
+    "confidence_mean",
+    "confidence_std",
+    "confidence_p10",
+    "confidence_p50",
+    "confidence_p90",
+    "semantic_probability_mean",
+    "semantic_probability_std",
+    "semantic_probability_p10",
+    "semantic_probability_p50",
+    "semantic_probability_p90",
+    "verticality_mean",
+    "verticality_std",
+    "verticality_p10",
+    "verticality_p50",
+    "verticality_p90",
+    "num_clustered_seeds",
+    "seed_fraction",
+    "seed_confidence_mean",
+    "seed_confidence_std",
+    "seed_confidence_p10",
+    "seed_confidence_p50",
+    "seed_confidence_p90",
+    "x_span",
+    "y_span",
+    "height",
+    "bbox_area",
+    "point_density_bbox",
+    "xy_radius_rms",
+    "base_vote_radius_rms",
+    "seed_base_vote_radius_rms",
+    "offset_xy_magnitude_mean",
+    "offset_xy_magnitude_std",
+    "offset_z_abs_mean",
+    "offset_z_abs_std"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "folds_per_seed": 5,
+  "models": {
+    "instance_mlp": {
+      "num_folds": 15,
+      "roc_auc": {
+        "mean": 0.8968741913781504,
+        "sample_std": 0.034850278358147024
+      },
+      "tree_average_precision": {
+        "mean": 0.9709299176573681,
+        "sample_std": 0.015836092181095284
+      },
+      "fp_average_precision": {
+        "mean": 0.7122245817354831,
+        "sample_std": 0.06737538096353256
+      }
+    },
+    "logistic_regression": {
+      "num_folds": 15,
+      "roc_auc": {
+        "mean": 0.9049323887081999,
+        "sample_std": 0.019206136237075906
+      },
+      "tree_average_precision": {
+        "mean": 0.974828114911873,
+        "sample_std": 0.006459889006431335
+      },
+      "fp_average_precision": {
+        "mean": 0.7428105471727284,
+        "sample_std": 0.05015219994537471
+      }
+    },
+    "nested_single_feature": {
+      "num_folds": 15,
+      "roc_auc": {
+        "mean": 0.8534954358894739,
+        "sample_std": 0.029292535495707938
+      },
+      "tree_average_precision": {
+        "mean": 0.9565495887747494,
+        "sample_std": 0.01012638095601576
+      },
+      "fp_average_precision": {
+        "mean": 0.6192375632493871,
+        "sample_std": 0.07544822927080944
+      },
+      "selection_counts": {
+        "confidence_p90": 2,
+        "point_density_bbox": 13
+      }
+    }
+  },
+  "comparisons": {
+    "mlp_minus_nested_single_auc": 0.043378755488676535,
+    "mlp_minus_logistic_auc": -0.008058197330049532
+  },
+  "thresholds": {
+    "min_mlp_auc": 0.88,
+    "min_gain_over_single": 0.02,
+    "logistic_tolerance": 0.005
+  },
+  "gate": {
+    "mlp_auc_at_least_threshold": true,
+    "mlp_gain_over_nested_single_passed": true,
+    "mlp_not_worse_than_logistic": false,
+    "passed": false
+  }
+}

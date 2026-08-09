@@ -1,0 +1,102 @@
+{
+  "config": "configs/experiments/vertical_instance_quality/e10_statistical_evidence.yaml",
+  "validation": {
+    "global_point": {
+      "commission_area": 0.18783384027882705,
+      "f1_area": 0.8520215945570092
+    },
+    "vertical_point": {
+      "commission_area": 0.18887945724083927,
+      "f1_area": 0.8502683176243224
+    },
+    "point_delta": {
+      "commission_area_reduction_pp": -0.10456169620122191,
+      "f1_area_gain_pp": -0.1753276932686787
+    },
+    "commission_delta_ci": {
+      "mean": -0.07066122906541573,
+      "lower": -0.45870184758522253,
+      "upper": 0.31512183068041766
+    },
+    "f1_delta_ci": {
+      "mean": -0.17372771884249236,
+      "lower": -0.4511751355058227,
+      "upper": 0.13738051957806752
+    },
+    "seed_rows": [
+      {
+        "seed": 42,
+        "commission_area_reduction_pp": -0.03511999351623607,
+        "f1_area_gain_pp": -0.09892475365155251
+      },
+      {
+        "seed": 43,
+        "commission_area_reduction_pp": -0.19696655195400592,
+        "f1_area_gain_pp": -0.254576940012452
+      },
+      {
+        "seed": 44,
+        "commission_area_reduction_pp": -0.08147125539931521,
+        "f1_area_gain_pp": -0.1724024351886233
+      }
+    ],
+    "bootstrap_repeats": 5000,
+    "num_validation_instances": 7785,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "plots": [
+      "G4N",
+      "G4W",
+      "L1N",
+      "O1N",
+      "O1W"
+    ],
+    "gate": {
+      "commission_mean_improved": false,
+      "f1_mean_improved": false,
+      "commission_seed_wins": false,
+      "f1_seed_wins": false,
+      "passed": false
+    }
+  },
+  "external": {
+    "observed": {
+      "commission_area": 0.10989015521812912,
+      "f1_area": 0.7056243093150352
+    },
+    "baseline_counts_reproduced": true,
+    "commission_null_ci": {
+      "mean": 0.18740855960041258,
+      "lower": 0.173463903276028,
+      "upper": 0.20116655671753927
+    },
+    "f1_null_ci": {
+      "mean": 0.602587271404448,
+      "lower": 0.5883517387534813,
+      "upper": 0.6166957518809622
+    },
+    "commission_one_sided_p": 9.999000099990002e-05,
+    "f1_one_sided_p": 9.999000099990002e-05,
+    "permutation_repeats": 10000,
+    "metadata_checks": {
+      "filter_disabled": true,
+      "labels_identical": true,
+      "instance_count_matches": true
+    },
+    "gate": {
+      "score_only_metadata_passed": true,
+      "baseline_counts_reproduced": true,
+      "commission_permutation_passed": true,
+      "f1_permutation_passed": true,
+      "passed": true
+    }
+  },
+  "gate": {
+    "validation_ablation_passed": false,
+    "external_permutation_passed": true,
+    "passed": false
+  }
+}

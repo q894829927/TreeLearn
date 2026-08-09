@@ -1,0 +1,4 @@
+threshold,num_evaluable_sources,num_positive_sources,num_proposed_merges,num_correct_merges,num_unsafe_merges,pair_precision,positive_source_recall,unsafe_merge_rate,precision_passed,unsafe_rate_passed,recall_passed,passed,source_average_precision,top1_correct_rate_on_positive_sources,best_epoch,device,parameter_count,seed,gate_passed
+0.9324288964271545,370,258,4,4,0,1.0,0.015503875968992248,0.0,True,True,False,False,0.6387901802021395,0.6434108527131783,14,cuda,4354,42,False
+0.9635144472122192,370,258,2,2,0,1.0,0.007751937984496124,0.0,True,True,False,False,0.6403128811611417,0.6511627906976745,21,cuda,4354,43,False
+0.949738085269928,370,258,3,3,0,1.0,0.011627906976744186,0.0,True,True,False,False,0.6487977264810584,0.6434108527131783,16,cuda,4354,44,False

@@ -1,0 +1,102 @@
+===== E8a merge Oracle: l1w_sanity =====
+Scanning 20,434,648 aligned GT/prediction points...
+  processed 2,000,000/20,434,648 points (9.8%)
+  processed 10,000,000/20,434,648 points (48.9%)
+  processed 20,000,000/20,434,648 points (97.9%)
+  processed 20,434,648/20,434,648 points (100.0%)
+# E8a 质量引导合并 Oracle：l1w_sanity
+
+- 数据角色：**regression_validation**
+- 锁定低质量比例：0.1500
+- 低质量实例：55 / 371
+- Oracle 可合并实例：10
+- 未找到安全目标并保留：45
+
+| Run | TP | FP | FN | Completeness | Commission | F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| baseline | 156 | 5 | 0 | 100.000000% | 3.105590% | 98.422713% |
+| merge_oracle | 156 | 1 | 0 | 100.000000% | 0.636943% | 99.680511% |
+
+## 低质量实例构成
+
+- TP：0
+- counted FP：4
+- ignored unmatched：51
+
+## Oracle 合并来源构成
+
+- TP：0
+- counted FP：4
+- ignored unmatched：6
+
+## Gate
+
+- minimum_f1_gain_pp: **0.5**
+- minimum_commission_reduction_pp: **2.0**
+- maximum_completeness_drop_pp: **0.5**
+- f1_gain_pp: **1.2577982483546748**
+- commission_reduction_pp: **2.468647386952566**
+- completeness_drop_pp: **0.0**
+- f1_gain_passed: **True**
+- commission_reduction_passed: **True**
+- completeness_passed: **True**
+- passed: **True**
+
+PASS：进入 E8b validation 邻接对数据生成与无标签合并规则。
+
+===== E8a merge Oracle: wytham_development_upper_bound =====
+Scanning 54,592,456 aligned GT/prediction points...
+  processed 2,000,000/54,592,456 points (3.7%)
+  processed 10,000,000/54,592,456 points (18.3%)
+  processed 20,000,000/54,592,456 points (36.6%)
+  processed 30,000,000/54,592,456 points (55.0%)
+  processed 40,000,000/54,592,456 points (73.3%)
+  processed 50,000,000/54,592,456 points (91.6%)
+  processed 54,592,456/54,592,456 points (100.0%)
+# E8a 质量引导合并 Oracle：wytham_development_upper_bound
+
+- 数据角色：**development_only**
+- 锁定低质量比例：0.1500
+- 低质量实例：279 / 1862
+- Oracle 可合并实例：44
+- 未找到安全目标并保留：235
+
+| Run | TP | FP | FN | Completeness | Commission | F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| baseline | 568 | 131 | 309 | 64.766249% | 18.741059% | 72.081218% |
+| merge_oracle | 570 | 112 | 307 | 64.994299% | 16.422287% | 73.123797% |
+
+## 低质量实例构成
+
+- TP：14
+- counted FP：49
+- ignored unmatched：216
+
+## Oracle 合并来源构成
+
+- TP：0
+- counted FP：15
+- ignored unmatched：29
+
+## Gate
+
+- minimum_f1_gain_pp: **0.5**
+- minimum_commission_reduction_pp: **2.0**
+- maximum_completeness_drop_pp: **0.5**
+- f1_gain_pp: **1.0425790318536912**
+- commission_reduction_pp: **2.318771265192421**
+- completeness_drop_pp: **-0.22805017103762282**
+- f1_gain_passed: **True**
+- commission_reduction_passed: **True**
+- completeness_passed: **True**
+- passed: **True**
+
+PASS：进入 E8b validation 邻接对数据生成与无标签合并规则。
+
+# E8a 质量引导合并 Oracle 汇总
+
+- l1w_sanity: F1 98.422713% → 99.680511%，Commission 3.105590% → 0.636943%，Gate=True
+- wytham_development_upper_bound: F1 72.081218% → 73.123797%，Commission 18.741059% → 16.422287%，Gate=True
+
+- Primary Gate：**True**
+

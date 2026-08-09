@@ -1,0 +1,123 @@
+{
+  "config": "configs/experiments/vertical_instance_quality/e8c2_groupwise_merge.yaml",
+  "pointwise_summary_path": "logs/vertical_quality/e8c_pair_merge_models/summary.json",
+  "num_train_sources": 993,
+  "num_validation_sources": 370,
+  "num_validation_positive_sources": 258,
+  "feature_names": [
+    "neighbor_rank",
+    "source_quality",
+    "target_quality",
+    "quality_gap",
+    "base_vote_distance",
+    "xy_centroid_distance",
+    "source_height",
+    "target_height",
+    "abs_log_height_ratio",
+    "z_overlap_min_ratio",
+    "layer_overlap_ratio",
+    "vertical_token_cosine",
+    "occupancy_profile_l1",
+    "semantic_profile_l1",
+    "verticality_profile_l1",
+    "base_vote_radius_profile_l1",
+    "abs_log_num_points_ratio"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "locked_seed": 42,
+  "selected_threshold": 0.9324288964271545,
+  "parameter_count": 4354,
+  "pointwise_reference_recall": 0.016795865633074936,
+  "recall_gain_over_pointwise": -0.0051679586563307504,
+  "groupwise": {
+    "num_seeds": 3,
+    "num_gate_passed": 0,
+    "source_average_precision": {
+      "mean": 0.6426335959481132,
+      "sample_std": 0.005392312442081487,
+      "min": 0.6387901802021395,
+      "max": 0.6487977264810584
+    },
+    "top1_correct_rate_on_positive_sources": {
+      "mean": 0.6459948320413437,
+      "sample_std": 0.00447558348209013,
+      "min": 0.6434108527131783,
+      "max": 0.6511627906976745
+    },
+    "pair_precision": {
+      "mean": 1.0,
+      "sample_std": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "positive_source_recall": {
+      "mean": 0.011627906976744186,
+      "sample_std": 0.003875968992248062,
+      "min": 0.007751937984496124,
+      "max": 0.015503875968992248
+    },
+    "unsafe_merge_rate": {
+      "mean": 0.0,
+      "sample_std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "num_proposed_merges": {
+      "mean": 3.0,
+      "sample_std": 1.0,
+      "min": 2.0,
+      "max": 4.0
+    },
+    "num_correct_merges": {
+      "mean": 3.0,
+      "sample_std": 1.0,
+      "min": 2.0,
+      "max": 4.0
+    },
+    "num_unsafe_merges": {
+      "mean": 0.0,
+      "sample_std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    }
+  },
+  "locked_seed_metrics": {
+    "threshold": 0.9324288964271545,
+    "num_evaluable_sources": 370,
+    "num_positive_sources": 258,
+    "num_proposed_merges": 4,
+    "num_correct_merges": 4,
+    "num_unsafe_merges": 0,
+    "pair_precision": 1.0,
+    "positive_source_recall": 0.015503875968992248,
+    "unsafe_merge_rate": 0.0,
+    "precision_passed": true,
+    "unsafe_rate_passed": true,
+    "recall_passed": false,
+    "passed": false,
+    "source_average_precision": 0.6387901802021395,
+    "top1_correct_rate_on_positive_sources": 0.6434108527131783,
+    "best_epoch": 14,
+    "device": "cuda",
+    "parameter_count": 4354,
+    "seed": 42,
+    "gate_passed": false
+  },
+  "constraints": {
+    "min_pair_precision": 0.95,
+    "min_positive_source_recall": 0.3,
+    "max_unsafe_merge_rate": 0.005
+  },
+  "gate": {
+    "pointwise_e8c_failed_as_expected": true,
+    "enough_seed_passes": false,
+    "locked_seed_passed": false,
+    "recall_stability_passed": true,
+    "recall_gain_over_pointwise_passed": false,
+    "passed": false
+  }
+}

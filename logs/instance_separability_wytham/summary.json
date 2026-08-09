@@ -1,0 +1,43 @@
+{
+  "features_path": "data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/instance_diagnostics/instance_features.csv",
+  "evaluation_path": "data/pipeline/wytham/results_instance_diagnostic_mlp_s43_r100/full_forest/evaluation/evaluation_results.pt",
+  "partition_verification": null,
+  "status_counts": {
+    "unmatched_ignored": 1163,
+    "tp": 568,
+    "fp_counted": 131
+  },
+  "best_confidence_feature": {
+    "feature": "confidence_p90",
+    "auc": 0.8525360176325125,
+    "separability_auc": 0.8525360176325125,
+    "higher_for_tp": true,
+    "num_tp": 568,
+    "num_fp": 131,
+    "tp_median": 0.855,
+    "fp_median": 0.805,
+    "tp_mean": 0.8452288732394366,
+    "fp_mean": 0.7890458015267175
+  },
+  "best_overall_feature": {
+    "feature": "point_density_bbox",
+    "auc": 0.8610364476937964,
+    "separability_auc": 0.8610364476937964,
+    "higher_for_tp": true,
+    "num_tp": 568,
+    "num_fp": 131,
+    "tp_median": 246.80261372085937,
+    "fp_median": 53.115012226523135,
+    "tp_mean": 271.04665414033343,
+    "fp_mean": 85.22081372417694
+  },
+  "gate": {
+    "enough_false_positives": true,
+    "confidence_auc_passed": true,
+    "passed": true
+  },
+  "thresholds": {
+    "auc_threshold": 0.75,
+    "min_false_positives": 20
+  }
+}

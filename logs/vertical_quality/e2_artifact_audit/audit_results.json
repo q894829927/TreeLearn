@@ -1,0 +1,47 @@
+{
+  "sample_path": "data/instance_quality/manual_audit_sample.csv",
+  "sample_count": 50,
+  "audited_count": 50,
+  "plot_count": 14,
+  "plots": [
+    "A1N",
+    "A1W",
+    "G1N",
+    "G1W",
+    "G2N",
+    "G2W",
+    "G3N",
+    "G3W",
+    "G4N",
+    "G4W",
+    "L1N",
+    "L2W",
+    "LG2",
+    "O1W"
+  ],
+  "splits": [
+    "train",
+    "validation"
+  ],
+  "class_counts": {
+    "ambiguous": 12,
+    "negative": 16,
+    "positive": 22
+  },
+  "edge_count": 5,
+  "error_count": 0,
+  "errors": [],
+  "gate": {
+    "enough_samples": true,
+    "enough_plots": true,
+    "train_present": true,
+    "validation_present": true,
+    "positive_present": true,
+    "negative_present": true,
+    "ambiguous_present": true,
+    "edge_present": true,
+    "all_rows_audited": true,
+    "all_consistency_checks_passed": true,
+    "passed": true
+  }
+}

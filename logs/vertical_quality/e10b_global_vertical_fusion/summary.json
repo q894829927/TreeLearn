@@ -1,0 +1,91 @@
+{
+  "config": "configs/experiments/vertical_instance_quality/e10b_global_vertical_fusion.yaml",
+  "num_instances": 9402,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "validation_plots": [
+    "G4N",
+    "G4W",
+    "L1N",
+    "O1N",
+    "O1W"
+  ],
+  "parameter_counts": {
+    "global_wide": 11394,
+    "global_vertical_fusion": 11842
+  },
+  "parameter_difference_ratio": 0.03783144739064347,
+  "models": {
+    "global_vertical_fusion": {
+      "num_seeds": 3,
+      "roc_auc": {
+        "mean": 0.9951951655663921,
+        "sample_std": 0.00020439439525907202
+      },
+      "fp_ap": {
+        "mean": 0.992072334565891,
+        "sample_std": 0.00034108683740182
+      },
+      "iou_mae": {
+        "mean": 0.08835170914729436,
+        "sample_std": 0.0010558264084878732
+      },
+      "spearman": {
+        "mean": 0.8050558524657182,
+        "sample_std": 0.0016449450586411877
+      }
+    },
+    "global_wide": {
+      "num_seeds": 3,
+      "roc_auc": {
+        "mean": 0.992709178541924,
+        "sample_std": 0.0007539474421055102
+      },
+      "fp_ap": {
+        "mean": 0.9881114199630958,
+        "sample_std": 0.0005459786434714412
+      },
+      "iou_mae": {
+        "mean": 0.09039778759082158,
+        "sample_std": 0.0005619597830780761
+      },
+      "spearman": {
+        "mean": 0.8221457308515095,
+        "sample_std": 0.006653673842844369
+      }
+    }
+  },
+  "selective_seed_rows": [
+    {
+      "seed": 42,
+      "commission_area_reduction_pp": 0.02251455889529519,
+      "f1_area_gain_pp": -0.03360334238113882
+    },
+    {
+      "seed": 43,
+      "commission_area_reduction_pp": 0.08668715374570701,
+      "f1_area_gain_pp": 0.03493877719508154
+    },
+    {
+      "seed": 44,
+      "commission_area_reduction_pp": -0.004484822951728029,
+      "f1_area_gain_pp": -0.047685728493063184
+    }
+  ],
+  "selective_delta": {
+    "commission_area_reduction_pp": 0.03490562989642473,
+    "f1_area_gain_pp": -0.015450097893040157
+  },
+  "gate": {
+    "parameter_count_matched": true,
+    "commission_mean_not_worse": true,
+    "f1_mean_not_worse": false,
+    "commission_seed_wins": true,
+    "f1_seed_wins": false,
+    "meaningful_effect_passed": false,
+    "passed": false
+  }
+}

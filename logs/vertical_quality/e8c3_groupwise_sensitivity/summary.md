@@ -1,0 +1,44 @@
+# E8c3 Groupwise 安全合并敏感性审计
+
+- 数据：仅固定 validation forests；未读取 Wytham。
+- 主决策条件：pair precision ≥ 95.000%，unsafe merge rate ≤ 1.000%。
+- 90%/85% precision 结果只用于诊断，不得据此进入 pipeline。
+
+## Top-1 排序上限
+
+| Seed | Positive-source Top-1 correct rate |
+|---:|---:|
+| 42 | 64.341% |
+| 43 | 65.116% |
+| 44 | 64.341% |
+
+## 主决策：95% precision + 1% unsafe rate
+
+| Seed | Threshold | Proposed | Correct | Unsafe | Precision | Recall | Unsafe rate | Pass |
+|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| 42 | 0.932429 | 4 | 4 | 0 | 100.000% | 1.550% | 0.000% | False |
+| 43 | 0.963514 | 2 | 2 | 0 | 100.000% | 0.775% | 0.000% | False |
+| 44 | 0.949738 | 3 | 3 | 0 | 100.000% | 1.163% | 0.000% | False |
+
+- Recall sample std：0.003876
+- Pass seeds：0 / 3
+
+## 完整敏感性摘要
+
+| Min precision | Max unsafe | Mean recall | Min recall | Mean proposed |
+|---:|---:|---:|---:|---:|
+| 95.000% | 1.000% | 1.163% | 0.775% | 3.00 |
+| 95.000% | 0.500% | 1.163% | 0.775% | 3.00 |
+| 90.000% | 1.000% | 1.163% | 0.775% | 3.00 |
+| 90.000% | 0.500% | 1.163% | 0.775% | 3.00 |
+| 85.000% | 1.000% | 8.140% | 7.364% | 24.00 |
+| 85.000% | 0.500% | 1.550% | 0.775% | 4.33 |
+
+## Gate
+
+- locked_seed_passed: **False**
+- enough_seed_passes: **False**
+- recall_stability_passed: **True**
+- passed: **False**
+
+STOP：1% unsafe-rate 敏感性仍未达到 30% recall；关闭学习式合并路线。

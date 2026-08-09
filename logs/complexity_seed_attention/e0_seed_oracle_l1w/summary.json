@@ -1,0 +1,151 @@
+{
+  "config": "configs/experiments/complexity_seed_attention/e0_seed_oracle_l1w.yaml",
+  "pipeline_config": "configs/experiments/point_transformer/pipeline_l1w_seed_ratio_r100.yaml",
+  "ground_truth_path": "data/benchmark/L1W_voxelized01_for_eval.laz",
+  "evaluation_scope": "official_gt_with_nearest_ensemble_predictions",
+  "alignment": {
+    "gt_to_ensemble": {
+      "num_neighbors": 1,
+      "mean_distance_m": 0.020788375288248062,
+      "p99_distance_m": 0.0632738247513771,
+      "max_distance_m": 0.1192251592874527
+    },
+    "original_to_gt": {
+      "backend": "sklearn_fp32_production",
+      "num_neighbors": 5,
+      "mean_distance_m": 0.009496424347162247,
+      "p99_distance_m": 0.045748814940452576,
+      "max_distance_m": 0.08126695454120636
+    },
+    "saved_baseline_metrics": {
+      "tp": 156,
+      "fp": 5,
+      "fn": 0,
+      "completeness": 1.0,
+      "commission": 0.031055900621118012,
+      "f1": 0.9842271293375394
+    },
+    "missing_original": null,
+    "evaluation_coords_path": "data/pipeline/L1W/results_seed_ratio_r100/full_forest/L1W.laz",
+    "max_coordinate_difference_m": 0.00043119656048418165,
+    "xyz_mean": [
+      5.21161404420352,
+      1.1765688034395314,
+      -9.627992808332346
+    ]
+  },
+  "num_points": 20431825,
+  "num_candidate_seeds": 325596,
+  "keep_ratio": 0.78,
+  "random_seeds": [
+    42,
+    43,
+    44
+  ],
+  "utility": {
+    "sigma_m": 0.3,
+    "purity_voxel_size": 0.6,
+    "purity_power": 1.0
+  },
+  "mode_metrics": {
+    "baseline": {
+      "tp": 156,
+      "fp": 5,
+      "fn": 0,
+      "completeness": 1.0,
+      "commission": 0.031055900621118012,
+      "f1": 0.9842271293375394
+    },
+    "oracle_global": {
+      "tp": 143,
+      "fp": 4,
+      "fn": 13,
+      "completeness": 0.9166666666666666,
+      "commission": 0.027210884353741496,
+      "f1": 0.9438943894389439
+    },
+    "oracle_balanced": {
+      "tp": 143,
+      "fp": 4,
+      "fn": 13,
+      "completeness": 0.9166666666666666,
+      "commission": 0.027210884353741496,
+      "f1": 0.9438943894389439
+    }
+  },
+  "random_metrics": [
+    {
+      "tp": 156,
+      "fp": 4,
+      "fn": 0,
+      "completeness": 1.0,
+      "commission": 0.025,
+      "f1": 0.9873417721518988,
+      "seed": 42
+    },
+    {
+      "tp": 156,
+      "fp": 3,
+      "fn": 0,
+      "completeness": 1.0,
+      "commission": 0.018867924528301886,
+      "f1": 0.9904761904761905,
+      "seed": 43
+    },
+    {
+      "tp": 156,
+      "fp": 4,
+      "fn": 0,
+      "completeness": 1.0,
+      "commission": 0.025,
+      "f1": 0.9873417721518988,
+      "seed": 44
+    }
+  ],
+  "seed_metrics": {
+    "baseline": {
+      "candidate_count": 325596,
+      "selected_count": 325596,
+      "selected_ratio": 1.0,
+      "tree_seed_coverage": 1.0,
+      "tree_tau_min_coverage": 1.0,
+      "mean_vote_error_xy": 0.32784509658813477,
+      "p90_vote_error_xy": 0.5626868903636932,
+      "mean_raw_utility": 0.3909030556678772
+    },
+    "oracle_global": {
+      "candidate_count": 325596,
+      "selected_count": 253965,
+      "selected_ratio": 0.7800003685548963,
+      "tree_seed_coverage": 1.0,
+      "tree_tau_min_coverage": 1.0,
+      "mean_vote_error_xy": 0.3094393312931061,
+      "p90_vote_error_xy": 0.5416631102561951,
+      "mean_raw_utility": 0.5011575818061829
+    },
+    "oracle_balanced": {
+      "candidate_count": 325596,
+      "selected_count": 253965,
+      "selected_ratio": 0.7800003685548963,
+      "tree_seed_coverage": 1.0,
+      "tree_tau_min_coverage": 1.0,
+      "mean_vote_error_xy": 0.3094393312931061,
+      "p90_vote_error_xy": 0.5416631102561951,
+      "mean_raw_utility": 0.5011575818061829
+    }
+  },
+  "effects": {
+    "f1_gain_pp": -4.033273989859554,
+    "commission_reduction_pp": 0.38450162673765165,
+    "completeness_drop_pp": 8.333333333333337,
+    "f1_gain_over_random_mean_pp": -4.44921888210521,
+    "random_mean_f1": 0.988386578259996
+  },
+  "gate": {
+    "minimum_f1_gain_pp": false,
+    "minimum_commission_reduction_pp": false,
+    "maximum_completeness_drop_pp": false,
+    "minimum_gain_over_random_pp": false,
+    "passed": false
+  }
+}

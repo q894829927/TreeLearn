@@ -1,0 +1,253 @@
+{
+  "num_instances": 9402,
+  "num_features": 35,
+  "feature_names": [
+    "num_points",
+    "confidence_mean",
+    "confidence_std",
+    "confidence_p10",
+    "confidence_p50",
+    "confidence_p90",
+    "semantic_probability_mean",
+    "semantic_probability_std",
+    "semantic_probability_p10",
+    "semantic_probability_p50",
+    "semantic_probability_p90",
+    "verticality_mean",
+    "verticality_std",
+    "verticality_p10",
+    "verticality_p50",
+    "verticality_p90",
+    "num_clustered_seeds",
+    "seed_fraction",
+    "seed_confidence_mean",
+    "seed_confidence_std",
+    "seed_confidence_p10",
+    "seed_confidence_p50",
+    "seed_confidence_p90",
+    "x_span",
+    "y_span",
+    "height",
+    "bbox_area",
+    "point_density_bbox",
+    "xy_radius_rms",
+    "base_vote_radius_rms",
+    "seed_base_vote_radius_rms",
+    "offset_xy_magnitude_mean",
+    "offset_xy_magnitude_std",
+    "offset_z_abs_mean",
+    "offset_z_abs_std"
+  ],
+  "train_plots": [
+    "A1N",
+    "A1W",
+    "G1N",
+    "G1W",
+    "G2N",
+    "G2W",
+    "G3N",
+    "G3W",
+    "L2N",
+    "L2W",
+    "LG1",
+    "LG2",
+    "LG3"
+  ],
+  "validation_plots": [
+    "G4N",
+    "G4W",
+    "L1N",
+    "O1N",
+    "O1W"
+  ],
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "models": {
+    "global_mlp": {
+      "num_seeds": 3,
+      "roc_auc": {
+        "mean": 0.9926551833651659,
+        "sample_std": 0.000826483885482088,
+        "min": 0.9917335838709535,
+        "max": 0.9933306139398856
+      },
+      "positive_ap": {
+        "mean": 0.99574910307647,
+        "sample_std": 0.0007255738010323838,
+        "min": 0.9949303048256376,
+        "max": 0.9963122370680355
+      },
+      "fp_ap": {
+        "mean": 0.987778505216852,
+        "sample_std": 0.0010812051471452684,
+        "min": 0.9865467171578067,
+        "max": 0.988570547489081
+      },
+      "iou_mae": {
+        "mean": 0.09226044515768687,
+        "sample_std": 0.0007530386184372102,
+        "min": 0.09142081439495087,
+        "max": 0.09287604689598083
+      },
+      "spearman": {
+        "mean": 0.815461474198712,
+        "sample_std": 0.003097756494007807,
+        "min": 0.8119282706188481,
+        "max": 0.8177112422577433
+      },
+      "filtered_f1": {
+        "mean": 0.7930186823992132,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7930186823992134,
+        "max": 0.7930186823992134
+      },
+      "filtered_completeness": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "filtered_commission": {
+        "mean": 0.34297352342158866,
+        "sample_std": 6.798699777552591e-17,
+        "min": 0.3429735234215886,
+        "max": 0.3429735234215886
+      },
+      "unfiltered_f1": {
+        "mean": 0.7930186823992132,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7930186823992134,
+        "max": 0.7930186823992134
+      }
+    },
+    "logistic_regression": {
+      "num_seeds": 3,
+      "roc_auc": {
+        "mean": 0.9924419024169713,
+        "sample_std": 0.0,
+        "min": 0.9924419024169713,
+        "max": 0.9924419024169713
+      },
+      "positive_ap": {
+        "mean": 0.9942527424539208,
+        "sample_std": 0.0,
+        "min": 0.9942527424539208,
+        "max": 0.9942527424539208
+      },
+      "fp_ap": {
+        "mean": 0.9877149266604436,
+        "sample_std": 0.0,
+        "min": 0.9877149266604436,
+        "max": 0.9877149266604436
+      },
+      "iou_mae": {
+        "mean": 0.11845550323197669,
+        "sample_std": 0.0,
+        "min": 0.11845550323197669,
+        "max": 0.11845550323197669
+      },
+      "spearman": {
+        "mean": 0.7725753608893967,
+        "sample_std": 0.0,
+        "min": 0.7725753608893967,
+        "max": 0.7725753608893967
+      },
+      "filtered_f1": {
+        "mean": 0.7930186823992132,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7930186823992134,
+        "max": 0.7930186823992134
+      },
+      "filtered_completeness": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "filtered_commission": {
+        "mean": 0.34297352342158866,
+        "sample_std": 6.798699777552591e-17,
+        "min": 0.3429735234215886,
+        "max": 0.3429735234215886
+      },
+      "unfiltered_f1": {
+        "mean": 0.7930186823992132,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7930186823992134,
+        "max": 0.7930186823992134
+      }
+    },
+    "single_feature": {
+      "num_seeds": 3,
+      "roc_auc": {
+        "mean": 0.9727289996804468,
+        "sample_std": 0.0,
+        "min": 0.9727289996804468,
+        "max": 0.9727289996804468
+      },
+      "positive_ap": {
+        "mean": 0.9847711701651355,
+        "sample_std": 0.0,
+        "min": 0.9847711701651355,
+        "max": 0.9847711701651355
+      },
+      "fp_ap": {
+        "mean": 0.9521523038240759,
+        "sample_std": 0.0,
+        "min": 0.9521523038240759,
+        "max": 0.9521523038240759
+      },
+      "iou_mae": {
+        "mean": 0.16447502703829567,
+        "sample_std": 0.0,
+        "min": 0.16447502703829567,
+        "max": 0.16447502703829567
+      },
+      "spearman": {
+        "mean": 0.7346337534300559,
+        "sample_std": 0.0,
+        "min": 0.7346337534300559,
+        "max": 0.7346337534300559
+      },
+      "filtered_f1": {
+        "mean": 0.7930186823992132,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7930186823992134,
+        "max": 0.7930186823992134
+      },
+      "filtered_completeness": {
+        "mean": 1.0,
+        "sample_std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "filtered_commission": {
+        "mean": 0.34297352342158866,
+        "sample_std": 6.798699777552591e-17,
+        "min": 0.3429735234215886,
+        "max": 0.3429735234215886
+      },
+      "unfiltered_f1": {
+        "mean": 0.7930186823992132,
+        "sample_std": 1.3597399555105182e-16,
+        "min": 0.7930186823992134,
+        "max": 0.7930186823992134
+      },
+      "selected_features": {
+        "num_points": 3
+      }
+    }
+  },
+  "best_aggregate_model": "global_mlp",
+  "mlp_auc_range": 0.0015970300689321926,
+  "gate": {
+    "aggregate_auc_passed": true,
+    "aggregate_fp_ap_passed": true,
+    "filtered_f1_not_below_unfiltered": true,
+    "mlp_seed_stability_passed": true,
+    "passed": true
+  }
+}

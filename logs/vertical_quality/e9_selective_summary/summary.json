@@ -1,0 +1,47 @@
+{
+  "config": "configs/experiments/vertical_instance_quality/e9_selective_quality.yaml",
+  "primary_run": "wytham_final",
+  "reports": {
+    "l1w_regression": {
+      "dataset_role": "regression_validation",
+      "summary": {
+        "score_commission_area": 0.006776108706444632,
+        "random_commission_area": 0.030599160651842636,
+        "relative_commission_area_reduction": 0.7785524647704157,
+        "score_f1_area": 0.9470791996308175,
+        "random_f1_area": 0.8374640677942966,
+        "f1_area_gain_pp": 10.961513183652094
+      },
+      "gate": {
+        "score_only_metadata_passed": true,
+        "baseline_counts_reproduced": true,
+        "commission_area_improved": true,
+        "f1_area_improved": true,
+        "passed": true
+      }
+    },
+    "wytham_final": {
+      "dataset_role": "final_evaluation_no_tuning",
+      "summary": {
+        "score_commission_area": 0.10989015521812912,
+        "random_commission_area": 0.18727729895510875,
+        "relative_commission_area_reduction": 0.41322223338734554,
+        "score_f1_area": 0.7056243093150352,
+        "random_f1_area": 0.602691489330331,
+        "f1_area_gain_pp": 10.293281998470416
+      },
+      "gate": {
+        "score_only_metadata_passed": true,
+        "baseline_counts_reproduced": true,
+        "commission_area_improved": true,
+        "f1_area_improved": true,
+        "passed": true
+      }
+    }
+  },
+  "gate": {
+    "all_runs_passed": true,
+    "primary_run_passed": true,
+    "passed": true
+  }
+}

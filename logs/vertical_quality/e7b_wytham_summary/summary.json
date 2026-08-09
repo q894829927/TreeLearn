@@ -1,0 +1,68 @@
+{
+  "dataset_name": "Wytham",
+  "dataset_role": "development_only",
+  "keep_ratio": 0.85,
+  "baseline": {
+    "completeness": 64.76624857468643,
+    "commission_error_rate": 18.741058655221746,
+    "f1_score": 72.08121827411168,
+    "precision": 62.45891350283317,
+    "recall": 80.49376150235213,
+    "coverage": 57.718037824399936,
+    "counts": {
+      "matched_gt": 568,
+      "missed_gt": 309,
+      "matched_pred": 568,
+      "false_pred": 131
+    }
+  },
+  "filtered": {
+    "completeness": 63.169897377423034,
+    "commission_error_rate": 12.89308176100629,
+    "f1_score": 73.2319894249835,
+    "precision": 58.733169950804744,
+    "recall": 78.32807558487654,
+    "coverage": 55.76946650674852,
+    "counts": {
+      "matched_gt": 554,
+      "missed_gt": 323,
+      "matched_pred": 554,
+      "false_pred": 82
+    }
+  },
+  "delta": {
+    "f1_gain_pp": 1.1507711508718188,
+    "commission_reduction_pp": 5.847976894215456,
+    "completeness_drop_pp": 1.5963511972633952
+  },
+  "metadata": {
+    "num_instances": 1862,
+    "threshold": 0.0,
+    "filter_mode": "top_ratio",
+    "keep_ratio": 0.85,
+    "filter_enabled": true,
+    "num_kept": 1583,
+    "checkpoint_seed": 42,
+    "checkpoint_best_epoch": 15,
+    "device": "cuda",
+    "parameter_count": 19234,
+    "scoring_seconds": 120.10618162155151,
+    "pre_filter_label_sha256": "2020dd597ba24ed4e6aee072dd6ededced1bccd833dc25ded2f4da0885baea93",
+    "post_filter_label_sha256": "d3fcb667eba6706bea69e54de3bc26c7594fc9fdc73a7c16a688845154276caf",
+    "score_only_labels_identical": false,
+    "num_passes_threshold": 1862
+  },
+  "pipeline_seconds": 2189.6,
+  "quality_runtime_fraction": 0.054853024123836094,
+  "gate": {
+    "checkpoint_seed_locked": true,
+    "filter_enabled": true,
+    "filter_mode_locked": true,
+    "keep_ratio_locked": true,
+    "kept_count_correct": true,
+    "completeness_drop_passed": false,
+    "effect_size_passed": true,
+    "runtime_overhead_passed": true,
+    "passed": false
+  }
+}

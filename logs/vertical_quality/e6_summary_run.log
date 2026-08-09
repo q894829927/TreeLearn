@@ -1,0 +1,33 @@
+# E6 Vertical-MLP pipeline 集成
+
+- 锁定 checkpoint：`logs/vertical_quality/e4_vertical_mlp/checkpoints/vertical_mlp_seed42.pth`
+- 锁定阈值：0.0100
+- Control 标签摘要一致：**True**
+- 最大质量评分耗时占比：3.777%
+
+| Run | Completeness | Commission | F1 | Precision | Recall | Coverage |
+|---|---:|---:|---:|---:|---:|---:|
+| baseline | 100.000000% | 3.105590% | 98.422713% | 98.914754% | 99.069687% | 98.022950% |
+| control | 100.000000% | 3.105590% | 98.422713% | 98.914754% | 99.069687% | 98.022950% |
+| filtered | 100.000000% | 0.636943% | 99.680511% | 98.914965% | 99.069458% | 98.022933% |
+
+## Delta: filtered minus baseline
+
+- F1：+1.257798 个百分点
+- Commission 降低：+2.468647 个百分点
+- Completeness 下降：+0.000000 个百分点
+
+## Gate
+
+- score_only_digest_identical: **True**
+- control_metrics_identical: **True**
+- checkpoint_seed_locked: **True**
+- threshold_locked: **True**
+- filter_modes_correct: **True**
+- completeness_drop_passed: **True**
+- f1_not_below_baseline: **True**
+- runtime_overhead_passed: **True**
+- passed: **True**
+
+PASS：进入 E7。
+

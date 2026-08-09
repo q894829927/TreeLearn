@@ -1,0 +1,14 @@
+test_gate_passes_when_vertical_iou_clearly_improves (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_gate_stops_without_vertical_information_gain (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_token_standardizer_ignores_and_zeros_invalid_layers (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_vertical_loader_aligns_tokens_with_forest_instances (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_vertical_mlp_masks_layers_and_isolates_batches (tests.test_vertical_instance_quality.VerticalInstanceQualityTests) ... ok
+test_dataset_loader_preserves_forest_split_and_manifest_ids (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+test_rank_correlation_handles_order_and_reverse_order (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+test_summary_gate_accepts_stable_aggregate_baseline (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+test_threshold_selection_respects_completeness (tests.test_instance_quality_baselines.InstanceQualityBaselineTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.570s
+
+OK

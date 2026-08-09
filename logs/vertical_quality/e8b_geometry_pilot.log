@@ -1,0 +1,25 @@
+RUN A1N (train) from data/train/forests/A1N.laz; log=data/instance_quality_e8b/logs/A1N.log
+DONE A1N: 642 candidates, 383 positive, 208 negative.
+RUN G4N (validation) from data/train/forests/G4N.laz; log=data/instance_quality_e8b/logs/G4N.log
+DONE G4N: 364 candidates, 281 positive, 63 negative.
+# E2 candidate-instance data generation
+
+- mode: pilot
+- instances: 1006
+- valid: 992
+- classification valid: 935
+- positive: 664
+- negative: 271
+- train plots: A1N
+- validation plots: G4N
+
+## Gate
+
+- selected_plots_present: **True**
+- artifacts_nonempty: **True**
+- no_plot_leakage: **True**
+- no_group_leakage: **True**
+- passed: **True**
+
+Saved manifest: data/instance_quality_e8b/manifest.csv
+PASS: E2 data are ready for the next experiment stage.

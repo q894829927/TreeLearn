@@ -1,0 +1,72 @@
+# E0 垂直实例质量数据审计
+
+- Git branch：`vertical-instance-quality`
+- Git commit：`175e247ec13c9f20154c6b8d476350dc4abf29cd`
+- Git clean：False
+
+## 完整森林
+
+| Role | Plot | Points | Trees | Label coverage | Boundary trees | Role eligible |
+|---|---|---:|---:|---:|---:|---|
+| train | A1N | 71,543,093 | 466 | 100.000% | 4 | True |
+| train | A1W | 67,636,560 | 511 | 100.000% | 1 | True |
+| train | G1N | 53,556,536 | 320 | 100.000% | 1 | True |
+| train | G1W | 88,666,450 | 450 | 100.000% | 0 | True |
+| train | G2N | 71,588,563 | 496 | 100.000% | 3 | True |
+| train | G2W | 77,184,517 | 265 | 100.000% | 0 | True |
+| train | G3N | 71,469,505 | 355 | 100.000% | 1 | True |
+| train | G3W | 89,062,783 | 332 | 100.000% | 2 | True |
+| train | G4N | 67,585,806 | 318 | 100.000% | 2 | True |
+| train | G4W | 96,734,484 | 585 | 100.000% | 3 | True |
+| train | L1N | 77,373,557 | 453 | 100.000% | 0 | True |
+| train | L2N | 67,322,200 | 233 | 100.000% | 1 | True |
+| train | L2W | 82,144,621 | 401 | 100.000% | 1 | True |
+| train | LG1 | 46,259,166 | 407 | 100.000% | 2 | True |
+| train | LG2 | 69,693,334 | 332 | 100.000% | 1 | True |
+| train | LG3 | 64,150,018 | 315 | 100.000% | 2 | True |
+| train | O1N | 54,303,644 | 160 | 100.000% | 1 | True |
+| train | O1W | 90,522,759 | 266 | 100.000% | 2 | True |
+| validation | L1W | 85,289,646 | 200 | 72.814% | 0 | True |
+| development | wytham_vox0.1 | 54,592,456 | 877 | 46.461% | 0 | False |
+
+## 诊断 artifact 一致性
+
+- L1W: **True**
+  - all_files_exist: True
+  - feature_rows_match_metadata: True
+  - feature_ids_match_prediction_ids: True
+  - evaluation_ids_exist_in_features: True
+  - evaluation_belongs_to_prediction_dir: True
+  - evaluation_not_older_than_prediction: True
+  - plot_name_matches: True
+  - seed_keep_ratio_matches: True
+  - checkpoint_exists: True
+  - passed: True
+- Wytham: **True**
+  - all_files_exist: True
+  - feature_rows_match_metadata: True
+  - feature_ids_match_prediction_ids: True
+  - evaluation_ids_exist_in_features: True
+  - evaluation_belongs_to_prediction_dir: True
+  - evaluation_not_older_than_prediction: True
+  - plot_name_matches: True
+  - seed_keep_ratio_matches: True
+  - checkpoint_exists: True
+  - passed: True
+
+## 外部测试候选
+
+- for_instance: available=False, files=0
+
+## Gate
+
+- expected_branch: **True**
+- enough_complete_training_forests: **True**
+- enough_usable_validation_forests: **True**
+- manual_validation_available: **True**
+- forest_metadata_complete: **True**
+- diagnostic_artifacts_consistent: **True**
+- fixed_files_exist: **True**
+- passed: **True**
+
+PASS：可以实现 E1 Oracle。

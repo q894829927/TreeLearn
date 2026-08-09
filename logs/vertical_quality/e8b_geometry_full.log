@@ -1,0 +1,60 @@
+SKIP A1N: validated existing artifact.
+RUN A1W (train) from data/train/forests/A1W.laz; log=data/instance_quality_e8b/logs/A1W.log
+DONE A1W: 651 candidates, 479 positive, 130 negative.
+RUN G1N (train) from data/train/forests/G1N.laz; log=data/instance_quality_e8b/logs/G1N.log
+DONE G1N: 440 candidates, 306 positive, 122 negative.
+RUN G1W (train) from data/train/forests/G1W.laz; log=data/instance_quality_e8b/logs/G1W.log
+DONE G1W: 701 candidates, 437 positive, 252 negative.
+RUN G2N (train) from data/train/forests/G2N.laz; log=data/instance_quality_e8b/logs/G2N.log
+DONE G2N: 755 candidates, 455 positive, 265 negative.
+RUN G2W (train) from data/train/forests/G2W.laz; log=data/instance_quality_e8b/logs/G2W.log
+DONE G2W: 590 candidates, 225 positive, 333 negative.
+RUN G3N (train) from data/train/forests/G3N.laz; log=data/instance_quality_e8b/logs/G3N.log
+DONE G3N: 475 candidates, 343 positive, 112 negative.
+RUN G3W (train) from data/train/forests/G3W.laz; log=data/instance_quality_e8b/logs/G3W.log
+DONE G3W: 535 candidates, 314 positive, 199 negative.
+RUN L2N (train) from data/train/forests/L2N.laz; log=data/instance_quality_e8b/logs/L2N.log
+DONE L2N: 356 candidates, 219 positive, 126 negative.
+RUN L2W (train) from data/train/forests/L2W.laz; log=data/instance_quality_e8b/logs/L2W.log
+DONE L2W: 465 candidates, 392 positive, 63 negative.
+RUN LG1 (train) from data/train/forests/LG1.laz; log=data/instance_quality_e8b/logs/LG1.log
+DONE LG1: 462 candidates, 391 positive, 61 negative.
+RUN LG2 (train) from data/train/forests/LG2.laz; log=data/instance_quality_e8b/logs/LG2.log
+DONE LG2: 397 candidates, 318 positive, 63 negative.
+RUN LG3 (train) from data/train/forests/LG3.laz; log=data/instance_quality_e8b/logs/LG3.log
+DONE LG3: 340 candidates, 304 positive, 24 negative.
+SKIP G4N: validated existing artifact.
+RUN G4W (validation) from data/train/forests/G4W.laz; log=data/instance_quality_e8b/logs/G4W.log
+DONE G4W: 653 candidates, 537 positive, 84 negative.
+RUN L1N (validation) from data/train/forests/L1N.laz; log=data/instance_quality_e8b/logs/L1N.log
+DONE L1N: 685 candidates, 429 positive, 235 negative.
+RUN O1N (validation) from data/train/forests/O1N.laz; log=data/instance_quality_e8b/logs/O1N.log
+DONE O1N: 190 candidates, 150 positive, 33 negative.
+RUN O1W (validation) from data/train/forests/O1W.laz; log=data/instance_quality_e8b/logs/O1W.log
+DONE O1W: 703 candidates, 216 positive, 427 negative.
+# E2 candidate-instance data generation
+
+- mode: full
+- instances: 9404
+- valid: 9278
+- classification valid: 8979
+- positive: 6179
+- negative: 2800
+- train plots: A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3
+- validation plots: G4N, G4W, L1N, O1N, O1W
+
+## Gate
+
+- all_fixed_plots_present: **True**
+- enough_positive_instances: **True**
+- enough_negative_instances: **True**
+- enough_train_groups: **True**
+- validation_available: **True**
+- no_plot_leakage: **True**
+- no_group_leakage: **True**
+- random_audit_sample_prepared: **True**
+- manual_audit_confirmed: **True**
+- passed: **True**
+
+Saved manifest: data/instance_quality_e8b/manifest.csv
+PASS: E2 data are ready for the next experiment stage.
