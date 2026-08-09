@@ -1,0 +1,216 @@
+{
+  "num_validation_candidates": 1908145,
+  "num_sampled_for_feature_audit": 250000,
+  "locked_seed": 42,
+  "reliability_threshold": 0.5,
+  "overall_reliability": {
+    "roc_auc": 0.7320112987714315,
+    "average_precision": 0.555740471614396,
+    "prevalence": 0.35609977229193795
+  },
+  "tree_detection": {
+    "roc_auc": 0.937574254118548,
+    "average_precision": 0.9837822448266531,
+    "prevalence": 0.8456417096185038
+  },
+  "tree_only_reliability": {
+    "roc_auc": 0.659591914759869,
+    "average_precision": 0.5624646657373059,
+    "prevalence": 0.4211000572010409
+  },
+  "sampled_score_utility_spearman": 0.5205891921406035,
+  "macro_plot_reliability_auc": 0.7037630175253978,
+  "macro_minus_global_auc": -0.028248281246033624,
+  "per_plot": [
+    {
+      "plot": "G4N",
+      "num_candidates": 293705,
+      "reliable_prevalence": 0.2475885667591631,
+      "reliability_roc_auc": 0.6341304225029477,
+      "tree_only_roc_auc": 0.5901252782922065
+    },
+    {
+      "plot": "G4W",
+      "num_candidates": 519142,
+      "reliable_prevalence": 0.36773946242068645,
+      "reliability_roc_auc": 0.6877384543970958,
+      "tree_only_roc_auc": 0.6627322691098794
+    },
+    {
+      "plot": "L1N",
+      "num_candidates": 452316,
+      "reliable_prevalence": 0.44616816561872674,
+      "reliability_roc_auc": 0.7345985906923193,
+      "tree_only_roc_auc": 0.6732035402620309
+    },
+    {
+      "plot": "O1N",
+      "num_candidates": 242281,
+      "reliable_prevalence": 0.44231697904499323,
+      "reliability_roc_auc": 0.6141085671231723,
+      "tree_only_roc_auc": 0.576057753954213
+    },
+    {
+      "plot": "O1W",
+      "num_candidates": 400701,
+      "reliable_prevalence": 0.2667550118417473,
+      "reliability_roc_auc": 0.8482390529114541,
+      "tree_only_roc_auc": 0.6972064338790964
+    }
+  ],
+  "threshold_sensitivity": [
+    {
+      "threshold": 0.3,
+      "prevalence": 0.475530423526514,
+      "roc_auc": 0.741248317481711,
+      "average_precision": 0.6759625873044183
+    },
+    {
+      "threshold": 0.4,
+      "prevalence": 0.41539505645535324,
+      "roc_auc": 0.7358206510689381,
+      "average_precision": 0.6181931037784215
+    },
+    {
+      "threshold": 0.5,
+      "prevalence": 0.35609977229193795,
+      "roc_auc": 0.7320112987714315,
+      "average_precision": 0.555740471614396
+    },
+    {
+      "threshold": 0.6,
+      "prevalence": 0.2939582683705903,
+      "roc_auc": 0.7301431226281029,
+      "average_precision": 0.48586139090539965
+    },
+    {
+      "threshold": 0.7,
+      "prevalence": 0.22868597512243566,
+      "roc_auc": 0.730743486781293,
+      "average_precision": 0.40602900855118407
+    }
+  ],
+  "best_diagnostic_threshold": {
+    "threshold": 0.3,
+    "prevalence": 0.475530423526514,
+    "roc_auc": 0.741248317481711,
+    "average_precision": 0.6759625873044183
+  },
+  "best_threshold_auc_gain": 0.009237018710279599,
+  "tree_utility_ambiguity": {
+    "0.05": 0.07183781428811352,
+    "0.1": 0.1436031202145256
+  },
+  "top_univariate_features": [
+    {
+      "feature": "verticality_mean_1p2m",
+      "group": "scalar",
+      "separability_auc": 0.6938959560245654,
+      "direction": "higher"
+    },
+    {
+      "feature": "verticality_mean_0p6m",
+      "group": "scalar",
+      "separability_auc": 0.6907474268205113,
+      "direction": "higher"
+    },
+    {
+      "feature": "verticality_mean_0p3m",
+      "group": "scalar",
+      "separability_auc": 0.6822510822960235,
+      "direction": "higher"
+    },
+    {
+      "feature": "vote_radius_rms_1p2m",
+      "group": "scalar",
+      "separability_auc": 0.6550086718395629,
+      "direction": "lower"
+    },
+    {
+      "feature": "verticality_std_1p2m",
+      "group": "scalar",
+      "separability_auc": 0.6514703487759337,
+      "direction": "lower"
+    },
+    {
+      "feature": "height_std_0p6m",
+      "group": "scalar",
+      "separability_auc": 0.6487635163264819,
+      "direction": "higher"
+    },
+    {
+      "feature": "height_std_0p3m",
+      "group": "scalar",
+      "separability_auc": 0.6475341500412278,
+      "direction": "higher"
+    },
+    {
+      "feature": "vote_radius_rms_0p6m",
+      "group": "scalar",
+      "separability_auc": 0.6446379282663457,
+      "direction": "lower"
+    },
+    {
+      "feature": "height_std_1p2m",
+      "group": "scalar",
+      "separability_auc": 0.6443241618644394,
+      "direction": "higher"
+    },
+    {
+      "feature": "verticality_std_0p6m",
+      "group": "scalar",
+      "separability_auc": 0.6386356034159661,
+      "direction": "lower"
+    },
+    {
+      "feature": "log_count_0p3m",
+      "group": "scalar",
+      "separability_auc": 0.6370732630783286,
+      "direction": "higher"
+    },
+    {
+      "feature": "tree_probability_mean_1p2m",
+      "group": "scalar",
+      "separability_auc": 0.6327233441470657,
+      "direction": "higher"
+    },
+    {
+      "feature": "tree_probability_mean_0p6m",
+      "group": "scalar",
+      "separability_auc": 0.6292240753484291,
+      "direction": "higher"
+    },
+    {
+      "feature": "tree_probability_mean_0p3m",
+      "group": "scalar",
+      "separability_auc": 0.6241329001786331,
+      "direction": "higher"
+    },
+    {
+      "feature": "tree_probability",
+      "group": "scalar",
+      "separability_auc": 0.6239263612052243,
+      "direction": "higher"
+    }
+  ],
+  "best_univariate_auc": 0.6938959560245654,
+  "alignment": {
+    "candidate_mismatches": 0,
+    "score_target_mismatches": 0,
+    "label_definition_mismatches": 0,
+    "locked_score_metric_difference": 0.0
+  },
+  "e1b_false_gate_items": [
+    "reliability_auc_passed"
+  ],
+  "integrity_gate": {
+    "candidate_alignment_passed": true,
+    "score_target_alignment_passed": true,
+    "label_definition_passed": true,
+    "locked_score_metric_reproduced": true,
+    "only_reliability_gate_failed": true,
+    "expected_validation_plots_present": true,
+    "passed": true
+  },
+  "recommendation": "relational_attention_candidate"
+}

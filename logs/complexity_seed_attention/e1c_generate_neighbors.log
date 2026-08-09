@@ -1,0 +1,100 @@
+RUN A1N (1/18): 392,858 candidates
+  queried 200,000/392,858 candidates (50.9%)
+  queried 392,858/392,858 candidates (100.0%)
+DONE A1N: relation coverage=99.98%, critical=99.90%
+RUN A1W (2/18): 432,042 candidates
+  queried 200,000/432,042 candidates (46.3%)
+  queried 400,000/432,042 candidates (92.6%)
+  queried 432,042/432,042 candidates (100.0%)
+DONE A1W: relation coverage=99.99%, critical=99.95%
+RUN G1N (3/18): 287,585 candidates
+  queried 200,000/287,585 candidates (69.5%)
+  queried 287,585/287,585 candidates (100.0%)
+DONE G1N: relation coverage=99.99%, critical=99.99%
+RUN G1W (4/18): 382,610 candidates
+  queried 200,000/382,610 candidates (52.3%)
+  queried 382,610/382,610 candidates (100.0%)
+DONE G1W: relation coverage=99.98%, critical=99.96%
+RUN G2N (5/18): 430,288 candidates
+  queried 200,000/430,288 candidates (46.5%)
+  queried 400,000/430,288 candidates (93.0%)
+  queried 430,288/430,288 candidates (100.0%)
+DONE G2N: relation coverage=99.99%, critical=99.97%
+RUN G2W (6/18): 302,092 candidates
+  queried 200,000/302,092 candidates (66.2%)
+  queried 302,092/302,092 candidates (100.0%)
+DONE G2W: relation coverage=99.98%, critical=99.91%
+RUN G3N (7/18): 333,210 candidates
+  queried 200,000/333,210 candidates (60.0%)
+  queried 333,210/333,210 candidates (100.0%)
+DONE G3N: relation coverage=99.99%, critical=99.98%
+RUN G3W (8/18): 312,681 candidates
+  queried 200,000/312,681 candidates (64.0%)
+  queried 312,681/312,681 candidates (100.0%)
+DONE G3W: relation coverage=99.98%, critical=99.95%
+RUN L2N (9/18): 282,538 candidates
+  queried 200,000/282,538 candidates (70.8%)
+  queried 282,538/282,538 candidates (100.0%)
+DONE L2N: relation coverage=99.99%, critical=99.86%
+RUN L2W (10/18): 382,628 candidates
+  queried 200,000/382,628 candidates (52.3%)
+  queried 382,628/382,628 candidates (100.0%)
+DONE L2W: relation coverage=99.99%, critical=99.92%
+RUN LG1 (11/18): 348,588 candidates
+  queried 200,000/348,588 candidates (57.4%)
+  queried 348,588/348,588 candidates (100.0%)
+DONE LG1: relation coverage=99.99%, critical=99.95%
+RUN LG2 (12/18): 333,196 candidates
+  queried 200,000/333,196 candidates (60.0%)
+  queried 333,196/333,196 candidates (100.0%)
+DONE LG2: relation coverage=99.99%, critical=99.86%
+RUN LG3 (13/18): 317,480 candidates
+  queried 200,000/317,480 candidates (63.0%)
+  queried 317,480/317,480 candidates (100.0%)
+DONE LG3: relation coverage=99.99%, critical=99.91%
+RUN G4N (14/18): 293,705 candidates
+  queried 200,000/293,705 candidates (68.1%)
+  queried 293,705/293,705 candidates (100.0%)
+DONE G4N: relation coverage=100.00%, critical=99.96%
+RUN G4W (15/18): 519,142 candidates
+  queried 200,000/519,142 candidates (38.5%)
+  queried 400,000/519,142 candidates (77.1%)
+  queried 519,142/519,142 candidates (100.0%)
+DONE G4W: relation coverage=99.99%, critical=99.94%
+RUN L1N (16/18): 452,316 candidates
+  queried 200,000/452,316 candidates (44.2%)
+  queried 400,000/452,316 candidates (88.4%)
+  queried 452,316/452,316 candidates (100.0%)
+DONE L1N: relation coverage=99.99%, critical=99.93%
+RUN O1N (17/18): 242,281 candidates
+  queried 200,000/242,281 candidates (82.5%)
+  queried 242,281/242,281 candidates (100.0%)
+DONE O1N: relation coverage=100.00%, critical=99.99%
+RUN O1W (18/18): 400,701 candidates
+  queried 200,000/400,701 candidates (49.9%)
+  queried 400,000/400,701 candidates (99.8%)
+  queried 400,701/400,701 candidates (100.0%)
+DONE O1W: relation coverage=99.99%, critical=99.94%
+# E1c-a Seed Relation 邻域缓存审计
+
+- 森林数：18
+- 候选数：6,445,941
+- K：8
+- 半径：0.600 m
+- 总体 relation coverage：99.990%
+- Critical relation coverage：99.938%
+- 平均有效支持点：7.996
+
+## Gate
+
+- all_fixed_artifacts_present: **True**
+- candidate_count_matches: **True**
+- relation_coverage_passed: **True**
+- critical_relation_coverage_passed: **True**
+- self_edges_passed: **True**
+- index_bounds_passed: **True**
+- radius_passed: **True**
+- passed: **True**
+
+PASS：可以训练参数匹配的 Neighborhood-MLP 与 Relation-Attention。
+

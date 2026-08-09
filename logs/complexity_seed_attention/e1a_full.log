@@ -1,0 +1,67 @@
+SKIP A1N: validated existing artifact.
+RUN A1W (train) from data/train/forests/A1W.laz; log=data/seed_quality/logs/A1W.log
+DONE A1W: 432,042 candidates, 26,908 critical, 48,846 non-tree.
+RUN G1N (train) from data/train/forests/G1N.laz; log=data/seed_quality/logs/G1N.log
+DONE G1N: 287,585 candidates, 16,517 critical, 24,601 non-tree.
+RUN G1W (train) from data/train/forests/G1W.laz; log=data/seed_quality/logs/G1W.log
+DONE G1W: 382,610 candidates, 23,365 critical, 61,218 non-tree.
+RUN G2N (train) from data/train/forests/G2N.laz; log=data/seed_quality/logs/G2N.log
+DONE G2N: 430,288 candidates, 25,894 critical, 68,533 non-tree.
+RUN G2W (train) from data/train/forests/G2W.laz; log=data/seed_quality/logs/G2W.log
+DONE G2W: 302,092 candidates, 13,690 critical, 98,968 non-tree.
+RUN G3N (train) from data/train/forests/G3N.laz; log=data/seed_quality/logs/G3N.log
+DONE G3N: 333,210 candidates, 18,356 critical, 35,231 non-tree.
+RUN G3W (train) from data/train/forests/G3W.laz; log=data/seed_quality/logs/G3W.log
+DONE G3W: 312,681 candidates, 17,158 critical, 64,403 non-tree.
+RUN L2N (train) from data/train/forests/L2N.laz; log=data/seed_quality/logs/L2N.log
+DONE L2N: 282,538 candidates, 12,297 critical, 36,440 non-tree.
+RUN L2W (train) from data/train/forests/L2W.laz; log=data/seed_quality/logs/L2W.log
+DONE L2W: 382,628 candidates, 20,938 critical, 30,765 non-tree.
+RUN LG1 (train) from data/train/forests/LG1.laz; log=data/seed_quality/logs/LG1.log
+DONE LG1: 348,588 candidates, 20,849 critical, 21,857 non-tree.
+RUN LG2 (train) from data/train/forests/LG2.laz; log=data/seed_quality/logs/LG2.log
+DONE LG2: 333,196 candidates, 17,495 critical, 20,413 non-tree.
+RUN LG3 (train) from data/train/forests/LG3.laz; log=data/seed_quality/logs/LG3.log
+DONE LG3: 317,480 candidates, 16,419 critical, 12,289 non-tree.
+SKIP G4N: validated existing artifact.
+RUN G4W (validation) from data/train/forests/G4W.laz; log=data/seed_quality/logs/G4W.log
+DONE G4W: 519,142 candidates, 29,792 critical, 30,836 non-tree.
+RUN L1N (validation) from data/train/forests/L1N.laz; log=data/seed_quality/logs/L1N.log
+DONE L1N: 452,316 candidates, 23,663 critical, 54,667 non-tree.
+RUN O1N (validation) from data/train/forests/O1N.laz; log=data/seed_quality/logs/O1N.log
+DONE O1N: 242,281 candidates, 8,257 critical, 13,034 non-tree.
+RUN O1W (validation) from data/train/forests/O1W.laz; log=data/seed_quality/logs/O1W.log
+DONE O1W: 400,701 candidates, 14,079 critical, 166,688 non-tree.
+# E1a seed reliability/coverage data audit
+
+- mode: full
+- artifacts: 18
+- train candidates: 4,537,796
+- validation candidates: 1,908,145
+- train critical targets: 252,638
+- train non-tree targets: 576,627
+- known-label rate: 100.000%
+- critical-target rate: 6.173%
+- train plots: A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3
+- validation plots: G4N, G4W, L1N, O1N, O1W
+
+## Gate
+
+- all_fixed_plots_present: **True**
+- enough_train_candidates: **True**
+- enough_validation_candidates: **True**
+- enough_critical_targets: **True**
+- enough_non_tree_targets: **True**
+- known_label_rate_passed: **True**
+- critical_rate_passed: **True**
+- enough_independent_groups: **True**
+- dimensions_match: **True**
+- all_supervised_trees_covered: **True**
+- audit_sample_prepared: **True**
+- no_plot_leakage: **True**
+- no_group_leakage: **True**
+- passed: **True**
+
+Saved manifest: data/seed_quality/manifest.csv
+Saved audit sample: data/seed_quality/audit_sample.csv
+PASS: E1a seed data are ready for E1b MLP.

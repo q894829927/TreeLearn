@@ -1,0 +1,138 @@
+Parameter counts: {'neighborhood_mlp': 52226, 'relation_attention': 50370}; gap=3.554%
+Loaded relation data A1N: 392,858 candidates
+Loaded relation data A1W: 432,042 candidates
+Loaded relation data G1N: 287,585 candidates
+Loaded relation data G1W: 382,610 candidates
+Loaded relation data G2N: 430,288 candidates
+Loaded relation data G2W: 302,092 candidates
+Loaded relation data G3N: 333,210 candidates
+Loaded relation data G3W: 312,681 candidates
+Loaded relation data L2N: 282,538 candidates
+Loaded relation data L2W: 382,628 candidates
+Loaded relation data LG1: 348,588 candidates
+Loaded relation data LG2: 333,196 candidates
+Loaded relation data LG3: 317,480 candidates
+Loaded relation data G4N: 293,705 candidates
+Loaded relation data G4W: 519,142 candidates
+Loaded relation data L1N: 452,316 candidates
+Loaded relation data O1N: 242,281 candidates
+Loaded relation data O1W: 400,701 candidates
+===== START neighborhood_mlp seed 42 =====
+[neighborhood_mlp seed 42] epoch 001: loss=1.78373, rel_AUC=0.73134, tree_AUC=0.65712, critical_recall=0.84635
+[neighborhood_mlp seed 42] epoch 002: loss=1.70662, rel_AUC=0.73798, tree_AUC=0.66704, critical_recall=0.86456
+[neighborhood_mlp seed 42] epoch 004: loss=1.65827, rel_AUC=0.73682, tree_AUC=0.66592, critical_recall=0.86926
+[neighborhood_mlp seed 42] epoch 006: loss=1.62774, rel_AUC=0.73843, tree_AUC=0.66696, critical_recall=0.86595
+[neighborhood_mlp seed 42] epoch 008: loss=1.60176, rel_AUC=0.74013, tree_AUC=0.66987, critical_recall=0.86552
+[neighborhood_mlp seed 42] epoch 010: loss=1.60044, rel_AUC=0.73668, tree_AUC=0.66479, critical_recall=0.86915
+[neighborhood_mlp seed 42] epoch 012: loss=1.57128, rel_AUC=0.73055, tree_AUC=0.65907, critical_recall=0.87893
+[neighborhood_mlp seed 42] epoch 014: loss=1.55773, rel_AUC=0.73364, tree_AUC=0.66149, critical_recall=0.86630
+[neighborhood_mlp seed 42] early stop at epoch 14; best=4.
+DONE neighborhood_mlp seed 42: best epoch=4
+===== START neighborhood_mlp seed 43 =====
+[neighborhood_mlp seed 43] epoch 001: loss=1.77621, rel_AUC=0.73324, tree_AUC=0.65973, critical_recall=0.85242
+[neighborhood_mlp seed 43] epoch 002: loss=1.70156, rel_AUC=0.73776, tree_AUC=0.66598, critical_recall=0.86112
+[neighborhood_mlp seed 43] epoch 004: loss=1.65980, rel_AUC=0.74188, tree_AUC=0.67128, critical_recall=0.87155
+[neighborhood_mlp seed 43] epoch 006: loss=1.63172, rel_AUC=0.73973, tree_AUC=0.66866, critical_recall=0.86939
+[neighborhood_mlp seed 43] epoch 008: loss=1.59990, rel_AUC=0.73995, tree_AUC=0.66935, critical_recall=0.87020
+[neighborhood_mlp seed 43] epoch 010: loss=1.59293, rel_AUC=0.73677, tree_AUC=0.66636, critical_recall=0.87839
+[neighborhood_mlp seed 43] epoch 012: loss=1.57180, rel_AUC=0.73479, tree_AUC=0.66318, critical_recall=0.86892
+[neighborhood_mlp seed 43] epoch 014: loss=1.55805, rel_AUC=0.73398, tree_AUC=0.66284, critical_recall=0.87284
+[neighborhood_mlp seed 43] early stop at epoch 14; best=4.
+DONE neighborhood_mlp seed 43: best epoch=4
+===== START neighborhood_mlp seed 44 =====
+[neighborhood_mlp seed 44] epoch 001: loss=1.77285, rel_AUC=0.73161, tree_AUC=0.65860, critical_recall=0.85001
+[neighborhood_mlp seed 44] epoch 002: loss=1.69600, rel_AUC=0.73868, tree_AUC=0.66784, critical_recall=0.86910
+[neighborhood_mlp seed 44] epoch 004: loss=1.66274, rel_AUC=0.73946, tree_AUC=0.66950, critical_recall=0.87474
+[neighborhood_mlp seed 44] epoch 006: loss=1.61917, rel_AUC=0.74013, tree_AUC=0.67090, critical_recall=0.86610
+[neighborhood_mlp seed 44] epoch 008: loss=1.60873, rel_AUC=0.73617, tree_AUC=0.66436, critical_recall=0.86943
+[neighborhood_mlp seed 44] epoch 010: loss=1.59146, rel_AUC=0.73564, tree_AUC=0.66464, critical_recall=0.86783
+[neighborhood_mlp seed 44] epoch 012: loss=1.56388, rel_AUC=0.73634, tree_AUC=0.66490, critical_recall=0.86727
+[neighborhood_mlp seed 44] epoch 014: loss=1.55806, rel_AUC=0.73511, tree_AUC=0.66482, critical_recall=0.87548
+[neighborhood_mlp seed 44] early stop at epoch 14; best=4.
+DONE neighborhood_mlp seed 44: best epoch=4
+===== START relation_attention seed 42 =====
+[relation_attention seed 42] epoch 001: loss=1.82302, rel_AUC=0.72645, tree_AUC=0.65083, critical_recall=0.83053
+[relation_attention seed 42] epoch 002: loss=1.72300, rel_AUC=0.73329, tree_AUC=0.66161, critical_recall=0.85617
+[relation_attention seed 42] epoch 004: loss=1.66203, rel_AUC=0.73593, tree_AUC=0.66538, critical_recall=0.86647
+[relation_attention seed 42] epoch 006: loss=1.62698, rel_AUC=0.73956, tree_AUC=0.66906, critical_recall=0.86398
+[relation_attention seed 42] epoch 008: loss=1.59824, rel_AUC=0.74065, tree_AUC=0.66986, critical_recall=0.85760
+[relation_attention seed 42] epoch 010: loss=1.59619, rel_AUC=0.74048, tree_AUC=0.66928, critical_recall=0.86386
+[relation_attention seed 42] epoch 012: loss=1.56770, rel_AUC=0.74149, tree_AUC=0.67206, critical_recall=0.87686
+[relation_attention seed 42] epoch 014: loss=1.55140, rel_AUC=0.74016, tree_AUC=0.67060, critical_recall=0.87014
+[relation_attention seed 42] early stop at epoch 14; best=4.
+DONE relation_attention seed 42: best epoch=4
+===== START relation_attention seed 43 =====
+[relation_attention seed 43] epoch 001: loss=1.84542, rel_AUC=0.72140, tree_AUC=0.64504, critical_recall=0.83635
+[relation_attention seed 43] epoch 002: loss=1.72530, rel_AUC=0.73152, tree_AUC=0.65805, critical_recall=0.85402
+[relation_attention seed 43] epoch 004: loss=1.66861, rel_AUC=0.73811, tree_AUC=0.66694, critical_recall=0.86373
+[relation_attention seed 43] epoch 006: loss=1.63678, rel_AUC=0.74142, tree_AUC=0.67029, critical_recall=0.86562
+[relation_attention seed 43] epoch 008: loss=1.60439, rel_AUC=0.74009, tree_AUC=0.67101, critical_recall=0.86843
+[relation_attention seed 43] epoch 010: loss=1.59270, rel_AUC=0.73975, tree_AUC=0.66965, critical_recall=0.88051
+[relation_attention seed 43] epoch 012: loss=1.57629, rel_AUC=0.74197, tree_AUC=0.67253, critical_recall=0.86907
+[relation_attention seed 43] epoch 014: loss=1.56717, rel_AUC=0.73702, tree_AUC=0.66586, critical_recall=0.88051
+[relation_attention seed 43] epoch 016: loss=1.55098, rel_AUC=0.73886, tree_AUC=0.66858, critical_recall=0.88545
+[relation_attention seed 43] epoch 018: loss=1.53410, rel_AUC=0.74068, tree_AUC=0.67044, critical_recall=0.87054
+[relation_attention seed 43] epoch 020: loss=1.52847, rel_AUC=0.73953, tree_AUC=0.66962, critical_recall=0.87219
+[relation_attention seed 43] epoch 022: loss=1.52012, rel_AUC=0.73898, tree_AUC=0.66817, critical_recall=0.87247
+[relation_attention seed 43] epoch 024: loss=1.51221, rel_AUC=0.73788, tree_AUC=0.66785, critical_recall=0.88132
+[relation_attention seed 43] epoch 026: loss=1.50869, rel_AUC=0.73775, tree_AUC=0.66750, critical_recall=0.87624
+[relation_attention seed 43] early stop at epoch 26; best=16.
+DONE relation_attention seed 43: best epoch=16
+===== START relation_attention seed 44 =====
+[relation_attention seed 44] epoch 001: loss=1.82283, rel_AUC=0.72711, tree_AUC=0.65232, critical_recall=0.84331
+[relation_attention seed 44] epoch 002: loss=1.71462, rel_AUC=0.73648, tree_AUC=0.66459, critical_recall=0.86443
+[relation_attention seed 44] epoch 004: loss=1.67162, rel_AUC=0.73991, tree_AUC=0.66977, critical_recall=0.87712
+[relation_attention seed 44] epoch 006: loss=1.62587, rel_AUC=0.74279, tree_AUC=0.67372, critical_recall=0.86573
+[relation_attention seed 44] epoch 008: loss=1.61131, rel_AUC=0.74049, tree_AUC=0.67030, critical_recall=0.87771
+[relation_attention seed 44] epoch 010: loss=1.58968, rel_AUC=0.74008, tree_AUC=0.66957, critical_recall=0.86951
+[relation_attention seed 44] epoch 012: loss=1.56128, rel_AUC=0.73901, tree_AUC=0.66909, critical_recall=0.87299
+[relation_attention seed 44] epoch 014: loss=1.55488, rel_AUC=0.73927, tree_AUC=0.67009, critical_recall=0.88146
+[relation_attention seed 44] early stop at epoch 14; best=4.
+DONE relation_attention seed 44: best epoch=4
+# E1c 参数匹配的 Complexity Seed Relation Attention
+
+- Seeds：[42, 43, 44]
+- 锁定 seed：42
+- K / radius：8 / 0.600 m
+- 参数差比例：3.554%
+- Attention tree-AUC seed wins：1/3
+
+| Model | Params | Reliability AUC | Tree-only AUC | Coverage AP | Critical recall | Utility |
+|---|---:|---:|---:|---:|---:|---:|
+| neighborhood_mlp | 52226 | 0.739388 | 0.668901 | 0.175286 | 0.871853 | 0.408159 |
+| relation_attention | 50370 | 0.738234 | 0.667910 | 0.172763 | 0.876347 | 0.407707 |
+
+## Attention − Neighborhood-MLP
+
+- reliability_roc_auc: -0.001154
+- tree_only_roc_auc: -0.000990
+- coverage_ap: -0.002524
+- critical_recall: +0.004495
+- selected_utility_relative: -0.001108
+
+## Gate
+
+- neighbor_data_gate_passed: **True**
+- parameter_count_matched: **True**
+- absolute_reliability_auc_passed: **False**
+- absolute_tree_only_auc_passed: **False**
+- reliability_gain_passed: **False**
+- tree_only_gain_passed: **False**
+- coverage_not_worse: **True**
+- critical_recall_not_worse: **True**
+- selected_utility_gain_passed: **False**
+- seed_wins_passed: **False**
+- attention_stability_passed: **True**
+- locked_seed_present: **True**
+- passed: **False**
+
+STOP：注意力未稳定优于参数匹配的邻域 MLP，不进入 pipeline。
+
+Traceback (most recent call last):
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_relation_attention.py", line 643, in <module>
+    main()
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_relation_attention.py", line 639, in main
+    run(args.config)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_relation_attention.py", line 626, in run
+    raise RuntimeError(
+RuntimeError: E1c relation-attention gate failed; do not integrate pipeline.

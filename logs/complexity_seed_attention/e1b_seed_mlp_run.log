@@ -1,0 +1,91 @@
+===== START Seed-MLP seed 42 =====
+[seed 42] epoch 001: loss=1.84133, rel_AP=0.53767, cov_AP=0.12619, critical_recall=0.83236, critical_tree_coverage=0.99032
+[seed 42] epoch 002: loss=1.77565, rel_AP=0.54909, cov_AP=0.13476, critical_recall=0.85333, critical_tree_coverage=0.99317
+[seed 42] epoch 004: loss=1.73446, rel_AP=0.55525, cov_AP=0.14098, critical_recall=0.86140, critical_tree_coverage=0.99374
+[seed 42] epoch 006: loss=1.72218, rel_AP=0.55853, cov_AP=0.14429, critical_recall=0.86622, critical_tree_coverage=0.99488
+[seed 42] epoch 008: loss=1.70347, rel_AP=0.55820, cov_AP=0.14434, critical_recall=0.86663, critical_tree_coverage=0.99488
+[seed 42] epoch 010: loss=1.69528, rel_AP=0.55574, cov_AP=0.14532, critical_recall=0.86860, critical_tree_coverage=0.99488
+[seed 42] epoch 012: loss=1.69017, rel_AP=0.55705, cov_AP=0.14642, critical_recall=0.86752, critical_tree_coverage=0.99488
+[seed 42] epoch 014: loss=1.68302, rel_AP=0.55706, cov_AP=0.14678, critical_recall=0.86809, critical_tree_coverage=0.99431
+[seed 42] epoch 016: loss=1.67283, rel_AP=0.55172, cov_AP=0.14677, critical_recall=0.87135, critical_tree_coverage=0.99317
+[seed 42] epoch 018: loss=1.66677, rel_AP=0.55257, cov_AP=0.14689, critical_recall=0.86672, critical_tree_coverage=0.99431
+[seed 42] epoch 020: loss=1.66615, rel_AP=0.55104, cov_AP=0.14667, critical_recall=0.86499, critical_tree_coverage=0.99260
+[seed 42] epoch 022: loss=1.65543, rel_AP=0.55086, cov_AP=0.14571, critical_recall=0.86917, critical_tree_coverage=0.99374
+[seed 42] early stop at epoch 22; best epoch=10.
+DONE seed 42: best epoch=10, critical recall=0.868604
+===== START Seed-MLP seed 43 =====
+[seed 43] epoch 001: loss=1.84821, rel_AP=0.53632, cov_AP=0.13035, critical_recall=0.84388, critical_tree_coverage=0.99374
+[seed 43] epoch 002: loss=1.77310, rel_AP=0.54684, cov_AP=0.13745, critical_recall=0.86098, critical_tree_coverage=0.99431
+[seed 43] epoch 004: loss=1.74292, rel_AP=0.55412, cov_AP=0.14283, critical_recall=0.86666, critical_tree_coverage=0.99545
+[seed 43] epoch 006: loss=1.72583, rel_AP=0.55561, cov_AP=0.14895, critical_recall=0.87006, critical_tree_coverage=0.99431
+[seed 43] epoch 008: loss=1.70648, rel_AP=0.55486, cov_AP=0.14821, critical_recall=0.86701, critical_tree_coverage=0.99431
+[seed 43] epoch 010: loss=1.70210, rel_AP=0.55438, cov_AP=0.14780, critical_recall=0.86788, critical_tree_coverage=0.99488
+[seed 43] epoch 012: loss=1.69358, rel_AP=0.55569, cov_AP=0.14670, critical_recall=0.86514, critical_tree_coverage=0.99488
+[seed 43] epoch 014: loss=1.68268, rel_AP=0.55498, cov_AP=0.14742, critical_recall=0.86450, critical_tree_coverage=0.99545
+[seed 43] epoch 016: loss=1.67497, rel_AP=0.55195, cov_AP=0.14770, critical_recall=0.86418, critical_tree_coverage=0.99431
+[seed 43] early stop at epoch 16; best epoch=4.
+DONE seed 43: best epoch=4, critical recall=0.866659
+===== START Seed-MLP seed 44 =====
+[seed 44] epoch 001: loss=1.84251, rel_AP=0.53776, cov_AP=0.12834, critical_recall=0.84420, critical_tree_coverage=0.98976
+[seed 44] epoch 002: loss=1.77368, rel_AP=0.54700, cov_AP=0.13536, critical_recall=0.85317, critical_tree_coverage=0.99374
+[seed 44] epoch 004: loss=1.73965, rel_AP=0.55425, cov_AP=0.14077, critical_recall=0.85792, critical_tree_coverage=0.99431
+[seed 44] epoch 006: loss=1.71951, rel_AP=0.55459, cov_AP=0.14728, critical_recall=0.86433, critical_tree_coverage=0.99488
+[seed 44] epoch 008: loss=1.70916, rel_AP=0.55472, cov_AP=0.14760, critical_recall=0.86766, critical_tree_coverage=0.99488
+[seed 44] epoch 010: loss=1.69867, rel_AP=0.55251, cov_AP=0.14760, critical_recall=0.87244, critical_tree_coverage=0.99488
+[seed 44] epoch 012: loss=1.69072, rel_AP=0.55108, cov_AP=0.14829, critical_recall=0.87101, critical_tree_coverage=0.99431
+[seed 44] epoch 014: loss=1.68637, rel_AP=0.54657, cov_AP=0.14590, critical_recall=0.86710, critical_tree_coverage=0.99431
+[seed 44] epoch 016: loss=1.67744, rel_AP=0.54631, cov_AP=0.14864, critical_recall=0.87135, critical_tree_coverage=0.99431
+[seed 44] early stop at epoch 16; best epoch=4.
+DONE seed 44: best epoch=4, critical recall=0.857917
+# E1b 冻结主干双头 Seed-MLP 控制实验
+
+- 候选总数：6,445,941
+- 训练候选：4,537,796
+- 验证候选：1,908,145
+- 输入维度：61
+- 随机种子：[42, 43, 44]
+- 锁定部署 seed：42
+- 固定 keep ratio：0.780
+- Coverage 保护比例：0.100
+
+| Metric | Mean | Std | Min | Max |
+|---|---:|---:|---:|---:|
+| reliability_roc_auc | 0.733786 | 0.001693 | 0.732011 | 0.735384 |
+| reliability_ap | 0.554706 | 0.000899 | 0.554122 | 0.555740 |
+| coverage_roc_auc | 0.739902 | 0.001397 | 0.739081 | 0.741516 |
+| coverage_ap | 0.142973 | 0.002277 | 0.140769 | 0.145317 |
+| dual_critical_recall | 0.864393 | 0.005692 | 0.857917 | 0.868604 |
+| dual_critical_tree_coverage | 0.994878 | 0.000569 | 0.994308 | 0.995447 |
+| dual_selected_mean_utility | 0.407711 | 0.001167 | 0.406515 | 0.408846 |
+| dual_selected_non_tree_rate | 0.075906 | 0.000763 | 0.075310 | 0.076765 |
+
+## 相对控制组
+
+- Critical recall 相对随机：+0.085001
+- Critical recall 相对 Reliability-only：+0.048789
+- Selected utility 相对随机提升：+16.549%
+- Coverage AP / prevalence：2.981x
+
+## Gate
+
+- reliability_auc_passed: **False**
+- coverage_ap_lift_passed: **True**
+- critical_gain_over_random_passed: **True**
+- coverage_head_gain_passed: **True**
+- utility_gain_passed: **True**
+- critical_tree_coverage_passed: **True**
+- per_plot_coverage_passed: **True**
+- seed_stability_passed: **True**
+- locked_seed_present: **True**
+- passed: **False**
+
+STOP：先重新设计种子特征或 Coverage target，不进入注意力。
+
+Traceback (most recent call last):
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_quality_mlp.py", line 841, in <module>
+    main()
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_quality_mlp.py", line 837, in main
+    run(args.config)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_quality_mlp.py", line 824, in run
+    raise RuntimeError(
+RuntimeError: E1b Seed-MLP gate failed; do not implement attention yet.

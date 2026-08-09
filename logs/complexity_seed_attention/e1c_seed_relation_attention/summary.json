@@ -1,0 +1,307 @@
+{
+  "num_validation_candidates": 1908145,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "locked_seed": 42,
+  "neighborhood": {
+    "num_neighbors": 8,
+    "radius": 0.6,
+    "vertical_scale": 4.0
+  },
+  "selector": {
+    "keep_ratio": 0.78,
+    "coverage_protect_ratio": 0.1,
+    "random_control_seeds": [
+      1042,
+      1043,
+      1044
+    ]
+  },
+  "per_seed": [
+    {
+      "model": "neighborhood_mlp",
+      "seed": 42,
+      "best_epoch": 4,
+      "device": "cuda",
+      "parameter_count": 52226,
+      "reliability_roc_auc": 0.7368240916821844,
+      "reliability_ap": 0.5627288088961749,
+      "tree_detection_roc_auc": 0.9368962730000145,
+      "tree_only_roc_auc": 0.6659195005303518,
+      "tree_only_ap": 0.5699296150177755,
+      "coverage_ap": 0.17734923865626384,
+      "dual_critical_recall": 0.869259263306271,
+      "dual_critical_tree_coverage": 0.9920318725099602,
+      "dual_selected_mean_utility": 0.4080438977667802,
+      "dual_selected_non_tree_rate": 0.07464079470287667,
+      "min_plot_critical_tree_coverage": 0.9868852459016394
+    },
+    {
+      "model": "neighborhood_mlp",
+      "seed": 43,
+      "best_epoch": 4,
+      "device": "cuda",
+      "parameter_count": 52226,
+      "reliability_roc_auc": 0.7418809886353571,
+      "reliability_ap": 0.5672923366501963,
+      "tree_detection_roc_auc": 0.9422842609935116,
+      "tree_only_roc_auc": 0.6712817334410438,
+      "tree_only_ap": 0.5744634355390754,
+      "coverage_ap": 0.17499189675458204,
+      "dual_critical_recall": 0.8715539189440213,
+      "dual_critical_tree_coverage": 0.9954467842914058,
+      "dual_selected_mean_utility": 0.40849537138866676,
+      "dual_selected_non_tree_rate": 0.07536306862274121,
+      "min_plot_critical_tree_coverage": 0.9901639344262295
+    },
+    {
+      "model": "neighborhood_mlp",
+      "seed": 44,
+      "best_epoch": 4,
+      "device": "cuda",
+      "parameter_count": 52226,
+      "reliability_roc_auc": 0.7394604142501927,
+      "reliability_ap": 0.565557378908146,
+      "tree_detection_roc_auc": 0.9361872215148169,
+      "tree_only_roc_auc": 0.6695012795626751,
+      "tree_only_ap": 0.573243492857125,
+      "coverage_ap": 0.17351794253211375,
+      "dual_critical_recall": 0.8747445829736552,
+      "dual_critical_tree_coverage": 0.9948776323278316,
+      "dual_selected_mean_utility": 0.4079372277138586,
+      "dual_selected_non_tree_rate": 0.07587034007343678,
+      "min_plot_critical_tree_coverage": 0.9901639344262295
+    },
+    {
+      "model": "relation_attention",
+      "seed": 42,
+      "best_epoch": 4,
+      "device": "cuda",
+      "parameter_count": 50370,
+      "reliability_roc_auc": 0.7359349605476833,
+      "reliability_ap": 0.5610276468381583,
+      "tree_detection_roc_auc": 0.9325960911993021,
+      "tree_only_roc_auc": 0.6653798674479195,
+      "tree_only_ap": 0.5687695700655016,
+      "coverage_ap": 0.16723693475872956,
+      "dual_critical_recall": 0.8664728957461455,
+      "dual_critical_tree_coverage": 0.9914627205463858,
+      "dual_selected_mean_utility": 0.4075887615735041,
+      "dual_selected_non_tree_rate": 0.07597784130802127,
+      "min_plot_critical_tree_coverage": 0.9889380530973452
+    },
+    {
+      "model": "relation_attention",
+      "seed": 43,
+      "best_epoch": 16,
+      "device": "cuda",
+      "parameter_count": 50370,
+      "reliability_roc_auc": 0.7388553377887584,
+      "reliability_ap": 0.5698193636836236,
+      "tree_detection_roc_auc": 0.9344375835322072,
+      "tree_only_roc_auc": 0.668578690166858,
+      "tree_only_ap": 0.5764456035969514,
+      "coverage_ap": 0.1826208700714688,
+      "dual_critical_recall": 0.8854529759498235,
+      "dual_critical_tree_coverage": 0.9960159362549801,
+      "dual_selected_mean_utility": 0.4064219355385819,
+      "dual_selected_non_tree_rate": 0.07724232457982134,
+      "min_plot_critical_tree_coverage": 0.9901639344262295
+    },
+    {
+      "model": "relation_attention",
+      "seed": 44,
+      "best_epoch": 4,
+      "device": "cuda",
+      "parameter_count": 50370,
+      "reliability_roc_auc": 0.7399117539981134,
+      "reliability_ap": 0.5643106225899549,
+      "tree_detection_roc_auc": 0.935301234969545,
+      "tree_only_roc_auc": 0.6697725578155602,
+      "tree_only_ap": 0.5711582047966448,
+      "coverage_ap": 0.1684300164095686,
+      "dual_critical_recall": 0.8771157271326638,
+      "dual_critical_tree_coverage": 0.9965850882185544,
+      "dual_selected_mean_utility": 0.4091093163578623,
+      "dual_selected_non_tree_rate": 0.07625331322164403,
+      "min_plot_critical_tree_coverage": 0.9934426229508196
+    }
+  ],
+  "aggregate": {
+    "neighborhood_mlp": {
+      "parameter_count": {
+        "mean": 52226.0,
+        "sample_std": 0.0,
+        "min": 52226.0,
+        "max": 52226.0
+      },
+      "reliability_roc_auc": {
+        "mean": 0.7393884981892448,
+        "sample_std": 0.002529215419575505,
+        "min": 0.7368240916821844,
+        "max": 0.7418809886353571
+      },
+      "reliability_ap": {
+        "mean": 0.565192841484839,
+        "sample_std": 0.0023034999544550073,
+        "min": 0.5627288088961749,
+        "max": 0.5672923366501963
+      },
+      "tree_detection_roc_auc": {
+        "mean": 0.9384559185027811,
+        "sample_std": 0.003334342989543082,
+        "min": 0.9361872215148169,
+        "max": 0.9422842609935116
+      },
+      "tree_only_roc_auc": {
+        "mean": 0.6689008378446902,
+        "sample_std": 0.002731077285550468,
+        "min": 0.6659195005303518,
+        "max": 0.6712817334410438
+      },
+      "tree_only_ap": {
+        "mean": 0.5725455144713253,
+        "sample_std": 0.0023461164719857106,
+        "min": 0.5699296150177755,
+        "max": 0.5744634355390754
+      },
+      "coverage_ap": {
+        "mean": 0.17528635931431988,
+        "sample_std": 0.0019325471914153599,
+        "min": 0.17351794253211375,
+        "max": 0.17734923865626384
+      },
+      "dual_critical_recall": {
+        "mean": 0.8718525884079825,
+        "sample_std": 0.0027548294956085935,
+        "min": 0.869259263306271,
+        "max": 0.8747445829736552
+      },
+      "dual_critical_tree_coverage": {
+        "mean": 0.9941187630430659,
+        "sample_std": 0.001829567588881213,
+        "min": 0.9920318725099602,
+        "max": 0.9954467842914058
+      },
+      "dual_selected_mean_utility": {
+        "mean": 0.4081588322897685,
+        "sample_std": 0.0002962913243127562,
+        "min": 0.4079372277138586,
+        "max": 0.40849537138866676
+      },
+      "dual_selected_non_tree_rate": {
+        "mean": 0.07529140113301823,
+        "sample_std": 0.0006178977475107391,
+        "min": 0.07464079470287667,
+        "max": 0.07587034007343678
+      },
+      "min_plot_critical_tree_coverage": {
+        "mean": 0.9890710382513661,
+        "sample_std": 0.0018929517022610446,
+        "min": 0.9868852459016394,
+        "max": 0.9901639344262295
+      }
+    },
+    "relation_attention": {
+      "parameter_count": {
+        "mean": 50370.0,
+        "sample_std": 0.0,
+        "min": 50370.0,
+        "max": 50370.0
+      },
+      "reliability_roc_auc": {
+        "mean": 0.7382340174448517,
+        "sample_std": 0.002059915232275414,
+        "min": 0.7359349605476833,
+        "max": 0.7399117539981134
+      },
+      "reliability_ap": {
+        "mean": 0.565052544370579,
+        "sample_std": 0.004442567638104445,
+        "min": 0.5610276468381583,
+        "max": 0.5698193636836236
+      },
+      "tree_detection_roc_auc": {
+        "mean": 0.934111636567018,
+        "sample_std": 0.0013817133467213694,
+        "min": 0.9325960911993021,
+        "max": 0.935301234969545
+      },
+      "tree_only_roc_auc": {
+        "mean": 0.6679103718101125,
+        "sample_std": 0.0022713254359432848,
+        "min": 0.6653798674479195,
+        "max": 0.6697725578155602
+      },
+      "tree_only_ap": {
+        "mean": 0.5721244594863659,
+        "sample_std": 0.003928181358853187,
+        "min": 0.5687695700655016,
+        "max": 0.5764456035969514
+      },
+      "coverage_ap": {
+        "mean": 0.1727626070799223,
+        "sample_std": 0.008558321848602297,
+        "min": 0.16723693475872956,
+        "max": 0.1826208700714688
+      },
+      "dual_critical_recall": {
+        "mean": 0.8763471996095443,
+        "sample_std": 0.009513350463945752,
+        "min": 0.8664728957461455,
+        "max": 0.8854529759498235
+      },
+      "dual_critical_tree_coverage": {
+        "mean": 0.9946879150066401,
+        "sample_std": 0.00280755996716922,
+        "min": 0.9914627205463858,
+        "max": 0.9965850882185544
+      },
+      "dual_selected_mean_utility": {
+        "mean": 0.40770667115664944,
+        "sample_std": 0.0013475648108002656,
+        "min": 0.4064219355385819,
+        "max": 0.4091093163578623
+      },
+      "dual_selected_non_tree_rate": {
+        "mean": 0.07649115970316221,
+        "sample_std": 0.0006649493948741467,
+        "min": 0.07597784130802127,
+        "max": 0.07724232457982134
+      },
+      "min_plot_critical_tree_coverage": {
+        "mean": 0.9908482034914647,
+        "sample_std": 0.002328938708175079,
+        "min": 0.9889380530973452,
+        "max": 0.9934426229508196
+      }
+    }
+  },
+  "parameter_gap_ratio": 0.0355378547083828,
+  "tree_auc_seed_wins": 1,
+  "deltas": {
+    "reliability_roc_auc": -0.0011544807443930605,
+    "tree_only_roc_auc": -0.0009904660345777527,
+    "coverage_ap": -0.002523752234397575,
+    "critical_recall": 0.0044946112015618045,
+    "selected_utility_relative": -0.0011078068079096969
+  },
+  "gate": {
+    "neighbor_data_gate_passed": true,
+    "parameter_count_matched": true,
+    "absolute_reliability_auc_passed": false,
+    "absolute_tree_only_auc_passed": false,
+    "reliability_gain_passed": false,
+    "tree_only_gain_passed": false,
+    "coverage_not_worse": true,
+    "critical_recall_not_worse": true,
+    "selected_utility_gain_passed": false,
+    "seed_wins_passed": false,
+    "attention_stability_passed": true,
+    "locked_seed_present": true,
+    "passed": false
+  }
+}

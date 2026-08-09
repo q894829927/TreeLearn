@@ -1,0 +1,86 @@
+# E1b2 Seed Reliability 瓶颈审计
+
+- 验证候选：1,908,145
+- 特征审计采样：250,000
+- 锁定 seed：42
+- 原 Reliability 阈值：0.50
+- 自动建议：**relational_attention_candidate**
+
+## 分解指标
+
+| Metric | ROC-AUC | AP / prevalence |
+|---|---:|---:|
+| all reliability | 0.732011 | 0.555740 / 0.356100 |
+| tree vs non-tree | 0.937574 | 0.983782 / 0.845642 |
+| within-tree reliability | 0.659592 | 0.562465 / 0.421100 |
+
+- Score/utility Spearman（固定采样）：0.520589
+- 每森林 macro AUC：0.703763
+- macro − global：-0.028248
+- 最佳单变量 separability AUC：0.693896
+
+## 每森林结果
+
+| Plot | Candidates | Prevalence | AUC | Tree-only AUC |
+|---|---:|---:|---:|---:|
+| G4N | 293,705 | 24.759% | 63.413% | 59.013% |
+| G4W | 519,142 | 36.774% | 68.774% | 66.273% |
+| L1N | 452,316 | 44.617% | 73.460% | 67.320% |
+| O1N | 242,281 | 44.232% | 61.411% | 57.606% |
+| O1W | 400,701 | 26.676% | 84.824% | 69.721% |
+
+## Utility 阈值敏感性（只作诊断）
+
+| Threshold | Prevalence | ROC-AUC | AP |
+|---:|---:|---:|---:|
+| 0.30 | 47.553% | 74.125% | 67.596% |
+| 0.40 | 41.540% | 73.582% | 61.819% |
+| 0.50 | 35.610% | 73.201% | 55.574% |
+| 0.60 | 29.396% | 73.014% | 48.586% |
+| 0.70 | 22.869% | 73.074% | 40.603% |
+
+- 最佳诊断阈值 AUC 增益：+0.009237
+- 树点 utility 位于 0.50±0.05：7.184%
+- 树点 utility 位于 0.50±0.10：14.360%
+
+## 最强单变量特征
+
+| Feature | Group | Separability AUC | Direction |
+|---|---|---:|---|
+| verticality_mean_1p2m | scalar | 0.693896 | higher |
+| verticality_mean_0p6m | scalar | 0.690747 | higher |
+| verticality_mean_0p3m | scalar | 0.682251 | higher |
+| vote_radius_rms_1p2m | scalar | 0.655009 | lower |
+| verticality_std_1p2m | scalar | 0.651470 | lower |
+| height_std_0p6m | scalar | 0.648764 | higher |
+| height_std_0p3m | scalar | 0.647534 | higher |
+| vote_radius_rms_0p6m | scalar | 0.644638 | lower |
+| height_std_1p2m | scalar | 0.644324 | higher |
+| verticality_std_0p6m | scalar | 0.638636 | lower |
+| log_count_0p3m | scalar | 0.637073 | higher |
+| tree_probability_mean_1p2m | scalar | 0.632723 | higher |
+| tree_probability_mean_0p6m | scalar | 0.629224 | higher |
+| tree_probability_mean_0p3m | scalar | 0.624133 | higher |
+| tree_probability | scalar | 0.623926 | higher |
+
+## 完整性 Gate
+
+- candidate_alignment_passed: **True**
+- score_target_alignment_passed: **True**
+- label_definition_passed: **True**
+- locked_score_metric_reproduced: **True**
+- only_reliability_gate_failed: **True**
+- expected_validation_plots_present: **True**
+- passed: **True**
+
+## 下一步解释
+
+- `repair_alignment`：先修复 artifact/score/标签错位。
+- `forest_calibrated_ranking`：先解决跨森林校准，不加注意力。
+- `continuous_utility_ranking`：二值边界不稳定，改为连续排序目标。
+- `capacity_optimization_probe`：已有强单变量信号，先排查 MLP 优化。
+- `parameter_matched_capacity_probe`：先运行参数匹配的更强逐点网络。
+- `relational_attention_candidate`：标签稳定但树内逐点信号弱，进入显式邻域注意力对照。
+
+本阶段不改变 E1b Gate，也不读取 Wytham。
+
