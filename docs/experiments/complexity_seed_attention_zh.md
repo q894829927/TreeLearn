@@ -237,3 +237,121 @@ Full Gate 要求：固定 18 个森林全部存在；train candidates 至少 500
 - PASS：下一阶段 E1b 训练冻结主干的双头 MLP 控制组（Reliability + Coverage），只按固定 validation forests 选 checkpoint；
 - 数据 Gate FAIL：修复数据或阈值定义后重新生成对应森林，不得通过查看 Wytham 来改 Gate；
 - E1b MLP 有效后才实现 Complexity Seed Attention，并要求相对同输入 MLP 有稳定增益。
+
+## E1b：冻结主干的双头 Seed-MLP 控制组
+
+E1a Full Gate 已通过，固定数据统计为：18 个森林、4,537,796 个训练候选、1,908,145 个验证候选、252,638 个训练 coverage-critical targets，已知标签率 100%。E1b 不再运行 TreeLearn，也不读取点云；只读取 E1a 固定 artifact。
+
+网络与后续 Attention 使用完全相同的输入和输出：
+
+~~~text
+32D frozen backbone + 29D GT-free scalar features
+                    ↓
+           MLP 61 → 128 → 64
+       LayerNorm + GELU + Dropout
+              ↙             ↘
+  Reliability/Utility       Coverage
+~~~
+
+损失为：
+
+~~~text
+BCE(reliability) + 0.5 × SmoothL1(sigmoid(reliability), utility)
+                 + 1.0 × BCE(coverage-critical)
+~~~
+
+训练每轮从 13 个训练森林各抽取 65,536 个候选，避免大森林主导。验证使用全部 5 个固定 validation forests。三次训练种子固定为 42/43/44，部署 checkpoint 预先锁定 seed 42，不根据结果挑最好的 seed。
+
+选择规则同样预先固定，并在每个森林内独立执行：
+
+1. 总共精确保留 `ceil(N × 0.78)` 个候选；
+2. 先保护 Coverage 分数最高的 `ceil(N × 0.10)` 个候选；
+3. 剩余名额按 Reliability 分数填充；
+4. 与 Reliability-only、三个 exact-random controls 和 target Oracle 同时比较。
+
+### 服务器运行
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+export PYTHONUTF8=1
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
+mkdir -p logs/complexity_seed_attention
+
+python -m unittest \
+  tests.test_seed_quality_data \
+  tests.test_seed_quality_mlp \
+  -v
+~~~
+
+测试全部 `OK` 后启动三 seed 训练：
+
+~~~bash
+nohup env CUBLAS_WORKSPACE_CONFIG=:4096:8 \
+  python -u tools/training/train_seed_quality_mlp.py \
+  --config configs/experiments/complexity_seed_attention/e1b_train_seed_mlp.yaml \
+  > logs/complexity_seed_attention/e1b_seed_mlp_run.log \
+  2>&1 < /dev/null &
+
+echo $! | tee logs/complexity_seed_attention/e1b_seed_mlp.pid
+tail -f logs/complexity_seed_attention/e1b_seed_mlp_run.log
+~~~
+
+A6000/4090 预计约 1–3 小时，主要受 NPZ 解压、CPU→GPU 传输和全量验证排序影响。日志每次验证都会打印：
+
+~~~text
+[seed 42] epoch ... loss=... rel_AP=... cov_AP=...
+critical_recall=... critical_tree_coverage=...
+~~~
+
+另开终端监控：
+
+~~~bash
+pid=$(cat logs/complexity_seed_attention/e1b_seed_mlp.pid)
+ps -p "$pid" -o pid,%cpu,%mem,rss,etime,stat,cmd
+nvidia-smi
+
+tail -n 30 logs/complexity_seed_attention/e1b_seed_mlp_run.log
+~~~
+
+判断是否结束：
+
+~~~bash
+pid=$(cat logs/complexity_seed_attention/e1b_seed_mlp.pid)
+if ps -p "$pid" > /dev/null; then
+  echo "E1b still running"
+else
+  echo "E1b finished"
+fi
+~~~
+
+完成后查看：
+
+~~~bash
+cat logs/complexity_seed_attention/e1b_seed_mlp/summary.md
+column -s, -t < \
+  logs/complexity_seed_attention/e1b_seed_mlp/per_seed_metrics.csv | less -S
+ls -lh logs/complexity_seed_attention/e1b_seed_mlp/checkpoints
+~~~
+
+固定产物包括：
+
+- `checkpoints/seed_mlp_seed42.pth`、`seed_mlp_seed43.pth`、`seed_mlp_seed44.pth`；
+- `locked_validation_scores.npz`：只保存预先锁定的 seed 42 验证分数；
+- `summary.json`、`summary.md`、`per_seed_metrics.csv`。
+
+### E1b Gate 与下一步
+
+E1b 必须同时满足：Reliability ROC-AUC ≥ 0.80；Coverage AP 至少为正类比例的 2 倍；双头 Critical recall 相对随机至少提高 0.05、相对 Reliability-only 至少提高 0.02；selected utility 相对随机至少提高 3%；所有 seed 的 critical-tree coverage ≥ 98%，每个验证森林 ≥ 95%；Critical recall 的 seed 标准差 ≤ 0.02。
+
+- PASS：下一步实现同输入、同双头损失、同三 seed 和同选择器的 Complexity Seed Attention，并要求稳定优于该 MLP；
+- `coverage_head_gain_passed=False`：Coverage target 对逐点 MLP 不可学，先修改覆盖标签或增加显式邻域关系；
+- `reliability_auc_passed=False`：当前无标签特征不足，先检查 target/feature 对齐；
+- 其他 Gate FAIL：保留所有 checkpoint 和报告用于诊断，但不进入 pipeline，也不读取 Wytham。
+
+脚本末尾若因 Gate FAIL 抛出 `RuntimeError`，但 `summary.md` 已生成，这表示实验正常结束且科学判据未通过，不是训练程序崩溃。

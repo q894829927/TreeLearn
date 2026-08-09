@@ -1,0 +1,47 @@
+data_root: 'data/seed_quality'
+manifest_path: 'data/seed_quality/manifest.csv'
+output_dir: 'logs/complexity_seed_attention/e1b_seed_mlp'
+
+expected_backbone_dim: 32
+expected_scalar_dim: 29
+expected_input_dim: 61
+
+seeds: [42, 43, 44]
+locked_seed: 42
+
+model:
+  hidden_dims: [128, 64]
+  dropout: 0.10
+
+training:
+  epochs: 40
+  patience: 6
+  validation_frequency: 2
+  examples_per_plot: 65536
+  batch_size: 8192
+  validation_batch_size: 131072
+  max_standardizer_points: 500000
+  learning_rate: 0.001
+  min_learning_rate: 0.00001
+  warmup_epochs: 3
+  weight_decay: 0.001
+  utility_loss_weight: 0.5
+  coverage_loss_weight: 1.0
+  max_pos_weight: 30.0
+  grad_norm_clip: 5.0
+  amp: True
+
+selector:
+  keep_ratio: 0.78
+  coverage_protect_ratio: 0.10
+  random_control_seeds: [1042, 1043, 1044]
+
+gate:
+  min_reliability_roc_auc: 0.80
+  min_coverage_ap_lift: 2.0
+  min_critical_recall_gain_over_random: 0.05
+  min_critical_recall_gain_over_reliability: 0.02
+  min_selected_utility_relative_gain: 0.03
+  min_critical_tree_coverage: 0.98
+  min_plot_critical_tree_coverage: 0.95
+  max_critical_recall_sample_std: 0.02

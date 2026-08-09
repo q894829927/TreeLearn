@@ -348,6 +348,110 @@ def build_seed_quality_artifact(
     return {'arrays': arrays, 'metadata': metadata}
 
 
+def combine_seed_input_features(backbone_features, scalar_features):
+    """Join frozen backbone and GT-free scalar features in FP32."""
+    backbone = np.asarray(backbone_features, dtype=np.float32)
+    scalar = np.asarray(scalar_features, dtype=np.float32)
+    if backbone.ndim != 2 or scalar.ndim != 2:
+        raise ValueError('Seed input features must be two-dimensional.')
+    if len(backbone) != len(scalar):
+        raise ValueError('Backbone and scalar seed features are not aligned.')
+    values = np.column_stack([backbone, scalar]).astype(np.float32)
+    if not np.isfinite(values).all():
+        raise ValueError('Combined seed input features are non-finite.')
+    return values
+
+
+def build_seed_quality_mlp(input_dim, model_config):
+    """Build the E1b shared MLP with reliability and coverage heads."""
+    import torch
+    from torch import nn
+
+    hidden_dims = [int(value) for value in model_config['hidden_dims']]
+    dropout = float(model_config.get('dropout', 0.0))
+    if int(input_dim) <= 0 or not hidden_dims or any(
+            value <= 0 for value in hidden_dims):
+        raise ValueError('Seed-MLP dimensions must be positive.')
+    if not 0 <= dropout < 1:
+        raise ValueError('Seed-MLP dropout must be in [0, 1).')
+
+    class SeedQualityMLP(nn.Module):
+        def __init__(self):
+            super().__init__()
+            layers = []
+            current_dim = int(input_dim)
+            for hidden_dim in hidden_dims:
+                layers.extend([
+                    nn.Linear(current_dim, hidden_dim),
+                    nn.LayerNorm(hidden_dim),
+                    nn.GELU(),
+                    nn.Dropout(dropout),
+                ])
+                current_dim = hidden_dim
+            self.encoder = nn.Sequential(*layers)
+            self.reliability_head = nn.Linear(current_dim, 1)
+            self.coverage_head = nn.Linear(current_dim, 1)
+
+        def forward(self, values):
+            encoded = self.encoder(values)
+            return (
+                self.reliability_head(encoded).squeeze(1),
+                self.coverage_head(encoded).squeeze(1),
+            )
+
+    return SeedQualityMLP()
+
+
+def exact_top_k_mask(scores, count):
+    """Select an exact number of high scores with stable index tie-breaking."""
+    values = np.asarray(scores, dtype=np.float64).reshape(-1)
+    if not np.isfinite(values).all():
+        raise ValueError('Seed selection scores must be finite.')
+    count = int(count)
+    if not 0 <= count <= len(values):
+        raise ValueError('Top-k count is outside the score array.')
+    selected = np.zeros(len(values), dtype=bool)
+    if count:
+        order = np.lexsort((np.arange(len(values)), -values))
+        selected[order[:count]] = True
+    return selected
+
+
+def select_seed_candidates(
+        reliability_scores, coverage_scores, keep_ratio=0.78,
+        coverage_protect_ratio=0.10):
+    """Protect high-coverage candidates, then fill by reliability ranking."""
+    reliability = np.asarray(
+        reliability_scores, dtype=np.float64).reshape(-1)
+    coverage = np.asarray(coverage_scores, dtype=np.float64).reshape(-1)
+    if len(reliability) != len(coverage):
+        raise ValueError('Reliability and coverage scores are not aligned.')
+    if not 0 < float(keep_ratio) <= 1:
+        raise ValueError('keep_ratio must be in (0, 1].')
+    if not 0 <= float(coverage_protect_ratio) <= float(keep_ratio):
+        raise ValueError(
+            'coverage_protect_ratio must be in [0, keep_ratio].')
+    keep_count = min(
+        len(reliability), int(np.ceil(len(reliability) * keep_ratio)))
+    protect_count = min(
+        keep_count,
+        int(np.ceil(len(reliability) * coverage_protect_ratio)))
+    protected = exact_top_k_mask(coverage, protect_count)
+    selected = protected.copy()
+    remaining_count = keep_count - int(selected.sum())
+    if remaining_count:
+        eligible = np.flatnonzero(~selected)
+        fill = exact_top_k_mask(reliability[eligible], remaining_count)
+        selected[eligible[fill]] = True
+    return selected, {
+        'num_candidates': int(len(reliability)),
+        'num_kept': int(selected.sum()),
+        'num_coverage_protected': int(protected.sum()),
+        'keep_ratio': float(keep_ratio),
+        'coverage_protect_ratio': float(coverage_protect_ratio),
+    }
+
+
 def save_seed_quality_artifact(
         artifact, output_dir, source_plot, split, metadata=None):
     output_dir = os.fspath(output_dir)
