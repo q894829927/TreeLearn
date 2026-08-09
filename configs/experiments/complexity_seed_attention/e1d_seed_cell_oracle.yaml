@@ -1,0 +1,31 @@
+# Fixed-validation granularity Oracle after pointwise E1c attention failed.
+# This diagnostic must not read Wytham or select a deployable threshold.
+data_root: 'data/seed_quality'
+manifest_path: 'data/seed_quality/manifest.csv'
+output_dir: 'logs/complexity_seed_attention/e1d_seed_cell_oracle'
+
+expected_validation_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+cell_size: 0.60
+keep_ratio: 0.78
+# sqrt-density allocation preserves sparse cells while suppressing redundant
+# candidates in exceptionally dense vote cells.
+density_exponent: 0.50
+random_seeds: [42, 43, 44]
+
+gate:
+  expected_validation_plots: 5
+  min_total_cells: 10000
+  min_between_cell_utility_variance_ratio: 0.05
+  min_utility_gain_over_random_relative: 0.03
+  min_non_tree_reduction_over_random_relative: 0.20
+  min_utility_retention_vs_point_oracle: 0.97
+  max_critical_recall_drop: 0.005
+  min_critical_tree_coverage: 0.99
+  min_density_cv_reduction_vs_point_relative: 0.05
+  min_plot_wins: 4
