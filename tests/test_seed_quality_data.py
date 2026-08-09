@@ -110,6 +110,18 @@ class SeedQualityFeatureTests(unittest.TestCase):
         self.assertEqual(metadata['scalar_dim'], 29)
         self.assertEqual(metadata['num_supervised_trees'], 2)
         self.assertEqual(metadata['num_critical_trees'], 2)
+        self.assertEqual(metadata['seed_artifact_schema_version'], 2)
+        self.assertEqual(arrays['target_base_vote_xy'].shape, (6, 2))
+        self.assertEqual(arrays['target_vote_residual_xy'].shape, (6, 2))
+        tree = arrays['target_is_tree'].astype(bool)
+        np.testing.assert_allclose(
+            arrays['base_votes_xy'][tree] +
+            arrays['target_vote_residual_xy'][tree],
+            arrays['target_base_vote_xy'][tree])
+        np.testing.assert_allclose(
+            np.linalg.norm(
+                arrays['target_vote_residual_xy'][tree], axis=1),
+            arrays['target_vote_error_xy'][tree])
         self.assertTrue(np.all(
             arrays['target_coverage_critical'] <= arrays['target_is_tree']))
 
@@ -140,6 +152,34 @@ class SeedQualityFeatureTests(unittest.TestCase):
             self.assertTrue(metadata['all_supervised_trees_covered'])
             with np.load(npz_path, allow_pickle=False) as data:
                 self.assertEqual(data['scalar_features'].shape[1], 29)
+
+    def test_generator_accepts_legacy_schema_but_rejects_partial_targets(self):
+        artifact = self.make_artifact()
+        with tempfile.TemporaryDirectory() as directory:
+            npz_path, metadata_path = SEED.save_seed_quality_artifact(
+                artifact, directory, source_plot='A1N', split='train')
+            with np.load(npz_path, allow_pickle=False) as data:
+                legacy = {
+                    name: data[name] for name in data.files
+                    if name not in {
+                        'target_base_vote_xy',
+                        'target_vote_residual_xy',
+                    }}
+            np.savez_compressed(npz_path, **legacy)
+            with Path(metadata_path).open(encoding='utf-8') as file:
+                metadata = json.load(file)
+            metadata.pop('seed_artifact_schema_version', None)
+            Path(metadata_path).write_text(
+                json.dumps(metadata), encoding='utf-8')
+            recovered = GENERATOR.validate_seed_artifact(
+                npz_path, metadata_path)
+            self.assertEqual(recovered['source_plot'], 'A1N')
+
+            partial = dict(legacy)
+            partial['target_base_vote_xy'] = np.zeros((6, 2))
+            np.savez_compressed(npz_path, **partial)
+            with self.assertRaisesRegex(ValueError, 'complete pair'):
+                GENERATOR.validate_seed_artifact(npz_path, metadata_path)
 
 
 class SeedQualityGeneratorTests(unittest.TestCase):

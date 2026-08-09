@@ -272,9 +272,19 @@ def build_seed_quality_artifact(
     valid = candidate_labels >= 0
     tree = candidate_labels > 0
     vote_error = np.zeros(len(candidate_indices), dtype=np.float32)
+    target_base_votes = np.zeros(
+        (len(candidate_indices), 2), dtype=np.float32)
+    target_vote_residual = np.zeros(
+        (len(candidate_indices), 2), dtype=np.float32)
     vote_error[tree] = np.linalg.norm(
         candidate_offsets[tree, :2] -
         candidate_offset_targets[tree, :2], axis=1)
+    target_base_votes[tree] = (
+        candidate_coords[tree, :2] +
+        candidate_offset_targets[tree, :2])
+    target_vote_residual[tree] = (
+        candidate_offset_targets[tree, :2] -
+        candidate_offsets[tree, :2])
     purity = vote_cell_purity(
         base_votes, candidate_labels, purity_cell_size)
     accuracy = np.exp(
@@ -300,6 +310,8 @@ def build_seed_quality_artifact(
         'target_is_tree': tree.astype(bool),
         'target_tree_id': candidate_labels.astype(np.int64),
         'target_vote_error_xy': vote_error,
+        'target_base_vote_xy': target_base_votes,
+        'target_vote_residual_xy': target_vote_residual,
         'target_vote_cell_purity': purity,
         'target_utility': utility,
         'target_reliable': reliable.astype(bool),
@@ -344,6 +356,7 @@ def build_seed_quality_artifact(
             'tau_off': float(tau_off),
             'tree_class_index': int(tree_class_index),
         },
+        'seed_artifact_schema_version': 2,
     }
     return {'arrays': arrays, 'metadata': metadata}
 

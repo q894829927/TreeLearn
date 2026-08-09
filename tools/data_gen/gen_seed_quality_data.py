@@ -87,6 +87,24 @@ def validate_seed_artifact(npz_path, metadata_path):
             raise ValueError('coords must have shape [N, 3].')
         if data['base_votes_xy'].shape != (count, 2):
             raise ValueError('base_votes_xy must have shape [N, 2].')
+        vote_target_names = {
+            'target_base_vote_xy', 'target_vote_residual_xy'}
+        present_vote_targets = vote_target_names & set(data.files)
+        if present_vote_targets and present_vote_targets != vote_target_names:
+            raise ValueError(
+                'Vector vote targets must be present as a complete pair.')
+        if present_vote_targets:
+            for name in vote_target_names:
+                if data[name].shape != (count, 2):
+                    raise ValueError(f'{name} must have shape [N, 2].')
+                if not np.isfinite(data[name]).all():
+                    raise ValueError(f'{name} contains non-finite values.')
+            tree_targets = data['target_is_tree'].astype(bool)
+            if not np.allclose(
+                    data['base_votes_xy'][tree_targets] +
+                    data['target_vote_residual_xy'][tree_targets],
+                    data['target_base_vote_xy'][tree_targets], atol=1e-5):
+                raise ValueError('Vector vote targets are inconsistent.')
         if data['backbone_features'].ndim != 2:
             raise ValueError('backbone_features must be two-dimensional.')
         if data['scalar_features'].ndim != 2:

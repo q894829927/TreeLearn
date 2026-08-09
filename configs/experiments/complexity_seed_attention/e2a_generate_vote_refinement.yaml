@@ -1,0 +1,39 @@
+# Regenerate only the five fixed validation forests with exact XY vote targets.
+# Existing data/seed_quality artifacts are intentionally left untouched.
+output_root: 'data/seed_vote_refinement'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/complexity_seed_attention/pipeline_seed_quality_template.yaml'
+checkpoint: 'data/model_weights/model_weights_with_small_20241213.pth'
+cleanup_intermediates: True
+audit_seed: 42
+
+splits:
+  train: []
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+# Invoke the existing generator with --pilot.  In E2a, "pilot" means the
+# complete, fixed five-forest Oracle set rather than a one-forest smoke test.
+pilot_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+gate:
+  expected_backbone_dim: 32
+  expected_scalar_dim: 29
+  min_train_candidates: 0
+  min_validation_candidates: 1
+  min_train_critical_candidates: 0
+  min_train_non_tree_candidates: 0
+  min_known_label_rate: 0.999
+  min_critical_rate: 0.0
+  max_critical_rate: 1.0
+  min_independent_groups: 0
+  min_audit_candidates: 50
