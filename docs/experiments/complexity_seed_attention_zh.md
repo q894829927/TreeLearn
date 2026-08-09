@@ -355,3 +355,61 @@ E1b 必须同时满足：Reliability ROC-AUC ≥ 0.80；Coverage AP 至少为正
 - 其他 Gate FAIL：保留所有 checkpoint 和报告用于诊断，但不进入 pipeline，也不读取 Wytham。
 
 脚本末尾若因 Gate FAIL 抛出 `RuntimeError`，但 `summary.md` 已生成，这表示实验正常结束且科学判据未通过，不是训练程序崩溃。
+
+## E1b2：Reliability 瓶颈审计
+
+E1b 的 Coverage 分支、关键种子召回、utility 增益、树覆盖率和三 seed 稳定性均通过，但固定的 Reliability ROC-AUC Gate 未通过（0.733786 < 0.80）。不得事后降低 Gate，也不得直接查看 Wytham 或进入 pipeline。E1b2 只读取固定 E1a validation artifacts、seed 42 的锁定验证分数以及 E1b 报告。
+
+E1b2 分解以下问题：
+
+1. artifact、candidate index、标签与锁定验证分数是否逐元素对齐；
+2. Reliability 分数是在区分树/非树时失败，还是在树点内部区分高低质量 vote 时失败；
+3. global AUC 与每森林 macro AUC 的差距是否表明跨森林校准问题；
+4. 原 0.50 utility 阈值附近是否存在大量边界样本；
+5. 仅作诊断的 utility 阈值扫描是否显著改变 AUC；
+6. 32D backbone 与 29D scalar 中最强单变量信号是否已经足够强；
+7. score 与连续 utility 的排序相关性。
+
+同步代码并先运行测试：
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+export PYTHONUTF8=1
+mkdir -p logs/complexity_seed_attention
+
+python -m unittest \
+  tests.test_seed_quality_mlp \
+  tests.test_seed_reliability_bottleneck \
+  -v
+~~~
+
+测试通过后运行审计：
+
+~~~bash
+python -u tools/diagnostics/diagnose_seed_reliability_bottleneck.py \
+  --config configs/experiments/complexity_seed_attention/e1b2_reliability_bottleneck.yaml \
+  2>&1 | tee logs/complexity_seed_attention/e1b2_reliability_bottleneck_run.log
+~~~
+
+本阶段只读取 5 个验证森林，预计运行数分钟；61 个单变量特征的排序统计是主要耗时。结果位于：
+
+~~~bash
+cat logs/complexity_seed_attention/e1b2_reliability_bottleneck/summary.md
+~~~
+
+自动建议的处理规则在运行前固定：
+
+- `repair_alignment`：数据或锁定分数没有逐元素对齐，先修复；
+- `forest_calibrated_ranking`：每森林 AUC 明显高于 global AUC，先处理域校准；
+- `continuous_utility_ranking`：二值阈值敏感或边界样本过多，改用连续 utility 排序损失；
+- `capacity_optimization_probe`：单变量已有很强信号但 MLP 没学到，先排查优化；
+- `parameter_matched_capacity_probe`：运行更强但仍为逐点的参数匹配控制；
+- `relational_attention_candidate`：标签稳定、跨森林差距小且树内逐点信号弱，才实现显式邻域 Complexity Seed Attention。
+
+阈值扫描只用于确定问题类型，不会据此修改 E1b 标签或在 Wytham 上调参。

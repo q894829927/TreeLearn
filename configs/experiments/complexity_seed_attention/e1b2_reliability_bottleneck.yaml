@@ -1,0 +1,26 @@
+data_root: 'data/seed_quality'
+manifest_path: 'data/seed_quality/manifest.csv'
+e1b_summary_path: 'logs/complexity_seed_attention/e1b_seed_mlp/summary.json'
+locked_scores_path: 'logs/complexity_seed_attention/e1b_seed_mlp/locked_validation_scores.npz'
+output_dir: 'logs/complexity_seed_attention/e1b2_reliability_bottleneck'
+
+locked_seed: 42
+expected_validation_plots: 5
+expected_backbone_dim: 32
+expected_scalar_dim: 29
+reliability_threshold: 0.50
+
+diagnostic:
+  utility_thresholds: [0.30, 0.40, 0.50, 0.60, 0.70]
+  ambiguity_half_widths: [0.05, 0.10]
+  max_feature_samples_per_plot: 50000
+  sample_seed: 20260809
+  top_features_to_report: 15
+
+decision:
+  target_auc: 0.80
+  macro_auc_gap_for_calibration: 0.05
+  threshold_auc_gain_for_target_redesign: 0.05
+  max_near_threshold_tree_rate: 0.25
+  min_tree_only_auc_for_pointwise_signal: 0.70
+  min_univariate_auc_for_capacity_signal: 0.80
