@@ -413,3 +413,104 @@ cat logs/complexity_seed_attention/e1b2_reliability_bottleneck/summary.md
 - `relational_attention_candidate`：标签稳定、跨森林差距小且树内逐点信号弱，才实现显式邻域 Complexity Seed Attention。
 
 阈值扫描只用于确定问题类型，不会据此修改 E1b 标签或在 Wytham 上调参。
+
+## E1c：参数匹配的 Complexity Seed Relation Attention
+
+E1b2 自动建议为 `relational_attention_candidate`。锁定诊断显示：tree-vs-non-tree AUC 为 0.937574，但 within-tree reliability AUC 仅为 0.659592；utility 阈值最大诊断增益仅 0.009237、0.50±0.10 边界率仅 14.360%、macro−global 为 -0.028248，说明主要瓶颈不是标签边界或跨森林校准，而是逐点/聚合特征缺少候选种子之间的显式关系。
+
+E1c 仍只使用固定 13 个训练森林和 5 个验证森林，不读取 Wytham，也不修改 E1a 标签、E1b selector 或原始 TreeLearn。邻域在 predicted base-vote XY 空间内构建：`K=8`、最大半径 `0.6 m`、第一列始终为 query 自身、邻居不得跨森林。
+
+为了判断增益是否真的来自注意力，同时训练两个模型：
+
+1. `Neighborhood-MLP`：query 61D、邻域 61D 均值/标准差、6D 相对几何均值/标准差；隐藏维度 176→96；
+2. `Relation-Attention`：61D→64D，单层向量注意力，relative base-vote XY、vote distance、point XY 和 Z 共同形成 6D 位置编码，随后使用 128D FFN。
+
+两者参数量预期约为 52.2K 与 50.4K，差异必须小于 10%；使用完全相同的邻接缓存、训练采样、Reliability/Coverage 双头损失、seed 42/43/44 和 78%/10% selector。
+
+### 服务器同步与测试
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+export PYTHONUTF8=1
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
+mkdir -p logs/complexity_seed_attention
+
+python - <<'PY'
+from scipy.spatial import cKDTree
+import torch
+print('SciPy cKDTree: OK')
+print('PyTorch:', torch.__version__)
+print('CUDA:', torch.cuda.is_available())
+PY
+
+python -m unittest \
+  tests.test_seed_attention_neighbors \
+  tests.test_seed_relation_attention \
+  tests.test_seed_relation_training_smoke \
+  -v
+~~~
+
+### E1c-a：生成固定邻域缓存
+
+~~~bash
+nohup python -u tools/data_gen/gen_seed_attention_neighbors.py \
+  --config configs/experiments/complexity_seed_attention/e1c_generate_seed_neighbors.yaml \
+  > logs/complexity_seed_attention/e1c_generate_neighbors.log \
+  2>&1 < /dev/null &
+
+echo $! | tee logs/complexity_seed_attention/e1c_generate_neighbors.pid
+tail -f logs/complexity_seed_attention/e1c_generate_neighbors.log
+~~~
+
+缓存生成支持断点续跑：已经存在的森林会重新验证后 `SKIP`。不要使用 `--force`，除非确认缓存损坏。预计约 20–60 分钟，输出约数百 MB。
+
+完成后检查：
+
+~~~bash
+cat data/seed_quality_neighbors/summary.md
+wc -l data/seed_quality_neighbors/manifest.csv
+du -sh data/seed_quality_neighbors
+~~~
+
+必须显示所有 Gate 为 `True` 和最终 `PASS`，才可以启动训练。
+
+### E1c-b：训练参数匹配对照
+
+~~~bash
+nohup env CUBLAS_WORKSPACE_CONFIG=:4096:8 \
+  python -u tools/training/train_seed_relation_attention.py \
+  --config configs/experiments/complexity_seed_attention/e1c_train_seed_relation_attention.yaml \
+  > logs/complexity_seed_attention/e1c_seed_relation_attention_run.log \
+  2>&1 < /dev/null &
+
+echo $! | tee logs/complexity_seed_attention/e1c_seed_relation_attention.pid
+tail -f logs/complexity_seed_attention/e1c_seed_relation_attention_run.log
+~~~
+
+A6000/4090 预计约 4–10 小时。脚本先打印两种模型参数量，随后依次运行 Neighborhood-MLP 的三个 seed 和 Relation-Attention 的三个 seed。监控命令：
+
+~~~bash
+pid=$(cat logs/complexity_seed_attention/e1c_seed_relation_attention.pid)
+ps -p "$pid" -o pid,%cpu,%mem,rss,etime,stat,cmd
+nvidia-smi
+tail -n 40 logs/complexity_seed_attention/e1c_seed_relation_attention_run.log
+~~~
+
+最终结果：
+
+~~~bash
+cat logs/complexity_seed_attention/e1c_seed_relation_attention/summary.md
+column -s, -t < \
+  logs/complexity_seed_attention/e1c_seed_relation_attention/per_seed_metrics.csv | less -S
+~~~
+
+E1c Gate 预先固定为：参数差不超过 10%；Attention 平均 overall Reliability AUC≥0.80、tree-only AUC≥0.70；相对 Neighborhood-MLP 的 overall AUC 增益≥0.02、tree-only AUC 增益≥0.03；Coverage AP 和 Critical recall 分别最多下降 0.005；selected utility 相对提高至少 1%；tree-only AUC 至少赢得 2/3 seeds，且三 seed 标准差不超过 0.02。
+
+- PASS：下一阶段才把锁定 seed 42 的 Relation-Attention 接入 L1W seed selector；
+- FAIL：保留负结果，不进入 pipeline，也不在 Wytham 上修改邻域半径、K 或 Gate。

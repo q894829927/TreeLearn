@@ -1,0 +1,13 @@
+data_root: 'data/seed_quality'
+manifest_path: 'data/seed_quality/manifest.csv'
+output_root: 'data/seed_quality_neighbors'
+
+num_neighbors: 8
+radius: 0.6
+query_chunk_size: 200000
+workers: -1
+
+gate:
+  expected_artifacts: 18
+  min_relation_coverage: 0.90
+  min_critical_relation_coverage: 0.95

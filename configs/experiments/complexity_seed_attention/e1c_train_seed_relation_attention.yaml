@@ -1,0 +1,62 @@
+data_root: 'data/seed_quality'
+manifest_path: 'data/seed_quality/manifest.csv'
+neighbor_manifest_path: 'data/seed_quality_neighbors/manifest.csv'
+neighbor_summary_path: 'data/seed_quality_neighbors/summary.json'
+output_dir: 'logs/complexity_seed_attention/e1c_seed_relation_attention'
+
+expected_backbone_dim: 32
+expected_scalar_dim: 29
+expected_input_dim: 61
+geometry_dim: 6
+
+model_types:
+  - neighborhood_mlp
+  - relation_attention
+seeds: [42, 43, 44]
+locked_seed: 42
+
+model:
+  control_hidden_dims: [176, 96]
+  attention_hidden_dim: 64
+  attention_feedforward_dim: 128
+  dropout: 0.10
+
+neighborhood:
+  num_neighbors: 8
+  radius: 0.6
+  vertical_scale: 4.0
+
+training:
+  epochs: 30
+  patience: 5
+  validation_frequency: 2
+  examples_per_plot: 32768
+  batch_size: 4096
+  validation_batch_size: 32768
+  max_standardizer_points: 500000
+  learning_rate: 0.001
+  min_learning_rate: 0.00001
+  warmup_epochs: 3
+  weight_decay: 0.001
+  utility_loss_weight: 0.5
+  coverage_loss_weight: 1.0
+  max_pos_weight: 30.0
+  grad_norm_clip: 5.0
+  amp: True
+
+selector:
+  keep_ratio: 0.78
+  coverage_protect_ratio: 0.10
+  random_control_seeds: [1042, 1043, 1044]
+
+gate:
+  max_parameter_gap_ratio: 0.10
+  min_attention_reliability_auc: 0.80
+  min_attention_tree_only_auc: 0.70
+  min_reliability_auc_gain: 0.02
+  min_tree_only_auc_gain: 0.03
+  max_coverage_ap_drop: 0.005
+  max_critical_recall_drop: 0.005
+  min_selected_utility_relative_gain: 0.01
+  min_tree_auc_seed_wins: 2
+  max_tree_auc_sample_std: 0.02
