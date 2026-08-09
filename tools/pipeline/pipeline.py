@@ -24,6 +24,8 @@ from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, l
                              apply_instance_quality_filter,
                              remap_instance_predictions,
                              save_instance_quality_scores,
+                             build_seed_quality_artifact,
+                             save_seed_quality_artifact,
                              propagate_preds_hash_full, propagate_preds_hash_vox)
 
 TREE_CLASS_IN_PYTORCH_DATASET = 0
@@ -95,6 +97,8 @@ def run_treelearn_pipeline(config, config_path=None):
         quality_filter_cfg is not None and (
             quality_filter_enabled or
             getattr(quality_filter_cfg, 'score_instances', False)))
+    save_seed_training_data = bool(getattr(
+        config.save_cfg, 'save_seed_training_data', False))
     logger.info(f'{plot_name}: #################### getting pointwise predictions ####################')
     model = TreeLearn(**config.model).cuda()
     dataset = TreeDataset(**config.dataset_test, logger=logger)
@@ -105,6 +109,7 @@ def run_treelearn_pipeline(config, config_path=None):
         return_backbone_feats=bool(
             config.save_cfg.save_pointwise or getattr(
                 config.save_cfg, 'save_quality_training_data', False) or
+            save_seed_training_data or
             quality_scoring_enabled))
     (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, coords, instance_labels,
@@ -124,6 +129,70 @@ def run_treelearn_pipeline(config, config_path=None):
     axis_confidence = (
         1.0 / (1.0 + np.exp(axis_log_variances))
         if axis_log_variances is not None else None)
+
+    if save_seed_training_data:
+        if backbone_feats is None:
+            raise RuntimeError(
+                'Seed training data require frozen backbone features.')
+        logger.info(
+            f'{plot_name}: #################### saving seed training data '
+            '####################')
+        seed_artifact = build_seed_quality_artifact(
+            coords=coords,
+            semantic_logits=semantic_prediction_logits,
+            offset_predictions=offset_predictions,
+            offset_labels=offset_labels,
+            instance_labels=instance_labels,
+            backbone_features=backbone_feats,
+            verticality=input_feats[:, -1],
+            tree_conf_thresh=float(config.grouping.tree_conf_thresh),
+            tau_vert=float(config.grouping.tau_vert),
+            tau_off=float(config.grouping.tau_off),
+            tree_class_index=TREE_CLASS_IN_PYTORCH_DATASET,
+            complexity_scales=list(getattr(
+                config.save_cfg, 'seed_complexity_scales',
+                [0.3, 0.6, 1.2])),
+            utility_sigma_m=float(getattr(
+                config.save_cfg, 'seed_utility_sigma_m', 0.3)),
+            purity_cell_size=float(getattr(
+                config.save_cfg, 'seed_purity_cell_size', 0.6)),
+            purity_power=float(getattr(
+                config.save_cfg, 'seed_purity_power', 1.0)),
+            critical_cell_size=float(getattr(
+                config.save_cfg, 'seed_critical_cell_size', 0.6)),
+            min_seeds_per_tree=int(getattr(
+                config.save_cfg, 'seed_min_seeds_per_tree', 50)),
+            reliability_threshold=float(getattr(
+                config.save_cfg, 'seed_reliability_threshold', 0.5)))
+        seed_dir = os.path.join(results_dir, 'seed_quality')
+        seed_paths = save_seed_quality_artifact(
+            seed_artifact,
+            seed_dir,
+            source_plot=plot_name,
+            split=str(getattr(config, 'seed_quality_split', 'unspecified')),
+            metadata={
+                'checkpoint': str(config.pretrain),
+                'source_forest': str(source_forest_path),
+            })
+        seed_metadata = seed_artifact['metadata']
+        logger.info(
+            f"Saved {seed_metadata['num_candidates']:,} candidate seeds "
+            f"({seed_metadata['num_critical_candidates']:,} critical) "
+            f"to {seed_paths[0]}")
+        seed_only_run = (
+            not bool(config.save_cfg.save_pointwise) and
+            not bool(config.save_cfg.save_treewise) and
+            not bool(getattr(config.save_cfg, 'save_full_forest', True)) and
+            not bool(getattr(
+                config.save_cfg, 'save_instance_diagnostics', False)) and
+            not bool(getattr(
+                config.save_cfg, 'save_quality_training_data', False)) and
+            not quality_scoring_enabled)
+        if seed_only_run:
+            logger.info(
+                f'{plot_name}: seed artifact complete; skipping clustering')
+            return
+
 
     # get mask of inner coords if outer points should be removed
     if config.shape_cfg.outer_remove:

@@ -1,0 +1,58 @@
+# E1a template resolved once per fully labeled forest.
+default_args:
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+forest_path: '__FOREST_PATH__'
+pipeline_base_dir: '__PIPELINE_BASE_DIR__'
+seed_quality_split: 'unspecified'
+fp16: True
+tile_generation: True
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: False
+  offset_loss_type: 'l2'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+shape_cfg:
+  outer_remove: ~
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+grouping:
+  use_upper_seeds: False
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_axis_fusion: False
+  use_seed_confidence_filter: False
+
+pretrain: 'data/model_weights/model_weights_with_small_20241213.pth'
+
+save_cfg:
+  results_dir: 'results_seed_quality_candidates'
+  return_type: 'voxelized_and_filtered'
+  save_formats: ['npz']
+  save_pointwise: False
+  save_treewise: False
+  save_full_forest: False
+  save_instance_diagnostics: False
+  save_quality_training_data: False
+  save_seed_training_data: True
+
+  seed_complexity_scales: [0.3, 0.6, 1.2]
+  seed_utility_sigma_m: 0.3
+  seed_purity_cell_size: 0.6
+  seed_purity_power: 1.0
+  seed_critical_cell_size: 0.6
+  seed_min_seeds_per_tree: 50
+  seed_reliability_threshold: 0.5

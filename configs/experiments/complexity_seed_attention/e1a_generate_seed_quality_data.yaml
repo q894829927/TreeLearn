@@ -1,0 +1,45 @@
+output_root: 'data/seed_quality'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/complexity_seed_attention/pipeline_seed_quality_template.yaml'
+checkpoint: 'data/model_weights/model_weights_with_small_20241213.pth'
+cleanup_intermediates: True
+audit_seed: 42
+
+splits:
+  train:
+    - A1N
+    - A1W
+    - G1N
+    - G1W
+    - G2N
+    - G2W
+    - G3N
+    - G3W
+    - L2N
+    - L2W
+    - LG1
+    - LG2
+    - LG3
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+pilot_plots:
+  - A1N
+  - G4N
+
+gate:
+  expected_backbone_dim: 32
+  expected_scalar_dim: 29
+  min_train_candidates: 500000
+  min_validation_candidates: 200000
+  min_train_critical_candidates: 10000
+  min_train_non_tree_candidates: 1000
+  min_known_label_rate: 0.999
+  min_critical_rate: 0.005
+  max_critical_rate: 0.50
+  min_independent_groups: 3
+  min_audit_candidates: 50

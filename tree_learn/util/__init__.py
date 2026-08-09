@@ -9,4 +9,5 @@ from .train import *
 from .axis import *
 from .instance_diagnostics import *
 from .instance_quality import *
+from .seed_quality import *
 from .pipeline import *

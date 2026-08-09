@@ -117,3 +117,123 @@ Gate 不变：F1 提升至少 `0.50 pp`、Commission 降低至少 `1.00 pp`、Co
 - PASS：下一步实现冻结 TreeLearn 主干的 Complexity Seed MLP 控制组；
 - FAIL：关闭种子删减路线；
 - E0b 只使用 L1W，不读取 Wytham，也不得根据 Wytham 调参。
+## E1a：冻结主干的种子可靠性与覆盖目标数据
+
+E0b 证明了空间约束 Oracle 有效，但单纯按可靠性排序会误删少量决定树木覆盖的关键种子。因此 E1 不直接训练注意力网络，先生成可审计、无输入泄漏的固定数据集。
+
+每个原始 TreeLearn base-seed 候选保存两类输入：
+
+1. 冻结官方 small-tree checkpoint 得到的 `32D backbone_features`；
+2. `29D scalar_features`：5 个逐点量（树概率、verticality、归一化高度、XY offset 幅值、Z offset 幅值）以及在 `0.3/0.6/1.2 m` 三种 predicted base-vote 网格中的 24 个局部复杂度统计量。
+
+GT 只进入以下监督字段，不进入输入字段：
+
+- `target_reliable`：由 base-vote XY 误差与 0.6 m vote-cell purity 联合定义；
+- `target_coverage_critical`：每棵树的每个 0.6 m vote cell 至少保留一个代表，同时每棵树至少保留 50 个候选（不足时全部保留）；
+- 连续诊断目标：`target_vote_error_xy`、`target_vote_cell_purity`、`target_utility`。
+
+固定森林划分为：
+
+- train：A1N、A1W、G1N、G1W、G2N、G2W、G3N、G3W、L2N、L2W、LG1、LG2、LG3；
+- validation：G4N、G4W、L1N、O1N、O1W；
+- Wytham：本阶段禁止读取，后续也不能用于选模型或阈值。
+
+### 第一步：服务器同步与测试
+
+~~~bash
+cd ~/projects/zrx/code/TreeLearn
+git switch vertical-instance-quality
+git pull --ff-only origin vertical-instance-quality
+
+conda activate TreeLearn
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+export PYTHONUTF8=1
+mkdir -p logs/complexity_seed_attention
+
+python -m unittest tests.test_seed_quality_data -v
+~~~
+
+只有测试全部 `OK` 才运行数据生成。
+
+### 第二步：两森林 pilot
+
+pilot 只运行 A1N（train）和 G4N（validation），用于确认显存、路径、artifact 维度与提前跳过 HDBSCAN 的逻辑。
+
+~~~bash
+nohup python -u tools/data_gen/gen_seed_quality_data.py \
+  --config configs/experiments/complexity_seed_attention/e1a_generate_seed_quality_data.yaml \
+  --pilot \
+  > logs/complexity_seed_attention/e1a_pilot.log 2>&1 < /dev/null &
+
+echo $! | tee logs/complexity_seed_attention/e1a_pilot.pid
+tail -f logs/complexity_seed_attention/e1a_pilot.log
+~~~
+
+另开终端监控：
+
+~~~bash
+pid=$(cat logs/complexity_seed_attention/e1a_pilot.pid)
+ps -p "$pid" -o pid,%cpu,%mem,rss,etime,stat,cmd
+pgrep -af "[t]ools/pipeline/pipeline.py"
+tail -f data/seed_quality/logs/A1N.log
+~~~
+
+pilot 完成后检查：
+
+~~~bash
+cat data/seed_quality/generation_summary.md
+head -n 6 data/seed_quality/manifest.csv
+head -n 6 data/seed_quality/audit_sample.csv
+~~~
+
+pilot 必须满足：两个 artifact 非空、backbone 维度为 32、scalar 维度为 29、所有出现于候选集的监督树均有 coverage target、无森林/组泄漏、审计样本不少于 20。任一失败都先修复，不进入 full。
+
+### 第三步：完整生成
+
+pilot PASS 后执行。已有且校验通过的 A1N/G4N 会自动 `SKIP`，因此不需要 `--force`。
+
+~~~bash
+nohup python -u tools/data_gen/gen_seed_quality_data.py \
+  --config configs/experiments/complexity_seed_attention/e1a_generate_seed_quality_data.yaml \
+  > logs/complexity_seed_attention/e1a_full.log 2>&1 < /dev/null &
+
+echo $! | tee logs/complexity_seed_attention/e1a_full.pid
+tail -f logs/complexity_seed_attention/e1a_full.log
+~~~
+
+运行中可查看当前子任务和单森林日志：
+
+~~~bash
+pid=$(cat logs/complexity_seed_attention/e1a_full.pid)
+ps -p "$pid" -o pid,%cpu,%mem,rss,etime,stat,cmd
+pgrep -af "[t]ools/pipeline/pipeline.py"
+tail -n 30 logs/complexity_seed_attention/e1a_full.log
+ls -lh data/seed_quality/train data/seed_quality/validation
+~~~
+
+只有在某个 artifact 已损坏且明确需要重建时，才对指定森林使用：
+
+~~~bash
+python -u tools/data_gen/gen_seed_quality_data.py \
+  --config configs/experiments/complexity_seed_attention/e1a_generate_seed_quality_data.yaml \
+  --plots A1N \
+  --force
+~~~
+
+不要在完整运行尚未结束时启动第二份生成进程。
+
+### E1a Full Gate 与后续分支
+
+完整结果位于 `data/seed_quality/`，重点查看：
+
+~~~bash
+cat data/seed_quality/generation_summary.md
+wc -l data/seed_quality/manifest.csv
+~~~
+
+Full Gate 要求：固定 18 个森林全部存在；train candidates 至少 500,000；validation candidates 至少 200,000；train coverage-critical 至少 10,000；已知非树候选至少 1,000；已知标签率至少 99.9%；critical 比例在 0.5%–50% 之间；维度、树覆盖、森林划分和审计样本全部通过。
+
+- PASS：下一阶段 E1b 训练冻结主干的双头 MLP 控制组（Reliability + Coverage），只按固定 validation forests 选 checkpoint；
+- 数据 Gate FAIL：修复数据或阈值定义后重新生成对应森林，不得通过查看 Wytham 来改 Gate；
+- E1b MLP 有效后才实现 Complexity Seed Attention，并要求相对同输入 MLP 有稳定增益。
