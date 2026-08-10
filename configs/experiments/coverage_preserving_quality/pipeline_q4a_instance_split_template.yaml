@@ -1,0 +1,49 @@
+# Q4a template: intercept pointwise results in memory; do not save a large NPZ.
+default_args:
+  - configs/experiments/point_transformer/_pipeline_base_residual_mlp_seed_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+forest_path: '__FOREST_PATH__'
+pipeline_base_dir: '__PIPELINE_BASE_DIR__'
+split_oracle_output_dir: '__SPLIT_ORACLE_OUTPUT_DIR__'
+fp16: true
+tile_generation: true
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+shape_cfg:
+  outer_remove: ~
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+grouping:
+  seed_confidence_filter_mode: 'top_ratio'
+  seed_confidence_keep_ratio: 1.0
+  max_cluster_seed_points: 1500000
+
+pretrain: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+
+save_cfg:
+  results_dir: 'results_q4a_instance_split'
+  return_type: 'voxelized_and_filtered'
+  save_formats: ['npz']
+  save_pointwise: true
+  save_treewise: false
+  save_full_forest: false
+  save_instance_diagnostics: false
+  save_quality_training_data: false
+  save_seed_training_data: false
+
+split_oracle:
+  match_iou_threshold: 0.5
+  min_precision_for_counted_fp: 0.5
+  min_recall_for_undersegmentation: 0.5
+  max_fit_points: 50000
+  random_state: 20260811
+  vertical_power: 2.0
+  vertical_feature_weight: 1.0
