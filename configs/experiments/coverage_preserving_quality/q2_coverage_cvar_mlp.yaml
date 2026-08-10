@@ -1,0 +1,37 @@
+# Q2 parameter-matched supervision control. Wytham is forbidden.
+data_root: 'data/instance_quality'
+manifest_path: 'data/instance_quality/manifest.csv'
+q1_summary_path: 'logs/coverage_preserving_quality/q1_coverage_oracle/summary.json'
+q1_label_path: 'logs/coverage_preserving_quality/q1_coverage_oracle/dual_risk_labels.csv'
+output_dir: 'logs/coverage_preserving_quality/q2_coverage_cvar_mlp'
+
+seeds: [42, 43, 44]
+models:
+  - quality_iou_control
+  - safe_iou_control
+  - coverage_cvar
+reject_ratio: 0.15
+
+model:
+  hidden_dims: [64, 32]
+  dropout: 0.1
+  batch_size: 128
+  epochs: 100
+  patience: 15
+  log_interval: 5
+  learning_rate: 0.001
+  weight_decay: 0.001
+  control_iou_loss_weight: 0.5
+  coverage_cvar_weight: 0.5
+  coverage_tail_fraction: 0.2
+  max_completeness_drop_pp: 1.0
+
+gate:
+  max_coverage_completeness_drop_pp: 1.0
+  min_coverage_f1_gain_over_unfiltered_pp: 1.0
+  min_coverage_commission_reduction_pp: 2.0
+  min_coverage_f1_gain_over_control_pp: 0.5
+  max_coverage_completeness_loss_vs_control_pp: 0.5
+  min_seed_wins: 2
+  min_validation_plot_wins: 4
+  max_coverage_f1_sample_std_pp: 1.0
