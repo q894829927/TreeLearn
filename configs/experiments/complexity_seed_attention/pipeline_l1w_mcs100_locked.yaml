@@ -14,7 +14,6 @@ grouping:
   tau_min: 100
 
 pretrain: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
-tile_generation: False
 
 save_cfg:
   results_dir: 'results_grouping_mcs100_locked'

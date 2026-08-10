@@ -35,7 +35,15 @@ def get_config(config_path):
             # Modify content of default args if specified so in main configuration and then update main configuration with modified default configuration
             for key in main_cfg:
                 if key in default_config:
-                    modify_default_cfg(default_config[key], main_cfg[key])
+                    if (isinstance(default_config[key], dict) and
+                            isinstance(main_cfg[key], dict)):
+                        modify_default_cfg(
+                            default_config[key], main_cfg[key])
+                    else:
+                        # Top-level scalar overrides are valid values. The old
+                        # code sent bool/int/float/string values to a dict-only
+                        # helper and raised `has no attribute items`.
+                        default_config[key] = main_cfg[key]
             
             main_cfg.update(default_config)
     return Munch.fromDict(main_cfg)
