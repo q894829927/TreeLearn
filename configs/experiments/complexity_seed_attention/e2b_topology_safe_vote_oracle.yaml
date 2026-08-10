@@ -1,0 +1,36 @@
+# New preregistered hypothesis after the unconditional E2a topology failure.
+# Reuses the exact E2a artifacts/caches; Wytham is forbidden.
+data_root: 'data/seed_vote_refinement'
+manifest_path: 'data/seed_vote_refinement/manifest.csv'
+output_dir: 'logs/complexity_seed_attention/e2b_topology_safe_vote_oracle'
+
+e2a_summary_path: 'logs/complexity_seed_attention/e2a_vote_refinement_oracle/summary.json'
+e2a_plot_dir: 'logs/complexity_seed_attention/e2a_vote_refinement_oracle/plots'
+
+expected_validation_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+cell_size: 0.60
+topology_cell_size: 0.60
+damping_factors: [0.25, 0.50, 0.75, 1.00]
+run_hdbscan: True
+min_cluster_size: 50
+min_iou: 0.50
+n_jobs: -1
+
+gate:
+  expected_validation_plots: 5
+  max_pointwise_oracle_mean_error: 0.00001
+  min_mean_error_reduction_relative: 0.60
+  min_p90_error_reduction_relative: 0.50
+  max_cell_purity_drop: 0.001
+  max_multi_tree_collision_increase: 0.0025
+  min_cluster_f1_gain_pp: 1.00
+  min_cluster_commission_reduction_pp: 1.00
+  max_cluster_tree_recall_drop_pp: 0.50
+  min_nonnegative_f1_plots: 4
+  max_single_plot_f1_drop_pp: 0.50
