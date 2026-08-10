@@ -1,0 +1,317 @@
+{
+  "validation_plots": [
+    "G4N",
+    "G4W",
+    "L1N",
+    "O1N",
+    "O1W"
+  ],
+  "num_gt_trees": 1782,
+  "num_omissions": 149,
+  "baseline": {
+    "tp": 1633,
+    "fp": 275,
+    "fn": 149,
+    "completeness": 0.9163860830527497,
+    "commission": 0.1441299790356394,
+    "f1": 0.8850948509485095
+  },
+  "category_counts": {
+    "detected": 1633,
+    "semantic_support_failure": 2,
+    "base_seed_support_failure": 31,
+    "density_clustering_failure": 0,
+    "undersegmentation": 73,
+    "fragmentation": 41,
+    "partial_or_localization": 2
+  },
+  "category_oracles": {
+    "semantic_support_failure": {
+      "route": "semantic_recovery",
+      "recoverable_trees": 2,
+      "affected_plots": 2,
+      "oracle": {
+        "tp": 1635,
+        "fp": 275,
+        "fn": 147,
+        "completeness": 0.9175084175084175,
+        "commission": 0.14397905759162305,
+        "f1": 0.8856988082340195
+      },
+      "completeness_gain_pp": 0.11223344556677839,
+      "f1_gain_pp": 0.060395728550999284
+    },
+    "base_seed_support_failure": {
+      "route": "seed_recovery",
+      "recoverable_trees": 31,
+      "affected_plots": 5,
+      "oracle": {
+        "tp": 1664,
+        "fp": 275,
+        "fn": 118,
+        "completeness": 0.9337822671156004,
+        "commission": 0.14182568334192883,
+        "f1": 0.8943832303144316
+      },
+      "completeness_gain_pp": 1.7396184062850706,
+      "f1_gain_pp": 0.9288379365922084
+    },
+    "density_clustering_failure": {
+      "route": "density_aware_grouping",
+      "recoverable_trees": 0,
+      "affected_plots": 0,
+      "oracle": {
+        "tp": 1633,
+        "fp": 275,
+        "fn": 149,
+        "completeness": 0.9163860830527497,
+        "commission": 0.1441299790356394,
+        "f1": 0.8850948509485095
+      },
+      "completeness_gain_pp": 0.0,
+      "f1_gain_pp": 0.0
+    },
+    "undersegmentation": {
+      "route": "instance_split",
+      "recoverable_trees": 73,
+      "affected_plots": 5,
+      "oracle": {
+        "tp": 1706,
+        "fp": 275,
+        "fn": 76,
+        "completeness": 0.957351290684624,
+        "commission": 0.13881877839475013,
+        "f1": 0.9067233590220569
+      },
+      "completeness_gain_pp": 4.096520763187428,
+      "f1_gain_pp": 2.1628508073547437
+    },
+    "fragmentation": {
+      "route": "instance_merge",
+      "recoverable_trees": 41,
+      "affected_plots": 4,
+      "oracle": {
+        "tp": 1674,
+        "fp": 275,
+        "fn": 108,
+        "completeness": 0.9393939393939394,
+        "commission": 0.14109799897383274,
+        "f1": 0.8973465558831413
+      },
+      "completeness_gain_pp": 2.3007856341189736,
+      "f1_gain_pp": 1.225170493463179
+    },
+    "partial_or_localization": {
+      "route": "proposal_localization",
+      "recoverable_trees": 2,
+      "affected_plots": 2,
+      "oracle": {
+        "tp": 1635,
+        "fp": 275,
+        "fn": 147,
+        "completeness": 0.9175084175084175,
+        "commission": 0.14397905759162305,
+        "f1": 0.8856988082340195
+      },
+      "completeness_gain_pp": 0.11223344556677839,
+      "f1_gain_pp": 0.060395728550999284
+    }
+  },
+  "actionable_categories": [
+    "base_seed_support_failure",
+    "undersegmentation",
+    "fragmentation"
+  ],
+  "recommended_category": "undersegmentation",
+  "recommended_route": "instance_split",
+  "per_plot": [
+    {
+      "baseline": {
+        "tp": 282,
+        "fp": 35,
+        "fn": 36,
+        "completeness": 0.8867924528301887,
+        "commission": 0.11041009463722397,
+        "f1": 0.8881889763779528
+      },
+      "category_counts": {
+        "detected": 282,
+        "semantic_support_failure": 1,
+        "base_seed_support_failure": 13,
+        "density_clustering_failure": 0,
+        "undersegmentation": 15,
+        "fragmentation": 7,
+        "partial_or_localization": 0
+      },
+      "num_gt_trees": 318,
+      "num_predicted_instances": 364,
+      "num_counted_false_positives": 35,
+      "parameters": {
+        "tree_conf_thresh": 0.5,
+        "tau_vert": 0.6,
+        "tau_off": 4.0,
+        "tau_min": 50,
+        "tree_class_index": 0,
+        "match_iou_threshold": 0.5,
+        "min_precision_for_counted_fp": 0.5,
+        "min_recall_for_undersegmentation": 0.5,
+        "min_fragment_overlap_fraction": 0.05,
+        "min_fragment_overlap_points": 20
+      },
+      "source_plot": "G4N",
+      "split": "validation"
+    },
+    {
+      "baseline": {
+        "tp": 545,
+        "fp": 50,
+        "fn": 40,
+        "completeness": 0.9316239316239316,
+        "commission": 0.08403361344537816,
+        "f1": 0.923728813559322
+      },
+      "category_counts": {
+        "detected": 545,
+        "semantic_support_failure": 1,
+        "base_seed_support_failure": 11,
+        "density_clustering_failure": 0,
+        "undersegmentation": 18,
+        "fragmentation": 9,
+        "partial_or_localization": 1
+      },
+      "num_gt_trees": 585,
+      "num_predicted_instances": 653,
+      "num_counted_false_positives": 50,
+      "parameters": {
+        "tree_conf_thresh": 0.5,
+        "tau_vert": 0.6,
+        "tau_off": 4.0,
+        "tau_min": 50,
+        "tree_class_index": 0,
+        "match_iou_threshold": 0.5,
+        "min_precision_for_counted_fp": 0.5,
+        "min_recall_for_undersegmentation": 0.5,
+        "min_fragment_overlap_fraction": 0.05,
+        "min_fragment_overlap_points": 20
+      },
+      "source_plot": "G4W",
+      "split": "validation"
+    },
+    {
+      "baseline": {
+        "tp": 431,
+        "fp": 90,
+        "fn": 22,
+        "completeness": 0.9514348785871964,
+        "commission": 0.1727447216890595,
+        "f1": 0.8850102669404517
+      },
+      "category_counts": {
+        "detected": 431,
+        "semantic_support_failure": 0,
+        "base_seed_support_failure": 2,
+        "density_clustering_failure": 0,
+        "undersegmentation": 10,
+        "fragmentation": 10,
+        "partial_or_localization": 0
+      },
+      "num_gt_trees": 453,
+      "num_predicted_instances": 685,
+      "num_counted_false_positives": 90,
+      "parameters": {
+        "tree_conf_thresh": 0.5,
+        "tau_vert": 0.6,
+        "tau_off": 4.0,
+        "tau_min": 50,
+        "tree_class_index": 0,
+        "match_iou_threshold": 0.5,
+        "min_precision_for_counted_fp": 0.5,
+        "min_recall_for_undersegmentation": 0.5,
+        "min_fragment_overlap_fraction": 0.05,
+        "min_fragment_overlap_points": 20
+      },
+      "source_plot": "L1N",
+      "split": "validation"
+    },
+    {
+      "baseline": {
+        "tp": 152,
+        "fp": 11,
+        "fn": 8,
+        "completeness": 0.95,
+        "commission": 0.06748466257668712,
+        "f1": 0.9411764705882353
+      },
+      "category_counts": {
+        "detected": 152,
+        "semantic_support_failure": 0,
+        "base_seed_support_failure": 1,
+        "density_clustering_failure": 0,
+        "undersegmentation": 7,
+        "fragmentation": 0,
+        "partial_or_localization": 0
+      },
+      "num_gt_trees": 160,
+      "num_predicted_instances": 190,
+      "num_counted_false_positives": 11,
+      "parameters": {
+        "tree_conf_thresh": 0.5,
+        "tau_vert": 0.6,
+        "tau_off": 4.0,
+        "tau_min": 50,
+        "tree_class_index": 0,
+        "match_iou_threshold": 0.5,
+        "min_precision_for_counted_fp": 0.5,
+        "min_recall_for_undersegmentation": 0.5,
+        "min_fragment_overlap_fraction": 0.05,
+        "min_fragment_overlap_points": 20
+      },
+      "source_plot": "O1N",
+      "split": "validation"
+    },
+    {
+      "baseline": {
+        "tp": 223,
+        "fp": 89,
+        "fn": 43,
+        "completeness": 0.8383458646616542,
+        "commission": 0.28525641025641024,
+        "f1": 0.7716262975778547
+      },
+      "category_counts": {
+        "detected": 223,
+        "semantic_support_failure": 0,
+        "base_seed_support_failure": 4,
+        "density_clustering_failure": 0,
+        "undersegmentation": 23,
+        "fragmentation": 15,
+        "partial_or_localization": 1
+      },
+      "num_gt_trees": 266,
+      "num_predicted_instances": 703,
+      "num_counted_false_positives": 89,
+      "parameters": {
+        "tree_conf_thresh": 0.5,
+        "tau_vert": 0.6,
+        "tau_off": 4.0,
+        "tau_min": 50,
+        "tree_class_index": 0,
+        "match_iou_threshold": 0.5,
+        "min_precision_for_counted_fp": 0.5,
+        "min_recall_for_undersegmentation": 0.5,
+        "min_fragment_overlap_fraction": 0.05,
+        "min_fragment_overlap_points": 20
+      },
+      "source_plot": "O1W",
+      "split": "validation"
+    }
+  ],
+  "gate": {
+    "expected_validation_plots": true,
+    "no_wytham": true,
+    "all_gt_accounted": true,
+    "enough_omissions": true,
+    "actionable_route_identified": true,
+    "passed": true
+  }
+}

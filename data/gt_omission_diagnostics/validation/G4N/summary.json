@@ -1,0 +1,36 @@
+{
+  "baseline": {
+    "tp": 282,
+    "fp": 35,
+    "fn": 36,
+    "completeness": 0.8867924528301887,
+    "commission": 0.11041009463722397,
+    "f1": 0.8881889763779528
+  },
+  "category_counts": {
+    "detected": 282,
+    "semantic_support_failure": 1,
+    "base_seed_support_failure": 13,
+    "density_clustering_failure": 0,
+    "undersegmentation": 15,
+    "fragmentation": 7,
+    "partial_or_localization": 0
+  },
+  "num_gt_trees": 318,
+  "num_predicted_instances": 364,
+  "num_counted_false_positives": 35,
+  "parameters": {
+    "tree_conf_thresh": 0.5,
+    "tau_vert": 0.6,
+    "tau_off": 4.0,
+    "tau_min": 50,
+    "tree_class_index": 0,
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_recall_for_undersegmentation": 0.5,
+    "min_fragment_overlap_fraction": 0.05,
+    "min_fragment_overlap_points": 20
+  },
+  "source_plot": "G4N",
+  "split": "validation"
+}
