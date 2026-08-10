@@ -1,0 +1,19 @@
+# Q3 uses fixed validation forests only. Wytham is explicitly forbidden.
+output_root: 'data/gt_omission_diagnostics'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/coverage_preserving_quality/pipeline_q3_omission_template.yaml'
+checkpoint: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+
+validation_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+gate:
+  expected_validation_plots: 5
+  min_total_omissions: 20
+  min_actionable_omissions: 10
+  min_actionable_plots: 3
+  min_actionable_f1_gain_pp: 0.30

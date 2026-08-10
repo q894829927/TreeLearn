@@ -1,0 +1,49 @@
+# Q3 template: save no large pointwise file; wrapper intercepts it in memory.
+default_args:
+  - configs/experiments/point_transformer/_pipeline_base_residual_mlp_seed_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+forest_path: '__FOREST_PATH__'
+pipeline_base_dir: '__PIPELINE_BASE_DIR__'
+omission_output_dir: '__OMISSION_OUTPUT_DIR__'
+omission_split: 'validation'
+fp16: true
+tile_generation: true
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+shape_cfg:
+  outer_remove: ~
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+grouping:
+  seed_confidence_filter_mode: 'top_ratio'
+  seed_confidence_keep_ratio: 1.0
+  max_cluster_seed_points: 1500000
+
+pretrain: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+
+save_cfg:
+  results_dir: 'results_q3_omission'
+  return_type: 'voxelized_and_filtered'
+  save_formats: ['npz']
+  save_pointwise: true
+  save_treewise: false
+  save_full_forest: false
+  save_instance_diagnostics: false
+  save_quality_training_data: false
+  save_seed_training_data: false
+
+# Match official evaluation semantics and the fixed TreeLearn grouping.
+omission_tree_class_index: 0
+omission_match_iou_threshold: 0.5
+omission_min_precision_for_counted_fp: 0.5
+omission_min_recall_for_undersegmentation: 0.5
+omission_min_fragment_overlap_fraction: 0.05
+omission_min_fragment_overlap_points: 20
