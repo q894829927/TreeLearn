@@ -1,0 +1,40 @@
+# Q1 fixed train/validation GT-only dual-risk label audit. Wytham forbidden.
+data_root: 'data/instance_quality'
+manifest_path: 'data/instance_quality/manifest.csv'
+output_dir: 'logs/coverage_preserving_quality/q1_coverage_oracle'
+
+expected_splits:
+  train:
+    - A1N
+    - A1W
+    - G1N
+    - G1W
+    - G2N
+    - G2W
+    - G3N
+    - G3W
+    - L2N
+    - L2W
+    - LG1
+    - LG2
+    - LG3
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+reject_ratio: 0.15
+
+gate:
+  expected_train_plots: 13
+  expected_validation_plots: 5
+  min_train_safe_reject: 1000
+  min_train_coverage_critical: 3000
+  min_validation_safe_reject: 300
+  min_validation_coverage_critical: 1000
+  min_validation_f1_gain_pp: 5.0
+  min_validation_commission_reduction_pp: 5.0
+  max_validation_completeness_drop_pp: 0.0
+  min_validation_plot_wins: 5
