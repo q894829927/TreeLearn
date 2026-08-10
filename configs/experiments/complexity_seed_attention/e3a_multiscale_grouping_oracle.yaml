@@ -1,0 +1,29 @@
+# E3a fixed-validation GT-only multi-scale proposal upper bound.
+# Wytham is forbidden and must not appear in this configuration.
+data_root: 'data/seed_vote_refinement'
+manifest_path: 'data/seed_vote_refinement/manifest.csv'
+output_dir: 'logs/complexity_seed_attention/e3a_multiscale_grouping_oracle'
+
+e2a_summary_path: 'logs/complexity_seed_attention/e2a_vote_refinement_oracle/summary.json'
+e2a_plot_dir: 'logs/complexity_seed_attention/e2a_vote_refinement_oracle/plots'
+
+expected_validation_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+# Locked before running.  Do not change after seeing validation or Wytham.
+cluster_sizes: [25, 35, 50, 75, 100]
+base_cluster_size: 50
+min_iou: 0.50
+n_jobs: -1
+
+gate:
+  expected_validation_plots: 5
+  min_oracle_tree_recall_gain_pp: 1.00
+  min_newly_recovered_trees: 15
+  min_strict_recovery_plots: 3
+  min_non_base_best_tree_rate: 0.05
+  max_mean_proposal_inflation: 5.50
