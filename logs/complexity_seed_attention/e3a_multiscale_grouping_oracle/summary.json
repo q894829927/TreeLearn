@@ -1,0 +1,624 @@
+{
+  "config": "configs/experiments/complexity_seed_attention/e3a_multiscale_grouping_oracle.yaml",
+  "settings": {
+    "cluster_sizes": [
+      25,
+      35,
+      50,
+      75,
+      100
+    ],
+    "base_cluster_size": 50,
+    "min_iou": 0.5,
+    "n_jobs": -1,
+    "e2a_reference_digest": "22bb151bd06c517569594bf70507a7a358c58385c3fc5d0d360464efd9d1f70c"
+  },
+  "plots": [
+    {
+      "num_gt_trees": 305,
+      "num_candidate_proposals": 1853,
+      "proposal_inflation_vs_base": 5.09065934065934,
+      "scale_metrics": {
+        "25": {
+          "num_gt_trees": 305,
+          "num_pred_clusters": 394,
+          "tp": 299,
+          "fp": 95,
+          "fn": 6,
+          "tree_recall": 0.980327868852459,
+          "commission": 0.24111675126903553,
+          "f1": 0.8555078683834049,
+          "mean_matched_iou": 0.9750448805046631,
+          "noise_rate": 0.00873325275361332
+        },
+        "35": {
+          "num_gt_trees": 305,
+          "num_pred_clusters": 381,
+          "tp": 299,
+          "fp": 82,
+          "fn": 6,
+          "tree_recall": 0.980327868852459,
+          "commission": 0.2152230971128609,
+          "f1": 0.8717201166180758,
+          "mean_matched_iou": 0.9772679976985825,
+          "noise_rate": 0.008641323777259496
+        },
+        "50": {
+          "num_gt_trees": 305,
+          "num_pred_clusters": 364,
+          "tp": 299,
+          "fp": 65,
+          "fn": 6,
+          "tree_recall": 0.980327868852459,
+          "commission": 0.17857142857142858,
+          "f1": 0.8938714499252616,
+          "mean_matched_iou": 0.9780383234094557,
+          "noise_rate": 0.007041078633322552
+        },
+        "75": {
+          "num_gt_trees": 305,
+          "num_pred_clusters": 358,
+          "tp": 299,
+          "fp": 59,
+          "fn": 6,
+          "tree_recall": 0.980327868852459,
+          "commission": 0.164804469273743,
+          "f1": 0.9019607843137255,
+          "mean_matched_iou": 0.9777863870023826,
+          "noise_rate": 0.006894673226536831
+        },
+        "100": {
+          "num_gt_trees": 305,
+          "num_pred_clusters": 356,
+          "tp": 299,
+          "fp": 57,
+          "fn": 6,
+          "tree_recall": 0.980327868852459,
+          "commission": 0.1601123595505618,
+          "f1": 0.9046898638426626,
+          "mean_matched_iou": 0.9762872043546253,
+          "noise_rate": 0.00817827411858838
+        }
+      },
+      "oracle": {
+        "tp": 300,
+        "fp": 0,
+        "fn": 5,
+        "tree_recall": 0.9836065573770492,
+        "commission": 0.0,
+        "f1": 0.9917355371900827,
+        "mean_selected_iou": 0.9791825974547184
+      },
+      "num_newly_recovered_trees": 1,
+      "newly_recovered_tree_rate": 0.003278688524590164,
+      "non_base_best_tree_rate": 0.14098360655737704,
+      "selected_scale_contribution": {
+        "25": 28,
+        "35": 5,
+        "50": 257,
+        "75": 5,
+        "100": 5
+      },
+      "recovered_scale_contribution": {
+        "25": 0,
+        "35": 0,
+        "50": 0,
+        "75": 1,
+        "100": 0
+      },
+      "source_plot": "G4N",
+      "num_candidates": 293705,
+      "num_tree_candidates": 264392,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/G4N.npz",
+        "size": 26097669,
+        "mtime_ns": 1786295131508721940
+      },
+      "candidate_set_sha256": "872ddf511a310b71bcbe26c61a9dcf2a190d06c8f86ce222101f24676cddc005",
+      "base_cluster_digest": "3515cb8a55879f191d52fbe093625895bc42677c65907cf8f9f5512f5bda5e72",
+      "baseline_reproduced": true,
+      "effects": {
+        "oracle_recall_gain_pp": 0.3278688524590123,
+        "oracle_f1_gain_pp": 9.78640872648211,
+        "strict_recovery": true
+      },
+      "config_fingerprint": "4c7ff60c6a9b9b8ed06e3d4a819ae9d8c7a60bc4887e40161f7408409f1b32f5"
+    },
+    {
+      "num_gt_trees": 577,
+      "num_candidate_proposals": 3273,
+      "proposal_inflation_vs_base": 5.012251148545176,
+      "scale_metrics": {
+        "25": {
+          "num_gt_trees": 577,
+          "num_pred_clusters": 690,
+          "tp": 561,
+          "fp": 129,
+          "fn": 16,
+          "tree_recall": 0.9722703639514731,
+          "commission": 0.18695652173913044,
+          "f1": 0.8855564325177585,
+          "mean_matched_iou": 0.9760258822487351,
+          "noise_rate": 0.00826170874250205
+        },
+        "35": {
+          "num_gt_trees": 577,
+          "num_pred_clusters": 667,
+          "tp": 561,
+          "fp": 106,
+          "fn": 16,
+          "tree_recall": 0.9722703639514731,
+          "commission": 0.15892053973013492,
+          "f1": 0.9019292604501608,
+          "mean_matched_iou": 0.9761208056827834,
+          "noise_rate": 0.007614486980440804
+        },
+        "50": {
+          "num_gt_trees": 577,
+          "num_pred_clusters": 653,
+          "tp": 561,
+          "fp": 92,
+          "fn": 16,
+          "tree_recall": 0.9722703639514731,
+          "commission": 0.14088820826952528,
+          "f1": 0.9121951219512195,
+          "mean_matched_iou": 0.9777109516956298,
+          "noise_rate": 0.008398472864842375
+        },
+        "75": {
+          "num_gt_trees": 577,
+          "num_pred_clusters": 637,
+          "tp": 561,
+          "fp": 76,
+          "fn": 16,
+          "tree_recall": 0.9722703639514731,
+          "commission": 0.11930926216640503,
+          "f1": 0.9242174629324547,
+          "mean_matched_iou": 0.9771095767149595,
+          "noise_rate": 0.008515974434740399
+        },
+        "100": {
+          "num_gt_trees": 577,
+          "num_pred_clusters": 626,
+          "tp": 562,
+          "fp": 64,
+          "fn": 15,
+          "tree_recall": 0.9740034662045061,
+          "commission": 0.10223642172523961,
+          "f1": 0.9343308395677473,
+          "mean_matched_iou": 0.9764417406424416,
+          "noise_rate": 0.006566604127579738
+        }
+      },
+      "oracle": {
+        "tp": 563,
+        "fp": 0,
+        "fn": 14,
+        "tree_recall": 0.975736568457539,
+        "commission": 0.0,
+        "f1": 0.987719298245614,
+        "mean_selected_iou": 0.9784391251537842
+      },
+      "num_newly_recovered_trees": 2,
+      "newly_recovered_tree_rate": 0.0034662045060658577,
+      "non_base_best_tree_rate": 0.14558058925476602,
+      "selected_scale_contribution": {
+        "25": 39,
+        "35": 15,
+        "50": 479,
+        "75": 15,
+        "100": 15
+      },
+      "recovered_scale_contribution": {
+        "25": 0,
+        "35": 0,
+        "50": 0,
+        "75": 0,
+        "100": 2
+      },
+      "source_plot": "G4W",
+      "num_candidates": 519142,
+      "num_tree_candidates": 488306,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/G4W.npz",
+        "size": 46858197,
+        "mtime_ns": 1786295828814293232
+      },
+      "candidate_set_sha256": "beab01c92c40b7d48d1cbab0e0375617e239ee48e76ac3749a67a0f815f3dde5",
+      "base_cluster_digest": "cee4a857ac22e53c1c0f321eec2057fbdcb562faa2b539ec33b588f503045fc1",
+      "baseline_reproduced": true,
+      "effects": {
+        "oracle_recall_gain_pp": 0.34662045060658286,
+        "oracle_f1_gain_pp": 7.552417629439445,
+        "strict_recovery": true
+      },
+      "config_fingerprint": "4c7ff60c6a9b9b8ed06e3d4a819ae9d8c7a60bc4887e40161f7408409f1b32f5"
+    },
+    {
+      "num_gt_trees": 452,
+      "num_candidate_proposals": 3454,
+      "proposal_inflation_vs_base": 5.042335766423357,
+      "scale_metrics": {
+        "25": {
+          "num_gt_trees": 452,
+          "num_pred_clusters": 787,
+          "tp": 439,
+          "fp": 348,
+          "fn": 13,
+          "tree_recall": 0.9712389380530974,
+          "commission": 0.44218551461245237,
+          "f1": 0.70863599677159,
+          "mean_matched_iou": 0.9640608266461197,
+          "noise_rate": 0.014898876007039326
+        },
+        "35": {
+          "num_gt_trees": 452,
+          "num_pred_clusters": 728,
+          "tp": 440,
+          "fp": 288,
+          "fn": 12,
+          "tree_recall": 0.9734513274336283,
+          "commission": 0.3956043956043956,
+          "f1": 0.7457627118644068,
+          "mean_matched_iou": 0.9657930154627153,
+          "noise_rate": 0.013974743321041042
+        },
+        "50": {
+          "num_gt_trees": 452,
+          "num_pred_clusters": 685,
+          "tp": 441,
+          "fp": 244,
+          "fn": 11,
+          "tree_recall": 0.9756637168141593,
+          "commission": 0.3562043795620438,
+          "f1": 0.7757255936675461,
+          "mean_matched_iou": 0.9644808612082809,
+          "noise_rate": 0.013713863758964972
+        },
+        "75": {
+          "num_gt_trees": 452,
+          "num_pred_clusters": 641,
+          "tp": 437,
+          "fp": 204,
+          "fn": 15,
+          "tree_recall": 0.9668141592920354,
+          "commission": 0.31825273010920435,
+          "f1": 0.7996340347666971,
+          "mean_matched_iou": 0.969151404259692,
+          "noise_rate": 0.015391894162488172
+        },
+        "100": {
+          "num_gt_trees": 452,
+          "num_pred_clusters": 613,
+          "tp": 437,
+          "fp": 176,
+          "fn": 15,
+          "tree_recall": 0.9668141592920354,
+          "commission": 0.28711256117455136,
+          "f1": 0.8206572769953052,
+          "mean_matched_iou": 0.9681493342069358,
+          "noise_rate": 0.019709671999221783
+        }
+      },
+      "oracle": {
+        "tp": 441,
+        "fp": 0,
+        "fn": 11,
+        "tree_recall": 0.9756637168141593,
+        "commission": 0.0,
+        "f1": 0.9876819708846585,
+        "mean_selected_iou": 0.9707347203155048
+      },
+      "num_newly_recovered_trees": 0,
+      "newly_recovered_tree_rate": 0.0,
+      "non_base_best_tree_rate": 0.18805309734513273,
+      "selected_scale_contribution": {
+        "25": 44,
+        "35": 10,
+        "50": 356,
+        "75": 18,
+        "100": 13
+      },
+      "recovered_scale_contribution": {
+        "25": 0,
+        "35": 0,
+        "50": 0,
+        "75": 0,
+        "100": 0
+      },
+      "source_plot": "L1N",
+      "num_candidates": 452316,
+      "num_tree_candidates": 397649,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/L1N.npz",
+        "size": 39920590,
+        "mtime_ns": 1786296395940945363
+      },
+      "candidate_set_sha256": "46f35b34ecc3148a1c4304b428ffe2dc67d356f77c30a7c7dbc4bb52fbcf5a05",
+      "base_cluster_digest": "07b938cbfc971b6ea9697c251911c5ccd9c5585ae2e7f13bc30d381cd9950d26",
+      "baseline_reproduced": true,
+      "effects": {
+        "oracle_recall_gain_pp": 0.0,
+        "oracle_f1_gain_pp": 21.195637721711236,
+        "strict_recovery": false
+      },
+      "config_fingerprint": "4c7ff60c6a9b9b8ed06e3d4a819ae9d8c7a60bc4887e40161f7408409f1b32f5"
+    },
+    {
+      "num_gt_trees": 159,
+      "num_candidate_proposals": 967,
+      "proposal_inflation_vs_base": 5.089473684210526,
+      "scale_metrics": {
+        "25": {
+          "num_gt_trees": 159,
+          "num_pred_clusters": 212,
+          "tp": 154,
+          "fp": 58,
+          "fn": 5,
+          "tree_recall": 0.9685534591194969,
+          "commission": 0.27358490566037735,
+          "f1": 0.8301886792452831,
+          "mean_matched_iou": 0.9738685843565309,
+          "noise_rate": 0.010541478696224632
+        },
+        "35": {
+          "num_gt_trees": 159,
+          "num_pred_clusters": 200,
+          "tp": 154,
+          "fp": 46,
+          "fn": 5,
+          "tree_recall": 0.9685534591194969,
+          "commission": 0.23,
+          "f1": 0.8579387186629527,
+          "mean_matched_iou": 0.9754334943226481,
+          "noise_rate": 0.00845299466322163
+        },
+        "50": {
+          "num_gt_trees": 159,
+          "num_pred_clusters": 190,
+          "tp": 155,
+          "fp": 35,
+          "fn": 4,
+          "tree_recall": 0.9748427672955975,
+          "commission": 0.18421052631578946,
+          "f1": 0.8882521489971347,
+          "mean_matched_iou": 0.9755023325693009,
+          "noise_rate": 0.005138661306499478
+        },
+        "75": {
+          "num_gt_trees": 159,
+          "num_pred_clusters": 185,
+          "tp": 155,
+          "fp": 30,
+          "fn": 4,
+          "tree_recall": 0.9748427672955975,
+          "commission": 0.16216216216216217,
+          "f1": 0.9011627906976745,
+          "mean_matched_iou": 0.9746417046975675,
+          "noise_rate": 0.005485366165733177
+        },
+        "100": {
+          "num_gt_trees": 159,
+          "num_pred_clusters": 180,
+          "tp": 155,
+          "fp": 25,
+          "fn": 4,
+          "tree_recall": 0.9748427672955975,
+          "commission": 0.1388888888888889,
+          "f1": 0.9144542772861357,
+          "mean_matched_iou": 0.9741766107317348,
+          "noise_rate": 0.005539022870138393
+        }
+      },
+      "oracle": {
+        "tp": 155,
+        "fp": 0,
+        "fn": 4,
+        "tree_recall": 0.9748427672955975,
+        "commission": 0.0,
+        "f1": 0.9872611464968153,
+        "mean_selected_iou": 0.9764903311859081
+      },
+      "num_newly_recovered_trees": 0,
+      "newly_recovered_tree_rate": 0.0,
+      "non_base_best_tree_rate": 0.11320754716981132,
+      "selected_scale_contribution": {
+        "25": 7,
+        "35": 3,
+        "50": 137,
+        "75": 4,
+        "100": 4
+      },
+      "recovered_scale_contribution": {
+        "25": 0,
+        "35": 0,
+        "50": 0,
+        "75": 0,
+        "100": 0
+      },
+      "source_plot": "O1N",
+      "num_candidates": 242281,
+      "num_tree_candidates": 229247,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/O1N.npz",
+        "size": 21361163,
+        "mtime_ns": 1786296677542648153
+      },
+      "candidate_set_sha256": "7d7b8c775311663ee56372ec42593d48046ede8a86ded7187790d747a534ced7",
+      "base_cluster_digest": "9b99665ef7df866578fbe14f0f8f370db669d37d6269a1d7928c1dd6b698d1e7",
+      "baseline_reproduced": true,
+      "effects": {
+        "oracle_recall_gain_pp": 0.0,
+        "oracle_f1_gain_pp": 9.900899749968062,
+        "strict_recovery": false
+      },
+      "config_fingerprint": "4c7ff60c6a9b9b8ed06e3d4a819ae9d8c7a60bc4887e40161f7408409f1b32f5"
+    },
+    {
+      "num_gt_trees": 264,
+      "num_candidate_proposals": 3653,
+      "proposal_inflation_vs_base": 5.196301564722617,
+      "scale_metrics": {
+        "25": {
+          "num_gt_trees": 264,
+          "num_pred_clusters": 951,
+          "tp": 243,
+          "fp": 708,
+          "fn": 21,
+          "tree_recall": 0.9204545454545454,
+          "commission": 0.7444794952681388,
+          "f1": 0.4,
+          "mean_matched_iou": 0.9149539293281984,
+          "noise_rate": 0.08938335566918974
+        },
+        "35": {
+          "num_gt_trees": 264,
+          "num_pred_clusters": 821,
+          "tp": 243,
+          "fp": 578,
+          "fn": 21,
+          "tree_recall": 0.9204545454545454,
+          "commission": 0.7040194884287454,
+          "f1": 0.447926267281106,
+          "mean_matched_iou": 0.9200340097591106,
+          "noise_rate": 0.08411259268132598
+        },
+        "50": {
+          "num_gt_trees": 264,
+          "num_pred_clusters": 703,
+          "tp": 246,
+          "fp": 457,
+          "fn": 18,
+          "tree_recall": 0.9318181818181818,
+          "commission": 0.6500711237553343,
+          "f1": 0.5087900723888314,
+          "mean_matched_iou": 0.9191165624988721,
+          "noise_rate": 0.08265015560230696
+        },
+        "75": {
+          "num_gt_trees": 264,
+          "num_pred_clusters": 619,
+          "tp": 248,
+          "fp": 371,
+          "fn": 16,
+          "tree_recall": 0.9393939393939394,
+          "commission": 0.5993537964458805,
+          "f1": 0.5617214043035108,
+          "mean_matched_iou": 0.9152365618309806,
+          "noise_rate": 0.09027928555207
+        },
+        "100": {
+          "num_gt_trees": 264,
+          "num_pred_clusters": 559,
+          "tp": 247,
+          "fp": 312,
+          "fn": 17,
+          "tree_recall": 0.9356060606060606,
+          "commission": 0.5581395348837209,
+          "f1": 0.6002430133657352,
+          "mean_matched_iou": 0.9140449985241291,
+          "noise_rate": 0.09545521473617485
+        }
+      },
+      "oracle": {
+        "tp": 250,
+        "fp": 0,
+        "fn": 14,
+        "tree_recall": 0.946969696969697,
+        "commission": 0.0,
+        "f1": 0.9727626459143969,
+        "mean_selected_iou": 0.9237321169229427
+      },
+      "num_newly_recovered_trees": 4,
+      "newly_recovered_tree_rate": 0.015151515151515152,
+      "non_base_best_tree_rate": 0.3409090909090909,
+      "selected_scale_contribution": {
+        "25": 40,
+        "35": 18,
+        "50": 160,
+        "75": 17,
+        "100": 15
+      },
+      "recovered_scale_contribution": {
+        "25": 0,
+        "35": 0,
+        "50": 0,
+        "75": 2,
+        "100": 2
+      },
+      "source_plot": "O1W",
+      "num_candidates": 400701,
+      "num_tree_candidates": 234013,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/O1W.npz",
+        "size": 36120655,
+        "mtime_ns": 1786297273402526837
+      },
+      "candidate_set_sha256": "ffb15c34b0cbe0cac5781af5f96ff778708ac6fb0555da854bef08d133f41002",
+      "base_cluster_digest": "de6fae8197543a0a5f8d7a1fb84976775b12dfb791f46243b93cead3b2df0292",
+      "baseline_reproduced": true,
+      "effects": {
+        "oracle_recall_gain_pp": 1.515151515151525,
+        "oracle_f1_gain_pp": 46.397257352556544,
+        "strict_recovery": true
+      },
+      "config_fingerprint": "4c7ff60c6a9b9b8ed06e3d4a819ae9d8c7a60bc4887e40161f7408409f1b32f5"
+    }
+  ],
+  "aggregate": {
+    "num_validation_plots": 5,
+    "num_candidates": 1908145,
+    "num_gt_trees": 1757,
+    "scale_metrics_macro": {
+      "25": {
+        "tree_recall": 0.9625690350862144,
+        "commission": 0.3776646377098269,
+        "f1": 0.7359777953836072
+      },
+      "35": {
+        "tree_recall": 0.9630115129623207,
+        "commission": 0.3407535041752273,
+        "f1": 0.7650554149753404
+      },
+      "50": {
+        "tree_recall": 0.9669845797463742,
+        "commission": 0.30198913329482424,
+        "f1": 0.7957668773859987
+      },
+      "75": {
+        "tree_recall": 0.9667298197571009,
+        "commission": 0.272776484031479,
+        "f1": 0.8177392954028125
+      },
+      "100": {
+        "tree_recall": 0.9663188644501318,
+        "commission": 0.24929795324459247,
+        "f1": 0.8348750542115171
+      }
+    },
+    "oracle_macro": {
+      "tree_recall": 0.9713638613828085,
+      "commission": 0.0,
+      "f1": 0.9854321197463134
+    }
+  },
+  "effects": {
+    "oracle_tree_recall_gain_pp": 0.4379281636434307,
+    "oracle_f1_gain_pp": 18.966524236031468,
+    "total_newly_recovered_trees": 7,
+    "strict_recovery_plots": 3,
+    "non_base_best_tree_rate": 0.18212862834376778,
+    "mean_proposal_inflation": 5.086204300912203
+  },
+  "gate": {
+    "expected_validation_plots": true,
+    "baseline_reproduced": true,
+    "scale_grid_locked": true,
+    "oracle_recall_gain_passed": false,
+    "recovered_tree_count_passed": false,
+    "per_plot_recovery_passed": true,
+    "scale_diversity_passed": true,
+    "proposal_inflation_passed": true,
+    "passed": false
+  }
+}

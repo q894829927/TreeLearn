@@ -1,0 +1,110 @@
+{
+  "num_gt_trees": 452,
+  "num_candidate_proposals": 3454,
+  "proposal_inflation_vs_base": 5.042335766423357,
+  "scale_metrics": {
+    "25": {
+      "num_gt_trees": 452,
+      "num_pred_clusters": 787,
+      "tp": 439,
+      "fp": 348,
+      "fn": 13,
+      "tree_recall": 0.9712389380530974,
+      "commission": 0.44218551461245237,
+      "f1": 0.70863599677159,
+      "mean_matched_iou": 0.9640608266461197,
+      "noise_rate": 0.014898876007039326
+    },
+    "35": {
+      "num_gt_trees": 452,
+      "num_pred_clusters": 728,
+      "tp": 440,
+      "fp": 288,
+      "fn": 12,
+      "tree_recall": 0.9734513274336283,
+      "commission": 0.3956043956043956,
+      "f1": 0.7457627118644068,
+      "mean_matched_iou": 0.9657930154627153,
+      "noise_rate": 0.013974743321041042
+    },
+    "50": {
+      "num_gt_trees": 452,
+      "num_pred_clusters": 685,
+      "tp": 441,
+      "fp": 244,
+      "fn": 11,
+      "tree_recall": 0.9756637168141593,
+      "commission": 0.3562043795620438,
+      "f1": 0.7757255936675461,
+      "mean_matched_iou": 0.9644808612082809,
+      "noise_rate": 0.013713863758964972
+    },
+    "75": {
+      "num_gt_trees": 452,
+      "num_pred_clusters": 641,
+      "tp": 437,
+      "fp": 204,
+      "fn": 15,
+      "tree_recall": 0.9668141592920354,
+      "commission": 0.31825273010920435,
+      "f1": 0.7996340347666971,
+      "mean_matched_iou": 0.969151404259692,
+      "noise_rate": 0.015391894162488172
+    },
+    "100": {
+      "num_gt_trees": 452,
+      "num_pred_clusters": 613,
+      "tp": 437,
+      "fp": 176,
+      "fn": 15,
+      "tree_recall": 0.9668141592920354,
+      "commission": 0.28711256117455136,
+      "f1": 0.8206572769953052,
+      "mean_matched_iou": 0.9681493342069358,
+      "noise_rate": 0.019709671999221783
+    }
+  },
+  "oracle": {
+    "tp": 441,
+    "fp": 0,
+    "fn": 11,
+    "tree_recall": 0.9756637168141593,
+    "commission": 0.0,
+    "f1": 0.9876819708846585,
+    "mean_selected_iou": 0.9707347203155048
+  },
+  "num_newly_recovered_trees": 0,
+  "newly_recovered_tree_rate": 0.0,
+  "non_base_best_tree_rate": 0.18805309734513273,
+  "selected_scale_contribution": {
+    "25": 44,
+    "35": 10,
+    "50": 356,
+    "75": 18,
+    "100": 13
+  },
+  "recovered_scale_contribution": {
+    "25": 0,
+    "35": 0,
+    "50": 0,
+    "75": 0,
+    "100": 0
+  },
+  "source_plot": "L1N",
+  "num_candidates": 452316,
+  "num_tree_candidates": 397649,
+  "artifact_identity": {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/L1N.npz",
+    "size": 39920590,
+    "mtime_ns": 1786296395940945363
+  },
+  "candidate_set_sha256": "46f35b34ecc3148a1c4304b428ffe2dc67d356f77c30a7c7dbc4bb52fbcf5a05",
+  "base_cluster_digest": "07b938cbfc971b6ea9697c251911c5ccd9c5585ae2e7f13bc30d381cd9950d26",
+  "baseline_reproduced": true,
+  "effects": {
+    "oracle_recall_gain_pp": 0.0,
+    "oracle_f1_gain_pp": 21.195637721711236,
+    "strict_recovery": false
+  },
+  "config_fingerprint": "4c7ff60c6a9b9b8ed06e3d4a819ae9d8c7a60bc4887e40161f7408409f1b32f5"
+}
