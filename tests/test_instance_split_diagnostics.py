@@ -77,6 +77,22 @@ class InstanceSplitDiagnosticsTests(unittest.TestCase):
         self.assertEqual(sorted(targets[0]['missed_gt_ids']), [1, 2])
         self.assertEqual(targets[0]['oracle_num_children'], 2)
 
+    def test_q3_first_failure_ids_limit_q4a_targets(self):
+        labels = np.asarray([1, 1, 2, 2], dtype=np.int64)
+        predictions = np.ones(4, dtype=np.int64)
+        targets = identify_undersegmentation_targets(
+            labels, predictions, allowed_undersegmented_gt_ids=[2])
+        self.assertEqual(len(targets), 1)
+        self.assertEqual(targets[0]['missed_gt_ids'], [2])
+        self.assertEqual(targets[0]['oracle_num_children'], 2)
+
+    def test_missing_q3_undersegmentation_id_is_rejected(self):
+        labels = np.asarray([1, 1, 2, 2], dtype=np.int64)
+        predictions = np.ones(4, dtype=np.int64)
+        with self.assertRaisesRegex(ValueError, 'missing='):
+            identify_undersegmentation_targets(
+                labels, predictions, allowed_undersegmented_gt_ids=[3])
+
 
 if __name__ == '__main__':
     unittest.main()

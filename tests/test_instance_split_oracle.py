@@ -58,6 +58,7 @@ class InstanceSplitOracleTests(unittest.TestCase):
                 'baseline': baseline,
                 'num_split_target_predictions': 1,
                 'num_undersegmented_gt_trees': 1,
+                'expected_undersegmented_gt_ids': [2],
                 'modes': {
                     'gt_extraction_ceiling': self.mode(2, 1, 0, 1, 30.0),
                     'raw_xy_kmeans_oracle': self.mode(1, 1, 1, 0, 0.0),
@@ -73,6 +74,9 @@ class InstanceSplitOracleTests(unittest.TestCase):
                     'baseline': baseline,
                     'category_counts': {'undersegmentation': 1},
                 }), encoding='utf-8')
+            (q3 / 'validation' / 'V1' / 'gt_trees.csv').write_text(
+                'gt_tree_id,category\n1,detected\n'
+                '2,undersegmentation\n', encoding='utf-8')
             settings = {
                 'output_root': str(output),
                 'q3_reference_root': str(q3),
@@ -96,6 +100,33 @@ class InstanceSplitOracleTests(unittest.TestCase):
             self.assertEqual(
                 result['recommendation'],
                 'vertical_topology_split_attention')
+
+    def test_validation_rejects_q3_id_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            q3 = root / 'q3' / 'validation' / 'V1'
+            q4 = root / 'q4' / 'validation' / 'V1'
+            q3.mkdir(parents=True)
+            q4.mkdir(parents=True)
+            baseline = {'tp': 1, 'fp': 0, 'fn': 1}
+            (q3 / 'summary.json').write_text(json.dumps({
+                'baseline': baseline,
+                'category_counts': {'undersegmentation': 1},
+            }), encoding='utf-8')
+            (q3 / 'gt_trees.csv').write_text(
+                'gt_tree_id,category\n1,detected\n'
+                '2,undersegmentation\n', encoding='utf-8')
+            (q4 / 'summary.json').write_text(json.dumps({
+                'source_plot': 'V1', 'split': 'validation',
+                'baseline': baseline,
+                'num_split_target_predictions': 1,
+                'num_undersegmented_gt_trees': 1,
+                'expected_undersegmented_gt_ids': [3],
+                'modes': {mode: {} for mode in ORACLE.SPLIT_MODES},
+            }), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'IDs differ'):
+                ORACLE.validate_artifact(
+                    q4 / 'summary.json', 'V1', root / 'q3')
 
 
 if __name__ == '__main__':

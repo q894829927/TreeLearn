@@ -60,7 +60,9 @@ def run(config_path):
             random_state=int(settings.random_state),
             vertical_power=float(settings.vertical_power),
             vertical_feature_weight=float(
-                settings.vertical_feature_weight))
+                settings.vertical_feature_weight),
+            allowed_undersegmented_gt_ids=list(
+                settings.expected_undersegmented_gt_ids))
         result.update({
             'source_plot': source_plot,
             'split': 'validation',

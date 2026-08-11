@@ -1,6 +1,7 @@
 """Generate and aggregate the fixed-validation Q4a instance-split Oracle."""
 
 import argparse
+import csv
 import json
 import shutil
 import subprocess
@@ -36,6 +37,25 @@ def _read_json(path):
         return json.load(file)
 
 
+def q3_undersegmented_gt_ids(q3_reference_root, plot_name):
+    """Read the exact first-failure undersegmentation partition from Q3."""
+    csv_path = (
+        Path(q3_reference_root) / 'validation' / plot_name / 'gt_trees.csv')
+    if not csv_path.is_file():
+        raise FileNotFoundError(f'Missing Q3 per-tree artifact: {csv_path}')
+    with csv_path.open(newline='', encoding='utf-8') as file:
+        rows = list(csv.DictReader(file))
+    if not rows or {'gt_tree_id', 'category'} - set(rows[0]):
+        raise ValueError(f'Invalid Q3 per-tree artifact for {plot_name}.')
+    ids = sorted(
+        int(row['gt_tree_id']) for row in rows
+        if row['category'] == 'undersegmentation')
+    if len(ids) != len(set(ids)):
+        raise ValueError(
+            f'Q3 undersegmentation IDs are duplicated for {plot_name}.')
+    return ids
+
+
 def validate_artifact(path, plot_name, q3_reference_root):
     path = Path(path)
     if not path.is_file():
@@ -43,7 +63,8 @@ def validate_artifact(path, plot_name, q3_reference_root):
     report = _read_json(path)
     required = {
         'baseline', 'num_split_target_predictions',
-        'num_undersegmented_gt_trees', 'modes', 'source_plot', 'split'}
+        'num_undersegmented_gt_trees', 'expected_undersegmented_gt_ids',
+        'modes', 'source_plot', 'split'}
     if required - set(report):
         raise ValueError(f'Incomplete Q4a artifact for {plot_name}.')
     if report['source_plot'] != plot_name or report['split'] != 'validation':
@@ -62,7 +83,16 @@ def validate_artifact(path, plot_name, q3_reference_root):
             f'Q4a baseline differs from Q3 for {plot_name}: '
             f'{observed_baseline} != {expected_baseline}.')
     expected_underseg = int(q3['category_counts']['undersegmentation'])
-    if int(report['num_undersegmented_gt_trees']) != expected_underseg:
+    expected_ids = q3_undersegmented_gt_ids(q3_reference_root, plot_name)
+    observed_ids = sorted(map(
+        int, report['expected_undersegmented_gt_ids']))
+    if expected_underseg != len(expected_ids):
+        raise ValueError(
+            f'Q3 undersegmentation CSV/JSON differ for {plot_name}.')
+    if observed_ids != expected_ids:
+        raise ValueError(
+            f'Q4a undersegmentation IDs differ from Q3 for {plot_name}.')
+    if int(report['num_undersegmented_gt_trees']) != len(expected_ids):
         raise ValueError(
             f'Q4a undersegmentation count differs from Q3 for {plot_name}.')
     return report
@@ -78,7 +108,11 @@ def write_resolved_config(settings, plot_name, forest_path, destination):
     config.pipeline_base_dir = str(runtime_dir)
     config.split_oracle_output_dir = str(destination)
     config.pretrain = str(settings['checkpoint'])
-    config.split_oracle = settings['split_oracle']
+    split_oracle = dict(settings['split_oracle'])
+    split_oracle['expected_undersegmented_gt_ids'] = (
+        q3_undersegmented_gt_ids(
+            settings['q3_reference_root'], plot_name))
+    config.split_oracle = split_oracle
     payload = munch_to_dict(config)
     config_path = (
         Path(settings['output_root']) / 'runtime_configs' /
@@ -102,12 +136,26 @@ def run_plot(settings, plot_name, force=False):
     if 'wytham' in plot_name.lower():
         raise ValueError('Q4a must not read Wytham.')
     path = artifact_path(settings['output_root'], plot_name)
-    if path.is_file() and not force:
-        validate_artifact(
-            path, plot_name, settings['q3_reference_root'])
-        print(f'SKIP {plot_name}: validated existing Q4a artifact.', flush=True)
-        return
     destination = path.parent
+    if path.is_file() and not force:
+        try:
+            validate_artifact(
+                path, plot_name, settings['q3_reference_root'])
+        except (FileNotFoundError, KeyError, TypeError, ValueError) as error:
+            print(
+                f'STALE {plot_name}: {error} Rebuilding artifact.',
+                flush=True)
+            _safe_remove(destination, settings['output_root'])
+        else:
+            print(
+                f'SKIP {plot_name}: validated existing Q4a artifact.',
+                flush=True)
+            return
+    elif destination.exists() and not force:
+        print(
+            f'STALE {plot_name}: incomplete Q4a artifact. Rebuilding.',
+            flush=True)
+        _safe_remove(destination, settings['output_root'])
     if force:
         _safe_remove(destination, settings['output_root'])
     forest_path = locate_forest(settings['source_root'], plot_name)

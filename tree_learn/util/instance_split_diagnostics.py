@@ -49,8 +49,12 @@ def detection_metrics_from_labels(
 
 def identify_undersegmentation_targets(
         instance_labels, instance_predictions, match_iou_threshold=0.5,
-        min_recall_for_undersegmentation=0.5):
+        min_recall_for_undersegmentation=0.5,
+        allowed_undersegmented_gt_ids=None):
     """Group missed, high-recall GT trees by their best prediction."""
+    allowed_ids = (
+        None if allowed_undersegmented_gt_ids is None else
+        {int(value) for value in allowed_undersegmented_gt_ids})
     table = _contingency(instance_labels, instance_predictions)
     matched_pred, matched_gt = _matched_indices(
         table['iou'], match_iou_threshold)
@@ -58,6 +62,8 @@ def identify_undersegmentation_targets(
     detected[matched_gt] = True
     groups = defaultdict(list)
     for gt_index, gt_id in enumerate(table['gt_ids']):
+        if allowed_ids is not None and int(gt_id) not in allowed_ids:
+            continue
         if detected[gt_index] or len(table['pred_ids']) == 0:
             continue
         pred_index = int(np.argmax(table['recall'][:, gt_index]))
@@ -82,6 +88,17 @@ def identify_undersegmentation_targets(
             'matched_gt_id': matched_by_prediction.get(prediction_id),
         }
         targets.append(target)
+    if allowed_ids is not None:
+        observed_ids = {
+            int(gt_id) for target in targets
+            for gt_id in target['missed_gt_ids']}
+        if observed_ids != allowed_ids:
+            missing = sorted(allowed_ids - observed_ids)
+            unexpected = sorted(observed_ids - allowed_ids)
+            raise ValueError(
+                'Q3 undersegmentation IDs cannot be reproduced from the '
+                f'aligned Q4a payload; missing={missing}, '
+                f'unexpected={unexpected}.')
     return targets
 
 
@@ -294,7 +311,8 @@ def analyze_instance_split_oracle(
         match_iou_threshold=0.5, min_precision_for_counted_fp=0.5,
         min_recall_for_undersegmentation=0.5, max_fit_points=50000,
         random_state=0, vertical_power=2.0,
-        vertical_feature_weight=1.0):
+        vertical_feature_weight=1.0,
+        allowed_undersegmented_gt_ids=None):
     """Run the exact ceiling and three known-K geometry proposal Oracles."""
     labels = np.asarray(instance_labels, dtype=np.int64).reshape(-1)
     predictions = np.asarray(instance_predictions, dtype=np.int64).reshape(-1)
@@ -303,7 +321,8 @@ def analyze_instance_split_oracle(
         min_precision_for_counted_fp)
     targets = identify_undersegmentation_targets(
         labels, predictions, match_iou_threshold,
-        min_recall_for_undersegmentation)
+        min_recall_for_undersegmentation,
+        allowed_undersegmented_gt_ids=allowed_undersegmented_gt_ids)
     undersegmented_gt_ids = sorted({
         gt_id for target in targets for gt_id in target['missed_gt_ids']})
     baseline_detected = set(baseline['matched_gt_ids'])
@@ -337,6 +356,10 @@ def analyze_instance_split_oracle(
         'baseline': _without_match_lists(baseline),
         'num_split_target_predictions': int(len(targets)),
         'num_undersegmented_gt_trees': int(len(undersegmented_gt_ids)),
+        'expected_undersegmented_gt_ids': (
+            undersegmented_gt_ids if allowed_undersegmented_gt_ids is None
+            else sorted({
+                int(value) for value in allowed_undersegmented_gt_ids})),
         'split_targets': targets,
         'modes': modes,
         'parameters': {

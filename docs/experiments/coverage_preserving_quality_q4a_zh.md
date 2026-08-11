@@ -74,3 +74,13 @@ logs/coverage_preserving_quality/q4a_instance_split_oracle/logs/<plot>.log
 - 主 Gate 失败则关闭实例拆分网络路线。
 
 Wytham 不得用于选择 K、融合权重、Gate 或拆分阈值。
+
+## Q3 目标一致性与断点续跑
+
+Q4a 只处理 Q3 `gt_trees.csv` 中 `category=undersegmentation` 的 GT ID。
+这里的类别是 Q3 按 semantic、base seed、density、undersegmentation 顺序确定的
+“首个失败阶段”，不能再用最终 recall 独立推断，否则会把早期阶段失败的树重复纳入。
+
+每个 Q4a artifact 会保存并校验这组 GT ID。旧版本或中断生成的 artifact 会显示
+`STALE <plot>`，随后只重建对应森林；有效 artifact 仍显示 `SKIP <plot>`。因此修复后
+直接重复执行原命令即可，不需要手动删除结果目录，也不需要添加 `--force`。
