@@ -3,6 +3,8 @@ import unittest
 import numpy as np
 
 from tree_learn.util.instance_split_diagnostics import (
+    SPLIT_DEPLOYABILITY_MODES,
+    analyze_instance_split_deployability,
     analyze_instance_split_oracle,
     apply_gt_extraction_ceiling,
     detection_metrics_from_labels,
@@ -59,6 +61,27 @@ class InstanceSplitDiagnosticsTests(unittest.TestCase):
                 report['modes'][mode]['recovered_undersegmented_trees'], 1)
             self.assertEqual(report['modes'][mode]['lost_baseline_trees'], 0)
             self.assertAlmostEqual(report['modes'][mode]['f1'], 1.0)
+
+    def test_deployability_controls_are_explicit_and_finite(self):
+        coords, offsets, labels, predictions = self.merged_case()
+        report = analyze_instance_split_deployability(
+            coords, offsets, labels, predictions,
+            max_fit_points=100, random_state=42,
+            allowed_undersegmented_gt_ids=[2])
+        self.assertEqual(tuple(report['modes']), SPLIT_DEPLOYABILITY_MODES)
+        for mode in SPLIT_DEPLOYABILITY_MODES:
+            metrics = report['modes'][mode]
+            self.assertAlmostEqual(metrics['f1'], 1.0)
+            self.assertEqual(metrics['lost_baseline_trees'], 0)
+        self.assertEqual(
+            report['modes']['known_k_oracle_accept']['acceptance_mode'],
+            'oracle')
+        self.assertEqual(
+            report['modes']['known_k_accept_all']['acceptance_mode'],
+            'accept_all')
+        self.assertEqual(
+            report['modes']['fixed_k2_accept_all']['num_children_mode'],
+            'fixed_k2')
 
     def test_vertical_features_are_finite_and_height_conditioned(self):
         coords, offsets, _, _ = self.merged_case()

@@ -1,0 +1,29 @@
+# Fixed-validation decomposition of Q4a's GT K and GT acceptance assumptions.
+# Wytham is forbidden.
+output_root: 'logs/coverage_preserving_quality/q4b0_instance_split_deployability'
+q3_reference_root: 'data/gt_omission_diagnostics'
+q4a_reference_root: 'logs/coverage_preserving_quality/q4a_instance_split_oracle'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/coverage_preserving_quality/pipeline_q4a_instance_split_template.yaml'
+checkpoint: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+
+validation_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+split_deployability:
+  match_iou_threshold: 0.5
+  min_precision_for_counted_fp: 0.5
+  min_recall_for_undersegmentation: 0.5
+  max_fit_points: 50000
+  random_state: 20260811
+
+gate:
+  expected_validation_plots: 5
+  min_f1_gain_pp: 0.5
+  max_completeness_drop_pp: 0.2
+  max_commission_increase_pp: 0.5
+  min_nonnegative_plots: 4

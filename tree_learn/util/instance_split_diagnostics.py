@@ -19,6 +19,12 @@ SPLIT_MODES = (
     'vertical_axis_kmeans_oracle',
 )
 
+SPLIT_DEPLOYABILITY_MODES = (
+    'known_k_oracle_accept',
+    'known_k_accept_all',
+    'fixed_k2_accept_all',
+)
+
 
 def detection_metrics_from_labels(
         instance_labels, instance_predictions, match_iou_threshold=0.5,
@@ -247,8 +253,13 @@ def apply_geometry_split_oracle(
         coords, offset_predictions, instance_labels, instance_predictions,
         targets, mode, max_fit_points=50000, random_state=0,
         vertical_power=2.0, vertical_feature_weight=1.0,
-        match_iou_threshold=0.5, min_precision_for_counted_fp=0.5):
-    """Apply only locally beneficial known-K partitions for one mode."""
+        match_iou_threshold=0.5, min_precision_for_counted_fp=0.5,
+        num_children_mode='oracle', acceptance_mode='oracle'):
+    """Apply a geometry split with explicit K and acceptance controls."""
+    if num_children_mode not in {'oracle', 'fixed_k2'}:
+        raise ValueError(f'Unsupported child-count mode: {num_children_mode}')
+    if acceptance_mode not in {'oracle', 'accept_all'}:
+        raise ValueError(f'Unsupported split acceptance: {acceptance_mode}')
     # Preserve the pipeline dtype for the full forest.  Only the points of
     # one selected parent are promoted to float64 by split_features().
     xyz = np.asarray(coords)
@@ -270,7 +281,9 @@ def apply_geometry_split_oracle(
         prediction_id = int(target['prediction_id'])
         indices = parent_indices.get(prediction_id)
         count = 0 if indices is None else len(indices)
-        children = int(target['oracle_num_children'])
+        children = (
+            int(target['oracle_num_children'])
+            if num_children_mode == 'oracle' else 2)
         if count < children or children < 2:
             failed += 1
             continue
@@ -284,15 +297,16 @@ def apply_geometry_split_oracle(
             failed += 1
             continue
         proposed += 1
-        parent_partition = np.zeros(count, dtype=np.int64)
-        parent_quality = _partition_quality(
-            labels, indices, parent_partition, gt_ids, gt_counts,
-            match_iou_threshold, min_precision_for_counted_fp)
-        child_quality = _partition_quality(
-            labels, indices, partition, gt_ids, gt_counts,
-            match_iou_threshold, min_precision_for_counted_fp)
-        if child_quality <= parent_quality:
-            continue
+        if acceptance_mode == 'oracle':
+            parent_partition = np.zeros(count, dtype=np.int64)
+            parent_quality = _partition_quality(
+                labels, indices, parent_partition, gt_ids, gt_counts,
+                match_iou_threshold, min_precision_for_counted_fp)
+            child_quality = _partition_quality(
+                labels, indices, partition, gt_ids, gt_counts,
+                match_iou_threshold, min_precision_for_counted_fp)
+            if child_quality <= parent_quality:
+                continue
         for child in np.unique(partition):
             output[indices[partition == child]] = next_id
             next_id += 1
@@ -303,6 +317,71 @@ def apply_geometry_split_oracle(
         'accepted_splits': int(accepted),
         'failed_splits': int(failed),
         'accepted_prediction_ids': accepted_prediction_ids,
+        'num_children_mode': str(num_children_mode),
+        'acceptance_mode': str(acceptance_mode),
+    }
+
+
+def analyze_instance_split_deployability(
+        coords, offset_predictions, instance_labels, instance_predictions,
+        match_iou_threshold=0.5, min_precision_for_counted_fp=0.5,
+        min_recall_for_undersegmentation=0.5, max_fit_points=50000,
+        random_state=0, allowed_undersegmented_gt_ids=None):
+    """Decompose the GT K and GT acceptance assumptions of raw-XY splits."""
+    labels = np.asarray(instance_labels, dtype=np.int64).reshape(-1)
+    predictions = np.asarray(instance_predictions, dtype=np.int64).reshape(-1)
+    baseline = detection_metrics_from_labels(
+        labels, predictions, match_iou_threshold,
+        min_precision_for_counted_fp)
+    targets = identify_undersegmentation_targets(
+        labels, predictions, match_iou_threshold,
+        min_recall_for_undersegmentation,
+        allowed_undersegmented_gt_ids=allowed_undersegmented_gt_ids)
+    undersegmented_gt_ids = sorted({
+        gt_id for target in targets for gt_id in target['missed_gt_ids']})
+    baseline_detected = set(baseline['matched_gt_ids'])
+    specifications = {
+        'known_k_oracle_accept': ('oracle', 'oracle'),
+        'known_k_accept_all': ('oracle', 'accept_all'),
+        'fixed_k2_accept_all': ('fixed_k2', 'accept_all'),
+    }
+    modes = {}
+    for name in SPLIT_DEPLOYABILITY_MODES:
+        num_children_mode, acceptance_mode = specifications[name]
+        split_predictions, metadata = apply_geometry_split_oracle(
+            coords, offset_predictions, labels, predictions, targets,
+            'raw_xy_kmeans_oracle', max_fit_points=max_fit_points,
+            random_state=random_state,
+            match_iou_threshold=match_iou_threshold,
+            min_precision_for_counted_fp=min_precision_for_counted_fp,
+            num_children_mode=num_children_mode,
+            acceptance_mode=acceptance_mode)
+        metrics = detection_metrics_from_labels(
+            labels, split_predictions, match_iou_threshold,
+            min_precision_for_counted_fp)
+        modes[name] = _mode_report(
+            baseline, metrics, metadata, baseline_detected,
+            undersegmented_gt_ids)
+    return {
+        'baseline': _without_match_lists(baseline),
+        'num_split_target_predictions': int(len(targets)),
+        'num_undersegmented_gt_trees': int(len(undersegmented_gt_ids)),
+        'expected_undersegmented_gt_ids': (
+            undersegmented_gt_ids if allowed_undersegmented_gt_ids is None
+            else sorted({
+                int(value) for value in allowed_undersegmented_gt_ids})),
+        'split_targets': targets,
+        'modes': modes,
+        'parameters': {
+            'geometry': 'raw_xy_kmeans',
+            'match_iou_threshold': float(match_iou_threshold),
+            'min_precision_for_counted_fp': float(
+                min_precision_for_counted_fp),
+            'min_recall_for_undersegmentation': float(
+                min_recall_for_undersegmentation),
+            'max_fit_points': int(max_fit_points),
+            'random_state': int(random_state),
+        },
     }
 
 
