@@ -110,13 +110,10 @@ def validate_artifact(path, plot_name, q4a_reference_root):
             raise ValueError(
                 f'Q4b0 known-K Oracle does not reproduce Q4a {key} '
                 f'for {plot_name}.')
-    expected_parents = sorted(map(
-        int, reference.get('accepted_prediction_ids', [])))
-    observed_parents = sorted(map(
-        int, reproduced.get('accepted_prediction_ids', [])))
-    if observed_parents != expected_parents:
-        raise ValueError(
-            f'Q4b0 accepted parents differ from Q4a for {plot_name}.')
+    # HDBSCAN prediction IDs are run-local labels and may be permuted across
+    # otherwise identical reruns. Reproduction is therefore established by
+    # detection counts, proposal/acceptance counts, recovered trees and lost
+    # baseline trees above, never by raw prediction-ID equality.
     return report
 
 

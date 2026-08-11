@@ -65,3 +65,10 @@ cat \
 
 脚本支持断点续跑：有效 artifact 显示 `SKIP`，旧版或不完整 artifact 显示 `STALE`
 并只重建对应森林。除非明确确认 artifact 损坏，否则不要使用 `--force`。
+
+## 跨运行实例 ID 校验
+
+HDBSCAN 的预测实例 ID 是一次运行内部的临时标签；相同点集分区在独立重跑时可以获得
+不同整数 ID。因此 Q4b0 不比较 `accepted_prediction_ids` 的原始数值，而严格比较
+TP/FP/FN、proposal 数、accepted 数、恢复欠分割树数和丢失基线树数。这样既允许合法的
+标签置换，也不会放宽实际分割效果校验。

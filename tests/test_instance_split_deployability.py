@@ -84,6 +84,9 @@ class InstanceSplitDeployabilityTests(unittest.TestCase):
             modes = {}
             for mode in DEPLOYABILITY.SPLIT_DEPLOYABILITY_MODES:
                 modes[mode] = dict(reference)
+            # Prediction instance IDs are arbitrary run-local labels. A
+            # relabelled but metric-identical rerun must remain valid.
+            modes['known_k_oracle_accept']['accepted_prediction_ids'] = [99]
             report = {
                 'source_plot': 'V1', 'split': 'validation',
                 'baseline': baseline,
