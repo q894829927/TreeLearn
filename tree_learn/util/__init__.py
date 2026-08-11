@@ -10,4 +10,5 @@ from .axis import *
 from .instance_diagnostics import *
 from .instance_quality import *
 from .seed_quality import *
+from .instance_split_learning import *
 from .pipeline import *

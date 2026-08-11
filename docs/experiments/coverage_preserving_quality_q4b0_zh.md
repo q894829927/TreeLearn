@@ -72,3 +72,10 @@ HDBSCAN 的预测实例 ID 是一次运行内部的临时标签；相同点集�
 不同整数 ID。因此 Q4b0 不比较 `accepted_prediction_ids` 的原始数值，而严格比较
 TP/FP/FN、proposal 数、accepted 数、恢复欠分割树数和丢失基线树数。这样既允许合法的
 标签置换，也不会放宽实际分割效果校验。
+
+## 实验结论（固定 validation）
+
+Q4b0 完整性 Gate 通过，但两个 accept-all 模式均失败：known-K accept-all 的 F1 下降
+0.450 pp，fixed-K2 accept-all 的 F1 下降 0.426 pp，二者均丢失 6 棵基线树并提高
+Commission。因此锁定推荐路线为 `candidate_child_count_and_safety_heads`，进入 Q4b1
+三头 MLP 控制实验；仍不读取 Wytham。

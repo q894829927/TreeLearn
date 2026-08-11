@@ -1,0 +1,64 @@
+# Q4b1 three-head MLP control. Wytham is forbidden.
+data_root: 'data/instance_split_learning'
+output_dir: 'logs/coverage_preserving_quality/q4b1_split_heads'
+seeds: [42, 43, 44]
+locked_seed: 42
+
+splits:
+  train:
+    - A1N
+    - A1W
+    - G1N
+    - G1W
+    - G2N
+    - G2W
+    - G3N
+    - G3W
+    - L2N
+    - L2W
+    - LG1
+    - LG2
+    - LG3
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+model:
+  max_children: 4
+  hidden_dim: 64
+  safety_hidden_dim: 32
+  dropout: 0.1
+
+optimizer:
+  lr: 0.001
+  weight_decay: 0.001
+
+loss:
+  candidate: 1.0
+  child_count: 1.0
+  safety: 1.0
+
+training:
+  epochs: 100
+  eval_frequency: 5
+  patience_evaluations: 5
+  grad_clip: 5.0
+
+selection:
+  candidate_thresholds: [0.01, 0.025, 0.05, 0.10, 0.20, 0.35, 0.50, 0.65, 0.80, 0.90]
+  safety_thresholds: [0.01, 0.025, 0.05, 0.10, 0.20, 0.35, 0.50, 0.65, 0.80, 0.90]
+  match_iou_threshold: 0.5
+  min_precision_for_counted_fp: 0.5
+  max_completeness_drop_pp: 0.2
+  max_commission_increase_pp: 0.5
+
+gate:
+  min_f1_gain_pp: 0.5
+  max_completeness_drop_pp: 0.2
+  max_commission_increase_pp: 0.5
+  min_nonnegative_plots: 4
+  min_seed_passes: 2
+  max_f1_gain_std_pp: 0.30

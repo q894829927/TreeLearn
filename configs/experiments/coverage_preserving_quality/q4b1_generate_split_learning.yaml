@@ -1,0 +1,39 @@
+# Q4b1 fixed train/validation learning data. Wytham is forbidden.
+output_root: 'data/instance_split_learning'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/coverage_preserving_quality/pipeline_q4b1_split_learning_template.yaml'
+q3_reference_root: 'data/gt_omission_diagnostics'
+checkpoint: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+cleanup_intermediates: true
+
+splits:
+  train:
+    - A1N
+    - A1W
+    - G1N
+    - G1W
+    - G2N
+    - G2W
+    - G3N
+    - G3W
+    - L2N
+    - L2W
+    - LG1
+    - LG2
+    - LG3
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+pilot_plots:
+  - A1N
+  - G4N
+
+gate:
+  min_train_candidate_parents: 100
+  expected_validation_candidate_parents: 69
+  expected_validation_undersegmented_gt_trees: 73
+  expected_validation_known_k_safe_parents: 25
