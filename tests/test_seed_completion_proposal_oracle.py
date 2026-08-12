@@ -14,6 +14,13 @@ SPEC.loader.exec_module(MODULE)
 
 
 class SeedCompletionProposalOracleTests(unittest.TestCase):
+    @staticmethod
+    def reference_gate():
+        return {
+            'max_reference_tp_drift_per_plot': 1,
+            'max_reference_fp_drift_per_plot': 1,
+        }
+
     def test_load_settings_rejects_wytham(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'config.yaml'
@@ -30,6 +37,34 @@ class SeedCompletionProposalOracleTests(unittest.TestCase):
         result = MODULE.aggregate_detection(reports, 'baseline')
         self.assertEqual((result['tp'], result['fp'], result['fn']),
                          (5, 3, 1))
+
+
+    def test_reference_audit_accepts_one_border_count_drift(self):
+        audit = MODULE.audit_baseline_reference(
+            {'tp': 9, 'fp': 6, 'fn': 2},
+            {'tp': 10, 'fp': 5, 'fn': 1},
+            self.reference_gate())
+        self.assertTrue(audit['gt_count_preserved'])
+        self.assertTrue(audit['passed'])
+        self.assertFalse(audit['exact'])
+        self.assertEqual(audit['drift'], {'tp': -1, 'fp': 1, 'fn': 1})
+
+    def test_reference_audit_rejects_changed_gt_count(self):
+        audit = MODULE.audit_baseline_reference(
+            {'tp': 10, 'fp': 5, 'fn': 2},
+            {'tp': 10, 'fp': 5, 'fn': 1},
+            self.reference_gate())
+        self.assertFalse(audit['gt_count_preserved'])
+        self.assertFalse(audit['passed'])
+
+    def test_reference_audit_rejects_excess_drift(self):
+        audit = MODULE.audit_baseline_reference(
+            {'tp': 8, 'fp': 7, 'fn': 3},
+            {'tp': 10, 'fp': 5, 'fn': 1},
+            self.reference_gate())
+        self.assertFalse(audit['tp_drift_passed'])
+        self.assertFalse(audit['fp_drift_passed'])
+        self.assertFalse(audit['passed'])
 
 
 if __name__ == '__main__':
