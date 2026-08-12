@@ -1,0 +1,73 @@
+# Q5b1 GT-free proposal activation. Wytham is forbidden.
+data_root: 'data/seed_completion_learning'
+output_dir: 'logs/coverage_preserving_quality/q5b1_seed_completion_activation'
+seeds: [42, 43, 44]
+locked_seed: 42
+
+splits:
+  train:
+    - A1N
+    - A1W
+    - G1N
+    - G1W
+    - G2N
+    - G2W
+    - G3N
+    - G3W
+    - L2N
+    - L2W
+    - LG1
+    - LG2
+    - LG3
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+model:
+  hidden_dim: 64
+  dropout: 0.1
+
+logistic:
+  c: 1.0
+  max_iter: 1000
+
+optimizer:
+  lr: 0.001
+  weight_decay: 0.001
+
+loss:
+  coverage_weight: 0.5
+  max_pos_weight: 100.0
+
+training:
+  epochs: 80
+  eval_frequency: 2
+  patience_evaluations: 10
+  batch_size: 4096
+  inference_chunk_size: 200000
+  grad_clip: 5.0
+  negative_to_positive_ratio: 50
+  min_negatives_per_plot: 20000
+
+selection:
+  model_priority:
+    - multitask_mlp
+    - logistic_regression
+    - fixed_rule
+  keep_ratios: [0.0005, 0.001, 0.002, 0.005, 0.01, 0.02]
+  nms_radius: 0.3
+  max_selected_per_plot: 250
+  min_activation_precision: 0.02
+  min_activation_recall: 0.25
+  min_target_tree_recall: 0.50
+
+gate:
+  min_activation_ap_lift: 20.0
+  min_coverage_ap_lift: 3.0
+  min_activation_precision: 0.02
+  min_activation_recall: 0.25
+  min_target_tree_recall: 0.50
+  min_mlp_seed_passes: 2

@@ -1,0 +1,52 @@
+# Q5b1 fixed proposal-learning data. Wytham is forbidden.
+output_root: 'data/seed_completion_learning'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/coverage_preserving_quality/pipeline_q5b1_seed_completion_learning_template.yaml'
+q5b0_reference_root: 'logs/coverage_preserving_quality/q5b0_seed_completion_proposal_oracle'
+checkpoint: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+cleanup_intermediates: true
+
+splits:
+  train:
+    - A1N
+    - A1W
+    - G1N
+    - G1W
+    - G2N
+    - G2W
+    - G3N
+    - G3W
+    - L2N
+    - L2W
+    - LG1
+    - LG2
+    - LG3
+  validation:
+    - G4N
+    - G4W
+    - L1N
+    - O1N
+    - O1W
+
+pilot_plots:
+  - A1N
+  - G4N
+
+proposal:
+  scales: [0.6, 1.2]
+  shift_fractions: [0.0, 0.5]
+  match_iou_threshold: 0.5
+  min_precision_for_counted_fp: 0.5
+  min_recall_for_undersegmentation: 0.5
+  min_fragment_overlap_fraction: 0.05
+  min_fragment_overlap_points: 20
+
+gate:
+  min_train_proposals: 150000
+  min_train_activation_positive: 50
+  min_train_coverage_positive: 500
+  min_train_target_trees: 30
+  expected_validation_proposals: 128119
+  expected_validation_activation_positive: 41
+  expected_validation_target_trees: 31
+  expected_validation_covered_targets: 31
