@@ -152,3 +152,13 @@ logs/coverage_preserving_quality/q4b1_split_heads/checkpoints/split_heads_seed42
 ```
 
 不得根据 Wytham 结果重选 checkpoint、Candidate 阈值、Safety 阈值或 K 类别。
+
+## 8. 固定验证集结果
+
+Q4b1 三个 seed 均未通过：Candidate AP 为 0.087–0.112，Safety AP 为
+0.196–0.320，K accuracy 为 0.899–0.913。最终 F1 仅提高 0.061–0.097 pp，
+远低于预注册的 0.5 pp；虽然 Completeness 略有上升，但 Commission 同时增加
+0.178–0.252 pp。实例拆分路线据此关闭，不再修改三头网络或阈值。
+
+下一阶段转向 Q3 中尚未处理的 31 棵 `base_seed_support_failure`，先运行 Q5a
+Coverage-Seed Completion Oracle；仍不读取 Wytham。
