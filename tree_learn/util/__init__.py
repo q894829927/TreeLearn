@@ -12,4 +12,5 @@ from .instance_quality import *
 from .seed_quality import *
 from .instance_split_learning import *
 from .seed_completion_diagnostics import *
+from .seed_completion_proposals import *
 from .pipeline import *

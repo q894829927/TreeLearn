@@ -1,0 +1,32 @@
+# Q5b0 preregistration. Wytham is forbidden.
+output_root: 'logs/coverage_preserving_quality/q5b0_seed_completion_proposal_oracle'
+q3_reference_root: 'data/gt_omission_diagnostics'
+source_root: 'data/train/forests'
+pipeline_template: 'configs/experiments/coverage_preserving_quality/pipeline_q5b0_seed_completion_proposal_template.yaml'
+checkpoint: 'work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth'
+
+validation_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+seed_completion_proposal:
+  scales: [0.6, 1.2]
+  shift_fractions: [0.0, 0.5]
+  match_iou_threshold: 0.5
+  min_precision_for_counted_fp: 0.5
+  min_recall_for_undersegmentation: 0.5
+  min_fragment_overlap_fraction: 0.05
+  min_fragment_overlap_points: 20
+
+gate:
+  expected_validation_plots: 5
+  expected_target_trees: 31
+  min_proposal_covered_target_trees: 20
+  min_recovered_target_trees: 10
+  min_f1_gain_pp: 0.35
+  max_lost_baseline_trees: 2
+  max_commission_increase_pp: 0.50
+  min_nonnegative_plots: 4

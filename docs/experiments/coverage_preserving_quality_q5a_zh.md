@@ -92,3 +92,11 @@ cat logs/coverage_preserving_quality/q5a_seed_completion_oracle/summary.md
 
 脚本在 Gate 失败时会先保存完整报告，再以 `RuntimeError` 退出；这表示科学 Gate 失败，
 不是程序崩溃。
+## 5. 固定验证集结果与下一步
+
+Q5a 两个模式均通过。`margin_topup` 恢复 13/31 棵目标树、没有损失基线树，F1
+提高 0.511 pp；`xy_oracle_topup` 同样恢复 13 棵但损失 2 棵，F1 提高 0.403 pp。
+这说明单点 GT XY vote error 并不是最合适的补种排序目标，预测 margin 的聚类拓扑更好。
+
+下一阶段不是直接训练目标树分类器，而是 Q5b0 GT-free proposal Oracle：先证明仅用
+预测 vote-space 多尺度 cell 能覆盖 Q5a 的目标区域，再决定是否训练 Q5b1 激活头。
