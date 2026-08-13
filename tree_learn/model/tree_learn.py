@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from spconv.pytorch.utils import PointToVoxel
 from .blocks import MLP, ResidualBlock, UBlock
+from .height_context_attention import HeightStratifiedContextAdapter
 from .point_transformer import (
     LocalPointTransformerLayer,
     get_axis_branch_target_xy,
@@ -46,6 +47,15 @@ class TreeLearn(nn.Module):
                  axis_target_mode='upper_axis',
                  axis_loss_mode='heteroscedastic',
                  axis_confidence_loss_weight=0.1,
+                 use_height_context_adapter=False,
+                 height_context_type='attention',
+                 height_hidden_dim=32,
+                 height_num_bins=8,
+                 height_num_heads=4,
+                 height_dropout=0.1,
+                 height_quantile=0.95,
+                 height_minimum_scale=1.0,
+                 height_adapter_only=True,
                  **kwargs):
 
         super().__init__()
@@ -69,6 +79,9 @@ class TreeLearn(nn.Module):
         self.axis_target_mode = axis_target_mode
         self.axis_loss_mode = axis_loss_mode
         self.axis_confidence_loss_weight = axis_confidence_loss_weight
+        self.use_height_context_adapter = use_height_context_adapter
+        self.height_context_type = height_context_type
+        self.height_adapter_only = height_adapter_only
 
         if axis_log_variance_min >= axis_log_variance_max:
             raise ValueError(
@@ -86,6 +99,13 @@ class TreeLearn(nn.Module):
         if axis_confidence_loss_weight < 0:
             raise ValueError(
                 'axis_confidence_loss_weight must be non-negative.')
+        if height_context_type not in ('mlp', 'attention'):
+            raise ValueError(
+                "height_context_type must be 'mlp' or 'attention'.")
+        if use_axis_branch and use_height_context_adapter:
+            raise ValueError(
+                'Axis branch and height-context adapter cannot be enabled '
+                'in the same controlled experiment.')
 
         norm_fn = functools.partial(nn.BatchNorm1d, eps=1e-4, momentum=0.1)
         
@@ -119,6 +139,16 @@ class TreeLearn(nn.Module):
                 self.axis_point_transformer = nn.Identity()
             self.axis_xy_head = nn.Linear(axis_hidden_dim, 2)
             self.axis_uncertainty_head = nn.Linear(axis_hidden_dim, 1)
+        if use_height_context_adapter:
+            self.height_context_adapter = HeightStratifiedContextAdapter(
+                in_channels=channels,
+                hidden_dim=height_hidden_dim,
+                num_height_bins=height_num_bins,
+                adapter_type=height_context_type,
+                num_heads=height_num_heads,
+                dropout=height_dropout,
+                height_quantile=height_quantile,
+                minimum_height_scale=height_minimum_scale)
         self.init_weights()
         if use_axis_branch:
             nn.init.zeros_(self.axis_xy_head.weight)
@@ -136,6 +166,19 @@ class TreeLearn(nn.Module):
             ]
             self.fixed_modules = list(dict.fromkeys(
                 self.fixed_modules + frozen_axis_base))
+
+        if use_height_context_adapter and height_adapter_only:
+            frozen_height_base = [
+                'input_conv',
+                'unet',
+                'output_layer',
+                'semantic_linear',
+                'offset_linear',
+            ]
+            if hasattr(self, 'upper_offset_linear'):
+                frozen_height_base.append('upper_offset_linear')
+            self.fixed_modules = list(dict.fromkeys(
+                self.fixed_modules + frozen_height_base))
 
         # weight init
         for mod in self.fixed_modules:
@@ -198,10 +241,37 @@ class TreeLearn(nn.Module):
         output = dict()
         backbone_feats = backbone_output.features[v2p_map]
         output['backbone_feats'] = backbone_feats
-        output['semantic_prediction_logits'] = self.semantic_linear(backbone_feats)
-        output['offset_predictions'] = self.offset_linear(backbone_feats)
+        semantic_logits = self.semantic_linear(backbone_feats)
+        offset_predictions = self.offset_linear(backbone_feats)
+        output['semantic_prediction_logits'] = semantic_logits
+        output['offset_predictions'] = offset_predictions
         if self.use_upper_anchor:
             output['upper_offset_predictions'] = self.upper_offset_linear(backbone_feats)
+        if self.use_height_context_adapter:
+            if input_feats is None or batch_ids is None:
+                raise ValueError(
+                    'input_feats and batch_ids are required when '
+                    'use_height_context_adapter=True.')
+            adapter_output = self.height_context_adapter(
+                backbone_feats,
+                offset_predictions,
+                input_feats.to(backbone_feats.device),
+                batch_ids.to(backbone_feats.device))
+            output['base_semantic_prediction_logits'] = semantic_logits
+            output['base_offset_predictions'] = offset_predictions
+            output['height_semantic_residual'] = \
+                adapter_output['semantic_residual']
+            output['height_offset_residual'] = adapter_output['offset_residual']
+            output['height_normalized_heights'] = \
+                adapter_output['normalized_heights']
+            output['height_bin_indices'] = \
+                adapter_output['height_bin_indices']
+            output['height_token_valid_mask'] = \
+                adapter_output['height_token_valid_mask']
+            output['semantic_prediction_logits'] = (
+                semantic_logits + adapter_output['semantic_residual'])
+            output['offset_predictions'] = (
+                offset_predictions + adapter_output['offset_residual'])
         if self.use_axis_branch:
             if coords is None or input_feats is None or batch_ids is None:
                 raise ValueError(

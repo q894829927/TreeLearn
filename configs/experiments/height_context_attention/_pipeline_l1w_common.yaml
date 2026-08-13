@@ -1,0 +1,43 @@
+forest_path: 'data/pipeline/L1W/forest/L1W.laz'
+fp16: True
+tile_generation: False
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: False
+  height_hidden_dim: 32
+  height_num_bins: 8
+  height_num_heads: 4
+  height_dropout: 0.1
+  height_quantile: 0.95
+  height_minimum_scale: 1.0
+  height_adapter_only: True
+  offset_loss_type: 'smooth_l1'
+  smooth_l1_beta: 1.0
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+grouping:
+  use_upper_seeds: False
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_axis_fusion: False
+  use_seed_confidence_filter: False
+  seed_confidence_keep_ratio: 1.0
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+shape_cfg:
+  outer_remove: ~
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+save_cfg:
+  save_formats: ['laz']
+  save_treewise: False
+  save_pointwise: False
+  return_type: 'original'

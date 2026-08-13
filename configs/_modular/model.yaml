@@ -30,3 +30,12 @@ model:
   axis_branch_only: True # automatically freeze the original TreeLearn modules
   axis_loss_mode: 'heteroscedastic' # heteroscedastic or decoupled
   axis_confidence_loss_weight: 0.1 # used only by decoupled loss
+  use_height_context_adapter: False # enable frozen-backbone height adapter
+  height_context_type: 'attention' # attention (HSCA) or parameter-matched mlp
+  height_hidden_dim: 32
+  height_num_bins: 8
+  height_num_heads: 4
+  height_dropout: 0.1
+  height_quantile: 0.95
+  height_minimum_scale: 1.0
+  height_adapter_only: True # automatically freeze all original TreeLearn modules

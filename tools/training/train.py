@@ -179,10 +179,11 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
     # get offset loss
     masks_sem = torch.ones_like(semantic_labels).bool()
     masks_off = semantic_labels == TREE_CLASS_IN_DATASET
-    _, offset_loss = point_wise_loss(semantic_prediction_logits.float(), offset_predictions.float(), 
-                                      masks_sem, masks_off, semantic_labels, offset_labels,
-                                      offset_loss_type=config.model.offset_loss_type,
-                                      smooth_l1_beta=config.model.smooth_l1_beta)
+    semantic_loss, offset_loss = point_wise_loss(
+        semantic_prediction_logits.float(), offset_predictions.float(),
+        masks_sem, masks_off, semantic_labels, offset_labels,
+        offset_loss_type=config.model.offset_loss_type,
+        smooth_l1_beta=config.model.smooth_l1_beta)
     if upper_offset_predictions is None or len(upper_offset_predictions) == 0:
         upper_offset_loss = None
     else:
@@ -208,9 +209,14 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
     acc = (tp + tn) / (tp + fp + fn + tn)
 
     # log and write to tensorboard
+    selection_loss = (
+        semantic_loss * 50.0 + offset_loss).item()
     log_str = (
         f'[VALIDATION] [{epoch}/{config.epochs}] val/semantic_acc {acc*100:.2f}, '
+        f'val/semantic_loss {semantic_loss.item():.4f}, '
         f'val/offset_loss {offset_loss.item():.3f}')
+    if getattr(config.model, 'use_height_context_adapter', False):
+        log_str += f', val/height_selection_loss {selection_loss:.4f}'
     if upper_offset_loss is not None:
         log_str += f', val/upper_offset_loss {upper_offset_loss.item():.3f}'
     if axis_cosine_error is not None:
@@ -281,7 +287,11 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
                 f'val/Axis_Error_Bin_{bin_idx}', mean_error, epoch)
     logger.info(log_str)
     writer.add_scalar(f'val/acc', acc if not np.isnan(acc) else 0, epoch)
+    writer.add_scalar('val/Semantic_Loss', semantic_loss, epoch)
     writer.add_scalar('val/Offset_Loss', offset_loss, epoch)
+    if getattr(config.model, 'use_height_context_adapter', False):
+        writer.add_scalar(
+            'val/Height_Selection_Loss', selection_loss, epoch)
     if upper_offset_loss is not None:
         writer.add_scalar('val/Upper_Offset_Loss', upper_offset_loss, epoch)
     if axis_cosine_error is not None:
@@ -303,6 +313,13 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
             writer.add_scalar(
                 'val/Axis_Normalized_Mean_Error',
                 axis_metrics['normalized_mean_error'], epoch)
+    if getattr(config.model, 'use_height_context_adapter', False):
+        return {
+            'selection_loss': float(selection_loss),
+            'semantic_loss': float(semantic_loss.item()),
+            'offset_loss': float(offset_loss.item()),
+            'semantic_acc': float(acc),
+        }
     return axis_metrics
 
 
@@ -327,6 +344,25 @@ def main():
             raise RuntimeError(
                 'Axis branch-only training found unfrozen original '
                 f'parameters: {", ".join(unexpected_trainable)}')
+    if (
+        getattr(config.model, 'use_height_context_adapter', False) and
+        getattr(config.model, 'height_adapter_only', True)
+    ):
+        unexpected_trainable = [
+            name for name, parameter in model.named_parameters()
+            if parameter.requires_grad and not name.startswith(
+                'height_context_adapter.')
+        ]
+        if unexpected_trainable:
+            raise RuntimeError(
+                'Height-adapter-only training found unfrozen original '
+                f'parameters: {", ".join(unexpected_trainable)}')
+        height_parameter_count = sum(
+            parameter.numel()
+            for parameter in model.parameters()
+            if parameter.requires_grad)
+        logger.info(
+            f'Height-context trainable parameters: {height_parameter_count:,}')
     optimizer = build_optimizer(model, config.optimizer)
     scheduler = build_cosine_scheduler(config.scheduler, optimizer)
     scaler = torch.cuda.amp.GradScaler(enabled=config.fp16)
@@ -349,6 +385,7 @@ def main():
     # train and val
     logger.info('Training')
     best_axis_xy_mean = float('inf')
+    best_height_selection_loss = float('inf')
     best_checkpoint_name = (
         'best_base_residual_xy.pth'
         if getattr(
@@ -361,13 +398,29 @@ def main():
             optimizer.zero_grad()
             logger.info('Validation')
             torch.cuda.empty_cache()
-            axis_metrics = validate(
+            validation_metrics = validate(
                 config, epoch, model, val_loader, logger, writer)
-            if (
-                axis_metrics is not None and
-                axis_metrics['mean'] < best_axis_xy_mean
+            if getattr(
+                    config.model, 'use_height_context_adapter', False):
+                selection_loss = validation_metrics['selection_loss']
+                if selection_loss < best_height_selection_loss:
+                    best_height_selection_loss = selection_loss
+                    height_checkpoint_name = (
+                        'best_hsca.pth'
+                        if config.model.height_context_type == 'attention'
+                        else 'best_height_mlp.pth')
+                    checkpoint_save_named(
+                        epoch, model, optimizer, config.work_dir,
+                        height_checkpoint_name)
+                    logger.info(
+                        f'Saved {height_checkpoint_name} at epoch {epoch} '
+                        f'(validation selection loss '
+                        f'{best_height_selection_loss:.4f})')
+            elif (
+                validation_metrics is not None and
+                validation_metrics['mean'] < best_axis_xy_mean
             ):
-                best_axis_xy_mean = axis_metrics['mean']
+                best_axis_xy_mean = validation_metrics['mean']
                 checkpoint_save_named(
                     epoch, model, optimizer, config.work_dir,
                     best_checkpoint_name)

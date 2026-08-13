@@ -1,0 +1,14 @@
+# A2: Height-Stratified Context Attention.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_l1w_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  use_height_context_adapter: True
+  height_context_type: 'attention'
+pretrain: 'work_dirs/train_a2_hsca_frozen/best_hsca.pth'
+save_cfg:
+  results_dir: 'results_hsca_a2_attention'

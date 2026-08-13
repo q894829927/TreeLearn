@@ -1,0 +1,3 @@
+default_args: [configs/experiments/_evaluation_common.yaml]
+paths:
+  pred_forest_path: 'data/pipeline/L1W/results_hsca_a0_official/full_forest/L1W.laz'

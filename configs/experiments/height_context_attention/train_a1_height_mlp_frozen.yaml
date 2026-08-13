@@ -1,0 +1,9 @@
+# A1: parameter-matched height-token MLP control.
+default_args:
+  - configs/experiments/height_context_attention/_train_height_adapter_common.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/dataset_train.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  height_context_type: 'mlp'
