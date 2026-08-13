@@ -48,6 +48,12 @@ class HeightSeedIdentityTests(unittest.TestCase):
         self.assertGreater(float(damaged_logits.grad[0].abs().sum()), 0.0)
         self.assertEqual(float(damaged_logits.grad[2].abs().sum()), 0.0)
 
+    def test_checkpoint_eligibility_enforces_fixed_retention_gate(self):
+        self.assertTrue(IDENTITY.height_checkpoint_is_eligible(0.995, 0.995))
+        self.assertFalse(IDENTITY.height_checkpoint_is_eligible(0.9942, 0.995))
+        with self.assertRaises(ValueError):
+            IDENTITY.height_checkpoint_is_eligible(1.1, 0.995)
+
     def test_retention_separates_semantic_and_full_seed(self):
         base_logits, base_offsets, input_features = self.make_inputs()
         adapted_logits = base_logits.clone()

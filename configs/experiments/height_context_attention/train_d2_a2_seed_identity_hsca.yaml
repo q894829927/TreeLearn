@@ -12,3 +12,4 @@ model:
   height_seed_tree_conf_thresh: 0.5
   height_seed_tau_vert: 0.6
   height_seed_tau_off: 4.0
+  height_seed_min_semantic_retention: 0.995

@@ -9,6 +9,9 @@ default_args:
 model:
   use_height_context_adapter: True
   height_context_type: 'attention'
-pretrain: 'work_dirs/train_d2_a2_seed_identity_hsca/best_hsca.pth'
+# Existing D2 run: epoch 10 is the minimum-loss checkpoint satisfying the
+# pre-registered 99.5% seed-retention gate. A retrain with the corrected
+# selector saves the same choice as best_hsca.pth.
+pretrain: 'work_dirs/train_d2_a2_seed_identity_hsca/epoch_10.pth'
 save_cfg:
-  results_dir: 'results_hsca_d2_a2_seed_identity_hsca'
+  results_dir: 'results_hsca_d2_a2_seed_identity_hsca_e10_eligible'

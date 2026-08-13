@@ -12,7 +12,8 @@ from tree_learn.util import (checkpoint_save, init_train_logger, load_checkpoint
 from tree_learn.model import TreeLearn
 from tree_learn.model.point_transformer import get_axis_branch_target_xy
 from tree_learn.model.height_identity import (
-    seed_retention_metrics, seed_semantic_identity_loss)
+    height_checkpoint_is_eligible, seed_retention_metrics,
+    seed_semantic_identity_loss)
 
 from tree_learn.dataset import TreeDataset
 
@@ -481,7 +482,20 @@ def main():
             if getattr(
                     config.model, 'use_height_context_adapter', False):
                 selection_loss = validation_metrics['selection_loss']
-                if selection_loss < best_height_selection_loss:
+                minimum_retention = float(getattr(
+                    config.model,
+                    'height_seed_min_semantic_retention', 0.0))
+                semantic_retention = validation_metrics[
+                    'height_seed_semantic_retention']
+                checkpoint_eligible = height_checkpoint_is_eligible(
+                    semantic_retention, minimum_retention)
+                if not checkpoint_eligible:
+                    logger.info(
+                        'Skipped height checkpoint at epoch '
+                        f'{epoch}: seed semantic retention '
+                        f'{semantic_retention:.4f} is below the fixed '
+                        f'{minimum_retention:.4f} gate.')
+                elif selection_loss < best_height_selection_loss:
                     best_height_selection_loss = selection_loss
                     height_checkpoint_name = (
                         'best_hsca.pth'
@@ -493,7 +507,8 @@ def main():
                     logger.info(
                         f'Saved {height_checkpoint_name} at epoch {epoch} '
                         f'(validation selection loss '
-                        f'{best_height_selection_loss:.4f})')
+                        f'{best_height_selection_loss:.4f}, seed semantic '
+                        f'retention {semantic_retention:.4f})')
             elif (
                 validation_metrics is not None and
                 validation_metrics['mean'] < best_axis_xy_mean

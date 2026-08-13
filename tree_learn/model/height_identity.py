@@ -81,3 +81,14 @@ def seed_retention_metrics(
         'full_retained_count': int(
             (base_seed_mask & adapted_tree & adapted_geometry).sum().item()),
     }
+
+
+def height_checkpoint_is_eligible(semantic_retention, minimum_retention=0.0):
+    """Return whether a validation result satisfies the fixed seed gate."""
+    semantic_retention = float(semantic_retention)
+    minimum_retention = float(minimum_retention)
+    if not 0.0 <= semantic_retention <= 1.0:
+        raise ValueError('semantic_retention must be in [0, 1].')
+    if not 0.0 <= minimum_retention <= 1.0:
+        raise ValueError('minimum_retention must be in [0, 1].')
+    return semantic_retention >= minimum_retention

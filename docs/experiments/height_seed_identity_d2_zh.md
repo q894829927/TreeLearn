@@ -139,10 +139,17 @@ done
 
 进入锁定 Wytham D2 对照的必要条件：
 
-- 最佳 checkpoint 的 validation seed semantic retention 至少 `99.5%`；
+- checkpoint 必须先满足 validation seed semantic retention 至少 `99.5%`，再按
+  validation selection loss 选择；
 - L1W Detection F1 不低于官方 A0 的 `98.4%`；
 - 原始 TreeLearn shared tensors 继续 bitwise 不变；
 - D2-A2 相对 D2-A1 的 L1W F1 不得低超过 `0.3 pp`。
+
+首轮训练结果中，D2-A1 的 eligible 最佳点为 epoch 25（retention `99.59%`）；
+D2-A2 的无约束最低 loss 位于 epoch 25，但 retention 仅 `99.42%`，因此不具备
+资格。D2-A2 的 eligible 最佳点为 epoch 10（retention `99.96%`、selection loss
+`0.4336`）。L1W A2 配置固定读取 `epoch_10.pth`；无需重新训练，也不得用 L1W
+或 Wytham 改选 epoch。
 
 通过后才生成锁定的 Wytham D2-A1/D2-A2 配置，并只运行一次。若失败，不扫描
 identity weight；记录 identity-preservation 不能同时保持分割性能，关闭本路线。
