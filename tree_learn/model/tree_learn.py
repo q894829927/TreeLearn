@@ -262,6 +262,7 @@ class TreeLearn(nn.Module):
             output['height_semantic_residual'] = \
                 adapter_output['semantic_residual']
             output['height_offset_residual'] = adapter_output['offset_residual']
+            output['height_context_gate'] = adapter_output['context_gate']
             output['height_normalized_heights'] = \
                 adapter_output['normalized_heights']
             output['height_bin_indices'] = \

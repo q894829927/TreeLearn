@@ -224,6 +224,7 @@ class HeightStratifiedContextAdapter(nn.Module):
         return {
             'semantic_residual': semantic_residual,
             'offset_residual': offset_residual,
+            'context_gate': gate,
             'normalized_heights': normalized_heights,
             'height_bin_indices': bin_indices,
             'height_token_valid_mask': valid_mask,
