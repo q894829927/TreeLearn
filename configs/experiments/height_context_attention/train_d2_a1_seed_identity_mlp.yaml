@@ -1,0 +1,14 @@
+# D2-A1: parameter-matched Height-MLP with base-seed identity preservation.
+default_args:
+  - configs/experiments/height_context_attention/_train_height_adapter_common.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/dataset_train.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  height_context_type: 'mlp'
+  height_seed_identity_weight: 50.0
+  height_seed_identity_margin: 0.02
+  height_seed_tree_conf_thresh: 0.5
+  height_seed_tau_vert: 0.6
+  height_seed_tau_off: 4.0

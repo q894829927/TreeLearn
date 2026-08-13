@@ -1,0 +1,14 @@
+# D2-A2 L1W regression: seed-preserving HSCA.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_l1w_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  use_height_context_adapter: True
+  height_context_type: 'attention'
+pretrain: 'work_dirs/train_d2_a2_seed_identity_hsca/best_hsca.pth'
+save_cfg:
+  results_dir: 'results_hsca_d2_a2_seed_identity_hsca'

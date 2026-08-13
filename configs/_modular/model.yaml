@@ -39,3 +39,8 @@ model:
   height_quantile: 0.95
   height_minimum_scale: 1.0
   height_adapter_only: True # automatically freeze all original TreeLearn modules
+  height_seed_identity_weight: 0.0 # one-sided frozen-teacher seed preservation
+  height_seed_identity_margin: 0.02 # allowed tree-probability reduction on base seeds
+  height_seed_tree_conf_thresh: 0.5
+  height_seed_tau_vert: 0.6
+  height_seed_tau_off: 4.0

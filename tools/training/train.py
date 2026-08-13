@@ -11,6 +11,9 @@ from tree_learn.util import (checkpoint_save, init_train_logger, load_checkpoint
                             build_dataloader, checkpoint_save_named)
 from tree_learn.model import TreeLearn
 from tree_learn.model.point_transformer import get_axis_branch_target_xy
+from tree_learn.model.height_identity import (
+    seed_retention_metrics, seed_semantic_identity_loss)
+
 from tree_learn.dataset import TreeDataset
 
 TREE_CLASS_IN_DATASET = 0 # semantic label for tree class in pytorch dataset
@@ -79,6 +82,10 @@ def validate(config, epoch, model, val_loader, logger, writer):
         axis_xy_errors = []
         axis_target_xy_lengths = []
         axis_confidences = []
+        height_identity_loss_sum = 0.0
+        height_identity_seed_count = 0
+        height_semantic_retained_count = 0
+        height_full_retained_count = 0
         for batch in tqdm.tqdm(val_loader):
 
             # forward
@@ -86,6 +93,40 @@ def validate(config, epoch, model, val_loader, logger, writer):
             offset_prediction, semantic_prediction_logit = output['offset_predictions'], output['semantic_prediction_logits']
             upper_offset_prediction = output.get('upper_offset_predictions')
             axis_xy_prediction = output.get('axis_xy_predictions')
+            identity_weight = float(getattr(
+                config.model, 'height_seed_identity_weight', 0.0))
+            if identity_weight > 0:
+                identity_loss, identity_mask = seed_semantic_identity_loss(
+                    output['base_semantic_prediction_logits'],
+                    semantic_prediction_logit,
+                    output['base_offset_predictions'],
+                    batch['input_feats'],
+                    tree_conf_thresh=float(getattr(
+                        config.model, 'height_seed_tree_conf_thresh', 0.5)),
+                    tau_vert=float(getattr(
+                        config.model, 'height_seed_tau_vert', 0.6)),
+                    tau_off=float(getattr(
+                        config.model, 'height_seed_tau_off', 4.0)),
+                    probability_margin=float(getattr(
+                        config.model, 'height_seed_identity_margin', 0.02)))
+                retention = seed_retention_metrics(
+                    output['base_semantic_prediction_logits'],
+                    semantic_prediction_logit,
+                    output['base_offset_predictions'],
+                    offset_prediction,
+                    batch['input_feats'],
+                    tree_conf_thresh=float(getattr(
+                        config.model, 'height_seed_tree_conf_thresh', 0.5)),
+                    tau_vert=float(getattr(
+                        config.model, 'height_seed_tau_vert', 0.6)),
+                    tau_off=float(getattr(
+                        config.model, 'height_seed_tau_off', 4.0)))
+                seed_count = int(identity_mask.sum().item())
+                height_identity_loss_sum += float(identity_loss.item()) * seed_count
+                height_identity_seed_count += seed_count
+                height_semantic_retained_count += retention[
+                    'semantic_retained_count']
+                height_full_retained_count += retention['full_retained_count']
 
             semantic_prediction_logits.append(
                 semantic_prediction_logit[batch['masks_sem']].detach().cpu())
@@ -169,13 +210,19 @@ def validate(config, epoch, model, val_loader, logger, writer):
         semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels,
         upper_offset_predictions, upper_offset_labels, axis_cosine_error,
         config, epoch, writer, logger, axis_xy_errors, axis_confidences,
-        axis_target_xy_lengths)
+        axis_target_xy_lengths, height_identity_loss_sum,
+        height_identity_seed_count, height_semantic_retained_count,
+        height_full_retained_count)
 
 
 def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labels, offset_labels,
                    upper_offset_predictions, upper_offset_labels, axis_cosine_error,
                    config, epoch, writer, logger, axis_xy_errors=None,
-                   axis_confidences=None, axis_target_xy_lengths=None):
+                   axis_confidences=None, axis_target_xy_lengths=None,
+                   height_identity_loss_sum=0.0,
+                   height_identity_seed_count=0,
+                   height_semantic_retained_count=0,
+                   height_full_retained_count=0):
     # get offset loss
     masks_sem = torch.ones_like(semantic_labels).bool()
     masks_off = semantic_labels == TREE_CLASS_IN_DATASET
@@ -209,14 +256,31 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
     acc = (tp + tn) / (tp + fp + fn + tn)
 
     # log and write to tensorboard
+    identity_weight = float(getattr(
+        config.model, 'height_seed_identity_weight', 0.0))
+    height_identity_loss = (
+        height_identity_loss_sum / max(height_identity_seed_count, 1))
+    height_semantic_retention = (
+        height_semantic_retained_count / max(height_identity_seed_count, 1))
+    height_full_retention = (
+        height_full_retained_count / max(height_identity_seed_count, 1))
     selection_loss = (
-        semantic_loss * 50.0 + offset_loss).item()
+        semantic_loss * 50.0 + offset_loss).item() + (
+            identity_weight * height_identity_loss)
     log_str = (
         f'[VALIDATION] [{epoch}/{config.epochs}] val/semantic_acc {acc*100:.2f}, '
         f'val/semantic_loss {semantic_loss.item():.4f}, '
         f'val/offset_loss {offset_loss.item():.3f}')
     if getattr(config.model, 'use_height_context_adapter', False):
         log_str += f', val/height_selection_loss {selection_loss:.4f}'
+        if identity_weight > 0:
+            log_str += (
+                f', val/height_seed_identity_loss '
+                f'{height_identity_loss:.6f}, '
+                f'val/height_seed_semantic_retention '
+                f'{height_semantic_retention:.4f}, '
+                f'val/height_seed_full_retention '
+                f'{height_full_retention:.4f}')
     if upper_offset_loss is not None:
         log_str += f', val/upper_offset_loss {upper_offset_loss.item():.3f}'
     if axis_cosine_error is not None:
@@ -292,6 +356,16 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
     if getattr(config.model, 'use_height_context_adapter', False):
         writer.add_scalar(
             'val/Height_Selection_Loss', selection_loss, epoch)
+        if identity_weight > 0:
+            writer.add_scalar(
+                'val/Height_Seed_Identity_Loss',
+                height_identity_loss, epoch)
+            writer.add_scalar(
+                'val/Height_Seed_Semantic_Retention',
+                height_semantic_retention, epoch)
+            writer.add_scalar(
+                'val/Height_Seed_Full_Retention',
+                height_full_retention, epoch)
     if upper_offset_loss is not None:
         writer.add_scalar('val/Upper_Offset_Loss', upper_offset_loss, epoch)
     if axis_cosine_error is not None:
@@ -319,6 +393,10 @@ def pointwise_eval(semantic_prediction_logits, offset_predictions, semantic_labe
             'semantic_loss': float(semantic_loss.item()),
             'offset_loss': float(offset_loss.item()),
             'semantic_acc': float(acc),
+            'height_seed_identity_loss': float(height_identity_loss),
+            'height_seed_semantic_retention': float(
+                height_semantic_retention),
+            'height_seed_full_retention': float(height_full_retention),
         }
     return axis_metrics
 

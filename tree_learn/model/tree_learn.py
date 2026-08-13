@@ -6,6 +6,7 @@ import torch.nn.functional as F
 from spconv.pytorch.utils import PointToVoxel
 from .blocks import MLP, ResidualBlock, UBlock
 from .height_context_attention import HeightStratifiedContextAdapter
+from .height_identity import seed_semantic_identity_loss
 from .point_transformer import (
     LocalPointTransformerLayer,
     get_axis_branch_target_xy,
@@ -56,6 +57,11 @@ class TreeLearn(nn.Module):
                  height_quantile=0.95,
                  height_minimum_scale=1.0,
                  height_adapter_only=True,
+                 height_seed_identity_weight=0.0,
+                 height_seed_identity_margin=0.02,
+                 height_seed_tree_conf_thresh=0.5,
+                 height_seed_tau_vert=0.6,
+                 height_seed_tau_off=4.0,
                  **kwargs):
 
         super().__init__()
@@ -82,6 +88,11 @@ class TreeLearn(nn.Module):
         self.use_height_context_adapter = use_height_context_adapter
         self.height_context_type = height_context_type
         self.height_adapter_only = height_adapter_only
+        self.height_seed_identity_weight = float(height_seed_identity_weight)
+        self.height_seed_identity_margin = float(height_seed_identity_margin)
+        self.height_seed_tree_conf_thresh = float(height_seed_tree_conf_thresh)
+        self.height_seed_tau_vert = float(height_seed_tau_vert)
+        self.height_seed_tau_off = float(height_seed_tau_off)
 
         if axis_log_variance_min >= axis_log_variance_max:
             raise ValueError(
@@ -102,6 +113,10 @@ class TreeLearn(nn.Module):
         if height_context_type not in ('mlp', 'attention'):
             raise ValueError(
                 "height_context_type must be 'mlp' or 'attention'.")
+        if self.height_seed_identity_weight < 0:
+            raise ValueError('height_seed_identity_weight must be non-negative.')
+        if self.height_seed_identity_margin < 0:
+            raise ValueError('height_seed_identity_margin must be non-negative.')
         if use_axis_branch and use_height_context_adapter:
             raise ValueError(
                 'Axis branch and height-context adapter cannot be enabled '
@@ -350,7 +365,7 @@ class TreeLearn(nn.Module):
 
     @cuda_cast
     def get_loss(self, model_output, semantic_labels, offset_labels, masks_off, masks_sem,
-                 upper_offset_labels=None, masks_upper=None, **kwargs):
+                 upper_offset_labels=None, masks_upper=None, input_feats=None, **kwargs):
         loss_dict = dict()
         
         # Define variables
@@ -368,6 +383,25 @@ class TreeLearn(nn.Module):
         )
         loss_dict['semantic_loss'] = semantic_loss * LOSS_MULTIPLIER_SEMANTIC
         loss_dict['offset_loss'] = offset_loss
+
+        if (
+            self.use_height_context_adapter and
+            self.height_seed_identity_weight > 0
+        ):
+            if input_feats is None:
+                raise ValueError(
+                    'input_feats are required for seed identity loss.')
+            identity_loss, _ = seed_semantic_identity_loss(
+                model_output['base_semantic_prediction_logits'],
+                semantic_prediction_logits,
+                model_output['base_offset_predictions'],
+                input_feats,
+                tree_conf_thresh=self.height_seed_tree_conf_thresh,
+                tau_vert=self.height_seed_tau_vert,
+                tau_off=self.height_seed_tau_off,
+                probability_margin=self.height_seed_identity_margin)
+            loss_dict['height_seed_identity_loss'] = (
+                identity_loss * self.height_seed_identity_weight)
 
         if self.use_upper_anchor:
             upper_offset_predictions = model_output['upper_offset_predictions'].float()
