@@ -1,0 +1,13 @@
+# A0: official TreeLearn cross-domain baseline.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_wytham_locked_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  use_height_context_adapter: False
+pretrain: 'data/model_weights/model_weights_with_small_20241213.pth'
+save_cfg:
+  results_dir: 'results_hsca_wytham_a0_official_locked'

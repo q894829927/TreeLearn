@@ -1,0 +1,14 @@
+# A1: parameter-matched Height-MLP cross-domain control.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_wytham_locked_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  use_height_context_adapter: True
+  height_context_type: 'mlp'
+pretrain: 'work_dirs/train_a1_height_mlp_frozen/best_height_mlp.pth'
+save_cfg:
+  results_dir: 'results_hsca_wytham_a1_height_mlp_locked'
