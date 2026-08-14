@@ -23,23 +23,36 @@ from tree_learn.util.height_context_diagnostics import (
 
 
 LOGGER = logging.getLogger('height_context_domain_drift')
-MODEL_NAMES = ('a1_height_mlp', 'a2_hsca')
-DOMAIN_CONFIGS = {
-    'l1w': {
-        'a1_height_mlp': (
-            'configs/experiments/height_context_attention/'
-            'pipeline_l1w_a1_height_mlp.yaml'),
-        'a2_hsca': (
-            'configs/experiments/height_context_attention/'
-            'pipeline_l1w_a2_hsca.yaml'),
+SUITE_CONFIGS = {
+    'original': {
+        'l1w': {
+            'a1_height_mlp': (
+                'configs/experiments/height_context_attention/'
+                'pipeline_l1w_a1_height_mlp.yaml'),
+            'a2_hsca': (
+                'configs/experiments/height_context_attention/'
+                'pipeline_l1w_a2_hsca.yaml'),
+        },
+        'wytham': {
+            'a1_height_mlp': (
+                'configs/experiments/height_context_attention/'
+                'pipeline_wytham_a1_height_mlp_locked.yaml'),
+            'a2_hsca': (
+                'configs/experiments/height_context_attention/'
+                'pipeline_wytham_a2_hsca_locked.yaml'),
+        },
     },
-    'wytham': {
-        'a1_height_mlp': (
-            'configs/experiments/height_context_attention/'
-            'pipeline_wytham_a1_height_mlp_locked.yaml'),
-        'a2_hsca': (
-            'configs/experiments/height_context_attention/'
-            'pipeline_wytham_a2_hsca_locked.yaml'),
+    'd2_a2': {
+        'l1w': {
+            'd2_a2_seed_identity_hsca': (
+                'configs/experiments/height_context_attention/'
+                'pipeline_l1w_d2_a2_seed_identity_hsca.yaml'),
+        },
+        'wytham': {
+            'd2_a2_seed_identity_hsca': (
+                'configs/experiments/height_context_attention/'
+                'pipeline_wytham_d2_a2_seed_identity_hsca_locked.yaml'),
+        },
     },
 }
 
@@ -47,8 +60,10 @@ DOMAIN_CONFIGS = {
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--domains', nargs='+', choices=sorted(DOMAIN_CONFIGS),
+        '--domains', nargs='+', choices=('l1w', 'wytham'),
         default=['l1w', 'wytham'])
+    parser.add_argument(
+        '--suite', choices=sorted(SUITE_CONFIGS), default='original')
     parser.add_argument(
         '--output_dir',
         default='logs/height_context_attention/d1_domain_drift')
@@ -208,11 +223,13 @@ def safe_ratio(numerator, denominator):
     return numerator / denominator
 
 
-def build_comparison(results):
+def build_comparison(results, model_names):
     comparison = {}
     metrics = (
         'tree_to_non_tree_rate_among_base_tree',
+        'non_tree_to_tree_rate_among_base_non_tree',
         'seed_removed_rate_among_base_seed',
+        'seed_added_rate_among_non_base_seed',
         'seed_removed_semantic_rate_among_base_seed',
         'seed_removed_offset_rate_among_base_seed',
         'abs_probability_delta_mean',
@@ -220,7 +237,7 @@ def build_comparison(results):
         'offset_z_residual_mean',
         'gate_mean',
     )
-    for model_name in MODEL_NAMES:
+    for model_name in model_names:
         l1w = results['l1w'][model_name]['statistics']['overall']
         wytham = results['wytham'][model_name]['statistics']['overall']
         comparison[model_name] = {
@@ -239,17 +256,18 @@ def percentage(value):
     return f'{100 * value:.4f}%'
 
 
-def write_markdown(path, results, comparison, smoke_mode):
+def write_markdown(path, results, comparison, smoke_mode, model_names, suite):
     lines = [
         '# D1 HSCA 跨域预测漂移诊断', '',
         '- 本诊断不读取 GT，不选择 checkpoint，不修改 Wytham 参数。',
+        f'- 诊断 suite：{suite}',
         f'- 运行模式：{"smoke" if smoke_mode else "full"}', '',
         '| Domain | Model | Points | Tree→non-tree/base-tree | '
         'Seed removed/base-seed | |Δtree prob| | XY residual | Z residual | Gate |',
         '|---|---|---:|---:|---:|---:|---:|---:|---:|',
     ]
     for domain in results:
-        for model_name in MODEL_NAMES:
+        for model_name in model_names:
             stats = results[domain][model_name]['statistics']['overall']
             lines.append(
                 f'| {domain} | {model_name} | {stats["points"]:,} | '
@@ -294,20 +312,25 @@ def main():
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+    domain_configs = SUITE_CONFIGS[args.suite]
+    model_names = tuple(domain_configs['l1w'])
+    if tuple(domain_configs['wytham']) != model_names:
+        raise ValueError('L1W/Wytham model names differ within the suite.')
     results = {}
     for domain in args.domains:
         results[domain] = {}
-        for model_name in MODEL_NAMES:
+        for model_name in model_names:
             LOGGER.info('===== D1 START %s / %s =====', domain, model_name)
             results[domain][model_name] = run_model(
-                DOMAIN_CONFIGS[domain][model_name],
+                domain_configs[domain][model_name],
                 args.max_scans,
                 args.density_voxel_size,
                 args.points_per_scan)
 
-    comparison = build_comparison(results)
+    comparison = build_comparison(results, model_names)
     report = {
         'uses_ground_truth': False,
+        'suite': args.suite,
         'max_scans': args.max_scans,
         'results': results,
         'domain_comparison': comparison,
@@ -316,7 +339,9 @@ def main():
         json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')
     write_markdown(
         output_dir / 'summary.md', results, comparison,
-        smoke_mode=args.max_scans > 0)
+        smoke_mode=args.max_scans > 0,
+        model_names=model_names,
+        suite=args.suite)
     print((output_dir / 'summary.md').read_text(encoding='utf-8'))
 
 

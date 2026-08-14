@@ -184,3 +184,42 @@ python -u tools/evaluation/evaluate.py \
 Coverage `57.7%`）：主要成功条件为 F1 至少 `72.5%`；辅助条件为 Commission 不升高、
 Completeness 下降不超过 `1.0 pp`。结果无论成败均不再改 checkpoint、identity weight、
 margin 或 Wytham grouping 参数。
+## 8. Wytham 失败与无 GT 归因
+
+锁定 D2-A2 epoch 10 的 Wytham 结果为：Completeness `63.5%`、Commission
+`22.4%`、F1 `69.8%`、Precision `63.2%`、Recall `78.3%`、Coverage `57.1%`。
+相对 A0，F1 下降 `2.2 pp`、Commission 增加 `3.5 pp`、Completeness 下降
+`1.3 pp`。外测 Gate 失败；不得调整 checkpoint、identity weight、margin 或
+Wytham grouping 参数。
+
+下一步只运行不读取 GT 的失败归因：
+
+```bash
+python -u tools/diagnostics/diagnose_height_context_domain_drift.py \
+  --suite d2_a2 \
+  --max_scans 2 \
+  --output_dir logs/height_context_attention/d3_d2_a2_drift_smoke \
+  2>&1 | tee logs/height_context_attention/d3_d2_a2_drift_smoke.log
+
+nohup python -u tools/diagnostics/diagnose_height_context_domain_drift.py \
+  --suite d2_a2 \
+  --output_dir logs/height_context_attention/d3_d2_a2_drift \
+  > logs/height_context_attention/d3_d2_a2_drift_run.log 2>&1 < /dev/null &
+```
+
+同时从既有 pipeline 日志读取 seed 数，不重新运行 pipeline：
+
+```bash
+grep -E "Clustering .*seed points|Confidence-filtered base seeds" \
+  logs/height_context_attention/pipeline_wytham_d2_a2_seed_identity_hsca_locked.log
+```
+
+固定解释规则：
+
+- non-tree→tree 或 seed-added 的 Wytham/L1W 倍率明显升高：semantic expansion
+  导致伪实例，后续只研究双向 semantic identity，不改 grouping；
+- offset residual 稳定但 seed-added 不升高：失败来自训练域相关的实例拓扑，停止
+  adapter 部署路线；
+- offset residual 或 offset-caused seed removal 明显放大：只允许 semantic adapter，
+  offset 输出保持官方值，再做一次 validation/L1W 实验；
+- 任一新方案都必须重新从 validation 和 L1W 过 Gate，不能直接回到 Wytham。

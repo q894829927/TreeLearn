@@ -34,6 +34,10 @@ class HeightContextDiagnosticsTests(unittest.TestCase):
         self.assertEqual(summary['non_tree_to_tree'], 1)
         self.assertEqual(summary['seed_removed'], 1)
         self.assertEqual(summary['seed_added'], 1)
+        self.assertAlmostEqual(
+            summary['non_tree_to_tree_rate_among_base_non_tree'], 0.5)
+        self.assertAlmostEqual(
+            summary['seed_added_rate_among_non_base_seed'], 0.5)
         self.assertAlmostEqual(summary['offset_xy_residual_mean'], 0.125)
 
     def test_stratified_mask_and_quantiles(self):

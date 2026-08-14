@@ -83,9 +83,15 @@ class DriftAccumulator:
         result['tree_to_non_tree_rate_among_base_tree'] = (
             self.counts['tree_to_non_tree'] /
             max(self.counts['base_tree'], 1))
+        result['non_tree_to_tree_rate_among_base_non_tree'] = (
+            self.counts['non_tree_to_tree'] /
+            max(points - self.counts['base_tree'], 1))
         result['seed_removed_rate_among_base_seed'] = (
             self.counts['seed_removed'] /
             max(self.counts['base_seed'], 1))
+        result['seed_added_rate_among_non_base_seed'] = (
+            self.counts['seed_added'] /
+            max(points - self.counts['base_seed'], 1))
         result['seed_removed_semantic_rate_among_base_seed'] = (
             self.counts['seed_removed_semantic'] /
             max(self.counts['base_seed'], 1))
