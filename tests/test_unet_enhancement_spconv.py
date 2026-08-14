@@ -23,27 +23,31 @@ class UNetEnhancementSpconvTests(unittest.TestCase):
             [8, 16, 24], norm, 2, ResidualBlock, 3,
             enhancement_config=enhancement, total_levels=3).eval()
 
-    def _input(self):
+    def _input(self, device='cpu'):
         indices = torch.tensor([
             [0, 0, 0, 0], [0, 1, 1, 1], [0, 2, 2, 2],
             [0, 4, 4, 4], [0, 8, 8, 8], [0, 12, 12, 12],
             [1, 0, 0, 0], [1, 1, 1, 1], [1, 3, 3, 3],
             [1, 6, 6, 6], [1, 9, 9, 9], [1, 13, 13, 13],
-        ], dtype=torch.int32)
+        ], dtype=torch.int32, device=device)
         return spconv.SparseConvTensor(
-            torch.randn(len(indices), 8), indices, [16, 16, 16], 2)
+            torch.randn(len(indices), 8, device=device),
+            indices, [16, 16, 16], 2)
 
+    @unittest.skipUnless(
+        torch.cuda.is_available(),
+        'the installed spconv implicit-GEMM backend requires CUDA')
     def test_identity_config_is_bitwise_equal(self):
-        original = self._unet({})
+        original = self._unet({}).cuda()
         identity = self._unet({
-            'enabled': False, 'type': 'identity', 'levels': []})
+            'enabled': False, 'type': 'identity', 'levels': []}).cuda()
         identity.load_state_dict(original.state_dict(), strict=True)
         with torch.no_grad():
-            expected = original(self._input())
-            actual = identity(self._input())
+            expected = original(self._input('cuda'))
+            actual = identity(self._input('cuda'))
         self.assertTrue(torch.equal(expected.indices, actual.indices))
         # Fresh random inputs differ, so compare a cloned feature source.
-        source = self._input()
+        source = self._input('cuda')
         clone = spconv.SparseConvTensor(
             source.features.clone(), source.indices.clone(),
             source.spatial_shape, source.batch_size)
@@ -52,20 +56,23 @@ class UNetEnhancementSpconvTests(unittest.TestCase):
             actual = identity(clone)
         self.assertTrue(torch.equal(expected.features, actual.features))
 
+    @unittest.skipUnless(
+        torch.cuda.is_available(),
+        'the installed spconv implicit-GEMM backend requires CUDA')
     def test_gamma_zero_only_adds_enhancement_checkpoint_keys(self):
-        original = self._unet({})
+        original = self._unet({}).cuda()
         enhanced = self._unet({
             'enabled': True,
             'type': 'hcag',
             'levels': [0, 1],
             'residual_gamma_init': 0.0,
-        })
+        }).cuda()
         result = enhanced.load_state_dict(original.state_dict(), strict=False)
         self.assertFalse(result.unexpected_keys)
         self.assertTrue(result.missing_keys)
         self.assertTrue(all(
             'enhancement' in key for key in result.missing_keys))
-        source = self._input()
+        source = self._input('cuda')
         clone = spconv.SparseConvTensor(
             source.features.clone(), source.indices.clone(),
             source.spatial_shape, source.batch_size)
