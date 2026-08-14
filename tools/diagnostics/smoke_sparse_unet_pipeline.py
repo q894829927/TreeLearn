@@ -56,10 +56,24 @@ def ensemble_pointwise_predictions(pointwise, logger=None):
         logger=logger)
 
 
+def resolve_tile_index(dataset_size, requested_index=None):
+    if dataset_size <= 0:
+        raise ValueError('dataset_size must be positive.')
+    tile_index = (
+        dataset_size // 2 if requested_index is None else requested_index)
+    if not 0 <= tile_index < dataset_size:
+        raise ValueError(
+            f'tile_index {tile_index} is outside [0, {dataset_size}).')
+    return tile_index
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument(
+        '--tile_index', type=int, default=None,
+        help='Dataset tile index; defaults to the middle tile.')
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger('sparse_unet_pipeline_smoke')
@@ -72,8 +86,11 @@ def main():
     if not len(dataset):
         raise RuntimeError(
             f'No tiles found in {config.dataset_test.data_root}.')
+    tile_index = resolve_tile_index(len(dataset), args.tile_index)
+    logger.info(
+        f'Using representative tile {tile_index}/{len(dataset) - 1}.')
     loader = DataLoader(
-        Subset(dataset, [0]), batch_size=1, num_workers=0,
+        Subset(dataset, [tile_index]), batch_size=1, num_workers=0,
         collate_fn=dataset.collate_fn, shuffle=False)
 
     torch.cuda.reset_peak_memory_stats()
@@ -116,6 +133,13 @@ def main():
         axis_xy=axis_xy_predictions,
         axis_confidence=axis_confidence)
 
+    predicted_instances = np.unique(
+        instance_predictions[instance_predictions > 0])
+    if not len(predicted_instances):
+        raise RuntimeError(
+            f'Tile {tile_index} produced no valid clustered instance; '
+            'rerun with --tile_index on a representative forest tile.')
+
     for name, values in {
         'semantic_logits': semantic_logits,
         'offset_predictions': offset_predictions,
@@ -133,11 +157,14 @@ def main():
         semantic_logits=semantic_logits,
         offset_predictions=offset_predictions,
         instance_predictions=instance_predictions,
+        tile_index=np.asarray(tile_index),
+        num_instances=np.asarray(len(predicted_instances)),
         peak_memory_gb=np.asarray(peak_memory),
         parameter_count=np.asarray(parameter_count),
         elapsed_seconds=np.asarray(elapsed_seconds))
     logger.info(
-        f'PASS: {len(coords):,} points, peak={peak_memory:.3f} GB, '
+        f'PASS: tile={tile_index}, {len(coords):,} points, '
+        f'instances={len(predicted_instances)}, peak={peak_memory:.3f} GB, '
         f'params={parameter_count:,}, time={elapsed_seconds:.3f}s; '
         f'saved {args.output}')
 

@@ -6,6 +6,14 @@ from tools.diagnostics import smoke_sparse_unet_pipeline as smoke
 
 class SparseUNetPipelineSmokeTests(unittest.TestCase):
 
+    def test_representative_tile_defaults_to_middle_and_checks_bounds(self):
+        self.assertEqual(smoke.resolve_tile_index(9), 4)
+        self.assertEqual(smoke.resolve_tile_index(9, 2), 2)
+        with self.assertRaises(ValueError):
+            smoke.resolve_tile_index(0)
+        with self.assertRaises(ValueError):
+            smoke.resolve_tile_index(9, 9)
+
     def test_pointwise_tuple_is_reordered_for_coordinate_first_ensemble(self):
         pointwise = tuple(object() for _ in range(14))
         logger = object()
