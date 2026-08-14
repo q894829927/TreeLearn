@@ -45,5 +45,7 @@ model:
   height_seed_tau_vert: 0.6
   height_seed_tau_off: 4.0
   height_seed_min_semantic_retention: 0.0 # hard checkpoint eligibility gate
-  height_seed_membership_projection: False # preserve teacher seed membership
+  height_seed_membership_projection: False # preserve teacher semantic membership
   height_seed_projection_margin: 0.001 # logit distance from the decision boundary
+  height_seed_offset_membership_projection: False # preserve full teacher seed set
+  height_seed_offset_projection_margin: 0.001 # offset-z distance from tau_off

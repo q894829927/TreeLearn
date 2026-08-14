@@ -9,7 +9,10 @@ import time
 import torch
 from tree_learn.dataset import TreeDataset
 from tree_learn.model import TreeLearn
-from tree_learn.model.height_identity import project_seed_membership_logits
+from tree_learn.model.height_identity import (
+    project_seed_membership_logits,
+    project_seed_offset_membership,
+)
 from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, load_checkpoint, ensemble, 
                              get_coords_within_shape, get_hull_buffer, get_hull, get_cluster_means,
                              propagate_preds, save_treewise, load_data, save_data, make_labels_consecutive, 
@@ -52,6 +55,10 @@ def apply_ensembled_height_seed_projection(
     changed_count = 0
     geometry_count = 0
     mismatch_count = 0
+    offset_changed_count = 0
+    full_seed_mismatch_count = 0
+    offset_projection_enabled = bool(getattr(
+        model_cfg, 'height_seed_offset_membership_projection', False))
     for start in range(0, len(semantic_logits), int(chunk_size)):
         stop = min(start + int(chunk_size), len(semantic_logits))
         projected, geometry, changed = project_seed_membership_logits(
@@ -79,16 +86,56 @@ def apply_ensembled_height_seed_projection(
         geometry_count += int(geometry.sum().item())
         changed_count += int(changed.sum().item())
 
+        if offset_projection_enabled:
+            projected_offsets, _, offset_changed = (
+                project_seed_offset_membership(
+                    torch.from_numpy(
+                        base_semantic_logits[start:stop]),
+                    torch.from_numpy(base_offsets[start:stop]),
+                    torch.from_numpy(adapted_offsets[start:stop]),
+                    torch.from_numpy(input_feats[start:stop]),
+                    tree_conf_thresh=float(
+                        grouping_cfg.tree_conf_thresh),
+                    tau_vert=float(grouping_cfg.tau_vert),
+                    tau_off=float(grouping_cfg.tau_off),
+                    offset_margin=float(
+                        model_cfg.height_seed_offset_projection_margin)))
+            adapted_offsets[start:stop] = projected_offsets.numpy()
+            vertical = (
+                torch.from_numpy(input_feats[start:stop])[:, -1].float() >
+                float(grouping_cfg.tau_vert))
+            teacher_seed = (
+                teacher_tree & vertical &
+                (torch.abs(torch.from_numpy(
+                    base_offsets[start:stop])[:, 2].float()) <
+                 float(grouping_cfg.tau_off)))
+            projected_seed = (
+                projected_tree & vertical &
+                (torch.abs(projected_offsets[:, 2].float()) <
+                 float(grouping_cfg.tau_off)))
+            full_seed_mismatch_count += int(
+                (teacher_seed != projected_seed).sum().item())
+            offset_changed_count += int(offset_changed.sum().item())
+
     if mismatch_count:
         raise RuntimeError(
             'Post-ensemble seed membership projection failed: '
             f'{mismatch_count:,} teacher mismatches remain.')
+    if full_seed_mismatch_count:
+        raise RuntimeError(
+            'Post-ensemble full seed projection failed: '
+            f'{full_seed_mismatch_count:,} seed mismatches remain.')
     if logger is not None:
         logger.info(
             'Post-ensemble teacher seed projection changed '
             f'{changed_count:,}/{geometry_count:,} geometry-candidate '
             'semantic decisions; membership mismatches: 0.')
-    return semantic_logits
+        if offset_projection_enabled:
+            logger.info(
+                'Post-ensemble offset-z seed projection changed '
+                f'{offset_changed_count:,} protected offsets; '
+                'full seed-set mismatches: 0.')
+    return semantic_logits, adapted_offsets
 
 
 
@@ -189,15 +236,16 @@ def run_treelearn_pipeline(config, config_path=None):
      base_semantic_prediction_logits, base_offset_predictions) = data
     if bool(getattr(
             config.model, 'height_seed_membership_projection', False)):
-        semantic_prediction_logits = apply_ensembled_height_seed_projection(
-            semantic_prediction_logits,
-            base_semantic_prediction_logits,
-            base_offset_predictions,
-            offset_predictions,
-            input_feats,
-            config.model,
-            config.grouping,
-            logger=logger)
+        semantic_prediction_logits, offset_predictions = (
+            apply_ensembled_height_seed_projection(
+                semantic_prediction_logits,
+                base_semantic_prediction_logits,
+                base_offset_predictions,
+                offset_predictions,
+                input_feats,
+                config.model,
+                config.grouping,
+                logger=logger))
     axis_confidence = (
         1.0 / (1.0 + np.exp(axis_log_variances))
         if axis_log_variances is not None else None)

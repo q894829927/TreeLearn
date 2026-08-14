@@ -7,7 +7,9 @@ from spconv.pytorch.utils import PointToVoxel
 from .blocks import MLP, ResidualBlock, UBlock
 from .height_context_attention import HeightStratifiedContextAdapter
 from .height_identity import (
-    project_seed_membership_logits, seed_semantic_identity_loss)
+    project_seed_membership_logits,
+    project_seed_offset_membership,
+    seed_semantic_identity_loss)
 from .point_transformer import (
     LocalPointTransformerLayer,
     get_axis_branch_target_xy,
@@ -65,6 +67,8 @@ class TreeLearn(nn.Module):
                  height_seed_tau_off=4.0,
                  height_seed_membership_projection=False,
                  height_seed_projection_margin=1e-3,
+                 height_seed_offset_membership_projection=False,
+                 height_seed_offset_projection_margin=1e-3,
                  **kwargs):
 
         super().__init__()
@@ -100,6 +104,10 @@ class TreeLearn(nn.Module):
             height_seed_membership_projection)
         self.height_seed_projection_margin = float(
             height_seed_projection_margin)
+        self.height_seed_offset_membership_projection = bool(
+            height_seed_offset_membership_projection)
+        self.height_seed_offset_projection_margin = float(
+            height_seed_offset_projection_margin)
 
         if axis_log_variance_min >= axis_log_variance_max:
             raise ValueError(
@@ -126,6 +134,15 @@ class TreeLearn(nn.Module):
             raise ValueError('height_seed_identity_margin must be non-negative.')
         if self.height_seed_projection_margin <= 0:
             raise ValueError('height_seed_projection_margin must be positive.')
+        if not (0 < self.height_seed_offset_projection_margin <
+                self.height_seed_tau_off):
+            raise ValueError(
+                'height_seed_offset_projection_margin must be in '
+                '(0, height_seed_tau_off).')
+        if (self.height_seed_offset_membership_projection and
+                not self.height_seed_membership_projection):
+            raise ValueError(
+                'Offset seed projection requires semantic seed projection.')
         if use_axis_branch and use_height_context_adapter:
             raise ValueError(
                 'Axis branch and height-context adapter cannot be enabled '
@@ -297,6 +314,27 @@ class TreeLearn(nn.Module):
                 semantic_logits + adapter_output['semantic_residual'])
             adapted_offset_predictions = (
                 offset_predictions + adapter_output['offset_residual'])
+            if self.height_seed_offset_membership_projection:
+                output['height_unprojected_offset_predictions'] = (
+                    adapted_offset_predictions)
+                (
+                    adapted_offset_predictions,
+                    offset_projection_mask,
+                    offset_changed_mask,
+                ) = project_seed_offset_membership(
+                    semantic_logits,
+                    offset_predictions,
+                    adapted_offset_predictions,
+                    input_feats.to(backbone_feats.device),
+                    tree_conf_thresh=self.height_seed_tree_conf_thresh,
+                    tau_vert=self.height_seed_tau_vert,
+                    tau_off=self.height_seed_tau_off,
+                    offset_margin=(
+                        self.height_seed_offset_projection_margin))
+                output['height_seed_offset_projection_mask'] = (
+                    offset_projection_mask)
+                output['height_seed_offset_projection_changed_mask'] = (
+                    offset_changed_mask)
             if self.height_seed_membership_projection:
                 projected_logits, projection_mask, changed_mask = \
                     project_seed_membership_logits(

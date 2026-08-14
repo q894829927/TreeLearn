@@ -260,3 +260,26 @@ D4 L1W Gate：F1 不低于 A0 `98.4%`、Commission 不高于 `3.1%`、Completene
 保持 `100%`。失败则关闭 height-adapter 部署路线；通过后先做 L1W pointwise/seed-set
 等价审计，再决定是否把 Wytham 明确降级为 development evaluation。不得直接创建
 新的 Wytham 配置。
+## 10. D4 结果与 D5 Full Seed Identity 收尾实验
+
+D4 的 post-ensemble semantic membership mismatch 为 0，但 L1W seed 数由 A0 的
+325,596 降为 312,584，减少 13,012（约 4.0%）。最终 F1 为 97.8%，Commission
+为 4.3%，未通过 D4 Gate。由于 semantic 已严格受控，剩余 seed drift 来自
+adapted offset-z 穿越 tau_off=4 的边界。
+
+D5 是不重训、不修改 HDBSCAN 的最后一次因果收尾，不把 D4 重新解释为成功。
+它在保留 semantic projection 的同时，将 frozen tree/vertical candidate 的
+adapted offset-z 投影到 frozen base 的 tau_off 同一侧。XY residual 完全保留。
+post-ensemble pipeline 必须同时满足：
+
+- semantic membership mismatches = 0；
+- full seed-set mismatches = 0；
+- clustering seed 数严格等于 A0 的 325,596。
+
+依次运行 tests.test_height_seed_identity、D5 L1W pipeline 和 D5 L1W evaluation。
+对应配置为 pipeline_l1w_d5_full_seed_identity_hsca.yaml 与
+evaluate_l1w_d5_full_seed_identity_hsca.yaml。
+
+D5 Gate 仍固定为 Completeness 100%、F1 至少 98.4%、Commission 不高于 3.1%。
+若失败，正式关闭 height-adapter 部署路线；若通过，先做 L1W exact seed-set
+审计，再决定是否允许一次锁定 Wytham evaluation。不得扫描 projection margin。

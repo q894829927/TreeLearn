@@ -1,0 +1,19 @@
+# D5: final causal test. Preserve the exact frozen TreeLearn seed set while
+# allowing HSCA to change only the XY voting topology.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_l1w_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  use_height_context_adapter: True
+  height_context_type: 'attention'
+  height_seed_membership_projection: True
+  height_seed_projection_margin: 0.001
+  height_seed_offset_membership_projection: True
+  height_seed_offset_projection_margin: 0.001
+pretrain: 'work_dirs/train_d2_a2_seed_identity_hsca/epoch_10.pth'
+save_cfg:
+  results_dir: 'results_hsca_d5_full_seed_identity_e10'

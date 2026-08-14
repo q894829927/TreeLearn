@@ -118,6 +118,58 @@ class HeightSeedIdentityTests(unittest.TestCase):
         self.assertFalse(
             (projected.softmax(dim=-1)[:, 0] >= 0.5).item())
 
+    def test_offset_projection_preserves_exact_teacher_seed_membership(self):
+        base_logits = torch.tensor([
+            [2.0, 0.0],
+            [2.0, 0.0],
+            [0.0, 2.0],
+            [2.0, 0.0],
+        ])
+        base_offsets = torch.tensor([
+            [0.1, 0.2, -1.0],
+            [0.3, 0.4, -5.0],
+            [0.5, 0.6, -1.0],
+            [0.7, 0.8, -1.0],
+        ])
+        adapted_offsets = torch.tensor([
+            [1.1, 1.2, -5.0],
+            [1.3, 1.4, -1.0],
+            [1.5, 1.6, -5.0],
+            [1.7, 1.8, -5.0],
+        ])
+        input_features = torch.tensor([
+            [0.8],
+            [0.8],
+            [0.8],
+            [0.4],
+        ])
+
+        projected, protected, changed = (
+            IDENTITY.project_seed_offset_membership(
+                base_logits,
+                base_offsets,
+                adapted_offsets,
+                input_features,
+                tau_off=4.0,
+                offset_margin=0.01))
+
+        base_seed = (
+            (base_logits.softmax(dim=-1)[:, 0] >= 0.5) &
+            (input_features[:, -1] > 0.6) &
+            (base_offsets[:, 2].abs() < 4.0))
+        final_seed = (
+            (base_logits.softmax(dim=-1)[:, 0] >= 0.5) &
+            (input_features[:, -1] > 0.6) &
+            (projected[:, 2].abs() < 4.0))
+
+        self.assertEqual(protected.tolist(), [True, True, False, False])
+        self.assertEqual(changed.tolist(), [True, True, False, False])
+        self.assertEqual(final_seed.tolist(), base_seed.tolist())
+        self.assertTrue(torch.equal(
+            projected[:, :2], adapted_offsets[:, :2]))
+        self.assertTrue(torch.equal(
+            projected[2:, 2], adapted_offsets[2:, 2]))
+
     def test_checkpoint_eligibility_enforces_fixed_retention_gate(self):
         self.assertTrue(IDENTITY.height_checkpoint_is_eligible(0.995, 0.995))
         self.assertFalse(IDENTITY.height_checkpoint_is_eligible(0.9942, 0.995))

@@ -127,6 +127,19 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
                         'semantic_prediction_logits']
                     base_semantic_prediction_logit = None
                     base_offset_prediction = None
+                offset_projection_enabled = bool(getattr(
+                    config,
+                    'height_seed_offset_membership_projection',
+                    False))
+                if offset_projection_enabled:
+                    if 'height_unprojected_offset_predictions' not in output:
+                        raise RuntimeError(
+                            'Offset seed membership projection requires the '
+                            'raw adapted offset output.')
+                    # As with semantic logits, perform the authoritative
+                    # projection only after overlapping tiles are averaged.
+                    offset_prediction = output[
+                        'height_unprojected_offset_predictions']
                 backbone_feat = output['backbone_feats'] if return_backbone_feats else None
                 offset_prediction = offset_prediction.cpu()
                 upper_offset_prediction = upper_offset_prediction.cpu()

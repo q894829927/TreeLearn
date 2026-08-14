@@ -149,3 +149,48 @@ def project_seed_membership_logits(
     ], dim=-1)
     changed_mask = geometry_mask & (projected_margin != adapted_margin)
     return projected.to(adapted_semantic_logits.dtype), geometry_mask, changed_mask
+
+
+def project_seed_offset_membership(
+        base_semantic_logits, base_offsets, adapted_offsets, input_features,
+        tree_conf_thresh=0.5, tau_vert=0.6, tau_off=4.0,
+        offset_margin=1e-3):
+    """Project adapted offset-z so the frozen teacher seed set is preserved."""
+    if not 0.0 < float(tree_conf_thresh) < 1.0:
+        raise ValueError('tree_conf_thresh must be in (0, 1).')
+    if not 0.0 < float(offset_margin) < float(tau_off):
+        raise ValueError('offset_margin must be in (0, tau_off).')
+
+    base_logits = base_semantic_logits.detach().float()
+    base_offsets = base_offsets.detach().float()
+    adapted = adapted_offsets.float()
+    base_tree = (
+        F.softmax(base_logits, dim=-1)[:, 0] >= float(tree_conf_thresh))
+    vertical = (
+        input_features[:, -1].to(base_logits.device).float() >
+        float(tau_vert))
+    protected = base_tree & vertical
+    base_inside = torch.abs(base_offsets[:, 2]) < float(tau_off)
+
+    adapted_z = adapted[:, 2]
+    adapted_abs = torch.abs(adapted_z)
+    inside_ceiling = adapted_abs.new_tensor(
+        float(tau_off) - float(offset_margin))
+    outside_floor = adapted_abs.new_tensor(
+        float(tau_off) + float(offset_margin))
+    projected_abs = torch.where(
+        base_inside,
+        torch.minimum(adapted_abs, inside_ceiling),
+        torch.maximum(adapted_abs, outside_floor))
+    projected_abs = torch.where(protected, projected_abs, adapted_abs)
+
+    adapted_sign = torch.sign(adapted_z)
+    base_sign = torch.sign(base_offsets[:, 2])
+    sign = torch.where(adapted_sign != 0, adapted_sign, base_sign)
+    sign = torch.where(sign != 0, sign, torch.ones_like(sign))
+    projected_z = sign * projected_abs
+
+    projected = adapted.clone()
+    projected[:, 2] = projected_z
+    changed = protected & (projected_z != adapted_z)
+    return projected.to(adapted_offsets.dtype), protected, changed
