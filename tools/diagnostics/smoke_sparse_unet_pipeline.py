@@ -20,6 +20,42 @@ from tree_learn.util import (
 )
 
 
+def ensemble_pointwise_predictions(pointwise, logger=None):
+    """Map get_pointwise_preds output to ensemble's coordinate-first API."""
+    (
+        semantic_logits,
+        semantic_labels,
+        offset_predictions,
+        offset_labels,
+        upper_offset_predictions,
+        upper_offset_labels,
+        coords,
+        instance_labels,
+        backbone_features,
+        input_features,
+        axis_xy_predictions,
+        axis_log_variances,
+        base_semantic_prediction_logits,
+        base_offset_predictions,
+    ) = pointwise
+    return ensemble(
+        coords,
+        semantic_logits,
+        semantic_labels,
+        offset_predictions,
+        offset_labels,
+        upper_offset_predictions,
+        upper_offset_labels,
+        instance_labels,
+        backbone_features,
+        input_features,
+        axis_xy_predictions,
+        axis_log_variances,
+        base_semantic_prediction_logits,
+        base_offset_predictions,
+        logger=logger)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', required=True)
@@ -53,7 +89,7 @@ def main():
     del model
     torch.cuda.empty_cache()
 
-    ensembled = ensemble(*pointwise, logger=logger)
+    ensembled = ensemble_pointwise_predictions(pointwise, logger=logger)
     (
         coords,
         semantic_logits,
