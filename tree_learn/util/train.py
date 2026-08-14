@@ -121,8 +121,46 @@ def build_optimizer(model, optim_cfg):
     _optim_cfg = optim_cfg.copy()
     optim_type = _optim_cfg.pop('type')
     optim = getattr(torch.optim, optim_type)
-    return optim(filter(lambda p: p.requires_grad, model.parameters()), **_optim_cfg)
+    paramwise = _optim_cfg.pop('paramwise', None)
+    if not paramwise:
+        return optim(
+            filter(lambda p: p.requires_grad, model.parameters()),
+            **_optim_cfg)
 
+    base_lr = float(_optim_cfg.pop('lr'))
+    learning_rates = {
+        'enhancement': float(paramwise.get('attention_lr', base_lr)),
+        'head': float(paramwise.get('head_lr', base_lr)),
+        'decoder': float(paramwise.get('decoder_lr', base_lr)),
+        'other': base_lr,
+    }
+    grouped = {name: [] for name in learning_rates}
+    grouped_names = {name: [] for name in learning_rates}
+    for name, parameter in model.named_parameters():
+        if not parameter.requires_grad:
+            continue
+        if 'skip_enhancement' in name or 'post_enhancement' in name:
+            group = 'enhancement'
+        elif name.startswith(('semantic_linear.', 'offset_linear.')):
+            group = 'head'
+        elif name.startswith('unet.'):
+            group = 'decoder'
+        else:
+            group = 'other'
+        grouped[group].append(parameter)
+        grouped_names[group].append(name)
+
+    parameter_groups = [
+        {
+            'params': grouped[name],
+            'lr': learning_rates[name],
+            'group_name': name,
+        }
+        for name in learning_rates if grouped[name]
+    ]
+    optimizer = optim(parameter_groups, lr=base_lr, **_optim_cfg)
+    optimizer.parameter_names_by_group = grouped_names
+    return optimizer
 
 def build_cosine_scheduler(cfg, optimizer):
     scheduler = CosineLRScheduler(optimizer,

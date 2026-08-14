@@ -69,6 +69,8 @@ class TreeLearn(nn.Module):
                  height_seed_projection_margin=1e-3,
                  height_seed_offset_membership_projection=False,
                  height_seed_offset_projection_margin=1e-3,
+                 unet_enhancement=None,
+                 unet_finetune=None,
                  **kwargs):
 
         super().__init__()
@@ -108,6 +110,21 @@ class TreeLearn(nn.Module):
             height_seed_offset_membership_projection)
         self.height_seed_offset_projection_margin = float(
             height_seed_offset_projection_margin)
+        self.unet_enhancement = dict(unet_enhancement or {})
+        self.unet_finetune = dict(unet_finetune or {})
+        self.use_unet_finetune = bool(
+            self.unet_finetune.get('enabled', False))
+        self.keep_frozen_batchnorm_eval = bool(
+            self.unet_finetune.get('keep_frozen_batchnorm_eval', True))
+        self.teacher_seed_preservation_weight = float(
+            self.unet_finetune.get(
+                'teacher_seed_preservation_weight', 0.0))
+        self.teacher_seed_tree_conf_thresh = float(
+            self.unet_finetune.get('teacher_seed_tree_conf_thresh', 0.5))
+        self.teacher_seed_tau_vert = float(
+            self.unet_finetune.get('teacher_seed_tau_vert', 0.6))
+        self.teacher_seed_tau_off = float(
+            self.unet_finetune.get('teacher_seed_tau_off', 4.0))
 
         if axis_log_variance_min >= axis_log_variance_max:
             raise ValueError(
@@ -147,6 +164,14 @@ class TreeLearn(nn.Module):
             raise ValueError(
                 'Axis branch and height-context adapter cannot be enabled '
                 'in the same controlled experiment.')
+        if self.teacher_seed_preservation_weight < 0:
+            raise ValueError(
+                'teacher_seed_preservation_weight must be non-negative.')
+        if self.unet_enhancement.get('enabled', False) and (
+                use_axis_branch or use_height_context_adapter):
+            raise ValueError(
+                'U-Net tournament enhancements cannot be combined with '
+                'the legacy axis or height-context branches.')
 
         norm_fn = functools.partial(nn.BatchNorm1d, eps=1e-4, momentum=0.1)
         
@@ -155,7 +180,11 @@ class TreeLearn(nn.Module):
             spconv.SubMConv3d(
                 dim_coord + dim_feat, channels, kernel_size=kernel_size, padding=1, bias=False, indice_key='subm1'))
         block_channels = [channels * (i + 1) for i in range(num_blocks)]
-        self.unet = UBlock(block_channels, norm_fn, 2, ResidualBlock, kernel_size, indice_key_id=1)
+        self.unet = UBlock(
+            block_channels, norm_fn, 2, ResidualBlock, kernel_size,
+            indice_key_id=1,
+            enhancement_config=self.unet_enhancement,
+            total_levels=num_blocks)
         self.output_layer = spconv.SparseSequential(norm_fn(channels), nn.ReLU())
         
         # head
@@ -226,6 +255,24 @@ class TreeLearn(nn.Module):
             mod = getattr(self, mod)
             for param in mod.parameters():
                 param.requires_grad = False
+        if self.use_unet_finetune:
+            self._configure_unet_finetuning()
+
+
+    def _configure_unet_finetuning(self):
+        """Freeze the backbone and expose only the controlled trainable set."""
+        for parameter in self.parameters():
+            parameter.requires_grad = False
+        if not bool(self.unet_finetune.get('freeze_input_conv', True)):
+            for parameter in self.input_conv.parameters():
+                parameter.requires_grad = True
+        self.unet.set_decoder_trainable(
+            self.unet_finetune.get('train_decoder_levels', [0, 1]))
+        self.unet.set_enhancement_trainable()
+        if bool(self.unet_finetune.get('train_heads', True)):
+            for module in (self.semantic_linear, self.offset_linear):
+                for parameter in module.parameters():
+                    parameter.requires_grad = True
 
 
     def init_weights(self):
@@ -245,11 +292,19 @@ class TreeLearn(nn.Module):
             for m in mod.modules():
                 if isinstance(m, nn.BatchNorm1d):
                     m.eval()
+        if self.use_unet_finetune and self.keep_frozen_batchnorm_eval:
+            for module in self.modules():
+                if isinstance(module, nn.BatchNorm1d):
+                    parameters = list(module.parameters(recurse=False))
+                    if parameters and all(
+                            not parameter.requires_grad
+                            for parameter in parameters):
+                        module.eval()
         # Preserve torch.nn.Module.train/eval's fluent API contract.
         return self
 
 
-    def forward(self, batch, return_loss):
+    def forward(self, batch, return_loss, teacher_output=None):
         backbone_output, v2p_map = self.forward_backbone(**batch)
         output = self.forward_head(
             backbone_output,
@@ -257,8 +312,17 @@ class TreeLearn(nn.Module):
             coords=batch['coords'],
             input_feats=batch['input_feats'],
             batch_ids=batch['batch_ids'])
+        if (
+            not return_loss and
+            self.unet_enhancement.get('return_attention_stats', False)
+        ):
+            output['unet_attention_stats'] = (
+                self.unet.enhancement_statistics())
         if return_loss:
-            output = self.get_loss(model_output=output, **batch)
+            output = self.get_loss(
+                model_output=output,
+                teacher_output=teacher_output,
+                **batch)
         
         return output
 
@@ -431,7 +495,8 @@ class TreeLearn(nn.Module):
 
     @cuda_cast
     def get_loss(self, model_output, semantic_labels, offset_labels, masks_off, masks_sem,
-                 upper_offset_labels=None, masks_upper=None, input_feats=None, **kwargs):
+                 upper_offset_labels=None, masks_upper=None, input_feats=None,
+                 teacher_output=None, **kwargs):
         loss_dict = dict()
         
         # Define variables
@@ -468,6 +533,37 @@ class TreeLearn(nn.Module):
                 probability_margin=self.height_seed_identity_margin)
             loss_dict['height_seed_identity_loss'] = (
                 identity_loss * self.height_seed_identity_weight)
+
+        if self.teacher_seed_preservation_weight > 0:
+            if teacher_output is None or input_feats is None:
+                raise ValueError(
+                    'Teacher output and input_feats are required for U-Net '
+                    'seed-preservation training.')
+            teacher_logits = teacher_output[
+                'semantic_prediction_logits'].detach().float()
+            teacher_offsets = teacher_output[
+                'offset_predictions'].detach().float()
+            teacher_probability = teacher_logits.softmax(dim=-1)[:, 0]
+            verticality = input_feats[:, -1].float()
+            seed_mask = (
+                (teacher_probability >= self.teacher_seed_tree_conf_thresh) &
+                (verticality >= self.teacher_seed_tau_vert) &
+                (teacher_offsets[:, 2].abs() <= self.teacher_seed_tau_off))
+            if seed_mask.any():
+                semantic_preservation = F.kl_div(
+                    F.log_softmax(
+                        semantic_prediction_logits[seed_mask], dim=-1),
+                    F.softmax(teacher_logits[seed_mask], dim=-1),
+                    reduction='batchmean')
+                offset_z_preservation = F.smooth_l1_loss(
+                    offset_predictions[seed_mask, 2],
+                    teacher_offsets[seed_mask, 2])
+                preservation = (
+                    semantic_preservation + offset_z_preservation)
+            else:
+                preservation = 0 * semantic_prediction_logits.sum()
+            loss_dict['teacher_seed_preservation_loss'] = (
+                preservation * self.teacher_seed_preservation_weight)
 
         if self.use_upper_anchor:
             upper_offset_predictions = model_output['upper_offset_predictions'].float()

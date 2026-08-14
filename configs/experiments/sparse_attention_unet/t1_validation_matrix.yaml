@@ -1,0 +1,36 @@
+stage: t1
+source_root: data/train/forests
+runtime_root: data/pipeline/sparse_attention_unet_validation
+output_root: logs/sparse_attention_unet/t1_validation
+pipeline_template: configs/experiments/sparse_attention_unet/_pipeline_validation_common.yaml
+evaluation_template: configs/experiments/_evaluation_common.yaml
+plots: [G4N, G4W, L1N, O1N, O1W]
+models:
+  b0_official:
+    seed: 42
+    train_config: configs/experiments/sparse_attention_unet/b0_official_model.yaml
+    checkpoint: data/model_weights/model_weights_with_small_20241213.pth
+  b1_partial:
+    seed: 42
+    train_config: configs/experiments/sparse_attention_unet/train_t1_b1_partial_seed42.yaml
+    checkpoint: work_dirs/train_t1_b1_partial_seed42/best_unet.pth
+  m1_sparse_se:
+    seed: 42
+    train_config: configs/experiments/sparse_attention_unet/train_t1_m1_sparse_se_seed42.yaml
+    checkpoint: work_dirs/train_t1_m1_sparse_se_seed42/best_unet.pth
+    training_log: logs/sparse_attention_unet/train_t1_m1_sparse_se_seed42.log
+  m2_selective_kernel:
+    seed: 42
+    train_config: configs/experiments/sparse_attention_unet/train_t1_m2_selective_kernel_seed42.yaml
+    checkpoint: work_dirs/train_t1_m2_selective_kernel_seed42/best_unet.pth
+    training_log: logs/sparse_attention_unet/train_t1_m2_selective_kernel_seed42.log
+  m3_hcag:
+    seed: 42
+    train_config: configs/experiments/sparse_attention_unet/train_t1_m3_hcag_seed42.yaml
+    checkpoint: work_dirs/train_t1_m3_hcag_seed42/best_unet.pth
+    training_log: logs/sparse_attention_unet/train_t1_m3_hcag_seed42.log
+  m4_window_attention:
+    seed: 42
+    train_config: configs/experiments/sparse_attention_unet/train_t1_m4_window_attention_seed42.yaml
+    checkpoint: work_dirs/train_t1_m4_window_attention_seed42/best_unet.pth
+    training_log: logs/sparse_attention_unet/train_t1_m4_window_attention_seed42.log

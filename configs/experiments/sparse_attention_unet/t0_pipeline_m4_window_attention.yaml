@@ -1,0 +1,24 @@
+# T0 one-tile end-to-end smoke; gamma=0 keeps the official behavior.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_l1w_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  unet_enhancement:
+    enabled: True
+    type: 'window_attention'
+    levels: [6]
+    residual_gamma_init: 0.0
+    return_attention_stats: True
+    window_size: [4, 4, 4]
+    num_heads: 4
+    ffn_ratio: 2.0
+    max_windows_per_chunk: 256
+  unet_finetune:
+    enabled: False
+pretrain: data/model_weights/model_weights_with_small_20241213.pth
+save_cfg:
+  results_dir: results_t0_m4_window_attention

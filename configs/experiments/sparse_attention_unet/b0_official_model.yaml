@@ -1,0 +1,14 @@
+# B0 official TreeLearn, no training and no enhancement.
+default_args:
+  - configs/_modular/model.yaml
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: False
+  use_height_context_adapter: False
+  unet_enhancement:
+    enabled: False
+    type: 'identity'
+  unet_finetune:
+    enabled: False

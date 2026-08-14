@@ -1,0 +1,13 @@
+# T1 M2: selective-kernel attention at deep decoder levels.
+default_args:
+  - configs/experiments/sparse_attention_unet/_train_common.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/dataset_train.yaml
+  - configs/_modular/dataset_test.yaml
+
+seed: 42
+model:
+  unet_enhancement:
+    enabled: True
+    type: 'selective_kernel'
+    levels: [4, 5]

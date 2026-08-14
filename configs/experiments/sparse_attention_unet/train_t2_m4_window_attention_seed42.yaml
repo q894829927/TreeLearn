@@ -1,0 +1,21 @@
+# T2 multi-seed confirmation; run only for B1 or a T1 finalist.
+default_args:
+  - configs/experiments/sparse_attention_unet/_train_common.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/dataset_train.yaml
+  - configs/_modular/dataset_test.yaml
+
+seed: 42
+epochs: 50
+early_stopping_patience: 12
+scheduler:
+  t_initial: 50
+model:
+  unet_enhancement:
+    enabled: True
+    type: 'window_attention'
+    levels: [6]
+    window_size: [4, 4, 4]
+    num_heads: 4
+    ffn_ratio: 2.0
+    max_windows_per_chunk: 256

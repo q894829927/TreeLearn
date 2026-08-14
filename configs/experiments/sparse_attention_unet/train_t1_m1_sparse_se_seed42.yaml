@@ -1,0 +1,13 @@
+# T1 M1: Sparse-SE at high-resolution decoder levels.
+default_args:
+  - configs/experiments/sparse_attention_unet/_train_common.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/dataset_train.yaml
+  - configs/_modular/dataset_test.yaml
+
+seed: 42
+model:
+  unet_enhancement:
+    enabled: True
+    type: 'sparse_se'
+    levels: [0, 1, 2]

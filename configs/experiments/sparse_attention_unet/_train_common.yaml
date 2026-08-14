@@ -1,0 +1,76 @@
+seed: 42
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: False
+  use_height_context_adapter: False
+  offset_loss_type: 'smooth_l1'
+  smooth_l1_beta: 1.0
+  unet_enhancement:
+    enabled: False
+    type: 'identity'
+    levels: []
+    residual_gamma_init: 0.0
+    return_attention_stats: True
+    hidden_ratio: 0.5
+    min_hidden_channels: 8
+    window_size: [4, 4, 4]
+    num_heads: 4
+    ffn_ratio: 2.0
+    max_windows_per_chunk: 256
+  unet_finetune:
+    enabled: True
+    freeze_input_conv: True
+    freeze_encoder: True
+    train_decoder_levels: [0, 1]
+    train_heads: True
+    keep_frozen_batchnorm_eval: True
+    teacher_seed_preservation_weight: 0.0
+    measure_teacher_seed_mismatch: True
+    teacher_seed_tree_conf_thresh: 0.5
+    teacher_seed_tau_vert: 0.6
+    teacher_seed_tau_off: 4.0
+
+dataset_train:
+  base_anchor_mode: 'legacy'
+
+dataset_test:
+  base_anchor_mode: 'legacy'
+
+dataloader:
+  train:
+    batch_size: 1
+    num_workers: 2
+  test:
+    batch_size: 1
+    num_workers: 2
+
+gradient_accumulation_steps: 2
+
+optimizer:
+  type: 'AdamW'
+  lr: 0.001
+  weight_decay: 0.001
+  paramwise:
+    attention_lr: 0.001
+    head_lr: 0.001
+    decoder_lr: 0.0001
+
+scheduler:
+  t_initial: 30
+  lr_min: 0.00001
+  cycle_decay: 1
+  warmup_lr_init: 0.00001
+  warmup_t: 5
+  cycle_limit: 1
+  t_in_epochs: True
+
+epochs: 30
+early_stopping_patience: 8
+examples_per_epoch: 500
+fp16: True
+pretrain: 'data/model_weights/model_weights_with_small_20241213.pth'
+grad_norm_clip: 1.0
+save_frequency: 5
+validation_frequency: 1

@@ -1,0 +1,20 @@
+# T0 one-tile end-to-end smoke; gamma=0 keeps the official behavior.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_l1w_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  unet_enhancement:
+    enabled: True
+    type: 'sparse_se'
+    levels: [0, 1, 2]
+    residual_gamma_init: 0.0
+    return_attention_stats: True
+  unet_finetune:
+    enabled: False
+pretrain: data/model_weights/model_weights_with_small_20241213.pth
+save_cfg:
+  results_dir: results_t0_m1_sparse_se
