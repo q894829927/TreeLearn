@@ -283,3 +283,26 @@ evaluate_l1w_d5_full_seed_identity_hsca.yaml。
 D5 Gate 仍固定为 Completeness 100%、F1 至少 98.4%、Commission 不高于 3.1%。
 若失败，正式关闭 height-adapter 部署路线；若通过，先做 L1W exact seed-set
 审计，再决定是否允许一次锁定 Wytham evaluation。不得扫描 projection margin。
+## 11. D5 结果与路线关闭
+
+D5 的机制断言全部通过：
+
+- semantic membership mismatches = 0；
+- full seed-set mismatches = 0；
+- clustering seeds = 325,596，与 A0 完全一致；
+- 13,104 个 protected offset-z 被投影回 frozen seed 边界同侧。
+
+在只保留 HSCA XY vote 修正后，L1W 得到 Completeness 100.0%、Commission
+3.7%、F1 98.1%、Precision 98.9%、Recall 99.0%、Coverage 98.0%。相对 A0，
+F1 下降 0.3 pp、Commission 增加 0.6 pp，未通过固定 D5 Gate。
+
+固定因果结论如下：
+
+1. D2-A2 的 L1W 增益依赖会改变 seed 身份的 semantic/offset-z residual；
+2. D3 证明这种 seed expansion/removal 在 Wytham 发生跨域放大；
+3. D4 锁定 semantic 后性能退化，且仍遗留约 4.0% seed-count drift；
+4. D5 锁定完整 seed set 后，单独保留的 attention XY vote 仍不优于 A0。
+
+因此正式关闭 height-adapter 部署路线，不创建或运行 D5 Wytham 配置，不扫描
+projection margin、checkpoint、attention 深度或 grouping 参数。HSCA 只作为论文中的
+受控注意力消融与跨域失败分析，不作为最终部署模型。
