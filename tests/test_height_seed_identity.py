@@ -48,6 +48,76 @@ class HeightSeedIdentityTests(unittest.TestCase):
         self.assertGreater(float(damaged_logits.grad[0].abs().sum()), 0.0)
         self.assertEqual(float(damaged_logits.grad[2].abs().sum()), 0.0)
 
+    def test_seed_membership_projection_blocks_only_geometric_flips(self):
+        base_logits = torch.tensor([
+            [2.0, 0.0], [0.0, 2.0], [2.0, 0.0], [0.0, 2.0]])
+        adapted_logits = torch.tensor([
+            [0.0, 2.0], [2.0, 0.0], [0.0, 2.0], [2.0, 0.0]],
+            requires_grad=True)
+        base_offsets = torch.tensor([
+            [0.0, 0.0, -1.0], [0.0, 0.0, -1.0],
+            [0.0, 0.0, -1.0], [0.0, 0.0, -5.0]])
+        input_features = torch.tensor([[0.8], [0.8], [0.4], [0.8]])
+
+        projected, geometry, changed = \
+            IDENTITY.project_seed_membership_logits(
+                base_logits, adapted_logits, base_offsets, input_features)
+        projected_tree = projected.softmax(dim=-1)[:, 0] >= 0.5
+
+        self.assertEqual(geometry.tolist(), [True, True, False, False])
+        self.assertEqual(changed.tolist(), [True, True, False, False])
+        self.assertEqual(projected_tree.tolist(), [True, False, False, True])
+        self.assertTrue(torch.allclose(
+            projected.mean(dim=-1), adapted_logits.mean(dim=-1)))
+        projected[:, 0].sum().backward()
+        self.assertTrue(torch.isfinite(adapted_logits.grad).all())
+
+    def test_projection_after_tile_ensemble_matches_ensembled_teacher(self):
+        # A per-tile projection is not sufficient when overlapping teachers
+        # disagree. The final projection must use the ensembled teacher logits.
+        base_tiles = torch.tensor([
+            [4.0, 0.0],
+            [0.0, 3.0],
+        ])
+        adapted_tiles = torch.tensor([
+            [0.0, 5.0],
+            [4.0, 0.0],
+        ])
+        base_logits = base_tiles.mean(dim=0, keepdim=True)
+        adapted_logits = adapted_tiles.mean(dim=0, keepdim=True)
+        base_offsets = torch.tensor([[0.0, 0.0, -1.0]])
+        input_features = torch.tensor([[0.8]])
+
+        projected, geometry, _ = IDENTITY.project_seed_membership_logits(
+            base_logits, adapted_logits, base_offsets, input_features)
+        teacher_tree = base_logits.softmax(dim=-1)[:, 0] >= 0.5
+        raw_adapted_tree = adapted_logits.softmax(dim=-1)[:, 0] >= 0.5
+        projected_tree = projected.softmax(dim=-1)[:, 0] >= 0.5
+
+        self.assertTrue(geometry.item())
+        self.assertNotEqual(raw_adapted_tree.tolist(), teacher_tree.tolist())
+        self.assertEqual(projected_tree.tolist(), teacher_tree.tolist())
+
+    def test_projection_covers_adapter_offset_candidate_union(self):
+        base_logits = torch.tensor([[0.0, 2.0]])
+        adapted_logits = torch.tensor([[2.0, 0.0]])
+        base_offsets = torch.tensor([[0.0, 0.0, -5.0]])
+        adapted_offsets = torch.tensor([[0.0, 0.0, -1.0]])
+        input_features = torch.tensor([[0.8]])
+
+        projected, geometry, changed = (
+            IDENTITY.project_seed_membership_logits(
+                base_logits,
+                adapted_logits,
+                base_offsets,
+                input_features,
+                adapted_offsets=adapted_offsets))
+
+        self.assertTrue(geometry.item())
+        self.assertTrue(changed.item())
+        self.assertFalse(
+            (projected.softmax(dim=-1)[:, 0] >= 0.5).item())
+
     def test_checkpoint_eligibility_enforces_fixed_retention_gate(self):
         self.assertTrue(IDENTITY.height_checkpoint_is_eligible(0.995, 0.995))
         self.assertFalse(IDENTITY.height_checkpoint_is_eligible(0.9942, 0.995))

@@ -6,7 +6,8 @@ import torch.nn.functional as F
 from spconv.pytorch.utils import PointToVoxel
 from .blocks import MLP, ResidualBlock, UBlock
 from .height_context_attention import HeightStratifiedContextAdapter
-from .height_identity import seed_semantic_identity_loss
+from .height_identity import (
+    project_seed_membership_logits, seed_semantic_identity_loss)
 from .point_transformer import (
     LocalPointTransformerLayer,
     get_axis_branch_target_xy,
@@ -62,6 +63,8 @@ class TreeLearn(nn.Module):
                  height_seed_tree_conf_thresh=0.5,
                  height_seed_tau_vert=0.6,
                  height_seed_tau_off=4.0,
+                 height_seed_membership_projection=False,
+                 height_seed_projection_margin=1e-3,
                  **kwargs):
 
         super().__init__()
@@ -93,6 +96,10 @@ class TreeLearn(nn.Module):
         self.height_seed_tree_conf_thresh = float(height_seed_tree_conf_thresh)
         self.height_seed_tau_vert = float(height_seed_tau_vert)
         self.height_seed_tau_off = float(height_seed_tau_off)
+        self.height_seed_membership_projection = bool(
+            height_seed_membership_projection)
+        self.height_seed_projection_margin = float(
+            height_seed_projection_margin)
 
         if axis_log_variance_min >= axis_log_variance_max:
             raise ValueError(
@@ -117,6 +124,8 @@ class TreeLearn(nn.Module):
             raise ValueError('height_seed_identity_weight must be non-negative.')
         if self.height_seed_identity_margin < 0:
             raise ValueError('height_seed_identity_margin must be non-negative.')
+        if self.height_seed_projection_margin <= 0:
+            raise ValueError('height_seed_projection_margin must be positive.')
         if use_axis_branch and use_height_context_adapter:
             raise ValueError(
                 'Axis branch and height-context adapter cannot be enabled '
@@ -284,10 +293,29 @@ class TreeLearn(nn.Module):
                 adapter_output['height_bin_indices']
             output['height_token_valid_mask'] = \
                 adapter_output['height_token_valid_mask']
-            output['semantic_prediction_logits'] = (
+            adapted_semantic_logits = (
                 semantic_logits + adapter_output['semantic_residual'])
-            output['offset_predictions'] = (
+            adapted_offset_predictions = (
                 offset_predictions + adapter_output['offset_residual'])
+            if self.height_seed_membership_projection:
+                projected_logits, projection_mask, changed_mask = \
+                    project_seed_membership_logits(
+                        semantic_logits,
+                        adapted_semantic_logits,
+                        offset_predictions,
+                        input_feats.to(backbone_feats.device),
+                        tree_conf_thresh=self.height_seed_tree_conf_thresh,
+                        tau_vert=self.height_seed_tau_vert,
+                        tau_off=self.height_seed_tau_off,
+                        logit_margin=self.height_seed_projection_margin,
+                        adapted_offsets=adapted_offset_predictions)
+                output['height_unprojected_semantic_logits'] = \
+                    adapted_semantic_logits
+                output['height_seed_projection_mask'] = projection_mask
+                output['height_seed_projection_changed_mask'] = changed_mask
+                adapted_semantic_logits = projected_logits
+            output['semantic_prediction_logits'] = adapted_semantic_logits
+            output['offset_predictions'] = adapted_offset_predictions
         if self.use_axis_branch:
             if coords is None or input_feats is None or batch_ids is None:
                 raise ValueError(

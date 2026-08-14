@@ -87,6 +87,7 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
         model.eval()
         semantic_prediction_logits, offset_predictions, upper_offset_predictions = [], [], []
         axis_xy_predictions, axis_log_variances = [], []
+        base_semantic_prediction_logits, base_offset_predictions = [], []
         semantic_labels, offset_labels, upper_offset_labels = [], [], []
         coords, instance_labels, backbone_feats, input_feats = [], [], [], []
         for batch in tqdm.tqdm(dataloader):
@@ -100,7 +101,32 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
                     'upper_offset_predictions', torch.zeros_like(offset_prediction))
                 axis_xy_prediction = output.get('axis_xy_predictions')
                 axis_log_variance = output.get('axis_log_variance')
-                semantic_prediction_logit = output['semantic_prediction_logits']
+                projection_enabled = bool(getattr(
+                    config, 'height_seed_membership_projection', False))
+                if projection_enabled:
+                    missing = [
+                        key for key in (
+                            'height_unprojected_semantic_logits',
+                            'base_semantic_prediction_logits',
+                            'base_offset_predictions')
+                        if key not in output]
+                    if missing:
+                        raise RuntimeError(
+                            'Height seed membership projection requires '
+                            f'pipeline teacher outputs: {missing}.')
+                    # Projection must be applied after overlapping tiles have
+                    # been averaged. Ensemble the raw adapter output here.
+                    semantic_prediction_logit = output[
+                        'height_unprojected_semantic_logits']
+                    base_semantic_prediction_logit = output[
+                        'base_semantic_prediction_logits']
+                    base_offset_prediction = output[
+                        'base_offset_predictions']
+                else:
+                    semantic_prediction_logit = output[
+                        'semantic_prediction_logits']
+                    base_semantic_prediction_logit = None
+                    base_offset_prediction = None
                 backbone_feat = output['backbone_feats'] if return_backbone_feats else None
                 offset_prediction = offset_prediction.cpu()
                 upper_offset_prediction = upper_offset_prediction.cpu()
@@ -108,6 +134,10 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
                     axis_xy_prediction = axis_xy_prediction.cpu()
                     axis_log_variance = axis_log_variance.cpu()
                 semantic_prediction_logit = semantic_prediction_logit.cpu()
+                if base_semantic_prediction_logit is not None:
+                    base_semantic_prediction_logit = \
+                        base_semantic_prediction_logit.cpu()
+                    base_offset_prediction = base_offset_prediction.cpu()
                 if backbone_feat is not None:
                     backbone_feat = backbone_feat.cpu()
             except Exception as e:
@@ -121,6 +151,11 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
             batch['coords'] = batch['coords'] + batch['centers']
             input_feats.append(batch['input_feats'][batch['masks_inner']])
             semantic_prediction_logits.append(semantic_prediction_logit[batch['masks_inner']]), semantic_labels.append(batch['semantic_labels'][batch['masks_inner']])
+            if base_semantic_prediction_logit is not None:
+                base_semantic_prediction_logits.append(
+                    base_semantic_prediction_logit[batch['masks_inner']])
+                base_offset_predictions.append(
+                    base_offset_prediction[batch['masks_inner']])
             offset_predictions.append(offset_prediction[batch['masks_inner']]), offset_labels.append(batch['offset_labels'][batch['masks_inner']])
             upper_offset_predictions.append(upper_offset_prediction[batch['masks_inner']])
             upper_offset_labels.append(batch['upper_offset_labels'][batch['masks_inner']])
@@ -148,9 +183,16 @@ def get_pointwise_preds(model, dataloader, config, logger=None,
     instance_labels = torch.cat(instance_labels).numpy()
     backbone_feats = (
         torch.cat(backbone_feats, 0).numpy() if backbone_feats else None)
+    base_semantic_prediction_logits = (
+        torch.cat(base_semantic_prediction_logits, 0).numpy()
+        if base_semantic_prediction_logits else None)
+    base_offset_predictions = (
+        torch.cat(base_offset_predictions, 0).numpy()
+        if base_offset_predictions else None)
     return (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
             upper_offset_predictions, upper_offset_labels, coords, instance_labels,
-            backbone_feats, input_feats, axis_xy_predictions, axis_log_variances)
+            backbone_feats, input_feats, axis_xy_predictions, axis_log_variances,
+            base_semantic_prediction_logits, base_offset_predictions)
 
 
 def _grouped_mean(values, inverse, counts, output_dtype=np.float32):
@@ -181,6 +223,7 @@ def _grouped_mean(values, inverse, counts, output_dtype=np.float32):
 def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offset_labels,
              upper_offset_predictions, upper_offset_labels, instance_labels, feats,
              input_feats, axis_xy_predictions=None, axis_log_variances=None,
+             base_semantic_prediction_logits=None, base_offset_predictions=None,
              logger=None):
     ensemble_start = time.time()
     num_input_points = len(coords)
@@ -218,6 +261,10 @@ def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offse
         axis_xy_predictions, inverse, counts, np.float32)
     axis_log_variances = _grouped_mean(
         axis_log_variances, inverse, counts, np.float32)
+    base_semantic_prediction_logits = _grouped_mean(
+        base_semantic_prediction_logits, inverse, counts, np.float32)
+    base_offset_predictions = _grouped_mean(
+        base_offset_predictions, inverse, counts, np.float32)
 
     if logger is not None:
         logger.info(
@@ -226,7 +273,8 @@ def ensemble(coords, semantic_scores, semantic_labels, offset_predictions, offse
             f'{time.time() - ensemble_start:.1f}s')
     return (coords, semantic_scores, semantic_labels, offset_predictions, offset_labels,
             upper_offset_predictions, upper_offset_labels, instance_labels, feats,
-            input_feats, axis_xy_predictions, axis_log_variances)
+            input_feats, axis_xy_predictions, axis_log_variances,
+            base_semantic_prediction_logits, base_offset_predictions)
 
 
 def get_dual_anchor_features(coords, offset, upper_offset, upper_anchor_weight=1.0,

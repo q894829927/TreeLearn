@@ -92,3 +92,60 @@ def height_checkpoint_is_eligible(semantic_retention, minimum_retention=0.0):
     if not 0.0 <= minimum_retention <= 1.0:
         raise ValueError('minimum_retention must be in [0, 1].')
     return semantic_retention >= minimum_retention
+
+
+def project_seed_membership_logits(
+        base_semantic_logits, adapted_semantic_logits, base_offsets,
+        input_features, tree_conf_thresh=0.5, tau_vert=0.6, tau_off=4.0,
+        logit_margin=1e-3, adapted_offsets=None):
+    """Project semantic flips inside the base/adapted seed-geometry union.
+
+    The adapted logits keep their per-point mean and may move freely while
+    remaining on the teacher side of the tree decision boundary. Points
+    outside the union seed geometry are unchanged.
+    """
+    if base_semantic_logits.shape[-1] != 2:
+        raise ValueError('Seed membership projection requires two classes.')
+    if not 0.0 < float(tree_conf_thresh) < 1.0:
+        raise ValueError('tree_conf_thresh must be in (0, 1).')
+    if float(logit_margin) <= 0:
+        raise ValueError('logit_margin must be positive.')
+
+    base_logits = base_semantic_logits.detach().float()
+    adapted_logits = adapted_semantic_logits.float()
+    base_probability = F.softmax(base_logits, dim=-1)[:, 0]
+    base_tree = base_probability >= float(tree_conf_thresh)
+    verticality = input_features[:, -1].to(base_logits.device).float()
+    base_geometry = (
+        torch.abs(base_offsets.detach().float()[:, 2]) < float(tau_off))
+    if adapted_offsets is None:
+        adapted_geometry = base_geometry
+    else:
+        adapted_geometry = (
+            torch.abs(adapted_offsets.detach().float()[:, 2]) <
+            float(tau_off))
+    # The union blocks semantic flips for points that can be seeds either
+    # before or after the adapter offset residual is applied.
+    geometry_mask = (
+        (verticality > float(tau_vert)) &
+        (base_geometry | adapted_geometry))
+
+    probability = adapted_logits.new_tensor(float(tree_conf_thresh))
+    boundary = torch.log(probability / (1.0 - probability))
+    adapted_margin = adapted_logits[:, 0] - adapted_logits[:, 1]
+    tree_floor = boundary + float(logit_margin)
+    non_tree_ceiling = boundary - float(logit_margin)
+    projected_margin = torch.where(
+        base_tree,
+        torch.maximum(adapted_margin, tree_floor),
+        torch.minimum(adapted_margin, non_tree_ceiling))
+    projected_margin = torch.where(
+        geometry_mask, projected_margin, adapted_margin)
+
+    center = adapted_logits.mean(dim=-1)
+    projected = torch.stack([
+        center + 0.5 * projected_margin,
+        center - 0.5 * projected_margin,
+    ], dim=-1)
+    changed_mask = geometry_mask & (projected_margin != adapted_margin)
+    return projected.to(adapted_semantic_logits.dtype), geometry_mask, changed_mask

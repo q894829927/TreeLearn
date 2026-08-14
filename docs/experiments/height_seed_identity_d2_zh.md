@@ -223,3 +223,40 @@ grep -E "Clustering .*seed points|Confidence-filtered base seeds" \
 - offset residual 或 offset-caused seed removal 明显放大：只允许 semantic adapter，
   offset 输出保持官方值，再做一次 validation/L1W 实验；
 - 任一新方案都必须重新从 validation 和 L1W 过 Gate，不能直接回到 Wytham。
+## 9. D4 Teacher-Anchored Seed Projection
+
+D3 无 GT 归因显示 Wytham/L1W 的 non-tree→tree rate 放大 `1.761x`、seed-added
+rate 放大 `2.845x`，而 XY residual、Z residual、gate 分别仅 `0.998x`、`1.044x`、
+`0.990x`。因此固定诊断指向 semantic expansion，不支持修改 offset 或 attention。
+
+D4 不重训、不读取 Wytham GT，也不改变 HDBSCAN。对满足 frozen base 或 adapted
+offset 任一几何 seed 条件的点，保留 adapted logits 的均值，但将二分类 logit margin
+投影到 frozen TreeLearn 原类别一侧：
+
+```text
+m = logit_tree - logit_non_tree
+base tree:     m_projected >= boundary + 0.001
+base non-tree: m_projected <= boundary - 0.001
+```
+
+投影在重叠 tile 的 frozen/adapted logits 与 offset 完成 NumPy ensemble 后再次统一执行，
+而不是只在单 tile 内执行；pipeline 会断言最终候选区的 teacher semantic membership
+mismatch 为 0。区外点与 HSCA offset 完全不变。这从机制上阻断 semantic flip
+导致的 seed 新增/删除，同时保留注意力生成的 offset 修正。先只运行 L1W：
+
+```bash
+python -m unittest tests.test_height_seed_identity -v
+
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/height_context_attention/pipeline_l1w_d4_seed_projection_hsca.yaml \
+  > logs/height_context_attention/pipeline_l1w_d4_seed_projection_hsca.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/height_context_attention/evaluate_l1w_d4_seed_projection_hsca.yaml \
+  > logs/height_context_attention/evaluate_l1w_d4_seed_projection_hsca.log 2>&1
+```
+
+D4 L1W Gate：F1 不低于 A0 `98.4%`、Commission 不高于 `3.1%`、Completeness
+保持 `100%`。失败则关闭 height-adapter 部署路线；通过后先做 L1W pointwise/seed-set
+等价审计，再决定是否把 Wytham 明确降级为 development evaluation。不得直接创建
+新的 Wytham 配置。

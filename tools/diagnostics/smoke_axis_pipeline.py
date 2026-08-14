@@ -74,6 +74,8 @@ def main():
         input_features,
         axis_xy_predictions,
         axis_log_variances,
+        base_semantic_prediction_logits,
+        base_offset_predictions,
     ) = pointwise
     ensembled = ensemble(
         coords,
@@ -88,6 +90,8 @@ def main():
         input_features,
         axis_xy_predictions,
         axis_log_variances,
+        base_semantic_prediction_logits,
+        base_offset_predictions,
         logger=logger)
     (
         coords,
@@ -102,6 +106,8 @@ def main():
         input_features,
         axis_xy_predictions,
         axis_log_variances,
+        _,
+        _,
     ) = ensembled
 
     axis_confidence = 1.0 / (1.0 + np.exp(axis_log_variances))

@@ -784,7 +784,8 @@ def pointwise_and_ensemble(config, logger):
     ensembled = ensemble(
         pointwise[6], pointwise[0], pointwise[1], pointwise[2], pointwise[3],
         pointwise[4], pointwise[5], pointwise[7], pointwise[8],
-        pointwise[9], pointwise[10], pointwise[11], logger=logger)
+        pointwise[9], pointwise[10], pointwise[11],
+        pointwise[12], pointwise[13], logger=logger)
     return {
         'coords': ensembled[0],
         'semantic_logits': ensembled[1],

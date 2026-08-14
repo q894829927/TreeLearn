@@ -1,0 +1,17 @@
+# D4: D2-HSCA with deterministic teacher-anchored seed projection.
+# This is an L1W-only causal safety test; no Wytham config exists yet.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_l1w_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  use_height_context_adapter: True
+  height_context_type: 'attention'
+  height_seed_membership_projection: True
+  height_seed_projection_margin: 0.001
+pretrain: 'work_dirs/train_d2_a2_seed_identity_hsca/epoch_10.pth'
+save_cfg:
+  results_dir: 'results_hsca_d4_seed_projection_e10'

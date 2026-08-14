@@ -6,8 +6,10 @@ import pickle
 import pprint
 import shutil
 import time
+import torch
 from tree_learn.dataset import TreeDataset
 from tree_learn.model import TreeLearn
+from tree_learn.model.height_identity import project_seed_membership_logits
 from tree_learn.util import (munch_to_dict, build_dataloader, get_root_logger, load_checkpoint, ensemble, 
                              get_coords_within_shape, get_hull_buffer, get_hull, get_cluster_means,
                              propagate_preds, save_treewise, load_data, save_data, make_labels_consecutive, 
@@ -32,6 +34,61 @@ TREE_CLASS_IN_PYTORCH_DATASET = 0
 NON_TREES_LABEL_IN_GROUPING = 0
 NOT_ASSIGNED_LABEL_IN_GROUPING = -1
 START_NUM_PREDS = 1
+
+
+def apply_ensembled_height_seed_projection(
+        semantic_logits, base_semantic_logits, base_offsets, adapted_offsets,
+        input_feats, model_cfg, grouping_cfg, logger=None,
+        chunk_size=2_000_000):
+    """Apply teacher seed-membership projection after tile ensembling."""
+    if base_semantic_logits is None or base_offsets is None:
+        raise RuntimeError(
+            'Ensemble seed projection requires frozen base semantic logits '
+            'and base offsets.')
+    if not (len(semantic_logits) == len(base_semantic_logits) ==
+            len(base_offsets) == len(adapted_offsets) == len(input_feats)):
+        raise ValueError('Ensemble projection arrays have different lengths.')
+
+    changed_count = 0
+    geometry_count = 0
+    mismatch_count = 0
+    for start in range(0, len(semantic_logits), int(chunk_size)):
+        stop = min(start + int(chunk_size), len(semantic_logits))
+        projected, geometry, changed = project_seed_membership_logits(
+            torch.from_numpy(base_semantic_logits[start:stop]),
+            torch.from_numpy(semantic_logits[start:stop]),
+            torch.from_numpy(base_offsets[start:stop]),
+            torch.from_numpy(input_feats[start:stop]),
+            tree_conf_thresh=float(grouping_cfg.tree_conf_thresh),
+            tau_vert=float(grouping_cfg.tau_vert),
+            tau_off=float(grouping_cfg.tau_off),
+            logit_margin=float(model_cfg.height_seed_projection_margin),
+            adapted_offsets=torch.from_numpy(adapted_offsets[start:stop]))
+        semantic_logits[start:stop] = projected.numpy()
+        teacher_tree = (
+            torch.softmax(
+                torch.from_numpy(base_semantic_logits[start:stop]).float(),
+                dim=-1)[:, TREE_CLASS_IN_PYTORCH_DATASET] >=
+            float(grouping_cfg.tree_conf_thresh))
+        projected_tree = (
+            torch.softmax(projected.float(), dim=-1)[
+                :, TREE_CLASS_IN_PYTORCH_DATASET] >=
+            float(grouping_cfg.tree_conf_thresh))
+        mismatch_count += int(
+            (geometry & (teacher_tree != projected_tree)).sum().item())
+        geometry_count += int(geometry.sum().item())
+        changed_count += int(changed.sum().item())
+
+    if mismatch_count:
+        raise RuntimeError(
+            'Post-ensemble seed membership projection failed: '
+            f'{mismatch_count:,} teacher mismatches remain.')
+    if logger is not None:
+        logger.info(
+            'Post-ensemble teacher seed projection changed '
+            f'{changed_count:,}/{geometry_count:,} geometry-candidate '
+            'semantic decisions; membership mismatches: 0.')
+    return semantic_logits
 
 
 
@@ -114,7 +171,8 @@ def run_treelearn_pipeline(config, config_path=None):
     (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, coords, instance_labels,
      backbone_feats, input_feats, axis_xy_predictions,
-     axis_log_variances) = pointwise_results
+     axis_log_variances, base_semantic_prediction_logits,
+     base_offset_predictions) = pointwise_results
     del model
 
     # ensemble predictions from overlapping tiles
@@ -122,10 +180,24 @@ def run_treelearn_pipeline(config, config_path=None):
     data = ensemble(
         coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
         upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats,
-        input_feats, axis_xy_predictions, axis_log_variances, logger=logger)
+        input_feats, axis_xy_predictions, axis_log_variances,
+        base_semantic_prediction_logits, base_offset_predictions,
+        logger=logger)
     (coords, semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, instance_labels, backbone_feats,
-     input_feats, axis_xy_predictions, axis_log_variances) = data
+     input_feats, axis_xy_predictions, axis_log_variances,
+     base_semantic_prediction_logits, base_offset_predictions) = data
+    if bool(getattr(
+            config.model, 'height_seed_membership_projection', False)):
+        semantic_prediction_logits = apply_ensembled_height_seed_projection(
+            semantic_prediction_logits,
+            base_semantic_prediction_logits,
+            base_offset_predictions,
+            offset_predictions,
+            input_feats,
+            config.model,
+            config.grouping,
+            logger=logger)
     axis_confidence = (
         1.0 / (1.0 + np.exp(axis_log_variances))
         if axis_log_variances is not None else None)
