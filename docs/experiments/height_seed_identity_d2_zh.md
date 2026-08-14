@@ -153,3 +153,34 @@ D2-A2 的无约束最低 loss 位于 epoch 25，但 retention 仅 `99.42%`，因
 
 通过后才生成锁定的 Wytham D2-A1/D2-A2 配置，并只运行一次。若失败，不扫描
 identity weight；记录 identity-preservation 不能同时保持分割性能，关闭本路线。
+## 7. L1W 结果与锁定 Wytham
+
+固定 checkpoint 的 L1W 结果：
+
+| Model | Checkpoint | Completeness | Commission | F1 | Coverage |
+|---|---|---:|---:|---:|---:|
+| A0 official | official | 100.0% | 3.1% | 98.4% | 98.0% |
+| D2-A1 Height-MLP | epoch 25 | 100.0% | 4.3% | 97.8% | 97.9% |
+| D2-A2 HSCA | epoch 10 | 100.0% | 2.5% | 98.7% | 98.0% |
+
+D2-A1 是失败的参数匹配负控制，不进入 Wytham。D2-A2 相对 A0 提升 `0.3 pp`
+F1、降低 `0.6 pp` Commission，同时相对 D2-A1 提升 `0.9 pp` F1，故 proposed
+model 单独满足外测资格。该决策只使用固定 validation 与 L1W regression；Wytham
+checkpoint、配置及全部参数继续锁定。
+
+一次性 Wytham 命令：
+
+```bash
+python -u tools/pipeline/pipeline.py \
+  --config configs/experiments/height_context_attention/pipeline_wytham_d2_a2_seed_identity_hsca_locked.yaml \
+  > logs/height_context_attention/pipeline_wytham_d2_a2_seed_identity_hsca_locked.log 2>&1
+
+python -u tools/evaluation/evaluate.py \
+  --config configs/experiments/height_context_attention/evaluate_wytham_d2_a2_seed_identity_hsca_locked.yaml \
+  > logs/height_context_attention/evaluate_wytham_d2_a2_seed_identity_hsca_locked.log 2>&1
+```
+
+外测判定相对已锁定 A0（F1 `72.0%`、Completeness `64.8%`、Commission `18.9%`、
+Coverage `57.7%`）：主要成功条件为 F1 至少 `72.5%`；辅助条件为 Commission 不升高、
+Completeness 下降不超过 `1.0 pp`。结果无论成败均不再改 checkpoint、identity weight、
+margin 或 Wytham grouping 参数。

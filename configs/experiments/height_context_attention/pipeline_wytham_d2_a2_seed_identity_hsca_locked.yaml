@@ -1,0 +1,15 @@
+# D2-A2: retention-eligible HSCA, locked one-shot Wytham evaluation.
+# Checkpoint was selected only on the fixed validation forests.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_wytham_locked_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  use_height_context_adapter: True
+  height_context_type: 'attention'
+pretrain: 'work_dirs/train_d2_a2_seed_identity_hsca/epoch_10.pth'
+save_cfg:
+  results_dir: 'results_hsca_wytham_d2_a2_seed_identity_e10_locked'
