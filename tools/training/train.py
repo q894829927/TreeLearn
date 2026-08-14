@@ -69,7 +69,12 @@ def train(config, epoch, model, optimizer, scheduler, scaler, train_loader,
             loss, loss_dict = model(
                 batch, return_loss=True, teacher_output=teacher_output)
             for key, value in loss_dict.items():
-                losses_dict[key].append(value.detach().cpu().item())
+                scalar = value.detach().float().cpu().item()
+                if not np.isfinite(scalar):
+                    raise FloatingPointError(
+                        f'Non-finite {key} at epoch {epoch}, batch {i}. '
+                        'Stop this candidate before checkpoint corruption.')
+                losses_dict[key].append(scalar)
 
         scaler.scale(loss / accumulation_steps).backward()
         processed_batches += 1

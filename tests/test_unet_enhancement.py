@@ -40,6 +40,14 @@ class UNetEnhancementDenseTests(unittest.TestCase):
         torch.testing.assert_close(
             pooled, torch.tensor([[2., 4.], [100., 200.]]))
 
+    def test_half_precision_pooling_uses_stable_accumulation(self):
+        features = torch.ones(70000, 2, dtype=torch.float16)
+        batch_ids = torch.zeros(70000, dtype=torch.long)
+        pooled = batch_global_mean(features, batch_ids, batch_size=1)
+        self.assertEqual(pooled.dtype, features.dtype)
+        self.assertTrue(torch.isfinite(pooled).all())
+        torch.testing.assert_close(pooled, torch.ones_like(pooled))
+
     def test_height_normalization_is_per_batch(self):
         indices = torch.tensor([
             [0, 10, 0, 0], [0, 20, 0, 0],
@@ -61,7 +69,7 @@ class UNetEnhancementDenseTests(unittest.TestCase):
 
     def test_hcag_attention_is_bounded_and_nonconstant(self):
         module = HCAGSkipFusion(
-            8, 4, gamma_init=1.0, return_stats=True)
+            8, 4, gamma_init=1.0, return_stats=True).eval()
         skip = torch.randn(12, 8)
         decoder = torch.randn(12, 8)
         indices = torch.tensor([
@@ -90,6 +98,22 @@ class UNetEnhancementDenseTests(unittest.TestCase):
         self.assertIs(output.indices, tensor.indices)
         self.assertEqual(output.spatial_shape, tensor.spatial_shape)
         self.assertEqual(output.batch_size, tensor.batch_size)
+
+    def test_attention_statistics_are_validation_only(self):
+        module = SparseSEEnhancement(
+            8, 4, gamma_init=0.0, return_stats=True)
+        tensor = FakeSparseTensor(
+            torch.randn(12, 8),
+            torch.tensor([[0, index, 0, 0] for index in range(12)]))
+        module.train()
+        module(tensor)
+        self.assertEqual(module.last_stats, {})
+        module.eval()
+        module(tensor)
+        self.assertIn('attention_mean', module.last_stats)
+        self.assertTrue(all(
+            torch.isfinite(torch.tensor(value))
+            for value in module.last_stats.values()))
 
     def test_selective_kernel_weights_sum_to_one(self):
         weights = selective_kernel_weights(torch.randn(3, 2, 16))

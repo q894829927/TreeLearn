@@ -45,14 +45,26 @@ def batch_global_mean(features, batch_ids, batch_size=None):
     if batch_size is None:
         batch_size = (
             int(batch_ids.max().item()) + 1 if len(batch_ids) else 0)
-    pooled = features.new_zeros((batch_size, features.shape[1]))
-    counts = features.new_zeros((batch_size, 1))
+    # FP16/BF16 accumulation can overflow before division on large sparse
+    # crops. Accumulate the sum and count in FP32, then restore the feature
+    # dtype after the numerically safe mean has been computed.
+    accumulation_dtype = (
+        torch.float32 if features.dtype in (torch.float16, torch.bfloat16)
+        else features.dtype)
+    pooled = torch.zeros(
+        (batch_size, features.shape[1]), dtype=accumulation_dtype,
+        device=features.device)
+    counts = torch.zeros(
+        (batch_size, 1), dtype=accumulation_dtype,
+        device=features.device)
     if len(features):
-        pooled.index_add_(0, batch_ids, features)
+        pooled.index_add_(0, batch_ids, features.to(accumulation_dtype))
         counts.index_add_(
             0, batch_ids,
-            features.new_ones((len(features), 1)))
-    return pooled / counts.clamp_min(1)
+            torch.ones(
+                (len(features), 1), dtype=accumulation_dtype,
+                device=features.device))
+    return (pooled / counts.clamp_min(1)).to(features.dtype)
 
 
 def normalize_sparse_heights(indices, eps=1e-6):
@@ -98,6 +110,11 @@ class ResidualScale(nn.Module):
         self.return_stats = bool(return_stats)
         self.last_stats = {}
 
+    @property
+    def collect_stats(self):
+        """Collect diagnostics only during evaluation to avoid GPU syncs."""
+        return self.return_stats and not self.training
+
     def apply_delta(self, base, delta):
         return base + self.gamma.to(base.dtype) * delta
 
@@ -118,7 +135,7 @@ class ResidualSkipAdapter(ResidualScale):
             self.encoder_projection(skip_features) +
             self.decoder_projection(decoder_features))
         delta = self.output_projection(hidden)
-        if self.return_stats:
+        if self.collect_stats:
             self.last_stats = _stats(delta, 'adapter_delta')
         return self.apply_delta(skip_features, delta)
 
@@ -137,7 +154,7 @@ class SparseResidualAdapterEnhancement(ResidualScale):
         delta = self.output_projection(
             self.activation(self.input_projection(tensor.features)))
         output = self.apply_delta(tensor.features, delta)
-        if self.return_stats:
+        if self.collect_stats:
             self.last_stats = _stats(delta, 'adapter_delta')
         return replace_sparse_features(tensor, output)
 
@@ -167,7 +184,7 @@ class HCAGSkipFusion(ResidualScale):
         attention = torch.sigmoid(
             self.attention_projection(self.activation(hidden)))
         delta = skip_features * (2 * attention - 1)
-        if self.return_stats:
+        if self.collect_stats:
             self.last_stats = _stats(attention, 'attention')
         return self.apply_delta(skip_features, delta)
 
@@ -191,7 +208,7 @@ class SparseSEEnhancement(ResidualScale):
         weights = self.excitation(pooled)[batch_ids]
         delta = tensor.features * (weights - 1)
         output = self.apply_delta(tensor.features, delta)
-        if self.return_stats:
+        if self.collect_stats:
             self.last_stats = _stats(weights, 'attention')
         return replace_sparse_features(tensor, output)
 
@@ -236,7 +253,7 @@ class SelectiveKernelEnhancement(ResidualScale):
             weights[:, 0] * local.features +
             weights[:, 1] * context.features)
         output = self.apply_delta(tensor.features, fused - tensor.features)
-        if self.return_stats:
+        if self.collect_stats:
             self.last_stats = _stats(weights[:, 0], 'local_attention')
             self.last_stats.update(_stats(
                 weights[:, 1], 'context_attention'))
@@ -325,7 +342,7 @@ class SparseWindowAttentionEnhancement(ResidualScale):
             attended, weights = self.attention(
                 normalized, normalized, normalized,
                 key_padding_mask=padding_mask,
-                need_weights=self.return_stats,
+                need_weights=self.collect_stats,
                 average_attn_weights=False)
             tokens = tokens + attended
             tokens = tokens + self.ffn(self.norm2(tokens))
@@ -333,14 +350,14 @@ class SparseWindowAttentionEnhancement(ResidualScale):
                 point_indices = torch.tensor(
                     group, device=tensor.features.device, dtype=torch.long)
                 output[point_indices] = tokens[row, :len(group)]
-            if self.return_stats and weights is not None:
+            if self.collect_stats and weights is not None:
                 valid_queries = ~padding_mask[:, None, :, None]
                 valid_keys = ~padding_mask[:, None, None, :]
                 attention_values.append(
                     weights.masked_select(valid_queries & valid_keys))
         delta = output - tensor.features
         output = self.apply_delta(tensor.features, delta)
-        if self.return_stats:
+        if self.collect_stats:
             values = (
                 torch.cat(attention_values)
                 if attention_values else tensor.features.new_empty(0))
