@@ -1,6 +1,11 @@
 import unittest
 
+import yaml
+
 from tree_learn.util import get_config
+from tools.diagnostics.run_sparse_unet_validation_matrix import (
+    partition_model_specs,
+)
 
 
 CONFIGS = [
@@ -51,6 +56,19 @@ class SparseUNetTournamentConfigTests(unittest.TestCase):
             'identity', 'sparse_se', 'selective_kernel',
             'hcag', 'window_attention'])
 
+
+    def test_t1_matrix_records_hardware_elimination(self):
+        with open(
+                'configs/experiments/sparse_attention_unet/'
+                't1_validation_matrix.yaml', encoding='utf-8') as file:
+            matrix = yaml.safe_load(file)
+        active, eliminated = partition_model_specs(matrix['models'])
+        self.assertNotIn(
+            'm2_selective_kernel', {name for name, _ in active})
+        self.assertEqual(len(eliminated), 1)
+        self.assertEqual(eliminated[0]['model'], 'm2_selective_kernel')
+        self.assertEqual(
+            eliminated[0]['stage'], 't1_training_hardware_gate')
 
 if __name__ == '__main__':
     unittest.main()

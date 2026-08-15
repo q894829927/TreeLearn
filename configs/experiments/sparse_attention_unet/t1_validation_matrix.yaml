@@ -20,6 +20,9 @@ models:
     checkpoint: work_dirs/train_t1_m1_sparse_se_seed42/best_unet.pth
     training_log: logs/sparse_attention_unet/train_t1_m1_sparse_se_seed42.log
   m2_selective_kernel:
+    enabled: false
+    elimination_stage: t1_training_hardware_gate
+    elimination_reason: rtx4090_24gb_oom_at_fixed_shared_crop
     seed: 42
     train_config: configs/experiments/sparse_attention_unet/train_t1_m2_selective_kernel_seed42.yaml
     checkpoint: work_dirs/train_t1_m2_selective_kernel_seed42/best_unet.pth

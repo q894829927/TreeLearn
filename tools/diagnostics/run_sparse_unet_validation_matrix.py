@@ -107,6 +107,23 @@ def write_yaml(path, payload):
         encoding='utf-8')
 
 
+def partition_model_specs(models):
+    """Separate runnable models from candidates eliminated before validation."""
+    active = []
+    eliminated = []
+    for run_name, spec in models.items():
+        if spec.get('enabled', True):
+            active.append((run_name, spec))
+            continue
+        eliminated.append({
+            'run_name': run_name,
+            'model': spec.get('model', run_name),
+            'stage': spec.get('elimination_stage', 'unspecified'),
+            'reason': spec.get('elimination_reason', 'unspecified'),
+        })
+    return active, eliminated
+
+
 def main():
     args = parse_args()
     settings = yaml.safe_load(
@@ -118,8 +135,16 @@ def main():
     runtime_root = Path(settings['runtime_root'])
     output_root.mkdir(parents=True, exist_ok=True)
     rows = []
+    active_models, eliminated_models = partition_model_specs(
+        settings['models'])
+    for item in eliminated_models:
+        print(
+            f'===== SKIP {item["model"]}: eliminated during '
+            f'{item["stage"]} ({item["reason"]}) =====', flush=True)
+    (output_root / 'eliminated_models.json').write_text(
+        json.dumps(eliminated_models, indent=2), encoding='utf-8')
 
-    for run_name, spec in settings['models'].items():
+    for run_name, spec in active_models:
         model_name = spec.get('model', run_name)
         checkpoint = Path(spec['checkpoint'])
         if not checkpoint.is_file():
@@ -196,6 +221,8 @@ def main():
                 **metrics,
             })
 
+    if not rows:
+        raise RuntimeError('Validation matrix has no enabled model runs.')
     csv_path = output_root / 'records.csv'
     with csv_path.open('w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=list(rows[0]))

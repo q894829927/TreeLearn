@@ -14,6 +14,15 @@
 
 如果某阶段 Gate 失败，记录失败并停止对应路线；不得选择“最不差”模型进入 Wytham。
 
+## 1.1 T1 运行记录（2026-08-15）
+
+- B1 Partial Fine-tune：训练完成，best epoch 7，峰值显存 5.666 GB。
+- M1 Sparse-SE：混合精度池化修复后训练完成，峰值显存 7.131 GB。
+- M2 Selective-Kernel：在统一 crop、batch size 1 和 RTX 4090 24 GB 上首次 backward 发生真实 CUDA OOM；当时 GPU 无其他计算进程。依据 T0/T1 硬件 Gate 淘汰，不为该模型单独缩小 crop，也不进入验证矩阵。
+- M3 HCAG、M4 Window Attention：等待按相同训练设置继续。
+
+`t1_validation_matrix.yaml` 使用 `enabled: false` 显式保留 M2 的淘汰阶段和原因。验证工具会写出 `eliminated_models.json`，不会把硬件失败伪装成缺失结果。
+
 ## 2. 已实现模块
 
 统一入口位于 TreeLearn UBlock，支持 identity、residual_adapter、sparse_se、selective_kernel、hcag 和 window_attention。
