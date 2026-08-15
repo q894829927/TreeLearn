@@ -28,6 +28,8 @@ grouping:
   use_axis_fusion: False
   use_seed_confidence_filter: False
   seed_confidence_keep_ratio: 1.0
+  # Runtime guard only: G4W official baseline contains 519,142 seeds.
+  max_cluster_seed_points: 600000
 
 dataloader:
   batch_size: 1

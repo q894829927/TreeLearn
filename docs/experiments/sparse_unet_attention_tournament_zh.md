@@ -23,6 +23,8 @@
 
 `t1_validation_matrix.yaml` 使用 `enabled: false` 显式保留 M2 的淘汰阶段和原因。验证工具会写出 `eliminated_models.json`，不会把硬件失败伪装成缺失结果。
 
+T1 五森林验证首次运行发现模块默认的 500,000 种子安全上限低于 G4W 官方基线的 519,142 个种子。共享验证模板将该运行时保护上限统一设为 600,000；这不改变任何模型的种子集合、HDBSCAN 参数或排序规则。
+
 ## 2. 已实现模块
 
 统一入口位于 TreeLearn UBlock，支持 identity、residual_adapter、sparse_se、selective_kernel、hcag 和 window_attention。

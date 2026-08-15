@@ -70,5 +70,11 @@ class SparseUNetTournamentConfigTests(unittest.TestCase):
         self.assertEqual(
             eliminated[0]['stage'], 't1_training_hardware_gate')
 
+    def test_validation_guard_accepts_fixed_forests(self):
+        config = get_config(
+            'configs/experiments/sparse_attention_unet/'
+            '_pipeline_validation_common.yaml')
+        self.assertEqual(config.grouping.max_cluster_seed_points, 600000)
+
 if __name__ == '__main__':
     unittest.main()
