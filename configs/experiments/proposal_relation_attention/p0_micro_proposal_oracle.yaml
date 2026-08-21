@@ -1,0 +1,29 @@
+proposal_relation_oracle:
+  source_root: data/train/forests
+  output_root: logs/proposal_relation_attention/p0_micro_proposal_oracle
+  pipeline_template: configs/experiments/proposal_relation_attention/_pipeline_pointwise_common.yaml
+  train_config: configs/experiments/sparse_attention_unet/train_t1_b1_partial_seed42.yaml
+  checkpoint: work_dirs/train_t1_b1_partial_seed42/best_unet.pth
+  validation_plots: [G4N, G4W, L1N, O1N, O1W]
+  proposal_relation_oracle:
+    tree_probability_threshold: 0.5
+    tree_class_index: 0
+    xy_cell_size: 0.6
+    z_bin_size: 0.5
+    vertical_split_gap: 1.0
+    max_xy_distance: 2.5
+    max_xy_bbox_gap: 0.6
+    max_vertical_gap: 1.5
+    max_neighbors: 16
+    match_iou_threshold: 0.5
+    min_precision_for_counted_fp: 0.5
+  gate:
+    minimum_f1_gain_pp: 2.0
+    minimum_completeness_gain_pp: 1.0
+    minimum_recovered_trees: 20
+    maximum_commission_increase_pp: 0.0
+    minimum_nonnegative_plots: 4
+    minimum_graph_coverage: 0.90
+    maximum_node_inflation: 10.0
+    maximum_average_out_degree: 16.0
+    max_nodes_absolute: 500000
