@@ -1,0 +1,23 @@
+proposal_relation_data:
+  source_root: data/train/forests
+  data_root: data/proposal_relation
+  output_root: logs/proposal_relation_attention/p1_graph_data
+  pipeline_template: configs/experiments/proposal_relation_attention/_pipeline_pointwise_common.yaml
+  train_config: configs/experiments/sparse_attention_unet/train_t1_b1_partial_seed42.yaml
+  checkpoint: work_dirs/train_t1_b1_partial_seed42/best_unet.pth
+  train_plots: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3]
+  validation_plots: [G4N, G4W, L1N, O1N, O1W]
+  proposal_relation:
+    tree_probability_threshold: 0.5
+    tree_class_index: 0
+    xy_cell_size: 0.6
+    z_bin_size: 0.5
+    vertical_split_gap: 1.0
+    max_xy_distance: 2.5
+    max_xy_bbox_gap: 0.6
+    max_vertical_gap: 1.5
+    max_neighbors: 16
+    minimum_node_purity: 0.5
+  gate:
+    minimum_train_positive_edges: 5000
+    minimum_train_hard_negatives: 5000
