@@ -187,3 +187,45 @@ python -u tools/diagnostics/summarize_proposal_relation_final.py \
 若 M1 不能击败 C1，只能报告“关系建模未证明有效”；若 P0 失败，则结论为
 B1 点级语义/固定微提议缺少足够实例恢复上限。不得选择“最不差”的结果进入
 Wytham。
+
+## 7. P0 失败复盘与 P0b 止损诊断
+
+P0 原子微提议图恢复了 116 棵 B1 漏检树，漏检图覆盖为 98.193%，说明
+B1 semantic 中仍保留了明显的漏检恢复信号；但 731,093 个节点相当于 B1
+实例数的 369.986 倍，使 Oracle 自身产生大量碎片，F1 降低 9.221 pp，
+Commission 上升到 30.454%。因此 P0 失败的主因是提议粒度，而不是没有
+点级召回信号。禁止直接运行原 P1/P2。
+
+P0b 是独立的新假设：在完全无标签的条件下先把原子节点压成
+superproposals，再建立稀疏图并重新测 Oracle。它比较：
+
+- `xy_block`：固定 3.6 m 水平块，作为强压缩控制；
+- `vertical_profile`：严格的高度剖面、重叠和语义连续性连通；
+- `adaptive_component`：按结构相似度贪心聚合，并限制组件直径和高度。
+
+三种方法均直接读取现有 P0 artifacts，不重新跑 B1，也不读取 Wytham。Gate
+仍沿用 P0：F1 +2.0 pp、Completeness +1.0 pp、至少恢复 20 棵、Commission
+不恶化、4/5 森林非负、漏检覆盖 90%、节点膨胀不超过 10 倍、平均出度不超过
+16。仅当至少一种方法完整通过，才为推荐方法重新设计 P1/P2 数据路径。
+
+运行：
+
+```bash
+python -m unittest tests.test_proposal_relation_coarsening -v
+
+nohup python -u tools/diagnostics/diagnose_hierarchical_proposal_oracle.py \
+  --config configs/experiments/proposal_relation_attention/p0b_hierarchical_proposal_oracle.yaml \
+  > logs/proposal_relation_attention/p0b_run.log 2>&1 < /dev/null &
+
+echo $! | tee logs/proposal_relation_attention/p0b.pid
+tail -f logs/proposal_relation_attention/p0b_run.log
+```
+
+查看：
+
+```bash
+cat logs/proposal_relation_attention/p0b_hierarchical_proposal_oracle/summary.md
+```
+
+P0b 失败时关闭整条 proposal-relation 路线，不从三个失败方法里选择“最不差”
+方案，也不得通过 Wytham 反向调聚合尺度。
