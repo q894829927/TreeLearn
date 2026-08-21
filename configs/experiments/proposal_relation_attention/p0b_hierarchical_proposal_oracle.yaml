@@ -1,0 +1,48 @@
+input_root: logs/proposal_relation_attention/p0_micro_proposal_oracle/validation
+output_root: logs/proposal_relation_attention/p0b_hierarchical_proposal_oracle
+
+validation_plots:
+  - G4N
+  - G4W
+  - L1N
+  - O1N
+  - O1W
+
+methods:
+  - xy_block
+  - vertical_profile
+  - adaptive_component
+
+coarsening:
+  xy_block_size: 3.6
+
+  profile_maximum_xy_distance: 1.5
+  profile_minimum_histogram_cosine: 0.85
+  profile_minimum_vertical_overlap: 0.50
+  profile_maximum_probability_difference: 0.15
+
+  adaptive_maximum_bbox_gap: 0.30
+  adaptive_maximum_vertical_gap: 0.50
+  adaptive_minimum_histogram_cosine: 0.70
+  adaptive_maximum_probability_difference: 0.20
+  adaptive_maximum_component_xy_diameter: 4.8
+  adaptive_maximum_component_height: 60.0
+
+  graph_maximum_xy_distance: 2.5
+  graph_maximum_xy_bbox_gap: 0.6
+  graph_maximum_vertical_gap: 1.5
+  graph_max_neighbors: 16
+
+match_iou_threshold: 0.5
+min_precision_for_counted_fp: 0.5
+
+gate:
+  expected_validation_plots: 5
+  min_f1_gain_pp: 2.0
+  min_completeness_gain_pp: 1.0
+  min_recovered_trees: 20
+  max_commission_increase_pp: 0.0
+  min_nonnegative_plots: 4
+  min_graph_coverage: 0.90
+  max_node_inflation: 10.0
+  max_average_out_degree: 16.0
