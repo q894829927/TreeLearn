@@ -1,0 +1,47 @@
+# Resolved per forest by P0/P1 runners.
+default_args:
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+forest_path: '__FOREST_PATH__'
+pipeline_base_dir: '__PIPELINE_BASE_DIR__'
+pretrain: work_dirs/train_t1_b1_partial_seed42/best_unet.pth
+fp16: True
+tile_generation: True
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: False
+  use_axis_branch: False
+  use_height_context_adapter: False
+  offset_loss_type: smooth_l1
+  smooth_l1_beta: 1.0
+
+dataset_test:
+  base_anchor_mode: legacy
+
+grouping:
+  method: hdbscan
+  use_upper_seeds: False
+  use_seed_confidence_filter: False
+  seed_confidence_keep_ratio: 1.0
+  max_cluster_seed_points: 600000
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+shape_cfg:
+  outer_remove: ~
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+save_cfg:
+  results_dir: __RESULTS_DIR__
+  save_formats: [npz]
+  save_treewise: False
+  save_pointwise: True
+  save_full_forest: False
+  return_type: voxelized_and_filtered
