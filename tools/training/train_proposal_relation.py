@@ -66,26 +66,23 @@ def _tensor_forest(graph, targets, norm, device):
     )
 
 
-def _balanced_mask(labels, valid, sources, generator, negative_ratio):
-    """Balance adjacent hard negatives independently for each source node."""
-    mask = torch.zeros_like(valid)
-    for source in torch.unique(sources[valid]):
-        local = valid & (sources == source)
-        positive = torch.flatnonzero(local & (labels > .5))
-        negative = torch.flatnonzero(local & (labels <= .5))
-        if len(positive):
-            keep = min(len(negative), max(int(len(positive)*negative_ratio), 1))
-        else:
-            keep = min(len(negative), 1)
-        if keep and keep < len(negative):
-            order = torch.randperm(
-                len(negative), generator=generator,
-                device=negative.device)[:keep]
-            negative = negative[order]
-        mask[positive] = True
-        mask[negative] = True
-    return mask
-
+def _source_balanced_edge_loss(logits, targets, sources, gamma,
+                               positive_weight):
+    """Focal loss in which every source proposal has equal total weight."""
+    targets = targets.to(logits.dtype)
+    base = F.binary_cross_entropy_with_logits(
+        logits, targets, reduction='none')
+    probability = torch.sigmoid(logits)
+    pt = torch.where(targets > .5, probability, 1-probability)
+    class_weight = torch.where(
+        targets > .5,
+        torch.as_tensor(positive_weight, dtype=logits.dtype,
+                        device=logits.device),
+        torch.ones((), dtype=logits.dtype, device=logits.device))
+    counts = torch.bincount(sources, minlength=int(sources.max())+1)
+    source_weight = counts[sources].clamp_min(1).reciprocal().to(logits.dtype)
+    values = class_weight*(1-pt).pow(float(gamma))*base*source_weight
+    return values.sum()/source_weight.sum().clamp_min(1e-9)
 
 def _balanced_contrastive_nodes(labels, generator, max_trees=64,
                                 nodes_per_tree=8):
@@ -233,16 +230,15 @@ def _train(name, seed, train, validation, norm, settings, output, target_paramet
             _, graph, targets = train[int(index)]
             nodes, edge_index, edges, node_gt, labels, valid = _tensor_forest(
                 graph, targets, norm, device)
-            selected = _balanced_mask(
-                labels, valid, edge_index[0], generator,
-                float(settings['negative_ratio']))
+            selected = valid
             output_values = model(nodes, edge_index, edges)
             if not torch.any(selected):
                 continue
             positives = max(int(torch.sum(labels[selected] > .5)), 1)
             negatives = max(int(torch.sum(labels[selected] <= .5)), 1)
-            edge_loss = focal_edge_loss(
+            edge_loss = _source_balanced_edge_loss(
                 output_values['edge_logits'][selected], labels[selected],
+                edge_index[0, selected],
                 gamma=float(settings['focal_gamma']),
                 positive_weight=negatives/positives)
             contrastive_nodes = _balanced_contrastive_nodes(
