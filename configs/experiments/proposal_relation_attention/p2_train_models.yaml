@@ -15,7 +15,6 @@ proposal_relation_training:
   weight_decay: 0.001
   max_epochs: 50
   patience: 12
-  negative_ratio: 3.0
   focal_gamma: 2.0
   contrastive_weight: 0.1
   reliability_weight: 0.1
