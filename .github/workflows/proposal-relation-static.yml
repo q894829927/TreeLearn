@@ -1,0 +1,28 @@
+name: Proposal relation static checks
+
+on:
+  push:
+    branches: [proposal-relation-attention]
+  workflow_dispatch:
+
+jobs:
+  pycompile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile proposal-relation sources
+        run: |
+          python -m py_compile \
+            tree_learn/util/proposal_relation.py \
+            tree_learn/util/proposal_relation_learning.py \
+            tree_learn/util/proposal_relation_inference.py \
+            tools/diagnostics/diagnose_proposal_relation_oracle.py \
+            tools/data_gen/gen_proposal_relation_data.py \
+            tools/training/train_proposal_relation.py \
+            tools/pipeline/proposal_relation_pipeline.py \
+            tools/diagnostics/summarize_proposal_relation_final.py \
+            tests/test_proposal_relation.py \
+            tests/test_proposal_relation_attention.py
