@@ -65,20 +65,46 @@ def _tensor_forest(graph, targets, norm, device):
     )
 
 
-def _balanced_mask(labels, valid, generator, negative_ratio):
-    positive = torch.flatnonzero(valid & (labels > .5))
-    negative = torch.flatnonzero(valid & (labels <= .5))
-    if not len(positive):
-        return valid
-    keep = min(len(negative), max(int(len(positive)*negative_ratio), 1))
-    if keep < len(negative):
-        order = torch.randperm(len(negative), generator=generator,
-                               device=negative.device)[:keep]
-        negative = negative[order]
+def _balanced_mask(labels, valid, sources, generator, negative_ratio):
+    """Balance adjacent hard negatives independently for each source node."""
     mask = torch.zeros_like(valid)
-    mask[positive] = True
-    mask[negative] = True
+    for source in torch.unique(sources[valid]):
+        local = valid & (sources == source)
+        positive = torch.flatnonzero(local & (labels > .5))
+        negative = torch.flatnonzero(local & (labels <= .5))
+        if len(positive):
+            keep = min(len(negative), max(int(len(positive)*negative_ratio), 1))
+        else:
+            keep = min(len(negative), 1)
+        if keep and keep < len(negative):
+            order = torch.randperm(
+                len(negative), generator=generator,
+                device=negative.device)[:keep]
+            negative = negative[order]
+        mask[positive] = True
+        mask[negative] = True
     return mask
+
+
+def _balanced_contrastive_nodes(labels, generator, max_trees=64,
+                                nodes_per_tree=8):
+    """Bound the quadratic contrastive term while balancing GT trees."""
+    trees = torch.unique(labels[labels > 0])
+    if len(trees) > max_trees:
+        order = torch.randperm(
+            len(trees), generator=generator, device=trees.device)[:max_trees]
+        trees = trees[order]
+    selected = []
+    for tree in trees:
+        indices = torch.flatnonzero(labels == tree)
+        if len(indices) > nodes_per_tree:
+            order = torch.randperm(
+                len(indices), generator=generator,
+                device=indices.device)[:nodes_per_tree]
+            indices = indices[order]
+        selected.append(indices)
+    return (torch.cat(selected) if selected else
+            torch.empty(0, dtype=torch.long, device=labels.device))
 
 
 def _build_model(name, settings, target_parameters=None):
@@ -207,7 +233,8 @@ def _train(name, seed, train, validation, norm, settings, output, target_paramet
             nodes, edge_index, edges, node_gt, labels, valid = _tensor_forest(
                 graph, targets, norm, device)
             selected = _balanced_mask(
-                labels, valid, generator, float(settings['negative_ratio']))
+                labels, valid, edge_index[0], generator,
+                float(settings['negative_ratio']))
             output_values = model(nodes, edge_index, edges)
             if not torch.any(selected):
                 continue
@@ -217,8 +244,13 @@ def _train(name, seed, train, validation, norm, settings, output, target_paramet
                 output_values['edge_logits'][selected], labels[selected],
                 gamma=float(settings['focal_gamma']),
                 positive_weight=negatives/positives)
+            contrastive_nodes = _balanced_contrastive_nodes(
+                node_gt, generator,
+                max_trees=int(settings['contrastive_max_trees']),
+                nodes_per_tree=int(settings['contrastive_nodes_per_tree']))
             contrast = supervised_contrastive_loss(
-                output_values['node_embeddings'], node_gt,
+                output_values['node_embeddings'][contrastive_nodes],
+                node_gt[contrastive_nodes],
                 temperature=float(settings['contrastive_temperature']))
             loss = edge_loss + float(settings['contrastive_weight'])*contrast
             if not torch.isfinite(loss):
