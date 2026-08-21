@@ -1,6 +1,7 @@
 """Generate fixed train/validation proposal-relation graphs (P1)."""
 
 import argparse
+import csv
 import importlib.util
 import json
 import shutil
@@ -223,6 +224,17 @@ def _aggregate(settings):
     result = {'rows': rows, 'gate': gate}
     data_root = Path(settings['data_root'])
     data_root.mkdir(parents=True, exist_ok=True)
+    with (data_root / 'manifest.csv').open(
+            'w', newline='', encoding='utf-8') as stream:
+        writer = csv.DictWriter(
+            stream, fieldnames=['plot', 'split', 'graph_path', 'learning_path'])
+        writer.writeheader()
+        for row in rows:
+            directory = data_root / row['split'] / row['source_plot']
+            writer.writerow({
+                'plot': row['source_plot'], 'split': row['split'],
+                'graph_path': str(directory / 'graph.npz'),
+                'learning_path': str(directory / 'learning.npz')})
     (data_root / 'generation_summary.json').write_text(
         json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
     lines = ['# P1 proposal-relation graph data', '',
