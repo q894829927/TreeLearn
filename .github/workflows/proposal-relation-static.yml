@@ -25,4 +25,5 @@ jobs:
             tools/pipeline/proposal_relation_pipeline.py \
             tools/diagnostics/summarize_proposal_relation_final.py \
             tests/test_proposal_relation.py \
-            tests/test_proposal_relation_attention.py
+            tests/test_proposal_relation_attention.py \\
+            tests/test_proposal_relation_coarsening.py
