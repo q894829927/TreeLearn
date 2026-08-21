@@ -222,7 +222,11 @@ def _aggregate(settings):
         'all_supervised_trees_covered': all(
             r['covered_gt_trees'] == r['total_gt_trees'] for r in rows),
         'all_features_finite': all(r['all_features_finite'] for r in rows),
-        'no_plot_leakage': not (set(settings['train_plots']) & set(settings['validation_plots'])),
+        'no_plot_leakage': not (
+            set(settings['train_plots']) & set(settings['validation_plots'])),
+        'no_group_leakage': not (
+            {plot.rstrip('NW') for plot in settings['train_plots']} &
+            {plot.rstrip('NW') for plot in settings['validation_plots']}),
     }
     gate['passed'] = all(gate.values())
     result = {'rows': rows, 'gate': gate}
