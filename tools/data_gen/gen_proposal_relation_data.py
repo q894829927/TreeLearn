@@ -124,6 +124,9 @@ def _worker(config_path):
             'positive_edges': int(np.sum(targets['edge_label'])),
             'hard_negative_edges': int(np.sum(targets['edge_valid'] & ~targets['edge_label'].astype(bool))),
             'covered_gt_trees': int(len(targets['covered_gt_ids'])),
+            'total_gt_trees': int(len(np.unique(
+                np.asarray(kwargs['instance_labels'])[np.asarray(
+                    kwargs['instance_labels']) > 0]))),
             'all_features_finite': bool(
                 np.all(np.isfinite(graph['node_features'])) and
                 np.all(np.isfinite(graph['edge_features']))),
@@ -216,7 +219,8 @@ def _aggregate(settings):
         'all_fixed_plots_present': len(rows) == len(settings['train_plots']) + len(settings['validation_plots']),
         'enough_train_positive_edges': sum(r['positive_edges'] for r in train) >= int(gate_settings['minimum_train_positive_edges']),
         'enough_train_hard_negatives': sum(r['hard_negative_edges'] for r in train) >= int(gate_settings['minimum_train_hard_negatives']),
-        'all_supervised_trees_covered': all(r['covered_gt_trees'] > 0 for r in rows),
+        'all_supervised_trees_covered': all(
+            r['covered_gt_trees'] == r['total_gt_trees'] for r in rows),
         'all_features_finite': all(r['all_features_finite'] for r in rows),
         'no_plot_leakage': not (set(settings['train_plots']) & set(settings['validation_plots'])),
     }
