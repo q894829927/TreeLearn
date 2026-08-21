@@ -18,6 +18,7 @@ proposal_relation_training:
   negative_ratio: 3.0
   focal_gamma: 2.0
   contrastive_weight: 0.1
+  reliability_weight: 0.1
   contrastive_temperature: 0.1
   contrastive_max_trees: 64
   contrastive_nodes_per_tree: 8
