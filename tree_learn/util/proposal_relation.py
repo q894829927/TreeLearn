@@ -222,22 +222,26 @@ def build_proposal_graph(
         }
     if int(max_neighbors) <= 0:
         raise ValueError('max_neighbors must be positive.')
-    k = min(len(centers), max(int(max_neighbors)*4+1, 2))
-    distances, neighbors = cKDTree(centers[:, :2]).query(
-        centers[:, :2], k=k, distance_upper_bound=float(max_xy_distance))
-    if k == 1:
-        distances, neighbors = distances[:, None], neighbors[:, None]
+    tree = cKDTree(centers[:, :2])
+    xy_radii = .5*np.linalg.norm(bounds[:, 3:5]-bounds[:, :2], axis=1)
+    broad_radius = (
+        float(max_xy_distance)+float(max_xy_bbox_gap)+
+        2*float(xy_radii.max(initial=0.0)))
     edges, edge_values = [], []
     pi = NODE_FEATURE_NAMES.index('tree_probability_mean')
     vi = NODE_FEATURE_NAMES.index('verticality_mean')
     si = [NODE_FEATURE_NAMES.index(name)
           for name in ('x_span', 'y_span', 'height')]
     for source in range(len(centers)):
+        candidates = tree.query_ball_point(
+            centers[source, :2], r=broad_radius)
+        candidate_rows = sorted(
+            (float(np.linalg.norm(
+                centers[int(target), :2]-centers[source, :2])),
+             int(target))
+            for target in candidates if int(target) != source)
         accepted = 0
-        for distance, target in zip(distances[source], neighbors[source]):
-            target = int(target)
-            if target == source or target >= len(centers) or not np.isfinite(distance):
-                continue
+        for distance, target in candidate_rows:
             xy_gap = _bbox_gap(
                 bounds[source, :2], bounds[source, 3:5],
                 bounds[target, :2], bounds[target, 3:5])
