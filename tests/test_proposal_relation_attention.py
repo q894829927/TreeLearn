@@ -11,8 +11,11 @@ class ProposalRelationAttentionTests(unittest.TestCase):
     def _inputs(self):
         torch.manual_seed(3)
         nodes = torch.randn(5, len(NODE_FEATURE_NAMES))
+        # Targets 1 and 2 each receive two messages. A one-incoming-edge
+        # fixture would make every segment-softmax value exactly 1 and cannot
+        # test whether learned attention is non-constant.
         edges = torch.randn(4, len(EDGE_FEATURE_NAMES))
-        edge_index = torch.tensor([[0, 1, 2, 3], [1, 0, 3, 2]])
+        edge_index = torch.tensor([[0, 2, 1, 3], [1, 1, 2, 2]])
         return nodes, edge_index, edges
 
     def test_attention_is_finite_nonconstant_and_has_gradients(self):
