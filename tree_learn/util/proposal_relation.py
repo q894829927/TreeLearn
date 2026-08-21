@@ -429,9 +429,17 @@ def evaluate_graph_oracle(graph, instance_labels, baseline_predictions,
                           match_iou_threshold=0.5,
                           min_precision_for_counted_fp=0.5):
     targets = build_learning_targets(graph, instance_labels)
-    node_instances = decode_relation_graph(
-        graph, targets['edge_label'].astype(np.float32), .5,
-        reciprocal_top_k=16)
+    # P0 is a connectivity ceiling: every candidate same-tree edge is kept
+    # and every candidate different-tree edge is rejected. Reciprocal and
+    # component-safety constraints belong to deployable P2 decoding, not P0.
+    union = _UnionFind(len(graph['node_features']))
+    for edge, (source, target) in enumerate(graph['edge_index'].T):
+        if targets['edge_label'][edge]:
+            union.union(int(source), int(target))
+    roots = np.asarray(
+        [union.find(node) for node in range(len(graph['node_features']))])
+    _, node_instances = np.unique(roots, return_inverse=True)
+    node_instances = node_instances.astype(np.int64) + 1
     predictions = point_instances_from_nodes(
         graph['point_node_id'], node_instances)
     baseline, baseline_matches, baseline_table = evaluate_instances(
