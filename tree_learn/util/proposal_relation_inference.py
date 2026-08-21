@@ -25,8 +25,13 @@ def predict_proposal_relation_instances(
     summary = json.loads(Path(str(settings.summary)).read_text(encoding='utf-8'))
     if not bool(summary['gate']['passed']):
         raise RuntimeError('P2 gate did not pass; relation inference is locked.')
-    checkpoint = str(summary['recommended_checkpoint'])
-    threshold = float(summary['recommended_threshold'])
+    checkpoint = str(summary.get('locked_checkpoint') or
+                     summary.get('recommended_checkpoint') or '')
+    threshold_value = summary.get('locked_threshold',
+                                  summary.get('recommended_threshold'))
+    if threshold_value is None:
+        raise ValueError('P2 summary does not contain a locked threshold.')
+    threshold = float(threshold_value)
     if not checkpoint or not Path(checkpoint).is_file():
         raise FileNotFoundError(f'Missing locked relation checkpoint: {checkpoint}')
     with np.load(str(settings.normalization), allow_pickle=False) as payload:
