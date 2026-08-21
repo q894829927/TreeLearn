@@ -29,7 +29,7 @@ def _metrics(path):
     return result
 
 
-def run(config_path):
+def run(config_path, l1w_only=False):
     settings = yaml.safe_load(
         Path(config_path).read_text(encoding='utf-8'))['proposal_relation_final']
     p2 = json.loads(Path(settings['p2_summary']).read_text(encoding='utf-8'))
@@ -47,6 +47,21 @@ def run(config_path):
         'coverage_safe': official['l1w_coverage']-l1w['coverage'] <=
             float(gate_cfg['maximum_l1w_coverage_drop_pp']),
     }
+    output = Path(settings['output_dir'])
+    output.mkdir(parents=True, exist_ok=True)
+    l1w_result = {'metrics': l1w, 'gate': l1w_gate,
+                   'passed': all(l1w_gate.values())}
+    (output/'l1w_gate.json').write_text(
+        json.dumps(l1w_result, indent=2, ensure_ascii=False),
+        encoding='utf-8')
+    if l1w_only:
+        print('# P3 L1W safety gate')
+        for key, value in l1w_gate.items():
+            print(f'- {key}: **{value}**')
+        print(f'- passed: **{l1w_result["passed"]}**')
+        if not l1w_result['passed']:
+            raise RuntimeError('L1W safety gate failed; Wytham is forbidden.')
+        return l1w_result
     f1_gain = wytham['f1']-float(official['wytham_f1'])
     coverage_gain = wytham['coverage']-float(official['wytham_coverage'])
     precision_drop = float(official['wytham_precision'])-wytham['precision']
@@ -70,8 +85,6 @@ def run(config_path):
         'coverage_gain_over_official_pp': coverage_gain,
     }
     result['passed'] = all(l1w_gate.values()) and all(wytham_gate.values())
-    output = Path(settings['output_dir'])
-    output.mkdir(parents=True, exist_ok=True)
     (output/'summary.json').write_text(
         json.dumps(result, indent=2, ensure_ascii=False), encoding='utf-8')
     lines = [
@@ -108,8 +121,9 @@ def run(config_path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', required=True)
+    parser.add_argument('--l1w-only', action='store_true')
     args = parser.parse_args()
-    run(args.config)
+    run(args.config, l1w_only=args.l1w_only)
 
 
 if __name__ == '__main__':
