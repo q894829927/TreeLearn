@@ -36,8 +36,6 @@ def run(config_path, l1w_only=False):
     if not p2['gate']['passed']:
         raise RuntimeError('P2 gate did not pass; P3 is forbidden.')
     l1w = _metrics(settings['l1w_log'])
-    b1 = _metrics(settings['wytham_b1_log'])
-    wytham = _metrics(settings['wytham_relation_log'])
     official = settings['official']
     gate_cfg = settings['gate']
     l1w_gate = {
@@ -62,6 +60,10 @@ def run(config_path, l1w_only=False):
         if not l1w_result['passed']:
             raise RuntimeError('L1W safety gate failed; Wytham is forbidden.')
         return l1w_result
+    if not l1w_result['passed']:
+        raise RuntimeError('L1W safety gate failed; Wytham results are invalid.')
+    b1 = _metrics(settings['wytham_b1_log'])
+    wytham = _metrics(settings['wytham_relation_log'])
     f1_gain = wytham['f1']-float(official['wytham_f1'])
     coverage_gain = wytham['coverage']-float(official['wytham_coverage'])
     precision_drop = float(official['wytham_precision'])-wytham['precision']
