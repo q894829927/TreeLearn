@@ -1,0 +1,15 @@
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_wytham_locked_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+pretrain: work_dirs/train_t1_b1_partial_seed42/best_unet.pth
+pipeline_base_dir: data/pipeline/wytham
+model:
+  use_height_context_adapter: false
+grouping:
+  method: hdbscan
+save_cfg:
+  results_dir: results_proposal_relation_wytham_b1_hdbscan_locked
+  save_full_forest: true
