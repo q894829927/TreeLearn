@@ -1,0 +1,20 @@
+proposal_relation_final:
+  p2_summary: logs/proposal_relation_attention/p2_models/summary.json
+  l1w_log: logs/proposal_relation_attention/evaluate_l1w_locked.log
+  wytham_b1_log: logs/proposal_relation_attention/evaluate_wytham_b1_hdbscan_locked.log
+  wytham_relation_log: logs/proposal_relation_attention/evaluate_wytham_locked.log
+  output_dir: logs/proposal_relation_attention/p3_final
+  official:
+    l1w_f1: 98.4
+    l1w_completeness: 100.0
+    l1w_coverage: 98.0
+    wytham_f1: 72.0
+    wytham_coverage: 57.7
+    wytham_precision: 62.5
+  gate:
+    maximum_l1w_f1_drop_pp: 0.5
+    maximum_l1w_coverage_drop_pp: 0.3
+    minimum_wytham_f1_gain_pp: 0.5
+    minimum_wytham_coverage_gain_pp: 1.0
+    maximum_wytham_precision_drop_pp: 1.0
+    minimum_gain_over_b1_pp: 0.1
