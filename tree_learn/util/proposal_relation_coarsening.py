@@ -203,6 +203,20 @@ def aggregate_proposals(graph, node_to_super):
     np.maximum.at(
         bounds[:, 3:], node_to_super,
         np.asarray(graph['node_bounds'], np.float64)[:, 3:])
+    spans = np.maximum(bounds[:, 3:]-bounds[:, :3], 0.)
+    features[:, NODE_FEATURE_NAMES.index('log_num_points')] = np.log1p(counts)
+    features[:, [
+        NODE_FEATURE_NAMES.index('x_span'),
+        NODE_FEATURE_NAMES.index('y_span'),
+        NODE_FEATURE_NAMES.index('height'),
+    ]] = spans
+    volume = np.prod(np.maximum(spans, .1), axis=1)
+    features[:, NODE_FEATURE_NAMES.index('log_density')] = np.log1p(
+        counts/np.maximum(volume, 1e-6))
+    occupancy_indices = [
+        NODE_FEATURE_NAMES.index(f'vertical_occupancy_{index}')
+        for index in range(8)]
+    features[:, occupancy_indices] = histogram
     point_node = np.asarray(graph['point_node_id'], np.int64)
     point_super = np.full(len(point_node), -1, np.int32)
     valid = point_node >= 0
