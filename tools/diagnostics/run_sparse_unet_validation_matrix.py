@@ -83,9 +83,9 @@ def exact_metrics(result_path, fallback):
         'completeness': 100 * completeness,
         'commission_error_rate': 100 * commission,
         'f1_score': 100 * f1,
-        'precision': 100 * float(segmentation['precision']),
-        'recall': 100 * float(segmentation['recall']),
-        'coverage': 100 * float(segmentation['iou']),
+        'precision': float(segmentation['precision']),
+        'recall': float(segmentation['recall']),
+        'coverage': float(segmentation['iou']),
     }
 
 

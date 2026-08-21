@@ -19,11 +19,18 @@
 - B1 Partial Fine-tune：训练完成，best epoch 7，峰值显存 5.666 GB。
 - M1 Sparse-SE：混合精度池化修复后训练完成，峰值显存 7.131 GB。
 - M2 Selective-Kernel：在统一 crop、batch size 1 和 RTX 4090 24 GB 上首次 backward 发生真实 CUDA OOM；当时 GPU 无其他计算进程。依据 T0/T1 硬件 Gate 淘汰，不为该模型单独缩小 crop，也不进入验证矩阵。
-- M3 HCAG、M4 Window Attention：等待按相同训练设置继续。
+- M3 HCAG、M4 Window Attention：均在相同设置下完成训练并通过训练稳定性检查。
 
 `t1_validation_matrix.yaml` 使用 `enabled: false` 显式保留 M2 的淘汰阶段和原因。验证工具会写出 `eliminated_models.json`，不会把硬件失败伪装成缺失结果。
 
 T1 五森林验证首次运行发现模块默认的 500,000 种子安全上限低于 G4W 官方基线的 519,142 个种子。共享验证模板将该运行时保护上限统一设为 600,000；这不改变任何模型的种子集合、HDBSCAN 参数或排序规则。
+## 1.2 T1 验证结论
+
+五森林 macro Detection F1：B0 Official 91.640%，B1 Partial Fine-tune 92.245%，M1 Sparse-SE 92.107%，M3 HCAG 91.500%，M4 Window Attention 92.311%。相对 B1，M1 为 -0.138 pp，M3 为 -0.745 pp，M4 为 +0.066 pp，三者均未达到预先锁定的 +0.2 pp T1 Gate。
+
+B1 相对 B0 提升 +0.605 pp；M4 相对 B0 提升 +0.671 pp，但 M4 相对参数一致训练范围的 B1 仅增加 +0.066 pp。因此总体改善主要来自局部微调，而非窗口注意力。T1 无 finalist，按预注册规则关闭 Sparse U-Net 注意力竞赛，不进入 T2、L1W 或 Wytham，不事后降低 Gate。
+
+验证记录曾将 `evaluation_results.pt` 中已经按百分数保存的 segmentation Precision、Recall 和 IoU 再乘 100；该记录错误不影响 Detection F1 Gate，但必须修复后重建 `records.csv` 才能用于论文表格。
 
 ## 2. 已实现模块
 

@@ -1,10 +1,13 @@
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 import yaml
 
 from tree_learn.util import get_config
 from tools.diagnostics.run_sparse_unet_validation_matrix import (
-    partition_model_specs,
+    exact_metrics, partition_model_specs,
 )
 
 
@@ -75,6 +78,30 @@ class SparseUNetTournamentConfigTests(unittest.TestCase):
             'configs/experiments/sparse_attention_unet/'
             '_pipeline_validation_common.yaml')
         self.assertEqual(config.grouping.max_cluster_seed_points, 600000)
+
+    def test_exact_metrics_preserves_saved_percentage_scale(self):
+        payload = {
+            'detection_results': {
+                'matched_gts': [1, 2],
+                'non_matched_preds_filtered': [3],
+                'non_matched_gts': [4],
+            },
+            'segmentation_results': {
+                'precision': 91.1,
+                'recall': 92.4,
+                'iou': 85.1,
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'evaluation_results.pt'
+            path.touch()
+            with patch(
+                    'tools.diagnostics.run_sparse_unet_validation_matrix.'
+                    'torch.load', return_value=payload):
+                metrics = exact_metrics(path, {})
+        self.assertEqual(metrics['precision'], 91.1)
+        self.assertEqual(metrics['recall'], 92.4)
+        self.assertEqual(metrics['coverage'], 85.1)
 
 if __name__ == '__main__':
     unittest.main()
