@@ -142,9 +142,13 @@ python -u tools/pipeline/proposal_relation_pipeline.py \
 python -u tools/evaluation/evaluate.py \
   --config configs/experiments/proposal_relation_attention/evaluate_l1w_locked.yaml \
   2>&1 | tee logs/proposal_relation_attention/evaluate_l1w_locked.log
+
+python -u tools/diagnostics/summarize_proposal_relation_final.py \
+  --config configs/experiments/proposal_relation_attention/p3_final_summary.yaml \
+  --l1w-only
 ```
 
-确认 L1W Gate 后，先生成锁定的 B1-HDBSCAN 控制，再运行唯一 M1：
+只有 `--l1w-only` 返回 PASS，才生成锁定的 B1-HDBSCAN 控制并运行唯一 M1：
 
 ```bash
 python -u tools/pipeline/pipeline.py \
