@@ -154,10 +154,10 @@ def build_vertical_micro_proposals(
     new_node = np.ones(len(sorted_points), dtype=bool)
     if len(sorted_points) > 1:
         same_xy = np.all(sorted_xy[1:] == sorted_xy[:-1], axis=1)
-        maximum_empty_bins = int(np.floor(
-            float(vertical_split_gap) / float(z_bin_size)))
+        maximum_bin_gap = max(int(np.ceil(
+            float(vertical_split_gap) / float(z_bin_size))), 1)
         bin_gap = sorted_z_bins[1:] - sorted_z_bins[:-1]
-        new_node[1:] = (~same_xy) | (bin_gap > maximum_empty_bins + 1)
+        new_node[1:] = (~same_xy) | (bin_gap > maximum_bin_gap)
     sorted_node_ids = np.cumsum(new_node, dtype=np.int64) - 1
     point_node_id[sorted_points] = sorted_node_ids.astype(np.int32)
     starts = np.flatnonzero(new_node)
@@ -182,7 +182,8 @@ def build_vertical_micro_proposals(
             points[:, 2] - minimum[2], (.1, .25, .5, .75, .9))
         histogram, radii = _vertical_profile(points, minimum[2], maximum[2])
         values = (
-            np.log1p(len(indices)), center[0], center[1], center[2]-origin[2],
+            np.log1p(len(indices)), center[0]-origin[0],
+            center[1]-origin[1], center[2]-origin[2],
             spans[0], spans[1], spans[2], np.log1p(len(indices)/volume),
             probs.mean(), probs.std(), np.quantile(probs, .1),
             np.quantile(probs, .9), vert.mean(), vert.std(), *shape,
