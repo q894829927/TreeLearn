@@ -8,6 +8,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
+import torch.nn.functional as F
 import yaml
 from sklearn.metrics import average_precision_score
 
@@ -252,7 +253,17 @@ def _train(name, seed, train, validation, norm, settings, output, target_paramet
                 output_values['node_embeddings'][contrastive_nodes],
                 node_gt[contrastive_nodes],
                 temperature=float(settings['contrastive_temperature']))
-            loss = edge_loss + float(settings['contrastive_weight'])*contrast
+            reliability_target = (node_gt > 0).to(
+                output_values['node_reliability_logits'].dtype)
+            if name.startswith('relation_attention'):
+                reliability = F.binary_cross_entropy_with_logits(
+                    output_values['node_reliability_logits'],
+                    reliability_target)
+            else:
+                reliability = edge_loss.new_zeros(())
+            loss = (edge_loss +
+                    float(settings['contrastive_weight'])*contrast +
+                    float(settings['reliability_weight'])*reliability)
             if not torch.isfinite(loss):
                 raise RuntimeError(f'Non-finite P2 loss for {name} seed {seed}.')
             optimizer.zero_grad(set_to_none=True)
