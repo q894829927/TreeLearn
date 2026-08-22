@@ -1,0 +1,26 @@
+# Exploratory locked audit only: report together with B0 and B1; never tune on Wytham.
+default_args:
+  - configs/experiments/height_context_attention/_pipeline_wytham_locked_common.yaml
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+model:
+  unet_enhancement:
+    enabled: True
+    type: 'window_attention'
+    levels: [6]
+    residual_gamma_init: 0.0
+    return_attention_stats: True
+    window_size: [4, 4, 4]
+    num_heads: 4
+    ffn_ratio: 2.0
+    max_windows_per_chunk: 256
+  unet_finetune:
+    enabled: False
+
+pretrain: 'work_dirs/train_t1_m4_window_attention_seed42/best_unet.pth'
+
+save_cfg:
+  results_dir: 'results_sparse_unet_wytham_m4_window_attention_locked_audit'
