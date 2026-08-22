@@ -229,3 +229,29 @@ cat logs/proposal_relation_attention/p0b_hierarchical_proposal_oracle/summary.md
 
 P0b 失败时关闭整条 proposal-relation 路线，不从三个失败方法里选择“最不差”
 方案，也不得通过 Wytham 反向调聚合尺度。
+
+## 8. P0b 最终结果（2026-08-22）
+
+P0b 使用固定三方法和原 P0 artifacts 完成止损诊断：
+
+| Method | 已评价森林 | 节点/膨胀 | 结果 |
+|---|---:|---:|---|
+| xy_block | 2/5 | 2,594 / 2.80x | F1 相对 B1 -38.609 pp；强压缩导致不同树不可逆混合 |
+| vertical_profile | 2/5 | 173,819 / 187.71x | F1 相对 B1 -44.872 pp；结构连续条件无法消除原子碎片 |
+| adaptive_component | 0/5 | G4N 单森林仍有 27,537 节点 | 已超过五森林合计允许的 19,760 节点上限，建图前淘汰 |
+
+Primary Gate 为 False，推荐方法为 None。由此得到的最终结论是：该表示不存在
+同时满足“节点纯度、压缩率和完整实例连通性”的可用工作点。强压缩在学习前
+已经混合相邻树，关系注意力不能再拆开；保守压缩则保留数万至数十万碎片，
+既不满足部署复杂度，也无法控制 Commission。
+
+因此从本日期起正式关闭以下内容：
+
+- 不运行原 P1 数据生成；
+- 不运行 P2 Edge-MLP/Relation-Attention 训练；
+- 不为 P0b 调整 cell、profile 或 component 阈值；
+- 不读取 Wytham 来反向选择预聚合方法。
+
+该失败作为论文中的实例形成消融与方法边界保留。后续工作转入论文收口：
+冻结 B0 Official、B1 Partial Fine-tune 和 M4 Window Attention，若开展 Wytham
+实验，必须三者完整报告且明确标为锁定后的探索性跨域评价，不得据此继续调参。
