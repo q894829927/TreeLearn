@@ -10,10 +10,16 @@ import yaml
 
 from tree_learn.util.omission_diagnostics import detection_metrics
 from tree_learn.util.proposal_relation import (
-    evaluate_instances, load_inference_graph, point_instances_from_nodes,
-    save_inference_graph)
+    build_proposal_graph, evaluate_instances, load_inference_graph,
+    point_instances_from_nodes, save_inference_graph)
 from tree_learn.util.proposal_relation_coarsening import (
-    build_hierarchical_graph)
+    aggregate_proposals, coarsening_assignments)
+
+
+class MethodEliminated(RuntimeError):
+    def __init__(self, message, num_nodes=0):
+        super().__init__(message)
+        self.num_nodes = int(num_nodes)
 
 
 class _Union:
@@ -162,7 +168,8 @@ def _validate_output(output, method, plot):
     return report
 
 
-def _run_one(settings, method, plot, force=False):
+def _run_one(settings, method, plot, force=False,
+             absolute_node_limit=None):
     source, output = _paths(settings, method, plot)
     if not force:
         try:
@@ -173,8 +180,25 @@ def _run_one(settings, method, plot, force=False):
             print(f'SKIP {method}/{plot}: validated existing artifact.', flush=True)
             return report
     graph, metadata, point_gt, baseline = _validate_source(source, plot)
-    supergraph, assignments = build_hierarchical_graph(
+    assignments = coarsening_assignments(
         graph, method, settings['coarsening'])
+    super_count = (
+        int(assignments.max())+1 if len(assignments) else 0)
+    if (absolute_node_limit is not None and
+            super_count > int(absolute_node_limit)):
+        raise MethodEliminated(
+            f'{method}/{plot} still has {super_count:,} nodes, exceeding '
+            f'the global P0b maximum {int(absolute_node_limit):,} before '
+            'the remaining forests are counted.',
+            num_nodes=super_count)
+    proposals = aggregate_proposals(graph, assignments)
+    coarsening = settings['coarsening']
+    supergraph = build_proposal_graph(
+        proposals,
+        max_xy_distance=float(coarsening['graph_maximum_xy_distance']),
+        max_xy_bbox_gap=float(coarsening['graph_maximum_xy_bbox_gap']),
+        max_vertical_gap=float(coarsening['graph_maximum_vertical_gap']),
+        max_neighbors=int(coarsening['graph_max_neighbors']))
     report = _evaluate_oracle(
         supergraph, point_gt, baseline,
         float(settings['match_iou_threshold']),
@@ -241,7 +265,8 @@ def _method_result(rows, gate):
         'average_out_degree': edges/max(nodes, 1),
         'mean_compression_ratio': float(np.mean([
             row['compression_ratio'] for row in rows])),
-        'per_plot': rows,
+        'per_plot': rows, 'evaluated_plots': len(rows),
+        'early_stopped': False, 'elimination_reason': None,
     }
     result['gate'] = {
         'expected_validation_plots':
@@ -277,17 +302,26 @@ def _render(result):
         '- 直接复用 P0 固定验证集 artifacts；未重新运行 B1，未读取 Wytham。',
         '- 三种预聚合均不读取 GT；GT 只用于预聚合完成后的 Oracle 验收。',
         '- P0 的失败结论保持不变，本阶段检验新的层次化实例形成假设。', '',
-        '| Method | Nodes | Compression | Inflation | Recall | Commission | F1 | F1 gain | Gate |',
-        '|---|---:|---:|---:|---:|---:|---:|---:|---|']
+        '| Method | Evaluated | Nodes | Compression | Inflation | Recall | Commission | F1 | F1 gain | Status |',
+        '|---|---:|---:|---:|---:|---:|---:|---:|---:|---|']
     for method, row in result['methods'].items():
         lines.append(
-            f'| {method} | {row["num_nodes"]:,} | '
+            f'| {method} | {row.get("evaluated_plots", 0)}/{len(result["validation_plots"])} | '
+            f'{row["num_nodes"]:,} | '
             f'{row["mean_compression_ratio"]:.2f}x | '
             f'{row["node_inflation"]:.2f}x | '
             f'{100*row["oracle"]["completeness"]:.3f}% | '
             f'{100*row["oracle"]["commission"]:.3f}% | '
             f'{100*row["oracle"]["f1"]:.3f}% | '
-            f'{row["f1_gain_pp"]:+.3f} pp | {row["gate"]["passed"]} |')
+            f'{row["f1_gain_pp"]:+.3f} pp | '
+            f'{"early-stop" if row.get("early_stopped") else row["gate"]["passed"]} |')
+    stopped = [
+        (method, row.get('elimination_reason'))
+        for method, row in result['methods'].items()
+        if row.get('early_stopped')]
+    if stopped:
+        lines.extend(['', '## 提前淘汰', ''])
+        lines.extend(f'- {method}: {reason}' for method, reason in stopped)
     lines.extend(['', '## 每森林 F1 gain', '',
                   '| Method | G4N | G4W | L1N | O1N | O1W |',
                   '|---|---:|---:|---:|---:|---:|'])
@@ -296,7 +330,7 @@ def _render(result):
                  for item in row['per_plot']}
         lines.append(
             f'| {method} | ' + ' | '.join(
-                f'{gains[plot]:+.3f} pp'
+                f'{gains[plot]:+.3f} pp' if plot in gains else '-'
                 for plot in ('G4N', 'G4W', 'L1N', 'O1N', 'O1W')) + ' |')
     lines.extend(['', '## 决策', '',
                   f'- 推荐方法：**{result["recommended_method"]}**',
@@ -317,16 +351,69 @@ def run(config_path, force=False):
     plots = list(settings['validation_plots'])
     output = Path(settings['output_root'])
     output.mkdir(parents=True, exist_ok=True)
+    total_baseline_instances = sum(
+        int(json.loads(
+            (Path(settings['input_root'])/plot/'summary.json').read_text(
+                encoding='utf-8'))['num_baseline_instances'])
+        for plot in plots)
+    absolute_node_limit = int(np.floor(
+        float(settings['gate']['max_node_inflation']) *
+        total_baseline_instances))
     all_results = {}
+    allowed_negative = (
+        len(plots)-int(settings['gate']['min_nonnegative_plots']))
     for method_index, method in enumerate(methods, 1):
-        rows = []
+        rows, elimination_reason, eliminated_nodes = [], None, 0
         for plot_index, plot in enumerate(plots, 1):
             print(
                 f'[{method_index}/{len(methods)}][{plot_index}/{len(plots)}] '
                 f'{method}/{plot}', flush=True)
-            rows.append(_run_one(settings, method, plot, force))
+            try:
+                row = _run_one(
+                    settings, method, plot, force,
+                    absolute_node_limit=absolute_node_limit)
+            except MethodEliminated as error:
+                elimination_reason = str(error)
+                eliminated_nodes = error.num_nodes
+                print(f'EARLY STOP {method}: {error}', flush=True)
+                break
+            rows.append(row)
+            row_gain = 100*(row['oracle']['f1']-row['baseline']['f1'])
+            negative = sum(
+                100*(item['oracle']['f1']-item['baseline']['f1']) < -1e-9
+                for item in rows)
+            if negative > allowed_negative:
+                elimination_reason = (
+                    f'{negative} negative forests already make the fixed '
+                    f'{settings["gate"]["min_nonnegative_plots"]}/{len(plots)} '
+                    'plot-consistency Gate unreachable.')
+                print(
+                    f'EARLY STOP {method}: {elimination_reason}', flush=True)
+                break
             gc.collect()
-        all_results[method] = _method_result(rows, settings['gate'])
+        if rows:
+            method_result = _method_result(rows, settings['gate'])
+            method_result['early_stopped'] = elimination_reason is not None
+            method_result['elimination_reason'] = elimination_reason
+        else:
+            empty = {
+                'tp': 0, 'fp': 0, 'fn': 0, 'completeness': 0.,
+                'commission': 0., 'f1': 0.}
+            method_result = {
+                'baseline': empty, 'oracle': empty,
+                'f1_gain_pp': 0., 'completeness_gain_pp': 0.,
+                'commission_increase_pp': 0., 'recovered_trees': 0,
+                'graph_coverage': 0., 'num_nodes': eliminated_nodes,
+                'num_edges': 0, 'node_inflation': (
+                    eliminated_nodes/max(total_baseline_instances, 1)),
+                'average_out_degree': 0., 'mean_compression_ratio': 0.,
+                'per_plot': [], 'evaluated_plots': 0,
+                'early_stopped': True,
+                'elimination_reason': elimination_reason,
+                'gate': {'complexity_precheck_passed': False,
+                         'passed': False},
+            }
+        all_results[method] = method_result
     eligible = [
         (method, row) for method, row in all_results.items()
         if row['gate']['passed']]
@@ -335,7 +422,8 @@ def run(config_path, force=False):
         item[1]['oracle']['commission'], item[1]['num_nodes'], item[0]))
     recommended = eligible[0][0] if eligible else None
     result = {
-        'methods': all_results, 'recommended_method': recommended,
+        'validation_plots': plots, 'methods': all_results,
+        'recommended_method': recommended,
         'passed': recommended is not None,
     }
     (output/'summary.json').write_text(
