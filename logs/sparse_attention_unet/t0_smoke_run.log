@@ -1,0 +1,148 @@
+===== T0 identity =====
+{
+  "model": "identity",
+  "identity_max_abs_error": 0.0,
+  "indices_equal": true,
+  "metadata_equal": true,
+  "fp16_finite": true,
+  "parameter_count": 149552,
+  "enhancement_parameter_count": 0,
+  "enhancement_gradient_tensors": 0,
+  "enhancement_parameter_tensors": 0,
+  "attention_stats_finite": true,
+  "peak_memory_gb": 0.022910594940185547,
+  "mean_forward_seconds": 0.004005372213820617,
+  "stats": {},
+  "passed": true
+}
+===== T0 residual_adapter =====
+{
+  "model": "residual_adapter",
+  "identity_max_abs_error": 0.0,
+  "indices_equal": true,
+  "metadata_equal": true,
+  "fp16_finite": true,
+  "parameter_count": 150695,
+  "enhancement_parameter_count": 1143,
+  "enhancement_gradient_tensors": 19,
+  "enhancement_parameter_tensors": 19,
+  "attention_stats_finite": true,
+  "peak_memory_gb": 0.0242462158203125,
+  "mean_forward_seconds": 0.004545188508927822,
+  "stats": {
+    "level0_adapter_delta_mean": 0.1880432814359665,
+    "level0_adapter_delta_std": 0.3695243000984192,
+    "level0_gamma": 1.0,
+    "level1_adapter_delta_mean": 0.00021498090063687414,
+    "level1_adapter_delta_std": 0.273186057806015,
+    "level1_gamma": 1.0,
+    "level2_adapter_delta_mean": -0.044903021305799484,
+    "level2_adapter_delta_std": 0.18059369921684265,
+    "level2_gamma": 1.0
+  },
+  "passed": true
+}
+===== T0 sparse_se =====
+{
+  "model": "sparse_se",
+  "identity_max_abs_error": 0.0,
+  "indices_equal": true,
+  "metadata_equal": true,
+  "fp16_finite": true,
+  "parameter_count": 150523,
+  "enhancement_parameter_count": 971,
+  "enhancement_gradient_tensors": 15,
+  "enhancement_parameter_tensors": 15,
+  "attention_stats_finite": true,
+  "peak_memory_gb": 0.025582313537597656,
+  "mean_forward_seconds": 0.00471890935053428,
+  "stats": {
+    "level0_attention_mean": 0.4915502071380615,
+    "level0_attention_std": 0.08760135620832443,
+    "level0_gamma": 1.0,
+    "level1_attention_mean": 0.5149616599082947,
+    "level1_attention_std": 0.04992901533842087,
+    "level1_gamma": 1.0,
+    "level2_attention_mean": 0.4964294135570526,
+    "level2_attention_std": 0.04720506817102432,
+    "level2_gamma": 1.0
+  },
+  "passed": true
+}
+===== T0 selective_kernel =====
+{
+  "model": "selective_kernel",
+  "identity_max_abs_error": 0.0,
+  "indices_equal": true,
+  "metadata_equal": true,
+  "fp16_finite": true,
+  "parameter_count": 195830,
+  "enhancement_parameter_count": 46278,
+  "enhancement_gradient_tensors": 14,
+  "enhancement_parameter_tensors": 14,
+  "attention_stats_finite": true,
+  "peak_memory_gb": 0.026148319244384766,
+  "mean_forward_seconds": 0.005279822275042534,
+  "stats": {
+    "level1_local_attention_mean": 0.4945562779903412,
+    "level1_local_attention_std": 0.06262178719043732,
+    "level1_context_attention_mean": 0.5054436922073364,
+    "level1_context_attention_std": 0.06262178719043732,
+    "level1_attention_sum_error": 5.960464477539063e-08,
+    "level1_gamma": 1.0,
+    "level2_local_attention_mean": 0.5030205845832825,
+    "level2_local_attention_std": 0.052799854427576065,
+    "level2_context_attention_mean": 0.49697935581207275,
+    "level2_context_attention_std": 0.052799858152866364,
+    "level2_attention_sum_error": 5.960464477539063e-08,
+    "level2_gamma": 1.0
+  },
+  "passed": true
+}
+===== T0 hcag =====
+{
+  "model": "hcag",
+  "identity_max_abs_error": 0.0,
+  "indices_equal": true,
+  "metadata_equal": true,
+  "fp16_finite": true,
+  "parameter_count": 150198,
+  "enhancement_parameter_count": 646,
+  "enhancement_gradient_tensors": 22,
+  "enhancement_parameter_tensors": 22,
+  "attention_stats_finite": true,
+  "peak_memory_gb": 0.025693893432617188,
+  "mean_forward_seconds": 0.004962213337421417,
+  "stats": {
+    "level0_attention_mean": 0.4762967526912689,
+    "level0_attention_std": 0.10162004083395004,
+    "level0_gamma": 1.0,
+    "level1_attention_mean": 0.5196524858474731,
+    "level1_attention_std": 0.07550084590911865,
+    "level1_gamma": 1.0
+  },
+  "passed": true
+}
+===== T0 window_attention =====
+{
+  "model": "window_attention",
+  "identity_max_abs_error": 0.0,
+  "indices_equal": true,
+  "metadata_equal": true,
+  "fp16_finite": true,
+  "parameter_count": 154521,
+  "enhancement_parameter_count": 4969,
+  "enhancement_gradient_tensors": 15,
+  "enhancement_parameter_tensors": 15,
+  "attention_stats_finite": true,
+  "peak_memory_gb": 0.03374814987182617,
+  "mean_forward_seconds": 0.006123851674298446,
+  "stats": {
+    "level2_attention_mean": 0.015868518501520157,
+    "level2_attention_std": 0.0036516038235276937,
+    "level2_num_windows": 16,
+    "level2_max_window_tokens": 64,
+    "level2_gamma": 1.0
+  },
+  "passed": true
+}

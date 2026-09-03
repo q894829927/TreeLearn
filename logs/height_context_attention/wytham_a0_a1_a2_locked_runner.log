@@ -1,0 +1,9 @@
+===== START Wytham pipeline a0_official 2026年 08月 13日 星期四 15:57:52 CST =====
+===== START Wytham evaluation a0_official 2026年 08月 13日 星期四 16:30:22 CST =====
+===== FINISHED Wytham a0_official 2026年 08月 13日 星期四 17:30:15 CST =====
+===== START Wytham pipeline a1_height_mlp 2026年 08月 13日 星期四 17:30:15 CST =====
+===== START Wytham evaluation a1_height_mlp 2026年 08月 13日 星期四 17:56:36 CST =====
+===== FINISHED Wytham a1_height_mlp 2026年 08月 13日 星期四 18:54:09 CST =====
+===== START Wytham pipeline a2_hsca 2026年 08月 13日 星期四 18:54:09 CST =====
+===== START Wytham evaluation a2_hsca 2026年 08月 13日 星期四 19:18:45 CST =====
+===== FINISHED Wytham a2_hsca 2026年 08月 13日 星期四 20:17:56 CST =====

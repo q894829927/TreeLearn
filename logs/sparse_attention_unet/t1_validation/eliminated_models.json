@@ -1,0 +1,8 @@
+[
+  {
+    "run_name": "m2_selective_kernel",
+    "model": "m2_selective_kernel",
+    "stage": "t1_training_hardware_gate",
+    "reason": "rtx4090_24gb_oom_at_fixed_shared_crop"
+  }
+]

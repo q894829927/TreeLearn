@@ -1,0 +1,153 @@
+{
+  "baseline": {
+    "tp": 1633,
+    "fp": 275,
+    "fn": 149,
+    "completeness": 0.9163860830527497,
+    "commission": 0.1441299790356394,
+    "f1": 0.8850948509485095
+  },
+  "num_target_trees": 31,
+  "modes": {
+    "margin_topup": {
+      "tp": 1650,
+      "fp": 275,
+      "fn": 132,
+      "completeness": 0.9259259259259259,
+      "commission": 0.14285714285714285,
+      "f1": 0.8902077151335311,
+      "recovered_target_trees": 13,
+      "lost_baseline_trees": 0,
+      "num_added_seed_points": 1434,
+      "f1_gain_pp": 0.5112864185021659,
+      "commission_increase_pp": -0.12728361784965503,
+      "completeness_drop_pp": -0.9539842873176219,
+      "nonnegative_plots": 4,
+      "plot_metrics": [
+        {
+          "source_plot": "G4N",
+          "recovered_target_trees": 4,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": 1.2122550101797969,
+          "commission_increase_pp": -0.2385403279199283,
+          "completeness_drop_pp": -2.2012578616352196
+        },
+        {
+          "source_plot": "G4W",
+          "recovered_target_trees": 9,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": 0.8146712092486186,
+          "commission_increase_pp": -0.12521564917357675,
+          "completeness_drop_pp": -1.538461538461533
+        },
+        {
+          "source_plot": "L1N",
+          "recovered_target_trees": 0,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": -0.09077028378876584,
+          "commission_increase_pp": 0.15847802266493183,
+          "completeness_drop_pp": 0.0
+        },
+        {
+          "source_plot": "O1N",
+          "recovered_target_trees": 0,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": 0.0,
+          "commission_increase_pp": 0.0,
+          "completeness_drop_pp": 0.0
+        },
+        {
+          "source_plot": "O1W",
+          "recovered_target_trees": 0,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": 0.34602076124566894,
+          "commission_increase_pp": -0.3205128205128194,
+          "completeness_drop_pp": -0.3759398496240518
+        }
+      ]
+    },
+    "xy_oracle_topup": {
+      "tp": 1648,
+      "fp": 277,
+      "fn": 134,
+      "completeness": 0.9248035914702581,
+      "commission": 0.14389610389610388,
+      "f1": 0.8891286754788238,
+      "recovered_target_trees": 13,
+      "lost_baseline_trees": 2,
+      "num_added_seed_points": 1434,
+      "f1_gain_pp": 0.40338245303143117,
+      "commission_increase_pp": -0.023387513953551653,
+      "completeness_drop_pp": -0.8417508417508435,
+      "nonnegative_plots": 4,
+      "plot_metrics": [
+        {
+          "source_plot": "G4N",
+          "recovered_target_trees": 5,
+          "lost_baseline_trees": 1,
+          "f1_gain_pp": 1.2122550101797969,
+          "commission_increase_pp": -0.2385403279199283,
+          "completeness_drop_pp": -2.2012578616352196
+        },
+        {
+          "source_plot": "G4W",
+          "recovered_target_trees": 8,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": 0.646462630611111,
+          "commission_increase_pp": 0.04034726473370748,
+          "completeness_drop_pp": -1.3675213675213627
+        },
+        {
+          "source_plot": "L1N",
+          "recovered_target_trees": 0,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": -0.09077028378876584,
+          "commission_increase_pp": 0.15847802266493183,
+          "completeness_drop_pp": 0.0
+        },
+        {
+          "source_plot": "O1N",
+          "recovered_target_trees": 0,
+          "lost_baseline_trees": 0,
+          "f1_gain_pp": 0.0,
+          "commission_increase_pp": 0.0,
+          "completeness_drop_pp": 0.0
+        },
+        {
+          "source_plot": "O1W",
+          "recovered_target_trees": 0,
+          "lost_baseline_trees": 1,
+          "f1_gain_pp": 0.0,
+          "commission_increase_pp": 0.0,
+          "completeness_drop_pp": 0.0
+        }
+      ]
+    }
+  },
+  "mode_gates": {
+    "margin_topup": {
+      "recovered_tree_count_passed": true,
+      "f1_gain_passed": true,
+      "lost_tree_count_passed": true,
+      "commission_preserved": true,
+      "plot_consistency_passed": true,
+      "passed": true
+    },
+    "xy_oracle_topup": {
+      "recovered_tree_count_passed": true,
+      "f1_gain_passed": true,
+      "lost_tree_count_passed": true,
+      "commission_preserved": true,
+      "plot_consistency_passed": true,
+      "passed": true
+    }
+  },
+  "gate": {
+    "expected_validation_plots": true,
+    "baseline_reproduced": true,
+    "target_count_reproduced": true,
+    "xy_oracle_ceiling_passed": true,
+    "passed": true
+  },
+  "recommendation": "coverage_seed_completion_head"
+}

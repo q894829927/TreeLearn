@@ -1,0 +1,7 @@
+INFO:verify_height_seed_identity_setup:missing keys in source state_dict: height_context_adapter.semantic_residual_scale, height_context_adapter.offset_residual_scale, height_context_adapter.point_projection.0.weight, height_context_adapter.point_projection.0.bias, height_context_adapter.point_projection.1.weight, height_context_adapter.point_projection.1.bias, height_context_adapter.token_projection.0.weight, height_context_adapter.token_projection.0.bias, height_context_adapter.token_projection.1.weight, height_context_adapter.token_projection.1.bias, height_context_adapter.token_mixer.norm.weight, height_context_adapter.token_mixer.norm.bias, height_context_adapter.token_mixer.attention.in_proj_weight, height_context_adapter.token_mixer.attention.in_proj_bias, height_context_adapter.token_mixer.attention.out_proj.weight, height_context_adapter.token_mixer.attention.out_proj.bias, height_context_adapter.context_gate.weight, height_context_adapter.context_gate.bias, height_context_adapter.semantic_residual_head.weight, height_context_adapter.semantic_residual_head.bias, height_context_adapter.offset_residual_head.weight, height_context_adapter.offset_residual_head.bias
+config: configs/experiments/height_context_attention/train_d2_a2_seed_identity_hsca.yaml
+identity weight: 50.0
+scaled identity loss: 13.749046325683594
+damaged seed gradient L1: 7.786262512207031
+changed original tensors: 0
+PASS: D2 seed-identity loss wiring verified.

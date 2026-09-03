@@ -1,0 +1,31 @@
+{
+  "baseline": {
+    "tp": 544,
+    "fp": 31,
+    "fn": 41,
+    "completeness": 0.9299145299145299,
+    "commission": 0.05391304347826087,
+    "f1": 0.9379310344827586
+  },
+  "oracle": {
+    "tp": 407,
+    "fp": 566,
+    "fn": 178,
+    "completeness": 0.6957264957264957,
+    "commission": 0.5817060637204522,
+    "f1": 0.5224646983311938
+  },
+  "recovered_trees": 23,
+  "missed_trees": 41,
+  "graph_covered_missed_trees": 39,
+  "graph_coverage": 0.9512195121951219,
+  "num_nodes": 124428,
+  "num_edges": 1932054,
+  "num_baseline_instances": 590,
+  "average_out_degree": 15.52748577490597,
+  "source_plot": "G4W",
+  "split": "validation",
+  "method": "vertical_profile",
+  "source_num_nodes": 218109,
+  "compression_ratio": 1.7528932394637864
+}

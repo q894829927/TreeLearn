@@ -1,0 +1,76 @@
+[1/18] A1N
+SKIP A1N: validated existing artifact.
+[2/18] A1W
+RUN A1W (train); log=data/instance_split_learning/logs/A1W.log
+DONE A1W: 651 instances, 13 candidates, 1539 proposals.
+[3/18] G1N
+RUN G1N (train); log=data/instance_split_learning/logs/G1N.log
+DONE G1N: 440 instances, 8 candidates, 1308 proposals.
+[4/18] G1W
+RUN G1W (train); log=data/instance_split_learning/logs/G1W.log
+DONE G1W: 701 instances, 5 candidates, 1515 proposals.
+[5/18] G2N
+RUN G2N (train); log=data/instance_split_learning/logs/G2N.log
+DONE G2N: 755 instances, 11 candidates, 1533 proposals.
+[6/18] G2W
+RUN G2W (train); log=data/instance_split_learning/logs/G2W.log
+DONE G2W: 590 instances, 11 candidates, 1533 proposals.
+[7/18] G3N
+RUN G3N (train); log=data/instance_split_learning/logs/G3N.log
+DONE G3N: 475 instances, 8 candidates, 1413 proposals.
+[8/18] G3W
+RUN G3W (train); log=data/instance_split_learning/logs/G3W.log
+DONE G3W: 535 instances, 7 candidates, 1521 proposals.
+[9/18] L2N
+RUN L2N (train); log=data/instance_split_learning/logs/L2N.log
+DONE L2N: 356 instances, 7 candidates, 1068 proposals.
+[10/18] L2W
+RUN L2W (train); log=data/instance_split_learning/logs/L2W.log
+DONE L2W: 465 instances, 6 candidates, 1392 proposals.
+[11/18] LG1
+RUN LG1 (train); log=data/instance_split_learning/logs/LG1.log
+DONE LG1: 462 instances, 6 candidates, 1386 proposals.
+[12/18] LG2
+RUN LG2 (train); log=data/instance_split_learning/logs/LG2.log
+DONE LG2: 396 instances, 5 candidates, 1188 proposals.
+[13/18] LG3
+RUN LG3 (train); log=data/instance_split_learning/logs/LG3.log
+DONE LG3: 340 instances, 5 candidates, 1020 proposals.
+[14/18] G4N
+SKIP G4N: validated existing artifact.
+[15/18] G4W
+RUN G4W (validation); log=data/instance_split_learning/logs/G4W.log
+DONE G4W: 653 instances, 16 candidates, 1959 proposals.
+[16/18] L1N
+RUN L1N (validation); log=data/instance_split_learning/logs/L1N.log
+DONE L1N: 685 instances, 9 candidates, 2055 proposals.
+[17/18] O1N
+RUN O1N (validation); log=data/instance_split_learning/logs/O1N.log
+DONE O1N: 190 instances, 7 candidates, 570 proposals.
+[18/18] O1W
+RUN O1W (validation); log=data/instance_split_learning/logs/O1W.log
+DONE O1W: 703 instances, 23 candidates, 2109 proposals.
+# Q4b1 三头拆分数据生成：full
+
+- 数据：固定 train/validation forests；未读取 Wytham。
+- 特征、标签和 Raw-XY proposal 均来自同一次 TreeLearn 运行。
+
+| Split | Instances | Candidates | Underseg GT | Known-K safe | Proposals | Safe proposals |
+|---|---:|---:|---:|---:|---:|---:|
+| train | 6,808 | 114 | 121 | 42 | 17,982 | 183 |
+| validation | 2,595 | 69 | 73 | 25 | 7,785 | 112 |
+
+## Gate
+
+- all_fixed_plots_present: **True**
+- enough_train_candidate_parents: **True**
+- validation_candidate_count_reproduced: **True**
+- validation_undersegmentation_reproduced: **True**
+- validation_known_k_safety_reproduced: **True**
+- no_child_count_overflow: **True**
+- no_plot_leakage: **True**
+- no_group_leakage: **True**
+- all_features_validated: **True**
+- passed: **True**
+
+PASS

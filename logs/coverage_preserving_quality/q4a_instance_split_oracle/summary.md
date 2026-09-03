@@ -1,0 +1,55 @@
+# Q4a 拓扑感知实例拆分 Oracle
+
+- 数据：固定五个 validation forests；未读取 Wytham。
+- 所有几何方法只对 Q3 欠分割父实例生成 known-K proposal。
+- K 和是否接受 proposal 由 GT Oracle 决定；结果不是可部署方法。
+- 欠分割 GT：73
+- 待拆父实例：69
+
+## 汇总指标
+
+| Mode | TP | FP | FN | Completeness | Commission | F1 | Recovered | Lost | F1 gain |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| baseline | 1633 | 275 | 149 | 91.639% | 14.413% | 88.509% | - | - | - |
+| gt_extraction_ceiling | 1707 | 257 | 75 | 95.791% | 13.086% | 91.137% | 73 | 0 | +2.628 pp |
+| raw_xy_kmeans_oracle | 1658 | 273 | 124 | 93.042% | 14.138% | 89.308% | 22 | 0 | +0.798 pp |
+| base_vote_kmeans_oracle | 1653 | 273 | 129 | 92.761% | 14.174% | 89.159% | 18 | 0 | +0.649 pp |
+| vertical_axis_kmeans_oracle | 1655 | 273 | 127 | 92.873% | 14.160% | 89.218% | 20 | 0 | +0.709 pp |
+
+## 决策
+
+- 最佳几何模式：**raw_xy_kmeans_oracle**
+- Vertical 相对 Base-vote F1：+0.060 pp
+- Vertical 额外恢复：+2 棵
+- 推荐路线：**simple_geometry_split**
+
+## 每森林最佳几何结果
+
+| Plot | Underseg GT | Baseline F1 | Best-geometry F1 | Gain |
+|---|---:|---:|---:|---:|
+| G4N | 15 | 88.819% | 90.202% | +1.383 pp |
+| G4W | 18 | 92.373% | 93.086% | +0.713 pp |
+| L1N | 10 | 88.501% | 88.730% | +0.228 pp |
+| O1N | 7 | 94.118% | 94.444% | +0.327 pp |
+| O1W | 23 | 77.163% | 78.767% | +1.604 pp |
+
+## 主 Gate
+
+- expected_validation_plots: **True**
+- baseline_reproduced: **True**
+- gt_ceiling_f1_passed: **True**
+- gt_ceiling_completeness_passed: **True**
+- gt_ceiling_safe: **True**
+- geometry_effect_passed: **True**
+- geometry_commission_passed: **True**
+- geometry_completeness_passed: **True**
+- geometry_plot_consistency_passed: **True**
+- passed: **True**
+
+## 垂直注意力 Gate
+
+- vertical_is_best_geometry: **False**
+- vertical_complementarity_passed: **False**
+- passed: **False**
+
+PASS：按推荐路线进入 Q4b；仍不得使用 Wytham 调参。

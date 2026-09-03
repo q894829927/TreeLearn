@@ -1,0 +1,280 @@
+{
+  "source_plot": "O1N",
+  "num_candidates": 242281,
+  "num_tree_candidates": 229247,
+  "candidate_set_sha256": "7d7b8c775311663ee56372ec42593d48046ede8a86ded7187790d747a534ced7",
+  "artifact_identity": {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/O1N.npz",
+    "size": 21361163,
+    "mtime_ns": 1786296677542648153
+  },
+  "e2a_cache_sha256": "b595c3ac7c8a798b23dc17a8c547e5186bbc7560b3576df180b064b4b531621c",
+  "cell_support": {
+    "num_cells": 821,
+    "num_tree_supported_cells": 531,
+    "tree_supported_cell_rate": 0.6467722289890377,
+    "median_tree_support": 112.0
+  },
+  "gate_stats": {
+    "num_source_cells": 821,
+    "num_pure_tree_cells": 420,
+    "num_error_improving_cells": 420,
+    "num_destination_safe_cells_before_fallback": 411,
+    "num_destination_safe_cells": 24,
+    "rejected_mixed_or_non_tree_cells": 401,
+    "rejected_non_improving_cells": 0,
+    "rejected_destination_cells": 9,
+    "rejected_topology_fallback_cells": 387,
+    "strict_fallback_applied": true,
+    "safe_cell_rate": 0.029232643118148598,
+    "corrected_candidate_rate": 0.05271977558732033,
+    "corrected_tree_candidate_rate": 0.05571719631552696,
+    "gate_sha256": "de018743438462f0d8f00344eefb6eb201fc0a32fa987b3ad76de595d0facc60"
+  },
+  "modes": {
+    "base": {
+      "error": {
+        "tree_seed_count": 229247,
+        "mean_error_xy": 0.5569176011084794,
+        "median_error_xy": 0.36950760061684595,
+        "p90_error_xy": 0.9411887994620064,
+        "within_0p30m_rate": 0.39403787181511646,
+        "within_0p60m_rate": 0.7401841681679586
+      },
+      "topology": {
+        "num_vote_cells": 821,
+        "tree_occupied_cells": 531,
+        "tree_point_cell_purity_mean": 0.9838394163271784,
+        "multi_tree_collision_cell_rate": 0.026365348399246705,
+        "non_tree_rate_in_tree_cells": 0.006263762939330363,
+        "mean_cells_per_tree": 3.4339622641509435,
+        "p90_cells_per_tree": 5.0
+      },
+      "cluster": {
+        "num_gt_trees": 159,
+        "num_pred_clusters": 190,
+        "tp": 155,
+        "fp": 35,
+        "fn": 4,
+        "tree_recall": 0.9748427672955975,
+        "commission": 0.18421052631578946,
+        "f1": 0.8882521489971347,
+        "mean_matched_iou": 0.9755023325693009,
+        "noise_rate": 0.005138661306499478,
+        "seconds": 85.57505130767822,
+        "reused_e2a_cache": true
+      }
+    },
+    "damped_0p25": {
+      "error": {
+        "tree_seed_count": 229247,
+        "mean_error_xy": 0.42499840389262117,
+        "median_error_xy": 0.28644281154822265,
+        "p90_error_xy": 0.7059022923778037,
+        "within_0p30m_rate": 0.5258302180617412,
+        "within_0p60m_rate": 0.8485389121776948
+      },
+      "topology": {
+        "num_vote_cells": 794,
+        "tree_occupied_cells": 502,
+        "tree_point_cell_purity_mean": 0.9837122510132738,
+        "multi_tree_collision_cell_rate": 0.029880478087649404,
+        "non_tree_rate_in_tree_cells": 0.0062034524315279305,
+        "mean_cells_per_tree": 3.257861635220126,
+        "p90_cells_per_tree": 4.0
+      },
+      "cluster": {
+        "num_gt_trees": 159,
+        "num_pred_clusters": 189,
+        "tp": 155,
+        "fp": 34,
+        "fn": 4,
+        "tree_recall": 0.9748427672955975,
+        "commission": 0.17989417989417988,
+        "f1": 0.8908045977011494,
+        "mean_matched_iou": 0.9792578684479732,
+        "noise_rate": 0.004214115015209612,
+        "seconds": 82.27309226989746
+      }
+    },
+    "damped_0p50": {
+      "error": {
+        "tree_seed_count": 229247,
+        "mean_error_xy": 0.29607353531568015,
+        "median_error_xy": 0.20425851600037256,
+        "p90_error_xy": 0.4858698732151506,
+        "within_0p30m_rate": 0.7099504028406043,
+        "within_0p60m_rate": 0.9457877311371578
+      },
+      "topology": {
+        "num_vote_cells": 772,
+        "tree_occupied_cells": 480,
+        "tree_point_cell_purity_mean": 0.9835657792045439,
+        "multi_tree_collision_cell_rate": 0.03125,
+        "non_tree_rate_in_tree_cells": 0.006246532112636981,
+        "mean_cells_per_tree": 3.119496855345912,
+        "p90_cells_per_tree": 4.0
+      },
+      "cluster": {
+        "num_gt_trees": 159,
+        "num_pred_clusters": 188,
+        "tp": 155,
+        "fp": 33,
+        "fn": 4,
+        "tree_recall": 0.9748427672955975,
+        "commission": 0.17553191489361702,
+        "f1": 0.8933717579250721,
+        "mean_matched_iou": 0.9785146695907561,
+        "noise_rate": 0.002740619363466388,
+        "seconds": 82.18658804893494
+      }
+    },
+    "damped_0p75": {
+      "error": {
+        "tree_seed_count": 229247,
+        "mean_error_xy": 0.17543858550287536,
+        "median_error_xy": 0.1286245939544778,
+        "p90_error_xy": 0.2826902294071133,
+        "within_0p30m_rate": 0.9143369378879549,
+        "within_0p60m_rate": 0.9740149271309985
+      },
+      "topology": {
+        "num_vote_cells": 762,
+        "tree_occupied_cells": 469,
+        "tree_point_cell_purity_mean": 0.9828962504008101,
+        "multi_tree_collision_cell_rate": 0.031982942430703626,
+        "non_tree_rate_in_tree_cells": 0.006332680271165282,
+        "mean_cells_per_tree": 3.050314465408805,
+        "p90_cells_per_tree": 4.0
+      },
+      "cluster": {
+        "num_gt_trees": 159,
+        "num_pred_clusters": 191,
+        "tp": 153,
+        "fp": 38,
+        "fn": 6,
+        "tree_recall": 0.9622641509433962,
+        "commission": 0.19895287958115182,
+        "f1": 0.8742857142857143,
+        "mean_matched_iou": 0.9843835407547995,
+        "noise_rate": 0.002744746802266789,
+        "seconds": 82.08705019950867
+      }
+    },
+    "damped_1p00": {
+      "error": {
+        "tree_seed_count": 229247,
+        "mean_error_xy": 0.09447649943833294,
+        "median_error_xy": 0.07993635603915474,
+        "p90_error_xy": 0.15698009023496343,
+        "within_0p30m_rate": 0.9862157411002107,
+        "within_0p60m_rate": 0.9950315598459304
+      },
+      "topology": {
+        "num_vote_cells": 739,
+        "tree_occupied_cells": 449,
+        "tree_point_cell_purity_mean": 0.9824717633015488,
+        "multi_tree_collision_cell_rate": 0.035634743875278395,
+        "non_tree_rate_in_tree_cells": 0.006375748749555735,
+        "mean_cells_per_tree": 2.9371069182389937,
+        "p90_cells_per_tree": 4.0
+      },
+      "cluster": {
+        "num_gt_trees": 159,
+        "num_pred_clusters": 190,
+        "tp": 153,
+        "fp": 37,
+        "fn": 6,
+        "tree_recall": 0.9622641509433962,
+        "commission": 0.19473684210526315,
+        "f1": 0.8767908309455588,
+        "mean_matched_iou": 0.9871791870884794,
+        "noise_rate": 0.0024599535250391076,
+        "seconds": 82.73909187316895,
+        "reused_e2a_cache": true
+      }
+    },
+    "topology_safe": {
+      "error": {
+        "tree_seed_count": 229247,
+        "mean_error_xy": 0.5508772815969274,
+        "median_error_xy": 0.3691133648530828,
+        "p90_error_xy": 0.9411887994620064,
+        "within_0p30m_rate": 0.40005321770841057,
+        "within_0p60m_rate": 0.7401841681679586
+      },
+      "topology": {
+        "num_vote_cells": 821,
+        "tree_occupied_cells": 531,
+        "tree_point_cell_purity_mean": 0.9838394163271784,
+        "multi_tree_collision_cell_rate": 0.026365348399246705,
+        "non_tree_rate_in_tree_cells": 0.006263762939330363,
+        "mean_cells_per_tree": 3.4339622641509435,
+        "p90_cells_per_tree": 5.0
+      },
+      "cluster": {
+        "num_gt_trees": 159,
+        "num_pred_clusters": 201,
+        "tp": 154,
+        "fp": 47,
+        "fn": 5,
+        "tree_recall": 0.9685534591194969,
+        "commission": 0.23383084577114427,
+        "f1": 0.8555555555555555,
+        "mean_matched_iou": 0.9639513794360461,
+        "noise_rate": 0.006203540517002984,
+        "seconds": 85.18736052513123
+      }
+    },
+    "pointwise_oracle": {
+      "error": {
+        "tree_seed_count": 229247,
+        "mean_error_xy": 1.295284230591052e-06,
+        "median_error_xy": 1.0436133322056013e-06,
+        "p90_error_xy": 2.695421947144273e-06,
+        "within_0p30m_rate": 1.0,
+        "within_0p60m_rate": 1.0
+      },
+      "topology": {
+        "num_vote_cells": 523,
+        "tree_occupied_cells": 158,
+        "tree_point_cell_purity_mean": 0.9977096172851591,
+        "multi_tree_collision_cell_rate": 0.006329113924050633,
+        "non_tree_rate_in_tree_cells": 0.0010153390273662192,
+        "mean_cells_per_tree": 1.0,
+        "p90_cells_per_tree": 1.0
+      },
+      "cluster": {
+        "num_gt_trees": 159,
+        "num_pred_clusters": 229,
+        "tp": 156,
+        "fp": 73,
+        "fn": 3,
+        "tree_recall": 0.9811320754716981,
+        "commission": 0.31877729257641924,
+        "f1": 0.8041237113402062,
+        "mean_matched_iou": 0.9867890578195585,
+        "noise_rate": 0.006286089293011008,
+        "seconds": 82.80794024467468,
+        "reused_e2a_cache": true
+      }
+    }
+  },
+  "cluster_digests": {
+    "damped_0p25": "58a65353d9361f12069ad575ae33e155f94a324e31d21e11f4dc7788d18be27d",
+    "damped_0p50": "d3e9cf6aaddb1878c37051c6633e899ba9c34bd8c155d9fec1f16e803beed3d9",
+    "damped_0p75": "c90b229a7e4df44b280b78e0e46cf7b09555d6946588910f203c1a68ec908fcf",
+    "topology_safe": "5297b9a07f679183a3b7861614c19895d4a87416cb30cdedb41808606b34753b"
+  },
+  "effects": {
+    "mean_error_reduction_relative": 0.010845984216569002,
+    "p90_error_reduction_relative": 0.0,
+    "cell_purity_gain": 0.0,
+    "multi_tree_collision_increase": 0.0,
+    "cluster_f1_gain_pp": -3.269659344157916,
+    "cluster_tree_recall_drop_pp": 0.6289308176100628,
+    "cluster_commission_reduction_pp": -4.962031945535481,
+    "plot_f1_nonnegative": false
+  },
+  "config_fingerprint": "a1156e8e9580aadcbf22a0478e8719fb7603131399ed11b6a63c628d1ac51896"
+}

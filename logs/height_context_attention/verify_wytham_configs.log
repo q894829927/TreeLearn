@@ -1,0 +1,4 @@
+a0_official: adapter=False/attention, checkpoint=data/model_weights/model_weights_with_small_20241213.pth, results=results_hsca_wytham_a0_official_locked
+a1_height_mlp: adapter=True/mlp, checkpoint=work_dirs/train_a1_height_mlp_frozen/best_height_mlp.pth, results=results_hsca_wytham_a1_height_mlp_locked
+a2_hsca: adapter=True/attention, checkpoint=work_dirs/train_a2_hsca_frozen/best_hsca.pth, results=results_hsca_wytham_a2_attention_locked
+PASS: Wytham A0/A1/A2 configs are locked and directly comparable.

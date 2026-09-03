@@ -1,0 +1,53 @@
+# E1d Seed-Cell 粒度 Oracle
+
+- 数据：固定 E1a validation forests；未读取 Wytham。
+- Vote cell：0.600 m
+- 保留比例：0.780
+- 密度指数：0.500
+- 验证森林：5
+- 候选种子：1,908,145
+- Seed cells：12,566
+
+## Macro 指标
+
+| Mode | Utility | Non-tree rate | Critical recall | Critical-tree coverage | Cell-count CV |
+|---|---:|---:|---:|---:|---:|
+| point_oracle | 0.445937 | 5.025% | 100.000% | 100.000% | 2.196699 |
+| cell_oracle | 0.357644 | 17.135% | 100.000% | 100.000% | 1.524263 |
+| cell_random_mean | 0.335224 | 17.772% | 100.000% | 100.000% | 1.524263 |
+
+## 效果
+
+- utility_gain_over_random_relative: +0.066878
+- non_tree_reduction_over_random_relative: +0.035817
+- utility_retention_vs_point_oracle: +0.802005
+- critical_recall_drop_vs_point_oracle: +0.000000
+- density_cv_reduction_vs_point_oracle_relative: +0.306112
+- plot_wins: 5/5
+- mean_between_cell_utility_variance_ratio: +0.923544
+
+## 每森林
+
+| Plot | Candidates | Cells | Impure cells | Multi-tree cells | Utility gain | Non-tree reduction | Win |
+|---|---:|---:|---:|---:|---:|---:|---|
+| G4N | 293,705 | 1,440 | 4.583% | 1.944% | +7.524% | +3.162% | True |
+| G4W | 519,142 | 2,748 | 7.424% | 3.202% | +6.175% | +10.292% | True |
+| L1N | 452,316 | 2,883 | 6.417% | 2.428% | +5.552% | +2.496% | True |
+| O1N | 242,281 | 821 | 4.263% | 1.705% | +6.406% | +3.177% | True |
+| O1W | 400,701 | 4,674 | 7.424% | 2.033% | +9.142% | +3.118% | True |
+
+## Gate
+
+- expected_validation_plots_present: **True**
+- enough_seed_cells: **True**
+- cell_structure_signal_passed: **True**
+- utility_gain_over_random_passed: **True**
+- non_tree_reduction_passed: **False**
+- utility_retention_vs_point_passed: **False**
+- critical_recall_preserved: **True**
+- critical_tree_coverage_passed: **True**
+- density_balance_improved: **True**
+- per_plot_consistency_passed: **True**
+- passed: **False**
+
+STOP：Cell 粒度上限不足，关闭种子注意力路线，不使用 Wytham 调参。

@@ -1,0 +1,5 @@
+===== START train_t1_m3_hcag_seed42 2026年 08月 15日 星期六 10:43:40 CST =====
+===== PASS train_t1_m3_hcag_seed42 2026年 08月 15日 星期六 11:11:06 CST =====
+===== START train_t1_m4_window_attention_seed42 2026年 08月 15日 星期六 11:11:06 CST =====
+===== PASS train_t1_m4_window_attention_seed42 2026年 08月 15日 星期六 11:57:46 CST =====
+===== M3/M4 RUNNER FINISHED status=0 2026年 08月 15日 星期六 11:57:46 CST =====

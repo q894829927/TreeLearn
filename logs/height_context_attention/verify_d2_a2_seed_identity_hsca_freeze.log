@@ -1,0 +1,11 @@
+INFO:verify_height_context_setup:missing keys in source state_dict: height_context_adapter.semantic_residual_scale, height_context_adapter.offset_residual_scale, height_context_adapter.point_projection.0.weight, height_context_adapter.point_projection.0.bias, height_context_adapter.point_projection.1.weight, height_context_adapter.point_projection.1.bias, height_context_adapter.token_projection.0.weight, height_context_adapter.token_projection.0.bias, height_context_adapter.token_projection.1.weight, height_context_adapter.token_projection.1.bias, height_context_adapter.token_mixer.norm.weight, height_context_adapter.token_mixer.norm.bias, height_context_adapter.token_mixer.attention.in_proj_weight, height_context_adapter.token_mixer.attention.in_proj_bias, height_context_adapter.token_mixer.attention.out_proj.weight, height_context_adapter.token_mixer.attention.out_proj.bias, height_context_adapter.context_gate.weight, height_context_adapter.context_gate.bias, height_context_adapter.semantic_residual_head.weight, height_context_adapter.semantic_residual_head.bias, height_context_adapter.offset_residual_head.weight, height_context_adapter.offset_residual_head.bias
+/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/activation.py:1144: UserWarning: Converting mask without torch.bool dtype to bool; this will negatively affect performance. Prefer to use a boolean mask directly. (Triggered internally at /opt/conda/conda-bld/pytorch_1678402411778/work/aten/src/ATen/native/transformers/attention.cpp:150.)
+  return torch._native_multi_head_attention(
+config: configs/experiments/height_context_attention/train_d2_a2_seed_identity_hsca.yaml
+adapter type: attention
+trainable parameters: 9863
+candidate-only height tensors: 22
+changed shared tensors during load: 0
+changed original tensors after one step: 0
+changed height tensors after one step: 17
+PASS: exact initialization and frozen optimizer scope verified.

@@ -1,0 +1,177 @@
+{
+  "baseline": {
+    "tp": 152,
+    "fp": 11,
+    "fn": 8,
+    "completeness": 0.95,
+    "commission": 0.06748466257668712,
+    "f1": 0.9411764705882353
+  },
+  "num_split_target_predictions": 7,
+  "num_undersegmented_gt_trees": 7,
+  "expected_undersegmented_gt_ids": [
+    15,
+    46,
+    52,
+    57,
+    68,
+    107,
+    147
+  ],
+  "split_targets": [
+    {
+      "prediction_id": 2,
+      "missed_gt_ids": [
+        107
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 29,
+      "missed_gt_ids": [
+        52
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": 117
+    },
+    {
+      "prediction_id": 40,
+      "missed_gt_ids": [
+        15
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": 102
+    },
+    {
+      "prediction_id": 98,
+      "missed_gt_ids": [
+        68
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": 97
+    },
+    {
+      "prediction_id": 109,
+      "missed_gt_ids": [
+        46
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 133,
+      "missed_gt_ids": [
+        147
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": 93
+    },
+    {
+      "prediction_id": 154,
+      "missed_gt_ids": [
+        57
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    }
+  ],
+  "modes": {
+    "gt_extraction_ceiling": {
+      "tp": 159,
+      "fp": 9,
+      "fn": 1,
+      "completeness": 0.99375,
+      "commission": 0.05357142857142857,
+      "f1": 0.9695121951219512,
+      "accepted_splits": 7,
+      "recovered_undersegmented_trees": 7,
+      "recovered_undersegmented_gt_ids": [
+        15,
+        46,
+        52,
+        57,
+        68,
+        107,
+        147
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 2.833572453371591,
+      "completeness_gain_pp": 4.375000000000007,
+      "commission_reduction_pp": 1.3913234005258548
+    },
+    "raw_xy_kmeans_oracle": {
+      "tp": 153,
+      "fp": 11,
+      "fn": 7,
+      "completeness": 0.95625,
+      "commission": 0.06707317073170732,
+      "f1": 0.9444444444444444,
+      "proposed_splits": 7,
+      "accepted_splits": 1,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        154
+      ],
+      "recovered_undersegmented_trees": 1,
+      "recovered_undersegmented_gt_ids": [
+        57
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 0.32679738562091387,
+      "completeness_gain_pp": 0.6250000000000089,
+      "commission_reduction_pp": 0.04114918449797944
+    },
+    "base_vote_kmeans_oracle": {
+      "tp": 152,
+      "fp": 11,
+      "fn": 8,
+      "completeness": 0.95,
+      "commission": 0.06748466257668712,
+      "f1": 0.9411764705882353,
+      "proposed_splits": 7,
+      "accepted_splits": 0,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [],
+      "recovered_undersegmented_trees": 0,
+      "recovered_undersegmented_gt_ids": [],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 0.0,
+      "completeness_gain_pp": 0.0,
+      "commission_reduction_pp": 0.0
+    },
+    "vertical_axis_kmeans_oracle": {
+      "tp": 152,
+      "fp": 11,
+      "fn": 8,
+      "completeness": 0.95,
+      "commission": 0.06748466257668712,
+      "f1": 0.9411764705882353,
+      "proposed_splits": 7,
+      "accepted_splits": 0,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [],
+      "recovered_undersegmented_trees": 0,
+      "recovered_undersegmented_gt_ids": [],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 0.0,
+      "completeness_gain_pp": 0.0,
+      "commission_reduction_pp": 0.0
+    }
+  },
+  "parameters": {
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_recall_for_undersegmentation": 0.5,
+    "max_fit_points": 50000,
+    "random_state": 20260811,
+    "vertical_power": 2.0,
+    "vertical_feature_weight": 1.0
+  },
+  "source_plot": "O1N",
+  "split": "validation"
+}

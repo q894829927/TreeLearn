@@ -1,0 +1,294 @@
+{
+  "baseline": {
+    "tp": 282,
+    "fp": 35,
+    "fn": 36,
+    "completeness": 0.8867924528301887,
+    "commission": 0.11041009463722397,
+    "f1": 0.8881889763779528
+  },
+  "num_split_target_predictions": 14,
+  "num_undersegmented_gt_trees": 15,
+  "expected_undersegmented_gt_ids": [
+    1,
+    4,
+    52,
+    62,
+    124,
+    157,
+    166,
+    175,
+    179,
+    201,
+    215,
+    222,
+    229,
+    251,
+    261
+  ],
+  "split_targets": [
+    {
+      "prediction_id": 22,
+      "missed_gt_ids": [
+        1,
+        179
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 33,
+      "missed_gt_ids": [
+        166
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 42,
+      "missed_gt_ids": [
+        175
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 73,
+      "missed_gt_ids": [
+        4
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 132,
+      "missed_gt_ids": [
+        157
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 138,
+      "missed_gt_ids": [
+        261
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 179,
+      "missed_gt_ids": [
+        222
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 182,
+      "missed_gt_ids": [
+        215
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 183,
+      "missed_gt_ids": [
+        229
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 210,
+      "missed_gt_ids": [
+        62
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 303,
+      "missed_gt_ids": [
+        52
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": 9
+    },
+    {
+      "prediction_id": 329,
+      "missed_gt_ids": [
+        124
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 354,
+      "missed_gt_ids": [
+        201
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 356,
+      "missed_gt_ids": [
+        251
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    }
+  ],
+  "modes": {
+    "gt_extraction_ceiling": {
+      "tp": 298,
+      "fp": 33,
+      "fn": 20,
+      "completeness": 0.9371069182389937,
+      "commission": 0.09969788519637462,
+      "f1": 0.9183359013867488,
+      "accepted_splits": 15,
+      "recovered_undersegmented_trees": 15,
+      "recovered_undersegmented_gt_ids": [
+        1,
+        4,
+        52,
+        62,
+        124,
+        157,
+        166,
+        175,
+        179,
+        201,
+        215,
+        222,
+        229,
+        251,
+        261
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 3.014692500879601,
+      "completeness_gain_pp": 5.031446540880502,
+      "commission_reduction_pp": 1.0712209440849343
+    },
+    "raw_xy_kmeans_oracle": {
+      "tp": 290,
+      "fp": 35,
+      "fn": 28,
+      "completeness": 0.9119496855345912,
+      "commission": 0.1076923076923077,
+      "f1": 0.9020217729393468,
+      "proposed_splits": 14,
+      "accepted_splits": 8,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        22,
+        73,
+        132,
+        138,
+        179,
+        182,
+        183,
+        210
+      ],
+      "recovered_undersegmented_trees": 6,
+      "recovered_undersegmented_gt_ids": [
+        4,
+        62,
+        179,
+        222,
+        229,
+        261
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 1.3832796561394023,
+      "completeness_gain_pp": 2.515723270440251,
+      "commission_reduction_pp": 0.271778694491627
+    },
+    "base_vote_kmeans_oracle": {
+      "tp": 290,
+      "fp": 35,
+      "fn": 28,
+      "completeness": 0.9119496855345912,
+      "commission": 0.1076923076923077,
+      "f1": 0.9020217729393468,
+      "proposed_splits": 14,
+      "accepted_splits": 8,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        22,
+        73,
+        132,
+        138,
+        179,
+        182,
+        183,
+        210
+      ],
+      "recovered_undersegmented_trees": 6,
+      "recovered_undersegmented_gt_ids": [
+        4,
+        62,
+        179,
+        222,
+        229,
+        261
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 1.3832796561394023,
+      "completeness_gain_pp": 2.515723270440251,
+      "commission_reduction_pp": 0.271778694491627
+    },
+    "vertical_axis_kmeans_oracle": {
+      "tp": 290,
+      "fp": 35,
+      "fn": 28,
+      "completeness": 0.9119496855345912,
+      "commission": 0.1076923076923077,
+      "f1": 0.9020217729393468,
+      "proposed_splits": 14,
+      "accepted_splits": 8,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        22,
+        73,
+        132,
+        138,
+        179,
+        182,
+        183,
+        210
+      ],
+      "recovered_undersegmented_trees": 6,
+      "recovered_undersegmented_gt_ids": [
+        4,
+        62,
+        179,
+        222,
+        229,
+        261
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 1.3832796561394023,
+      "completeness_gain_pp": 2.515723270440251,
+      "commission_reduction_pp": 0.271778694491627
+    }
+  },
+  "parameters": {
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_recall_for_undersegmentation": 0.5,
+    "max_fit_points": 50000,
+    "random_state": 20260811,
+    "vertical_power": 2.0,
+    "vertical_feature_weight": 1.0
+  },
+  "source_plot": "G4N",
+  "split": "validation"
+}

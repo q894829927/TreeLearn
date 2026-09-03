@@ -1,0 +1,24 @@
+RUN A1N (train); log=data/seed_completion_learning/logs/A1N.log
+DONE A1N: 25,461 proposals, 36 activated, 36 target trees.
+IMPORTED G4N: 23,819 proposals, 18 activated.
+# Q5b1 Seed-Completion data generation: pilot
+
+- Uses only the fixed train/validation forests; Wytham is forbidden.
+- Validation data are imported from the passed Q5b0 proposal artifacts.
+- Train proposals are generated from frozen TreeLearn predictions.
+
+| Split | Proposals | Activated | Coverage positive | Target trees | Covered targets |
+|---|---:|---:|---:|---:|---:|
+| train | 25,461 | 36 | 1,873 | 36 | 36 |
+| validation | 23,819 | 18 | 1,641 | 13 | 13 |
+
+## Gate
+
+- all_pilot_plots_present: **True**
+- both_splits_present: **True**
+- all_pilot_artifacts_nonempty: **True**
+- activation_positive_present: **True**
+- all_features_finite: **True**
+- passed: **True**
+
+PASS

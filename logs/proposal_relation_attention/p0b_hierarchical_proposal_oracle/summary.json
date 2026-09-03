@@ -1,0 +1,267 @@
+{
+  "validation_plots": [
+    "G4N",
+    "G4W",
+    "L1N",
+    "O1N",
+    "O1W"
+  ],
+  "methods": {
+    "xy_block": {
+      "baseline": {
+        "tp": 829,
+        "fp": 61,
+        "fn": 74,
+        "completeness": 0.9180509413067552,
+        "commission": 0.06853932584269663,
+        "f1": 0.9247071946458449
+      },
+      "oracle": {
+        "tp": 537,
+        "fp": 554,
+        "fn": 366,
+        "completeness": 0.5946843853820598,
+        "commission": 0.5077910174152154,
+        "f1": 0.5386158475426279
+      },
+      "f1_gain_pp": -38.609134710321705,
+      "completeness_gain_pp": -32.33665559246954,
+      "commission_increase_pp": 43.92516915725187,
+      "recovered_trees": 22,
+      "graph_coverage": 0.6621621621621622,
+      "num_nodes": 2594,
+      "num_edges": 19472,
+      "node_inflation": 2.801295896328294,
+      "average_out_degree": 7.506553585196608,
+      "mean_compression_ratio": 119.04690041870016,
+      "per_plot": [
+        {
+          "baseline": {
+            "tp": 285,
+            "fp": 30,
+            "fn": 33,
+            "completeness": 0.8962264150943396,
+            "commission": 0.09523809523809523,
+            "f1": 0.9004739336492891
+          },
+          "oracle": {
+            "tp": 170,
+            "fp": 197,
+            "fn": 148,
+            "completeness": 0.5345911949685535,
+            "commission": 0.5367847411444142,
+            "f1": 0.49635036496350365
+          },
+          "recovered_trees": 11,
+          "missed_trees": 33,
+          "graph_covered_missed_trees": 22,
+          "graph_coverage": 0.6666666666666666,
+          "num_nodes": 870,
+          "num_edges": 6504,
+          "num_baseline_instances": 336,
+          "average_out_degree": 7.475862068965517,
+          "source_plot": "G4N",
+          "split": "validation",
+          "method": "xy_block",
+          "source_num_nodes": 97075,
+          "compression_ratio": 111.58045977011494,
+          "f1_gain_pp": -40.41235686857854
+        },
+        {
+          "baseline": {
+            "tp": 544,
+            "fp": 31,
+            "fn": 41,
+            "completeness": 0.9299145299145299,
+            "commission": 0.05391304347826087,
+            "f1": 0.9379310344827586
+          },
+          "oracle": {
+            "tp": 367,
+            "fp": 357,
+            "fn": 218,
+            "completeness": 0.6273504273504273,
+            "commission": 0.4930939226519337,
+            "f1": 0.5607333842627961
+          },
+          "recovered_trees": 11,
+          "missed_trees": 41,
+          "graph_covered_missed_trees": 27,
+          "graph_coverage": 0.6585365853658537,
+          "num_nodes": 1724,
+          "num_edges": 12968,
+          "num_baseline_instances": 590,
+          "average_out_degree": 7.522041763341067,
+          "source_plot": "G4W",
+          "split": "validation",
+          "method": "xy_block",
+          "source_num_nodes": 218109,
+          "compression_ratio": 126.51334106728538,
+          "f1_gain_pp": -37.71976502199625
+        }
+      ],
+      "evaluated_plots": 2,
+      "early_stopped": true,
+      "elimination_reason": "2 negative forests already make the fixed 4/5 plot-consistency Gate unreachable.",
+      "gate": {
+        "expected_validation_plots": false,
+        "oracle_f1_gain_passed": false,
+        "oracle_completeness_gain_passed": false,
+        "recovered_tree_count_passed": true,
+        "commission_not_worse": false,
+        "plot_consistency_passed": false,
+        "missed_tree_coverage_passed": false,
+        "proposal_inflation_passed": true,
+        "degree_bound_passed": true,
+        "passed": false
+      }
+    },
+    "vertical_profile": {
+      "baseline": {
+        "tp": 829,
+        "fp": 61,
+        "fn": 74,
+        "completeness": 0.9180509413067552,
+        "commission": 0.06853932584269663,
+        "f1": 0.9247071946458449
+      },
+      "oracle": {
+        "tp": 570,
+        "fp": 922,
+        "fn": 333,
+        "completeness": 0.6312292358803987,
+        "commission": 0.6179624664879356,
+        "f1": 0.4759916492693111
+      },
+      "f1_gain_pp": -44.87155453765339,
+      "completeness_gain_pp": -28.682170542635653,
+      "commission_increase_pp": 54.9423140645239,
+      "recovered_trees": 41,
+      "graph_coverage": 0.9594594594594594,
+      "num_nodes": 173819,
+      "num_edges": 2684983,
+      "node_inflation": 187.70950323974083,
+      "average_out_degree": 15.447005218071672,
+      "mean_compression_ratio": 1.859166143531776,
+      "per_plot": [
+        {
+          "baseline": {
+            "tp": 285,
+            "fp": 30,
+            "fn": 33,
+            "completeness": 0.8962264150943396,
+            "commission": 0.09523809523809523,
+            "f1": 0.9004739336492891
+          },
+          "oracle": {
+            "tp": 163,
+            "fp": 356,
+            "fn": 155,
+            "completeness": 0.5125786163522013,
+            "commission": 0.6859344894026975,
+            "f1": 0.38948626045400236
+          },
+          "recovered_trees": 18,
+          "missed_trees": 33,
+          "graph_covered_missed_trees": 32,
+          "graph_coverage": 0.9696969696969697,
+          "num_nodes": 49391,
+          "num_edges": 752929,
+          "num_baseline_instances": 336,
+          "average_out_degree": 15.244255026219351,
+          "source_plot": "G4N",
+          "split": "validation",
+          "method": "vertical_profile",
+          "source_num_nodes": 97075,
+          "compression_ratio": 1.9654390475997652,
+          "f1_gain_pp": -51.09876731952867
+        },
+        {
+          "baseline": {
+            "tp": 544,
+            "fp": 31,
+            "fn": 41,
+            "completeness": 0.9299145299145299,
+            "commission": 0.05391304347826087,
+            "f1": 0.9379310344827586
+          },
+          "oracle": {
+            "tp": 407,
+            "fp": 566,
+            "fn": 178,
+            "completeness": 0.6957264957264957,
+            "commission": 0.5817060637204522,
+            "f1": 0.5224646983311938
+          },
+          "recovered_trees": 23,
+          "missed_trees": 41,
+          "graph_covered_missed_trees": 39,
+          "graph_coverage": 0.9512195121951219,
+          "num_nodes": 124428,
+          "num_edges": 1932054,
+          "num_baseline_instances": 590,
+          "average_out_degree": 15.52748577490597,
+          "source_plot": "G4W",
+          "split": "validation",
+          "method": "vertical_profile",
+          "source_num_nodes": 218109,
+          "compression_ratio": 1.7528932394637864,
+          "f1_gain_pp": -41.54663361515648
+        }
+      ],
+      "evaluated_plots": 2,
+      "early_stopped": true,
+      "elimination_reason": "2 negative forests already make the fixed 4/5 plot-consistency Gate unreachable.",
+      "gate": {
+        "expected_validation_plots": false,
+        "oracle_f1_gain_passed": false,
+        "oracle_completeness_gain_passed": false,
+        "recovered_tree_count_passed": true,
+        "commission_not_worse": false,
+        "plot_consistency_passed": false,
+        "missed_tree_coverage_passed": true,
+        "proposal_inflation_passed": false,
+        "degree_bound_passed": true,
+        "passed": false
+      }
+    },
+    "adaptive_component": {
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "completeness": 0.0,
+        "commission": 0.0,
+        "f1": 0.0
+      },
+      "oracle": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "completeness": 0.0,
+        "commission": 0.0,
+        "f1": 0.0
+      },
+      "f1_gain_pp": 0.0,
+      "completeness_gain_pp": 0.0,
+      "commission_increase_pp": 0.0,
+      "recovered_trees": 0,
+      "graph_coverage": 0.0,
+      "num_nodes": 27537,
+      "num_edges": 0,
+      "node_inflation": 13.93572874493927,
+      "average_out_degree": 0.0,
+      "mean_compression_ratio": 0.0,
+      "per_plot": [],
+      "evaluated_plots": 0,
+      "early_stopped": true,
+      "elimination_reason": "adaptive_component/G4N still has 27,537 nodes, exceeding the global P0b maximum 19,760 before the remaining forests are counted.",
+      "gate": {
+        "complexity_precheck_passed": false,
+        "passed": false
+      }
+    }
+  },
+  "recommended_method": null,
+  "passed": false
+}

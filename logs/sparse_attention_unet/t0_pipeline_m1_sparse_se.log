@@ -1,0 +1,6 @@
+INFO:sparse_unet_pipeline_smoke:Load test dataset: 1221 scans
+INFO:sparse_unet_pipeline_smoke:missing keys in source state_dict: unet.post_enhancement.gamma, unet.post_enhancement.excitation.0.weight, unet.post_enhancement.excitation.0.bias, unet.post_enhancement.excitation.2.weight, unet.post_enhancement.excitation.2.bias, unet.u.post_enhancement.gamma, unet.u.post_enhancement.excitation.0.weight, unet.u.post_enhancement.excitation.0.bias, unet.u.post_enhancement.excitation.2.weight, unet.u.post_enhancement.excitation.2.bias, unet.u.u.post_enhancement.gamma, unet.u.u.post_enhancement.excitation.0.weight, unet.u.u.post_enhancement.excitation.0.bias, unet.u.u.post_enhancement.excitation.2.weight, unet.u.u.post_enhancement.excitation.2.bias
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00,  2.69it/s]100%|██████████| 1/1 [00:00<00:00,  2.69it/s]
+INFO:sparse_unet_pipeline_smoke:NumPy ensemble reduced 644 overlapping tile points to 644 unique points in 0.0s
+INFO:sparse_unet_pipeline_smoke:Clustering 0 seed points in 2D (base seeds: 0, upper seeds: 0)
+INFO:sparse_unet_pipeline_smoke:PASS: 644 points, peak=0.429 GB, params=30,121,608, time=0.613s; saved logs/sparse_attention_unet/t0_pipeline_m1_sparse_se.npz

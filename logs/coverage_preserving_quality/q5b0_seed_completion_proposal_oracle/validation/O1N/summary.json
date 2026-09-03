@@ -1,0 +1,50 @@
+{
+  "baseline": {
+    "tp": 152,
+    "fp": 11,
+    "fn": 8,
+    "completeness": 0.95,
+    "commission": 0.06748466257668712,
+    "f1": 0.9411764705882353
+  },
+  "num_target_trees": 1,
+  "num_proposals": 18615,
+  "num_activated_proposals": 1,
+  "num_baseline_seeds": 242281,
+  "num_oracle_seeds": 242331,
+  "proposal_covered_target_trees": 1,
+  "per_target": [
+    {
+      "gt_tree_id": 125,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 72
+    }
+  ],
+  "oracle_metrics": {
+    "tp": 152,
+    "fp": 11,
+    "fn": 8,
+    "completeness": 0.95,
+    "commission": 0.06748466257668712,
+    "f1": 0.9411764705882353,
+    "recovered_target_tree_ids": [],
+    "recovered_target_trees": 0,
+    "lost_baseline_tree_ids": [],
+    "lost_baseline_trees": 0
+  },
+  "proposal_parameters": {
+    "scales": [
+      0.6,
+      1.2
+    ],
+    "shift_fractions": [
+      0.0,
+      0.5
+    ],
+    "tau_min": 50
+  },
+  "source_plot": "O1N",
+  "split": "validation"
+}

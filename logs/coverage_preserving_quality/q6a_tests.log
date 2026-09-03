@@ -1,0 +1,13 @@
+test_adjacency_rejects_distant_vote_centers (tests.test_fragment_graph_oracle.FragmentGraphOracleTests) ... ok
+test_config_rejects_wytham (tests.test_fragment_graph_oracle.FragmentGraphOracleTests) ... ok
+test_graph_oracle_recovers_fragmented_tree_without_losing_tp (tests.test_fragment_graph_oracle.FragmentGraphOracleTests) ... ok
+test_merge_contingency_groups_sums_rows (tests.test_fragment_graph_oracle.FragmentGraphOracleTests) ... ok
+test_categories_form_expected_first_failure_partition (tests.test_omission_diagnostics.OmissionDiagnosticsTests) ... ok
+test_generator_rejects_wytham_config (tests.test_omission_diagnostics.OmissionDiagnosticsTests) ... ok
+test_match_threshold_is_strict_like_official_evaluation (tests.test_omission_diagnostics.OmissionDiagnosticsTests) ... ok
+test_save_roundtrip_is_json_serializable (tests.test_omission_diagnostics.OmissionDiagnosticsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.015s
+
+OK

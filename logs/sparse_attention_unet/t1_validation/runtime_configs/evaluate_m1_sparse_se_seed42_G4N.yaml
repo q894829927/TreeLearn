@@ -1,0 +1,32 @@
+paths:
+  gt_forest_path: data/train/forests/G4N.laz
+  pred_forest_path: data/pipeline/sparse_attention_unet_validation/G4N/results_t1_m1_sparse_se_seed42/full_forest/G4N.laz
+thresholds:
+  min_iou_for_match: 0.5
+  min_precision_for_pred: 0.5
+  min_recall_for_gt: 0.5
+partitions:
+  xy_partition:
+  - 0
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  - 1
+  z_partition:
+  - 0
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
+  - 1

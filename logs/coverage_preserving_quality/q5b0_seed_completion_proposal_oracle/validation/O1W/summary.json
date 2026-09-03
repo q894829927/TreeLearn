@@ -1,0 +1,71 @@
+{
+  "baseline": {
+    "tp": 222,
+    "fp": 90,
+    "fn": 44,
+    "completeness": 0.8345864661654135,
+    "commission": 0.28846153846153844,
+    "f1": 0.7681660899653979
+  },
+  "num_target_trees": 4,
+  "num_proposals": 25089,
+  "num_activated_proposals": 5,
+  "num_baseline_seeds": 400701,
+  "num_oracle_seeds": 400949,
+  "proposal_covered_target_trees": 4,
+  "per_target": [
+    {
+      "gt_tree_id": 7,
+      "baseline_seed_count": 7,
+      "oracle_seed_count": 65,
+      "proposal_covered": true,
+      "candidate_proposals": 20
+    },
+    {
+      "gt_tree_id": 192,
+      "baseline_seed_count": 22,
+      "oracle_seed_count": 72,
+      "proposal_covered": true,
+      "candidate_proposals": 94
+    },
+    {
+      "gt_tree_id": 233,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 35
+    },
+    {
+      "gt_tree_id": 249,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 31
+    }
+  ],
+  "oracle_metrics": {
+    "tp": 223,
+    "fp": 90,
+    "fn": 43,
+    "completeness": 0.8383458646616542,
+    "commission": 0.28753993610223644,
+    "f1": 0.770293609671848,
+    "recovered_target_tree_ids": [],
+    "recovered_target_trees": 0,
+    "lost_baseline_tree_ids": [],
+    "lost_baseline_trees": 0
+  },
+  "proposal_parameters": {
+    "scales": [
+      0.6,
+      1.2
+    ],
+    "shift_fractions": [
+      0.0,
+      0.5
+    ],
+    "tau_min": 50
+  },
+  "source_plot": "O1W",
+  "split": "validation"
+}

@@ -1,0 +1,130 @@
+{
+  "baseline": {
+    "tp": 545,
+    "fp": 50,
+    "fn": 40,
+    "completeness": 0.9316239316239316,
+    "commission": 0.08403361344537816,
+    "f1": 0.923728813559322
+  },
+  "num_target_trees": 11,
+  "num_proposals": 34206,
+  "num_activated_proposals": 15,
+  "num_baseline_seeds": 519142,
+  "num_oracle_seeds": 519803,
+  "proposal_covered_target_trees": 11,
+  "per_target": [
+    {
+      "gt_tree_id": 83,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 97
+    },
+    {
+      "gt_tree_id": 151,
+      "baseline_seed_count": 14,
+      "oracle_seed_count": 64,
+      "proposal_covered": true,
+      "candidate_proposals": 23
+    },
+    {
+      "gt_tree_id": 161,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 56,
+      "proposal_covered": true,
+      "candidate_proposals": 32
+    },
+    {
+      "gt_tree_id": 175,
+      "baseline_seed_count": 6,
+      "oracle_seed_count": 56,
+      "proposal_covered": true,
+      "candidate_proposals": 36
+    },
+    {
+      "gt_tree_id": 232,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 53
+    },
+    {
+      "gt_tree_id": 251,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 16
+    },
+    {
+      "gt_tree_id": 259,
+      "baseline_seed_count": 10,
+      "oracle_seed_count": 59,
+      "proposal_covered": true,
+      "candidate_proposals": 23
+    },
+    {
+      "gt_tree_id": 261,
+      "baseline_seed_count": 2,
+      "oracle_seed_count": 52,
+      "proposal_covered": true,
+      "candidate_proposals": 30
+    },
+    {
+      "gt_tree_id": 263,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 38
+    },
+    {
+      "gt_tree_id": 477,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 97
+    },
+    {
+      "gt_tree_id": 489,
+      "baseline_seed_count": 0,
+      "oracle_seed_count": 50,
+      "proposal_covered": true,
+      "candidate_proposals": 98
+    }
+  ],
+  "oracle_metrics": {
+    "tp": 554,
+    "fp": 52,
+    "fn": 31,
+    "completeness": 0.947008547008547,
+    "commission": 0.0858085808580858,
+    "f1": 0.9303106633081444,
+    "recovered_target_tree_ids": [
+      83,
+      151,
+      175,
+      232,
+      251,
+      259,
+      261,
+      263,
+      477
+    ],
+    "recovered_target_trees": 9,
+    "lost_baseline_tree_ids": [],
+    "lost_baseline_trees": 0
+  },
+  "proposal_parameters": {
+    "scales": [
+      0.6,
+      1.2
+    ],
+    "shift_fractions": [
+      0.0,
+      0.5
+    ],
+    "tau_min": 50
+  },
+  "source_plot": "G4W",
+  "split": "validation"
+}

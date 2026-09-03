@@ -1,0 +1,31 @@
+DONE MLP seed 42: epoch=4, activation AP=0.041898, target recall=70.968%
+DONE MLP seed 43: epoch=4, activation AP=0.067780, target recall=74.194%
+DONE MLP seed 44: epoch=4, activation AP=0.036321, target recall=70.968%
+# Q5b1 Seed-Completion proposal activation
+
+- Uses only the fixed train/validation forests; Wytham is forbidden.
+- Recommended model: **None**
+- Locked seed: 42
+
+| Model | Runs | Pass | Activation AP | Target recall | Eligible |
+|---|---:|---:|---:|---:|---|
+| multitask_mlp | 3 | 0/2 | 0.048666 | 72.043% | False |
+| logistic_regression | 1 | 0/1 | 0.019734 | 93.548% | False |
+| fixed_rule | 1 | 0/1 | 0.017625 | 51.613% | False |
+
+## Gate
+
+- data_gate_passed: **True**
+- at_least_one_eligible_model: **False**
+- locked_seed_passed: **False**
+- passed: **False**
+
+STOP: proposal activation is not deployable; close Seed-Completion.
+Traceback (most recent call last):
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_completion_activation.py", line 754, in <module>
+    main()
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_completion_activation.py", line 750, in main
+    run(args.config)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_seed_completion_activation.py", line 741, in run
+    raise RuntimeError(
+RuntimeError: Q5b1 activation-head gate failed; do not integrate pipeline.

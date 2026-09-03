@@ -1,0 +1,58 @@
+SKIP A1N: validated existing Q5b1 artifact.
+RUN A1W (train); log=data/seed_completion_learning/logs/A1W.log
+DONE A1W: 19,345 proposals, 1 activated, 1 target trees.
+RUN G1N (train); log=data/seed_completion_learning/logs/G1N.log
+DONE G1N: 14,660 proposals, 1 activated, 1 target trees.
+RUN G1W (train); log=data/seed_completion_learning/logs/G1W.log
+DONE G1W: 19,731 proposals, 2 activated, 2 target trees.
+RUN G2N (train); log=data/seed_completion_learning/logs/G2N.log
+DONE G2N: 23,011 proposals, 0 activated, 0 target trees.
+RUN G2W (train); log=data/seed_completion_learning/logs/G2W.log
+DONE G2W: 16,348 proposals, 25 activated, 8 target trees.
+RUN G3N (train); log=data/seed_completion_learning/logs/G3N.log
+DONE G3N: 15,943 proposals, 0 activated, 0 target trees.
+RUN G3W (train); log=data/seed_completion_learning/logs/G3W.log
+DONE G3W: 19,878 proposals, 2 activated, 2 target trees.
+RUN L2N (train); log=data/seed_completion_learning/logs/L2N.log
+DONE L2N: 20,536 proposals, 0 activated, 0 target trees.
+RUN L2W (train); log=data/seed_completion_learning/logs/L2W.log
+DONE L2W: 21,060 proposals, 0 activated, 0 target trees.
+RUN LG1 (train); log=data/seed_completion_learning/logs/LG1.log
+DONE LG1: 22,249 proposals, 5 activated, 5 target trees.
+RUN LG2 (train); log=data/seed_completion_learning/logs/LG2.log
+DONE LG2: 22,413 proposals, 0 activated, 0 target trees.
+RUN LG3 (train); log=data/seed_completion_learning/logs/LG3.log
+DONE LG3: 22,867 proposals, 0 activated, 0 target trees.
+SKIP G4N: validated imported Q5b0 artifact.
+IMPORTED G4W: 34,206 proposals, 15 activated.
+IMPORTED L1N: 26,390 proposals, 2 activated.
+IMPORTED O1N: 18,615 proposals, 1 activated.
+IMPORTED O1W: 25,089 proposals, 5 activated.
+# Q5b1 Seed-Completion data generation: full
+
+- Uses only the fixed train/validation forests; Wytham is forbidden.
+- Validation data are imported from the passed Q5b0 proposal artifacts.
+- Train proposals are generated from frozen TreeLearn predictions.
+
+| Split | Proposals | Activated | Coverage positive | Target trees | Covered targets |
+|---|---:|---:|---:|---:|---:|
+| train | 263,502 | 72 | 2,930 | 55 | 55 |
+| validation | 128,119 | 41 | 2,489 | 31 | 31 |
+
+## Gate
+
+- all_fixed_plots_present: **True**
+- enough_train_proposals: **True**
+- enough_train_activation_positive: **True**
+- enough_train_coverage_positive: **True**
+- enough_train_target_trees: **True**
+- validation_proposals_reproduced: **True**
+- validation_activation_reproduced: **True**
+- validation_targets_reproduced: **True**
+- validation_coverage_reproduced: **True**
+- no_plot_leakage: **True**
+- no_group_leakage: **True**
+- all_features_finite: **True**
+- passed: **True**
+
+PASS

@@ -1,0 +1,47 @@
+# Sparse U-Net tournament T1
+
+    {
+      "models": {
+        "m1_sparse_se": {
+          "macro_f1": 92.10661243028993,
+          "f1_gain_pp": -0.1383084922550495,
+          "completeness_drop_pp": 0.03103785954952798,
+          "commission_increase_pp": 0.2512903362374228,
+          "nonnegative_plots": 3,
+          "worst_plot_f1_gain_pp": -0.8538777606574115,
+          "attention_variance_passed": true,
+          "passed": false
+        },
+        "m3_hcag": {
+          "macro_f1": 91.49971238023299,
+          "f1_gain_pp": -0.7452085423119854,
+          "completeness_drop_pp": -0.5437593959266707,
+          "commission_increase_pp": 1.9330013069783902,
+          "nonnegative_plots": 1,
+          "worst_plot_f1_gain_pp": -2.3075348075348217,
+          "attention_variance_passed": true,
+          "passed": false
+        },
+        "m4_window_attention": {
+          "macro_f1": 92.31082708242766,
+          "f1_gain_pp": 0.06590615988268667,
+          "completeness_drop_pp": 0.3178316678254163,
+          "commission_increase_pp": -0.42933455131823184,
+          "nonnegative_plots": 3,
+          "worst_plot_f1_gain_pp": -0.3035533599190501,
+          "attention_variance_passed": true,
+          "passed": false
+        }
+      },
+      "finalists": [],
+      "passed": false
+    }
+
+- Gate: **False**
+
+Traceback (most recent call last):
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/diagnostics/summarize_sparse_unet_tournament.py", line 257, in <module>
+    main()
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/diagnostics/summarize_sparse_unet_tournament.py", line 252, in main
+    raise RuntimeError(
+RuntimeError: T1 gate failed; stop the tournament route.

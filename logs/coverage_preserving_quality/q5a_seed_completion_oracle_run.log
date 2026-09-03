@@ -1,0 +1,78 @@
+[1/5] G4N
+RUN G4N; log=logs/coverage_preserving_quality/q5a_seed_completion_oracle/logs/G4N.log
+DONE G4N
+[2/5] G4W
+RUN G4W; log=logs/coverage_preserving_quality/q5a_seed_completion_oracle/logs/G4W.log
+DONE G4W
+[3/5] L1N
+RUN L1N; log=logs/coverage_preserving_quality/q5a_seed_completion_oracle/logs/L1N.log
+DONE L1N
+[4/5] O1N
+RUN O1N; log=logs/coverage_preserving_quality/q5a_seed_completion_oracle/logs/O1N.log
+DONE O1N
+[5/5] O1W
+RUN O1W; log=logs/coverage_preserving_quality/q5a_seed_completion_oracle/logs/O1W.log
+DONE O1W
+# Q5a Coverage-Seed Completion Oracle
+
+- 数据：固定五个 validation forests；未读取 Wytham。
+- GT 仅选择 Q3 base-seed support failure 目标树。
+- 两个模式都只补足到 tau_min=50，不修改 vote 或 HDBSCAN 参数。
+- 目标树：31
+
+| Mode | Recovered | Lost | Added seeds | Completeness | Commission | F1 | F1 gain |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| margin_topup | 13 | 0 | 1,434 | 92.593% | 14.286% | 89.021% | +0.511 pp |
+| xy_oracle_topup | 13 | 2 | 1,434 | 92.480% | 14.390% | 88.913% | +0.403 pp |
+
+## 每森林
+
+### margin_topup
+
+| Plot | Recovered | Lost | F1 gain | Commission increase |
+|---|---:|---:|---:|---:|
+| G4N | 4 | 0 | +1.212 pp | -0.239 pp |
+| G4W | 9 | 0 | +0.815 pp | -0.125 pp |
+| L1N | 0 | 0 | -0.091 pp | +0.158 pp |
+| O1N | 0 | 0 | +0.000 pp | +0.000 pp |
+| O1W | 0 | 0 | +0.346 pp | -0.321 pp |
+
+### xy_oracle_topup
+
+| Plot | Recovered | Lost | F1 gain | Commission increase |
+|---|---:|---:|---:|---:|
+| G4N | 5 | 1 | +1.212 pp | -0.239 pp |
+| G4W | 8 | 0 | +0.646 pp | +0.040 pp |
+| L1N | 0 | 0 | -0.091 pp | +0.158 pp |
+| O1N | 0 | 0 | +0.000 pp | +0.000 pp |
+| O1W | 0 | 1 | +0.000 pp | +0.000 pp |
+
+## margin_topup Gate
+
+- recovered_tree_count_passed: **True**
+- f1_gain_passed: **True**
+- lost_tree_count_passed: **True**
+- commission_preserved: **True**
+- plot_consistency_passed: **True**
+- passed: **True**
+
+## xy_oracle_topup Gate
+
+- recovered_tree_count_passed: **True**
+- f1_gain_passed: **True**
+- lost_tree_count_passed: **True**
+- commission_preserved: **True**
+- plot_consistency_passed: **True**
+- passed: **True**
+
+## 主 Gate
+
+- expected_validation_plots: **True**
+- baseline_reproduced: **True**
+- target_count_reproduced: **True**
+- xy_oracle_ceiling_passed: **True**
+- passed: **True**
+
+- 推荐路线：**coverage_seed_completion_head**
+
+PASS：按推荐路线进入 Q5b；仍不得使用 Wytham。

@@ -1,0 +1,292 @@
+{
+  "baseline": {
+    "tp": 223,
+    "fp": 89,
+    "fn": 43,
+    "completeness": 0.8383458646616542,
+    "commission": 0.28525641025641024,
+    "f1": 0.7716262975778547
+  },
+  "num_fragmentation_gt_trees": 15,
+  "expected_fragmentation_gt_ids": [
+    2,
+    40,
+    41,
+    47,
+    63,
+    71,
+    74,
+    76,
+    78,
+    126,
+    164,
+    239,
+    251,
+    254,
+    265
+  ],
+  "num_predicted_instances": 703,
+  "num_candidate_edges": 1376,
+  "num_graph_proposals": 16,
+  "graph_covered_target_trees": 15,
+  "per_target": [
+    {
+      "gt_tree_id": 2,
+      "significant_fragments": 4,
+      "candidate_edges": 2,
+      "candidate_components": 2,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 40,
+      "significant_fragments": 2,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 41,
+      "significant_fragments": 2,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 47,
+      "significant_fragments": 2,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 63,
+      "significant_fragments": 2,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 71,
+      "significant_fragments": 3,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 74,
+      "significant_fragments": 4,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 76,
+      "significant_fragments": 4,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 78,
+      "significant_fragments": 5,
+      "candidate_edges": 8,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 126,
+      "significant_fragments": 2,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 164,
+      "significant_fragments": 3,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 239,
+      "significant_fragments": 3,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 251,
+      "significant_fragments": 3,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 254,
+      "significant_fragments": 3,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 265,
+      "significant_fragments": 4,
+      "candidate_edges": 5,
+      "candidate_components": 1,
+      "graph_covered": true
+    }
+  ],
+  "modes": {
+    "fragment_union_ceiling": {
+      "tp": 229,
+      "fp": 75,
+      "fn": 37,
+      "completeness": 0.8609022556390977,
+      "commission": 0.24671052631578946,
+      "f1": 0.8035087719298246,
+      "accepted_groups": 6,
+      "merged_predictions": 15,
+      "recovered_fragmentation_trees": 6,
+      "recovered_gt_ids": [
+        40,
+        41,
+        47,
+        74,
+        126,
+        164
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "accepted": [
+        {
+          "target_gt_id": 164,
+          "prediction_ids": [
+            209,
+            287,
+            288
+          ]
+        },
+        {
+          "target_gt_id": 74,
+          "prediction_ids": [
+            462,
+            488,
+            500,
+            501
+          ]
+        },
+        {
+          "target_gt_id": 40,
+          "prediction_ids": [
+            605,
+            606
+          ]
+        },
+        {
+          "target_gt_id": 41,
+          "prediction_ids": [
+            663,
+            664
+          ]
+        },
+        {
+          "target_gt_id": 47,
+          "prediction_ids": [
+            628,
+            639
+          ]
+        },
+        {
+          "target_gt_id": 126,
+          "prediction_ids": [
+            162,
+            163
+          ]
+        }
+      ]
+    },
+    "fragment_graph_oracle": {
+      "tp": 229,
+      "fp": 75,
+      "fn": 37,
+      "completeness": 0.8609022556390977,
+      "commission": 0.24671052631578946,
+      "f1": 0.8035087719298246,
+      "accepted_groups": 6,
+      "merged_predictions": 14,
+      "recovered_fragmentation_trees": 6,
+      "recovered_gt_ids": [
+        40,
+        41,
+        47,
+        74,
+        126,
+        164
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "accepted": [
+        {
+          "target_gt_id": 74,
+          "prediction_ids": [
+            488,
+            500,
+            501
+          ]
+        },
+        {
+          "target_gt_id": 164,
+          "prediction_ids": [
+            209,
+            287,
+            288
+          ]
+        },
+        {
+          "target_gt_id": 40,
+          "prediction_ids": [
+            605,
+            606
+          ]
+        },
+        {
+          "target_gt_id": 41,
+          "prediction_ids": [
+            663,
+            664
+          ]
+        },
+        {
+          "target_gt_id": 47,
+          "prediction_ids": [
+            628,
+            639
+          ]
+        },
+        {
+          "target_gt_id": 126,
+          "prediction_ids": [
+            162,
+            163
+          ]
+        }
+      ]
+    }
+  },
+  "adjacency_settings": {
+    "max_vote_center_distance": 3.0,
+    "max_raw_center_distance": 8.0,
+    "max_xy_bbox_gap": 1.5,
+    "max_vertical_gap": 3.0,
+    "max_candidate_edges": 100000
+  },
+  "parameters": {
+    "tree_class_index": 0,
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_fragment_overlap_fraction": 0.05,
+    "min_fragment_overlap_points": 20
+  },
+  "source_plot": "O1W",
+  "split": "validation"
+}

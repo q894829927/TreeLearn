@@ -1,0 +1,140 @@
+forest_path: data/train/forests/G4N.laz
+pipeline_base_dir: logs/coverage_preserving_quality/q4b0_instance_split_deployability/runtime/G4N
+split_oracle_output_dir: __SPLIT_ORACLE_OUTPUT_DIR__
+fp16: true
+tile_generation: true
+dataloader:
+  batch_size: 1
+  num_workers: 2
+shape_cfg:
+  outer_remove: null
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+grouping:
+  tree_conf_thresh: 0.5
+  tau_vert: 0.6
+  tau_off: 4
+  tau_upper_off: 4
+  use_upper_seeds: false
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_axis_fusion: false
+  axis_fusion_weight: 0.0
+  use_axis_confidence: true
+  use_seed_confidence_filter: true
+  seed_confidence_filter_mode: top_ratio
+  seed_confidence_threshold: 0.0
+  seed_confidence_keep_ratio: 1.0
+  seed_confidence_random_seed: 42
+  max_cluster_seed_points: 1500000
+  knn_chunk_size: 200000
+  tau_group: 0.15
+  tau_min: 50
+  use_hdbscan: true
+pretrain: work_dirs/base_residual_mlp_frozen_s43/best_base_residual_xy.pth
+save_cfg:
+  results_dir: results_q4a_instance_split
+  return_type: voxelized_and_filtered
+  save_formats:
+  - npz
+  save_pointwise: true
+  save_treewise: false
+  save_full_forest: false
+  save_instance_diagnostics: false
+  save_quality_training_data: false
+  save_seed_training_data: false
+split_oracle:
+  match_iou_threshold: 0.5
+  min_precision_for_counted_fp: 0.5
+  min_recall_for_undersegmentation: 0.5
+  max_fit_points: 50000
+  random_state: 20260811
+  vertical_power: 2.0
+  vertical_feature_weight: 1.0
+model:
+  kernel_size: 3
+  channels: 32
+  num_blocks: 7
+  use_feats: false
+  use_coords: false
+  dim_coord: 3
+  dim_feat: 1
+  max_num_points_per_voxel: 3
+  fixed_modules: []
+  spatial_shape:
+  - 500
+  - 500
+  - 1000
+  voxel_size: 0.1
+  use_upper_anchor: false
+  upper_offset_loss_weight: 1.0
+  axis_loss_weight: 0.1
+  offset_loss_type: l2
+  smooth_l1_beta: 1.0
+  use_axis_branch: true
+  axis_target_mode: base_residual
+  axis_branch_type: mlp
+  axis_hidden_dim: 32
+  axis_num_neighbors: 8
+  axis_support_voxel_size: 0.4
+  axis_max_support_points: 32768
+  axis_query_chunk_size: 8192
+  axis_gradient_checkpointing: true
+  axis_tree_conf_thresh: 0.5
+  axis_log_variance_min: -4.0
+  axis_log_variance_max: 4.0
+  axis_branch_only: true
+  axis_loss_mode: heteroscedastic
+  axis_confidence_loss_weight: 0.1
+dataset_test:
+  training: false
+  data_root: data/val/tiles/npz
+  inner_square_edge_length: 8
+  base_anchor_mode: legacy
+  base_anchor_height: 0.5
+  base_anchor_floor_quantile: 0.01
+  upper_anchor_mode: crown_median
+  upper_anchor_lower_ratio: 0.55
+  upper_anchor_upper_ratio: 0.75
+  upper_anchor_min_points: 3
+  stem_axis_lower_ratio: 0.1
+  stem_axis_upper_ratio: 0.5
+  stem_axis_num_bins: 4
+  stem_axis_verticality_threshold: 0.6
+  stem_axis_min_points_per_bin: 3
+  stem_axis_min_valid_bins: 3
+  upper_anchor_target_ratio: 0.65
+sample_generation:
+  voxel_size: 0.1
+  search_radius_features: 0.6
+  inner_edge: 8
+  outer_edge: 13.5
+  stride: 0.5
+  sample_generator:
+    n_neigh_sor: null
+    multiplier_sor: null
+    rad: null
+    npoints_rad: null
+split_deployability_output_dir: logs/coverage_preserving_quality/q4b0_instance_split_deployability/validation/G4N
+split_deployability:
+  match_iou_threshold: 0.5
+  min_precision_for_counted_fp: 0.5
+  min_recall_for_undersegmentation: 0.5
+  max_fit_points: 50000
+  random_state: 20260811
+  expected_undersegmented_gt_ids:
+  - 1
+  - 4
+  - 52
+  - 62
+  - 124
+  - 157
+  - 166
+  - 175
+  - 179
+  - 201
+  - 215
+  - 222
+  - 229
+  - 251
+  - 261

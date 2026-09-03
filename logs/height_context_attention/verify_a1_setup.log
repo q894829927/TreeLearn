@@ -1,0 +1,9 @@
+INFO:verify_height_context_setup:missing keys in source state_dict: height_context_adapter.semantic_residual_scale, height_context_adapter.offset_residual_scale, height_context_adapter.point_projection.0.weight, height_context_adapter.point_projection.0.bias, height_context_adapter.point_projection.1.weight, height_context_adapter.point_projection.1.bias, height_context_adapter.token_projection.0.weight, height_context_adapter.token_projection.0.bias, height_context_adapter.token_projection.1.weight, height_context_adapter.token_projection.1.bias, height_context_adapter.token_mixer.norm.weight, height_context_adapter.token_mixer.norm.bias, height_context_adapter.token_mixer.mlp.0.weight, height_context_adapter.token_mixer.mlp.0.bias, height_context_adapter.token_mixer.mlp.3.weight, height_context_adapter.token_mixer.mlp.3.bias, height_context_adapter.context_gate.weight, height_context_adapter.context_gate.bias, height_context_adapter.semantic_residual_head.weight, height_context_adapter.semantic_residual_head.bias, height_context_adapter.offset_residual_head.weight, height_context_adapter.offset_residual_head.bias
+config: configs/experiments/height_context_attention/train_a1_height_mlp_frozen.yaml
+adapter type: mlp
+trainable parameters: 9831
+candidate-only height tensors: 22
+changed shared tensors during load: 0
+changed original tensors after one step: 0
+changed height tensors after one step: 19
+PASS: exact initialization and frozen optimizer scope verified.

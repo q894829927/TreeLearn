@@ -1,0 +1,139 @@
+{
+  "baseline": {
+    "tp": 545,
+    "fp": 50,
+    "fn": 40,
+    "completeness": 0.9316239316239316,
+    "commission": 0.08403361344537816,
+    "f1": 0.923728813559322
+  },
+  "num_fragmentation_gt_trees": 9,
+  "expected_fragmentation_gt_ids": [
+    14,
+    20,
+    54,
+    223,
+    299,
+    317,
+    367,
+    404,
+    451
+  ],
+  "num_predicted_instances": 653,
+  "num_candidate_edges": 240,
+  "num_graph_proposals": 6,
+  "graph_covered_target_trees": 5,
+  "per_target": [
+    {
+      "gt_tree_id": 14,
+      "significant_fragments": 4,
+      "candidate_edges": 2,
+      "candidate_components": 2,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 20,
+      "significant_fragments": 3,
+      "candidate_edges": 0,
+      "candidate_components": 0,
+      "graph_covered": false
+    },
+    {
+      "gt_tree_id": 54,
+      "significant_fragments": 3,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 223,
+      "significant_fragments": 2,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 299,
+      "significant_fragments": 2,
+      "candidate_edges": 1,
+      "candidate_components": 1,
+      "graph_covered": true
+    },
+    {
+      "gt_tree_id": 317,
+      "significant_fragments": 2,
+      "candidate_edges": 0,
+      "candidate_components": 0,
+      "graph_covered": false
+    },
+    {
+      "gt_tree_id": 367,
+      "significant_fragments": 3,
+      "candidate_edges": 0,
+      "candidate_components": 0,
+      "graph_covered": false
+    },
+    {
+      "gt_tree_id": 404,
+      "significant_fragments": 3,
+      "candidate_edges": 0,
+      "candidate_components": 0,
+      "graph_covered": false
+    },
+    {
+      "gt_tree_id": 451,
+      "significant_fragments": 3,
+      "candidate_edges": 3,
+      "candidate_components": 1,
+      "graph_covered": true
+    }
+  ],
+  "modes": {
+    "fragment_union_ceiling": {
+      "tp": 545,
+      "fp": 50,
+      "fn": 40,
+      "completeness": 0.9316239316239316,
+      "commission": 0.08403361344537816,
+      "f1": 0.923728813559322,
+      "accepted_groups": 0,
+      "merged_predictions": 0,
+      "recovered_fragmentation_trees": 0,
+      "recovered_gt_ids": [],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "accepted": []
+    },
+    "fragment_graph_oracle": {
+      "tp": 545,
+      "fp": 50,
+      "fn": 40,
+      "completeness": 0.9316239316239316,
+      "commission": 0.08403361344537816,
+      "f1": 0.923728813559322,
+      "accepted_groups": 0,
+      "merged_predictions": 0,
+      "recovered_fragmentation_trees": 0,
+      "recovered_gt_ids": [],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "accepted": []
+    }
+  },
+  "adjacency_settings": {
+    "max_vote_center_distance": 3.0,
+    "max_raw_center_distance": 8.0,
+    "max_xy_bbox_gap": 1.5,
+    "max_vertical_gap": 3.0,
+    "max_candidate_edges": 100000
+  },
+  "parameters": {
+    "tree_class_index": 0,
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_fragment_overlap_fraction": 0.05,
+    "min_fragment_overlap_points": 20
+  },
+  "source_plot": "G4W",
+  "split": "validation"
+}

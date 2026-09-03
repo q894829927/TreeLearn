@@ -1,0 +1,26 @@
+[1/5] G4N
+RUN G4N; log=logs/coverage_preserving_quality/q5b0_seed_completion_proposal_oracle/logs/G4N.log
+DONE G4N
+[2/5] G4W
+RUN G4W; log=logs/coverage_preserving_quality/q5b0_seed_completion_proposal_oracle/logs/G4W.log
+DONE G4W
+[3/5] L1N
+RUN L1N; log=logs/coverage_preserving_quality/q5b0_seed_completion_proposal_oracle/logs/L1N.log
+DONE L1N
+[4/5] O1N
+RUN O1N; log=logs/coverage_preserving_quality/q5b0_seed_completion_proposal_oracle/logs/O1N.log
+DONE O1N
+[5/5] O1W
+RUN O1W; log=logs/coverage_preserving_quality/q5b0_seed_completion_proposal_oracle/logs/O1W.log
+Traceback (most recent call last):
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/diagnostics/diagnose_seed_completion_proposal_oracle.py", line 310, in <module>
+    main()
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/diagnostics/diagnose_seed_completion_proposal_oracle.py", line 306, in main
+    run(args.config, force=args.force)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/diagnostics/diagnose_seed_completion_proposal_oracle.py", line 289, in run
+    run_plot(settings, plot, force=force)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/diagnostics/diagnose_seed_completion_proposal_oracle.py", line 143, in run_plot
+    validate_artifact(path, plot_name, settings)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/diagnostics/diagnose_seed_completion_proposal_oracle.py", line 59, in validate_artifact
+    raise ValueError(f'Q5b0 baseline differs from Q3 for {plot_name}.')
+ValueError: Q5b0 baseline differs from Q3 for O1W.

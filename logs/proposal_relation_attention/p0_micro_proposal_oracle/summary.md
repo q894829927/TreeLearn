@@ -1,0 +1,44 @@
+# P0 垂直微提议关系图 Oracle
+
+- 固定五个 validation forests；未读取 Wytham。
+- 锁定 B1 Partial Fine-tune seed 42。
+- 实例形成不使用 offset、base seed 或 HDBSCAN。
+
+| Mode | TP | FP | FN | Completeness | Commission | F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| B1-HDBSCAN | 1616 | 182 | 166 | 90.685% | 10.122% | 90.279% |
+| micro-proposal Oracle | 1731 | 758 | 51 | 97.138% | 30.454% | 81.058% |
+
+## 效果
+
+- F1 gain：-9.221 pp
+- Completeness gain：+6.453 pp
+- Recovered trees：116
+- Missed-tree graph coverage：98.193%
+- Nodes / B1 instances：369.986x
+- Average out degree：15.906
+
+## 每森林
+
+| Plot | Nodes | Edges | Recovered | Coverage | F1 gain |
+|---|---:|---:|---:|---:|---:|
+| G4N | 97,075 | 1,541,887 | 26 | 96.97% | -6.333 pp |
+| G4W | 218,109 | 3,469,162 | 32 | 95.12% | -10.736 pp |
+| L1N | 185,912 | 2,962,609 | 25 | 100.00% | -10.260 pp |
+| O1N | 98,048 | 1,553,968 | 6 | 100.00% | -2.447 pp |
+| O1W | 131,949 | 2,101,220 | 27 | 100.00% | -9.961 pp |
+
+## Gate
+
+- expected_validation_plots: **True**
+- oracle_f1_gain_passed: **False**
+- oracle_completeness_gain_passed: **True**
+- recovered_tree_count_passed: **True**
+- commission_not_worse: **False**
+- plot_consistency_passed: **False**
+- missed_tree_coverage_passed: **True**
+- proposal_inflation_passed: **False**
+- degree_bound_passed: **True**
+- passed: **False**
+
+STOP：微提议上限不足。

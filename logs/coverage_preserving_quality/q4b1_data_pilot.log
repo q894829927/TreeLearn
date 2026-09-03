@@ -1,0 +1,24 @@
+[1/2] A1N
+RUN A1N (train); log=data/instance_split_learning/logs/A1N.log
+DONE A1N: 642 instances, 22 candidates, 1566 proposals.
+[2/2] G4N
+RUN G4N (validation); log=data/instance_split_learning/logs/G4N.log
+DONE G4N: 364 instances, 14 candidates, 1092 proposals.
+# Q4b1 三头拆分数据生成：pilot
+
+- 数据：固定 train/validation forests；未读取 Wytham。
+- 特征、标签和 Raw-XY proposal 均来自同一次 TreeLearn 运行。
+
+| Split | Instances | Candidates | Underseg GT | Known-K safe | Proposals | Safe proposals |
+|---|---:|---:|---:|---:|---:|---:|
+| train | 642 | 22 | 24 | 9 | 1,566 | 43 |
+| validation | 364 | 14 | 15 | 8 | 1,092 | 33 |
+
+## Gate
+
+- all_pilot_plots_present: **True**
+- all_features_validated: **True**
+- no_child_count_overflow: **True**
+- passed: **True**
+
+PASS

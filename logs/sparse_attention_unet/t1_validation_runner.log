@@ -1,0 +1,27 @@
+===== SKIP m2_selective_kernel: eliminated during t1_training_hardware_gate (rtx4090_24gb_oom_at_fixed_shared_crop) =====
+===== b0_official seed 42: G4N =====
+===== b0_official seed 42: G4W =====
+===== b0_official seed 42: L1N =====
+===== b0_official seed 42: O1N =====
+===== b0_official seed 42: O1W =====
+===== b1_partial seed 42: G4N =====
+===== b1_partial seed 42: G4W =====
+===== b1_partial seed 42: L1N =====
+===== b1_partial seed 42: O1N =====
+===== b1_partial seed 42: O1W =====
+===== m1_sparse_se seed 42: G4N =====
+===== m1_sparse_se seed 42: G4W =====
+===== m1_sparse_se seed 42: L1N =====
+===== m1_sparse_se seed 42: O1N =====
+===== m1_sparse_se seed 42: O1W =====
+===== m3_hcag seed 42: G4N =====
+===== m3_hcag seed 42: G4W =====
+===== m3_hcag seed 42: L1N =====
+===== m3_hcag seed 42: O1N =====
+===== m3_hcag seed 42: O1W =====
+===== m4_window_attention seed 42: G4N =====
+===== m4_window_attention seed 42: G4W =====
+===== m4_window_attention seed 42: L1N =====
+===== m4_window_attention seed 42: O1N =====
+===== m4_window_attention seed 42: O1W =====
+Saved logs/sparse_attention_unet/t1_validation/records.csv

@@ -1,0 +1,5 @@
+INFO:sparse_unet_pipeline_smoke:Load test dataset: 1221 scans
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00,  2.95it/s]100%|██████████| 1/1 [00:00<00:00,  2.95it/s]
+INFO:sparse_unet_pipeline_smoke:NumPy ensemble reduced 644 overlapping tile points to 644 unique points in 0.0s
+INFO:sparse_unet_pipeline_smoke:Clustering 0 seed points in 2D (base seeds: 0, upper seeds: 0)
+INFO:sparse_unet_pipeline_smoke:PASS: 644 points, peak=0.409 GB, params=30,106,981, time=0.566s; saved logs/sparse_attention_unet/t0_pipeline_b1_partial.npz

@@ -1,0 +1,10 @@
+INFO:sparse_unet_pipeline_smoke:Load test dataset: 1221 scans
+INFO:sparse_unet_pipeline_smoke:Using representative tile 610/1220.
+INFO:sparse_unet_pipeline_smoke:missing keys in source state_dict: unet.u.u.u.u.u.u.post_enhancement.gamma, unet.u.u.u.u.u.u.post_enhancement.position_projection.weight, unet.u.u.u.u.u.u.post_enhancement.position_projection.bias, unet.u.u.u.u.u.u.post_enhancement.norm1.weight, unet.u.u.u.u.u.u.post_enhancement.norm1.bias, unet.u.u.u.u.u.u.post_enhancement.attention.in_proj_weight, unet.u.u.u.u.u.u.post_enhancement.attention.in_proj_bias, unet.u.u.u.u.u.u.post_enhancement.attention.out_proj.weight, unet.u.u.u.u.u.u.post_enhancement.attention.out_proj.bias, unet.u.u.u.u.u.u.post_enhancement.norm2.weight, unet.u.u.u.u.u.u.post_enhancement.norm2.bias, unet.u.u.u.u.u.u.post_enhancement.ffn.0.weight, unet.u.u.u.u.u.u.post_enhancement.ffn.0.bias, unet.u.u.u.u.u.u.post_enhancement.ffn.2.weight, unet.u.u.u.u.u.u.post_enhancement.ffn.2.bias
+  0%|          | 0/1 [00:00<?, ?it/s]/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/activation.py:1144: UserWarning: Converting mask without torch.bool dtype to bool; this will negatively affect performance. Prefer to use a boolean mask directly. (Triggered internally at /opt/conda/conda-bld/pytorch_1678402411778/work/aten/src/ATen/native/transformers/attention.cpp:150.)
+  return torch._native_multi_head_attention(
+100%|██████████| 1/1 [00:01<00:00,  1.39s/it]100%|██████████| 1/1 [00:01<00:00,  1.39s/it]
+INFO:sparse_unet_pipeline_smoke:NumPy ensemble reduced 78,003 overlapping tile points to 78,003 unique points in 0.0s
+INFO:sparse_unet_pipeline_smoke:Clustering 1,261 seed points in 2D (base seeds: 1,261, upper seeds: 0)
+INFO:sparse_unet_pipeline_smoke:Clustering finished in 0.0s
+INFO:sparse_unet_pipeline_smoke:PASS: tile=610, 78,003 points, instances=2, peak=1.982 GB, params=30,511,750, time=1.708s; saved logs/sparse_attention_unet/t0_pipeline_m4_window_attention_representative.npz

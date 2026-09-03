@@ -1,0 +1,530 @@
+{
+  "config": "configs/experiments/complexity_seed_attention/e1d_seed_cell_oracle.yaml",
+  "settings": {
+    "cell_size": 0.6,
+    "keep_ratio": 0.78,
+    "density_exponent": 0.5,
+    "random_seeds": [
+      42,
+      43,
+      44
+    ],
+    "expected_validation_plots": [
+      "G4N",
+      "G4W",
+      "L1N",
+      "O1N",
+      "O1W"
+    ]
+  },
+  "plots": [
+    {
+      "source_plot": "G4N",
+      "artifact_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_quality/validation/G4N.npz",
+      "num_candidates": 293705,
+      "keep_count": 229090,
+      "structure": {
+        "num_cells": 1440,
+        "mean_candidates_per_cell": 203.96180555555554,
+        "p90_candidates_per_cell": 717.1000000000001,
+        "max_candidates_per_cell": 1794,
+        "impure_cell_rate_below_0_90": 0.04583333333333333,
+        "multi_tree_collision_cell_rate": 0.019444444444444445,
+        "between_cell_utility_variance_ratio": 0.9150609419965163
+      },
+      "modes": {
+        "point_oracle": {
+          "selected_count": 229090,
+          "selected_mean_utility": 0.3419070606869598,
+          "selected_non_tree_rate": 0.0,
+          "selected_reliable_rate": 0.31742110087738445,
+          "selected_tree_mean_vote_error_xy": 0.5790218014714111,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 0.7236111111111111,
+          "selected_cell_count_cv": 1.8980678839951635,
+          "selection_sha256": "49711a3ce867b8beecbe2135fba5bc18b0e92c7b672f746dc927f144c92b1138"
+        },
+        "cell_oracle": {
+          "selected_count": 229090,
+          "selected_mean_utility": 0.28422118355789017,
+          "selected_non_tree_rate": 0.10626391374568947,
+          "selected_reliable_rate": 0.27586974551486315,
+          "selected_tree_mean_vote_error_xy": 0.8171567267165284,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.3622136839707861,
+          "selection_sha256": "90364125eb264212d86386a45d33374b1c479a62a72c72af3075b9f28e0857c5"
+        },
+        "cell_random_s42": {
+          "selected_count": 229090,
+          "selected_mean_utility": 0.26422405992863096,
+          "selected_non_tree_rate": 0.10964249858134358,
+          "selected_reliable_rate": 0.24694224977083243,
+          "selected_tree_mean_vote_error_xy": 0.8392893475220117,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.3622136839707861,
+          "selection_sha256": "82412964bad1d7ba3fd4dd588633d41ac6e6afe16f0a516ba442656428b92cf2"
+        },
+        "cell_random_s43": {
+          "selected_count": 229090,
+          "selected_mean_utility": 0.2643089755710869,
+          "selected_non_tree_rate": 0.1098345628355668,
+          "selected_reliable_rate": 0.24680256667685188,
+          "selected_tree_mean_vote_error_xy": 0.8390868926550414,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.3622136839707861,
+          "selection_sha256": "42fbf0857af5b332066c81c89090ded43bd6efba28d05b3b5d5ae26cba3b36a2"
+        },
+        "cell_random_s44": {
+          "selected_count": 229090,
+          "selected_mean_utility": 0.2644664250688242,
+          "selected_non_tree_rate": 0.10972543541839452,
+          "selected_reliable_rate": 0.2471081234449343,
+          "selected_tree_mean_vote_error_xy": 0.8389413594611619,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.3622136839707861,
+          "selection_sha256": "1df79f214da1f1d52d8aabd1b786b672f67e022631f684cd71d247ff258626fd"
+        }
+      },
+      "random_mean": {
+        "selected_mean_utility": 0.2643331535228473,
+        "selected_non_tree_rate": 0.1097341656117683,
+        "critical_recall": 1.0,
+        "critical_tree_coverage": 1.0,
+        "selected_cell_count_cv": 1.3622136839707861
+      },
+      "effects": {
+        "utility_gain_over_random_relative": 0.07523850024103715,
+        "non_tree_reduction_over_random_relative": 0.03162416961692981,
+        "utility_retention_vs_point_oracle": 0.8312819951329254,
+        "critical_recall_drop_vs_point_oracle": 0.0,
+        "density_cv_reduction_vs_point_oracle_relative": 0.2823156139687061,
+        "plot_win_over_random": true
+      }
+    },
+    {
+      "source_plot": "G4W",
+      "artifact_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_quality/validation/G4W.npz",
+      "num_candidates": 519142,
+      "keep_count": 404931,
+      "structure": {
+        "num_cells": 2748,
+        "mean_candidates_per_cell": 188.91630276564774,
+        "p90_candidates_per_cell": 675.3000000000002,
+        "max_candidates_per_cell": 2101,
+        "impure_cell_rate_below_0_90": 0.07423580786026202,
+        "multi_tree_collision_cell_rate": 0.03202328966521106,
+        "between_cell_utility_variance_ratio": 0.9224512761126525
+      },
+      "modes": {
+        "point_oracle": {
+          "selected_count": 404931,
+          "selected_mean_utility": 0.47689175628290775,
+          "selected_non_tree_rate": 0.0,
+          "selected_reliable_rate": 0.47146056982547646,
+          "selected_tree_mean_vote_error_xy": 0.40260127126796497,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 0.7398107714701602,
+          "selected_cell_count_cv": 2.009396848865597,
+          "selection_sha256": "9751e8aee719b1e85afe8918e5cfbcce0a79c9bcf09a57573fdb269ecd7d1c1d"
+        },
+        "cell_oracle": {
+          "selected_count": 404931,
+          "selected_mean_utility": 0.38822881929298614,
+          "selected_non_tree_rate": 0.06201303431942726,
+          "selected_reliable_rate": 0.3918297191373345,
+          "selected_tree_mean_vote_error_xy": 0.5995374010603495,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.455030740629435,
+          "selection_sha256": "03a303569b99b7ef652fc94cc21f75f337628c75c40fd3e673d3391ee43adbaf"
+        },
+        "cell_random_s42": {
+          "selected_count": 404931,
+          "selected_mean_utility": 0.3656756002622723,
+          "selected_non_tree_rate": 0.06907843558532194,
+          "selected_reliable_rate": 0.3622814751155135,
+          "selected_tree_mean_vote_error_xy": 0.6198412802318394,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.455030740629435,
+          "selection_sha256": "35f24b0583d87118d981ca0ee8e207a449af02fca11dc7ad5d0ffebc6833f041"
+        },
+        "cell_random_s43": {
+          "selected_count": 404931,
+          "selected_mean_utility": 0.36567831080544333,
+          "selected_non_tree_rate": 0.06909572248111406,
+          "selected_reliable_rate": 0.3622444317673875,
+          "selected_tree_mean_vote_error_xy": 0.6197075682674993,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.455030740629435,
+          "selection_sha256": "ecbfd21376379e8c5b94c128f5304aebe57c993e0c0ccab8bbbe72997bf6a0af"
+        },
+        "cell_random_s44": {
+          "selected_count": 404931,
+          "selected_mean_utility": 0.3655959530023793,
+          "selected_non_tree_rate": 0.06920932208203373,
+          "selected_reliable_rate": 0.36225677955009616,
+          "selected_tree_mean_vote_error_xy": 0.6199225176938367,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.455030740629435,
+          "selection_sha256": "9a7f5b435960252e2ad73bf810e4d19f62f6fadd0ea4af12b71077bb433879d6"
+        }
+      },
+      "random_mean": {
+        "selected_mean_utility": 0.36564995469003164,
+        "selected_non_tree_rate": 0.06912782671615658,
+        "critical_recall": 1.0,
+        "critical_tree_coverage": 1.0,
+        "selected_cell_count_cv": 1.455030740629435
+      },
+      "effects": {
+        "utility_gain_over_random_relative": 0.06174994503170395,
+        "non_tree_reduction_over_random_relative": 0.10292226350385832,
+        "utility_retention_vs_point_oracle": 0.8140816321066286,
+        "critical_recall_drop_vs_point_oracle": 0.0,
+        "density_cv_reduction_vs_point_oracle_relative": 0.27588682073883464,
+        "plot_win_over_random": true
+      }
+    },
+    {
+      "source_plot": "L1N",
+      "artifact_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_quality/validation/L1N.npz",
+      "num_candidates": 452316,
+      "keep_count": 352807,
+      "structure": {
+        "num_cells": 2883,
+        "mean_candidates_per_cell": 156.89073881373568,
+        "p90_candidates_per_cell": 534.6000000000004,
+        "max_candidates_per_cell": 2019,
+        "impure_cell_rate_below_0_90": 0.06416926812348249,
+        "multi_tree_collision_cell_rate": 0.02428026361429067,
+        "between_cell_utility_variance_ratio": 0.9342467209415064
+      },
+      "modes": {
+        "point_oracle": {
+          "selected_count": 352807,
+          "selected_mean_utility": 0.5390586381203906,
+          "selected_non_tree_rate": 0.0,
+          "selected_reliable_rate": 0.5720096256593549,
+          "selected_tree_mean_vote_error_xy": 0.36502261962233723,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 0.5972944849115505,
+          "selected_cell_count_cv": 2.347357690929159,
+          "selection_sha256": "049fa3966f00baffb50b70f7e883b12dbf135dd24b30bee7b60925fd947de476"
+        },
+        "cell_oracle": {
+          "selected_count": 352807,
+          "selected_mean_utility": 0.4262986030568655,
+          "selected_non_tree_rate": 0.14544212558140854,
+          "selected_reliable_rate": 0.4530323944819689,
+          "selected_tree_mean_vote_error_xy": 0.49077230417251516,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.592909215474212,
+          "selection_sha256": "c39f374c116055f2ca802a0a5dd0bd36edaa4c1cf99a1a7949d06428b375672c"
+        },
+        "cell_random_s42": {
+          "selected_count": 352807,
+          "selected_mean_utility": 0.4038734332682753,
+          "selected_non_tree_rate": 0.14918638235635914,
+          "selected_reliable_rate": 0.42623020518300375,
+          "selected_tree_mean_vote_error_xy": 0.5097858129151444,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.592909215474212,
+          "selection_sha256": "154ad619759e36ddc9947f9931de4e2362fabdb036cb7e37114dae8b2609d62b"
+        },
+        "cell_random_s43": {
+          "selected_count": 352807,
+          "selected_mean_utility": 0.4039533310407789,
+          "selected_non_tree_rate": 0.14915520383665856,
+          "selected_reliable_rate": 0.42654765920177323,
+          "selected_tree_mean_vote_error_xy": 0.5097800001253309,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.592909215474212,
+          "selection_sha256": "acb640c6d664771aca46be83b54f5f6f9eaa6f7c1f8adfd8773e45f58f5f14b5"
+        },
+        "cell_random_s44": {
+          "selected_count": 352807,
+          "selected_mean_utility": 0.40380295707620484,
+          "selected_non_tree_rate": 0.14915520383665856,
+          "selected_reliable_rate": 0.42623870841564937,
+          "selected_tree_mean_vote_error_xy": 0.5098685660288284,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.592909215474212,
+          "selection_sha256": "a6767df57af3d394da74cfe6a562067773ec8c8070b75b32b869062e02a9dcf0"
+        }
+      },
+      "random_mean": {
+        "selected_mean_utility": 0.4038765737950863,
+        "selected_non_tree_rate": 0.14916559667655874,
+        "critical_recall": 1.0,
+        "critical_tree_coverage": 1.0,
+        "selected_cell_count_cv": 1.5929092154742122
+      },
+      "effects": {
+        "utility_gain_over_random_relative": 0.05551703346170164,
+        "non_tree_reduction_over_random_relative": 0.024961996453002087,
+        "utility_retention_vs_point_oracle": 0.7908204653640263,
+        "critical_recall_drop_vs_point_oracle": 0.0,
+        "density_cv_reduction_vs_point_oracle_relative": 0.3214032860736756,
+        "plot_win_over_random": true
+      }
+    },
+    {
+      "source_plot": "O1N",
+      "artifact_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_quality/validation/O1N.npz",
+      "num_candidates": 242281,
+      "keep_count": 188980,
+      "structure": {
+        "num_cells": 821,
+        "mean_candidates_per_cell": 295.1047503045067,
+        "p90_candidates_per_cell": 1151.0,
+        "max_candidates_per_cell": 2150,
+        "impure_cell_rate_below_0_90": 0.04263093788063337,
+        "multi_tree_collision_cell_rate": 0.01705237515225335,
+        "between_cell_utility_variance_ratio": 0.9182739243594101
+      },
+      "modes": {
+        "point_oracle": {
+          "selected_count": 188980,
+          "selected_mean_utility": 0.5432174258802309,
+          "selected_non_tree_rate": 0.0,
+          "selected_reliable_rate": 0.5670705894803683,
+          "selected_tree_mean_vote_error_xy": 0.3412685663800804,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 0.6467722289890377,
+          "selected_cell_count_cv": 1.9372424473059542,
+          "selection_sha256": "476de22552d0f84535926bbce081744788df515288b1d0bde74cb2e17e09897c"
+        },
+        "cell_oracle": {
+          "selected_count": 188980,
+          "selected_mean_utility": 0.44772908899155056,
+          "selected_non_tree_rate": 0.06606519208381839,
+          "selected_reliable_rate": 0.4626732987617737,
+          "selected_tree_mean_vote_error_xy": 0.5478328964885231,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.4665600749953742,
+          "selection_sha256": "47e413cfe2c4bdb2de4ef2a537c8434c5abbf03777438e371e23bde6436c0aff"
+        },
+        "cell_random_s42": {
+          "selected_count": 188980,
+          "selected_mean_utility": 0.4208497960397898,
+          "selected_non_tree_rate": 0.06818181818181818,
+          "selected_reliable_rate": 0.43455921261509156,
+          "selected_tree_mean_vote_error_xy": 0.5703639053810123,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.4665600749953742,
+          "selection_sha256": "8c25727d503cdaf416733f18f87ee1fa10130311f2a57a65d787c7e93e72888f"
+        },
+        "cell_random_s43": {
+          "selected_count": 188980,
+          "selected_mean_utility": 0.4207726712841831,
+          "selected_non_tree_rate": 0.06822944226902318,
+          "selected_reliable_rate": 0.43427346809186157,
+          "selected_tree_mean_vote_error_xy": 0.5703571455085836,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.4665600749953742,
+          "selection_sha256": "9a011d1374214334804893aede4b293da31533aed94e8cb7c5d3e8f27c57591a"
+        },
+        "cell_random_s44": {
+          "selected_count": 188980,
+          "selected_mean_utility": 0.42069448366187057,
+          "selected_non_tree_rate": 0.06828764948671817,
+          "selected_reliable_rate": 0.43452746322362157,
+          "selected_tree_mean_vote_error_xy": 0.5704083672327027,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.4665600749953742,
+          "selection_sha256": "9abf3f55fcfb21c5a2b51874b6cba7cfda17e1cb91661ae87d34e3cb29fd565b"
+        }
+      },
+      "random_mean": {
+        "selected_mean_utility": 0.4207723169952812,
+        "selected_non_tree_rate": 0.0682329699791865,
+        "critical_recall": 1.0,
+        "critical_tree_coverage": 1.0,
+        "selected_cell_count_cv": 1.466560074995374
+      },
+      "effects": {
+        "utility_gain_over_random_relative": 0.06406498457114906,
+        "non_tree_reduction_over_random_relative": 0.03177024092648112,
+        "utility_retention_vs_point_oracle": 0.8242170955139173,
+        "critical_recall_drop_vs_point_oracle": 0.0,
+        "density_cv_reduction_vs_point_oracle_relative": 0.2429651347796654,
+        "plot_win_over_random": true
+      }
+    },
+    {
+      "source_plot": "O1W",
+      "artifact_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_quality/validation/O1W.npz",
+      "num_candidates": 400701,
+      "keep_count": 312547,
+      "structure": {
+        "num_cells": 4674,
+        "mean_candidates_per_cell": 85.72978177150192,
+        "p90_candidates_per_cell": 230.0,
+        "max_candidates_per_cell": 1958,
+        "impure_cell_rate_below_0_90": 0.07424047924689774,
+        "multi_tree_collision_cell_rate": 0.02032520325203252,
+        "between_cell_utility_variance_ratio": 0.9276892210645747
+      },
+      "modes": {
+        "point_oracle": {
+          "selected_count": 312547,
+          "selected_mean_utility": 0.32860941644360925,
+          "selected_non_tree_rate": 0.2512710088402704,
+          "selected_reliable_rate": 0.3419933641980246,
+          "selected_tree_mean_vote_error_xy": 0.5899660168611671,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 0.7006846384253316,
+          "selected_cell_count_cv": 2.791431685637601,
+          "selection_sha256": "ee02e684febd3d85942106572670d94ff72141d5e7675cd9f293e959a0f33334"
+        },
+        "cell_oracle": {
+          "selected_count": 312547,
+          "selected_mean_utility": 0.2417401369797607,
+          "selected_non_tree_rate": 0.47696826397309844,
+          "selected_reliable_rate": 0.2541249796030677,
+          "selected_tree_mean_vote_error_xy": 0.5576715105490644,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.744599823775442,
+          "selection_sha256": "29189b127b9f6181e5f81257122e232be762499aab60f02795ef300020a8ce6f"
+        },
+        "cell_random_s42": {
+          "selected_count": 312547,
+          "selected_mean_utility": 0.2214486457306175,
+          "selected_non_tree_rate": 0.49224596620668254,
+          "selected_reliable_rate": 0.22906954793998982,
+          "selected_tree_mean_vote_error_xy": 0.5832682403930104,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.744599823775442,
+          "selection_sha256": "4d1e42247985dadc4bcb80200117e07320d43a1e68c0cea6fdc2fb6050773c4a"
+        },
+        "cell_random_s43": {
+          "selected_count": 312547,
+          "selected_mean_utility": 0.2213921981378856,
+          "selected_non_tree_rate": 0.4925147257852419,
+          "selected_reliable_rate": 0.22921992532323138,
+          "selected_tree_mean_vote_error_xy": 0.5837658975588588,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.744599823775442,
+          "selection_sha256": "576be8a582f78b884f95c76a067c59184525f736c2be30856eb7ce421b6cf776"
+        },
+        "cell_random_s44": {
+          "selected_count": 312547,
+          "selected_mean_utility": 0.22163050127918854,
+          "selected_non_tree_rate": 0.4921947739060045,
+          "selected_reliable_rate": 0.2294342930823204,
+          "selected_tree_mean_vote_error_xy": 0.5833274350042044,
+          "critical_recall": 1.0,
+          "critical_tree_coverage": 1.0,
+          "occupied_cell_coverage": 1.0,
+          "selected_cell_count_cv": 1.744599823775442,
+          "selection_sha256": "e3afecbdb3efb139658f75fbf178f6795d52b0b6b0da1c4181edf01ca2b4c504"
+        }
+      },
+      "random_mean": {
+        "selected_mean_utility": 0.22149044838256385,
+        "selected_non_tree_rate": 0.492318488632643,
+        "critical_recall": 1.0,
+        "critical_tree_coverage": 1.0,
+        "selected_cell_count_cv": 1.7445998237754423
+      },
+      "effects": {
+        "utility_gain_over_random_relative": 0.09142465846753398,
+        "non_tree_reduction_over_random_relative": 0.031179460073047442,
+        "utility_retention_vs_point_oracle": 0.7356457997947978,
+        "critical_recall_drop_vs_point_oracle": 0.0,
+        "density_cv_reduction_vs_point_oracle_relative": 0.37501611350486924,
+        "plot_win_over_random": true
+      }
+    }
+  ],
+  "aggregate": {
+    "num_validation_plots": 5,
+    "num_candidates": 1908145,
+    "num_cells": 12566,
+    "cell_oracle": {
+      "selected_mean_utility": 0.35764356637581063,
+      "selected_non_tree_rate": 0.17135050594068843,
+      "critical_recall": 1.0,
+      "critical_tree_coverage": 1.0,
+      "selected_cell_count_cv": 1.52426270776905
+    },
+    "point_oracle": {
+      "selected_mean_utility": 0.4459368594828196,
+      "selected_non_tree_rate": 0.050254201768054084,
+      "critical_recall": 1.0,
+      "critical_tree_coverage": 1.0,
+      "selected_cell_count_cv": 2.196699311346695
+    },
+    "cell_random_mean": {
+      "selected_mean_utility": 0.3352244894771621,
+      "selected_non_tree_rate": 0.17771580952326263,
+      "critical_recall": 1.0,
+      "critical_tree_coverage": 1.0,
+      "selected_cell_count_cv": 1.52426270776905
+    }
+  },
+  "effects": {
+    "utility_gain_over_random_relative": 0.0668778015998019,
+    "non_tree_reduction_over_random_relative": 0.03581731754563454,
+    "utility_retention_vs_point_oracle": 0.8020049448044997,
+    "critical_recall_drop_vs_point_oracle": 0.0,
+    "density_cv_reduction_vs_point_oracle_relative": 0.30611226584552664,
+    "plot_wins": 5,
+    "mean_between_cell_utility_variance_ratio": 0.9235444168949319
+  },
+  "gate": {
+    "expected_validation_plots_present": true,
+    "enough_seed_cells": true,
+    "cell_structure_signal_passed": true,
+    "utility_gain_over_random_passed": true,
+    "non_tree_reduction_passed": false,
+    "utility_retention_vs_point_passed": false,
+    "critical_recall_preserved": true,
+    "critical_tree_coverage_passed": true,
+    "density_balance_improved": true,
+    "per_plot_consistency_passed": true,
+    "passed": false
+  }
+}

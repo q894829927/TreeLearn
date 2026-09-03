@@ -1,0 +1,178 @@
+{
+  "baseline": {
+    "tp": 282,
+    "fp": 35,
+    "fn": 36,
+    "completeness": 0.8867924528301887,
+    "commission": 0.11041009463722397,
+    "f1": 0.8881889763779528
+  },
+  "num_target_trees": 13,
+  "expected_target_tree_ids": [
+    221,
+    224,
+    226,
+    236,
+    243,
+    252,
+    254,
+    256,
+    263,
+    264,
+    268,
+    270,
+    277
+  ],
+  "num_baseline_seeds": 293705,
+  "per_tree_topup": [
+    {
+      "gt_tree_id": 221,
+      "baseline_seed_count": 1,
+      "semantic_point_count": 7282,
+      "added_seed_count": 49,
+      "margin_selected_mean_xy_error": 0.27517190770906746,
+      "oracle_selected_mean_xy_error": 0.01353016760434878
+    },
+    {
+      "gt_tree_id": 224,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 15634,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 0.766723801625455,
+      "oracle_selected_mean_xy_error": 0.08368033567618464
+    },
+    {
+      "gt_tree_id": 226,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 14258,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 3.2418027572487342,
+      "oracle_selected_mean_xy_error": 0.0199256006374493
+    },
+    {
+      "gt_tree_id": 236,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 1745,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 3.8850223634297887,
+      "oracle_selected_mean_xy_error": 1.4179757669796826
+    },
+    {
+      "gt_tree_id": 243,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 2699,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 0.9776808753992157,
+      "oracle_selected_mean_xy_error": 0.3567597134294249
+    },
+    {
+      "gt_tree_id": 252,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 27923,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 2.623118468804839,
+      "oracle_selected_mean_xy_error": 0.0928630369672478
+    },
+    {
+      "gt_tree_id": 254,
+      "baseline_seed_count": 12,
+      "semantic_point_count": 34025,
+      "added_seed_count": 38,
+      "margin_selected_mean_xy_error": 0.6754607610440363,
+      "oracle_selected_mean_xy_error": 0.09255414964715161
+    },
+    {
+      "gt_tree_id": 256,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 6196,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 4.561136422353373,
+      "oracle_selected_mean_xy_error": 0.5794359250134411
+    },
+    {
+      "gt_tree_id": 263,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 419,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 2.0709665838096076,
+      "oracle_selected_mean_xy_error": 1.6353736255865672
+    },
+    {
+      "gt_tree_id": 264,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 984,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 7.885757143249415,
+      "oracle_selected_mean_xy_error": 5.338466083254272
+    },
+    {
+      "gt_tree_id": 268,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 225,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 6.086131208868644,
+      "oracle_selected_mean_xy_error": 4.825986302119991
+    },
+    {
+      "gt_tree_id": 270,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 1449,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 6.428944329780913,
+      "oracle_selected_mean_xy_error": 4.215712454182195
+    },
+    {
+      "gt_tree_id": 277,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 4654,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 4.269904964007603,
+      "oracle_selected_mean_xy_error": 0.13444449912581138
+    }
+  ],
+  "modes": {
+    "margin_topup": {
+      "tp": 289,
+      "fp": 35,
+      "fn": 29,
+      "completeness": 0.9088050314465409,
+      "commission": 0.10802469135802469,
+      "f1": 0.9003115264797508,
+      "num_seed_points": 294342,
+      "num_added_seed_points": 637,
+      "recovered_target_tree_ids": [
+        226,
+        243,
+        254,
+        277
+      ],
+      "recovered_target_trees": 4,
+      "lost_baseline_tree_ids": [],
+      "lost_baseline_trees": 0
+    },
+    "xy_oracle_topup": {
+      "tp": 289,
+      "fp": 35,
+      "fn": 29,
+      "completeness": 0.9088050314465409,
+      "commission": 0.10802469135802469,
+      "f1": 0.9003115264797508,
+      "num_seed_points": 294342,
+      "num_added_seed_points": 637,
+      "recovered_target_tree_ids": [
+        226,
+        243,
+        252,
+        254,
+        277
+      ],
+      "recovered_target_trees": 5,
+      "lost_baseline_tree_ids": [
+        216
+      ],
+      "lost_baseline_trees": 1
+    }
+  },
+  "source_plot": "G4N",
+  "split": "validation"
+}

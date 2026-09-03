@@ -1,0 +1,926 @@
+{
+  "config": "configs/experiments/coverage_preserving_quality/q1_coverage_oracle.yaml",
+  "settings": {
+    "reject_ratio": 0.15
+  },
+  "plots": [
+    {
+      "source_plot": "A1N",
+      "split": "train",
+      "num_instances": 641,
+      "num_target_valid": 634,
+      "num_classification_valid": 590,
+      "num_safe_reject": 207,
+      "num_coverage_critical": 383,
+      "num_counted_negative": 207,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 51,
+      "safe_reject_rate": 0.32293291731669266,
+      "classification_coverage": 0.9204368174726989,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/A1N.npz",
+        "size": 1246124,
+        "mtime_ns": 1785678028080158277,
+        "sha256": "cf46788568c64da2a6fb2c10e15a0c9aa2e8101364e376cc7b9939c81f2eae09"
+      },
+      "oracle": {
+        "reject_budget": 96,
+        "num_rejected": 96,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 96,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 383,
+          "fp": 207,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.35084745762711866,
+          "f1": 0.7872559095580678
+        },
+        "filtered": {
+          "tp": 383,
+          "fp": 111,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.22469635627530365,
+          "f1": 0.8734321550741163
+        },
+        "f1_gain_pp": 8.617624551604852,
+        "commission_reduction_pp": 12.615110135181501,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "A1W",
+      "split": "train",
+      "num_instances": 651,
+      "num_target_valid": 645,
+      "num_classification_valid": 609,
+      "num_safe_reject": 130,
+      "num_coverage_critical": 479,
+      "num_counted_negative": 130,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 42,
+      "safe_reject_rate": 0.19969278033794163,
+      "classification_coverage": 0.9354838709677419,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/A1W.npz",
+        "size": 1295076,
+        "mtime_ns": 1785687001903889615,
+        "sha256": "2477faad94e2bb3345549b583e94153399f05631ef4731060200fbbac80ee71f"
+      },
+      "oracle": {
+        "reject_budget": 97,
+        "num_rejected": 97,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 97,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 479,
+          "fp": 130,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.2134646962233169,
+          "f1": 0.8805147058823529
+        },
+        "filtered": {
+          "tp": 479,
+          "fp": 33,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.064453125,
+          "f1": 0.9667003027245207
+        },
+        "f1_gain_pp": 8.618559684216775,
+        "commission_reduction_pp": 14.901157122331691,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G1N",
+      "split": "train",
+      "num_instances": 440,
+      "num_target_valid": 432,
+      "num_classification_valid": 428,
+      "num_safe_reject": 122,
+      "num_coverage_critical": 306,
+      "num_counted_negative": 122,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 12,
+      "safe_reject_rate": 0.2772727272727273,
+      "classification_coverage": 0.9727272727272728,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/G1N.npz",
+        "size": 806926,
+        "mtime_ns": 1785687535431514082,
+        "sha256": "6113174cd0bcee0e1bbcba5c49f594b727c7c84bff77f7bf179e6d209240c8ef"
+      },
+      "oracle": {
+        "reject_budget": 66,
+        "num_rejected": 66,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 66,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 306,
+          "fp": 122,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.2850467289719626,
+          "f1": 0.8337874659400545
+        },
+        "filtered": {
+          "tp": 306,
+          "fp": 56,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.15469613259668508,
+          "f1": 0.9161676646706587
+        },
+        "f1_gain_pp": 8.23801987306042,
+        "commission_reduction_pp": 13.035059637527752,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G1W",
+      "split": "train",
+      "num_instances": 701,
+      "num_target_valid": 695,
+      "num_classification_valid": 689,
+      "num_safe_reject": 252,
+      "num_coverage_critical": 437,
+      "num_counted_negative": 252,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 12,
+      "safe_reject_rate": 0.3594864479315264,
+      "classification_coverage": 0.9828815977175464,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/G1W.npz",
+        "size": 1297506,
+        "mtime_ns": 1785688755199538723,
+        "sha256": "ba20dc4d077edeb36c9c21b23928706eac13088a832046a4ca9c8412c043d804"
+      },
+      "oracle": {
+        "reject_budget": 105,
+        "num_rejected": 105,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 105,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 437,
+          "fp": 252,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.36574746008708275,
+          "f1": 0.7761989342806395
+        },
+        "filtered": {
+          "tp": 437,
+          "fp": 147,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.2517123287671233,
+          "f1": 0.8560235063663075
+        },
+        "f1_gain_pp": 7.982457208566807,
+        "commission_reduction_pp": 11.403513131995947,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G2N",
+      "split": "train",
+      "num_instances": 755,
+      "num_target_valid": 749,
+      "num_classification_valid": 720,
+      "num_safe_reject": 265,
+      "num_coverage_critical": 455,
+      "num_counted_negative": 265,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 35,
+      "safe_reject_rate": 0.3509933774834437,
+      "classification_coverage": 0.9536423841059603,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/G2N.npz",
+        "size": 1411689,
+        "mtime_ns": 1785689763463194769,
+        "sha256": "7889b39004751f4055d2ad0a43541da32801279ab467db5d1e30caf3a2508037"
+      },
+      "oracle": {
+        "reject_budget": 113,
+        "num_rejected": 113,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 113,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 455,
+          "fp": 265,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.3680555555555556,
+          "f1": 0.774468085106383
+        },
+        "filtered": {
+          "tp": 455,
+          "fp": 152,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.2504118616144975,
+          "f1": 0.8568738229755178
+        },
+        "f1_gain_pp": 8.240573786913485,
+        "commission_reduction_pp": 11.764369394105806,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G2W",
+      "split": "train",
+      "num_instances": 590,
+      "num_target_valid": 585,
+      "num_classification_valid": 558,
+      "num_safe_reject": 333,
+      "num_coverage_critical": 225,
+      "num_counted_negative": 333,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 32,
+      "safe_reject_rate": 0.5644067796610169,
+      "classification_coverage": 0.9457627118644067,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/G2W.npz",
+        "size": 1095188,
+        "mtime_ns": 1785690493830513327,
+        "sha256": "36689bc450a7def9d0951bfa3d4e875d2068e1c18aaa41870c4852bf53a45ff9"
+      },
+      "oracle": {
+        "reject_budget": 88,
+        "num_rejected": 88,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 88,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 225,
+          "fp": 333,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.5967741935483871,
+          "f1": 0.5747126436781609
+        },
+        "filtered": {
+          "tp": 225,
+          "fp": 245,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.5212765957446809,
+          "f1": 0.6474820143884892
+        },
+        "f1_gain_pp": 7.27693707103283,
+        "commission_reduction_pp": 7.549759780370624,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G3N",
+      "split": "train",
+      "num_instances": 475,
+      "num_target_valid": 461,
+      "num_classification_valid": 455,
+      "num_safe_reject": 112,
+      "num_coverage_critical": 343,
+      "num_counted_negative": 112,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 20,
+      "safe_reject_rate": 0.23578947368421052,
+      "classification_coverage": 0.9578947368421052,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/G3N.npz",
+        "size": 875601,
+        "mtime_ns": 1785691291171776734,
+        "sha256": "c85fdddadd5c0a5d491143d9cea573f654dbbfb0fbeb93f5afd7002009be75cb"
+      },
+      "oracle": {
+        "reject_budget": 71,
+        "num_rejected": 71,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 71,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 343,
+          "fp": 112,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.24615384615384617,
+          "f1": 0.8596491228070176
+        },
+        "filtered": {
+          "tp": 343,
+          "fp": 41,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.10677083333333333,
+          "f1": 0.9436038514442916
+        },
+        "f1_gain_pp": 8.395472863727404,
+        "commission_reduction_pp": 13.938301282051285,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G3W",
+      "split": "train",
+      "num_instances": 535,
+      "num_target_valid": 521,
+      "num_classification_valid": 513,
+      "num_safe_reject": 199,
+      "num_coverage_critical": 314,
+      "num_counted_negative": 199,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 22,
+      "safe_reject_rate": 0.3719626168224299,
+      "classification_coverage": 0.9588785046728971,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/G3W.npz",
+        "size": 991872,
+        "mtime_ns": 1785692203325109785,
+        "sha256": "4feca3f292b3866c615453645d4d8498bb928d7f7cfa05ad28396e6e4fd30bb1"
+      },
+      "oracle": {
+        "reject_budget": 80,
+        "num_rejected": 80,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 80,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 314,
+          "fp": 199,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.38791423001949316,
+          "f1": 0.7593712212817413
+        },
+        "filtered": {
+          "tp": 314,
+          "fp": 119,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.2748267898383372,
+          "f1": 0.8406961178045516
+        },
+        "f1_gain_pp": 8.132489652281027,
+        "commission_reduction_pp": 11.308744018115597,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "L2N",
+      "split": "train",
+      "num_instances": 356,
+      "num_target_valid": 354,
+      "num_classification_valid": 345,
+      "num_safe_reject": 126,
+      "num_coverage_critical": 219,
+      "num_counted_negative": 126,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 11,
+      "safe_reject_rate": 0.3539325842696629,
+      "classification_coverage": 0.9691011235955056,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/L2N.npz",
+        "size": 680083,
+        "mtime_ns": 1785692899557881200,
+        "sha256": "efef7e3472b22690cf3cd7a880539e33fe8dc8965099231d3902f05162c9cbd3"
+      },
+      "oracle": {
+        "reject_budget": 53,
+        "num_rejected": 53,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 53,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 219,
+          "fp": 126,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.3652173913043478,
+          "f1": 0.776595744680851
+        },
+        "filtered": {
+          "tp": 219,
+          "fp": 73,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.25,
+          "f1": 0.8571428571428571
+        },
+        "f1_gain_pp": 8.054711246200608,
+        "commission_reduction_pp": 11.521739130434783,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "L2W",
+      "split": "train",
+      "num_instances": 465,
+      "num_target_valid": 462,
+      "num_classification_valid": 455,
+      "num_safe_reject": 63,
+      "num_coverage_critical": 392,
+      "num_counted_negative": 63,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 10,
+      "safe_reject_rate": 0.13548387096774195,
+      "classification_coverage": 0.978494623655914,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/L2W.npz",
+        "size": 920219,
+        "mtime_ns": 1785693957900716274,
+        "sha256": "78df7aa5288fea4f11191a6273c82c8ea31e838a157dbdeba870127146745d39"
+      },
+      "oracle": {
+        "reject_budget": 69,
+        "num_rejected": 63,
+        "budget_utilization": 0.9130434782608695,
+        "rejected_counted_negative": 63,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 392,
+          "fp": 63,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.13846153846153847,
+          "f1": 0.9256198347107438
+        },
+        "filtered": {
+          "tp": 392,
+          "fp": 0,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.0,
+          "f1": 1.0
+        },
+        "f1_gain_pp": 7.438016528925617,
+        "commission_reduction_pp": 13.846153846153847,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "LG1",
+      "split": "train",
+      "num_instances": 462,
+      "num_target_valid": 460,
+      "num_classification_valid": 452,
+      "num_safe_reject": 61,
+      "num_coverage_critical": 391,
+      "num_counted_negative": 61,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 10,
+      "safe_reject_rate": 0.13203463203463203,
+      "classification_coverage": 0.9783549783549783,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/LG1.npz",
+        "size": 907966,
+        "mtime_ns": 1785694503806886842,
+        "sha256": "e4d8780c74b418682454a7f73504b2627d3c3dcfc528f19b589655210e608ed6"
+      },
+      "oracle": {
+        "reject_budget": 69,
+        "num_rejected": 61,
+        "budget_utilization": 0.8840579710144928,
+        "rejected_counted_negative": 61,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 391,
+          "fp": 61,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.13495575221238937,
+          "f1": 0.9276393831553974
+        },
+        "filtered": {
+          "tp": 391,
+          "fp": 0,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.0,
+          "f1": 1.0
+        },
+        "f1_gain_pp": 7.23606168446026,
+        "commission_reduction_pp": 13.495575221238937,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "LG2",
+      "split": "train",
+      "num_instances": 396,
+      "num_target_valid": 394,
+      "num_classification_valid": 381,
+      "num_safe_reject": 63,
+      "num_coverage_critical": 318,
+      "num_counted_negative": 63,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 15,
+      "safe_reject_rate": 0.1590909090909091,
+      "classification_coverage": 0.9621212121212122,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/LG2.npz",
+        "size": 788161,
+        "mtime_ns": 1785695329260438222,
+        "sha256": "dcc628e66309921c16aa547ab34c8c42193beb01aacd82f09fe8a17fe29bcece"
+      },
+      "oracle": {
+        "reject_budget": 59,
+        "num_rejected": 59,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 59,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 318,
+          "fp": 63,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.16535433070866143,
+          "f1": 0.9098712446351931
+        },
+        "filtered": {
+          "tp": 318,
+          "fp": 4,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.012422360248447204,
+          "f1": 0.99375
+        },
+        "f1_gain_pp": 8.387875536480694,
+        "commission_reduction_pp": 15.293197046021422,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "LG3",
+      "split": "train",
+      "num_instances": 340,
+      "num_target_valid": 337,
+      "num_classification_valid": 328,
+      "num_safe_reject": 24,
+      "num_coverage_critical": 304,
+      "num_counted_negative": 24,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 12,
+      "safe_reject_rate": 0.07058823529411765,
+      "classification_coverage": 0.9647058823529412,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/train/LG3.npz",
+        "size": 699276,
+        "mtime_ns": 1785696160614250561,
+        "sha256": "5e4de7fcd0be9b446bc1a30aa61c9f85408137172a73365a1a073c0b76d1cca7"
+      },
+      "oracle": {
+        "reject_budget": 51,
+        "num_rejected": 24,
+        "budget_utilization": 0.47058823529411764,
+        "rejected_counted_negative": 24,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 304,
+          "fp": 24,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.07317073170731707,
+          "f1": 0.9620253164556962
+        },
+        "filtered": {
+          "tp": 304,
+          "fp": 0,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.0,
+          "f1": 1.0
+        },
+        "f1_gain_pp": 3.797468354430378,
+        "commission_reduction_pp": 7.317073170731707,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G4N",
+      "split": "validation",
+      "num_instances": 364,
+      "num_target_valid": 357,
+      "num_classification_valid": 344,
+      "num_safe_reject": 63,
+      "num_coverage_critical": 281,
+      "num_counted_negative": 63,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 20,
+      "safe_reject_rate": 0.17307692307692307,
+      "classification_coverage": 0.945054945054945,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/validation/G4N.npz",
+        "size": 701065,
+        "mtime_ns": 1785678697560854343,
+        "sha256": "44184096eef500b1b528d16ea96dba0d89f378d2ffc7404e676743d635542fe4"
+      },
+      "oracle": {
+        "reject_budget": 54,
+        "num_rejected": 54,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 54,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 281,
+          "fp": 63,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.18313953488372092,
+          "f1": 0.8992
+        },
+        "filtered": {
+          "tp": 281,
+          "fp": 9,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.03103448275862069,
+          "f1": 0.9842381786339754
+        },
+        "f1_gain_pp": 8.503817863397545,
+        "commission_reduction_pp": 15.210505212510023,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "G4W",
+      "split": "validation",
+      "num_instances": 653,
+      "num_target_valid": 640,
+      "num_classification_valid": 621,
+      "num_safe_reject": 84,
+      "num_coverage_critical": 537,
+      "num_counted_negative": 84,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 32,
+      "safe_reject_rate": 0.12863705972434916,
+      "classification_coverage": 0.9509954058192955,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/validation/G4W.npz",
+        "size": 1301484,
+        "mtime_ns": 1785697509824017185,
+        "sha256": "2d4138d6ae3796a177a078601dc1daf0fef0de821ec393f5ba23808740f05d62"
+      },
+      "oracle": {
+        "reject_budget": 97,
+        "num_rejected": 84,
+        "budget_utilization": 0.865979381443299,
+        "rejected_counted_negative": 84,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 537,
+          "fp": 84,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.13526570048309178,
+          "f1": 0.927461139896373
+        },
+        "filtered": {
+          "tp": 537,
+          "fp": 0,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.0,
+          "f1": 1.0
+        },
+        "f1_gain_pp": 7.253886010362698,
+        "commission_reduction_pp": 13.526570048309178,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "L1N",
+      "split": "validation",
+      "num_instances": 685,
+      "num_target_valid": 683,
+      "num_classification_valid": 664,
+      "num_safe_reject": 235,
+      "num_coverage_critical": 429,
+      "num_counted_negative": 235,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 21,
+      "safe_reject_rate": 0.34306569343065696,
+      "classification_coverage": 0.9693430656934306,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/validation/L1N.npz",
+        "size": 1285179,
+        "mtime_ns": 1785698582004504777,
+        "sha256": "090ea6391a7a8714d77ccd23d83f399ef82620704bb0eae090036502a9a3ee94"
+      },
+      "oracle": {
+        "reject_budget": 102,
+        "num_rejected": 102,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 102,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 429,
+          "fp": 235,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.3539156626506024,
+          "f1": 0.7849954254345837
+        },
+        "filtered": {
+          "tp": 429,
+          "fp": 133,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.23665480427046262,
+          "f1": 0.8657921291624622
+        },
+        "f1_gain_pp": 8.07967037278785,
+        "commission_reduction_pp": 11.726085838013981,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "O1N",
+      "split": "validation",
+      "num_instances": 190,
+      "num_target_valid": 185,
+      "num_classification_valid": 183,
+      "num_safe_reject": 33,
+      "num_coverage_critical": 150,
+      "num_counted_negative": 33,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 7,
+      "safe_reject_rate": 0.1736842105263158,
+      "classification_coverage": 0.9631578947368421,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/validation/O1N.npz",
+        "size": 373278,
+        "mtime_ns": 1785699053228370709,
+        "sha256": "329e7ee1792709d0535c600daba29a64edfb14a8f6f92e1036aa099e177f03c2"
+      },
+      "oracle": {
+        "reject_budget": 28,
+        "num_rejected": 28,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 28,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 150,
+          "fp": 33,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.18032786885245902,
+          "f1": 0.9009009009009009
+        },
+        "filtered": {
+          "tp": 150,
+          "fp": 5,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.03225806451612903,
+          "f1": 0.9836065573770492
+        },
+        "f1_gain_pp": 8.270565647614825,
+        "commission_reduction_pp": 14.806980433632999,
+        "completeness_drop_pp": 0.0
+      }
+    },
+    {
+      "source_plot": "O1W",
+      "split": "validation",
+      "num_instances": 703,
+      "num_target_valid": 682,
+      "num_classification_valid": 643,
+      "num_safe_reject": 427,
+      "num_coverage_critical": 216,
+      "num_counted_negative": 427,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 60,
+      "safe_reject_rate": 0.6073968705547653,
+      "classification_coverage": 0.914651493598862,
+      "artifact_identity": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/instance_quality/validation/O1W.npz",
+        "size": 1280575,
+        "mtime_ns": 1785700095174513195,
+        "sha256": "870baf02864ac4547b769695110bdf9208c66831455f3fc845d0413dcf3e17a7"
+      },
+      "oracle": {
+        "reject_budget": 105,
+        "num_rejected": 105,
+        "budget_utilization": 1.0,
+        "rejected_counted_negative": 105,
+        "rejected_redundant_positive": 0,
+        "critical_rejected": 0,
+        "baseline": {
+          "tp": 216,
+          "fp": 427,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.6640746500777605,
+          "f1": 0.5029103608847497
+        },
+        "filtered": {
+          "tp": 216,
+          "fp": 322,
+          "fn": 0,
+          "completeness_relative_to_baseline_matches": 1.0,
+          "commission": 0.5985130111524164,
+          "f1": 0.5729442970822282
+        },
+        "f1_gain_pp": 7.003393619747844,
+        "commission_reduction_pp": 6.556163892534405,
+        "completeness_drop_pp": 0.0
+      }
+    }
+  ],
+  "aggregate": {
+    "train": {
+      "num_plots": 13,
+      "num_instances": 6807,
+      "num_safe_reject": 1957,
+      "num_coverage_critical": 4566,
+      "num_counted_negative": 1957,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 284,
+      "baseline": {
+        "tp": 4566,
+        "fp": 1957,
+        "fn": 0,
+        "completeness_relative_to_baseline_matches": 1.0,
+        "commission": 0.30001533036946193,
+        "f1": 0.8235188024168094
+      },
+      "filtered": {
+        "tp": 4566,
+        "fp": 981,
+        "fn": 0,
+        "completeness_relative_to_baseline_matches": 1.0,
+        "commission": 0.17685235262303947,
+        "f1": 0.9029961435775734
+      },
+      "f1_gain_pp": 7.947734116076399,
+      "commission_reduction_pp": 12.316297774642246,
+      "completeness_drop_pp": 0.0
+    },
+    "validation": {
+      "num_plots": 5,
+      "num_instances": 2595,
+      "num_safe_reject": 842,
+      "num_coverage_critical": 1613,
+      "num_counted_negative": 842,
+      "num_redundant_positive": 0,
+      "num_protected_unknown": 140,
+      "baseline": {
+        "tp": 1613,
+        "fp": 842,
+        "fn": 0,
+        "completeness_relative_to_baseline_matches": 1.0,
+        "commission": 0.3429735234215886,
+        "f1": 0.7930186823992134
+      },
+      "filtered": {
+        "tp": 1613,
+        "fp": 469,
+        "fn": 0,
+        "completeness_relative_to_baseline_matches": 1.0,
+        "commission": 0.22526416906820365,
+        "f1": 0.8730717185385656
+      },
+      "f1_gain_pp": 8.005303613935222,
+      "commission_reduction_pp": 11.770935435338496,
+      "completeness_drop_pp": 0.0
+    }
+  },
+  "gate": {
+    "expected_train_plots": true,
+    "expected_validation_plots": true,
+    "enough_train_safe_reject": true,
+    "enough_train_coverage_critical": true,
+    "enough_validation_safe_reject": true,
+    "enough_validation_coverage_critical": true,
+    "oracle_f1_gain_passed": true,
+    "oracle_commission_reduction_passed": true,
+    "coverage_preserved": true,
+    "per_plot_consistency": true,
+    "labels_mutually_exclusive": true,
+    "passed": true
+  }
+}

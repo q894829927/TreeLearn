@@ -1,0 +1,171 @@
+{
+  "source_plot": "L1N",
+  "num_candidates": 452316,
+  "num_tree_candidates": 397649,
+  "num_critical_candidates": 23663,
+  "candidate_set_sha256": "46f35b34ecc3148a1c4304b428ffe2dc67d356f77c30a7c7dbc4bb52fbcf5a05",
+  "artifact_identity": {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/seed_vote_refinement/validation/L1N.npz",
+    "size": 39920590,
+    "mtime_ns": 1786296395940945363
+  },
+  "cell_support": {
+    "num_cells": 2883,
+    "num_tree_supported_cells": 1722,
+    "tree_supported_cell_rate": 0.5972944849115505,
+    "median_tree_support": 39.0
+  },
+  "global_residual_xy": [
+    0.007145971059799194,
+    -0.09809495508670807
+  ],
+  "modes": {
+    "base": {
+      "error": {
+        "tree_seed_count": 397649,
+        "mean_error_xy": 0.5101576136355845,
+        "median_error_xy": 0.3457865159218617,
+        "p90_error_xy": 1.0882430413197068,
+        "within_0p30m_rate": 0.43262022537463946,
+        "within_0p60m_rate": 0.7404293736435902
+      },
+      "topology": {
+        "num_vote_cells": 2883,
+        "tree_occupied_cells": 1722,
+        "tree_point_cell_purity_mean": 0.9873858819858141,
+        "multi_tree_collision_cell_rate": 0.04065040650406504,
+        "non_tree_rate_in_tree_cells": 0.02411915273745512,
+        "mean_cells_per_tree": 3.9668141592920354,
+        "p90_cells_per_tree": 7.0
+      },
+      "cluster": {
+        "num_gt_trees": 452,
+        "num_pred_clusters": 685,
+        "tp": 441,
+        "fp": 244,
+        "fn": 11,
+        "tree_recall": 0.9756637168141593,
+        "commission": 0.3562043795620438,
+        "f1": 0.7757255936675461,
+        "mean_matched_iou": 0.9644808612082809,
+        "noise_rate": 0.013713863758964972,
+        "seconds": 310.27505588531494
+      }
+    },
+    "global_shared": {
+      "error": {
+        "tree_seed_count": 397649,
+        "mean_error_xy": 0.49980056136930073,
+        "median_error_xy": 0.32145398638590617,
+        "p90_error_xy": 1.102748902796743,
+        "within_0p30m_rate": 0.46650940905170135,
+        "within_0p60m_rate": 0.7545624407454816
+      },
+      "topology": {
+        "num_vote_cells": 2881,
+        "tree_occupied_cells": 1705,
+        "tree_point_cell_purity_mean": 0.9873509450164428,
+        "multi_tree_collision_cell_rate": 0.04750733137829912,
+        "non_tree_rate_in_tree_cells": 0.02407364685439972,
+        "mean_cells_per_tree": 3.9535398230088497,
+        "p90_cells_per_tree": 7.0
+      },
+      "cluster": {
+        "num_gt_trees": 452,
+        "num_pred_clusters": 685,
+        "tp": 441,
+        "fp": 244,
+        "fn": 11,
+        "tree_recall": 0.9756637168141593,
+        "commission": 0.3562043795620438,
+        "f1": 0.7757255936675461,
+        "mean_matched_iou": 0.9644808612082809,
+        "noise_rate": 0.013713863758964972,
+        "seconds": 310.27505588531494,
+        "reused_translation": true
+      }
+    },
+    "cellwise_shared": {
+      "error": {
+        "tree_seed_count": 397649,
+        "mean_error_xy": 0.08444470977984644,
+        "median_error_xy": 0.0702472733477727,
+        "p90_error_xy": 0.14690760968601993,
+        "within_0p30m_rate": 0.991894862051709,
+        "within_0p60m_rate": 0.998365392594977
+      },
+      "topology": {
+        "num_vote_cells": 2443,
+        "tree_occupied_cells": 1256,
+        "tree_point_cell_purity_mean": 0.9829403118741349,
+        "multi_tree_collision_cell_rate": 0.054140127388535034,
+        "non_tree_rate_in_tree_cells": 0.024727087221722163,
+        "mean_cells_per_tree": 2.9314159292035398,
+        "p90_cells_per_tree": 4.0
+      },
+      "cluster": {
+        "num_gt_trees": 452,
+        "num_pred_clusters": 655,
+        "tp": 443,
+        "fp": 212,
+        "fn": 9,
+        "tree_recall": 0.9800884955752213,
+        "commission": 0.3236641221374046,
+        "f1": 0.8003613369467028,
+        "mean_matched_iou": 0.972803338400343,
+        "noise_rate": 0.009298808797389436,
+        "seconds": 303.14692091941833
+      }
+    },
+    "pointwise_oracle": {
+      "error": {
+        "tree_seed_count": 397649,
+        "mean_error_xy": 1.4611600666158716e-06,
+        "median_error_xy": 1.2103008959306076e-06,
+        "p90_error_xy": 2.935188353596957e-06,
+        "within_0p30m_rate": 1.0,
+        "within_0p60m_rate": 1.0
+      },
+      "topology": {
+        "num_vote_cells": 1902,
+        "tree_occupied_cells": 451,
+        "tree_point_cell_purity_mean": 0.9977434598193301,
+        "multi_tree_collision_cell_rate": 0.0022172949002217295,
+        "non_tree_rate_in_tree_cells": 0.0021680597621658517,
+        "mean_cells_per_tree": 1.0,
+        "p90_cells_per_tree": 1.0
+      },
+      "cluster": {
+        "num_gt_trees": 452,
+        "num_pred_clusters": 702,
+        "tp": 449,
+        "fp": 253,
+        "fn": 3,
+        "tree_recall": 0.9933628318584071,
+        "commission": 0.3603988603988604,
+        "f1": 0.7781629116117851,
+        "mean_matched_iou": 0.9885500094722236,
+        "noise_rate": 0.010769019888750342,
+        "seconds": 308.86413192749023
+      }
+    }
+  },
+  "cluster_digests": {
+    "base": "07b938cbfc971b6ea9697c251911c5ccd9c5585ae2e7f13bc30d381cd9950d26",
+    "cellwise_shared": "2920f776bc8914250e69b267c39ce9e35b4aaf9b052a3b5aab1dd60c160bc4d3",
+    "pointwise_oracle": "59d0d3bb08efdf52a4b61a6c5a33c2827c63a0412e21cad116e869fea448f0c0",
+    "global_shared": "07b938cbfc971b6ea9697c251911c5ccd9c5585ae2e7f13bc30d381cd9950d26"
+  },
+  "effects": {
+    "mean_error_reduction_relative": 0.8344732931102212,
+    "p90_error_reduction_relative": 0.8650047791641601,
+    "pointwise_improvement_retained": 0.8344756831608883,
+    "cell_purity_gain": -0.004445570111679231,
+    "multi_tree_collision_increase": 0.013489720884469994,
+    "cluster_f1_gain_pp": 2.463574327915663,
+    "cluster_tree_recall_drop_pp": -0.4424778761061954,
+    "cluster_commission_reduction_pp": 3.2540257424639227,
+    "plot_win": true
+  },
+  "config_fingerprint": "bce2d34afb2ce68c21638a36f392f97a821fb9de0439696f696ddd7103633a43"
+}

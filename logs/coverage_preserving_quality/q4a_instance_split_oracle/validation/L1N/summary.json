@@ -1,0 +1,210 @@
+{
+  "baseline": {
+    "tp": 431,
+    "fp": 90,
+    "fn": 22,
+    "completeness": 0.9514348785871964,
+    "commission": 0.1727447216890595,
+    "f1": 0.8850102669404517
+  },
+  "num_split_target_predictions": 9,
+  "num_undersegmented_gt_trees": 10,
+  "expected_undersegmented_gt_ids": [
+    83,
+    159,
+    162,
+    234,
+    308,
+    347,
+    370,
+    371,
+    406,
+    444
+  ],
+  "split_targets": [
+    {
+      "prediction_id": 9,
+      "missed_gt_ids": [
+        83
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 44,
+      "missed_gt_ids": [
+        347
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 136,
+      "missed_gt_ids": [
+        444
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 347,
+      "missed_gt_ids": [
+        308
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": 299
+    },
+    {
+      "prediction_id": 357,
+      "missed_gt_ids": [
+        370,
+        371
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 537,
+      "missed_gt_ids": [
+        159
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 558,
+      "missed_gt_ids": [
+        406
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 631,
+      "missed_gt_ids": [
+        162
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 639,
+      "missed_gt_ids": [
+        234
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    }
+  ],
+  "modes": {
+    "gt_extraction_ceiling": {
+      "tp": 441,
+      "fp": 87,
+      "fn": 12,
+      "completeness": 0.9735099337748344,
+      "commission": 0.16477272727272727,
+      "f1": 0.8990825688073395,
+      "accepted_splits": 10,
+      "recovered_undersegmented_trees": 10,
+      "recovered_undersegmented_gt_ids": [
+        83,
+        159,
+        162,
+        234,
+        308,
+        347,
+        370,
+        371,
+        406,
+        444
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 1.4072301866887793,
+      "completeness_gain_pp": 2.207505518763797,
+      "commission_reduction_pp": 0.7971994416332229
+    },
+    "raw_xy_kmeans_oracle": {
+      "tp": 433,
+      "fp": 90,
+      "fn": 20,
+      "completeness": 0.9558498896247241,
+      "commission": 0.17208413001912046,
+      "f1": 0.8872950819672131,
+      "proposed_splits": 9,
+      "accepted_splits": 2,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        44,
+        347
+      ],
+      "recovered_undersegmented_trees": 2,
+      "recovered_undersegmented_gt_ids": [
+        308,
+        347
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 0.22848150267613665,
+      "completeness_gain_pp": 0.44150110375276164,
+      "commission_reduction_pp": 0.06605916699390368
+    },
+    "base_vote_kmeans_oracle": {
+      "tp": 432,
+      "fp": 90,
+      "fn": 21,
+      "completeness": 0.9536423841059603,
+      "commission": 0.1724137931034483,
+      "f1": 0.8861538461538462,
+      "proposed_splits": 9,
+      "accepted_splits": 1,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        44
+      ],
+      "recovered_undersegmented_trees": 1,
+      "recovered_undersegmented_gt_ids": [
+        347
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 0.11435792133944744,
+      "completeness_gain_pp": 0.22075055187638082,
+      "commission_reduction_pp": 0.03309285856112065
+    },
+    "vertical_axis_kmeans_oracle": {
+      "tp": 432,
+      "fp": 90,
+      "fn": 21,
+      "completeness": 0.9536423841059603,
+      "commission": 0.1724137931034483,
+      "f1": 0.8861538461538462,
+      "proposed_splits": 9,
+      "accepted_splits": 1,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        44
+      ],
+      "recovered_undersegmented_trees": 1,
+      "recovered_undersegmented_gt_ids": [
+        347
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 0.11435792133944744,
+      "completeness_gain_pp": 0.22075055187638082,
+      "commission_reduction_pp": 0.03309285856112065
+    }
+  },
+  "parameters": {
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_recall_for_undersegmentation": 0.5,
+    "max_fit_points": 50000,
+    "random_state": 20260811,
+    "vertical_power": 2.0,
+    "vertical_feature_weight": 1.0
+  },
+  "source_plot": "L1N",
+  "split": "validation"
+}

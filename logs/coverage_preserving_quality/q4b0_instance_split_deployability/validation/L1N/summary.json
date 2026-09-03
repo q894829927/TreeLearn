@@ -1,0 +1,206 @@
+{
+  "baseline": {
+    "tp": 431,
+    "fp": 90,
+    "fn": 22,
+    "completeness": 0.9514348785871964,
+    "commission": 0.1727447216890595,
+    "f1": 0.8850102669404517
+  },
+  "num_split_target_predictions": 9,
+  "num_undersegmented_gt_trees": 10,
+  "expected_undersegmented_gt_ids": [
+    83,
+    159,
+    162,
+    234,
+    308,
+    347,
+    370,
+    371,
+    406,
+    444
+  ],
+  "split_targets": [
+    {
+      "prediction_id": 9,
+      "missed_gt_ids": [
+        83
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 44,
+      "missed_gt_ids": [
+        347
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 136,
+      "missed_gt_ids": [
+        444
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 347,
+      "missed_gt_ids": [
+        308
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": 299
+    },
+    {
+      "prediction_id": 357,
+      "missed_gt_ids": [
+        370,
+        371
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 537,
+      "missed_gt_ids": [
+        159
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 558,
+      "missed_gt_ids": [
+        406
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 631,
+      "missed_gt_ids": [
+        162
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    },
+    {
+      "prediction_id": 639,
+      "missed_gt_ids": [
+        234
+      ],
+      "oracle_num_children": 2,
+      "matched_gt_id": null
+    }
+  ],
+  "modes": {
+    "known_k_oracle_accept": {
+      "tp": 433,
+      "fp": 90,
+      "fn": 20,
+      "completeness": 0.9558498896247241,
+      "commission": 0.17208413001912046,
+      "f1": 0.8872950819672131,
+      "proposed_splits": 9,
+      "accepted_splits": 2,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        44,
+        347
+      ],
+      "num_children_mode": "oracle",
+      "acceptance_mode": "oracle",
+      "recovered_undersegmented_trees": 2,
+      "recovered_undersegmented_gt_ids": [
+        308,
+        347
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": 0.22848150267613665,
+      "completeness_gain_pp": 0.44150110375276164,
+      "commission_reduction_pp": 0.06605916699390368
+    },
+    "known_k_accept_all": {
+      "tp": 433,
+      "fp": 97,
+      "fn": 20,
+      "completeness": 0.9558498896247241,
+      "commission": 0.1830188679245283,
+      "f1": 0.8809766022380467,
+      "proposed_splits": 9,
+      "accepted_splits": 9,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        9,
+        44,
+        136,
+        347,
+        357,
+        537,
+        558,
+        631,
+        639
+      ],
+      "num_children_mode": "oracle",
+      "acceptance_mode": "accept_all",
+      "recovered_undersegmented_trees": 2,
+      "recovered_undersegmented_gt_ids": [
+        308,
+        347
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": -0.403366470240496,
+      "completeness_gain_pp": 0.44150110375276164,
+      "commission_reduction_pp": -1.0274146235468795
+    },
+    "fixed_k2_accept_all": {
+      "tp": 433,
+      "fp": 97,
+      "fn": 20,
+      "completeness": 0.9558498896247241,
+      "commission": 0.1830188679245283,
+      "f1": 0.8809766022380467,
+      "proposed_splits": 9,
+      "accepted_splits": 9,
+      "failed_splits": 0,
+      "accepted_prediction_ids": [
+        9,
+        44,
+        136,
+        347,
+        357,
+        537,
+        558,
+        631,
+        639
+      ],
+      "num_children_mode": "fixed_k2",
+      "acceptance_mode": "accept_all",
+      "recovered_undersegmented_trees": 2,
+      "recovered_undersegmented_gt_ids": [
+        308,
+        347
+      ],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "f1_gain_pp": -0.403366470240496,
+      "completeness_gain_pp": 0.44150110375276164,
+      "commission_reduction_pp": -1.0274146235468795
+    }
+  },
+  "parameters": {
+    "geometry": "raw_xy_kmeans",
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_recall_for_undersegmentation": 0.5,
+    "max_fit_points": 50000,
+    "random_state": 20260811
+  },
+  "source_plot": "L1N",
+  "split": "validation"
+}

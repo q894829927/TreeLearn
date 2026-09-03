@@ -1,0 +1,66 @@
+{
+  "baseline": {
+    "tp": 431,
+    "fp": 90,
+    "fn": 22,
+    "completeness": 0.9514348785871964,
+    "commission": 0.1727447216890595,
+    "f1": 0.8850102669404517
+  },
+  "num_target_trees": 2,
+  "expected_target_tree_ids": [
+    359,
+    367
+  ],
+  "num_baseline_seeds": 452316,
+  "per_tree_topup": [
+    {
+      "gt_tree_id": 359,
+      "baseline_seed_count": 42,
+      "semantic_point_count": 515,
+      "added_seed_count": 8,
+      "margin_selected_mean_xy_error": 1.2646736544574662,
+      "oracle_selected_mean_xy_error": 0.9534483314074198
+    },
+    {
+      "gt_tree_id": 367,
+      "baseline_seed_count": 0,
+      "semantic_point_count": 184,
+      "added_seed_count": 50,
+      "margin_selected_mean_xy_error": 0.5224334675349567,
+      "oracle_selected_mean_xy_error": 0.3832181476924308
+    }
+  ],
+  "modes": {
+    "margin_topup": {
+      "tp": 431,
+      "fp": 91,
+      "fn": 22,
+      "completeness": 0.9514348785871964,
+      "commission": 0.1743295019157088,
+      "f1": 0.884102564102564,
+      "num_seed_points": 452374,
+      "num_added_seed_points": 58,
+      "recovered_target_tree_ids": [],
+      "recovered_target_trees": 0,
+      "lost_baseline_tree_ids": [],
+      "lost_baseline_trees": 0
+    },
+    "xy_oracle_topup": {
+      "tp": 431,
+      "fp": 91,
+      "fn": 22,
+      "completeness": 0.9514348785871964,
+      "commission": 0.1743295019157088,
+      "f1": 0.884102564102564,
+      "num_seed_points": 452374,
+      "num_added_seed_points": 58,
+      "recovered_target_tree_ids": [],
+      "recovered_target_trees": 0,
+      "lost_baseline_tree_ids": [],
+      "lost_baseline_trees": 0
+    }
+  },
+  "source_plot": "L1N",
+  "split": "validation"
+}

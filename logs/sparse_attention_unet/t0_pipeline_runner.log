@@ -1,0 +1,11 @@
+===== START b1_partial 2026年 08月 14日 星期五 21:40:05 CST =====
+===== DONE b1_partial 2026年 08月 14日 星期五 21:40:10 CST =====
+===== START m1_sparse_se 2026年 08月 14日 星期五 21:40:10 CST =====
+===== DONE m1_sparse_se 2026年 08月 14日 星期五 21:40:16 CST =====
+===== START m2_selective_kernel 2026年 08月 14日 星期五 21:40:16 CST =====
+===== DONE m2_selective_kernel 2026年 08月 14日 星期五 21:40:21 CST =====
+===== START m3_hcag 2026年 08月 14日 星期五 21:40:21 CST =====
+===== DONE m3_hcag 2026年 08月 14日 星期五 21:40:27 CST =====
+===== START m4_window_attention 2026年 08月 14日 星期五 21:40:27 CST =====
+===== DONE m4_window_attention 2026年 08月 14日 星期五 21:40:32 CST =====
+===== T0 PIPELINE ALL FINISHED 2026年 08月 14日 星期五 21:40:32 CST =====

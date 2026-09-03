@@ -1,0 +1,7 @@
+===== CHECK train_t1_m1_sparse_se_seed42 2026年 08月 15日 星期六 01:30:57 CST =====
+===== WAIT EXISTING train_t1_m1_sparse_se_seed42 PID=3352566 =====
+===== EXISTING RUN PASSED train_t1_m1_sparse_se_seed42 2026年 08月 15日 星期六 03:31:09 CST =====
+===== CHECK train_t1_m2_selective_kernel_seed42 2026年 08月 15日 星期六 03:31:09 CST =====
+Archiving stale workdir: work_dirs/train_t1_m2_selective_kernel_seed42_failed_20260815_033109
+Archiving stale log: logs/sparse_attention_unet/train_t1_m2_selective_kernel_seed42_failed_20260815_033109.log
+===== START train_t1_m2_selective_kernel_seed42 2026年 08月 15日 星期六 03:31:09 CST =====

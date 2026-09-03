@@ -1,0 +1,131 @@
+===== START quality_iou_control seed 42 =====
+[quality_iou_control seed 42] epoch 001: F1=85.892%, completeness=98.512%, commission=23.862%
+[quality_iou_control seed 42] epoch 005: F1=86.634%, completeness=99.256%, commission=23.140%
+[quality_iou_control seed 42] epoch 010: F1=86.665%, completeness=99.318%, commission=23.129%
+[quality_iou_control seed 42] epoch 015: F1=86.641%, completeness=99.318%, commission=23.165%
+[quality_iou_control seed 42] epoch 020: F1=86.719%, completeness=99.380%, commission=23.081%
+[quality_iou_control seed 42] epoch 025: F1=86.742%, completeness=99.380%, commission=23.044%
+[quality_iou_control seed 42] epoch 030: F1=86.665%, completeness=99.318%, commission=23.129%
+DONE quality_iou_control seed 42: epoch=17, F1=86.773%, completeness=99.442%
+===== START quality_iou_control seed 43 =====
+[quality_iou_control seed 43] epoch 001: F1=85.946%, completeness=98.574%, commission=23.814%
+[quality_iou_control seed 43] epoch 005: F1=86.627%, completeness=99.194%, commission=23.114%
+[quality_iou_control seed 43] epoch 010: F1=86.742%, completeness=99.380%, commission=23.044%
+[quality_iou_control seed 43] epoch 015: F1=86.611%, completeness=99.256%, commission=23.177%
+[quality_iou_control seed 43] epoch 020: F1=86.665%, completeness=99.318%, commission=23.129%
+[quality_iou_control seed 43] epoch 025: F1=86.526%, completeness=99.132%, commission=23.236%
+DONE quality_iou_control seed 43: epoch=10, F1=86.742%, completeness=99.380%
+===== START quality_iou_control seed 44 =====
+[quality_iou_control seed 44] epoch 001: F1=85.861%, completeness=98.450%, commission=23.873%
+[quality_iou_control seed 44] epoch 005: F1=86.681%, completeness=99.256%, commission=23.066%
+[quality_iou_control seed 44] epoch 010: F1=86.696%, completeness=99.380%, commission=23.118%
+[quality_iou_control seed 44] epoch 015: F1=86.773%, completeness=99.442%, commission=23.033%
+[quality_iou_control seed 44] epoch 020: F1=86.665%, completeness=99.318%, commission=23.129%
+[quality_iou_control seed 44] epoch 025: F1=86.688%, completeness=99.318%, commission=23.092%
+DONE quality_iou_control seed 44: epoch=11, F1=86.773%, completeness=99.442%
+===== START safe_iou_control seed 42 =====
+[safe_iou_control seed 42] epoch 001: F1=85.737%, completeness=98.388%, commission=24.031%
+[safe_iou_control seed 42] epoch 005: F1=86.580%, completeness=99.194%, commission=23.188%
+[safe_iou_control seed 42] epoch 010: F1=86.665%, completeness=99.318%, commission=23.129%
+[safe_iou_control seed 42] epoch 015: F1=86.665%, completeness=99.318%, commission=23.129%
+[safe_iou_control seed 42] epoch 020: F1=86.712%, completeness=99.318%, commission=23.055%
+[safe_iou_control seed 42] epoch 025: F1=86.658%, completeness=99.256%, commission=23.103%
+[safe_iou_control seed 42] epoch 030: F1=86.658%, completeness=99.256%, commission=23.103%
+[safe_iou_control seed 42] epoch 035: F1=86.712%, completeness=99.318%, commission=23.055%
+DONE safe_iou_control seed 42: epoch=21, F1=86.766%, completeness=99.380%
+===== START safe_iou_control seed 43 =====
+[safe_iou_control seed 43] epoch 001: F1=85.861%, completeness=98.450%, commission=23.873%
+[safe_iou_control seed 43] epoch 005: F1=86.472%, completeness=99.070%, commission=23.284%
+[safe_iou_control seed 43] epoch 010: F1=86.634%, completeness=99.256%, commission=23.140%
+[safe_iou_control seed 43] epoch 015: F1=86.665%, completeness=99.318%, commission=23.129%
+[safe_iou_control seed 43] epoch 020: F1=86.634%, completeness=99.256%, commission=23.140%
+[safe_iou_control seed 43] epoch 025: F1=86.712%, completeness=99.318%, commission=23.055%
+[safe_iou_control seed 43] epoch 030: F1=86.658%, completeness=99.256%, commission=23.103%
+[safe_iou_control seed 43] epoch 035: F1=86.712%, completeness=99.318%, commission=23.055%
+DONE safe_iou_control seed 43: epoch=23, F1=86.742%, completeness=99.380%
+===== START safe_iou_control seed 44 =====
+[safe_iou_control seed 44] epoch 001: F1=85.861%, completeness=98.450%, commission=23.873%
+[safe_iou_control seed 44] epoch 005: F1=86.604%, completeness=99.194%, commission=23.151%
+[safe_iou_control seed 44] epoch 010: F1=86.719%, completeness=99.380%, commission=23.081%
+[safe_iou_control seed 44] epoch 015: F1=86.719%, completeness=99.380%, commission=23.081%
+[safe_iou_control seed 44] epoch 020: F1=86.665%, completeness=99.318%, commission=23.129%
+DONE safe_iou_control seed 44: epoch=9, F1=86.773%, completeness=99.442%
+===== START coverage_cvar seed 42 =====
+[coverage_cvar seed 42] epoch 001: F1=85.815%, completeness=98.450%, commission=23.946%
+[coverage_cvar seed 42] epoch 005: F1=86.634%, completeness=99.256%, commission=23.140%
+[coverage_cvar seed 42] epoch 010: F1=86.611%, completeness=99.256%, commission=23.177%
+[coverage_cvar seed 42] epoch 015: F1=86.658%, completeness=99.256%, commission=23.103%
+[coverage_cvar seed 42] epoch 020: F1=86.549%, completeness=99.132%, commission=23.199%
+DONE coverage_cvar seed 42: epoch=9, F1=86.688%, completeness=99.318%
+===== START coverage_cvar seed 43 =====
+[coverage_cvar seed 43] epoch 001: F1=85.761%, completeness=98.388%, commission=23.994%
+[coverage_cvar seed 43] epoch 005: F1=86.634%, completeness=99.256%, commission=23.140%
+[coverage_cvar seed 43] epoch 010: F1=86.742%, completeness=99.380%, commission=23.044%
+[coverage_cvar seed 43] epoch 015: F1=86.641%, completeness=99.318%, commission=23.165%
+[coverage_cvar seed 43] epoch 020: F1=86.681%, completeness=99.256%, commission=23.066%
+[coverage_cvar seed 43] epoch 025: F1=86.681%, completeness=99.256%, commission=23.066%
+DONE coverage_cvar seed 43: epoch=10, F1=86.742%, completeness=99.380%
+===== START coverage_cvar seed 44 =====
+[coverage_cvar seed 44] epoch 001: F1=85.784%, completeness=98.388%, commission=23.958%
+[coverage_cvar seed 44] epoch 005: F1=86.658%, completeness=99.256%, commission=23.103%
+[coverage_cvar seed 44] epoch 010: F1=86.634%, completeness=99.256%, commission=23.140%
+[coverage_cvar seed 44] epoch 015: F1=86.688%, completeness=99.318%, commission=23.092%
+[coverage_cvar seed 44] epoch 020: F1=86.634%, completeness=99.256%, commission=23.140%
+[coverage_cvar seed 44] epoch 025: F1=86.650%, completeness=99.194%, commission=23.077%
+DONE coverage_cvar seed 44: epoch=11, F1=86.688%, completeness=99.318%
+# Q2 参数匹配 Coverage-CVaR 实例质量 MLP
+
+- 数据：固定 train/validation forests；未读取 Wytham。
+- 固定拒绝比例：15.0%
+- 随机种子：[42, 43, 44]
+- 三个模型使用完全相同的全局特征、encoder 与参数量。
+
+| Model | Safe AP | Critical AP | F1 | Completeness | Commission | F1 gain vs unfiltered |
+|---|---:|---:|---:|---:|---:|---:|
+| quality_iou_control | 0.987410 | 0.994345 | 86.763% | 99.421% | 23.036% | +7.461 pp |
+| safe_iou_control | 0.987108 | 0.993652 | 86.760% | 99.401% | 23.028% | +7.459 pp |
+| coverage_cvar | 0.986902 | 0.993028 | 86.706% | 99.339% | 23.076% | +7.404 pp |
+
+## Coverage-CVaR 相对 safe+IoU 参数匹配控制组
+
+- F1：-0.054 pp
+- Completeness：-0.062 pp
+- Commission reduction：-0.048 pp
+- Seed wins：0 / 3
+- Validation plot wins：1 / 5
+
+## 每森林 F1 差值
+
+| Plot | Coverage-CVaR minus safe+IoU |
+|---|---:|
+| G4N | -0.403 pp |
+| G4W | +0.031 pp |
+| L1N | +0.000 pp |
+| O1N | +0.000 pp |
+| O1W | +0.000 pp |
+
+## Gate
+
+- q1_gate_passed: **True**
+- expected_seeds_present: **True**
+- parameter_count_matched: **True**
+- coverage_completeness_preserved: **True**
+- coverage_f1_gain_over_unfiltered_passed: **True**
+- coverage_commission_reduction_passed: **True**
+- coverage_gain_over_control_passed: **False**
+- coverage_completeness_vs_control_passed: **True**
+- seed_consistency_passed: **False**
+- plot_consistency_passed: **False**
+- coverage_seed_stability_passed: **True**
+- passed: **False**
+
+STOP：Coverage-CVaR 未优于参数匹配 safe+IoU 控制组，不实现关系注意力，不使用 Wytham 调参。
+
+Traceback (most recent call last):
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_coverage_preserving_quality.py", line 849, in <module>
+    main()
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_coverage_preserving_quality.py", line 845, in main
+    run(args.config)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/training/train_coverage_preserving_quality.py", line 831, in run
+    raise RuntimeError(
+RuntimeError: Q2 coverage-CVaR MLP gate failed; do not implement attention.

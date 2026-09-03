@@ -1,0 +1,14 @@
+2026-08-16 08:34:05,027 - INFO - propagating predictions to coords of ground truth...
+2026-08-16 08:38:35,247 - INFO - getting detection results...
+2026-08-16 08:48:08,002 - INFO - getting segmentation results...
+2026-08-16 09:25:15,381 - INFO - 
+===== Results detection evaluation =====
+2026-08-16 09:25:15,381 - INFO - Completeness: 95.6%
+2026-08-16 09:25:15,381 - INFO - Omission Error Rate: 4.4%
+2026-08-16 09:25:15,381 - INFO - Commission Error Rate: 13.7%
+2026-08-16 09:25:15,381 - INFO - F1 Score: 90.7%
+2026-08-16 09:25:15,381 - INFO - 
+===== Results segmentation evaluation =====
+2026-08-16 09:25:15,381 - INFO - Precision: 93.8%
+2026-08-16 09:25:15,382 - INFO - Recall: 92.3%
+2026-08-16 09:25:15,382 - INFO - Coverage: 87.5%

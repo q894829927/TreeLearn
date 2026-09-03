@@ -1,0 +1,1713 @@
+{
+  "recommended_model": null,
+  "locked_seed": 42,
+  "models": {
+    "fixed_rule": {
+      "runs": 1,
+      "pass_count": 0,
+      "required_passes": 1,
+      "eligible": false,
+      "mean_activation_ap": 0.017625159679293546,
+      "mean_target_tree_recall": 0.5161290322580645
+    },
+    "logistic_regression": {
+      "runs": 1,
+      "pass_count": 0,
+      "required_passes": 1,
+      "eligible": false,
+      "mean_activation_ap": 0.019733575770066913,
+      "mean_target_tree_recall": 0.9354838709677419
+    },
+    "multitask_mlp": {
+      "runs": 3,
+      "pass_count": 0,
+      "required_passes": 2,
+      "eligible": false,
+      "mean_activation_ap": 0.04866621741892352,
+      "mean_target_tree_recall": 0.7204301075268816
+    }
+  },
+  "runs": [
+    {
+      "model": "fixed_rule",
+      "seed": 42,
+      "epoch": null,
+      "device": "cpu",
+      "evaluation": {
+        "binary": {
+          "activation": {
+            "roc_auc": 0.7163919547501351,
+            "average_precision": 0.017625159679293546,
+            "prevalence": 0.0003200149860676402,
+            "ap_lift": 55.07604470613195
+          },
+          "coverage": {
+            "roc_auc": 0.6490195097703956,
+            "average_precision": 0.11434329955208437,
+            "prevalence": 0.01942725122737455,
+            "ap_lift": 5.885716832187022
+          }
+        },
+        "selection_candidates": [
+          {
+            "selected": 67,
+            "activation_precision": 0.014925373134328358,
+            "activation_recall": 0.024390243902439025,
+            "coverage_precision": 0.29850746268656714,
+            "target_tree_recall": 0.25806451612903225,
+            "covered_target_trees": 8,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 12,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.3076923076923077
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 18,
+                "activation_recall": 0.06666666666666667,
+                "target_tree_recall": 0.36363636363636365
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 14,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 10,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 13,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.0005,
+            "eligible": false
+          },
+          {
+            "selected": 131,
+            "activation_precision": 0.015267175572519083,
+            "activation_recall": 0.04878048780487805,
+            "coverage_precision": 0.2595419847328244,
+            "target_tree_recall": 0.3225806451612903,
+            "covered_target_trees": 10,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 24,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.38461538461538464
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 35,
+                "activation_recall": 0.13333333333333333,
+                "target_tree_recall": 0.45454545454545453
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 27,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 19,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 26,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.001,
+            "eligible": false
+          },
+          {
+            "selected": 259,
+            "activation_precision": 0.007722007722007722,
+            "activation_recall": 0.04878048780487805,
+            "coverage_precision": 0.2548262548262548,
+            "target_tree_recall": 0.3870967741935484,
+            "covered_target_trees": 12,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 48,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.46153846153846156
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 69,
+                "activation_recall": 0.13333333333333333,
+                "target_tree_recall": 0.5454545454545454
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 53,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 38,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 51,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.002,
+            "eligible": false
+          },
+          {
+            "selected": 644,
+            "activation_precision": 0.004658385093167702,
+            "activation_recall": 0.07317073170731707,
+            "coverage_precision": 0.2127329192546584,
+            "target_tree_recall": 0.4838709677419355,
+            "covered_target_trees": 15,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 120,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.5384615384615384
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 172,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.7272727272727273
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 132,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 94,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 126,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.005,
+            "eligible": false
+          },
+          {
+            "selected": 1176,
+            "activation_precision": 0.004251700680272109,
+            "activation_recall": 0.12195121951219512,
+            "coverage_precision": 0.14370748299319727,
+            "target_tree_recall": 0.5161290322580645,
+            "covered_target_trees": 16,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 239,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.5384615384615384
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.26666666666666666,
+                "target_tree_recall": 0.8181818181818182
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 187,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.01,
+            "eligible": false
+          },
+          {
+            "selected": 1250,
+            "activation_precision": 0.004,
+            "activation_recall": 0.12195121951219512,
+            "coverage_precision": 0.1368,
+            "target_tree_recall": 0.5161290322580645,
+            "covered_target_trees": 16,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 250,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.5384615384615384
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.26666666666666666,
+                "target_tree_recall": 0.8181818181818182
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.02,
+            "eligible": false
+          }
+        ],
+        "selected": {
+          "selected": 1176,
+          "activation_precision": 0.004251700680272109,
+          "activation_recall": 0.12195121951219512,
+          "coverage_precision": 0.14370748299319727,
+          "target_tree_recall": 0.5161290322580645,
+          "covered_target_trees": 16,
+          "target_trees": 31,
+          "per_plot": [
+            {
+              "source_plot": "G4N",
+              "selected": 239,
+              "activation_recall": 0.05555555555555555,
+              "target_tree_recall": 0.5384615384615384
+            },
+            {
+              "source_plot": "G4W",
+              "selected": 250,
+              "activation_recall": 0.26666666666666666,
+              "target_tree_recall": 0.8181818181818182
+            },
+            {
+              "source_plot": "L1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.0
+            },
+            {
+              "source_plot": "O1N",
+              "selected": 187,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.0
+            },
+            {
+              "source_plot": "O1W",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.0
+            }
+          ],
+          "keep_ratio": 0.01,
+          "eligible": false
+        },
+        "passed": false
+      },
+      "gate": {
+        "activation_ap_lift_passed": true,
+        "coverage_ap_lift_passed": true,
+        "activation_precision_passed": false,
+        "activation_recall_passed": false,
+        "target_tree_recall_passed": true,
+        "selection_found": false,
+        "passed": false
+      }
+    },
+    {
+      "model": "logistic_regression",
+      "seed": 42,
+      "epoch": null,
+      "device": "cpu",
+      "evaluation": {
+        "binary": {
+          "activation": {
+            "roc_auc": 0.9108213021104898,
+            "average_precision": 0.019733575770066913,
+            "prevalence": 0.0003200149860676402,
+            "ap_lift": 61.66453644110251
+          },
+          "coverage": {
+            "roc_auc": 0.8308197332291375,
+            "average_precision": 0.1651533511572814,
+            "prevalence": 0.01942725122737455,
+            "ap_lift": 8.501117797075024
+          }
+        },
+        "selection_candidates": [
+          {
+            "selected": 67,
+            "activation_precision": 0.05970149253731343,
+            "activation_recall": 0.0975609756097561,
+            "coverage_precision": 0.3283582089552239,
+            "target_tree_recall": 0.2903225806451613,
+            "covered_target_trees": 9,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 12,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.23076923076923078
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 18,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.45454545454545453
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 14,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 10,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 13,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.25
+              }
+            ],
+            "keep_ratio": 0.0005,
+            "eligible": false
+          },
+          {
+            "selected": 131,
+            "activation_precision": 0.030534351145038167,
+            "activation_recall": 0.0975609756097561,
+            "coverage_precision": 0.33587786259541985,
+            "target_tree_recall": 0.41935483870967744,
+            "covered_target_trees": 13,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 24,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.5384615384615384
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 35,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.45454545454545453
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 27,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 19,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 26,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.25
+              }
+            ],
+            "keep_ratio": 0.001,
+            "eligible": false
+          },
+          {
+            "selected": 259,
+            "activation_precision": 0.023166023166023165,
+            "activation_recall": 0.14634146341463414,
+            "coverage_precision": 0.2972972972972973,
+            "target_tree_recall": 0.5161290322580645,
+            "covered_target_trees": 16,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 48,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.5384615384615384
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 69,
+                "activation_recall": 0.3333333333333333,
+                "target_tree_recall": 0.7272727272727273
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 53,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 38,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 51,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.25
+              }
+            ],
+            "keep_ratio": 0.002,
+            "eligible": false
+          },
+          {
+            "selected": 644,
+            "activation_precision": 0.015527950310559006,
+            "activation_recall": 0.24390243902439024,
+            "coverage_precision": 0.22826086956521738,
+            "target_tree_recall": 0.8064516129032258,
+            "covered_target_trees": 25,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 120,
+                "activation_recall": 0.16666666666666666,
+                "target_tree_recall": 0.7692307692307693
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 172,
+                "activation_recall": 0.4,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 132,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 94,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 126,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.75
+              }
+            ],
+            "keep_ratio": 0.005,
+            "eligible": false
+          },
+          {
+            "selected": 1176,
+            "activation_precision": 0.01020408163265306,
+            "activation_recall": 0.2926829268292683,
+            "coverage_precision": 0.19387755102040816,
+            "target_tree_recall": 0.9354838709677419,
+            "covered_target_trees": 29,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 239,
+                "activation_recall": 0.2222222222222222,
+                "target_tree_recall": 0.9230769230769231
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.4,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 187,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.75
+              }
+            ],
+            "keep_ratio": 0.01,
+            "eligible": false
+          },
+          {
+            "selected": 1250,
+            "activation_precision": 0.0096,
+            "activation_recall": 0.2926829268292683,
+            "coverage_precision": 0.1864,
+            "target_tree_recall": 0.9354838709677419,
+            "covered_target_trees": 29,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 250,
+                "activation_recall": 0.2222222222222222,
+                "target_tree_recall": 0.9230769230769231
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.4,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.75
+              }
+            ],
+            "keep_ratio": 0.02,
+            "eligible": false
+          }
+        ],
+        "selected": {
+          "selected": 1176,
+          "activation_precision": 0.01020408163265306,
+          "activation_recall": 0.2926829268292683,
+          "coverage_precision": 0.19387755102040816,
+          "target_tree_recall": 0.9354838709677419,
+          "covered_target_trees": 29,
+          "target_trees": 31,
+          "per_plot": [
+            {
+              "source_plot": "G4N",
+              "selected": 239,
+              "activation_recall": 0.2222222222222222,
+              "target_tree_recall": 0.9230769230769231
+            },
+            {
+              "source_plot": "G4W",
+              "selected": 250,
+              "activation_recall": 0.4,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "L1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "O1N",
+              "selected": 187,
+              "activation_recall": 0.0,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "O1W",
+              "selected": 250,
+              "activation_recall": 0.4,
+              "target_tree_recall": 0.75
+            }
+          ],
+          "keep_ratio": 0.01,
+          "eligible": false
+        },
+        "passed": false
+      },
+      "gate": {
+        "activation_ap_lift_passed": true,
+        "coverage_ap_lift_passed": true,
+        "activation_precision_passed": false,
+        "activation_recall_passed": true,
+        "target_tree_recall_passed": true,
+        "selection_found": false,
+        "passed": false
+      }
+    },
+    {
+      "model": "multitask_mlp",
+      "seed": 42,
+      "epoch": 4,
+      "device": "cuda",
+      "evaluation": {
+        "binary": {
+          "activation": {
+            "roc_auc": 0.940624406087906,
+            "average_precision": 0.04189765376495324,
+            "prevalence": 0.0003200149860676402,
+            "ap_lift": 130.9240366515133
+          },
+          "coverage": {
+            "roc_auc": 0.8759117910735917,
+            "average_precision": 0.16823331912870984,
+            "prevalence": 0.01942725122737455,
+            "ap_lift": 8.659656333246756
+          }
+        },
+        "selection_candidates": [
+          {
+            "selected": 67,
+            "activation_precision": 0.07462686567164178,
+            "activation_recall": 0.12195121951219512,
+            "coverage_precision": 0.2835820895522388,
+            "target_tree_recall": 0.2903225806451613,
+            "covered_target_trees": 9,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 12,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.23076923076923078
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 18,
+                "activation_recall": 0.26666666666666666,
+                "target_tree_recall": 0.5454545454545454
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 14,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 10,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 13,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.0005,
+            "eligible": false
+          },
+          {
+            "selected": 131,
+            "activation_precision": 0.05343511450381679,
+            "activation_recall": 0.17073170731707318,
+            "coverage_precision": 0.2366412213740458,
+            "target_tree_recall": 0.3870967741935484,
+            "covered_target_trees": 12,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 24,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.23076923076923078
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 35,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.8181818181818182
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 27,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 19,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 26,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.001,
+            "eligible": false
+          },
+          {
+            "selected": 259,
+            "activation_precision": 0.02702702702702703,
+            "activation_recall": 0.17073170731707318,
+            "coverage_precision": 0.21621621621621623,
+            "target_tree_recall": 0.45161290322580644,
+            "covered_target_trees": 14,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 48,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.38461538461538464
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 69,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.8181818181818182
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 53,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 38,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 51,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.002,
+            "eligible": false
+          },
+          {
+            "selected": 644,
+            "activation_precision": 0.015527950310559006,
+            "activation_recall": 0.24390243902439024,
+            "coverage_precision": 0.18322981366459629,
+            "target_tree_recall": 0.6129032258064516,
+            "covered_target_trees": 19,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 120,
+                "activation_recall": 0.16666666666666666,
+                "target_tree_recall": 0.6153846153846154
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 172,
+                "activation_recall": 0.4666666666666667,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 132,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 94,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 126,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.005,
+            "eligible": false
+          },
+          {
+            "selected": 1176,
+            "activation_precision": 0.00935374149659864,
+            "activation_recall": 0.2682926829268293,
+            "coverage_precision": 0.16071428571428573,
+            "target_tree_recall": 0.6774193548387096,
+            "covered_target_trees": 21,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 239,
+                "activation_recall": 0.16666666666666666,
+                "target_tree_recall": 0.7692307692307693
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.5333333333333333,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 187,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.01,
+            "eligible": false
+          },
+          {
+            "selected": 1250,
+            "activation_precision": 0.0088,
+            "activation_recall": 0.2682926829268293,
+            "coverage_precision": 0.1536,
+            "target_tree_recall": 0.7096774193548387,
+            "covered_target_trees": 22,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 250,
+                "activation_recall": 0.16666666666666666,
+                "target_tree_recall": 0.7692307692307693
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.5333333333333333,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.02,
+            "eligible": false
+          }
+        ],
+        "selected": {
+          "selected": 1250,
+          "activation_precision": 0.0088,
+          "activation_recall": 0.2682926829268293,
+          "coverage_precision": 0.1536,
+          "target_tree_recall": 0.7096774193548387,
+          "covered_target_trees": 22,
+          "target_trees": 31,
+          "per_plot": [
+            {
+              "source_plot": "G4N",
+              "selected": 250,
+              "activation_recall": 0.16666666666666666,
+              "target_tree_recall": 0.7692307692307693
+            },
+            {
+              "source_plot": "G4W",
+              "selected": 250,
+              "activation_recall": 0.5333333333333333,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "L1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.0
+            },
+            {
+              "source_plot": "O1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "O1W",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.0
+            }
+          ],
+          "keep_ratio": 0.02,
+          "eligible": false
+        },
+        "passed": false
+      },
+      "gate": {
+        "activation_ap_lift_passed": true,
+        "coverage_ap_lift_passed": true,
+        "activation_precision_passed": false,
+        "activation_recall_passed": true,
+        "target_tree_recall_passed": true,
+        "selection_found": false,
+        "passed": false
+      }
+    },
+    {
+      "model": "multitask_mlp",
+      "seed": 43,
+      "epoch": 4,
+      "device": "cuda",
+      "evaluation": {
+        "binary": {
+          "activation": {
+            "roc_auc": 0.9480461410900903,
+            "average_precision": 0.06777971249422607,
+            "prevalence": 0.0003200149860676402,
+            "ap_lift": 211.80168256214026
+          },
+          "coverage": {
+            "roc_auc": 0.8824398506816924,
+            "average_precision": 0.17860005453329642,
+            "prevalence": 0.01942725122737455,
+            "ap_lift": 9.19327456277678
+          }
+        },
+        "selection_candidates": [
+          {
+            "selected": 67,
+            "activation_precision": 0.07462686567164178,
+            "activation_recall": 0.12195121951219512,
+            "coverage_precision": 0.2537313432835821,
+            "target_tree_recall": 0.2903225806451613,
+            "covered_target_trees": 9,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 12,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.23076923076923078
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 18,
+                "activation_recall": 0.3333333333333333,
+                "target_tree_recall": 0.5454545454545454
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 14,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 10,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 13,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.0005,
+            "eligible": false
+          },
+          {
+            "selected": 131,
+            "activation_precision": 0.04580152671755725,
+            "activation_recall": 0.14634146341463414,
+            "coverage_precision": 0.24427480916030533,
+            "target_tree_recall": 0.3225806451612903,
+            "covered_target_trees": 10,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 24,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.23076923076923078
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 35,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.6363636363636364
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 27,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 19,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 26,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.001,
+            "eligible": false
+          },
+          {
+            "selected": 259,
+            "activation_precision": 0.02702702702702703,
+            "activation_recall": 0.17073170731707318,
+            "coverage_precision": 0.23552123552123552,
+            "target_tree_recall": 0.45161290322580644,
+            "covered_target_trees": 14,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 48,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.38461538461538464
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 69,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.8181818181818182
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 53,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 38,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 51,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.002,
+            "eligible": false
+          },
+          {
+            "selected": 644,
+            "activation_precision": 0.015527950310559006,
+            "activation_recall": 0.24390243902439024,
+            "coverage_precision": 0.18633540372670807,
+            "target_tree_recall": 0.5806451612903226,
+            "covered_target_trees": 18,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 120,
+                "activation_recall": 0.16666666666666666,
+                "target_tree_recall": 0.6153846153846154
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 172,
+                "activation_recall": 0.4666666666666667,
+                "target_tree_recall": 0.9090909090909091
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 132,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 94,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 126,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.005,
+            "eligible": false
+          },
+          {
+            "selected": 1176,
+            "activation_precision": 0.008503401360544218,
+            "activation_recall": 0.24390243902439024,
+            "coverage_precision": 0.16071428571428573,
+            "target_tree_recall": 0.7419354838709677,
+            "covered_target_trees": 23,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 239,
+                "activation_recall": 0.16666666666666666,
+                "target_tree_recall": 0.6923076923076923
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.4666666666666667,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.5
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 187,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.25
+              }
+            ],
+            "keep_ratio": 0.01,
+            "eligible": false
+          },
+          {
+            "selected": 1250,
+            "activation_precision": 0.0088,
+            "activation_recall": 0.2682926829268293,
+            "coverage_precision": 0.1544,
+            "target_tree_recall": 0.7419354838709677,
+            "covered_target_trees": 23,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 250,
+                "activation_recall": 0.2222222222222222,
+                "target_tree_recall": 0.6923076923076923
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.4666666666666667,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.5
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.25
+              }
+            ],
+            "keep_ratio": 0.02,
+            "eligible": false
+          }
+        ],
+        "selected": {
+          "selected": 1250,
+          "activation_precision": 0.0088,
+          "activation_recall": 0.2682926829268293,
+          "coverage_precision": 0.1544,
+          "target_tree_recall": 0.7419354838709677,
+          "covered_target_trees": 23,
+          "target_trees": 31,
+          "per_plot": [
+            {
+              "source_plot": "G4N",
+              "selected": 250,
+              "activation_recall": 0.2222222222222222,
+              "target_tree_recall": 0.6923076923076923
+            },
+            {
+              "source_plot": "G4W",
+              "selected": 250,
+              "activation_recall": 0.4666666666666667,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "L1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.5
+            },
+            {
+              "source_plot": "O1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "O1W",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.25
+            }
+          ],
+          "keep_ratio": 0.02,
+          "eligible": false
+        },
+        "passed": false
+      },
+      "gate": {
+        "activation_ap_lift_passed": true,
+        "coverage_ap_lift_passed": true,
+        "activation_precision_passed": false,
+        "activation_recall_passed": true,
+        "target_tree_recall_passed": true,
+        "selection_found": false,
+        "passed": false
+      }
+    },
+    {
+      "model": "multitask_mlp",
+      "seed": 44,
+      "epoch": 4,
+      "device": "cuda",
+      "evaluation": {
+        "binary": {
+          "activation": {
+            "roc_auc": 0.9433554019482793,
+            "average_precision": 0.03632128599759125,
+            "prevalence": 0.0003200149860676402,
+            "ap_lift": 113.49870343232666
+          },
+          "coverage": {
+            "roc_auc": 0.8848239009582144,
+            "average_precision": 0.17551613648772102,
+            "prevalence": 0.01942725122737455,
+            "ap_lift": 9.034532700148787
+          }
+        },
+        "selection_candidates": [
+          {
+            "selected": 67,
+            "activation_precision": 0.05970149253731343,
+            "activation_recall": 0.0975609756097561,
+            "coverage_precision": 0.31343283582089554,
+            "target_tree_recall": 0.25806451612903225,
+            "covered_target_trees": 8,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 12,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.23076923076923078
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 18,
+                "activation_recall": 0.2,
+                "target_tree_recall": 0.45454545454545453
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 14,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 10,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 13,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.0005,
+            "eligible": false
+          },
+          {
+            "selected": 131,
+            "activation_precision": 0.05343511450381679,
+            "activation_recall": 0.17073170731707318,
+            "coverage_precision": 0.26717557251908397,
+            "target_tree_recall": 0.3225806451612903,
+            "covered_target_trees": 10,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 24,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.23076923076923078
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 35,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.6363636363636364
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 27,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 19,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 26,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.001,
+            "eligible": false
+          },
+          {
+            "selected": 259,
+            "activation_precision": 0.02702702702702703,
+            "activation_recall": 0.17073170731707318,
+            "coverage_precision": 0.23166023166023167,
+            "target_tree_recall": 0.4838709677419355,
+            "covered_target_trees": 15,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 48,
+                "activation_recall": 0.05555555555555555,
+                "target_tree_recall": 0.38461538461538464
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 69,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.9090909090909091
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 53,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 38,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 51,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.002,
+            "eligible": false
+          },
+          {
+            "selected": 644,
+            "activation_precision": 0.013975155279503106,
+            "activation_recall": 0.21951219512195122,
+            "coverage_precision": 0.18788819875776397,
+            "target_tree_recall": 0.5806451612903226,
+            "covered_target_trees": 18,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 120,
+                "activation_recall": 0.16666666666666666,
+                "target_tree_recall": 0.6153846153846154
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 172,
+                "activation_recall": 0.4,
+                "target_tree_recall": 0.9090909090909091
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 132,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 94,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 126,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              }
+            ],
+            "keep_ratio": 0.005,
+            "eligible": false
+          },
+          {
+            "selected": 1176,
+            "activation_precision": 0.008503401360544218,
+            "activation_recall": 0.24390243902439024,
+            "coverage_precision": 0.15051020408163265,
+            "target_tree_recall": 0.6774193548387096,
+            "covered_target_trees": 21,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 239,
+                "activation_recall": 0.2222222222222222,
+                "target_tree_recall": 0.6923076923076923
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.4,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 187,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.25
+              }
+            ],
+            "keep_ratio": 0.01,
+            "eligible": false
+          },
+          {
+            "selected": 1250,
+            "activation_precision": 0.008,
+            "activation_recall": 0.24390243902439024,
+            "coverage_precision": 0.1456,
+            "target_tree_recall": 0.7096774193548387,
+            "covered_target_trees": 22,
+            "target_trees": 31,
+            "per_plot": [
+              {
+                "source_plot": "G4N",
+                "selected": 250,
+                "activation_recall": 0.2222222222222222,
+                "target_tree_recall": 0.6923076923076923
+              },
+              {
+                "source_plot": "G4W",
+                "selected": 250,
+                "activation_recall": 0.4,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "L1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.0
+              },
+              {
+                "source_plot": "O1N",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 1.0
+              },
+              {
+                "source_plot": "O1W",
+                "selected": 250,
+                "activation_recall": 0.0,
+                "target_tree_recall": 0.25
+              }
+            ],
+            "keep_ratio": 0.02,
+            "eligible": false
+          }
+        ],
+        "selected": {
+          "selected": 1250,
+          "activation_precision": 0.008,
+          "activation_recall": 0.24390243902439024,
+          "coverage_precision": 0.1456,
+          "target_tree_recall": 0.7096774193548387,
+          "covered_target_trees": 22,
+          "target_trees": 31,
+          "per_plot": [
+            {
+              "source_plot": "G4N",
+              "selected": 250,
+              "activation_recall": 0.2222222222222222,
+              "target_tree_recall": 0.6923076923076923
+            },
+            {
+              "source_plot": "G4W",
+              "selected": 250,
+              "activation_recall": 0.4,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "L1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.0
+            },
+            {
+              "source_plot": "O1N",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 1.0
+            },
+            {
+              "source_plot": "O1W",
+              "selected": 250,
+              "activation_recall": 0.0,
+              "target_tree_recall": 0.25
+            }
+          ],
+          "keep_ratio": 0.02,
+          "eligible": false
+        },
+        "passed": false
+      },
+      "gate": {
+        "activation_ap_lift_passed": true,
+        "coverage_ap_lift_passed": true,
+        "activation_precision_passed": false,
+        "activation_recall_passed": false,
+        "target_tree_recall_passed": true,
+        "selection_found": false,
+        "passed": false
+      }
+    }
+  ],
+  "gate": {
+    "data_gate_passed": true,
+    "at_least_one_eligible_model": false,
+    "locked_seed_passed": false,
+    "passed": false
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "baseline": {
+    "tp": 152,
+    "fp": 11,
+    "fn": 8,
+    "completeness": 0.95,
+    "commission": 0.06748466257668712,
+    "f1": 0.9411764705882353
+  },
+  "num_fragmentation_gt_trees": 0,
+  "expected_fragmentation_gt_ids": [],
+  "num_predicted_instances": 190,
+  "num_candidate_edges": 26,
+  "num_graph_proposals": 0,
+  "graph_covered_target_trees": 0,
+  "per_target": [],
+  "modes": {
+    "fragment_union_ceiling": {
+      "tp": 152,
+      "fp": 11,
+      "fn": 8,
+      "completeness": 0.95,
+      "commission": 0.06748466257668712,
+      "f1": 0.9411764705882353,
+      "accepted_groups": 0,
+      "merged_predictions": 0,
+      "recovered_fragmentation_trees": 0,
+      "recovered_gt_ids": [],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "accepted": []
+    },
+    "fragment_graph_oracle": {
+      "tp": 152,
+      "fp": 11,
+      "fn": 8,
+      "completeness": 0.95,
+      "commission": 0.06748466257668712,
+      "f1": 0.9411764705882353,
+      "accepted_groups": 0,
+      "merged_predictions": 0,
+      "recovered_fragmentation_trees": 0,
+      "recovered_gt_ids": [],
+      "lost_baseline_trees": 0,
+      "lost_baseline_gt_ids": [],
+      "accepted": []
+    }
+  },
+  "adjacency_settings": {
+    "max_vote_center_distance": 3.0,
+    "max_raw_center_distance": 8.0,
+    "max_xy_bbox_gap": 1.5,
+    "max_vertical_gap": 3.0,
+    "max_candidate_edges": 100000
+  },
+  "parameters": {
+    "tree_class_index": 0,
+    "match_iou_threshold": 0.5,
+    "min_precision_for_counted_fp": 0.5,
+    "min_fragment_overlap_fraction": 0.05,
+    "min_fragment_overlap_points": 20
+  },
+  "source_plot": "O1N",
+  "split": "validation"
+}

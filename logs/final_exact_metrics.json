@@ -1,0 +1,238 @@
+{
+  "runs": {
+    "l1w_base_r100": {
+      "completeness": 100.0,
+      "omission_error_rate": 0.0,
+      "commission_error_rate": 3.1055900621118013,
+      "f1_score": 98.42271293375394,
+      "precision": 98.9147536581519,
+      "recall": 99.06959053088642,
+      "coverage": 98.02285389261371,
+      "counts": {
+        "matched_gt": 156,
+        "missed_gt": 0,
+        "matched_pred": 156,
+        "false_pred": 5
+      }
+    },
+    "l1w_random_r078_s42": {
+      "completeness": 100.0,
+      "omission_error_rate": 0.0,
+      "commission_error_rate": 2.5,
+      "f1_score": 98.73417721518987,
+      "precision": 98.90262750927667,
+      "recall": 99.06091527715523,
+      "coverage": 98.00465841927121,
+      "counts": {
+        "matched_gt": 156,
+        "missed_gt": 0,
+        "matched_pred": 156,
+        "false_pred": 4
+      }
+    },
+    "l1w_random_r078_s43": {
+      "completeness": 100.0,
+      "omission_error_rate": 0.0,
+      "commission_error_rate": 1.8867924528301887,
+      "f1_score": 99.04761904761905,
+      "precision": 98.89436875449627,
+      "recall": 99.06866911857887,
+      "coverage": 98.00418162610065,
+      "counts": {
+        "matched_gt": 156,
+        "missed_gt": 0,
+        "matched_pred": 156,
+        "false_pred": 3
+      }
+    },
+    "l1w_random_r078_s44": {
+      "completeness": 100.0,
+      "omission_error_rate": 0.0,
+      "commission_error_rate": 2.5,
+      "f1_score": 98.73417721518987,
+      "precision": 98.89753315165476,
+      "recall": 99.06800723937667,
+      "coverage": 98.00686135583146,
+      "counts": {
+        "matched_gt": 156,
+        "missed_gt": 0,
+        "matched_pred": 156,
+        "false_pred": 4
+      }
+    },
+    "l1w_mlp_r078_s42": {
+      "completeness": 99.35897435897436,
+      "omission_error_rate": 0.6410256410256387,
+      "commission_error_rate": 0.0,
+      "f1_score": 99.67845659163987,
+      "precision": 98.48261952396086,
+      "recall": 99.16146602622732,
+      "coverage": 97.67962770469171,
+      "counts": {
+        "matched_gt": 155,
+        "missed_gt": 1,
+        "matched_pred": 155,
+        "false_pred": 0
+      }
+    },
+    "l1w_mlp_r078_s43": {
+      "completeness": 100.0,
+      "omission_error_rate": 0.0,
+      "commission_error_rate": 0.6369426751592357,
+      "f1_score": 99.68051118210862,
+      "precision": 98.88429225888264,
+      "recall": 99.08052818245122,
+      "coverage": 98.00363275577376,
+      "counts": {
+        "matched_gt": 156,
+        "missed_gt": 0,
+        "matched_pred": 156,
+        "false_pred": 1
+      }
+    },
+    "l1w_mlp_r078_s44": {
+      "completeness": 100.0,
+      "omission_error_rate": 0.0,
+      "commission_error_rate": 0.0,
+      "f1_score": 100.0,
+      "precision": 98.84422725498658,
+      "recall": 99.1595060776485,
+      "coverage": 98.03880663091925,
+      "counts": {
+        "matched_gt": 156,
+        "missed_gt": 0,
+        "matched_pred": 156,
+        "false_pred": 0
+      }
+    },
+    "l1w_pt_r078": {
+      "completeness": 97.43589743589743,
+      "omission_error_rate": 2.564102564102566,
+      "commission_error_rate": 0.6535947712418301,
+      "f1_score": 98.38187702265373,
+      "precision": 96.33148465281602,
+      "recall": 99.143446824193,
+      "coverage": 95.5477693071632,
+      "counts": {
+        "matched_gt": 152,
+        "missed_gt": 4,
+        "matched_pred": 152,
+        "false_pred": 1
+      }
+    },
+    "wytham_base": {
+      "completeness": 64.76624857468643,
+      "omission_error_rate": 35.233751425313564,
+      "commission_error_rate": 18.741058655221746,
+      "f1_score": 72.08121827411169,
+      "precision": 62.45891350283317,
+      "recall": 80.49376150235213,
+      "coverage": 57.718037824399936,
+      "counts": {
+        "matched_gt": 568,
+        "missed_gt": 309,
+        "matched_pred": 568,
+        "false_pred": 131
+      }
+    },
+    "wytham_mlp_r078_s42": {
+      "completeness": 64.5381984036488,
+      "omission_error_rate": 35.461801596351194,
+      "commission_error_rate": 12.5193199381762,
+      "f1_score": 74.27821522309712,
+      "precision": 60.00801106812072,
+      "recall": 81.13461335178965,
+      "coverage": 56.71572566296249,
+      "counts": {
+        "matched_gt": 566,
+        "missed_gt": 311,
+        "matched_pred": 566,
+        "false_pred": 81
+      }
+    },
+    "wytham_mlp_r078_s43_locked": {
+      "completeness": 64.5381984036488,
+      "omission_error_rate": 35.461801596351194,
+      "commission_error_rate": 13.455657492354739,
+      "f1_score": 73.93860222077073,
+      "precision": 60.30382125949345,
+      "recall": 80.91013684705979,
+      "coverage": 56.8313933544338,
+      "counts": {
+        "matched_gt": 566,
+        "missed_gt": 311,
+        "matched_pred": 566,
+        "false_pred": 88
+      }
+    }
+  },
+  "groups": {
+    "l1w_random_r078": {
+      "run_names": [
+        "l1w_random_r078_s42",
+        "l1w_random_r078_s43",
+        "l1w_random_r078_s44"
+      ],
+      "count": 3,
+      "completeness": {
+        "mean": 100.0,
+        "sample_std": 0.0
+      },
+      "commission_error_rate": {
+        "mean": 2.2955974842767297,
+        "sample_std": 0.3540355424276007
+      },
+      "f1_score": {
+        "mean": 98.83865782599962,
+        "sample_std": 0.18096572632827504
+      },
+      "precision": {
+        "mean": 98.89817647180924,
+        "sample_std": 0.004166791721043874
+      },
+      "recall": {
+        "mean": 99.06586387837025,
+        "sample_std": 0.004298373123471459
+      },
+      "coverage": {
+        "mean": 98.00523380040111,
+        "sample_std": 0.0014295228018587388
+      }
+    },
+    "l1w_mlp_r078": {
+      "run_names": [
+        "l1w_mlp_r078_s42",
+        "l1w_mlp_r078_s43",
+        "l1w_mlp_r078_s44"
+      ],
+      "count": 3,
+      "completeness": {
+        "mean": 99.78632478632478,
+        "sample_std": 0.3700963264036029
+      },
+      "commission_error_rate": {
+        "mean": 0.2123142250530786,
+        "sample_std": 0.3677390249615451
+      },
+      "f1_score": {
+        "mean": 99.78632259124949,
+        "sample_std": 0.1850529156572409
+      },
+      "precision": {
+        "mean": 98.73704634594337,
+        "sample_std": 0.2212488574939596
+      },
+      "recall": {
+        "mean": 99.13383342877569,
+        "sample_std": 0.04617409786765158
+      },
+      "coverage": {
+        "mean": 97.90735569712824,
+        "sample_std": 0.19800083150726297
+      }
+    }
+  },
+  "missing": {},
+  "units": "percent",
+  "std_definition": "sample standard deviation (ddof=1)"
+}

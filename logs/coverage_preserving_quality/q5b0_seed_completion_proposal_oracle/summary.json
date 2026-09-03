@@ -1,0 +1,200 @@
+{
+  "baseline": {
+    "tp": 1632,
+    "fp": 276,
+    "fn": 150,
+    "completeness": 0.9158249158249159,
+    "commission": 0.14465408805031446,
+    "f1": 0.8845528455284553
+  },
+  "baseline_reference_audit": {
+    "plots": [
+      {
+        "source_plot": "G4N",
+        "expected": {
+          "tp": 282,
+          "fp": 35,
+          "fn": 36
+        },
+        "observed": {
+          "tp": 282,
+          "fp": 35,
+          "fn": 36
+        },
+        "drift": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "exact": true,
+        "passed": true
+      },
+      {
+        "source_plot": "G4W",
+        "expected": {
+          "tp": 545,
+          "fp": 50,
+          "fn": 40
+        },
+        "observed": {
+          "tp": 545,
+          "fp": 50,
+          "fn": 40
+        },
+        "drift": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "exact": true,
+        "passed": true
+      },
+      {
+        "source_plot": "L1N",
+        "expected": {
+          "tp": 431,
+          "fp": 90,
+          "fn": 22
+        },
+        "observed": {
+          "tp": 431,
+          "fp": 90,
+          "fn": 22
+        },
+        "drift": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "exact": true,
+        "passed": true
+      },
+      {
+        "source_plot": "O1N",
+        "expected": {
+          "tp": 152,
+          "fp": 11,
+          "fn": 8
+        },
+        "observed": {
+          "tp": 152,
+          "fp": 11,
+          "fn": 8
+        },
+        "drift": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0
+        },
+        "exact": true,
+        "passed": true
+      },
+      {
+        "source_plot": "O1W",
+        "expected": {
+          "tp": 223,
+          "fp": 89,
+          "fn": 43
+        },
+        "observed": {
+          "tp": 222,
+          "fp": 90,
+          "fn": 44
+        },
+        "drift": {
+          "tp": -1,
+          "fp": 1,
+          "fn": 1
+        },
+        "exact": false,
+        "passed": true
+      }
+    ],
+    "total_absolute_drift": {
+      "tp": 1,
+      "fp": 1,
+      "fn": 1
+    },
+    "all_exact": false
+  },
+  "oracle": {
+    "tp": 1648,
+    "fp": 281,
+    "fn": 134,
+    "completeness": 0.9248035914702581,
+    "commission": 0.1456713322965267,
+    "f1": 0.8881703045001348,
+    "num_proposals": 128119,
+    "num_activated_proposals": 41,
+    "proposal_covered_target_trees": 31,
+    "recovered_target_trees": 12,
+    "lost_baseline_trees": 0,
+    "added_seeds": 1900,
+    "f1_gain_pp": 0.36174589716795325,
+    "commission_increase_pp": 0.10172442462122455,
+    "completeness_drop_pp": -0.8978675645342271,
+    "nonnegative_plots": 5,
+    "plot_metrics": [
+      {
+        "source_plot": "G4N",
+        "num_proposals": 23819,
+        "covered": 13,
+        "recovered": 3,
+        "lost": 0,
+        "f1_gain_pp": 0.6220961510245981,
+        "commission_increase_pp": 0.6154322540690136
+      },
+      {
+        "source_plot": "G4W",
+        "num_proposals": 34206,
+        "covered": 11,
+        "recovered": 9,
+        "lost": 0,
+        "f1_gain_pp": 0.6581849748822366,
+        "commission_increase_pp": 0.1774967412707648
+      },
+      {
+        "source_plot": "L1N",
+        "num_proposals": 26390,
+        "covered": 2,
+        "recovered": 0,
+        "lost": 0,
+        "f1_gain_pp": 0.0,
+        "commission_increase_pp": 0.0
+      },
+      {
+        "source_plot": "O1N",
+        "num_proposals": 18615,
+        "covered": 1,
+        "recovered": 0,
+        "lost": 0,
+        "f1_gain_pp": 0.0,
+        "commission_increase_pp": 0.0
+      },
+      {
+        "source_plot": "O1W",
+        "num_proposals": 25089,
+        "covered": 4,
+        "recovered": 0,
+        "lost": 0,
+        "f1_gain_pp": 0.21275197064500873,
+        "commission_increase_pp": -0.09216023593019984
+      }
+    ]
+  },
+  "gate": {
+    "expected_validation_plots": true,
+    "baseline_reference_per_plot_compatible": true,
+    "baseline_reference_total_tp_drift_passed": true,
+    "baseline_reference_total_fp_drift_passed": true,
+    "baseline_reference_total_fn_drift_passed": true,
+    "target_count_reproduced": true,
+    "proposal_coverage_passed": true,
+    "recovered_tree_count_passed": true,
+    "f1_gain_passed": true,
+    "lost_tree_count_passed": true,
+    "commission_preserved": true,
+    "plot_consistency_passed": true,
+    "passed": true
+  }
+}

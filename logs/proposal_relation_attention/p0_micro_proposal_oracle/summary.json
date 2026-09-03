@@ -1,0 +1,186 @@
+{
+  "baseline": {
+    "tp": 1616,
+    "fp": 182,
+    "fn": 166,
+    "completeness": 0.9068462401795735,
+    "commission": 0.10122358175750834,
+    "f1": 0.9027932960893855
+  },
+  "oracle": {
+    "tp": 1731,
+    "fp": 758,
+    "fn": 51,
+    "completeness": 0.9713804713804713,
+    "commission": 0.3045399758939333,
+    "f1": 0.8105830016389605
+  },
+  "f1_gain_pp": -9.221029445042506,
+  "completeness_gain_pp": 6.453423120089785,
+  "commission_increase_pp": 20.331639413642495,
+  "recovered_trees": 116,
+  "graph_coverage": 0.9819277108433735,
+  "num_nodes": 731093,
+  "num_edges": 11628846,
+  "node_inflation": 369.9863360323887,
+  "average_out_degree": 15.906110440121845,
+  "per_plot": [
+    {
+      "baseline": {
+        "tp": 285,
+        "fp": 30,
+        "fn": 33,
+        "completeness": 0.8962264150943396,
+        "commission": 0.09523809523809523,
+        "f1": 0.9004739336492891
+      },
+      "oracle": {
+        "tp": 311,
+        "fp": 114,
+        "fn": 7,
+        "completeness": 0.9779874213836478,
+        "commission": 0.26823529411764707,
+        "f1": 0.8371467025572006
+      },
+      "recovered_trees": 26,
+      "missed_trees": 33,
+      "graph_covered_missed_trees": 32,
+      "graph_coverage": 0.9696969696969697,
+      "num_nodes": 97075,
+      "num_edges": 1541887,
+      "num_baseline_instances": 336,
+      "average_out_degree": 15.883461241308266,
+      "source_plot": "G4N",
+      "split": "validation",
+      "f1_gain_pp": -6.332723109208849
+    },
+    {
+      "baseline": {
+        "tp": 544,
+        "fp": 31,
+        "fn": 41,
+        "completeness": 0.9299145299145299,
+        "commission": 0.05391304347826087,
+        "f1": 0.9379310344827586
+      },
+      "oracle": {
+        "tp": 576,
+        "fp": 226,
+        "fn": 9,
+        "completeness": 0.9846153846153847,
+        "commission": 0.2817955112219451,
+        "f1": 0.8305695746214852
+      },
+      "recovered_trees": 32,
+      "missed_trees": 41,
+      "graph_covered_missed_trees": 39,
+      "graph_coverage": 0.9512195121951219,
+      "num_nodes": 218109,
+      "num_edges": 3469162,
+      "num_baseline_instances": 590,
+      "average_out_degree": 15.905634338793906,
+      "source_plot": "G4W",
+      "split": "validation",
+      "f1_gain_pp": -10.736145986127344
+    },
+    {
+      "baseline": {
+        "tp": 420,
+        "fp": 71,
+        "fn": 33,
+        "completeness": 0.9271523178807947,
+        "commission": 0.1446028513238289,
+        "f1": 0.8898305084745762
+      },
+      "oracle": {
+        "tp": 444,
+        "fp": 231,
+        "fn": 9,
+        "completeness": 0.9801324503311258,
+        "commission": 0.3422222222222222,
+        "f1": 0.7872340425531915
+      },
+      "recovered_trees": 25,
+      "missed_trees": 33,
+      "graph_covered_missed_trees": 33,
+      "graph_coverage": 1.0,
+      "num_nodes": 185912,
+      "num_edges": 2962609,
+      "num_baseline_instances": 546,
+      "average_out_degree": 15.93554477387151,
+      "source_plot": "L1N",
+      "split": "validation",
+      "f1_gain_pp": -10.259646592138472
+    },
+    {
+      "baseline": {
+        "tp": 153,
+        "fp": 4,
+        "fn": 7,
+        "completeness": 0.95625,
+        "commission": 0.025477707006369428,
+        "f1": 0.9652996845425867
+      },
+      "oracle": {
+        "tp": 159,
+        "fp": 19,
+        "fn": 1,
+        "completeness": 0.99375,
+        "commission": 0.10674157303370786,
+        "f1": 0.9408284023668639
+      },
+      "recovered_trees": 6,
+      "missed_trees": 7,
+      "graph_covered_missed_trees": 7,
+      "graph_coverage": 1.0,
+      "num_nodes": 98048,
+      "num_edges": 1553968,
+      "num_baseline_instances": 162,
+      "average_out_degree": 15.849053524804178,
+      "source_plot": "O1N",
+      "split": "validation",
+      "f1_gain_pp": -2.447128217572281
+    },
+    {
+      "baseline": {
+        "tp": 214,
+        "fp": 46,
+        "fn": 52,
+        "completeness": 0.8045112781954887,
+        "commission": 0.17692307692307693,
+        "f1": 0.8136882129277566
+      },
+      "oracle": {
+        "tp": 241,
+        "fp": 168,
+        "fn": 25,
+        "completeness": 0.9060150375939849,
+        "commission": 0.41075794621026895,
+        "f1": 0.7140740740740741
+      },
+      "recovered_trees": 27,
+      "missed_trees": 52,
+      "graph_covered_missed_trees": 52,
+      "graph_coverage": 1.0,
+      "num_nodes": 131949,
+      "num_edges": 2101220,
+      "num_baseline_instances": 342,
+      "average_out_degree": 15.924485975642105,
+      "source_plot": "O1W",
+      "split": "validation",
+      "f1_gain_pp": -9.961413885368254
+    }
+  ],
+  "gate": {
+    "expected_validation_plots": true,
+    "oracle_f1_gain_passed": false,
+    "oracle_completeness_gain_passed": true,
+    "recovered_tree_count_passed": true,
+    "commission_not_worse": false,
+    "plot_consistency_passed": false,
+    "missed_tree_coverage_passed": true,
+    "proposal_inflation_passed": false,
+    "degree_bound_passed": true,
+    "passed": false
+  }
+}

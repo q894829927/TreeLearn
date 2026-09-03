@@ -1,0 +1,2 @@
+===== START train_t1_m1_sparse_se_seed42 2026年 08月 14日 星期五 22:59:51 CST =====
+ERROR: missing checkpoint work_dirs/train_t1_m1_sparse_se_seed42/best_unet.pth

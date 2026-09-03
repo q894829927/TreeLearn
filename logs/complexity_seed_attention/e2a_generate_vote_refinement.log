@@ -1,0 +1,37 @@
+RUN G4N (validation) from data/train/forests/G4N.laz; log=data/seed_vote_refinement/logs/G4N.log
+DONE G4N: 293,705 candidates, 15,726 critical, 29,313 non-tree.
+RUN G4W (validation) from data/train/forests/G4W.laz; log=data/seed_vote_refinement/logs/G4W.log
+DONE G4W: 519,142 candidates, 29,792 critical, 30,836 non-tree.
+RUN L1N (validation) from data/train/forests/L1N.laz; log=data/seed_vote_refinement/logs/L1N.log
+DONE L1N: 452,316 candidates, 23,663 critical, 54,667 non-tree.
+RUN O1N (validation) from data/train/forests/O1N.laz; log=data/seed_vote_refinement/logs/O1N.log
+DONE O1N: 242,281 candidates, 8,257 critical, 13,034 non-tree.
+RUN O1W (validation) from data/train/forests/O1W.laz; log=data/seed_vote_refinement/logs/O1W.log
+DONE O1W: 400,701 candidates, 14,079 critical, 166,688 non-tree.
+# E1a seed reliability/coverage data audit
+
+- mode: pilot
+- artifacts: 5
+- train candidates: 0
+- validation candidates: 1,908,145
+- train critical targets: 0
+- train non-tree targets: 0
+- known-label rate: 100.000%
+- critical-target rate: 5.672%
+- train plots: 
+- validation plots: G4N, G4W, L1N, O1N, O1W
+
+## Gate
+
+- selected_plots_present: **True**
+- artifacts_nonempty: **True**
+- dimensions_match: **True**
+- all_supervised_trees_covered: **True**
+- audit_sample_prepared: **True**
+- no_plot_leakage: **True**
+- no_group_leakage: **True**
+- passed: **True**
+
+Saved manifest: data/seed_vote_refinement/manifest.csv
+Saved audit sample: data/seed_vote_refinement/audit_sample.csv
+PASS: E1a seed data are ready for E1b MLP.
