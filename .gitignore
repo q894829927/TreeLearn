@@ -64,3 +64,11 @@ data
 *.pth
 *.pt
 *.npz
+
+# Local presentation tooling and generated review artifacts
+node_modules/
+/.codex_tmp/
+/_ppt_work/
+/qa/
+/*.pptx.inspect.ndjson
+/TreeLearn_组会进展_*.pptx
