@@ -1,0 +1,55 @@
+# Official checkpoint + original single-anchor inference; export only.
+default_args:
+  - configs/_modular/sample_generation.yaml
+  - configs/_modular/model.yaml
+  - configs/_modular/grouping.yaml
+  - configs/_modular/dataset_test.yaml
+
+forest_path: __RESOLVED_BY_DRIVER__
+pipeline_base_dir: __RESOLVED_BY_DRIVER__
+pretrain: data/model_weights/model_weights_with_small_20241213.pth
+fp16: true
+tile_generation: true
+
+model:
+  spatial_shape: [500, 500, 1000]
+  use_upper_anchor: false
+  use_axis_branch: false
+  use_height_context_adapter: false
+  offset_loss_type: l2
+  unet_enhancement:
+    enabled: false
+  unet_finetune:
+    enabled: false
+
+dataset_test:
+  base_anchor_mode: legacy
+
+grouping:
+  use_upper_seeds: false
+  upper_anchor_weight: 0.0
+  axis_height_weight: 0.0
+  use_axis_fusion: false
+  use_seed_confidence_filter: false
+  max_cluster_seed_points: 1500000
+
+dataloader:
+  batch_size: 1
+  num_workers: 2
+
+shape_cfg:
+  outer_remove: null
+  alpha: 0.6
+  buffer_size_to_determine_edge_trees: 0.3
+
+save_cfg:
+  results_dir: results_original
+  return_type: voxelized_and_filtered
+  save_formats: [npz]
+  save_pointwise: false
+  save_treewise: false
+  save_full_forest: false
+  save_quality_training_data: false
+  save_seed_training_data: false
+  save_mask_refinement_cache: true
+  mask_refinement_export_only: true

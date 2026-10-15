@@ -203,6 +203,8 @@ def run_treelearn_pipeline(config, config_path=None):
             getattr(quality_filter_cfg, 'score_instances', False)))
     save_seed_training_data = bool(getattr(
         config.save_cfg, 'save_seed_training_data', False))
+    save_mask_refinement_cache = bool(getattr(
+        config.save_cfg, 'save_mask_refinement_cache', False))
     logger.info(f'{plot_name}: #################### getting pointwise predictions ####################')
     model = TreeLearn(**config.model).cuda()
     dataset = TreeDataset(**config.dataset_test, logger=logger)
@@ -214,6 +216,7 @@ def run_treelearn_pipeline(config, config_path=None):
             config.save_cfg.save_pointwise or getattr(
                 config.save_cfg, 'save_quality_training_data', False) or
             save_seed_training_data or
+            save_mask_refinement_cache or
             quality_scoring_enabled))
     (semantic_prediction_logits, semantic_labels, offset_predictions, offset_labels,
      upper_offset_predictions, upper_offset_labels, coords, instance_labels,
@@ -374,6 +377,18 @@ def run_treelearn_pipeline(config, config_path=None):
             f'{num_unassigned:,} predicted tree points remain unassigned because '
             'initial clustering produced no usable reference instances. '
             'No output was saved; inspect the clustering seed count and thresholds.')
+
+    if save_mask_refinement_cache:
+        from tree_learn.mask_refinement.data import export_cache
+        export_cache(
+            str(config.mask_refinement_cache_dir), coords, backbone_feats,
+            offset_predictions, semantic_prediction_logits, instance_preds,
+            instance_labels,
+            dict(munch_to_dict(config.mask_refinement_cache_metadata),
+                 xyz_mean=xyz_mean.tolist()))
+        logger.info('Saved aligned frozen-candidate mask refinement cache.')
+        if bool(getattr(config.save_cfg, 'mask_refinement_export_only', False)):
+            return
 
     quality_token_data = None
     quality_score_result = None
