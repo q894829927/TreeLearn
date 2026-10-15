@@ -87,6 +87,21 @@ Pilot 结束优先提供：
 - `work_dirs/candidate_mask_mlp_a1_s42/smoke/evaluation/summary.json`
 - 如失败，提供对应日志末尾与错误栈。
 
+### Smoke 输出全空时的诊断
+
+本次服务器反馈：19,649 个参数，训练/验证各 16 个候选，1 epoch 后验证损失为 1.294315；G4N 的 364 个候选全部消失，11,167,502 个原树点全部未分配。这说明流程运行完成，但不能据此认定预测正常。默认 batch size 4 对应仅 4 次参数更新，训练不足是一种可能，原输出没有记录概率范围，尚不能确认原因。零预测时 Commission 为 0 也不表示误检控制改善。
+
+推理新增 `assignment.score_diagnostics`，只记录统计，不修改模型、阈值、竞争规则、缓存或 checkpoint 格式。更新代码并运行测试后，使用现有 smoke checkpoint 重新评价即可，无需重新 `prepare`、`audit` 或 `train`，也不必再次导出大体积 NPZ：
+
+```bash
+python -u tools/mask_refinement/run.py evaluate --pilot --smoke \
+  2>&1 | tee logs/candidate_mask_mlp/evaluate_smoke_diagnostics.log
+```
+
+查看 `max_probability`、`num_pairs_at_or_above_threshold`、`num_foreground_points_not_scored` 和 `empty_prediction_reason`。统计中的 pair 是“候选—点”组合，重叠区域里的点会被多个候选评分，所以 pair 数通常大于唯一点数。若所有前景点均已评分、最大概率小于 0.5 且原因是 `all_scores_below_threshold`，可确认当前 checkpoint 的掩码没有通过固定阈值；这仍不能区分训练不足与其他学习问题。若有前景点未评分，先排查区域/缓存覆盖；出现 `assignment_inconsistency` 则先排查分配实现。不要根据 smoke 验证结果降低阈值或添加回退分配来消除空输出。
+
+诊断与完整数据审计正常后再进行正式训练。正式模型能否有效改善点归属，由预设的五森林评价条件判断。
+
 ## 5. 完整数据与可恢复性检查
 
 Pilot 闭环通过后，执行：

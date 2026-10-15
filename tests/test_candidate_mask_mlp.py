@@ -144,6 +144,67 @@ class CandidateMaskDataTests(unittest.TestCase):
 
 
 class CandidateMaskModelTests(unittest.TestCase):
+    def test_low_scores_are_distinguished_from_unscored_foreground(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            synthetic_cache(tmp)
+            Path(tmp, 'labels.npy').unlink()
+            model = CandidateMaskMLP(8).eval()
+            with torch.no_grad():
+                for parameter in model.parameters():
+                    parameter.zero_()
+                model.mask_head[-1].bias.fill_(-2)
+            previous = None
+            for chunk_size in (1, 100):
+                predictions, abstained, stats = predict_forest(
+                    model, tmp, torch.device('cpu'), chunk_size=chunk_size)
+                self.assertFalse(predictions.any())
+                self.assertEqual(int(abstained.sum()), 6)
+                diagnostics = stats['score_diagnostics']
+                self.assertEqual(diagnostics['empty_prediction_reason'], 'all_scores_below_threshold')
+                self.assertEqual(diagnostics['num_foreground_points_scored'], 6)
+                self.assertEqual(diagnostics['num_foreground_points_not_scored'], 0)
+                self.assertEqual(diagnostics['num_scored_pairs'], 12)
+                self.assertEqual(diagnostics['num_candidates_scored'], 2)
+                self.assertEqual(diagnostics['num_candidates_at_or_above_threshold'], 0)
+                self.assertEqual(diagnostics['fraction_pairs_at_or_above_threshold'], 0.0)
+                self.assertAlmostEqual(diagnostics['max_probability'], 0.11920292, places=6)
+                if previous is not None:
+                    for key, value in diagnostics.items():
+                        if isinstance(value, float):
+                            self.assertAlmostEqual(value, previous[key], places=6)
+                        else:
+                            self.assertEqual(value, previous[key])
+                previous = diagnostics
+            # Simulate missing/corrupt region coverage. It must not be reported
+            # as merely low model confidence, and its JSON must remain finite.
+            for region in Path(tmp, 'regions').glob('*.npy'):
+                np.save(region, np.array([], dtype=np.int64))
+            _, _, stats = predict_forest(model, tmp, torch.device('cpu'))
+            diagnostics = stats['score_diagnostics']
+            self.assertEqual(diagnostics['empty_prediction_reason'], 'no_foreground_scores')
+            self.assertEqual(diagnostics['num_foreground_points_not_scored'], 6)
+            self.assertEqual(diagnostics['num_scored_pairs'], 0)
+            self.assertIsNone(diagnostics['max_probability'])
+            json.dumps(diagnostics, allow_nan=False)
+
+    def test_score_diagnostics_preserve_threshold_ties_and_assignment(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            synthetic_cache(tmp)
+            model = CandidateMaskMLP(8).eval()
+            with torch.no_grad():
+                for parameter in model.parameters():
+                    parameter.zero_()
+            # All sigmoid probabilities are exactly .5; original owners win.
+            predictions, abstained, stats = predict_forest(model, tmp, torch.device('cpu'))
+            np.testing.assert_array_equal(predictions, np.load(Path(tmp, 'baseline.npy')))
+            self.assertFalse(abstained.any())
+            diagnostics = stats['score_diagnostics']
+            self.assertIsNone(diagnostics['empty_prediction_reason'])
+            self.assertEqual(diagnostics['num_pairs_at_or_above_threshold'], 12)
+            self.assertEqual(diagnostics['fraction_pairs_at_or_above_threshold'], 1.0)
+            self.assertEqual(diagnostics['num_candidates_at_or_above_threshold'], 2)
+            self.assertEqual(diagnostics['mean_probability'], .5)
+
     def test_loss_is_finite_with_empty_targets_and_updates_model(self):
         torch.manual_seed(12)
         model = CandidateMaskMLP(16)

@@ -440,6 +440,13 @@ def evaluate(settings, pilot, smoke, export):
         write_json(out / 'metrics.json', record)
         records.append(record)
         print(f'{entry["plot"]}: {json.dumps(record["delta"])}', flush=True)
+        diagnostics = stats['score_diagnostics']
+        print(f'{entry["plot"]} scores: {json.dumps(diagnostics)}', flush=True)
+        if (diagnostics['empty_prediction_reason'] is not None or
+                diagnostics['num_foreground_points_not_scored']):
+            print(f'WARNING {entry["plot"]}: empty prediction or unscored foreground; '
+                  'inspect score diagnostics before interpreting metrics. '
+                  'Zero commission with zero predictions is not an improvement.', flush=True)
     baseline = macro_metrics([record['baseline'] for record in records])
     refined = macro_metrics([record['refined'] for record in records])
     gate = settings['evaluation_gate']
