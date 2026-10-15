@@ -29,7 +29,7 @@
 
 ## 3. 服务器准备与测试
 
-从服务器已有 TreeLearn 仓库进入，不要覆盖服务器未提交修改。以下命令假设目标分支此前尚未在服务器创建：
+以下所有命令都从服务器的 `TreeLearn` 仓库根目录执行，不能停留在 `TreeLearn/data` 目录。不要覆盖服务器未提交修改。以下命令假设目标分支此前尚未在服务器创建：
 
 ```bash
 cd ~/projects/zrx/code/TreeLearn
@@ -39,11 +39,11 @@ conda activate TreeLearn
 mkdir -p logs/candidate_mask_mlp
 set -o pipefail
 
-python -m unittest tests.test_candidate_mask_mlp -v \
+python -m unittest discover -s tests -p 'test_candidate_mask_mlp.py' -v \
   2>&1 | tee logs/candidate_mask_mlp/unit_tests.log
 ```
 
-若分支已经存在，则使用 `git switch codex/candidate-mask-mlp-step1` 和 `git pull --ff-only`。测试包含合成数据上的训练、保存/恢复和推理闭环，使用 CPU，不读取真实森林，不需要 spconv。测试必须通过后再生成真实缓存。
+若分支已经存在，则使用 `git switch codex/candidate-mask-mlp-step1` 和 `git pull --ff-only`。使用 `discover` 按文件发现测试，避免无 `__init__.py` 的 `tests` 目录与环境中的同名包发生导入冲突。测试包含合成数据上的训练、保存/恢复和推理闭环，使用 CPU，不读取真实森林，不需要 spconv。测试必须通过后再生成真实缓存。
 
 检查 [配置](../../configs/experiments/candidate_mask_mlp/step1.yaml) 中两项路径：
 
