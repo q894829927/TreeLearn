@@ -1,11 +1,16 @@
 """Server-side CPU tests. No forest files, CUDA or spconv are required."""
 
 import copy
+import ast
 import importlib.util
 import json
+import logging
 import tempfile
 import unittest
+import weakref
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 import numpy as np
 import torch
@@ -20,6 +25,7 @@ from tree_learn.mask_refinement.diagnostics import (
 )
 from tree_learn.mask_refinement.inference import predict_forest, update_winners
 from tree_learn.mask_refinement.model import CandidateMaskMLP, mask_loss
+from tree_learn.mask_refinement.tiling import tile_generate_and_save_streaming
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('mask_workflow', ROOT / 'tools/mask_refinement/run.py')
@@ -437,6 +443,38 @@ class CandidateMaskExternalTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'lock changed'):
                 EXTERNAL.lock_request(path, dict(request, checkpoint_sha256='different'))
 
+    def test_failed_external_attempt_can_bind_streaming_without_changing_weight_lock(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = dict(output_root=tmp, splits={'external': ['wytham_vox0.1']})
+            request = dict(checkpoint_sha256='unchanged', training_signature='unchanged')
+            lock = dict(request=copy.deepcopy(request))
+            policy = EXTERNAL.preparation_policy(dict(stream_tiles=True))
+            EXTERNAL.check_preparation(lock, policy, settings, create=True)
+            self.assertEqual(lock['request'], request)
+            self.assertEqual(lock['preparation'], policy)
+            EXTERNAL.check_preparation(lock, policy, settings)
+            changed = dict(policy, source_code={'changed': 'hash'})
+            with self.assertRaisesRegex(ValueError, 'implementation changed'):
+                EXTERNAL.check_preparation(lock, changed, settings, create=True)
+            with self.assertRaisesRegex(ValueError, 'implementation changed'):
+                EXTERNAL.check_preparation(lock, None, settings)
+
+    def test_completed_external_attempt_cannot_adopt_a_different_tile_implementation(self):
+        for marker in ('manifest', 'cache', 'lock_digest'):
+            with self.subTest(marker=marker), tempfile.TemporaryDirectory() as tmp:
+                settings = dict(output_root=tmp, splits={'external': ['wytham_vox0.1']})
+                lock = dict(request={})
+                if marker == 'lock_digest':
+                    lock['external_manifest_digest'] = 'completed'
+                else:
+                    path = Path(tmp) / ('manifest.json' if marker == 'manifest' else
+                                        'external/wytham_vox0.1/cache.json')
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text('{}')
+                with self.assertRaisesRegex(ValueError, 'implementation changed'):
+                    EXTERNAL.check_preparation(lock, EXTERNAL.preparation_policy(dict(stream_tiles=True)),
+                                              settings, create=True)
+
     def test_external_evaluation_allows_failed_source_gate_without_training_or_overwrite(self):
         import yaml
         with tempfile.TemporaryDirectory() as tmp:
@@ -492,6 +530,111 @@ class CandidateMaskExternalTests(unittest.TestCase):
             self.assertEqual(result['baseline_macro'], result['refined_macro'])
             self.assertEqual(checkpoint_path.read_bytes(), checkpoint_bytes)
             self.assertEqual(source_report_path.read_bytes(), source_bytes)
+
+
+class CandidateMaskStreamingTileTests(unittest.TestCase):
+    @staticmethod
+    def original_method():
+        # Compile the actual reference method without importing open3d/spconv.
+        source = ROOT / 'tree_learn/util/data_preparation.py'
+        tree = ast.parse(source.read_text(encoding='utf-8'))
+        generator = next(node for node in tree.body if isinstance(node, ast.ClassDef) and
+                         node.name == 'SampleGenerator')
+        method = next(node for node in generator.body if isinstance(node, ast.FunctionDef) and
+                      node.name == 'tile_generate_and_save')
+        namespace = dict(np=np, torch=torch, json=json, os=__import__('os'), tqdm=lambda values: values)
+        exec(compile(ast.Module(body=[method], type_ignores=[]), str(source), 'exec'), namespace)
+        return namespace['tile_generate_and_save']
+
+    @staticmethod
+    def generator(directory, dtype=np.float32, feature_dim=1):
+        directory = Path(directory)
+        (directory / 'npz').mkdir(parents=True)
+        (directory / 'json').mkdir()
+        # Include exact grid edges, their neighbors, and isolated extremes.
+        values = np.array([0, .75, 8.25, 15.75, 23.25, 24], dtype=dtype)
+        values = np.concatenate([values, np.nextafter(values[1:5], dtype(-np.inf)),
+                                 np.nextafter(values[1:5], dtype(np.inf))])
+        x, y = np.meshgrid(values, values)
+        points = np.column_stack([x.ravel(), y.ravel(), np.linspace(-1, 37.1234, x.size)]).astype(dtype)
+        features = np.random.default_rng(42).normal(size=(len(points), feature_dim)).astype(np.float32)
+        return SimpleNamespace(points=points, label=(np.arange(len(points)) % 7 - 1).astype(dtype),
+                               feats=features, x_range=np.array([0, 24], dtype=dtype),
+                               y_range=np.array([0, 24], dtype=dtype), plot_name='synthetic',
+                               n_neigh_sor=None, multiplier_sor=None, rad=None, npoints_rad=None,
+                               save_dir_data=str(directory / 'npz'), save_dir_meta_data=str(directory / 'json'))
+
+    def compare_outputs(self, first, second):
+        names = sorted(path.name for path in (first / 'npz').glob('*.npz'))
+        self.assertTrue(names)
+        self.assertEqual(names, sorted(path.name for path in (second / 'npz').glob('*.npz')))
+        for name in names:
+            with np.load(first / 'npz' / name) as expected, np.load(second / 'npz' / name) as actual:
+                self.assertEqual(expected.files, actual.files)
+                for key in expected.files:
+                    self.assertEqual(expected[key].dtype, actual[key].dtype)
+                    np.testing.assert_array_equal(expected[key], actual[key])
+            meta = Path(name).with_suffix('.json')
+            self.assertEqual(json.loads((first / 'json' / meta).read_text()),
+                             json.loads((second / 'json' / meta).read_text()))
+
+    def test_streaming_tiles_exactly_match_original_on_cpu(self):
+        reference = self.original_method()
+        logger = logging.getLogger('streaming_tile_test')
+        for dtype in (np.float32, np.float64):
+            for width in (1, 3):
+                for compressed in (False, True):
+                    for stride in (.5, 1.):
+                        with self.subTest(dtype=dtype, width=width, compressed=compressed, stride=stride):
+                            with tempfile.TemporaryDirectory() as tmp:
+                                first, second = Path(tmp) / 'original', Path(tmp) / 'streaming'
+                                with mock.patch.object(torch.Tensor, 'cuda', lambda tensor: tensor):
+                                    reference(self.generator(first, dtype, width), 8., 13.5, stride,
+                                              compressed=compressed, logger=logger)
+                                    tile_generate_and_save_streaming(self.generator(second, dtype, width),
+                                                                    8., 13.5, stride,
+                                                                    compressed=compressed, logger=logger)
+                                self.compare_outputs(first, second)
+
+    @unittest.skipUnless(torch.cuda.is_available(), 'CUDA unavailable; CPU reference comparison still runs')
+    def test_streaming_tiles_exactly_match_original_on_cuda(self):
+        reference = self.original_method()
+        for dtype in (np.float32, np.float64):
+            with self.subTest(dtype=dtype), tempfile.TemporaryDirectory() as tmp:
+                first, second = Path(tmp) / 'original', Path(tmp) / 'streaming'
+                reference(self.generator(first, dtype), 8., 13.5, .5, logger=logging.getLogger('tile_test'))
+                tile_generate_and_save_streaming(self.generator(second, dtype), 8., 13.5, .5,
+                                                logger=logging.getLogger('tile_test'))
+                self.compare_outputs(first, second)
+
+    def test_streaming_releases_saved_chunk_views_before_the_next_save(self):
+        references = []
+        save = np.savez
+
+        def record_save(path, **values):
+            self.assertTrue(all(reference() is None for reference in references))
+            references.append(weakref.ref(values['points']))
+            save(path, **values)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            generator = self.generator(Path(tmp) / 'streaming')
+            with mock.patch.object(torch.Tensor, 'cuda', lambda tensor: tensor), \
+                    mock.patch('tree_learn.mask_refinement.tiling.np.savez', new=record_save):
+                tile_generate_and_save_streaming(generator, 8., 13.5, .5,
+                                                logger=logging.getLogger('tile_test'))
+        self.assertGreater(len(references), 1)
+        self.assertTrue(all(reference() is None for reference in references))
+
+    def test_streaming_rejects_unverified_rotation_or_denoising(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            generator = self.generator(Path(tmp) / 'streaming')
+            with self.assertRaisesRegex(ValueError, 'rotation or denoising'):
+                tile_generate_and_save_streaming(generator, 8., 13.5, .5,
+                                                plot_corners=[[0, 0], [1, 1]])
+            generator.n_neigh_sor = 10
+            with self.assertRaisesRegex(ValueError, 'rotation or denoising'):
+                tile_generate_and_save_streaming(generator, 8., 13.5, .5)
+            self.assertEqual(list((Path(tmp) / 'streaming/npz').iterdir()), [])
 
 
 if __name__ == '__main__':

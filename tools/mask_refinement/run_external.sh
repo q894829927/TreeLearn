@@ -32,7 +32,7 @@ if ! flock -n 9; then
     printf 'An external background run is already active. Inspect %s/latest_*/console.log.\n' "$log_root" >&2
     exit 2
 fi
-if pgrep -u "$user_id" -f '[t]ools/(mask_refinement/external|pipeline/pipeline)\.py'; then
+if pgrep -u "$user_id" -f '[t]ools/(mask_refinement/(external|pipeline_streaming)|pipeline/pipeline)\.py'; then
     printf 'An existing external/pipeline process was found above. Inspect it before starting another.\n' >&2
     exit 2
 fi

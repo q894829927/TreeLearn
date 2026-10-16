@@ -1,6 +1,6 @@
 # 固定 A1 checkpoint 的 Wytham 跨域评价
 
-日期：2026-10-16。用户明确提出在 Wytham 上测试，源域 gate 失败不作为禁止本次外部评价的条件。源域 A1 的失败结果继续保留。用户已在服务器通过 28 项测试，首次 prepare 在切块中心化阶段中断，尚无实际 Wytham 评价结果。本地仅进行静态检查。
+更新日期：2026-10-17。用户明确提出在 Wytham 上测试，源域 gate 失败不作为禁止本次外部评价的条件。源域 A1 的失败结果继续保留。用户已在服务器通过此前 28 项测试；两次 prepare 在切块中心化阶段中断，第二次资源日志已确认 OOM，尚无实际 Wytham 评价结果。本次补充逐块切块实现及 6 项测试，待服务器执行；本地仅进行静态检查。
 
 ## 1. 为什么仍值得测试
 
@@ -22,6 +22,10 @@ Wytham 已被项目早期实验观察，因此本轮明确记为探索性跨域�
 
 首次 `prepare` 写入独立的 `external_lock.json`，记录 checkpoint SHA256、epoch、原验证结果摘要 SHA256 和输入路径。后续 checkpoint 或设置变化会拒绝混用本次结果。原 `passed=false` 写进外部报告，不阻止运行；外部评价不套用五森林源域 gate，`passed` 为 null，直接报告配对指标及代价。
 
+默认外部配置现在启用 `stream_tiles: true`：逐块生成和保存，避免同时保留全部重叠块。通过单独的 `pipeline_streaming.py` 入口替换当前进程的切块方法，继续调用原版流水线。原版六个 baseline 源文件、模型配置及训练 manifest 不变；新的实现代码哈希另记在外部锁、缓存签名/元数据、manifest 和最终报告的 `preparation` 中，不把实现变更隐去。只支持当前基线的无 plot rotation、无去噪设置，其他设置会明确拒绝。
+
+原先因 OOM 失败、尚未生成 `cache.json`/manifest 的尝试可以在保留原权重与数据锁的基础上首次绑定 streaming 实现；已完成的旧缓存不能直接改用新实现，已绑定的实现哈希变化也会拒绝混用。当前两次失败尚未写出完整缓存，因此可直接沿用现有目录恢复。
+
 ## 3. 服务器命令
 
 默认数据路径为仓库既有配置使用的 `data/benchmark/wytham_vox0.1.laz`。若服务器保存位置不同，只修改 [外部配置](../../configs/experiments/candidate_mask_mlp/wytham.yaml) 的 `forest_path`，指向已有的同一份 0.1 m 带标签 Wytham 点云。不要误用 4.64 亿点的原始云。读取原文件，生成内容写入独立目录。
@@ -37,10 +41,10 @@ mkdir -p logs/candidate_mask_mlp
 set -o pipefail
 
 python -m unittest discover -s tests -p 'test_candidate_mask_mlp.py' -v \
-  2>&1 | tee logs/candidate_mask_mlp/unit_tests_external.log
+  2>&1 | tee logs/candidate_mask_mlp/unit_tests_external_streaming.log
 ```
 
-应发现 28 项测试。新增检查覆盖：外部目录不覆盖源域文件、拒绝 smoke/阈值变化、checkpoint 锁定，以及源域 gate 失败时仍能完成固定权重的外部配对评价。
+应发现 34 项测试。新增检查覆盖：失败缓存首次绑定 streaming 与已完成缓存的保护、与实际原版方法逐项相同的 CPU/CUDA tile 输出、保存后释放块视图、拒绝尚未验证的旋转/去噪。CPU 比较覆盖 float32/float64、两种特征维度、两种压缩模式、两种 stride，以及边界点和相邻浮点数；CUDA 可用时还会直接比较两实现的 GPU 结果，无 CUDA 时该项跳过。先确认这组测试通过，再启动实际 Wytham prepare。
 
 长任务使用后台脚本启动，减少 VS Code 或 SSH 断开造成的影响。它继承当前已激活的 Python 环境，先执行 `conda activate TreeLearn`。下面的 `prepare` 启动后会立即返回终端：
 
@@ -79,7 +83,7 @@ nohup bash tools/mask_refinement/run_external.sh evaluate \
 
 服务器回传日志确认：28 项单元测试通过，prepare 完成体素化、特征计算和切块筛选，最后停在 `21:07:38 center chunks`；没有 `save chunks`、Traceback、评价日志或最终报告，检查时也没有对应进程。1392 个 NaN 特征已成功替换，不能作为此次退出的证据。
 
-随后服务器显示物理内存 125 GiB、当时可用约 100 GiB，swap 2 GiB 接近用完，开机时间为 2026-08-19。当前空闲内存不能推断退出时的峰值，swap 用满也不能单独证明 OOM。普通用户无系统内核日志权限，因此中断原因目前仍未确认。源码的切块实现会保留全部重叠块，中心化时产生额外副本，内存压力是待核查的原因之一。
+随后服务器显示物理内存 125 GiB、当时可用约 100 GiB，swap 2 GiB 接近用完，开机时间为 2026-08-19。仅凭这次事后快照不能判断峰值，普通用户也无系统内核日志权限，因此当时尚不能确认原因。
 
 恢复时拉取代码、激活环境，然后使用上述后台命令重新执行 prepare；不删除输入、源域 checkpoint 或外部锁文件。已完成的体素化和特征文件由原流水线复用；切块阶段会重新执行。每次重新启动流水线，已有森林日志自动改名归档为 `wytham_vox0.1.<时间戳>.log`。此次更改只涉及启动和日志，训练缓存绑定的六个 baseline 源文件及配置保持原样，原 checkpoint 的签名继续适用。
 
@@ -101,6 +105,18 @@ tail -n 40 data/candidate_mask_mlp_a1_wytham_s42/logs/wytham_vox0.1.log
 ```
 
 若后台运行仍被服务器会话清理策略终止，或内核证据仍不可见，再向管理员索取对应时间段的 OOM/作业终止记录。
+
+### 2026-10-17 确认 OOM，改为逐块保存
+
+用户回传第二次后台运行（服务器时间 2026-10-16 21:24:29–21:26:36）的资源记录：
+
+- 21:26:19：流水线 Python RSS 为 86,186,116 KiB，主机可用内存 19,184,448 KiB。
+- 21:26:29：RSS 升至 101,760,304 KiB，主机可用仅 3,705,820 KiB，swap 已用完。
+- 21:26:36：流水线收到 SIGKILL，cgroup `oom_kill` 从 0 增至 1，可用内存恢复为 105,703,288 KiB。GNU time 记录最大 RSS 105,469,508 KiB，约 100.6 GiB。该组 `memory.max=max`，这份记录未显示该组的独立硬上限。
+
+这次可以确认 OOM。原实现把所有重叠块先放入 `chunks`/`valid_chunks`，随后中心化所有块才开始保存；中心化还会因减去 float64 center 而将块提升到 float64。新实现保持相同 grid、边界不等式、float32 bounds 舍入、CUDA 中心化算术、float32 输出和编号顺序，每次处理一个有效块即保存并释放其数组/视图。内存不再随所有重叠块点数的总和增长，但森林原始数组和单个块仍需内存；实际峰值由下一次服务器资源记录确认。
+
+不缩小 tile、不改变 stride/体素大小、不截断点，也不重新训练。先拉取修复、运行 34 项测试，再按前述 nohup 命令重试；旧日志继续自动归档，已有体素化和特征文件会复用。成功日志应包含 `streaming tiles: saved ...`、`streaming tiles complete ...`，随后进入冻结主干的推理流程。
 
 ## 4. 输出与解释
 

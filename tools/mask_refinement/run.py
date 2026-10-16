@@ -97,7 +97,7 @@ def read_manifest(settings, pilot):
     return manifest
 
 
-def prepare(settings, pilot, source_paths=None):
+def prepare(settings, pilot, source_paths=None, preparation=None):
     # The existing pipeline imports spconv; it is only loaded in this command.
     from tree_learn.util import get_config, munch_to_dict
     output = Path(settings['output_root'])
@@ -124,12 +124,16 @@ def prepare(settings, pilot, source_paths=None):
         if len(matches) != 1:
             raise ValueError(f'Expected one source forest for {plot}: {matches}')
         source = matches[0].resolve()
-        signature = digest({'baseline': baseline_signature,
-                            'source_sha256': file_digest(source), 'plot': plot})
+        provenance = dict(baseline=baseline_signature, source_sha256=file_digest(source), plot=plot)
+        if preparation is not None:
+            provenance['preparation'] = preparation
+        signature = digest(provenance)
         directory = output / split / plot
         metadata = dict(signature=signature, baseline_signature=baseline_signature,
                         plot=plot, split=split, source=str(source),
                         checkpoint=str(checkpoint))
+        if preparation is not None:
+            metadata['preparation'] = preparation
         if (directory / 'cache.json').is_file():
             _, previous = load_cache(directory, with_labels=True)
             if previous['signature'] != signature:
@@ -151,9 +155,11 @@ def prepare(settings, pilot, source_paths=None):
                 log_path.replace(archived)
                 print(f'ARCHIVE {plot}: {archived}', flush=True)
             print(f'RUN {plot}: {log_path}', flush=True)
+            pipeline_entry = ('tools/mask_refinement/pipeline_streaming.py' if preparation is not None
+                              else 'tools/pipeline/pipeline.py')
             with log_path.open('w', encoding='utf-8') as log:
                 try:
-                    subprocess.run([sys.executable, '-u', 'tools/pipeline/pipeline.py',
+                    subprocess.run([sys.executable, '-u', pipeline_entry,
                                     '--config', str(config_path)], stdout=log,
                                    stderr=subprocess.STDOUT, check=True)
                 except subprocess.CalledProcessError as error:
@@ -176,6 +182,8 @@ def prepare(settings, pilot, source_paths=None):
     manifest = dict(schema=1, pilot=pilot, baseline_signature=baseline_signature,
                     baseline_request={key: settings[key] for key in ('checkpoint', 'pipeline_template')},
                     regions=settings['regions'], forests=entries)
+    if preparation is not None:
+        manifest['preparation'] = preparation
     write_json(manifest_path(settings, pilot), manifest)
     print(f'SAVED {manifest_path(settings, pilot)}', flush=True)
 

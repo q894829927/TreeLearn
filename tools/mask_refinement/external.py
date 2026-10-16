@@ -106,12 +106,40 @@ def lock_request(path, request, create=False):
     return lock
 
 
+def preparation_policy(config):
+    enabled = config.get('stream_tiles', False)
+    if not isinstance(enabled, bool):
+        raise ValueError('stream_tiles must be a boolean.')
+    if not enabled:
+        return None
+    files = ('tools/mask_refinement/pipeline_streaming.py', 'tree_learn/mask_refinement/tiling.py')
+    return dict(mode='streaming_tiles_v1', source_code={name: file_digest(REPO_ROOT / name) for name in files})
+
+
+def check_preparation(lock, policy, settings, create=False):
+    if lock.get('preparation') == policy:
+        return
+    output = Path(settings['output_root'])
+    completed = ((output / 'manifest.json').exists() or 'external_manifest_digest' in lock or
+                 any((output / split / plot / 'cache.json').exists()
+                     for split, plots in settings['splits'].items() for plot in plots))
+    # A failed pre-cache attempt may adopt streaming while keeping its weight/data lock.
+    # Completed caches and already bound implementations cannot silently change.
+    if create and policy is not None and lock.get('preparation') is None and not completed:
+        lock['preparation'] = policy
+        return
+    raise ValueError('External preparation implementation changed; use separate output_root/work_dir.')
+
+
 def prepare(config):
     _, training_manifest, settings, _, request = load_context(config)
     path = Path(settings['output_root']) / 'external_lock.json'
     lock = lock_request(path, request, create=True)
+    policy = preparation_policy(config)
+    check_preparation(lock, policy, settings, create=True)
+    write_json(path, lock)
     source = Path(config['forest_path']).resolve()
-    WORKFLOW.prepare(settings, pilot=False, source_paths={source.stem: source})
+    WORKFLOW.prepare(settings, pilot=False, source_paths={source.stem: source}, preparation=policy)
     external_manifest = WORKFLOW.read_manifest(settings, pilot=False)
     if external_manifest['baseline_signature'] != training_manifest['baseline_signature']:
         raise ValueError('External baseline preprocessing/weights differ from the training cache.')
@@ -127,8 +155,11 @@ def evaluate(config, export=False):
     from tree_learn.mask_refinement.model import CandidateMaskMLP
     training, training_manifest, settings, checkpoint, request = load_context(config)
     lock = lock_request(Path(settings['output_root']) / 'external_lock.json', request)
+    policy = preparation_policy(config)
+    check_preparation(lock, policy, settings)
     manifest = WORKFLOW.read_manifest(settings, pilot=False)
     if (lock.get('external_manifest_digest') != digest(manifest) or
+            manifest.get('preparation') != policy or
             manifest['baseline_signature'] != training_manifest['baseline_signature']):
         raise ValueError('External cache differs from the prepared, locked baseline.')
     device = torch.device(training['training']['device'])
@@ -172,6 +203,7 @@ def evaluate(config, export=False):
     result = dict(
         schema=1, external=True, smoke=False, evaluation_role='exploratory_cross_domain',
         protocol='aligned_voxels_ignore_negative_gt_iou_gt_0.5',
+        preparation=policy,
         locked_training=request, external_manifest_digest=digest(manifest),
         baseline_macro=WORKFLOW.macro_metrics([baseline]),
         refined_macro=WORKFLOW.macro_metrics([refined]),
