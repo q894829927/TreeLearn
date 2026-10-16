@@ -1,6 +1,6 @@
 # 固定 A1 checkpoint 的 Wytham 跨域评价
 
-日期：2026-10-16。用户明确提出在 Wytham 上测试，源域 gate 失败不作为禁止本次外部评价的条件。源域 A1 的失败结果继续保留。本次测试尚待用户在服务器运行，本地仅进行静态检查。
+日期：2026-10-16。用户明确提出在 Wytham 上测试，源域 gate 失败不作为禁止本次外部评价的条件。源域 A1 的失败结果继续保留。用户已在服务器通过 28 项测试，首次 prepare 在切块中心化阶段中断，尚无实际 Wytham 评价结果。本地仅进行静态检查。
 
 ## 1. 为什么仍值得测试
 
@@ -42,17 +42,65 @@ python -m unittest discover -s tests -p 'test_candidate_mask_mlp.py' -v \
 
 应发现 28 项测试。新增检查覆盖：外部目录不覆盖源域文件、拒绝 smoke/阈值变化、checkpoint 锁定，以及源域 gate 失败时仍能完成固定权重的外部配对评价。
 
-```bash
-python -u tools/mask_refinement/external.py prepare \
-  2>&1 | tee logs/candidate_mask_mlp/prepare_wytham.log
+长任务使用后台脚本启动，减少 VS Code 或 SSH 断开造成的影响。它继承当前已激活的 Python 环境，先执行 `conda activate TreeLearn`。下面的 `prepare` 启动后会立即返回终端：
 
-python -u tools/mask_refinement/external.py evaluate \
-  2>&1 | tee logs/candidate_mask_mlp/evaluate_wytham.log
+```bash
+nohup bash tools/mask_refinement/run_external.sh prepare \
+  > logs/candidate_mask_mlp/launch_prepare.log 2>&1 < /dev/null &
 ```
+
+查看本次启动情况及两层运行日志：
+
+```bash
+cat logs/candidate_mask_mlp/launch_prepare.log
+tail -n 30 logs/candidate_mask_mlp/background/latest_prepare/console.log
+tail -n 30 data/candidate_mask_mlp_a1_wytham_s42/logs/wytham_vox0.1.log
+```
+
+脚本使用 `flock` 拒绝重复后台运行，并在启动前检查当前用户是否已有 `external.py` 或 `pipeline.py` 进程；不会停止现有进程。若仅有 `launch_prepare.log` 而没有新运行目录，先读启动错误。服务器需有 `flock`、`pgrep`、GNU `/usr/bin/time` 和 `/proc`。每次运行产生独立目录，`latest_prepare`/`latest_evaluate` 指向最新一次；不要在运行中手动改动这些软链接。
+
+只有 prepare 的退出码为 0，并且 console 日志出现 `LOCKED external checkpoint ...`，才继续 evaluate。运行期间尚无退出码文件时，`cat` 会提示不存在：
+
+```bash
+cat logs/candidate_mask_mlp/background/latest_prepare/exit_code.txt
+
+# 确认上一条输出为 0 后，单独执行：
+nohup bash tools/mask_refinement/run_external.sh evaluate \
+  > logs/candidate_mask_mlp/launch_evaluate.log 2>&1 < /dev/null &
+```
+
+评价结束后检查 `background/latest_evaluate/console.log` 和 `exit_code.txt`。也可以在持久终端中直接执行 `python -u tools/mask_refinement/external.py prepare`/`evaluate`；后台脚本仅增加运行记录，不改变实验参数。
 
 `prepare` 需要 GPU 运行一次冻结 TreeLearn，生成 32 维特征和原版预测，因此不能直接用旧 LAZ 预测代替此缓存。它会单独生成 tiles，不改旧 Wytham 实验的 tiles/results。准备阶段较耗时，森林细节日志位于 `data/candidate_mask_mlp_a1_wytham_s42/logs/wytham_vox0.1.log`。区域超过现有大小限制会停止，不自动缩小区域或截断点。
 
 `evaluate` 只加载已选定的 MLP 推理，不重新训练。Wytham GT 在掩码预测返回后用于算指标，不用于选择模型或归属。需要可视化点云时可追加 `--export`；否则仍保存 refined_labels 和 unassigned_tree_mask。
+
+### 2026-10-16 中断排查与恢复
+
+服务器回传日志确认：28 项单元测试通过，prepare 完成体素化、特征计算和切块筛选，最后停在 `21:07:38 center chunks`；没有 `save chunks`、Traceback、评价日志或最终报告，检查时也没有对应进程。1392 个 NaN 特征已成功替换，不能作为此次退出的证据。
+
+随后服务器显示物理内存 125 GiB、当时可用约 100 GiB，swap 2 GiB 接近用完，开机时间为 2026-08-19。当前空闲内存不能推断退出时的峰值，swap 用满也不能单独证明 OOM。普通用户无系统内核日志权限，因此中断原因目前仍未确认。源码的切块实现会保留全部重叠块，中心化时产生额外副本，内存压力是待核查的原因之一。
+
+恢复时拉取代码、激活环境，然后使用上述后台命令重新执行 prepare；不删除输入、源域 checkpoint 或外部锁文件。已完成的体素化和特征文件由原流水线复用；切块阶段会重新执行。每次重新启动流水线，已有森林日志自动改名归档为 `wytham_vox0.1.<时间戳>.log`。此次更改只涉及启动和日志，训练缓存绑定的六个 baseline 源文件及配置保持原样，原 checkpoint 的签名继续适用。
+
+每次后台运行保留：
+
+- `console.log`：Python 环境、命令、流水线退出提示和外部脚本异常栈。
+- `resources.log`：每 10 秒记录主机可用内存、swap 及当前用户内存占用最高的进程（RSS 单位 KiB，不记录命令参数）。若服务器开放 cgroup v2 对应文件，同时记录所在组的 `memory.current`、`memory.max` 和 `memory.events`，用于判断是否存在小于整机内存的作业限制及 OOM 计数变化；同组其他进程也可能贡献这些计数。短暂峰值可能落在采样间隔内。
+- `time.txt`：GNU time 的耗时、最大 RSS、退出信息；子流水线被信号终止时，console/森林日志额外记录 `SIGKILL` 等信号。
+- `runner.pid`、`task.pid`、`exit_code.txt`：启动进程信息和最终状态。退出码文件缺失需要结合进程和日志判断；整个进程组被强制杀死时可能来不及写结束信息。`SIGKILL` 也可能来自人工或调度器，不能单独认定 OOM。
+
+异常时回传这些记录的末尾：
+
+```bash
+tail -n 40 logs/candidate_mask_mlp/background/latest_prepare/console.log
+tail -n 60 logs/candidate_mask_mlp/background/latest_prepare/resources.log
+cat logs/candidate_mask_mlp/background/latest_prepare/time.txt
+cat logs/candidate_mask_mlp/background/latest_prepare/exit_code.txt
+tail -n 40 data/candidate_mask_mlp_a1_wytham_s42/logs/wytham_vox0.1.log
+```
+
+若后台运行仍被服务器会话清理策略终止，或内核证据仍不可见，再向管理员索取对应时间段的 OOM/作业终止记录。
 
 ## 4. 输出与解释
 

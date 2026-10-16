@@ -9,6 +9,7 @@ import csv
 import json
 import random
 import re
+import signal
 import subprocess
 import sys
 import time
@@ -145,11 +146,28 @@ def prepare(settings, pilot, source_paths=None):
             config_path.write_text(yaml.safe_dump(payload, sort_keys=False), encoding='utf-8')
             log_path = output / 'logs' / f'{plot}.log'
             log_path.parent.mkdir(exist_ok=True)
+            if log_path.exists():
+                archived = log_path.with_name(f'{plot}.{time.time_ns()}.log')
+                log_path.replace(archived)
+                print(f'ARCHIVE {plot}: {archived}', flush=True)
             print(f'RUN {plot}: {log_path}', flush=True)
             with log_path.open('w', encoding='utf-8') as log:
-                subprocess.run([sys.executable, '-u', 'tools/pipeline/pipeline.py',
-                                '--config', str(config_path)], stdout=log,
-                               stderr=subprocess.STDOUT, check=True)
+                try:
+                    subprocess.run([sys.executable, '-u', 'tools/pipeline/pipeline.py',
+                                    '--config', str(config_path)], stdout=log,
+                                   stderr=subprocess.STDOUT, check=True)
+                except subprocess.CalledProcessError as error:
+                    cause = f'exit code {error.returncode}'
+                    if error.returncode < 0:
+                        try:
+                            cause = signal.Signals(-error.returncode).name
+                        except ValueError:
+                            cause = f'signal {-error.returncode}'
+                    message = f'PIPELINE_FAILED {plot}: {cause}; inspect the pipeline log and resource records.'
+                    log.write(f'\n{message}\n')
+                    log.flush()
+                    print(message, flush=True)
+                    raise
             load_cache(directory, with_labels=True)
         prepare_regions(directory, settings['regions'])
         entries.append(dict(plot=plot, split=split,
