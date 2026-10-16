@@ -15,6 +15,9 @@ from tree_learn.mask_refinement.data import (
     prepare_regions, stratified_sample,
 )
 from tree_learn.mask_refinement.evaluation import audit_forest, evaluate_labels
+from tree_learn.mask_refinement.diagnostics import (
+    assignment_control, diagnose_assignments, validate_saved_predictions,
+)
 from tree_learn.mask_refinement.inference import predict_forest, update_winners
 from tree_learn.mask_refinement.model import CandidateMaskMLP, mask_loss
 
@@ -239,6 +242,66 @@ class CandidateMaskModelTests(unittest.TestCase):
             torch.testing.assert_close(model(points, descriptor), restored(points, descriptor))
 
 
+class CandidateMaskDiagnosticTests(unittest.TestCase):
+    def test_controls_separate_abstention_and_reassignment_without_mutation(self):
+        baseline = np.array([1, 1, 2, 2, 0, 3])
+        refined = np.array([1, 0, 1, 2, 0, 0])
+        before, after = baseline.copy(), refined.copy()
+        np.testing.assert_array_equal(
+            assignment_control(baseline, refined, 'abstention_only'), [1, 0, 2, 2, 0, 0])
+        np.testing.assert_array_equal(
+            assignment_control(baseline, refined, 'reassignment_only'), [1, 1, 1, 2, 0, 3])
+        np.testing.assert_array_equal(baseline, before)
+        np.testing.assert_array_equal(refined, after)
+
+    def test_changed_background_and_new_ids_are_rejected(self):
+        baseline = np.array([1, 1, 0])
+        for refined in (np.array([1, 1, 1]), np.array([2, 1, 0]),
+                        np.array([-1, 1, 0]), np.array([1., 1., 0.])):
+            with self.assertRaises(ValueError):
+                validate_saved_predictions(baseline, refined)
+
+    def test_removing_background_can_create_a_counted_fp_without_a_new_instance(self):
+        labels = np.array([1, 1, 1, 1, 0, 0, 0, -1])
+        baseline = np.array([10, 10, 10, 20, 20, 20, 20, 30])
+        refined = np.array([10, 10, 10, 20, 0, 0, 0, 30])
+        report = diagnose_assignments(labels, baseline, refined)
+        self.assertEqual(report['metrics']['baseline']['fp'], 0)
+        self.assertEqual(report['metrics']['refined']['fp'], 1)
+        self.assertEqual(report['new_counted_fp_ids'], [20])
+        self.assertEqual(report['removed_counted_fp_ids'], [])
+        states = {row['candidate_id']: row for row in report['candidates']}
+        self.assertEqual(states[20]['baseline']['status'], 'excluded_unmatched')
+        self.assertEqual(states[20]['refined']['status'], 'counted_fp')
+        self.assertEqual(states[20]['baseline']['tree_fraction'], .25)
+        self.assertEqual(states[20]['refined']['tree_fraction'], 1.0)
+        self.assertEqual(states[30]['refined']['status'], 'no_labeled_points')
+        self.assertEqual(report['point_changes']['abstained']['gt_background_points'], 3)
+        self.assertEqual(report['point_changes']['abstained']['gt_tree_points'], 0)
+        self.assertFalse(report['eligible_for_advancement'])
+
+    def test_strict_iou_and_disappeared_candidates_are_tracked(self):
+        labels = np.array([1, 1, 2, 2, 0])
+        baseline = np.array([10, 10, 20, 20, 30])
+        refined = np.array([10, 0, 20, 20, 0])
+        report = diagnose_assignments(labels, baseline, refined)
+        states = {row['candidate_id']: row for row in report['candidates']}
+        self.assertEqual(states[10]['baseline']['status'], 'matched')
+        self.assertEqual(states[10]['refined']['status'], 'counted_fp')
+        self.assertEqual(states[10]['refined']['best_iou'], .5)
+        self.assertEqual(states[30]['refined']['status'], 'absent')
+        self.assertEqual(report['point_changes']['abstained']['gt_tree_points'], 1)
+        self.assertEqual(report['metrics']['reassignment_only'], report['metrics']['baseline'])
+        self.assertEqual(report['metrics']['abstention_only'], report['metrics']['refined'])
+
+    def test_stale_saved_evaluation_is_rejected(self):
+        labels, baseline = np.array([1, 1]), np.array([10, 10])
+        metrics = evaluate_labels(labels, baseline)
+        expected = dict(baseline=metrics, refined=dict(metrics, fp=99))
+        with self.assertRaisesRegex(ValueError, 'disagree with arrays'):
+            diagnose_assignments(labels, baseline, baseline.copy(), expected)
+
+
 class CandidateMaskWorkflowTests(unittest.TestCase):
     def settings(self):
         import yaml
@@ -256,6 +319,41 @@ class CandidateMaskWorkflowTests(unittest.TestCase):
         second['inference']['mask_threshold'] = .8
         self.assertNotEqual(WORKFLOW.experiment_signature(first, {}),
                             WORKFLOW.experiment_signature(second, {}))
+
+    def test_diagnosis_reuses_saved_arrays_without_checkpoint_or_changing_primary_result(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = self.settings()
+            settings.update(output_root=str(Path(tmp) / 'data'),
+                            work_dir=str(Path(tmp) / 'work'), regions=REGIONS,
+                            splits={'train': ['A1N'], 'validation': ['G4N']},
+                            pilot_plots=['A1N', 'G4N'])
+            entries = []
+            for split, plot in WORKFLOW.selected_plots(settings, False):
+                synthetic_cache(Path(settings['output_root']) / split / plot)
+                entries.append(dict(split=split, plot=plot, cache=f'{split}/{plot}',
+                                    signature='synthetic'))
+            manifest = dict(schema=1, pilot=False, baseline_signature='synthetic',
+                            baseline_request={key: settings[key] for key in ('checkpoint', 'pipeline_template')},
+                            regions=REGIONS, forests=entries)
+            WORKFLOW.write_json(WORKFLOW.manifest_path(settings, False), manifest)
+            arrays, _ = load_cache(Path(settings['output_root']) / 'validation/G4N', with_labels=True)
+            metrics = evaluate_labels(arrays['labels'], arrays['baseline'])
+            source = Path(settings['work_dir']) / 'evaluation/summary.json'
+            WORKFLOW.write_json(source, dict(
+                smoke=False, protocol='aligned_voxels_ignore_negative_gt_iou_gt_0.5',
+                forests=[dict(plot='G4N', baseline=metrics, refined=metrics)], checks={}, passed=False))
+            prediction = source.parent / 'G4N/refined_labels.npy'
+            prediction.parent.mkdir()
+            np.save(prediction, arrays['baseline'])
+            saved_source, saved_prediction = source.read_bytes(), prediction.read_bytes()
+            report = WORKFLOW.diagnose(settings)
+            self.assertTrue(report['posthoc'])
+            self.assertFalse(report['eligible_for_advancement'])
+            self.assertFalse(report['primary_evaluation_passed'])
+            self.assertEqual(source.read_bytes(), saved_source)
+            self.assertEqual(prediction.read_bytes(), saved_prediction)
+            self.assertTrue((Path(settings['work_dir']) /
+                             'diagnostics/assignment/G4N/candidate_transitions.csv').is_file())
 
     def test_synthetic_train_resume_and_evaluate(self):
         # Tiny CPU integration test exercises checkpoint, manifests and CLI logic.

@@ -1,4 +1,4 @@
-"""Server-only A1 workflow: prepare, audit, train, evaluate.
+"""Server-only A1 workflow: prepare, audit, train, evaluate, diagnose.
 
 Run from the repository root. Importing this driver does not start an experiment.
 """
@@ -478,9 +478,72 @@ def evaluate(settings, pilot, smoke, export):
     return True if smoke else result['passed']
 
 
+def diagnose(settings):
+    """Explain saved full-evaluation assignments on CPU, without a model."""
+    from tree_learn.mask_refinement.diagnostics import diagnose_assignments
+    manifest = read_manifest(settings, pilot=False)
+    work = Path(settings['work_dir'])
+    source_path = work / 'evaluation' / 'summary.json'
+    source = json.loads(source_path.read_text(encoding='utf-8'))
+    validation = [entry for entry in manifest['forests'] if entry['split'] == 'validation']
+    if (source['smoke'] or source['protocol'] != 'aligned_voxels_ignore_negative_gt_iou_gt_0.5' or
+            [row['plot'] for row in source['forests']] != [entry['plot'] for entry in validation]):
+        raise ValueError('Diagnosis needs the saved full evaluation for these validation forests.')
+    out = work / 'diagnostics' / 'assignment'
+    reports = []
+    for entry, saved in zip(validation, source['forests']):
+        directory = Path(settings['output_root']) / entry['cache']
+        arrays, _ = load_cache(directory, with_labels=True)
+        prediction_path = work / 'evaluation' / entry['plot'] / 'refined_labels.npy'
+        predictions = np.load(prediction_path, mmap_mode='r', allow_pickle=False)
+        print(f'DIAGNOSE {entry["plot"]}: CPU metrics on saved predictions.', flush=True)
+        report = diagnose_assignments(arrays['labels'], arrays['baseline'], predictions, expected=saved)
+        report.update(plot=entry['plot'], source_hashes={
+            'refined_labels': file_digest(prediction_path),
+            'baseline': file_digest(directory / 'baseline.npy'),
+            'labels': file_digest(directory / 'labels.npy')})
+        candidates = report.pop('candidates')
+        forest_out = out / entry['plot']
+        write_json(forest_out / 'report.json', dict(report, candidates=candidates))
+        with (forest_out / 'candidate_transitions.csv').open('w', newline='', encoding='utf-8') as stream:
+            rows = []
+            for candidate in candidates:
+                row = {'candidate_id': candidate['candidate_id']}
+                for method in ('baseline', 'refined'):
+                    row.update({f'{method}_{key}': value for key, value in candidate[method].items()})
+                rows.append(row)
+            if rows:
+                writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+                writer.writeheader()
+                writer.writerows(rows)
+        # The top-level report stays compact enough to share, without long ID lists.
+        report['metrics'] = {
+            name: {key: value for key, value in metrics.items() if not isinstance(value, list)}
+            for name, metrics in report['metrics'].items()}
+        report['new_counted_fp_count'] = len(report.pop('new_counted_fp_ids'))
+        report['removed_counted_fp_count'] = len(report.pop('removed_counted_fp_ids'))
+        reports.append(report)
+        print(f'{entry["plot"]} controls: {json.dumps(report["delta_vs_baseline"])}', flush=True)
+        print(f'{entry["plot"]} FP transitions: new={report["new_counted_fp_count"]}, '
+              f'removed={report["removed_counted_fp_count"]}', flush=True)
+        del arrays, predictions
+    methods = ('baseline', 'refined', 'abstention_only', 'reassignment_only')
+    macro = {name: macro_metrics([row['metrics'][name] for row in reports]) for name in methods}
+    result = dict(
+        schema=1, posthoc=True, eligible_for_advancement=False,
+        protocol=source['protocol'], primary_evaluation_passed=source['passed'],
+        primary_checks=source['checks'], source_summary_sha256=file_digest(source_path),
+        manifest_digest=digest(manifest), macro=macro,
+        delta_vs_baseline={name: compare_metrics(macro['baseline'], macro[name]) for name in methods[1:]},
+        forests=reports)
+    write_json(out / 'summary.json', result)
+    print(f'SAVED {out}/summary.json; posthoc only, primary result unchanged.', flush=True)
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['prepare', 'audit', 'train', 'evaluate'])
+    parser.add_argument('command', choices=['prepare', 'audit', 'train', 'evaluate', 'diagnose'])
     parser.add_argument('--config', default='configs/experiments/candidate_mask_mlp/step1.yaml')
     parser.add_argument('--pilot', action='store_true')
     parser.add_argument('--smoke', action='store_true')
@@ -493,6 +556,8 @@ def main():
         parser.error('--resume only applies to train.')
     if args.export and args.command != 'evaluate':
         parser.error('--export only applies to evaluate.')
+    if args.command == 'diagnose' and args.pilot:
+        parser.error('Post-hoc diagnosis requires the complete evaluation, without --pilot.')
     if Path.cwd().resolve() != REPO_ROOT:
         parser.error('Run this command from the TreeLearn repository root.')
     with Path(args.config).open(encoding='utf-8') as stream:
@@ -505,6 +570,8 @@ def main():
             raise SystemExit(2)
     elif args.command == 'train':
         train(settings, args.pilot, args.smoke, args.resume)
+    elif args.command == 'diagnose':
+        diagnose(settings)
     elif not evaluate(settings, args.pilot, args.smoke, args.export):
         raise SystemExit(2)
 

@@ -2,7 +2,7 @@
 
 日期：2026-10-15。代码分支：`codex/candidate-mask-mlp-step1`。
 
-状态：实现与静态检查完成；本地未运行单元测试、点云推理、数据生成或训练。以下命令由用户在服务器的 TreeLearn 环境执行。实验结果尚未知。
+状态：用户已于 2026-10-16 回传首次完整服务器实验结果，A1 未通过预设条件，详见 [结果记录](candidate_mask_mlp_a1_results_20261016_zh.md)。新增事后诊断已完成静态检查，待用户在服务器运行；本地未运行单元测试、点云推理、数据生成或训练。
 
 ## 1. 本轮只验证什么
 
@@ -168,12 +168,33 @@ python -u tools/mask_refinement/run.py evaluate --export \
 
 本轮最终应同时报告点归属指标与候选消失/未分配代价。通过本轮后，再考虑补随机种子或进入第 ② 步参数匹配注意力对照。
 
-## 8. 代码入口
+## 8. 完整结果失败后的事后诊断
+
+本轮五森林 macro Coverage +0.308 pp、F1 -0.595 pp、Commission +1.321 pp，保持 `passed=false`。先排查未分配与竞争改归属的作用，以及计入 FP 的候选状态变化，不直接进入 attention。
+
+更新本分支后，运行新增测试和 CPU 诊断，无需重做缓存、训练或模型推理：
+
+```bash
+python -m unittest discover -s tests -p 'test_candidate_mask_mlp.py' -v \
+  2>&1 | tee logs/candidate_mask_mlp/unit_tests_assignment_diagnostics.log
+
+python -u tools/mask_refinement/run.py diagnose \
+  2>&1 | tee logs/candidate_mask_mlp/diagnose_assignment.log
+```
+
+测试应发现 24 项，测试通过后再运行诊断。`diagnose` 必须使用完整评价，不加 `--pilot` 或 `--smoke`。它先核对保存预测重算的 A0/A1 指标与原 summary，数据不一致则停止。不会修改 `evaluation`、checkpoint 或配置。
+
+输出 `work_dirs/candidate_mask_mlp_a1_s42/diagnostics/assignment/summary.json`，包含原版、完整 A1、仅丢弃点（`abstention_only`）、仅改归属并回填未分配点（`reassignment_only`）的配对比较。每个森林的 `report.json` 和 `candidate_transitions.csv` 解释新增/移除 FP、匹配树丢失、候选消失及树点比例变化。摘要不包含长 GT ID 列表，可直接回传。
+
+报告固定标记 `posthoc=true`、`eligible_for_advancement=false`。它用于解释本次失败，不能据事后对照修改本轮通过判定或声称获得独立验证。
+
+## 9. 代码入口
 
 - `tools/mask_refinement/run.py`：完整服务器工作流；
 - `tree_learn/mask_refinement/data.py`：缓存、候选区域、40D 输入、分层加权采样；
 - `tree_learn/mask_refinement/model.py`：条件 MLP 与损失；
 - `tree_learn/mask_refinement/inference.py`：无 GT 的全区域分块预测；
 - `tree_learn/mask_refinement/evaluation.py`：监督构造、Oracle 与对齐指标；
+- `tree_learn/mask_refinement/diagnostics.py`：固定预测的操作对照、点变化与候选评价状态转移；
 - `tests/test_candidate_mask_mlp.py`：服务器 CPU 单元与合成闭环测试；
 - `tools/pipeline/pipeline.py`：仅新增默认关闭的缓存导出分支，原推理流程保持默认行为。
