@@ -2,7 +2,7 @@
 
 日期：2026-10-15。代码分支：`codex/candidate-mask-mlp-step1`。
 
-状态：用户已于 2026-10-16 回传首次完整服务器实验结果，A1 未通过预设条件，详见 [结果记录](candidate_mask_mlp_a1_results_20261016_zh.md)。新增事后诊断已完成静态检查，待用户在服务器运行；本地未运行单元测试、点云推理、数据生成或训练。
+状态：首次完整服务器实验与事后诊断均已回传，当前 A1 未通过预设条件，已结束这一版的追加试验，详见 [结果记录](candidate_mask_mlp_a1_results_20261016_zh.md)。只丢弃点、只改归属两个对照的 F1 也均下降；没有进入 attention 或启动新训练。以下命令保留用于复现，无需重复运行；本地未运行单元测试、点云推理、数据生成或训练。
 
 ## 1. 本轮只验证什么
 
@@ -187,6 +187,8 @@ python -u tools/mask_refinement/run.py diagnose \
 输出 `work_dirs/candidate_mask_mlp_a1_s42/diagnostics/assignment/summary.json`，包含原版、完整 A1、仅丢弃点（`abstention_only`）、仅改归属并回填未分配点（`reassignment_only`）的配对比较。每个森林的 `report.json` 和 `candidate_transitions.csv` 解释新增/移除 FP、匹配树丢失、候选消失及树点比例变化。摘要不包含长 GT ID 列表，可直接回传。
 
 报告固定标记 `posthoc=true`、`eligible_for_advancement=false`。它用于解释本次失败，不能据事后对照修改本轮通过判定或声称获得独立验证。
+
+已收到的诊断结果：只丢弃点时 macro F1 -0.794 pp、Coverage +0.393 pp；只改归属并回填未分配点时 F1 -0.570 pp、Coverage -0.120 pp。新增计数 FP 64 个，其中 52 个由原不计入误检的候选转入、12 个由原已匹配候选转入；移除计数 FP 39 个，净增 25。完整分析与下一轮研究假设见结果记录第 6 节。本轮保持失败结论，不再重复运行上述诊断。
 
 ## 9. 代码入口
 
