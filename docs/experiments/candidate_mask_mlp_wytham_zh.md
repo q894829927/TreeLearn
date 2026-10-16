@@ -1,0 +1,63 @@
+# 固定 A1 checkpoint 的 Wytham 跨域评价
+
+日期：2026-10-16。用户明确提出在 Wytham 上测试，源域 gate 失败不作为禁止本次外部评价的条件。源域 A1 的失败结果继续保留。本次测试尚待用户在服务器运行，本地仅进行静态检查。
+
+## 1. 为什么仍值得测试
+
+源域高分可能压缩改进空间，源域退化也不能推导出目标域一定退化。仓库历史结果中官方 TreeLearn 在 Wytham 的 F1 约 72%、Coverage 约 57.7%，说明该场景更有挑战；这些旧值来自既有 Wytham 评价，不与本轮 aligned-cache 指标直接相减。
+
+此前“源域失败就不测 Wytham”的安排过于严格。此次检验独立的问题：**用源域选定并冻结的 A1，是否在 Wytham 上比同设置的原版预测更好？** 不能靠这次结果覆盖原验证失败，也不能在看到分数后重新选 checkpoint 或阈值。
+
+Wytham 已被项目早期实验观察，因此本轮明确记为探索性跨域评价，不声称它是全流程未见的最终测试集。这个定位不妨碍测试本身的价值。
+
+## 2. 固定什么
+
+- 模型：源域 `work_dirs/candidate_mask_mlp_a1_s42/best.pth`。此前 history 最佳验证损失对应第 26 轮，脚本将从实际 checkpoint 记录 epoch。
+- 主干：训练缓存对应的官方权重、预处理和分组配置，外部缓存的 baseline signature 必须与训练缓存一致。
+- MLP：模型参数和源域训练得到的 feature_mean/feature_scale 原样加载，不在 Wytham 重估归一化统计。
+- 候选区域、成员阈值 0.5、分配规则：沿用源域设置。
+- A0/A1：在同一份新生成的 Wytham 缓存上配对评价，A0 是原单 anchor 分组后的完整预测。
+
+外部脚本只有 `prepare`、`evaluate` 两个命令，没有训练或选 checkpoint 的入口。不要把 Wytham 加进 `step1.yaml` 的训练/验证森林列表。
+
+首次 `prepare` 写入独立的 `external_lock.json`，记录 checkpoint SHA256、epoch、原验证结果摘要 SHA256 和输入路径。后续 checkpoint 或设置变化会拒绝混用本次结果。原 `passed=false` 写进外部报告，不阻止运行；外部评价不套用五森林源域 gate，`passed` 为 null，直接报告配对指标及代价。
+
+## 3. 服务器命令
+
+默认数据路径为仓库既有配置使用的 `data/benchmark/wytham_vox0.1.laz`。若服务器保存位置不同，只修改 [外部配置](../../configs/experiments/candidate_mask_mlp/wytham.yaml) 的 `forest_path`，指向已有的同一份 0.1 m 带标签 Wytham 点云。不要误用 4.64 亿点的原始云。读取原文件，生成内容写入独立目录。
+
+从仓库根目录执行；每一步成功后再运行下一步：
+
+```bash
+cd ~/projects/zrx/code/TreeLearn
+git switch codex/candidate-mask-mlp-step1
+git pull --ff-only
+conda activate TreeLearn
+mkdir -p logs/candidate_mask_mlp
+set -o pipefail
+
+python -m unittest discover -s tests -p 'test_candidate_mask_mlp.py' -v \
+  2>&1 | tee logs/candidate_mask_mlp/unit_tests_external.log
+```
+
+应发现 28 项测试。新增检查覆盖：外部目录不覆盖源域文件、拒绝 smoke/阈值变化、checkpoint 锁定，以及源域 gate 失败时仍能完成固定权重的外部配对评价。
+
+```bash
+python -u tools/mask_refinement/external.py prepare \
+  2>&1 | tee logs/candidate_mask_mlp/prepare_wytham.log
+
+python -u tools/mask_refinement/external.py evaluate \
+  2>&1 | tee logs/candidate_mask_mlp/evaluate_wytham.log
+```
+
+`prepare` 需要 GPU 运行一次冻结 TreeLearn，生成 32 维特征和原版预测，因此不能直接用旧 LAZ 预测代替此缓存。它会单独生成 tiles，不改旧 Wytham 实验的 tiles/results。准备阶段较耗时，森林细节日志位于 `data/candidate_mask_mlp_a1_wytham_s42/logs/wytham_vox0.1.log`。区域超过现有大小限制会停止，不自动缩小区域或截断点。
+
+`evaluate` 只加载已选定的 MLP 推理，不重新训练。Wytham GT 在掩码预测返回后用于算指标，不用于选择模型或归属。需要可视化点云时可追加 `--export`；否则仍保存 refined_labels 和 unassigned_tree_mask。
+
+## 4. 输出与解释
+
+回传 `work_dirs/candidate_mask_mlp_a1_wytham_s42/evaluation/summary.json`。它记录实际 checkpoint/epoch/哈希、原源域是否通过、Wytham A0/A1 的 F1、Coverage、Completeness、Commission、点精度/召回、未分配点与候选消失，以及恢复/丢失的 GT。
+
+协议仍为 `aligned_voxels_ignore_negative_gt_iou_gt_0.5`，沿用本轮 A1 定义。旧 Wytham 日志经过预测到 GT 点云的传播等流程，不直接把旧 F1 当作本次 A0；先看同一个新 summary 内 A1 相对 A0 的变化。
+
+如果 Wytham 改善而源域退化，应报告跨域收益及源域代价，不能写成全面改善；如果两边都退化，则更有理由结束当前 A1 版本。若后续根据 Wytham 结果选择方法，应把它明确作为开发数据，并另设未参与选择的评价数据。这次不实现新的 A1b 或 attention。

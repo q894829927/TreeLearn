@@ -1,0 +1,6 @@
+# Fixed-checkpoint cross-domain evaluation; no training or Wytham tuning.
+training_config: configs/experiments/candidate_mask_mlp/step1.yaml
+checkpoint: work_dirs/candidate_mask_mlp_a1_s42/best.pth
+forest_path: data/benchmark/wytham_vox0.1.laz
+output_root: data/candidate_mask_mlp_a1_wytham_s42
+work_dir: work_dirs/candidate_mask_mlp_a1_wytham_s42

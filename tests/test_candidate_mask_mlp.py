@@ -25,6 +25,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('mask_workflow', ROOT / 'tools/mask_refinement/run.py')
 WORKFLOW = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(WORKFLOW)
+EXTERNAL_SPEC = importlib.util.spec_from_file_location('mask_external', ROOT / 'tools/mask_refinement/external.py')
+EXTERNAL = importlib.util.module_from_spec(EXTERNAL_SPEC)
+EXTERNAL_SPEC.loader.exec_module(EXTERNAL)
 
 REGIONS = dict(margin_xy_m=2.0, minimum_scale_m=1.0, max_region_points=100)
 SUPERVISION = dict(min_labeled_fraction=0.5, min_match_iou=0.1, min_match_purity=0.4)
@@ -384,6 +387,111 @@ class CandidateMaskWorkflowTests(unittest.TestCase):
             result = json.loads((Path(settings['work_dir']) / 'smoke/evaluation/summary.json').read_text())
             self.assertIsNone(result['passed'])
             self.assertTrue(result['smoke'])
+
+
+class CandidateMaskExternalTests(unittest.TestCase):
+    def settings(self):
+        import yaml
+        return yaml.safe_load((ROOT / 'configs/experiments/candidate_mask_mlp/step1.yaml').read_text())
+
+    def test_external_paths_preserve_training_artifacts_and_policy(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            training = self.settings()
+            training.update(output_root=str(Path(tmp) / 'train_cache'),
+                            work_dir=str(Path(tmp) / 'train_work'))
+            source = Path(tmp) / 'input/wytham_vox0.1.npz'
+            source.parent.mkdir()
+            np.savez(source, points=np.zeros((1, 3)), labels=np.ones(1))
+            config = dict(forest_path=str(source), output_root=str(Path(tmp) / 'external_cache'),
+                          work_dir=str(Path(tmp) / 'external_work'))
+            original = copy.deepcopy(training)
+            derived = EXTERNAL.external_settings(config, training)
+            self.assertEqual(training, original)
+            self.assertEqual(derived['splits'], {'external': ['wytham_vox0.1']})
+            for key in ('checkpoint', 'pipeline_template', 'regions', 'inference', 'training'):
+                self.assertEqual(derived[key], training[key])
+            for destination in (training['output_root'], str(Path(training['work_dir']) / 'external')):
+                with self.assertRaisesRegex(ValueError, 'overlap'):
+                    EXTERNAL.external_settings(dict(config, output_root=destination), training)
+
+    def test_external_checkpoint_rejects_smoke_and_policy_changes(self):
+        settings, manifest = self.settings(), {'test_manifest': True}
+        checkpoint = dict(smoke=False, signature=WORKFLOW.experiment_signature(settings, manifest),
+                          manifest_digest=WORKFLOW.digest(manifest))
+        EXTERNAL.check_checkpoint(checkpoint, settings, manifest)
+        with self.assertRaisesRegex(ValueError, 'not smoke'):
+            EXTERNAL.check_checkpoint(dict(checkpoint, smoke=True), settings, manifest)
+        changed = copy.deepcopy(settings)
+        changed['inference']['mask_threshold'] = .4
+        with self.assertRaisesRegex(ValueError, 'differs'):
+            EXTERNAL.check_checkpoint(checkpoint, changed, manifest)
+
+    def test_external_lock_rejects_checkpoint_replacement(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'lock.json'
+            request = dict(checkpoint_sha256='original', source_validation_passed=False)
+            with self.assertRaises(FileNotFoundError):
+                EXTERNAL.lock_request(path, request)
+            EXTERNAL.lock_request(path, request, create=True)
+            self.assertEqual(EXTERNAL.lock_request(path, request)['request'], request)
+            with self.assertRaisesRegex(ValueError, 'lock changed'):
+                EXTERNAL.lock_request(path, dict(request, checkpoint_sha256='different'))
+
+    def test_external_evaluation_allows_failed_source_gate_without_training_or_overwrite(self):
+        import yaml
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = self.settings()
+            settings.update(output_root=str(Path(tmp) / 'train_cache'),
+                            work_dir=str(Path(tmp) / 'train_work'), regions=REGIONS,
+                            splits={'train': ['A1N'], 'validation': ['G4N']},
+                            pilot_plots=['A1N', 'G4N'])
+            settings['training'].update(device='cpu', hidden_dim=8)
+            entries = []
+            for split, plot in WORKFLOW.selected_plots(settings, False):
+                synthetic_cache(Path(settings['output_root']) / split / plot)
+                entries.append(dict(split=split, plot=plot, cache=f'{split}/{plot}', signature='synthetic'))
+            manifest = dict(schema=1, pilot=False, baseline_signature='synthetic',
+                            baseline_request={key: settings[key] for key in ('checkpoint', 'pipeline_template')},
+                            regions=REGIONS, forests=entries)
+            WORKFLOW.write_json(WORKFLOW.manifest_path(settings, False), manifest)
+            source_report_path = Path(settings['work_dir']) / 'evaluation/summary.json'
+            WORKFLOW.write_json(source_report_path, dict(smoke=False, passed=False, forests=[dict(plot='G4N')]))
+            model = CandidateMaskMLP(8)
+            with torch.no_grad():
+                for parameter in model.parameters():
+                    parameter.zero_()
+                model.feature_mean.fill_(3)
+                model.feature_scale.fill_(2)
+            checkpoint_path = Path(settings['work_dir']) / 'best.pth'
+            torch.save(dict(smoke=False, epoch=26, hidden_dim=8, model=model.state_dict(),
+                            signature=WORKFLOW.experiment_signature(settings, manifest),
+                            manifest_digest=WORKFLOW.digest(manifest)), checkpoint_path)
+            training_config = Path(tmp) / 'training.yaml'
+            training_config.write_text(yaml.safe_dump(settings), encoding='utf-8')
+            source = Path(tmp) / 'input/wytham_vox0.1.npz'
+            source.parent.mkdir()
+            np.savez(source, points=np.zeros((1, 3)), labels=np.ones(1))
+            config = dict(training_config=str(training_config), checkpoint=str(checkpoint_path),
+                          forest_path=str(source), output_root=str(Path(tmp) / 'external_cache'),
+                          work_dir=str(Path(tmp) / 'external_work'))
+            _, _, derived, _, request = EXTERNAL.load_context(config)
+            cache = Path(derived['output_root']) / 'external/wytham_vox0.1'
+            synthetic_cache(cache)
+            external_manifest = dict(manifest, forests=[dict(
+                split='external', plot='wytham_vox0.1', cache='external/wytham_vox0.1', signature='synthetic')])
+            WORKFLOW.write_json(WORKFLOW.manifest_path(derived, False), external_manifest)
+            WORKFLOW.write_json(Path(derived['output_root']) / 'external_lock.json', dict(
+                request=request, external_manifest_digest=WORKFLOW.digest(external_manifest)))
+            checkpoint_bytes, source_bytes = checkpoint_path.read_bytes(), source_report_path.read_bytes()
+            result = EXTERNAL.evaluate(config)
+            self.assertTrue(result['external'])
+            self.assertIsNone(result['passed'])
+            self.assertFalse(result['locked_training']['source_validation_passed'])
+            self.assertEqual(result['locked_training']['checkpoint_epoch'], 26)
+            self.assertEqual(result['forests'][0]['assignment']['score_diagnostics']['threshold'], .5)
+            self.assertEqual(result['baseline_macro'], result['refined_macro'])
+            self.assertEqual(checkpoint_path.read_bytes(), checkpoint_bytes)
+            self.assertEqual(source_report_path.read_bytes(), source_bytes)
 
 
 if __name__ == '__main__':

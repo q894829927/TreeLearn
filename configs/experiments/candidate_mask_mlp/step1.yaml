@@ -1,4 +1,5 @@
-# Stage A1 only. No Wytham, new queries, attention, or instance quality filter.
+# A1 source training/validation. Locked external evaluation uses wytham.yaml.
+# No new queries, attention, or instance quality filter.
 source_root: data/train/forests
 output_root: data/candidate_mask_mlp_a1
 work_dir: work_dirs/candidate_mask_mlp_a1_s42

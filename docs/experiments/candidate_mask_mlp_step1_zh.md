@@ -2,7 +2,7 @@
 
 日期：2026-10-15。代码分支：`codex/candidate-mask-mlp-step1`。
 
-状态：首次完整服务器实验与事后诊断均已回传，当前 A1 未通过预设条件，已结束这一版的追加试验，详见 [结果记录](candidate_mask_mlp_a1_results_20261016_zh.md)。只丢弃点、只改归属两个对照的 F1 也均下降；没有进入 attention 或启动新训练。以下命令保留用于复现，无需重复运行；本地未运行单元测试、点云推理、数据生成或训练。
+状态：首次完整服务器实验与事后诊断均已回传，当前 A1 未通过源域预设条件，详见 [结果记录](candidate_mask_mlp_a1_results_20261016_zh.md)。只丢弃点、只改归属两个对照的 F1 也均下降。用户随后要求补充固定权重的 [Wytham 跨域评价](candidate_mask_mlp_wytham_zh.md)，该入口已实现，待服务器执行；没有进入 attention 或启动新训练。以下源域命令保留用于复现，无需重复运行；本地未运行单元测试、点云推理、数据生成或训练。
 
 ## 1. 本轮只验证什么
 
@@ -182,7 +182,7 @@ python -u tools/mask_refinement/run.py diagnose \
   2>&1 | tee logs/candidate_mask_mlp/diagnose_assignment.log
 ```
 
-测试应发现 24 项，测试通过后再运行诊断。`diagnose` 必须使用完整评价，不加 `--pilot` 或 `--smoke`。它先核对保存预测重算的 A0/A1 指标与原 summary，数据不一致则停止。不会修改 `evaluation`、checkpoint 或配置。
+当前测试应发现 28 项（包括后来新增的外部评价检查），测试通过后再运行诊断。`diagnose` 必须使用完整评价，不加 `--pilot` 或 `--smoke`。它先核对保存预测重算的 A0/A1 指标与原 summary，数据不一致则停止。不会修改 `evaluation`、checkpoint 或配置。
 
 输出 `work_dirs/candidate_mask_mlp_a1_s42/diagnostics/assignment/summary.json`，包含原版、完整 A1、仅丢弃点（`abstention_only`）、仅改归属并回填未分配点（`reassignment_only`）的配对比较。每个森林的 `report.json` 和 `candidate_transitions.csv` 解释新增/移除 FP、匹配树丢失、候选消失及树点比例变化。摘要不包含长 GT ID 列表，可直接回传。
 
@@ -193,6 +193,7 @@ python -u tools/mask_refinement/run.py diagnose \
 ## 9. 代码入口
 
 - `tools/mask_refinement/run.py`：完整服务器工作流；
+- `tools/mask_refinement/external.py`：已选定 checkpoint 的独立外部准备与配对评价；
 - `tree_learn/mask_refinement/data.py`：缓存、候选区域、40D 输入、分层加权采样；
 - `tree_learn/mask_refinement/model.py`：条件 MLP 与损失；
 - `tree_learn/mask_refinement/inference.py`：无 GT 的全区域分块预测；

@@ -96,7 +96,7 @@ def read_manifest(settings, pilot):
     return manifest
 
 
-def prepare(settings, pilot):
+def prepare(settings, pilot, source_paths=None):
     # The existing pipeline imports spconv; it is only loaded in this command.
     from tree_learn.util import get_config, munch_to_dict
     output = Path(settings['output_root'])
@@ -116,8 +116,9 @@ def prepare(settings, pilot):
         'source_code': {path: file_digest(path) for path in baseline_files}})
     entries = []
     for split, plot in selected_plots(settings, pilot):
-        matches = sorted(path for path in Path(settings['source_root']).glob(f'{plot}.*')
-                         if path.is_file() and path.suffix.lower() in
+        paths = (Path(settings['source_root']).glob(f'{plot}.*') if source_paths is None else
+                 [Path(source_paths[plot])])
+        matches = sorted(path for path in paths if path.is_file() and path.suffix.lower() in
                          {'.las', '.laz', '.npy', '.npz', '.txt'})
         if len(matches) != 1:
             raise ValueError(f'Expected one source forest for {plot}: {matches}')
