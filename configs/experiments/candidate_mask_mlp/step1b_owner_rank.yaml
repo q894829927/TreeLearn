@@ -1,0 +1,50 @@
+# A1b: only add loss supervision against the original owner; reuse all A1 caches.
+source_root: data/train/forests
+output_root: data/candidate_mask_mlp_a1
+work_dir: work_dirs/candidate_mask_mlp_a1b_owner_rank_s42
+pipeline_template: configs/experiments/candidate_mask_mlp/pipeline_template.yaml
+checkpoint: data/model_weights/model_weights_with_small_20241213.pth
+seed: 42
+
+splits:
+  train: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3]
+  validation: [G4N, G4W, L1N, O1N, O1W]
+pilot_plots: [A1N, G4N]
+
+regions:
+  margin_xy_m: 2.0
+  minimum_scale_m: 1.0
+  max_region_points: 3000000
+
+supervision:
+  min_labeled_fraction: 0.8
+  min_match_iou: 0.1
+  min_match_purity: 0.5
+
+audit_gate:
+  min_train_positive: 500
+  min_validation_positive: 100
+  min_macro_oracle_coverage_gain: 0.01
+
+training:
+  hidden_dim: 64
+  epochs: 40
+  batch_size: 4
+  points_per_candidate: 4096
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  grad_clip_norm: 1.0
+  statistics_points_per_forest: 10000
+  device: cuda
+  ownership_rank_weight: 1.0
+
+inference:
+  chunk_size: 16384
+  mask_threshold: 0.5
+
+evaluation_gate:
+  min_macro_coverage_gain: 0.005
+  min_macro_f1_gain: 0.0
+  max_macro_completeness_drop: 0.005
+  max_macro_commission_increase: 0.005
+  min_nonnegative_coverage_forests: 3

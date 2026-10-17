@@ -6,6 +6,8 @@
 
 下一步已提供 [复用现有缓存的 CPU 失败诊断](candidate_mask_mlp_failure_audit_20261017_zh.md)，先量化竞争目标、部署点集和 Wytham 两种操作的作用，再决定单变量训练改动。
 
+诊断已回传并记录，下一轮为 [A1b 原归属排序损失](candidate_mask_mlp_a1b_owner_rank_20261017_zh.md)：只改训练目标，模型/候选/采样/推理保持相同；代码已实现，尚待服务器实验。原 A1 负结果和原文件继续保留。
+
 ## 1. 本轮只验证什么
 
 使用官方 `model_weights_with_small_20241213.pth`，关闭 upper-anchor、axis、height adapter、U-Net enhancement、seed confidence 和实例质量过滤。采用 legacy anchor、单 anchor 分组和现有默认 HDBSCAN。它是本仓库当前官方权重推理基线，不等同于重新复现 2024 年论文全部训练与 DBSCAN 设置。

@@ -60,6 +60,9 @@ def validate_settings(settings):
             raise ValueError(f'{key} must be positive.')
     if int(training['points_per_candidate']) < 3:
         raise ValueError('At least three sampled points are required.')
+    rank_weight = float(training.get('ownership_rank_weight', 0.0))
+    if not np.isfinite(rank_weight) or rank_weight < 0:
+        raise ValueError('ownership_rank_weight must be finite and nonnegative.')
     for key, value in settings['supervision'].items():
         if not 0 <= float(value) <= 1:
             raise ValueError(f'Invalid supervision fraction: {key}')
@@ -269,6 +272,34 @@ class RegionDataset:
                 candidates['descriptors'][row], labels, weights, plot)
 
 
+class OwnershipRankingDataset(RegionDataset):
+    """Retain the original sampling exactly; add loss-only owner comparisons."""
+    def __init__(self, records, size, seed):
+        super().__init__(records, size, seed)
+        self.targets = {}
+
+    def __getitem__(self, index):
+        from tree_learn.mask_refinement.ownership_rank import owner_pairs
+        path, row, target, plot = self.records[index]
+        arrays, candidates = self.forests.get(path)
+        if path not in self.targets:
+            with np.load(Path(path) / 'supervision.npz', allow_pickle=False) as supervision:
+                if not np.array_equal(supervision['ids'], candidates['ids']):
+                    raise ValueError('Owner target IDs do not align with cached candidates.')
+                self.targets[path] = supervision['target_ids'].copy()
+        if int(self.targets[path][row]) != target:
+            raise ValueError('Challenger target differs from frozen supervision.')
+        region = np.load(Path(path) / 'regions' / f'{int(candidates["ids"][row])}.npy',
+                         mmap_mode='r', allow_pickle=False)
+        rng = np.random.default_rng(np.random.SeedSequence([self.seed, self.epoch, index]))
+        selected, weights = stratified_sample(region, arrays['labels'], target, self.size, rng)
+        labels = ((arrays['labels'][selected] == target) & (target > 0)).astype(np.float32)
+        owner_inputs, owner_descriptors, direction = owner_pairs(
+            arrays, candidates, self.targets[path], row, selected)
+        return (point_inputs(arrays, candidates, row, selected), candidates['descriptors'][row],
+                labels, weights, plot, owner_inputs, owner_descriptors, direction)
+
+
 def training_records(settings, manifest, smoke):
     records = {'train': [], 'validation': []}
     for entry in manifest['forests']:
@@ -305,11 +336,20 @@ def training_statistics(settings, manifest):
     return values.mean(axis=0).astype(np.float32), np.maximum(values.std(axis=0), 1e-3).astype(np.float32)
 
 
+def ownership_rank_sources():
+    return {name: file_digest(REPO_ROOT / name) for name in (
+        'tools/mask_refinement/run.py', 'tree_learn/mask_refinement/model.py',
+        'tree_learn/mask_refinement/ownership_rank.py')}
+
+
 def experiment_signature(settings, manifest):
-    return digest(dict(audit=audit_signature(settings, manifest),
-                       training=settings['training'], seed=settings['seed'],
-                       threshold=settings['inference']['mask_threshold'],
-                       evaluation_gate=settings['evaluation_gate']))
+    payload = dict(audit=audit_signature(settings, manifest),
+                   training=settings['training'], seed=settings['seed'],
+                   threshold=settings['inference']['mask_threshold'],
+                   evaluation_gate=settings['evaluation_gate'])
+    if float(settings['training'].get('ownership_rank_weight', 0.0)):
+        payload['ownership_rank_source_code'] = ownership_rank_sources()
+    return digest(payload)
 
 
 def save_checkpoint(path, value):
@@ -331,6 +371,9 @@ def train(settings, pilot, smoke, resume):
     if report['signature'] != audit_signature(settings, manifest) or not report['passed']:
         raise ValueError('A current passing audit is required before training.')
     cfg = settings['training']
+    rank_weight = float(cfg.get('ownership_rank_weight', 0.0))
+    if rank_weight:
+        from tree_learn.mask_refinement.ownership_rank import ownership_rank_loss
     signature = experiment_signature(settings, manifest)
     work = Path(settings['work_dir']) / 'smoke' if smoke else Path(settings['work_dir'])
     work.mkdir(parents=True, exist_ok=True)
@@ -352,7 +395,8 @@ def train(settings, pilot, smoke, resume):
     optimizer = torch.optim.AdamW(model.parameters(), lr=cfg['learning_rate'],
                                   weight_decay=cfg['weight_decay'])
     records = training_records(settings, manifest, smoke)
-    train_data = RegionDataset(records['train'], cfg['points_per_candidate'], settings['seed'])
+    train_dataset = OwnershipRankingDataset if rank_weight else RegionDataset
+    train_data = train_dataset(records['train'], cfg['points_per_candidate'], settings['seed'])
     validation_data = RegionDataset(records['validation'], cfg['points_per_candidate'], 1907)
     start, best, history = 0, float('inf'), []
     if resume:
@@ -370,16 +414,30 @@ def train(settings, pilot, smoke, resume):
                             num_workers=0, generator=generator)
         model.train()
         train_total = 0.0
-        for points, descriptors, targets, weights, _ in loader:
+        mask_total, rank_total, rank_positive_draws, rank_negative_draws = 0.0, 0.0, 0, 0
+        for batch in loader:
+            points, descriptors, targets, weights, _ = batch[:5]
             optimizer.zero_grad(set_to_none=True)
-            loss, _, _ = mask_loss(model(points.to(device), descriptors.to(device)),
-                                   targets.to(device), weights.to(device))
+            logits = model(points.to(device), descriptors.to(device))
+            mask, _, _ = mask_loss(logits, targets.to(device), weights.to(device))
+            loss = mask
+            if rank_weight:
+                owner_inputs, owner_descriptors, direction = batch[5:]
+                ranking = ownership_rank_loss(model, logits, owner_inputs.to(device),
+                                              owner_descriptors.to(device), direction.to(device), weights.to(device))
+                loss = mask + rank_weight * ranking
+                mask_total += float(mask.detach()) * len(points)
+                rank_total += float(ranking.detach()) * len(points)
+                rank_positive_draws += int((direction > 0).sum())
+                rank_negative_draws += int((direction < 0).sum())
             if not torch.isfinite(loss):
                 raise RuntimeError('Nonfinite training loss.')
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), cfg['grad_clip_norm'], error_if_nonfinite=True)
             optimizer.step()
             train_total += float(loss.detach()) * len(points)
+        if rank_weight and not (rank_positive_draws + rank_negative_draws):
+            raise RuntimeError('No informative ownership ranking pairs; inspect the frozen targets and cache.')
         model.eval()
         forest_losses = {}
         # Fixed validation sampling; forests receive equal checkpoint-selection weight.
@@ -393,6 +451,10 @@ def train(settings, pilot, smoke, resume):
         validation_loss = float(np.mean([np.mean(value) for value in forest_losses.values()]))
         row = dict(epoch=epoch + 1, train_loss=train_total / len(train_data),
                    validation_macro_loss=validation_loss)
+        if rank_weight:
+            row.update(train_mask_loss=mask_total / len(train_data), train_rank_loss=rank_total / len(train_data),
+                       ownership_rank_weight=rank_weight, rank_positive_draws=rank_positive_draws,
+                       rank_negative_draws=rank_negative_draws)
         history.append(row)
         improved = validation_loss < best
         best = min(best, validation_loss)
@@ -401,6 +463,8 @@ def train(settings, pilot, smoke, resume):
                           best_validation_loss=best, history=history,
                           signature=signature, manifest_digest=digest(manifest),
                           smoke=smoke, settings=settings)
+        if rank_weight:
+            checkpoint['ownership_rank_source_code'] = ownership_rank_sources()
         if improved:
             save_checkpoint(work / 'best.pth', checkpoint)
         save_checkpoint(work / 'last.pth', checkpoint)
@@ -411,6 +475,8 @@ def train(settings, pilot, smoke, resume):
                    best_validation_loss=best,
                    peak_cuda_memory_bytes=int(torch.cuda.max_memory_allocated(device)) if device.type == 'cuda' else 0,
                    checkpoint=str(work / 'best.pth'))
+    if rank_weight:
+        summary.update(ownership_rank_weight=rank_weight, ownership_rank_source_code=ownership_rank_sources())
     write_json(work / 'training_summary.json', summary)
     print(json.dumps(summary), flush=True)
 

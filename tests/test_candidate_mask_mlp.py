@@ -27,6 +27,7 @@ from tree_learn.mask_refinement.inference import predict_forest, update_winners
 from tree_learn.mask_refinement.model import CandidateMaskMLP, mask_loss
 from tree_learn.mask_refinement.tiling import tile_generate_and_save_streaming
 from tree_learn.mask_refinement.failure_audit import audit_supervision_support, describe_changed_gt
+from tree_learn.mask_refinement.ownership_rank import owner_pairs, ownership_rank_loss
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('mask_workflow', ROOT / 'tools/mask_refinement/run.py')
@@ -608,6 +609,106 @@ class CandidateMaskExternalTests(unittest.TestCase):
             WORKFLOW.write_json(primary, modified)
             with self.assertRaisesRegex(ValueError, 'locked manifest'):
                 FAILURE.saved_context(config)
+
+
+class CandidateMaskOwnershipRankingTests(unittest.TestCase):
+    def test_pair_targets_compare_the_same_point_and_skip_ambiguous_queries(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            synthetic_cache(tmp)
+            arrays, _ = load_cache(tmp, with_labels=True)
+            candidates = load_candidates(tmp)
+            selected = np.arange(8)
+            inputs, descriptors, direction = owner_pairs(arrays, candidates, np.array([1, 2]), 0, selected)
+            np.testing.assert_array_equal(direction, [0, 0, 1, -1, -1, 0, 0, 0])
+            np.testing.assert_array_equal(inputs[2:5], point_inputs(arrays, candidates, 1, selected[2:5]))
+            np.testing.assert_array_equal(descriptors[2:5], np.repeat(candidates['descriptors'][1:2], 3, axis=0))
+            # If both queries target the same GT, independent mask supervision
+            # remains unchanged; ranking must not invent a unique GT owner.
+            _, _, ambiguous = owner_pairs(arrays, candidates, np.array([1, 1]), 0, selected)
+            np.testing.assert_array_equal(ambiguous, np.zeros(8))
+
+    def test_pair_loss_backpropagates_to_both_scores_in_the_correct_direction(self):
+        class OwnerScore(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.value = torch.nn.Parameter(torch.tensor(0.))
+
+            def forward(self, points, descriptors):
+                return self.value.expand(points.shape[0], 1)
+
+        owner = OwnerScore()
+        challenger = torch.zeros((1, 2), requires_grad=True)
+        loss = ownership_rank_loss(owner, challenger, torch.zeros(1, 2, 40), torch.zeros(1, 2, 64),
+                                   torch.tensor([[1., -1.]]), torch.tensor([[2., 1.]]))
+        self.assertAlmostEqual(float(loss), float(np.log(2)), places=6)
+        loss.backward()
+        np.testing.assert_allclose(challenger.grad.numpy(), [[-1 / 3, 1 / 6]], rtol=1e-6)
+        self.assertAlmostEqual(float(owner.value.grad), 1 / 6, places=6)
+
+    def test_empty_pairs_have_zero_loss_without_calling_owner_model(self):
+        class Unused(torch.nn.Module):
+            def forward(self, *args):
+                raise AssertionError('No owner forward for an empty pair batch')
+
+        logits = torch.randn(2, 3, requires_grad=True)
+        loss = ownership_rank_loss(Unused(), logits, torch.zeros(2, 3, 40), torch.zeros(2, 3, 64),
+                                   torch.zeros(2, 3), torch.ones(2, 3))
+        self.assertEqual(float(loss), 0.)
+        loss.backward()
+        torch.testing.assert_close(logits.grad, torch.zeros_like(logits))
+
+    def test_rank_config_changes_only_training_loss_and_output_location(self):
+        import yaml
+        original = yaml.safe_load((ROOT / 'configs/experiments/candidate_mask_mlp/step1.yaml').read_text())
+        ranked = yaml.safe_load((ROOT / 'configs/experiments/candidate_mask_mlp/step1b_owner_rank.yaml').read_text())
+        self.assertEqual(ranked['training'].pop('ownership_rank_weight'), 1.)
+        self.assertNotEqual(ranked['work_dir'], original['work_dir'])
+        ranked['work_dir'] = original['work_dir']
+        self.assertEqual(original, ranked)
+        legacy_signature = WORKFLOW.digest(dict(
+            audit=WORKFLOW.audit_signature(original, {}), training=original['training'], seed=original['seed'],
+            threshold=original['inference']['mask_threshold'], evaluation_gate=original['evaluation_gate']))
+        self.assertEqual(WORKFLOW.experiment_signature(original, {}), legacy_signature)
+
+    def test_rank_dataset_keeps_sampling_and_smoke_workflow_resumes(self):
+        import yaml
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = yaml.safe_load((ROOT / 'configs/experiments/candidate_mask_mlp/step1b_owner_rank.yaml').read_text())
+            settings.update(output_root=str(Path(tmp) / 'cache'), work_dir=str(Path(tmp) / 'work'),
+                            splits={'train': ['A1N'], 'validation': ['G4N']}, pilot_plots=['A1N', 'G4N'],
+                            regions=REGIONS, supervision=SUPERVISION)
+            settings['training'].update(device='cpu', hidden_dim=8, epochs=1, points_per_candidate=12,
+                                        batch_size=2, statistics_points_per_forest=4)
+            entries = []
+            for split, plot in WORKFLOW.selected_plots(settings, True):
+                directory = Path(settings['output_root']) / split / plot
+                # The background-only candidate always sees labeled tree points
+                # owned by the other candidate, guaranteeing informative pairs.
+                synthetic_cache(directory, labels=np.array([0, 0, 1, 1, 1, 0, 0, -1]))
+                entries.append(dict(split=split, plot=plot, cache=f'{split}/{plot}', signature='synthetic'))
+            manifest = dict(schema=1, pilot=True, baseline_signature='synthetic',
+                            baseline_request={key: settings[key] for key in ('checkpoint', 'pipeline_template')},
+                            regions=REGIONS, forests=entries)
+            WORKFLOW.write_json(WORKFLOW.manifest_path(settings, True), manifest)
+            self.assertTrue(WORKFLOW.audit(settings, True))
+            records = WORKFLOW.training_records(settings, manifest, smoke=True)['train']
+            original = WORKFLOW.RegionDataset(records, 12, 42)
+            ranked = WORKFLOW.OwnershipRankingDataset(records, 12, 42)
+            original.epoch = ranked.epoch = 3
+            expected, actual = original[0], ranked[0]
+            for first, second in zip(expected[:4], actual[:4]):
+                np.testing.assert_array_equal(first, second)
+            self.assertEqual(expected[4], actual[4])
+            self.assertGreater(np.count_nonzero(actual[-1]), 0)
+            WORKFLOW.train(settings, pilot=True, smoke=True, resume=False)
+            WORKFLOW.train(settings, pilot=True, smoke=True, resume=True)
+            history = json.loads((Path(settings['work_dir']) / 'smoke/history.json').read_text())
+            self.assertGreater(history[0]['rank_negative_draws'], 0)
+            self.assertTrue(np.isfinite(history[0]['train_rank_loss']))
+            summary = json.loads((Path(settings['work_dir']) / 'smoke/training_summary.json').read_text())
+            self.assertEqual(summary['parameter_count'], sum(p.numel() for p in CandidateMaskMLP(8).parameters()))
+            self.assertEqual(summary['ownership_rank_weight'], 1.)
+            self.assertTrue(WORKFLOW.evaluate(settings, pilot=True, smoke=True, export=False))
 
 
 class CandidateMaskFailurePopulationTests(unittest.TestCase):
