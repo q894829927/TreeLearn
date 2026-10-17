@@ -4,6 +4,8 @@
 
 状态：完整服务器实验与事后诊断均已回传，当前 A1 未通过源域预设条件，详见 [源域结果](candidate_mask_mlp_a1_results_20261016_zh.md)。只丢弃点、只改归属两个对照的 F1 也均下降。用户随后要求的固定权重 [Wytham 跨域评价](candidate_mask_mlp_wytham_zh.md) 亦已完成，F1 -3.658 pp、Coverage -3.214 pp，详见 [外部结果](candidate_mask_mlp_wytham_results_20261017_zh.md)。当前版本结束追加试验，没有进入 attention 或启动新训练。以下命令保留用于复现，无需重复运行；本地未运行单元测试、点云推理、数据生成或训练。
 
+下一步已提供 [复用现有缓存的 CPU 失败诊断](candidate_mask_mlp_failure_audit_20261017_zh.md)，先量化竞争目标、部署点集和 Wytham 两种操作的作用，再决定单变量训练改动。
+
 ## 1. 本轮只验证什么
 
 使用官方 `model_weights_with_small_20241213.pth`，关闭 upper-anchor、axis、height adapter、U-Net enhancement、seed confidence 和实例质量过滤。采用 legacy anchor、单 anchor 分组和现有默认 HDBSCAN。它是本仓库当前官方权重推理基线，不等同于重新复现 2024 年论文全部训练与 DBSCAN 设置。

@@ -26,6 +26,7 @@ from tree_learn.mask_refinement.diagnostics import (
 from tree_learn.mask_refinement.inference import predict_forest, update_winners
 from tree_learn.mask_refinement.model import CandidateMaskMLP, mask_loss
 from tree_learn.mask_refinement.tiling import tile_generate_and_save_streaming
+from tree_learn.mask_refinement.failure_audit import audit_supervision_support, describe_changed_gt
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('mask_workflow', ROOT / 'tools/mask_refinement/run.py')
@@ -34,6 +35,9 @@ SPEC.loader.exec_module(WORKFLOW)
 EXTERNAL_SPEC = importlib.util.spec_from_file_location('mask_external', ROOT / 'tools/mask_refinement/external.py')
 EXTERNAL = importlib.util.module_from_spec(EXTERNAL_SPEC)
 EXTERNAL_SPEC.loader.exec_module(EXTERNAL)
+FAILURE_SPEC = importlib.util.spec_from_file_location('mask_failure_audit', ROOT / 'tools/mask_refinement/failure_audit.py')
+FAILURE = importlib.util.module_from_spec(FAILURE_SPEC)
+FAILURE_SPEC.loader.exec_module(FAILURE)
 
 REGIONS = dict(margin_xy_m=2.0, minimum_scale_m=1.0, max_region_points=100)
 SUPERVISION = dict(min_labeled_fraction=0.5, min_match_iou=0.1, min_match_purity=0.4)
@@ -530,6 +534,151 @@ class CandidateMaskExternalTests(unittest.TestCase):
             self.assertEqual(result['baseline_macro'], result['refined_macro'])
             self.assertEqual(checkpoint_path.read_bytes(), checkpoint_bytes)
             self.assertEqual(source_report_path.read_bytes(), source_bytes)
+
+    def test_external_failure_audit_uses_saved_predictions_without_loading_checkpoint(self):
+        # Reuse the existing tiny external integration fixture, then run the new
+        # diagnostic where torch.load and model inference are explicitly forbidden.
+        import yaml
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = self.settings()
+            settings.update(output_root=str(Path(tmp) / 'source_cache'),
+                            work_dir=str(Path(tmp) / 'source_work'), regions=REGIONS,
+                            splits={'train': ['A1N'], 'validation': ['G4N']},
+                            pilot_plots=['A1N', 'G4N'])
+            entries = []
+            for split, plot in WORKFLOW.selected_plots(settings, False):
+                synthetic_cache(Path(settings['output_root']) / split / plot)
+                entries.append(dict(split=split, plot=plot, cache=f'{split}/{plot}', signature='synthetic'))
+                audit_forest(Path(settings['output_root']) / split / plot, settings['supervision'])
+            manifest = dict(schema=1, pilot=False, baseline_signature='synthetic',
+                            baseline_request={key: settings[key] for key in ('checkpoint', 'pipeline_template')},
+                            regions=REGIONS, forests=entries)
+            WORKFLOW.write_json(WORKFLOW.manifest_path(settings, False), manifest)
+            source_report = Path(settings['work_dir']) / 'evaluation/summary.json'
+            WORKFLOW.write_json(source_report, dict(smoke=False, passed=False, forests=[dict(plot='G4N')]))
+            checkpoint = Path(settings['work_dir']) / 'best.pth'
+            checkpoint.write_bytes(b'diagnostic must never deserialize this checkpoint')
+            training_config = Path(tmp) / 'training.yaml'
+            training_config.write_text(yaml.safe_dump(settings), encoding='utf-8')
+            source = Path(tmp) / 'input/wytham_vox0.1.npz'
+            source.parent.mkdir()
+            np.savez(source, points=np.zeros((1, 3)), labels=np.ones(1))
+            config = dict(training_config=str(training_config), checkpoint=str(checkpoint),
+                          forest_path=str(source), output_root=str(Path(tmp) / 'external_cache'),
+                          work_dir=str(Path(tmp) / 'external_work'))
+            derived = EXTERNAL.external_settings(config, settings)
+            cache = Path(derived['output_root']) / 'external/wytham_vox0.1'
+            synthetic_cache(cache)
+            external_manifest = dict(manifest, forests=[dict(split='external', plot=source.stem,
+                                                            cache='external/wytham_vox0.1', signature='synthetic')])
+            WORKFLOW.write_json(WORKFLOW.manifest_path(derived, False), external_manifest)
+            request = dict(checkpoint=str(checkpoint.resolve()), checkpoint_sha256=WORKFLOW.file_digest(checkpoint),
+                           checkpoint_epoch=26, training_manifest_digest=WORKFLOW.digest(manifest),
+                           training_signature=WORKFLOW.experiment_signature(settings, manifest),
+                           source_evaluation_sha256=WORKFLOW.file_digest(source_report), source_validation_passed=False,
+                           forest_path=str(source.resolve()), output_root=derived['output_root'], work_dir=derived['work_dir'])
+            WORKFLOW.write_json(Path(derived['output_root']) / 'external_lock.json', dict(
+                request=request, external_manifest_digest=WORKFLOW.digest(external_manifest)))
+            arrays, _ = load_cache(cache, with_labels=True)
+            prediction = Path(derived['work_dir']) / 'evaluation' / source.stem / 'refined_labels.npy'
+            prediction.parent.mkdir(parents=True)
+            np.save(prediction, arrays['baseline'])
+            metrics = evaluate_labels(arrays['labels'], arrays['baseline'])
+            primary = Path(derived['work_dir']) / 'evaluation/summary.json'
+            saved = dict(plot=source.stem, baseline=metrics, refined=metrics, lost_gt_ids=[], recovered_gt_ids=[])
+            WORKFLOW.write_json(primary, dict(external=True, smoke=False, protocol='aligned_voxels_ignore_negative_gt_iou_gt_0.5',
+                                             locked_training=request, external_manifest_digest=WORKFLOW.digest(external_manifest),
+                                             forests=[saved], preparation=None))
+            files = [checkpoint, source_report, primary, prediction, cache / 'baseline.npy', cache / 'labels.npy',
+                     Path(settings['output_root']) / 'train/A1N/supervision.npz']
+            before = {path: path.read_bytes() for path in files}
+            with mock.patch.object(torch, 'load', side_effect=AssertionError('No checkpoint deserialization')), \
+                    mock.patch('tree_learn.mask_refinement.inference.predict_forest',
+                               side_effect=AssertionError('No model inference')):
+                result = FAILURE.run(config)
+            self.assertTrue(result['posthoc'])
+            self.assertFalse(result['eligible_for_advancement'])
+            self.assertEqual(result['external']['lost_gt_count'], 0)
+            self.assertEqual(result['source']['by_split']['train']['eligible_candidates'], 2)
+            self.assertEqual(before, {path: path.read_bytes() for path in files})
+            self.assertFalse((cache / 'supervision.npz').exists())
+            self.assertTrue((Path(derived['work_dir']) / 'diagnostics/failure_audit/summary_all.json').is_file())
+            modified = json.loads(primary.read_text())
+            modified['external_manifest_digest'] = 'stale'
+            WORKFLOW.write_json(primary, modified)
+            with self.assertRaisesRegex(ValueError, 'locked manifest'):
+                FAILURE.saved_context(config)
+
+
+class CandidateMaskFailurePopulationTests(unittest.TestCase):
+    def test_duplicate_targets_and_unreachable_positive_population_are_counted_exactly(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp) / 'cache'
+            synthetic_cache(directory, labels=np.array([1, 1, 1, 1, 1, 0, 1, -1]))
+            audit_forest(directory, SUPERVISION)
+            original = {name: (directory / name).read_bytes() for name in ('audit.json', 'supervision.npz')}
+            first = audit_supervision_support(directory, SUPERVISION, chunk_size=1)
+            second = audit_supervision_support(directory, SUPERVISION, chunk_size=3)
+            self.assertEqual(first, second)
+            counts = first['summary']
+            self.assertEqual(counts['eligible_candidates'], 2)
+            self.assertEqual(counts['duplicate_target_gt'], 1)
+            self.assertEqual(counts['positive_refs'], 12)
+            self.assertEqual(counts['positive_excluded_refs'], 2)
+            self.assertEqual(counts['positive_unique_points'], 6)
+            self.assertEqual(counts['positive_unique_foreground_points'], 5)
+            self.assertEqual(counts['shared_positive_unique_points'], 6)
+            self.assertEqual(counts['shared_positive_foreground_points'], 5)
+            self.assertEqual(counts['ignored_refs'], 2)
+            self.assertAlmostEqual(counts['positive_excluded_by_semantics_fraction'], 1 / 6)
+            self.assertAlmostEqual(counts['mean_candidate_positive_excluded_fraction'], 1 / 6)
+            self.assertEqual(original, {name: (directory / name).read_bytes() for name in original})
+
+    def test_external_policy_is_read_only_and_labeled_difficult_candidates_are_separated(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp) / 'cache'
+            synthetic_cache(directory, labels=np.array([1, 1, 1, 1, 1, 0, 1, -1]))
+            settings = dict(SUPERVISION, min_match_purity=.9)
+            report = audit_supervision_support(directory, settings, frozen=False)
+            self.assertEqual(report['summary']['eligible_candidates'], 1)
+            self.assertEqual(report['summary']['excluded_labeled_other'], 1)
+            self.assertEqual(report['summary']['duplicate_target_gt'], 0)
+            self.assertEqual(report['summary']['shared_positive_unique_points'], 0)
+            self.assertEqual(report['supervision_origin'], 'hypothetical_external_policy_not_training')
+            self.assertFalse((directory / 'audit.json').exists())
+            self.assertFalse((directory / 'supervision.npz').exists())
+            np.save(directory / 'labels.npy', np.array([-1, 1, 1, 1, 1, 0, 1, -1]))
+            report = audit_supervision_support(directory, dict(settings, min_labeled_fraction=.8), frozen=False)
+            self.assertEqual(report['summary']['excluded_low_labeled_fraction'], 1)
+            self.assertEqual(report['summary']['excluded_labeled_other'], 0)
+
+    def test_stale_frozen_targets_are_rejected_instead_of_rewritten(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp) / 'cache'
+            synthetic_cache(directory)
+            audit_forest(directory, SUPERVISION)
+            with np.load(directory / 'supervision.npz') as archive:
+                values = {key: archive[key] for key in archive.files}
+            values['target_ids'] = np.full(2, 999, dtype=np.int64)
+            np.savez(directory / 'supervision.npz', **values)
+            before = (directory / 'supervision.npz').read_bytes()
+            with self.assertRaisesRegex(ValueError, 'Frozen supervision disagrees'):
+                audit_supervision_support(directory, SUPERVISION)
+            self.assertEqual(before, (directory / 'supervision.npz').read_bytes())
+
+    def test_lost_gt_report_uses_gt_specific_iou(self):
+        labels = np.array([1, 1, 1, 2, 2, 2])
+        baseline = np.array([10, 10, 10, 20, 20, 20])
+        refined = np.array([10, 20, 20, 20, 20, 20])
+        expected = dict(baseline=evaluate_labels(labels, baseline), refined=evaluate_labels(labels, refined))
+        changes = describe_changed_gt(labels, baseline, refined, expected,
+                                      [dict(gt_id=1, eligible_candidates=2, shared_positive_unique_points=3)])
+        self.assertEqual(len(changes), 1)
+        self.assertEqual(changes[0]['gt_id'], 1)
+        self.assertEqual(changes[0]['baseline_best_iou'], 1.)
+        self.assertAlmostEqual(changes[0]['refined_best_iou'], 1 / 3)
+        self.assertEqual(changes[0]['refined_best_candidate'], 10)
+        self.assertEqual(changes[0]['eligible_candidates_targeting_gt'], 2)
 
 
 class CandidateMaskStreamingTileTests(unittest.TestCase):
