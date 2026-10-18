@@ -9,6 +9,7 @@ import numpy as np
 import torch
 
 from tree_learn.mask_refinement.data import write_json
+from tree_learn.query_segmentation.allocation import filter_allocation
 
 
 def boxes_overlap(first, second):
@@ -234,6 +235,14 @@ def predict_forest(model, forest, settings, output, device, progress=1., max_blo
         del indices
         members._mmap.close()
         del members
+    allocation_statistics = None
+    if infer.get('allocation_filter', 'none') == 'quality_times_retention':
+        assigned_records, rejected, allocation_statistics = filter_allocation(
+            labels, assigned_records, labels, infer['quality_threshold'])
+        write_json(output / 'allocation_filter.json', allocation_statistics)
+        write_json(output / 'rejected_instances.json', rejected)
+    elif infer.get('allocation_filter', 'none') != 'none':
+        raise ValueError('Unsupported allocation_filter.')
     labels.flush()
     del labels
     if not infer.get('keep_proposals', False):
@@ -245,8 +254,11 @@ def predict_forest(model, forest, settings, output, device, progress=1., max_blo
                  local_proposals=len(records), global_kept=len(kept_rows),
                  final_instances=len(assigned_records), proposal_memberships=total_members,
                  spilled_blocks=spilled_blocks, max_block_memberships=max_block_memberships,
+                 allocation_filter=allocation_statistics,
                  inference_seconds=time.monotonic() - started,
-                 empty_prediction_reason='no_masks_survived_quality_and_nms' if not assigned_records else None,
+                 empty_prediction_reason=('all_allocated_masks_filtered' if allocation_statistics and
+                                          allocation_statistics['input_instances'] else
+                                          'no_masks_survived_quality_and_nms') if not assigned_records else None,
                  partial=max_blocks is not None)
     write_json(output / 'prediction.json', stats)
     return np.load(labels_path, mmap_mode='r', allow_pickle=False), stats

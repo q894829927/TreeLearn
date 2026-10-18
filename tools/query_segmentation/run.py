@@ -88,6 +88,8 @@ def validate_settings(settings):
     for name in ('mask_threshold', 'quality_threshold', 'nms_iou', 'nms_containment'):
         if not 0 <= infer[name] <= 1:
             raise ValueError(f'inference.{name} must be in [0,1].')
+    if infer.get('allocation_filter', 'none') not in ('none', 'quality_times_retention'):
+        raise ValueError('Unsupported allocation_filter.')
 
 
 def save_checkpoint(path, value):
@@ -107,7 +109,7 @@ def training_signature(settings, rows):
 
 def code_sources():
     files = ['tools/query_segmentation/run.py'] + [f'tree_learn/query_segmentation/{name}.py'
-              for name in ('data', 'model', 'loss', 'inference')]
+              for name in ('data', 'model', 'loss', 'inference', 'allocation')]
     return {name: file_digest(ROOT / name) for name in files}
 
 
@@ -308,6 +310,8 @@ def main():
     parser.add_argument('--smoke', action='store_true')
     parser.add_argument('--external', action='store_true', help='Reuse the existing Wytham cache; evaluation only.')
     parser.add_argument('--quality-threshold', type=float)
+    parser.add_argument('--allocation-filter', action='store_true',
+                        help='Filter fully allocated masks by quality times retained fraction; evaluation only.')
     args = parser.parse_args()
     if Path.cwd().resolve() != ROOT:
         parser.error('Run from the TreeLearn repository root.')
@@ -315,12 +319,17 @@ def main():
         parser.error('--resume applies to train; external forests cannot train.')
     if args.quality_threshold is not None and args.command != 'evaluate':
         parser.error('--quality-threshold applies to evaluate only.')
+    if args.allocation_filter and args.command != 'evaluate':
+        parser.error('--allocation-filter applies to evaluate only.')
     settings = yaml.safe_load(Path(args.config).read_text(encoding='utf-8'))
+    if args.allocation_filter:
+        settings['inference']['allocation_filter'] = 'quality_times_retention'
     if args.quality_threshold is not None:
         if not 0 <= args.quality_threshold <= 1:
             parser.error('quality threshold must be in [0,1].')
         settings['inference']['quality_threshold'] = args.quality_threshold
     validate_settings(settings)
+    allocation_enabled = settings['inference'].get('allocation_filter', 'none') == 'quality_times_retention'
     if args.command == 'prepare':
         prepare(settings, args.external)
     elif args.command == 'train':
@@ -346,12 +355,15 @@ def main():
         model = QueryInstanceDecoder(**settings['model']).to(device)
         model.load_state_dict(checkpoint['model'])
         name = 'external_evaluation' if args.external else 'evaluation'
+        if allocation_enabled:
+            name += '_allocation_filtered'
         if args.quality_threshold is not None:
             name += f'_q{args.quality_threshold:g}'
         report = evaluate(settings, model, rows, work / name, device,
                           checkpoint['sampler_progress'], partial=args.smoke)
         report.update(checkpoint=str(selected), checkpoint_step=checkpoint['step'],
                       checkpoint_sha256=file_digest(selected), source_code=code_sources(),
+                      allocation_filter_selected_on_development_data=allocation_enabled,
                       exploratory_external=bool(args.external))
         write_json(work / name / 'summary.json', report)
 

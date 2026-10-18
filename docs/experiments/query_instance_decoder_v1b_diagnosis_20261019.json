@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "received_date": "2026-10-19",
+  "source": "user_supplied_server_failure_diagnosis_brief",
+  "posthoc": true,
+  "scope": "filter_final_masks_without_reassignment",
+  "checkpoint_step": 2000,
+  "totals": {
+    "fp_retained_below_half": 891,
+    "fp_quality_at_least_0_7": 232,
+    "fp_best_gt_already_matched": 907
+  },
+  "comparisons": {
+    "unchanged": {
+      "macro": {"f1": 0.6953128748451146, "completeness": 0.8991086537916508, "commission": 0.4303948300485757, "coverage": 0.8109383394697147, "point_precision": 0.8964161394684427, "point_recall": 0.8809649978560141},
+      "totals": {"tp": 1608, "fp": 1151, "fn": 174, "num_predictions": 3070}
+    },
+    "retained_at_least_half": {
+      "macro": {"f1": 0.8738494303366189, "completeness": 0.8966340832336643, "commission": 0.14679545834576163, "coverage": 0.8078568382795991, "point_precision": 0.8896521235856707, "point_recall": 0.8791083970236757},
+      "totals": {"tp": 1604, "fp": 260, "fn": 178, "num_predictions": 2029}
+    },
+    "quality_at_least_0_6": {
+      "macro": {"f1": 0.825052466779284, "completeness": 0.8890922427007745, "commission": 0.22781746855244472, "coverage": 0.8008795295726701, "point_precision": 0.8813852691369142, "point_recall": 0.8678853235125636},
+      "totals": {"tp": 1589, "fp": 436, "fn": 193, "num_predictions": 2133}
+    },
+    "quality_times_retention": {
+      "macro": {"f1": 0.8983089770081915, "completeness": 0.8951221502085488, "commission": 0.09756981582927246, "coverage": 0.8057223690065285, "point_precision": 0.8855343195342158, "point_recall": 0.8773804862410577},
+      "delta_from_baseline_pp": {"f1_delta_pp": 1.636281199942824, "completeness_delta_pp": -1.65172753320455, "commission_delta_pp": -4.641608469167932, "coverage_delta_pp": -1.5042336190238537, "point_precision_delta_pp": -0.7959862970528198, "point_recall_delta_pp": -2.8431352622664496},
+      "delta_from_v1_pp": {"f1_delta_pp": 20.299610216307684, "completeness_delta_pp": -0.3986503583102041, "commission_delta_pp": -33.28250142193032, "coverage_delta_pp": -0.5215970463186226, "point_precision_delta_pp": -1.0881819934226877, "point_recall_delta_pp": -0.35845116149564316},
+      "totals": {"tp": 1601, "fp": 165, "fn": 181, "num_predictions": 1893}
+    }
+  }
+}

@@ -6,6 +6,8 @@
 
 2026-10-18，用户另行要求重新设计方案，并要求“不用那么严格，先做出一个有效果的架构”。现已实现 [TreeLearn 查询实例解码器 v1](query_instance_decoder_v1_zh.md)，可复用现有缓存，直接联合训练查询/掩码/质量/embedding，再进行全林去重与新实例分配。2026-10-19，服务器完整结果已回传：最佳 macro F1 为 69.531%，相对原版 -18.663 pp，FP 从 275 增到 1151，详见[结果与 CPU 诊断入口](query_instance_decoder_v1_results_20261019_zh.md)。原[完整设计协议](treelearn_query_decoder_design_20261018_zh.md)保留为后续参考，MLP 对照和严格晋级门槛后置；A1/A1b 负结果保持不变。
 
+同日后续诊断：固定 v1 权重后，用质量分数乘分配后保留比例过滤，开发集 F1 为 89.831%，相对原版 +1.636 pp，但 Completeness/Coverage 仍下降。已实现 [v1b CPU 标签导出、原生预测与 Wytham 入口](query_instance_decoder_v1b_allocation_20261019_zh.md)，该事后结果与 v1 原始负结果分别记录。
+
 下一步已提供 [复用现有缓存的 CPU 失败诊断](candidate_mask_mlp_failure_audit_20261017_zh.md)，先量化竞争目标、部署点集和 Wytham 两种操作的作用，再决定单变量训练改动。
 
 诊断已回传并记录，下一轮为 [A1b 原归属排序损失](candidate_mask_mlp_a1b_owner_rank_20261017_zh.md)：只改训练目标，模型/候选/采样/推理保持相同；代码已实现，尚待服务器实验。原 A1 负结果和原文件继续保留。

@@ -2,6 +2,8 @@
 
 日期：2026-10-18，2026-10-19 更新。按用户“先做出一个有效果的架构”的最新要求，先实现完整模型并直接训练，MLP 对照、多 seed 和严格晋级门槛后置。本地只做静态检查，单元测试、训练、点云预测由服务器执行。服务器已完成 12000 step 及最终评价；最优权重在第 2000 step，五森林 macro F1 为 **69.531%，相对原版 -18.663 pp**，FP 从 275 增到 1151，v1 未改善原版。详见[完整结果与 CPU 诊断命令](query_instance_decoder_v1_results_20261019_zh.md)。此前的单块成员上限中断已修复，历史见[运行修复](query_instance_decoder_v1_runtime_fix_20261018_zh.md)。
 
+后续 CPU 诊断已回传：分配后采用“质量 × 保留比例 >=0.4”得到 F1 **89.831%（相对原版 +1.636 pp）**，但 Completeness/Coverage 仍下降。该事后规则现已接入 [v1b 导出与原生预测](query_instance_decoder_v1b_allocation_20261019_zh.md)，可先运行 `bash tools/query_segmentation/launch.sh filter` 生成实际新标签，无需重训。本文默认命令继续保留原 v1 复现行为。
+
 ## 1. 本次实际实现
 
 复用 A1 导出的原版 TreeLearn 32 维主干特征、坐标、base-vote 和树概率；不重新运行主干，不使用原候选 ID 作为输入。

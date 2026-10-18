@@ -9,7 +9,7 @@ mkdir -p -- "$base" logs/candidate_mask_mlp/background
 
 if [[ ${1:-} != --worker ]]; then
     mode=${1:-all}
-    case "$mode" in all|resume|evaluate|external|diagnose) ;; *) printf 'Use all, resume, evaluate, external or diagnose.\n' >&2; exit 2;; esac
+    case "$mode" in all|resume|evaluate|external|diagnose|filter|evaluate-filtered|external-filtered) ;; *) printf 'Use all, resume, evaluate, external, diagnose, filter, evaluate-filtered or external-filtered.\n' >&2; exit 2;; esac
     run_dir=$(mktemp -d "$base/run_$(date +%Y%m%dT%H%M%S)_XXXXXX")
     nohup bash "$0" --worker "$run_dir" "$mode" >"$run_dir/console.log" 2>&1 < /dev/null &
     printf '%s\n' "$!" >"$run_dir/pid.txt"
@@ -89,5 +89,17 @@ case "$mode" in
     diagnose)
         run_stage tests python -m unittest discover -s tests -p test_query_segmentation_diagnosis.py -v
         run_stage diagnose python -u tools/query_segmentation/diagnose.py --config "$config"
+        ;;
+    filter)
+        run_stage tests python -m unittest discover -s tests -p test_query_segmentation_allocation.py -v
+        run_stage filter python -u tools/query_segmentation/apply_allocation_filter.py --config "$config"
+        ;;
+    evaluate-filtered)
+        run_stage tests python -m unittest discover -s tests -p test_query_segmentation_allocation.py -v
+        run_stage evaluate python -u tools/query_segmentation/run.py evaluate --config "$config" --allocation-filter
+        ;;
+    external-filtered)
+        run_stage tests python -m unittest discover -s tests -p test_query_segmentation_allocation.py -v
+        run_stage external python -u tools/query_segmentation/run.py evaluate --config "$config" --external --allocation-filter
         ;;
 esac
