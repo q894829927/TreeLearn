@@ -4,6 +4,8 @@
 
 状态：完整服务器实验与事后诊断均已回传，当前 A1 未通过源域预设条件，详见 [源域结果](candidate_mask_mlp_a1_results_20261016_zh.md)。只丢弃点、只改归属两个对照的 F1 也均下降。用户随后要求的固定权重 [Wytham 跨域评价](candidate_mask_mlp_wytham_zh.md) 亦已完成，F1 -3.658 pp、Coverage -3.214 pp，详见 [外部结果](candidate_mask_mlp_wytham_results_20261017_zh.md)。2026-10-18，[独立 A1b 排序损失实验及 CPU 诊断](candidate_mask_mlp_a1b_results_20261018_zh.md) 也已完成：Coverage +0.561 pp、F1 -1.656 pp、Commission +3.359 pp；仅丢点/仅改归属的 F1 也均下降。两版均未通过预设条件，本阶段结束追加实验，没有进入 attention 或安排新训练。以下命令保留用于复现，无需重复运行；本地未运行单元测试、点云推理、数据生成或训练。
 
+2026-10-18，用户另行要求重新设计方案，已形成 [TreeLearn 查询实例解码器设计协议](treelearn_query_decoder_design_20261018_zh.md)。它检验完整查询/掩码/质量/去重流程及匹配的 MLP 对照，不沿用 A1 失败作为禁止解码器的条件。当前仅完成设计，没有实现或启动新模型，A1/A1b 负结果保持不变。
+
 下一步已提供 [复用现有缓存的 CPU 失败诊断](candidate_mask_mlp_failure_audit_20261017_zh.md)，先量化竞争目标、部署点集和 Wytham 两种操作的作用，再决定单变量训练改动。
 
 诊断已回传并记录，下一轮为 [A1b 原归属排序损失](candidate_mask_mlp_a1b_owner_rank_20261017_zh.md)：只改训练目标，模型/候选/采样/推理保持相同；代码已实现，尚待服务器实验。原 A1 负结果和原文件继续保留。
