@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run on Linux with TreeLearn activated. The launcher detaches itself safely.
+# Run in the foreground on Linux; mirror live output to terminal and logs.
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.."
 base="$PWD/logs/query_instance_decoder_v1"
@@ -11,15 +11,14 @@ if [[ ${1:-} != --worker ]]; then
     mode=${1:-all}
     case "$mode" in all|resume|evaluate|external|diagnose|filter|evaluate-filtered|external-filtered) ;; *) printf 'Use all, resume, evaluate, external, diagnose, filter, evaluate-filtered or external-filtered.\n' >&2; exit 2;; esac
     run_dir=$(mktemp -d "$base/run_$(date +%Y%m%dT%H%M%S)_XXXXXX")
-    nohup bash "$0" --worker "$run_dir" "$mode" >"$run_dir/console.log" 2>&1 < /dev/null &
-    printf '%s\n' "$!" >"$run_dir/pid.txt"
-    printf 'PID=%s\nRUN_DIR=%s\n' "$!" "$run_dir"
-    printf 'tail -n 20 %s/console.log\n' "$run_dir"
+    printf 'RUN_DIR=%s\nFOREGROUND: live progress is shown here and saved to logs.\n' "$run_dir"
+    bash "$0" --worker "$run_dir" "$mode" 2>&1 | tee -i "$run_dir/console.log"
     exit 0
 fi
 
 run_dir=$2
 mode=$3
+printf '%s\n' "$$" >"$run_dir/pid.txt"
 exec 9>logs/candidate_mask_mlp/background/external.lock
 if ! flock -n 9; then
     printf 'LOCKED: another training/evaluation/diagnostic run holds the lock.\n' | tee "$run_dir/status.txt"
@@ -33,9 +32,12 @@ finish() {
     if [[ -n "$monitor_pid" ]]; then kill "$monitor_pid" 2>/dev/null || true; fi
     if [[ "$code" == 0 ]]; then
         printf 'DONE mode=%s (workflow completed; inspect metrics for effectiveness)\n' "$mode" >"$run_dir/status.txt"
+    elif [[ "$code" == 130 || "$code" == 143 ]]; then
+        printf 'INTERRUPTED stage=%s exit=%s\n' "$stage" "$code" >"$run_dir/status.txt"
     else
         printf 'FAILED stage=%s exit=%s\n' "$stage" "$code" >"$run_dir/status.txt"
     fi
+    cat "$run_dir/status.txt"
     printf 'END=%s EXIT=%s\n' "$(date -Is)" "$code"
 }
 trap finish EXIT
@@ -52,7 +54,7 @@ worker=$$
     done
 ) >"$run_dir/resources.log" 2>&1 &
 monitor_pid=$!
-printf 'START=%s\nPYTHON=%s\nCONDA_ENV=%s\n' "$(date -Is)" "$(command -v python)" "${CONDA_DEFAULT_ENV:-unset}"
+printf 'START=%s\nPID=%s\nPYTHON=%s\nCONDA_ENV=%s\n' "$(date -Is)" "$$" "$(command -v python)" "${CONDA_DEFAULT_ENV:-unset}"
 git rev-parse HEAD >"$run_dir/commit.txt"
 
 run_stage() {
@@ -60,7 +62,14 @@ run_stage() {
     shift
     printf 'RUNNING %s\n' "$stage" >"$run_dir/status.txt"
     printf 'RUN %s: %s/%s.log\n' "$stage" "$run_dir" "$stage"
-    /usr/bin/time -v -o "$run_dir/$stage.time.txt" "$@" >"$run_dir/$stage.log" 2>&1
+    if /usr/bin/time -v -o "$run_dir/$stage.time.txt" "$@" 2>&1 | tee -i "$run_dir/$stage.log"; then
+        printf 'FINISHED %s\n' "$stage"
+    else
+        stage_codes=("${PIPESTATUS[@]}")
+        # A failed Python command must not be hidden by a successful tee.
+        if [[ ${stage_codes[0]} != 0 ]]; then return "${stage_codes[0]}"; fi
+        return "${stage_codes[1]}"
+    fi
 }
 
 case "$mode" in

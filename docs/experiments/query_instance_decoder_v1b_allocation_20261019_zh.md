@@ -41,7 +41,7 @@ conda activate TreeLearn
 bash tools/query_segmentation/launch.sh filter
 ```
 
-启动器后台先执行 4 项测试，再读取现有五森林预测，导出新标签并计算完整评价。无需重新跑 GPU、生成缓存或训练。当已有诊断与当前原始评价的哈希一致时，会逐森林核对导出指标与诊断是否一致。
+按用户偏好，启动器前台先执行 4 项测试，再读取现有五森林预测，导出新标签并计算完整评价；当前终端实时显示全部阶段进度，同时保存日志。无需重新跑 GPU、生成缓存或训练。当已有诊断与当前原始评价的哈希一致时，会逐森林核对导出指标与诊断是否一致。
 
 ```bash
 cat logs/query_instance_decoder_v1/latest/status.txt

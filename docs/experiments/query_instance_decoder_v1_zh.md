@@ -56,7 +56,7 @@ conda activate TreeLearn
 bash tools/query_segmentation/launch.sh
 ```
 
-启动器会自行后台运行，返回 `PID` 和唯一 `RUN_DIR`，无需再加 `nohup`。它与旧外部评价/诊断共用任务锁；有任务占锁时，新运行目录的状态为 `LOCKED`，不会覆盖正在运行的 `latest`。
+按用户最新偏好，启动器默认前台运行，在当前终端实时显示阶段、训练 step、loss 和评价进度，同时将相同输出保存到 `console.log` 和各阶段日志。打印 `PID` 和唯一 `RUN_DIR`，无需另外 `tail` 才能看到进度。它与旧外部评价/诊断共用任务锁；有任务占锁时，新运行目录的状态为 `LOCKED`，不会覆盖正在运行的 `latest`。后续提供的命令均以前台方式执行。
 
 默认依次执行：12 项合成数据测试 → 为已有 A1 缓存建立空间索引 → 8 step GPU smoke 训练 → 一个块的 smoke 预测 → 正式训练 → best checkpoint 的完整五森林评价。测试失败或程序错误时会停止；**没有 F1/Coverage 晋级门槛**。smoke 指标仅验证流程，不用于判断效果。正常结束的 `DONE` 仅表示程序流程完成。
 

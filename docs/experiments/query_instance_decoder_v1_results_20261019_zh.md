@@ -63,7 +63,7 @@ conda activate TreeLearn
 bash tools/query_segmentation/launch.sh diagnose
 ```
 
-启动器后台先执行新增的 3 项 CPU 回归测试，再运行诊断，共用原任务锁。未调用 Torch、主干、CUDA 模型或重新推理；不会修改原 checkpoint、缓存、实例标签或评价文件。输出仍受新运行目录的资源日志监控。本地只通过静态检查，服务器测试与诊断尚待执行。
+启动器现在以前台方式执行新增的 3 项 CPU 回归测试和诊断，终端实时显示进度，共用原任务锁，输出同时保存日志。未调用 Torch、主干、CUDA 模型或重新推理；不会修改原 checkpoint、缓存、实例标签或评价文件。资源记录保留在新运行目录。本地只通过静态检查；本页新增入口时的服务器测试与诊断随后已完成，结果见上方更新。
 
 ```bash
 cat logs/query_instance_decoder_v1/latest/status.txt
