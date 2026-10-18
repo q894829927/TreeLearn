@@ -366,6 +366,17 @@ def main():
                       allocation_filter_selected_on_development_data=allocation_enabled,
                       exploratory_external=bool(args.external))
         write_json(work / name / 'summary.json', report)
+        brief = {key: report[key] for key in ('checkpoint', 'checkpoint_step', 'checkpoint_sha256',
+                 'baseline_macro', 'refined_macro', 'delta_pp', 'policy', 'exploratory_external')}
+        brief['forests'] = [dict(plot=forest['plot'],
+                           baseline={key: forest['baseline'][key] for key in ('tp', 'fp', 'fn', 'num_predictions')},
+                           refined={key: forest['refined'][key] for key in ('tp', 'fp', 'fn', 'num_predictions')},
+                           lost_gt_count=len(forest['lost_gt_ids']), recovered_gt_count=len(forest['recovered_gt_ids']),
+                           allocation_filter=forest['prediction'].get('allocation_filter'))
+                           for forest in report['forests']]
+        write_json(work / name / 'brief.json', brief)
+        print(json.dumps(brief, indent=2), flush=True)
+        print(f'SAVED {work / name}/brief.json', flush=True)
 
 
 if __name__ == '__main__':

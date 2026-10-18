@@ -2,6 +2,8 @@
 
 日期：2026-10-19。依据用户回传的 CPU 诊断结果，固定使用 v1 第 2000 step 权重，增加分配后整实例过滤。未重新训练、未更改模型参数或损失。源域结果是同一开发集上的事后改进，不是独立测试，也不把收益单独归因于 attention。
 
+进展：源域实际导出已复现 F1 89.8309% 且逐森林诊断核对通过；固定规则的 Wytham 评价也已完成，F1 从原版 70.324% 降到 62.913%，TP 596→447。详见[Wytham 结果及单项对照](query_instance_decoder_v1b_wytham_20261019_zh.md)。因此当前是源域开发集有收益，跨域尚未改善。
+
 ## 1. 本次学到了什么
 
 v1 的 1151 个计数 FP 中，891 个分配后剩余点数不到原掩码一半，占约 77.4%；907 个 FP 的最佳重叠 GT 已由其他 TP 匹配，占约 78.8%。两组可能重叠，不能相加，也不能仅据最佳 GT 相同认定全部是重复实例。232 个 FP 的原质量分数仍至少为 0.7，说明只提高原分数阈值不能充分解决问题。
@@ -30,7 +32,7 @@ allocation_score = 原质量分数 × retained_fraction
 
 新标签将保留实例重新编号为 1..K，`instances.json` 记录 `source_instance_id`、原 `score`、`retained_fraction` 和校正后的 `allocation_score`，可追踪原实例。过滤函数只接收标签、预测分数及点数，不读取 GT；GT 仅在输出完成后用于评价。
 
-原 v1 的模型权重、原始评价和默认未过滤路径保留。新结果写入 `evaluation_allocation_filtered/`，没有把 v1 原始 F1 改写成 89.83%。新增 4 项服务器测试覆盖诊断与实际标签一致、分 chunk 与 ID 映射、空输出/错误点数、原生预测与缓存过滤一致、输入文件保留。本地只执行 Python AST、Bash 语法、文档及 Git 静态检查，测试和新导出留给服务器。
+原 v1 的模型权重、原始评价和默认未过滤路径保留。新结果写入 `evaluation_allocation_filtered/`，没有把 v1 原始 F1 改写成 89.83%。新增 4 项服务器测试覆盖诊断与实际标签一致、分 chunk 与 ID 映射、空输出/错误点数、原生预测与缓存过滤一致、输入文件保留；服务器已完成测试和源域导出。本地只执行 Python AST、Bash 语法、文档及 Git 静态检查。
 
 ## 3. 当前先执行：CPU 导出可用标签
 
@@ -49,7 +51,7 @@ tail -n 20 logs/query_instance_decoder_v1/latest/filter.log
 cat work_dirs/query_instance_decoder_v1_s42/evaluation_allocation_filtered/brief.json
 ```
 
-完整指标在同目录 `summary.json`，每片森林输出 `refined_labels.npy`、`instances.json`、`rejected_instances.json`、`allocation_filter.json`。实际导出预期复现诊断 F1 89.8309%；当前尚待服务器执行。`diagnostic_reference_verified=true` 表示导出与对应诊断逐森林核对成功。
+完整指标在同目录 `summary.json`，每片森林输出 `refined_labels.npy`、`instances.json`、`rejected_instances.json`、`allocation_filter.json`。实际导出已复现诊断 F1 89.8309%。`diagnostic_reference_verified=true` 表示导出与对应诊断逐森林核对成功；上述命令保留用于复现，已完成时不必重跑。
 
 ## 4. 再执行：固定规则的 Wytham 评价
 

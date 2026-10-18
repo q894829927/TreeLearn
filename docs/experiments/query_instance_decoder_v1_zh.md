@@ -4,6 +4,8 @@
 
 后续 CPU 诊断已回传：分配后采用“质量 × 保留比例 >=0.4”得到 F1 **89.831%（相对原版 +1.636 pp）**，但 Completeness/Coverage 仍下降。该事后规则现已接入 [v1b 导出与原生预测](query_instance_decoder_v1b_allocation_20261019_zh.md)，可先运行 `bash tools/query_segmentation/launch.sh filter` 生成实际新标签，无需重训。本文默认命令继续保留原 v1 复现行为。
 
+源域导出已核对完成；v1b 的 Wytham 结果为 F1 62.913%，相对原版 -7.411 pp，跨域未改善。当前下一步为[关闭分配后规则的 Wytham 固定权重对照](query_instance_decoder_v1b_wytham_20261019_zh.md)，不重复训练或源域过滤。
+
 ## 1. 本次实际实现
 
 复用 A1 导出的原版 TreeLearn 32 维主干特征、坐标、base-vote 和树概率；不重新运行主干，不使用原候选 ID 作为输入。

@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "protocol": "aligned_voxels_ignore_negative_gt_iou_gt_0.5",
+  "partial": false,
+  "baseline_macro": {
+    "f1": 0.7032448377581121,
+    "completeness": 0.6795895096921323,
+    "commission": 0.2713936430317848,
+    "coverage": 0.6512525337608083,
+    "point_precision": 0.7123044232080217,
+    "point_recall": 0.8036695600981618
+  },
+  "refined_macro": {
+    "f1": 0.6291344123856439,
+    "completeness": 0.5096921322690992,
+    "commission": 0.17830882352941177,
+    "coverage": 0.5051514322342229,
+    "point_precision": 0.532974777489141,
+    "point_recall": 0.6844143208358734
+  },
+  "delta_pp": {
+    "f1_delta_pp": -7.411042537246814,
+    "completeness_delta_pp": -16.989737742303312,
+    "commission_delta_pp": -9.308481950237304,
+    "coverage_delta_pp": -14.610110152658539,
+    "point_precision_delta_pp": -17.932964571888064,
+    "point_recall_delta_pp": -11.925523926228843
+  },
+  "policy": {
+    "mask_threshold": 0.5,
+    "quality_threshold": 0.4,
+    "nms_iou": 0.5,
+    "nms_containment": 0.8,
+    "chunk_size": 8192,
+    "max_block_memberships": 20000000,
+    "max_forest_memberships": 1000000000,
+    "log_every_blocks": 5,
+    "keep_proposals": false,
+    "allocation_filter": "quality_times_retention"
+  },
+  "checkpoint": "work_dirs/query_instance_decoder_v1_s42/best.pth",
+  "checkpoint_step": 2000,
+  "checkpoint_sha256": "8ea39db37e17ea86d49da3c7c306d5f1fd96a6d876de5743b14ae6f1ead9df02",
+  "source_code": {
+    "tools/query_segmentation/run.py": "0211ca9baf86853297a5dd52ae7596135daf3eca1401b089d672eef0b86c3839",
+    "tree_learn/query_segmentation/data.py": "3f6e089333c30940abe2183619ef3dfe17e0fe4bd64466b804810e6a1c8de8f3",
+    "tree_learn/query_segmentation/model.py": "b384bf8d26104e5ea32c551e59c1b5cdb561aff5a92019b9aa7994d5217530cf",
+    "tree_learn/query_segmentation/loss.py": "3959c14936625098558f1de156de05856caa4fc696f6ae912d5f986feebf2502",
+    "tree_learn/query_segmentation/inference.py": "51a5da1eeda7e2c78c8680c197a2d95716df01492e2844f142a186b97b852b19",
+    "tree_learn/query_segmentation/allocation.py": "ed52547cbacbd30e22b9f115f47c03c64b1f6045d45a653e1f1f4c128776c17f"
+  },
+  "allocation_filter_selected_on_development_data": true,
+  "exploratory_external": true,
+  "provenance": {
+    "kind": "user_supplied_completed_server_evaluation",
+    "received_date": "2026-10-19",
+    "source_json_sha256": "b2628c40501329120383a85ab113b1eaedcd8ee2c362642058cfe9169b3c9bac",
+    "omitted_fields": "GT ID lists; counts retained"
+  },
+  "forests": [
+    {
+      "plot": "wytham_vox0.1",
+      "delta": {
+        "f1_delta_pp": -7.411042537246814,
+        "completeness_delta_pp": -16.989737742303312,
+        "commission_delta_pp": -9.308481950237304,
+        "coverage_delta_pp": -14.610110152658539,
+        "point_precision_delta_pp": -17.932964571888064,
+        "point_recall_delta_pp": -11.925523926228843
+      },
+      "prediction": {
+        "num_queries_scored": 128000,
+        "quality_min": 0.002579188672825694,
+        "quality_max": 0.9141479134559631,
+        "quality_mean": 0.4596921728253365,
+        "local_proposals": 11732,
+        "global_kept": 1756,
+        "final_instances": 1156,
+        "proposal_memberships": 277982197,
+        "spilled_blocks": 6,
+        "max_block_memberships": 51822320,
+        "allocation_filter": {
+          "method": "quality_times_retention",
+          "threshold": 0.4,
+          "formula": "raw_quality * final_count / raw_mask_count",
+          "reassignment": false,
+          "input_instances": 1750,
+          "output_instances": 1156,
+          "removed_instances": 594,
+          "removed_points": 1304168,
+          "retained_points": 25395397
+        },
+        "inference_seconds": 681.5609820680693,
+        "empty_prediction_reason": null,
+        "partial": false,
+        "original_foreground_points": 29031598,
+        "abstained_original_foreground": 3662087,
+        "assigned_original_background_points": 25886,
+        "recovered_gt_tree_points_from_original_background": 4455,
+        "abstained_gt_tree_points": 1291350
+      },
+      "baseline": {
+        "tp": 596,
+        "fp": 222,
+        "fn": 281,
+        "f1": 0.7032448377581121,
+        "completeness": 0.6795895096921323,
+        "commission": 0.2713936430317848,
+        "coverage": 0.6512525337608083,
+        "point_precision": 0.7123044232080217,
+        "point_recall": 0.8036695600981618,
+        "num_predictions": 860,
+        "num_gt": 877,
+        "ignored_points": 20131977
+      },
+      "refined": {
+        "tp": 447,
+        "fp": 97,
+        "fn": 430,
+        "f1": 0.6291344123856439,
+        "completeness": 0.5096921322690992,
+        "commission": 0.17830882352941177,
+        "coverage": 0.5051514322342229,
+        "point_precision": 0.532974777489141,
+        "point_recall": 0.6844143208358734,
+        "num_predictions": 551,
+        "num_gt": 877,
+        "ignored_points": 20131977
+      },
+      "lost_gt_count": 155,
+      "recovered_gt_count": 6
+    }
+  ]
+}
