@@ -12,7 +12,7 @@ import torch
 import yaml
 
 from tree_learn.query_segmentation.data import Forest, population_sample, prepare_index
-from tree_learn.query_segmentation.inference import predict_forest, suppress_masks
+from tree_learn.query_segmentation.inference import BlockMaskStore, predict_forest, suppress_masks
 from tree_learn.query_segmentation.loss import instance_loss, query_weights
 from tree_learn.query_segmentation.model import QueryInstanceDecoder
 
@@ -89,12 +89,17 @@ class QueryDataTests(unittest.TestCase):
 
             with mock.patch('numpy.load', side_effect=guarded):
                 forest = Forest(root / 'cache', root / 'index')
-                first, _ = predict_forest(model, forest, cfg, root / 'first', torch.device('cpu'))
+                first, first_stats = predict_forest(model, forest, cfg, root / 'first', torch.device('cpu'))
                 first = first.copy()
                 cfg['inference']['chunk_size'] = 3
-                second, _ = predict_forest(model, forest, cfg, root / 'second', torch.device('cpu'))
+                cfg['inference']['max_block_memberships'] = 1
+                second, second_stats = predict_forest(model, forest, cfg, root / 'second', torch.device('cpu'))
                 np.testing.assert_array_equal(first, second)
                 self.assertTrue(np.all(second > 0))
+                self.assertEqual(first_stats['spilled_blocks'], 0)
+                self.assertGreater(second_stats['spilled_blocks'], 0)
+                self.assertEqual(first_stats['proposal_memberships'], second_stats['proposal_memberships'])
+                self.assertFalse(list((root / 'second').glob('block_masks_*')))
 
 
 class QueryModelTests(unittest.TestCase):
@@ -179,6 +184,27 @@ class QueryModelTests(unittest.TestCase):
 
 
 class QueryWorkflowTests(unittest.TestCase):
+    def test_dense_block_spill_preserves_each_query_and_nms_exactly(self):
+        pieces = [(0, [9, 1, 7]), (1, [7, 1]), (0, [3, 5]), (2, [20, 24, 22])]
+        with tempfile.TemporaryDirectory() as tmp:
+            with BlockMaskStore(tmp, 4, np.int32, 2) as dense, BlockMaskStore(tmp, 4, np.int32, 100) as small:
+                for row, values in pieces:
+                    dense.append(row, np.array(values))
+                    small.append(row, np.array(values))
+                dense.finalize()
+                small.finalize()
+                self.assertTrue(dense.spilled)
+                self.assertFalse(small.spilled)
+                self.assertEqual(dense.buffered, 0)
+                for row in range(4):
+                    np.testing.assert_array_equal(dense.read(row), small.read(row))
+                np.testing.assert_array_equal(dense.read(0), [1, 3, 5, 7, 9])
+                records = [dict(score=score, count=int(dense.counts[row]), bbox=[0, 0, 0, 3, 3, 3])
+                           for row, score in enumerate((.9, .8, .7))]
+                self.assertEqual(suppress_masks(records, dense.read), [0, 2])
+                self.assertEqual(suppress_masks(records, dense.read), suppress_masks(records, small.read))
+            self.assertFalse(list(Path(tmp).iterdir()))
+
     def test_nms_removes_duplicates_and_contained_fragments_but_keeps_separate_masks(self):
         masks = [np.arange(10), np.arange(8), np.arange(20, 25)]
         records = [dict(score=score, count=len(mask), bbox=[0, 0, 0, 3, 3, 3])
@@ -220,6 +246,37 @@ class QueryWorkflowTests(unittest.TestCase):
             self.assertEqual(report['forests'][0]['baseline']['num_gt'], 2)
             summary = json.loads((root / 'work/training_summary.json').read_text())
             self.assertEqual(summary['step'], 2)
+
+    def test_validation_failure_saves_current_step_and_resume_retries_it(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cfg = settings()
+            cfg.update(index_root=str(root / 'index'), work_dir=str(root / 'work'),
+                       source_config=str(root / 'source.yaml'))
+            source = dict(output_root=str(root / 'cache'), splits=dict(train=['A1N'], validation=['G4N']))
+            (root / 'source.yaml').write_text(yaml.safe_dump(source))
+            records = []
+            for split, plots in source['splits'].items():
+                for plot in plots:
+                    synthetic(root / 'cache' / split / plot)
+                    records.append(dict(split=split, plot=plot, cache=f'{split}/{plot}'))
+            (root / 'cache/manifest.json').write_text(json.dumps(dict(forests=records)))
+            WORKFLOW.prepare(cfg)
+            with mock.patch.object(WORKFLOW, 'evaluate', side_effect=RuntimeError('synthetic validation failure')):
+                with self.assertRaisesRegex(RuntimeError, 'synthetic validation failure'):
+                    WORKFLOW.train(cfg)
+            pending = torch.load(root / 'work/last.pth', map_location='cpu', weights_only=False)
+            self.assertEqual(pending['step'], 2)
+            self.assertTrue(pending['pending_validation'])
+            with mock.patch.object(WORKFLOW, 'evaluate', wraps=WORKFLOW.evaluate) as evaluator:
+                WORKFLOW.train(cfg, resume=True)
+                self.assertEqual(evaluator.call_count, 1)
+            completed = torch.load(root / 'work/last.pth', map_location='cpu', weights_only=False)
+            self.assertEqual(completed['step'], 2)
+            self.assertFalse(completed['pending_validation'])
+            self.assertTrue((root / 'work/best.pth').exists())
+            for name in pending['model']:
+                torch.testing.assert_close(pending['model'][name], completed['model'][name])
 
 
 if __name__ == '__main__':

@@ -76,6 +76,7 @@ case "$mode" in
         run_stage evaluate python -u tools/query_segmentation/run.py evaluate --config "$config"
         ;;
     resume)
+        run_stage tests python -m unittest discover -s tests -p test_query_segmentation.py -v
         run_stage train python -u tools/query_segmentation/run.py train --config "$config" --resume
         run_stage evaluate python -u tools/query_segmentation/run.py evaluate --config "$config"
         ;;

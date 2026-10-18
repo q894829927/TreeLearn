@@ -3,6 +3,7 @@
 import json
 import time
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
 import torch
@@ -46,6 +47,92 @@ def suppress_masks(records, read_mask, iou_threshold=.5, containment_threshold=.
     return kept
 
 
+class BlockMaskStore:
+    """Keep small blocks in RAM and spill dense blocks without dropping masks."""
+    def __init__(self, directory, queries, dtype, memory_memberships):
+        self.temporary = TemporaryDirectory(prefix='block_masks_', dir=directory)
+        self.root = Path(self.temporary.name)
+        self.dtype = np.dtype(dtype)
+        self.memory_memberships = int(memory_memberships)
+        if self.memory_memberships <= 0:
+            self.temporary.cleanup()
+            raise ValueError('Block mask memory budget must be positive.')
+        self.parts = [[] for _ in range(queries)]
+        self.counts = np.zeros(queries, dtype=np.int64)
+        self.buffered = 0
+        self.spilled = False
+        self.ready = False
+        self.arrays = {}
+
+    def __enter__(self):
+        return self
+
+    def append(self, row, indices):
+        if self.ready:
+            raise RuntimeError('Cannot append to finalized block masks.')
+        if not len(indices):
+            return
+        values = np.asarray(indices, dtype=self.dtype).copy()
+        # Flush before an append could push buffered membership past the budget.
+        if self.buffered + len(values) > self.memory_memberships:
+            self.flush()
+        self.counts[row] += len(values)
+        if len(values) > self.memory_memberships:
+            self._write(row, [values])
+            self.spilled = True
+        else:
+            self.parts[row].append(values)
+            self.buffered += len(values)
+
+    def _write(self, row, pieces):
+        with (self.root / f'{row}.bin').open('ab') as stream:
+            for values in pieces:
+                values.tofile(stream)
+
+    def flush(self):
+        self.spilled = True
+        for row, pieces in enumerate(self.parts):
+            if pieces:
+                self._write(row, pieces)
+                pieces.clear()
+        self.buffered = 0
+
+    def finalize(self):
+        if self.ready:
+            return
+        if self.spilled:
+            self.flush()
+        else:
+            for row, pieces in enumerate(self.parts):
+                self.arrays[row] = (np.concatenate(pieces) if pieces else np.empty(0, dtype=self.dtype))
+                self.arrays[row].sort()
+                pieces.clear()
+            self.buffered = 0
+        self.ready = True
+
+    def read(self, row):
+        if not self.ready:
+            raise RuntimeError('Finalize block masks before reading.')
+        if row not in self.arrays:
+            if self.counts[row]:
+                values = np.memmap(self.root / f'{row}.bin', mode='r+', dtype=self.dtype,
+                                   shape=(int(self.counts[row]),))
+                values.sort()
+                values.flush()
+                self.arrays[row] = values
+            else:
+                self.arrays[row] = np.empty(0, dtype=self.dtype)
+        return self.arrays[row]
+
+    def __exit__(self, *error):
+        for values in self.arrays.values():
+            if isinstance(values, np.memmap):
+                values._mmap.close()
+        self.arrays.clear()
+        self.parts.clear()
+        self.temporary.cleanup()
+
+
 @torch.no_grad()
 def predict_forest(model, forest, settings, output, device, progress=1., max_blocks=None):
     output = Path(output)
@@ -55,6 +142,7 @@ def predict_forest(model, forest, settings, output, device, progress=1., max_blo
     dtype = np.int32 if points_count < 2 ** 31 else np.int64
     flat_path = output / 'proposal_members.bin'
     records, total_members = [], 0
+    spilled_blocks, max_block_memberships = 0, 0
     started = time.monotonic()
     score_count, score_sum, score_min, score_max = 0, 0., 1., 0.
     centers = forest.centers if max_blocks is None else forest.centers[:max_blocks]
@@ -78,39 +166,44 @@ def predict_forest(model, forest, settings, output, device, progress=1., max_blo
             if len(passing):
                 query = decoded['queries'][-1][torch.from_numpy(passing).to(device)]
                 geometry = {k: v[torch.from_numpy(passing).to(device)] for k, v in decoded['geometry'][-1].items()}
-                parts = [[] for _ in passing]
-                memberships = 0
-                for start in range(0, len(block['indices']), infer['chunk_size']):
-                    indices = block['indices'][start:start + infer['chunk_size']]
-                    values = torch.from_numpy(forest.inputs(indices, block['center'], block_cfg['radius'])).to(device)
-                    probabilities = model.point_predictions(values, [query], [geometry])['masks'][0].sigmoid()
-                    masks = (probabilities >= infer['mask_threshold']).cpu().numpy()
-                    memberships += int(masks.sum())
-                    if memberships > infer['max_block_memberships']:
-                        raise RuntimeError('Too many dense proposal memberships in one block; inspect mask/score learning.')
-                    for row, mask in enumerate(masks):
-                        if mask.any():
-                            parts[row].append(indices[mask].astype(dtype))
-                local_records, local_masks = [], []
-                for row, pieces in enumerate(parts):
-                    if not pieces:
-                        continue
-                    indices = np.sort(np.concatenate(pieces))
-                    xyz = forest.arrays['coords'][indices]
-                    local_masks.append(indices)
-                    local_records.append(dict(score=float(scores[passing[row]]), count=len(indices),
-                                              bbox=np.concatenate([xyz.min(axis=0), xyz.max(axis=0)]).tolist(),
-                                              block=block_id, query=int(passing[row])))
-                kept = suppress_masks(local_records, lambda i: local_masks[i], infer['nms_iou'], infer['nms_containment'])
-                for row in kept:
-                    record, indices = local_records[row], local_masks[row]
-                    if total_members + len(indices) > infer['max_forest_memberships']:
-                        raise RuntimeError('Proposal disk budget exceeded; inspect quality diagnostics and block stride.')
-                    record['offset'] = total_members
-                    indices.tofile(stream)
-                    total_members += len(indices)
-                    records.append(record)
-                del local_masks, local_records, parts
+                with BlockMaskStore(output, len(passing), dtype, infer['max_block_memberships']) as store:
+                    for start in range(0, len(block['indices']), infer['chunk_size']):
+                        indices = block['indices'][start:start + infer['chunk_size']]
+                        values = torch.from_numpy(forest.inputs(indices, block['center'], block_cfg['radius'])).to(device)
+                        probabilities = model.point_predictions(values, [query], [geometry])['masks'][0].sigmoid()
+                        masks = (probabilities >= infer['mask_threshold']).cpu().numpy()
+                        for row, mask in enumerate(masks):
+                            if mask.any():
+                                store.append(row, indices[mask])
+                    store.finalize()
+                    memberships = int(store.counts.sum())
+                    max_block_memberships = max(max_block_memberships, memberships)
+                    if store.spilled:
+                        spilled_blocks += 1
+                        print(json.dumps(dict(event='block_masks_spilled', block=block_id + 1,
+                                              memberships=memberships,
+                                              memory_memberships=infer['max_block_memberships'])), flush=True)
+                    local_records, local_rows = [], []
+                    for row, count in enumerate(store.counts):
+                        if not count:
+                            continue
+                        indices = store.read(row)
+                        xyz = forest.arrays['coords'][indices]
+                        local_rows.append(row)
+                        local_records.append(dict(score=float(scores[passing[row]]), count=int(count),
+                                                  bbox=np.concatenate([xyz.min(axis=0), xyz.max(axis=0)]).tolist(),
+                                                  block=block_id, query=int(passing[row])))
+                    kept = suppress_masks(local_records, lambda i: store.read(local_rows[i]),
+                                          infer['nms_iou'], infer['nms_containment'])
+                    for row in kept:
+                        record, indices = local_records[row], store.read(local_rows[row])
+                        if total_members + len(indices) > infer['max_forest_memberships']:
+                            raise RuntimeError('Proposal disk budget exceeded; inspect quality diagnostics and block stride.')
+                        record['offset'] = total_members
+                        indices.tofile(stream)
+                        total_members += len(indices)
+                        records.append(record)
+                    del indices
             if block_id == 0 or (block_id + 1) % infer['log_every_blocks'] == 0:
                 print(json.dumps(dict(event='predict', block=block_id + 1, blocks=len(centers),
                                       retained_local_masks=len(records), mean_quality=score_sum / max(score_count, 1),
@@ -151,6 +244,7 @@ def predict_forest(model, forest, settings, output, device, progress=1., max_blo
                  quality_mean=score_sum / max(score_count, 1),
                  local_proposals=len(records), global_kept=len(kept_rows),
                  final_instances=len(assigned_records), proposal_memberships=total_members,
+                 spilled_blocks=spilled_blocks, max_block_memberships=max_block_memberships,
                  inference_seconds=time.monotonic() - started,
                  empty_prediction_reason='no_masks_survived_quality_and_nms' if not assigned_records else None,
                  partial=max_blocks is not None)

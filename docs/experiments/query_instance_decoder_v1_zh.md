@@ -1,6 +1,6 @@
 # TreeLearn 查询实例解码器 v1：服务器运行说明
 
-日期：2026-10-18。按用户“先做出一个有效果的架构”的最新要求，先实现一套完整模型并直接训练，MLP 对照、多 seed 和严格晋级门槛后置。代码已实现；本地只做静态检查，单元测试、训练、点云预测均由服务器执行。**当前尚无新架构的实测效果，不能把实现完成等同于指标提升。**
+日期：2026-10-18。按用户“先做出一个有效果的架构”的最新要求，先实现一套完整模型并直接训练，MLP 对照、多 seed 和严格晋级门槛后置。本地只做静态检查，单元测试、训练、点云预测均由服务器执行。服务器首轮已通过原 10 项测试和 smoke，训练到 2000 step；首次验证在 G4W 遇到单块成员数上限而退出，现已修复并补充服务器回归测试。G4N 的阶段结果 F1 -19.524 pp、Coverage +1.846 pp、Commission +33.082 pp，**当前尚无完整五森林结果或已验证的整体提升**。详见[本次中断与恢复说明](query_instance_decoder_v1_runtime_fix_20261018_zh.md)。
 
 ## 1. 本次实际实现
 
@@ -56,7 +56,7 @@ bash tools/query_segmentation/launch.sh
 
 启动器会自行后台运行，返回 `PID` 和唯一 `RUN_DIR`，无需再加 `nohup`。它与旧外部评价/诊断共用任务锁；有任务占锁时，新运行目录的状态为 `LOCKED`，不会覆盖正在运行的 `latest`。
 
-默认依次执行：10 项合成数据测试 → 为已有 A1 缓存建立空间索引 → 8 step GPU smoke 训练 → 一个块的 smoke 预测 → 正式训练 → best checkpoint 的完整五森林评价。测试失败或程序错误时会停止；**没有 F1/Coverage 晋级门槛**。smoke 指标仅验证流程，不用于判断效果。正常结束的 `DONE` 仅表示程序流程完成。
+默认依次执行：12 项合成数据测试 → 为已有 A1 缓存建立空间索引 → 8 step GPU smoke 训练 → 一个块的 smoke 预测 → 正式训练 → best checkpoint 的完整五森林评价。测试失败或程序错误时会停止；**没有 F1/Coverage 晋级门槛**。smoke 指标仅验证流程，不用于判断效果。正常结束的 `DONE` 仅表示程序流程完成。
 
 已有数据应为 `data/candidate_mask_mlp_a1/manifest.json` 及其引用的各森林缓存；训练/验证名单直接沿用 A1 的 13/5 划分。`prepare` 只建立新的非重叠空间索引和训练 GT 总数，不生成原始点云 tiles、不重新运行 TreeLearn。索引一次只处理一片森林。
 
@@ -70,11 +70,13 @@ tail -n 5 logs/query_instance_decoder_v1/latest/train.log
 
 只有进入正式训练后才有 `train.log`；更早阶段查看 `tests.log`、`prepare.log`、`smoke.log` 或 `smoke_evaluate.log`。正式训练第 1 step、每 20 step、相邻 step 日志间隔超过 30 秒时均打印 loss 分项、查询数、质量分数、数据/计算耗时和内存；完整验证时改为逐森林及逐块预测进度。单步或索引本身超过 30 秒时，资源监控仍每 20 秒采样，不能仅凭日志暂未变化判断进程死亡。
 
-运行目录还包含 `pid.txt`、`commit.txt`、`resources.log` 以及每阶段的 GNU time 记录。训练每 500 step 保存 `last.pth`，完整验证时更新最优 `best.pth`。中断后先确认旧进程已退出，再执行：
+运行目录还包含 `pid.txt`、`commit.txt`、`resources.log` 以及每阶段的 GNU time 记录。训练每 500 step 保存 `last.pth`，并在完整验证前先保存当前 step，验证成功后更新最优 `best.pth`。验证失败的 checkpoint 标记 `pending_validation`，恢复时先重试该次验证，再继续训练。中断后先确认旧进程已退出，再执行：
 
 ```bash
 bash tools/query_segmentation/launch.sh resume
 ```
+
+恢复入口也先运行当前 12 项测试。兼容此前没有 `pending_validation` 字段的 checkpoint；本次原版第 2000 step 验证报错时尚未保存该步，按默认周期应从第 1500 step 恢复，启动日志中的 `start` 为实际读取值。
 
 若中断发生在首次正式 checkpoint 保存之前、只完成了部分 smoke，可单独恢复 smoke 后重新启动默认流程：
 
@@ -114,6 +116,6 @@ bash tools/query_segmentation/launch.sh external
 
 不会重新生成 Wytham 的 2009 个原始 tiles，也不会加载 A1/A1b 的 MLP 权重；使用本轮源域最优查询解码器。Wytham 不参加训练。它此前已用于开发分析，此处结果是探索性跨域评价。
 
-没有添加新依赖，复用服务器环境中的 PyTorch、NumPy、SciPy、PyYAML。上下文、查询和点 chunk 都有限额，掩码成员以磁盘文件保存；异常密集预测超过预算会明确报错，避免静默截点。目前服务器实际峰值和速度尚未测量，首轮结果以资源日志为准。主干保持冻结是本版成本与适配能力的取舍；若完整实例解码后仍无改善，再根据结果决定是否微调主干。
+没有添加新依赖，复用服务器环境中的 PyTorch、NumPy、SciPy、PyYAML。上下文、查询和点 chunk 都有限额。`max_block_memberships=20000000` 现表示单块掩码成员的内存缓存预算：超出后自动暂存到磁盘，不丢点、不删查询、不改变 NMS；日志打印 `block_masks_spilled`，结果记录 `spilled_blocks` 和单块最大成员数。临时文件随块处理完成释放，全林抑制前的提案文件仍受 `max_forest_memberships` 磁盘预算约束。首轮日志的训练峰值约为 CPU RSS 3.04 GiB、GPU 分配显存 336 MiB，这不是完整验证/全林推理的资源峰值。主干保持冻结是本版成本与适配能力的取舍；若完整实例解码后仍无改善，再根据结果决定是否微调主干。
 
 主要文件：[模型](../../tree_learn/query_segmentation/model.py)、[损失](../../tree_learn/query_segmentation/loss.py)、[推理](../../tree_learn/query_segmentation/inference.py)、[训练入口](../../tools/query_segmentation/run.py)、[配置](../../configs/experiments/query_instance_decoder/v1.yaml)、[服务器测试](../../tests/test_query_segmentation.py)。

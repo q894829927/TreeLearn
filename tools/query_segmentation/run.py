@@ -160,6 +160,21 @@ def evaluate(settings, model, rows, output, device, progress=1., partial=False):
     return result
 
 
+def complete_validation(settings, model, rows, work, device, checkpoint):
+    """A pending checkpoint survives inference errors and can retry this step."""
+    step = checkpoint['step']
+    result = evaluate(settings, model, rows, work / 'validation' / f'step_{step:06d}',
+                      device, checkpoint['sampler_progress'])
+    improved = result['refined_macro']['f1'] > checkpoint['best_f1']
+    checkpoint['best_f1'] = max(checkpoint['best_f1'], result['refined_macro']['f1'])
+    checkpoint['pending_validation'] = False
+    if improved:
+        save_checkpoint(work / 'best.pth', checkpoint)
+        write_json(work / 'best_validation.json', dict(step=step, **result))
+    save_checkpoint(work / 'last.pth', checkpoint)
+    return checkpoint['best_f1']
+
+
 def train(settings, resume=False, smoke=False):
     rows = entries(settings)
     signature = training_signature(settings, rows)
@@ -207,6 +222,9 @@ def train(settings, resume=False, smoke=False):
     last_log = started
     print(json.dumps(dict(event='train_start', smoke=smoke, steps=maximum, start=start,
                           parameters=sum(p.numel() for p in model.parameters()), device=str(device))), flush=True)
+    if resume and last.get('pending_validation', False):
+        print(json.dumps(dict(event='resume_validation', step=start)), flush=True)
+        best_f1 = complete_validation(settings, model, validation_rows, work, device, last)
     step = start
     for step in range(start + 1, maximum + 1):
         model.train()
@@ -260,23 +278,19 @@ def train(settings, resume=False, smoke=False):
             write_json(work / 'progress.json', report)
             last_log = time.monotonic()
         validation = (not smoke and (step % cfg['evaluate_every'] == 0 or step == maximum))
-        result, improved = None, False
-        if validation:
-            result = evaluate(settings, model, validation_rows, work / 'validation' / f'step_{step:06d}',
-                              device, progress)
-            improved = result['refined_macro']['f1'] > best_f1
-            best_f1 = max(best_f1, result['refined_macro']['f1'])
         if validation or step % cfg['save_every'] == 0 or step == maximum:
             checkpoint = dict(schema=1, model=model.state_dict(), optimizer=optimizer.state_dict(), step=step,
                               best_f1=best_f1, history=history, signature=signature, smoke=smoke,
                               settings=copy.deepcopy(settings), sampler_progress=progress,
-                              source_code=code_sources())
+                              source_code=code_sources(), pending_validation=validation)
+            # Save the updated weights BEFORE forest inference can fail.
             save_checkpoint(work / 'last.pth', checkpoint)
-            if improved or smoke:
-                save_checkpoint(work / 'best.pth', checkpoint)
-            if improved:
-                write_json(work / 'best_validation.json', dict(step=step, **result))
             write_json(work / 'history.json', history)
+            print(json.dumps(dict(event='checkpoint_saved', step=step, pending_validation=validation)), flush=True)
+            if validation:
+                best_f1 = complete_validation(settings, model, validation_rows, work, device, checkpoint)
+            elif smoke:
+                save_checkpoint(work / 'best.pth', checkpoint)
     summary = dict(smoke=smoke, step=step, parameter_count=sum(p.numel() for p in model.parameters()),
                    best_validation_f1=best_f1 if best_f1 >= 0 else None,
                    checkpoint=str(work / 'best.pth'), training_forests=[r['plot'] for r in training_rows],
