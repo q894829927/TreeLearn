@@ -9,7 +9,7 @@ mkdir -p -- "$base" logs/candidate_mask_mlp/background
 
 if [[ ${1:-} != --worker ]]; then
     mode=${1:-all}
-    case "$mode" in all|resume|evaluate|external) ;; *) printf 'Use all, resume, evaluate or external.\n' >&2; exit 2;; esac
+    case "$mode" in all|resume|evaluate|external|diagnose) ;; *) printf 'Use all, resume, evaluate, external or diagnose.\n' >&2; exit 2;; esac
     run_dir=$(mktemp -d "$base/run_$(date +%Y%m%dT%H%M%S)_XXXXXX")
     nohup bash "$0" --worker "$run_dir" "$mode" >"$run_dir/console.log" 2>&1 < /dev/null &
     printf '%s\n' "$!" >"$run_dir/pid.txt"
@@ -85,5 +85,9 @@ case "$mode" in
         ;;
     external)
         run_stage external python -u tools/query_segmentation/run.py evaluate --config "$config" --external
+        ;;
+    diagnose)
+        run_stage tests python -m unittest discover -s tests -p test_query_segmentation_diagnosis.py -v
+        run_stage diagnose python -u tools/query_segmentation/diagnose.py --config "$config"
         ;;
 esac
