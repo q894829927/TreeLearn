@@ -1,6 +1,6 @@
 # A1b：原归属候选的相对排序监督
 
-日期：2026-10-17。代码已实现，待服务器运行；本地只做静态检查。依据 [CPU 诊断回传](candidate_mask_mlp_failure_audit_results_20261017_zh.md) 选择此单变量实验，不声称已定位唯一主因或已取得提升。
+日期：2026-10-17；结果更新：2026-10-18。服务器已完成训练与完整源域评价，A1b 的 Coverage +0.561 pp、F1 -1.656 pp、Commission +3.359 pp，未通过预设条件，详见 [A1b 结果与诊断步骤](candidate_mask_mlp_a1b_results_20261018_zh.md)。下文保留预定协议和复现命令，无需重跑训练。本地只做静态检查及回传 JSON 核对。方案依据 [CPU 诊断回传](candidate_mask_mlp_failure_audit_results_20261017_zh.md) 选择，未证明唯一主因或取得整体提升。
 
 ## 1. 固定什么，改变什么
 
