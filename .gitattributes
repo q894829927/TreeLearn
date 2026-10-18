@@ -1,2 +1,3 @@
 tools/mask_refinement/run_external.sh text eol=lf
 tools/mask_refinement/run_owner_rank.sh text eol=lf
+tools/query_segmentation/launch.sh text eol=lf

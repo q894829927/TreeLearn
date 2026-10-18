@@ -1,0 +1,50 @@
+# Practical first architecture. Reuses A1 caches; no backbone rerun or gate.
+source_config: configs/experiments/candidate_mask_mlp/step1.yaml
+external_cache_root: data/candidate_mask_mlp_a1_wytham_s42
+index_root: data/query_instance_decoder_v1_index
+work_dir: work_dirs/query_instance_decoder_v1_s42
+seed: 42
+
+model:
+  dim: 128
+  layers: 3
+  heads: 4
+  feedforward: 512
+  num_queries: 256
+  coverage_queries: 32
+  coordinate_scale: 16.0
+  vote_sigma: 1.0
+
+blocks:
+  radius: 16.0
+  core_radius: 12.0
+  stride: 8.0
+  token_voxel: 0.4
+  max_tokens: 4096
+  train_points: 8192
+
+training:
+  device: cuda
+  steps: 12000
+  smoke_steps: 8
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  lr_warmup: 500
+  sampler_warmup: 500
+  sampler_transition: 1500
+  grad_clip_norm: 1.0
+  statistics_points_per_forest: 10000
+  evaluate_every: 2000
+  save_every: 500
+  log_every: 20
+
+inference:
+  mask_threshold: 0.5
+  quality_threshold: 0.4
+  nms_iou: 0.5
+  nms_containment: 0.8
+  chunk_size: 8192
+  max_block_memberships: 20000000
+  max_forest_memberships: 1000000000
+  log_every_blocks: 5
+  keep_proposals: false
