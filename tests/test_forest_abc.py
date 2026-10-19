@@ -13,6 +13,35 @@ import torch
 from tree_learn.forest_abc.data import RawForest, neighborhood, prepare_index
 from tree_learn.forest_abc.loss import instance_loss
 from tree_learn.forest_abc.modules import RegionGatedQueryUpdate, farthest_points
+from tree_learn.forest_abc.runtime import resolve_cuda_device
+
+
+class ForestABCDeviceTests(unittest.TestCase):
+    def test_unindexed_cuda_resolves_current_logical_device(self):
+        with patch('torch.cuda.is_available', return_value=True), \
+                patch('torch.cuda.current_device', return_value=2), \
+                patch('torch.cuda.set_device') as selected:
+            device = resolve_cuda_device('cuda')
+        self.assertEqual(device, torch.device('cuda:2'))
+        selected.assert_called_once_with(2)
+
+    def test_explicit_cuda_index_is_selected_and_preserved(self):
+        with patch('torch.cuda.is_available', return_value=True), \
+                patch('torch.cuda.current_device') as current, \
+                patch('torch.cuda.set_device') as selected:
+            device = resolve_cuda_device('cuda:1')
+        self.assertEqual(device, torch.device('cuda:1'))
+        current.assert_not_called()
+        selected.assert_called_once_with(1)
+
+    def test_cpu_and_unavailable_cuda_fail_before_device_selection(self):
+        for specification in ('cpu', 'cuda'):
+            with self.subTest(device=specification), \
+                    patch('torch.cuda.is_available', return_value=False), \
+                    patch('torch.cuda.set_device') as selected:
+                with self.assertRaisesRegex(RuntimeError, 'requires CUDA'):
+                    resolve_cuda_device(specification)
+            selected.assert_not_called()
 
 
 class ForestABCModuleTests(unittest.TestCase):

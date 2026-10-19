@@ -112,4 +112,10 @@ work_dirs/forest_abc_v1_s42/external_evaluation/brief.json
 
 评价沿用 `aligned_voxels_ignore_negative_gt_iou_gt_0.5`，包括原有 FP 计数规则和按 GT 等权的 Coverage。Wytham 已参与此前开发分析，本轮仍按已使用的外部森林报告。
 
-提交前仅在开发机完成了 12 个 Python 文件的 AST/编译静态检查、Bash `-n` 语法检查、文档相对链接和 Git 空白检查。没有导入模型执行，也没有在开发机运行上述单元测试或 CUDA 检查。
+提交前仅在开发机完成了 Python 文件的 AST/编译静态检查、Bash `-n` 语法检查、文档相对链接和 Git 空白检查。没有导入模型执行，也没有在开发机运行上述单元测试或 CUDA 检查。
+
+## 首次 doctor 的设备编号兼容修复
+
+首次服务器运行停在 `torch.cuda.mem_get_info(torch.device('cuda'))`：该服务器版本要求设备带明确编号。现在在统一设备入口把 `cuda` 解析为当前逻辑设备（如 `cuda:0`），保留显式的 `cuda:1` 等设置，并同步设置当前设备；环境检查向设备名称/显存查询传整数编号并打印解析结果。这也覆盖后续训练、检查与评估入口，配置不需要修改。
+
+该次失败尚未进入 prepare/check/train，不存在需要恢复的本次训练断点。拉取修复后仍运行 `bash tools/forest_abc/run.sh all`，不要使用 resume。补充了设备解析的 mock 回归测试，留在服务器执行，本地只做静态检查。

@@ -25,6 +25,7 @@ from tree_learn.forest_abc.data import RawForest, entries, prepare_rows
 from tree_learn.forest_abc.model import ForestABC, tensor_block
 from tree_learn.forest_abc.loss import instance_loss
 from tree_learn.forest_abc.inference import predict_forest
+from tree_learn.forest_abc.runtime import resolve_cuda_device
 
 
 def configuration(path):
@@ -70,10 +71,7 @@ def seed_everything(seed):
 
 
 def device_for(config):
-    device = torch.device(config['training']['device'])
-    if device.type != 'cuda' or not torch.cuda.is_available():
-        raise RuntimeError('Full sparse backbone requires CUDA. Run in the server TreeLearn environment.')
-    return device
+    return resolve_cuda_device(config['training']['device'])
 
 
 def memory(device):
@@ -122,8 +120,9 @@ def doctor(config):
     for module in ('spconv.pytorch', 'scipy.spatial', 'yaml'):
         importlib.import_module(module)
     print(json.dumps(dict(python=sys.executable, torch=torch.__version__,
-                          torch_cuda=torch.version.cuda, gpu=torch.cuda.get_device_name(device),
-                          free_gpu_bytes=torch.cuda.mem_get_info(device)[0],
+                          torch_cuda=torch.version.cuda, device=str(device), device_index=device.index,
+                          gpu=torch.cuda.get_device_name(device.index),
+                          free_gpu_bytes=torch.cuda.mem_get_info(device.index)[0],
                           inputs='coords only; no frozen features or teacher predictions'), indent=2), flush=True)
 
 
