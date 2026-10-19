@@ -1,90 +1,119 @@
-# 近期期刊点云模块：面向森林实例分割的组合候选
+# 有具体源码且容易移植的期刊点云模块
 
-检索日期：2026-10-19。用户要求优先从近期三维点云期刊工作寻找可组合模块，以实际效果为目标。检索范围以 TPAMI、IJCV、ISPRS Journal of Photogrammetry and Remote Sensing、IEEE TGRS 为主，不将会议论文或只有预印本的工作混写为期刊论文。
+筛选日期：2026-10-19。本版按用户最新要求重筛：没有对应模型源码的跳过；跨框架重写、需要额外模态/标注、依赖新专用 CUDA 算子或大幅重做数据流程的跳过。目标是先得到有效的组合架构。
 
-本文依据可访问的期刊/作者机构页面、公开摘要和作者源码筛选；未取得的付费全文不宣称已阅读全文，也不据此声称完成论文复现。没有运行任何模型或实验。
+本版替代此前的 CoBa + DGLSS++ 推荐。只做了期刊信息、作者仓库和具体类/调用位置的静态核验，没有安装依赖，没有运行任何模型、训练、推理或测试。以下“容易移植”指所选子模块，而不是整个原仓库可以直接运行。
 
-## 1. 筛出的四项
+## 1. 保留的模块
 
-| 工作 | 期刊及时间 | 值得借用的部分 | 本项目的接入点 | 代码核验与优先级 |
-|---|---|---|---|---|
-| DGLSS++：Toward Enhanced Representation Learning for Single-Source Domain Generalization in LiDAR Semantic Segmentation | TPAMI，2026 年 1 月在线，48(6)，2026 年 6 月卷期 | 不同稀疏度视图间的特征一致性，尤其是 GMSIFC 的混合体素过滤思想 | 主干训练目标；先做森林适配的简化变体 | 已核验期刊和作者机构记录；找到的 DGLSS 公开仓库 README 仍对应 CVPR 2023，未核验 ++ 完整实现。训练模块优先 |
-| CoBa：Contextual boundary-aware network for semantic segmentation of complex land transportation point cloud scenes | ISPRS Journal，230，18–31，2025 年 12 月 | 高斯增强位置编码 | 主干输出到查询/掩码分支之间的局部几何残差分支 | 已读取核心源码；TensorFlow 实现，需移植为 PyTorch。结构模块优先 |
-| P3Former：Position-Guided Point Cloud Panoptic Segmentation Transformer | IJCV，133，275–290，2025 年 1 月卷期；2024 年 7 月已在线 | Mixed-parameterized Positional Embedding、Position-Aware Segmentation、Masked Focal Attention | 实例解码中的位置表达和注意力更新 | 作者 PyTorch/MMDetection3D 仓库可访问；属于较早在线的期刊工作，不冒称 2026 新方法。解码器备选 |
-| PointGrad：A Unified Spatially Varying Tensor Gradient Operator for Point Cloud Segmentation | TGRS，2026 | 方向梯度式局部几何算子 | 局部结构增强分支 | 作者页面确认期刊工作；所查公开仓库只有 README，未见模型源码。保留候选，第一轮不依赖它 |
+| 优先级 | 来源与准确时间 | 已读取的具体源码 | 接入位置与改动量 |
+|---|---|---|---|
+| 1 | TripleMixer，IEEE TIP 34:7712–7727，2025；2024 预印本、2025 更新与接收 | `network/geometry.py` 的 `GeoMixer`，约 46 行类定义；`network/model.py` 确认实际调用 | 主干输出进入实例解码器前；提供特征和局部邻居索引，增加维度转换/残差包装 |
+| 2 | P3Former，IJCV 133:275–290，2025 年 1 月卷期；2024-07-27 已在线 | `p3former/decode_heads/p3former_head.py` 的 `_Masked_Focal_Attention`，以及 `_Transformer_Decoder` 的调用 | 替换一层或数层 query 更新；移除注册器，将 LN/GELU 构建器改成原生 PyTorch |
+| 3，轻量备选 | GEPT-Net，ISPRS Journal 221:20–43，2025 年 3 月 | `models/GEPT_Net/gept_net_base.py` 的 `ChannelAttention`；主网络 forward 确认调用 | 主干特征通道门控；十几行主体，维度转换即可；不是完整 GECA 复现 |
+| 同源轻量备选 | TripleMixer，TIP 2025，同第一项 | `network/mixer.py` 的 `ChaMixer` | 原生通道 MLP + 可学习逐通道缩放 + 残差；若只需最轻模块可先试，不与主干已有 FFN 重复堆叠 |
 
-一手来源：
+这些模块分别来自三篇论文，TripleMixer 的两个子模块不能算两篇不同研究。近期与容易移植无法同时满足时，保留准确日期，不拿期刊卷期把早期工作说成全新的方法。
 
-- DGLSS++：[IEEE 期刊页](https://ieeexplore.ieee.org/document/11355705/)、[作者机构记录及摘要](https://pure.kaist.ac.kr/en/publications/toward-enhanced-representation-learning-for-single-source-domain-/)、[旧版作者代码](https://github.com/yskang05/DGLSS)。DOI：10.1109/TPAMI.2026.3654352。
-- CoBa：[期刊页](https://www.sciencedirect.com/science/article/pii/S0924271625003582)、[作者仓库](https://github.com/Kange7/CoBa)、[核心文件](https://github.com/Kange7/CoBa/blob/main/Coba/model/coba.py)。DOI：10.1016/j.isprsjprs.2025.09.006。
-- P3Former：[IJCV 期刊页](https://link.springer.com/article/10.1007/s11263-024-02162-z)、[当前作者仓库](https://github.com/InternRobotics/P3Former)。DOI：10.1007/s11263-024-02162-z。
-- PointGrad：[作者发表列表](https://baorina.github.io/)、[论文 DOI](https://doi.org/10.1109/TGRS.2026.3686390)、[所查仓库](https://github.com/baorina/PointGradNet)。仓库存在不等于模型代码已经发布。
+一手来源与直接代码：
 
-## 2. 第一优先组合：局部结构加密度鲁棒性
+- TripleMixer：[作者仓库及期刊引用](https://github.com/Grandzxw/TripleMixer)、[TIP 论文 DOI](https://doi.org/10.1109/TIP.2025.3629047)、[GeoMixer 类](https://github.com/Grandzxw/TripleMixer/blob/main/network/geometry.py#L19)、[实际调用](https://github.com/Grandzxw/TripleMixer/blob/main/network/model.py#L34)、[ChaMixer 类](https://github.com/Grandzxw/TripleMixer/blob/main/network/mixer.py#L82)、[作者预印本](https://arxiv.org/abs/2408.13802)。源码以作者 Grandzxw 仓库为准，不依赖镜像仓库。
+- P3Former：[IJCV 期刊页面](https://link.springer.com/article/10.1007/s11263-024-02162-z)、[MFA 类](https://github.com/InternRobotics/P3Former/blob/main/p3former/decode_heads/p3former_head.py#L16)、[原解码器配置和调用](https://github.com/InternRobotics/P3Former/blob/main/p3former/decode_heads/p3former_head.py#L124)。
+- GEPT-Net：[作者机构期刊记录](https://dare.uva.nl/id/65fe5641-5918-45f8-a4ca-4eedfefbd26d)、[ChannelAttention 类](https://github.com/jdjiang312/GEPT-Net/blob/main/models/GEPT_Net/gept_net_base.py#L529)、[实际调用](https://github.com/jdjiang312/GEPT-Net/blob/main/models/GEPT_Net/gept_net_base.py#L741)。DOI：10.1016/j.isprsjprs.2025.01.032。
 
-**A = 完整 ForestFormer3D；B = CoBa 风格高斯局部位置增强；C = DGLSS++ 思路的稀疏视图一致性训练。**
+## 2. 第一优先：TripleMixer 的 GeoMixer
 
-这是一项工程组合建议：B 是结构模块，C 是训练模块。目标分别是改善局部结构表示，以及减少特征对点密度的依赖。两项不占用同一个 query 接口，C 不增加推理时的视图分支。
-
-与[前案：混合查询加查询竞争](abc_forest_query_plan_20261019_zh.md)共用完整基线 A；前案保留为查询模块候选。本次新增期刊模块，不把所有候选一次装进模型。若已有可运行的 SaTv2 完整底座，B/C 同样可以接入其主干特征；当前工程起点继续使用已核验接口的 ForestFormer3D。
-
-推荐这组组合的理由来自本项目已观察到的跨森林表现差异与复杂树冠分离需求，但这些现象不能证明密度变化就是失败的唯一原因，也不能证明 B/C 在森林数据上必然有效。
-
-## 3. B 的具体移植
-
-作者核心源码提供了相对邻域坐标的高斯编码，例如每个轴的 `exp(-delta_axis**2 / (2*sigma**2))`，并与几何信息融合。接入本项目时只借用这一局部编码思想，不移植整个 TensorFlow 网络。
-
-拟采用的 PyTorch 分支接口：
+实际签名：
 
 ```text
-输入：本块体素坐标 X[N,3]、主干特征 F[N,D]
-邻域：带数量上限的局部邻居索引
-几何编码：相对坐标、距离、若干尺度的轴向高斯响应
-聚合：投影后与邻居特征联合聚合
-输出：F_enhanced = F + gate * local_geometry_branch(X,F)
+GeoMixer(channels_in, channels_out)
+forward(x[B,Cin,N], neighbors[B,K,N]) -> [B,Cout,N]
 ```
 
-`gate` 从 0 开始，输出维度仍为 D；先在一个尺度接入，原查询选择、掩码预测和质量分支读取增强后的特征。局部坐标使用共同块坐标系，距离尺度与体素大小对应。多尺度响应和门控是本项目拟采用的变体，不是作者代码的逐项复现。
+源码用 `BatchNorm`、1×1 卷积、`torch.gather`、邻居特征差、邻居维 softmax 和加权求和。它把逐点投影与局部聚合分支拼接后再投影；不是一个只对每个点独立运行的 MLP。
 
-训练仍由 A 的实例/语义目标优化。邻域边分块聚合，避免一次保存整个森林的 `N × K × D` 张量；保持原有流式块处理方式。
+原始类不在内部查询邻居。作者数据入口通过 `scipy.spatial.cKDTree` 构造坐标近邻，源码第一行邻居被当作自身跳过。因此适配时应显式把自身放在第 0 行，至少再有一个有效邻居；不能依赖重复坐标时 KDTree 恰好返回的顺序。少点块和 padding 要有明确处理，不能用无效索引参与聚合。
 
-**不直接照搬语义边界损失。** 两棵相邻树常属于同一语义类别，树/非树或 wood/leaf 边界不能代替树实例边界。如果以后增加边界监督，需要使用已有实例 ID 构造已知标签点对，未知实例点对排除。第一版只接几何分支，避免同时改结构和监督。
-
-## 4. C 的具体移植
-
-期刊工作的核心动机是源域训练下的稀疏/稠密变化一致性；原任务是道路 LiDAR 语义分割。森林第一版借鉴其中的特征一致性思路，不冒称完整 GMSIFC/LSCC 实现。
-
-1. 从同一个源域森林块生成原密度视图和随机稀疏视图，保存原始点 ID 与体素映射。坐标变换和归一化参考保持一致。
-2. 共享 A+B 的模型参数分别前向，沿共同物理点或可靠体素对应取得两份特征。只在相同来源的有效对应上约束一致性，不跨任意邻点做最近邻强配对。
-3. 用于一致性目标的原密度特征停止梯度，稀疏视图对齐其归一化特征；两个视图的原生任务损失照常反传，避免只学出常量特征。
-4. 以逐步启用的小权重加入一致性项；特征投影头仅用于训练，推理时不运行第二视图。
-
-示意目标：
+森林接法：
 
 ```text
-loss = task_loss(original_view)
-     + task_loss(sparse_view)
-     + lambda_consistency * feature_consistency(valid_correspondences)
+块内坐标 X[N,3] + 可训练主干特征 F[N,D]
+  -> 坐标局部近邻索引
+  -> GeoMixer(F 的维度转换, neighbors)
+  -> 转回 [N,D]
+  -> 残差接回 F
+  -> 原实例解码器
 ```
 
-森林适配尤其要过滤混合体素：除了未知标签，也检查是否混入多个树实例，避免强迫相邻两树的混合特征一致。原论文的语义类别过滤不能自动解决同类不同树的混合问题。
+只借用特征聚合类，在森林实例损失下联合训练。它接收可配置通道数，不强制需要反射强度；给它已有学习特征是本项目适配，不是原天气去噪模型的完整复现。不能把天气去噪权重直接用于删除枝叶点。
 
-第一版不直接约束两个视图的第 q 个 query 掩码相等，因为查询采样后顺序及身份可能变化。也不首先移植多语义类别的原型相关性损失：树/非树类别有限，类别相关性本身不足以区分邻树实例。
+该类本身不需要新 CUDA 扩展；近邻使用现有空间索引或 CPU KDTree，不能对整片森林建立 N×N 距离矩阵。先接一层、一个尺度、有限邻居，例如 8/16；优先复用受控点数的块/粗尺度输出。原实现会创建邻居特征张量，其存储随 N×K×D 增长，不能把“模块少”当成“整林内存恒定”。训练时 BatchNorm 的统计依赖批次/点集，任意拆分聚合会改变训练行为，不能未经验证宣称分块前后完全相同。
 
-C 只使用源域训练块，不需要 Wytham GT 或目标森林参与训练。使用目标域无标签点云另做适配是不同设置。训练需要第二次前向，额外计算和显存应记录；推理仍是一套模型、一次前向。
+其适用性是设计推断：显式处理局部特征差，可能帮助相邻树冠和细枝结构的表征。原论文是恶劣天气去噪，不能以其去噪收益证明森林实例 F1 会提高，也不把它直接描述成解决重复查询的模块。
 
-## 5. 两个备选模块怎么用
+## 3. 第二优先：P3Former 的 Masked Focal Attention
 
-P3Former 的 PA-Seg/MFA 更接近实例解码问题，可作为后续替换 decoder 位置表达的候选。森林版本要保留高树的竖直跨度，并避免固定空间窗口截断偏冠或倾斜树。ForestFormer3D 已有掩码注意力，单纯再加普通 attention 不等于移植了 MFA。先读清其具体更新和位置参数，再独立与 A 对比。
+实际签名及输出：
 
-PointGrad 从题目和作者发表记录看与局部几何学习相关，但当前源码发布状态不足以支持“直接拿模块接入”。若以后根据全文重实现，应明确实现来源和与论文的差别；不因此拖延已有可读代码的 GPE 分支。
+```text
+forward(queries[Q,D], features[N,D], masks[Q,N]) -> [Q,1,D]
+```
 
-另检索到多模态预训练、时序点云、网格重建等期刊方向。它们依赖本项目不一定具有的图像、时间序列或网格，未作为第一轮模块推荐。只因为发表在目标期刊，不代表适合移植到本任务。
+原解码器把 `in_channels`、`feat_channels`、`out_channels` 都设为相同的 D；不能直接照抄类定义里不相等的默认通道组合。接入不同解码器时，将输出的长度为 1 的轴按原接口处理。
 
-## 6. 第一轮实验
+源码的关键行为是：
 
-保持一个基线 A，按 A、A+B、A+C、A+B+C 进行四组实验。数据划分、初始化来源、主任务损失、查询预算和输出规则保持一致，记录 C 增加的训练计算。先用一个随机种子判断方向，有效后再补重复种子。
+1. 用上一轮掩码 logits 经 sigmoid 后大于 0.5 的区域，汇总对应点特征；原代码使用求和，不是均值。
+2. 从 query 生成动态参数，与区域汇总特征交互。
+3. 用 input/update 两组门控合成新 query，再投影、归一化和激活。
 
-源域看 F1、TP/FN、实例重复和按 GT 树等权的最佳 IoU Coverage；Wytham 看相同规则能否改善原有的召回与覆盖退化。它已经参与本项目开发分析，不能把这轮结果重新当成全新的独立测试。论文的语义 mIoU 或别的协议下的覆盖率不直接与当前实例指标比较。
+这和普通 masked multihead cross-attention 不同，不能把 A 已有的掩码注意力重新命名成 MFA。所选类使用的归一化、激活构建器可分别替换成 `nn.LayerNorm`、`nn.GELU`，去掉模型注册装饰器；不需要搬入整个 MMDetection3D、Cylinder3D 主干和稀疏卷积。主模型 A 仍使用自己的既有依赖。
 
-本次仅核验资料和公开源码、保存设计文档。没有改训练代码，没有在本地训练、推理或测试。完整可执行的模块移植与服务器前台运行入口属于后续实现交付，当前不提供不存在的命令。
+森林接法：保留第一层原有 cross-attention，以已有中间预测产生 mask logits；先把一层后续 query 更新替换成 MFA，保留原 self-attention、FFN、质量预测和实例损失。不要同时移植 PA-Seg、柱坐标输入和匹配策略。
+
+需要保留的实现注意点：掩码 hard threshold 不对 mask logits 传梯度；空掩码需要回退到原 query 或原更新；N 较大时不能额外复制多份 Q×N 掩码。以上属于接入细节。若改用 soft mask 或按点数求平均，必须明确记为本项目变体，不能说是原始 MFA。
+
+目标是让 query 更新读取自己目前解释的区域，检验掩码质量和树召回能否改善。它没有显式的“重复查询为负样本”机制，不声称直接替代 CompetitorFormer 的竞争模块。
+
+## 4. 更轻的备选怎么取舍
+
+GEPT-Net 的 `ChannelAttention` 是 `AdaptiveAvgPool1d -> Linear -> ReLU -> Linear -> Sigmoid` 的 SE 类门控。作者实际把 `point.feat[N,C]` 变成 `[N,C,1]` 调用，因此其公开实现的这一处是逐点通道门控，不是跨整片森林的全局特征池化。
+
+只提取该类，不需要移植其 Pointcept/PTv3 主干，也不强制计算 FPFH 或补反射强度。这样得到的是普通通道注意力的森林适配；不能包装成完整 GECA 或独立提出的新机制。它适合作为低成本对照，优先级低于局部几何聚合和实例查询更新。GEPT 源码中的 RPE 也与 PTv3 结构同源，不另当成一项新贡献。
+
+TripleMixer 的 `ChaMixer` 接受 `[B,C,N]` 并返回同形状，核心是 `tokens + DropPath(scale(MLP(norm(tokens))))`。选择 BatchNorm 路径即可避开原文件 LayerNorm 路径的额外维度约定；拆类时不导入它所在文件的 wavelet 分支。它与常规 FFN 功能相近，先检查基线中有无重复，再决定是否用作轻量对照。
+
+## 5. 已跳过的候选及具体原因
+
+| 工作/部分 | 跳过原因 |
+|---|---|
+| CoBa | 已读核心实现为 TensorFlow；按用户要求不再做跨框架重写 |
+| DGLSS++ | 本次核查找到的作者仓库仍是 DGLSS 早期实现，未取得对应 ++ 模型/训练模块源码 |
+| PointGrad | 所查仓库未见可用模型实现，不能仅按论文题目推荐移植 |
+| BGPSeg 的 BGFE | `boundaryops` 专用 CUDA 邻域算子、边图和边界预测/监督一起参与，非独立即插模块 |
+| PointGST 的 PCSA | forward 需要全局/局部图谱基 U、sub_U 和索引，配套谱分解流程超出简单特征插入 |
+| InvSpaceNet/PointSegBase | 主要依赖语义类别原型/类别层级，不能直接把类别不平衡或语义层级当成不同树实例的问题 |
+| LPFP/PCLN 完整主干 | 读到额外点云内核和多级采样聚合依赖，当前不为小模块引入完整新主干 |
+| TripleMixer 的 FreMixer | 需要多个二维平面的格点映射和小波处理，第一轮不增加该数据流程 |
+| GEPT-Net 完整主干/完整 GECA | 涉及 FPFH、强度及完整稀疏主干流程；只保留确实独立的通道类作为备选 |
+
+跳过表示不进入当前易移植清单，不是论文无效，也不断言将来永远没有对应代码。BGPSeg 等是读到具体实现后因成本排除，不能继续沿用此前“可能合适”的初步判断。
+
+## 6. 当前建议的 A+B+C
+
+**A = 完整 ForestFormer3D；B = TripleMixer GeoMixer；C = P3Former MFA。**
+
+```text
+点云块 -> A 的可训练主干 -> B 局部特征聚合
+       -> A 原有查询初始化/首层解码
+       -> C 区域汇总与门控查询更新
+       -> 原 self-attention/FFN、整树 mask 与质量输出
+```
+
+A 的作者代码已经有 `[N,D]` 的 `inst_feats`、`[Q,D]` 的 queries 及迭代掩码预测，接口适合接入所选子模块：[ForestFormer3D 解码器](https://github.com/SmartForest-no/ForestFormer3D/blob/main/oneformer3d/query_decoder.py#L286)。实际实现仍需检查当前训练配置使用哪个 decoder 类，以及特征/掩码是否处于相同的点或超点索引空间，不能按文件里第一个类盲接。
+
+这个组合中 B 改局部特征，C 改查询更新，接口分工明确。完整 A 的建立工作独立于“小模块容易移植”；现有冻结 TreeLearn 特征上的 v1 不视为 A，也不应继续用它替代完整主干联合训练。
+
+第一轮按 A、A+B、A+C、A+B+C 运行，同一数据与输出规则先比较单种子实际方向。已有源域基线高，重点同时看 Wytham 的 TP/FN、F1 与 Coverage，而不是只看减少 FP。效果改善后再补细分树尺寸/密度分析与多种子。Wytham 已用于开发分析，这轮按已使用的外部森林报告，不重新称为全新盲测。
+
+下一次实现从完整 A 的服务器可运行入口开始，随后加可开关的 B，再加 C；提供终端前台、实时输出的命令。本文没有模型代码修改，不提供尚不存在的实验入口，也未在本地运行实验。
