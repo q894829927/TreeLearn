@@ -1,0 +1,936 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "analysis_only": true,
+  "executed_training_or_model_inference": false,
+  "source_train": {
+    "files": 13,
+    "instances": 4883,
+    "points": 920277346,
+    "unknown_fraction": 0.0,
+    "z_extent_p10_p50_p90_m": [
+      13.55,
+      30.07,
+      35.878
+    ],
+    "z_extent_below_5m": 0,
+    "z_extent_below_9m": 0,
+    "z_extent_below_10m": 57,
+    "z_extent_below_15m": 671,
+    "xy_max_extent_p10_p50_p90_m": [
+      5.629999999999999,
+      9.719999999999999,
+      14.088
+    ],
+    "xy_max_extent_above_32m": 2,
+    "raw_points_per_tree_p10_p50_p90": [
+      14296.4,
+      89156.0,
+      218011.40000000008
+    ],
+    "intensity_nonzero_points": 0
+  },
+  "source_validation": {
+    "files": 5,
+    "instances": 1782,
+    "points": 386520250,
+    "unknown_fraction": 0.0,
+    "z_extent_p10_p50_p90_m": [
+      13.272000000000002,
+      32.715,
+      38.84
+    ],
+    "z_extent_below_5m": 0,
+    "z_extent_below_9m": 0,
+    "z_extent_below_10m": 37,
+    "z_extent_below_15m": 227,
+    "xy_max_extent_p10_p50_p90_m": [
+      5.740999999999995,
+      10.379999999999995,
+      14.899999999999999
+    ],
+    "xy_max_extent_above_32m": 0,
+    "raw_points_per_tree_p10_p50_p90": [
+      13848.300000000001,
+      105650.0,
+      259393.30000000002
+    ],
+    "intensity_nonzero_points": 0
+  },
+  "all_automatic": {
+    "files": 18,
+    "instances": 6665,
+    "points": 1306797596,
+    "unknown_fraction": 0.0,
+    "z_extent_p10_p50_p90_m": [
+      13.494000000000002,
+      30.540000000000003,
+      36.72
+    ],
+    "z_extent_below_5m": 0,
+    "z_extent_below_9m": 0,
+    "z_extent_below_10m": 94,
+    "z_extent_below_15m": 898,
+    "xy_max_extent_p10_p50_p90_m": [
+      5.640000000000001,
+      9.900000000000006,
+      14.340000000000003
+    ],
+    "xy_max_extent_above_32m": 2,
+    "raw_points_per_tree_p10_p50_p90": [
+      14171.6,
+      93014.0,
+      228710.8000000001
+    ],
+    "intensity_nonzero_points": 0
+  },
+  "manual_L1W_eval": {
+    "files": 1,
+    "instances": 156,
+    "points": 20434648,
+    "unknown_fraction": 0.40828302988140536,
+    "z_extent_p10_p50_p90_m": [
+      18.659999999999997,
+      33.06,
+      35.385000000000005
+    ],
+    "z_extent_below_5m": 0,
+    "z_extent_below_9m": 0,
+    "z_extent_below_10m": 0,
+    "z_extent_below_15m": 5,
+    "xy_max_extent_p10_p50_p90_m": [
+      8.395000000000001,
+      12.135000000000002,
+      15.755000000000003
+    ],
+    "xy_max_extent_above_32m": 0,
+    "raw_points_per_tree_p10_p50_p90": [
+      22533.0,
+      55179.5,
+      100030.5
+    ],
+    "intensity_nonzero_points": 0
+  },
+  "Wytham": {
+    "files": 1,
+    "instances": 877,
+    "points": 54592456,
+    "unknown_fraction": 0.5353946156956192,
+    "z_extent_p10_p50_p90_m": [
+      6.1032,
+      14.689,
+      22.6548
+    ],
+    "z_extent_below_5m": 58,
+    "z_extent_below_9m": 214,
+    "z_extent_below_10m": 269,
+    "z_extent_below_15m": 451,
+    "xy_max_extent_p10_p50_p90_m": [
+      3.2250000000000005,
+      6.097999999999999,
+      10.6606
+    ],
+    "xy_max_extent_above_32m": 0,
+    "raw_points_per_tree_p10_p50_p90": [
+      1367.0000000000005,
+      10080.0,
+      52944.799999999996
+    ],
+    "intensity_nonzero_points": 0
+  },
+  "local_geometry_crops_completed": 15,
+  "local_geometry_variants": {
+    "0.2_None_all": {
+      "crops": 15,
+      "input_fraction_min_median_max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "oracle_local_coverage_mean": 0.9936581022464285,
+      "oracle_local_recall_mean": 1.0,
+      "crops_with_a_core_tree_without_majority_anchor": 1,
+      "max_missing_core_anchor_trees": 1,
+      "visible_gt_count_min_median_max": [
+        16.0,
+        28.0,
+        62.0
+      ]
+    },
+    "0.2_65536_uniform": {
+      "crops": 15,
+      "input_fraction_min_median_max": [
+        0.14214572018531693,
+        0.173112786403715,
+        0.2254622016417017
+      ],
+      "oracle_local_coverage_mean": 0.9742867777037856,
+      "oracle_local_recall_mean": 0.9931666666666668,
+      "crops_with_a_core_tree_without_majority_anchor": 7,
+      "max_missing_core_anchor_trees": 4,
+      "visible_gt_count_min_median_max": [
+        16.0,
+        28.0,
+        62.0
+      ]
+    },
+    "0.2_65536_spatial": {
+      "crops": 15,
+      "input_fraction_min_median_max": [
+        0.14214572018531693,
+        0.173112786403715,
+        0.2254622016417017
+      ],
+      "oracle_local_coverage_mean": 0.9753602258742023,
+      "oracle_local_recall_mean": 0.9931666666666668,
+      "crops_with_a_core_tree_without_majority_anchor": 6,
+      "max_missing_core_anchor_trees": 2,
+      "visible_gt_count_min_median_max": [
+        16.0,
+        28.0,
+        62.0
+      ]
+    },
+    "0.2_131072_uniform": {
+      "crops": 15,
+      "input_fraction_min_median_max": [
+        0.28429144037063386,
+        0.34622557280743,
+        0.4509244032834034
+      ],
+      "oracle_local_coverage_mean": 0.9833878757301365,
+      "oracle_local_recall_mean": 1.0,
+      "crops_with_a_core_tree_without_majority_anchor": 5,
+      "max_missing_core_anchor_trees": 2,
+      "visible_gt_count_min_median_max": [
+        16.0,
+        28.0,
+        62.0
+      ]
+    },
+    "0.1_131072_uniform": {
+      "crops": 15,
+      "input_fraction_min_median_max": [
+        0.10251412705551102,
+        0.13325674432317852,
+        0.16447384106500426
+      ],
+      "oracle_local_coverage_mean": 0.9818473246574974,
+      "oracle_local_recall_mean": 0.9973333333333334,
+      "crops_with_a_core_tree_without_majority_anchor": 7,
+      "max_missing_core_anchor_trees": 3,
+      "visible_gt_count_min_median_max": [
+        16.0,
+        28.0,
+        62.0
+      ]
+    }
+  },
+  "color_encoding_sample": [
+    {
+      "path": "train/forests/A1N.laz",
+      "sampled_points": 320000,
+      "sampled_tree_points": 202165,
+      "sampled_trees": 370,
+      "trees_with_at_least_10_samples": 353,
+      "constant_rgb_fraction_among_trees_with_10_samples": 1.0,
+      "unique_sampled_rgb_colors": 370
+    },
+    {
+      "path": "train/forests/L1N.laz",
+      "sampled_points": 320000,
+      "sampled_tree_points": 199603,
+      "sampled_trees": 400,
+      "trees_with_at_least_10_samples": 383,
+      "constant_rgb_fraction_among_trees_with_10_samples": 1.0,
+      "unique_sampled_rgb_colors": 400
+    },
+    {
+      "path": "train/forests/O1W.laz",
+      "sampled_points": 320000,
+      "sampled_tree_points": 144331,
+      "sampled_trees": 226,
+      "trees_with_at_least_10_samples": 220,
+      "constant_rgb_fraction_among_trees_with_10_samples": 1.0,
+      "unique_sampled_rgb_colors": 226
+    },
+    {
+      "path": "benchmark/L1W_voxelized01_for_eval.laz",
+      "sampled_points": 320000,
+      "sampled_tree_points": 139107,
+      "sampled_trees": 156,
+      "trees_with_at_least_10_samples": 156,
+      "constant_rgb_fraction_among_trees_with_10_samples": 1.0,
+      "unique_sampled_rgb_colors": 156
+    },
+    {
+      "path": "benchmark/wytham_vox0.1.laz",
+      "sampled_points": 320000,
+      "sampled_tree_points": 110000,
+      "sampled_trees": 263,
+      "trees_with_at_least_10_samples": 218,
+      "constant_rgb_fraction_among_trees_with_10_samples": 1.0,
+      "unique_sampled_rgb_colors": 263
+    }
+  ],
+  "official_checkpoint": {
+    "filename": "model_weights_with_small_20241213.pth",
+    "local_and_official_md5": "38266e515dc387ac5ca32619e791cc20",
+    "size_bytes": 120627653,
+    "official_metadata": "https://data.goettingen-research-online.de/api/datasets/:persistentId/?persistentId=doi:10.25625/VPMPID",
+    "official_readme": "https://data.goettingen-research-online.de/api/access/datafile/118510"
+  },
+  "caveats": [
+    "z extent is annotated per-instance max(z)-min(z), not a ground-normalized forestry height.",
+    "Raw source clouds are denser than the supplied 0.1m Wytham; raw point counts are not directly comparable.",
+    "Local geometric diagnostics use 15 central/interior crops, not a random whole-dataset survey.",
+    "Local 0.1m representation approximates the server cache, without its exact voxel phase/filtering.",
+    "Oracle uses GT and independently optimizes each tree within each crop; it is not deployed inference or full-forest F1.",
+    "Core anchor gaps include tiny GT remnants and are measured before ISA; they are not actual model-query coverage or whole-forest misses.",
+    "The local model-weight checksum matches the official file; actual server-cache checkpoint provenance should also be checked."
+  ],
+  "per_forest": [
+    {
+      "path": "train/forests/A1N.laz",
+      "point_count": 71543093,
+      "num_instances": 466,
+      "fractions": [
+        0.6244025122033793,
+        0.3755974877966207,
+        0.0
+      ],
+      "class_counts": {
+        "2": 26871406,
+        "4": 44671687
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.56,
+        "p10": 14.43,
+        "p25": 22.98,
+        "p50": 28.925,
+        "p75": 32.057500000000005,
+        "p90": 33.16,
+        "max": 35.39
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.289999999999999,
+        "p10": 5.635000000000002,
+        "p25": 7.579999999999998,
+        "p50": 9.699999999999996,
+        "p75": 12.087500000000002,
+        "p90": 14.44,
+        "max": 23.409999999999997
+      }
+    },
+    {
+      "path": "train/forests/A1W.laz",
+      "point_count": 67636560,
+      "num_instances": 511,
+      "fractions": [
+        0.6331462599517185,
+        0.3668537400482816,
+        0.0
+      ],
+      "class_counts": {
+        "2": 24812725,
+        "4": 42823835
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.729999999999999,
+        "p10": 12.91,
+        "p25": 18.814999999999998,
+        "p50": 24.11,
+        "p75": 26.455,
+        "p90": 27.84,
+        "max": 42.84
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.3999999999999986,
+        "p10": 5.399999999999999,
+        "p25": 6.565000000000001,
+        "p50": 8.049999999999997,
+        "p75": 9.689999999999996,
+        "p90": 11.389999999999993,
+        "max": 19.889999999999997
+      }
+    },
+    {
+      "path": "benchmark/L1W_voxelized01_for_eval.laz",
+      "point_count": 20434648,
+      "num_instances": 156,
+      "fractions": [
+        0.45356088345637274,
+        0.13815608666222193,
+        0.40828302988140536
+      ],
+      "class_counts": {
+        "2": 2823171,
+        "3": 8343120,
+        "4": 9268357
+      },
+      "z_extent_per_instance_m": {
+        "min": 10.139999999999999,
+        "p10": 18.659999999999997,
+        "p25": 29.492500000000003,
+        "p50": 33.06,
+        "p75": 34.5025,
+        "p90": 35.385000000000005,
+        "max": 39.33
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 4.449999999999996,
+        "p10": 8.395000000000001,
+        "p25": 9.8275,
+        "p50": 12.135000000000002,
+        "p75": 13.927500000000002,
+        "p90": 15.755000000000003,
+        "max": 20.17
+      }
+    },
+    {
+      "path": "benchmark/wytham_vox0.1.laz",
+      "point_count": 54592456,
+      "num_instances": 877,
+      "fractions": [
+        0.35025255137816114,
+        0.1143528329262197,
+        0.5353946156956192
+      ],
+      "class_counts": {
+        "2": 6242802,
+        "3": 29228507,
+        "4": 19121147
+      },
+      "z_extent_per_instance_m": {
+        "min": 2.368,
+        "p10": 6.1032,
+        "p25": 9.124,
+        "p50": 14.689,
+        "p75": 20.229,
+        "p90": 22.6548,
+        "max": 30.612000000000002
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 0.3019999999999996,
+        "p10": 3.2250000000000005,
+        "p25": 4.300000000000004,
+        "p50": 6.097999999999999,
+        "p75": 8.171,
+        "p90": 10.6606,
+        "max": 25.75
+      }
+    },
+    {
+      "path": "train/forests/G1N.laz",
+      "point_count": 53556536,
+      "num_instances": 320,
+      "fractions": [
+        0.5994541170474506,
+        0.40054588295254945,
+        0.0
+      ],
+      "class_counts": {
+        "2": 21451850,
+        "4": 32104686
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.91,
+        "p10": 15.876000000000001,
+        "p25": 30.285000000000004,
+        "p50": 33.37,
+        "p75": 34.982499999999995,
+        "p90": 35.81099999999999,
+        "max": 37.0
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.8200000000000074,
+        "p10": 5.358,
+        "p25": 7.25,
+        "p50": 8.775000000000002,
+        "p75": 10.747500000000002,
+        "p90": 12.71,
+        "max": 21.16
+      }
+    },
+    {
+      "path": "train/forests/G1W.laz",
+      "point_count": 88666450,
+      "num_instances": 450,
+      "fractions": [
+        0.49206661595225704,
+        0.507933384047743,
+        0.0
+      ],
+      "class_counts": {
+        "2": 45036650,
+        "4": 43629800
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.89,
+        "p10": 16.07,
+        "p25": 25.712500000000002,
+        "p50": 30.93,
+        "p75": 32.2875,
+        "p90": 33.13,
+        "max": 35.58
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 0.8900000000000148,
+        "p10": 7.343999999999996,
+        "p25": 8.780000000000001,
+        "p50": 10.529999999999996,
+        "p75": 12.137499999999996,
+        "p90": 13.501,
+        "max": 29.85
+      }
+    },
+    {
+      "path": "train/forests/G2N.laz",
+      "point_count": 71588563,
+      "num_instances": 496,
+      "fractions": [
+        0.6275495430743595,
+        0.3724504569256405,
+        0.0
+      ],
+      "class_counts": {
+        "2": 26663193,
+        "4": 44925370
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.850000000000001,
+        "p10": 12.965,
+        "p25": 16.9575,
+        "p50": 25.68,
+        "p75": 31.035,
+        "p90": 32.355000000000004,
+        "max": 35.040000000000006
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.9800000000000004,
+        "p10": 4.204999999999998,
+        "p25": 6.462499999999999,
+        "p50": 9.545000000000002,
+        "p75": 12.339999999999998,
+        "p90": 14.360000000000001,
+        "max": 21.950000000000003
+      }
+    },
+    {
+      "path": "train/forests/G2W.laz",
+      "point_count": 77184517,
+      "num_instances": 265,
+      "fractions": [
+        0.4507639142187027,
+        0.5492360857812973,
+        0.0
+      ],
+      "class_counts": {
+        "2": 42392522,
+        "4": 34791995
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.23,
+        "p10": 10.2,
+        "p25": 11.89,
+        "p50": 24.37,
+        "p75": 32.8,
+        "p90": 34.693999999999996,
+        "max": 38.32
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.120000000000001,
+        "p10": 3.528000000000006,
+        "p25": 5.930000000000001,
+        "p50": 9.370000000000001,
+        "p75": 12.0,
+        "p90": 13.708000000000002,
+        "max": 38.260000000000005
+      }
+    },
+    {
+      "path": "train/forests/G3N.laz",
+      "point_count": 71469505,
+      "num_instances": 355,
+      "fractions": [
+        0.5518811694582185,
+        0.4481188305417814,
+        0.0
+      ],
+      "class_counts": {
+        "2": 32026831,
+        "4": 39442674
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.86,
+        "p10": 14.22,
+        "p25": 26.98,
+        "p50": 34.120000000000005,
+        "p75": 35.144999999999996,
+        "p90": 36.024,
+        "max": 38.32
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.480000000000004,
+        "p10": 6.455999999999999,
+        "p25": 8.079999999999998,
+        "p50": 10.109999999999992,
+        "p75": 12.119999999999994,
+        "p90": 14.088000000000001,
+        "max": 20.480000000000004
+      }
+    },
+    {
+      "path": "train/forests/G3W.laz",
+      "point_count": 89062783,
+      "num_instances": 332,
+      "fractions": [
+        0.42454512116469567,
+        0.5754548788353043,
+        0.0
+      ],
+      "class_counts": {
+        "2": 51251613,
+        "4": 37811170
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.950000000000001,
+        "p10": 12.246,
+        "p25": 23.325,
+        "p50": 31.375,
+        "p75": 32.8125,
+        "p90": 33.808,
+        "max": 36.49
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.0400000000000063,
+        "p10": 6.566999999999996,
+        "p25": 8.157499999999997,
+        "p50": 10.089999999999996,
+        "p75": 12.412500000000005,
+        "p90": 13.988000000000008,
+        "max": 21.29
+      }
+    },
+    {
+      "path": "train/forests/G4N.laz",
+      "point_count": 67585806,
+      "num_instances": 318,
+      "fractions": [
+        0.6180206536265913,
+        0.38197934637340863,
+        0.0
+      ],
+      "class_counts": {
+        "2": 25816382,
+        "4": 41769424
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.719999999999999,
+        "p10": 12.852,
+        "p25": 18.4525,
+        "p50": 32.400000000000006,
+        "p75": 34.9675,
+        "p90": 36.222,
+        "max": 52.72
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 0.8999999999999986,
+        "p10": 5.709,
+        "p25": 7.539999999999999,
+        "p50": 9.724999999999998,
+        "p75": 11.932499999999997,
+        "p90": 13.909000000000002,
+        "max": 24.61999999999999
+      }
+    },
+    {
+      "path": "train/forests/G4W.laz",
+      "point_count": 96734484,
+      "num_instances": 585,
+      "fractions": [
+        0.6098745613818543,
+        0.39012543861814575,
+        0.0
+      ],
+      "class_counts": {
+        "2": 37738583,
+        "4": 58995901
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.420000000000002,
+        "p10": 15.88,
+        "p25": 22.46,
+        "p50": 33.44,
+        "p75": 36.07,
+        "p90": 37.86600000000001,
+        "max": 41.730000000000004
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.9299999999999926,
+        "p10": 5.97,
+        "p25": 7.959999999999994,
+        "p50": 9.949999999999996,
+        "p75": 12.259999999999998,
+        "p90": 14.508000000000006,
+        "max": 23.85
+      }
+    },
+    {
+      "path": "train/forests/L1N.laz",
+      "point_count": 77373557,
+      "num_instances": 453,
+      "fractions": [
+        0.6184259436334302,
+        0.38157405636656977,
+        0.0
+      ],
+      "class_counts": {
+        "2": 29523742,
+        "4": 47849815
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.73,
+        "p10": 12.338000000000001,
+        "p25": 18.42,
+        "p50": 30.220000000000002,
+        "p75": 34.17,
+        "p90": 35.724,
+        "max": 41.81
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.4099999999999966,
+        "p10": 5.789999999999998,
+        "p25": 8.120000000000005,
+        "p50": 10.79,
+        "p75": 12.930000000000007,
+        "p90": 14.887999999999993,
+        "max": 21.729999999999997
+      }
+    },
+    {
+      "path": "train/forests/L2N.laz",
+      "point_count": 67322200,
+      "num_instances": 233,
+      "fractions": [
+        0.579105970987282,
+        0.42089402901271794,
+        0.0
+      ],
+      "class_counts": {
+        "2": 28335512,
+        "4": 38986688
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.52,
+        "p10": 14.632000000000001,
+        "p25": 26.900000000000002,
+        "p50": 35.25,
+        "p75": 37.33,
+        "p90": 38.24600000000001,
+        "max": 40.36
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.6199999999999974,
+        "p10": 6.320000000000005,
+        "p25": 9.909999999999997,
+        "p50": 12.39,
+        "p75": 14.709999999999994,
+        "p90": 16.517999999999997,
+        "max": 20.04
+      }
+    },
+    {
+      "path": "train/forests/L2W.laz",
+      "point_count": 82144621,
+      "num_instances": 401,
+      "fractions": [
+        0.5968875186605341,
+        0.4031124813394659,
+        0.0
+      ],
+      "class_counts": {
+        "2": 33113522,
+        "4": 49031099
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.41,
+        "p10": 13.03,
+        "p25": 16.830000000000002,
+        "p50": 29.3,
+        "p75": 32.68,
+        "p90": 33.879999999999995,
+        "max": 36.55
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.4499999999999886,
+        "p10": 5.800000000000001,
+        "p25": 7.350000000000001,
+        "p50": 9.930000000000007,
+        "p75": 12.64,
+        "p90": 14.36,
+        "max": 19.13
+      }
+    },
+    {
+      "path": "train/forests/LG1.laz",
+      "point_count": 46259166,
+      "num_instances": 407,
+      "fractions": [
+        0.6514154621810518,
+        0.34858453781894816,
+        0.0
+      ],
+      "class_counts": {
+        "2": 16125230,
+        "4": 30133936
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.8,
+        "p10": 21.738000000000007,
+        "p25": 32.37,
+        "p50": 36.22,
+        "p75": 39.31,
+        "p90": 40.932,
+        "max": 43.480000000000004
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.490000000000002,
+        "p10": 5.240000000000005,
+        "p25": 6.675000000000001,
+        "p50": 8.329999999999998,
+        "p75": 9.924999999999997,
+        "p90": 11.200000000000005,
+        "max": 24.050000000000004
+      }
+    },
+    {
+      "path": "train/forests/LG2.laz",
+      "point_count": 69693334,
+      "num_instances": 332,
+      "fractions": [
+        0.6298313408280912,
+        0.3701686591719088,
+        0.0
+      ],
+      "class_counts": {
+        "2": 25798288,
+        "4": 43895046
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.74,
+        "p10": 13.941,
+        "p25": 20.2225,
+        "p50": 33.510000000000005,
+        "p75": 35.805,
+        "p90": 36.777,
+        "max": 39.230000000000004
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.4199999999999875,
+        "p10": 7.1949999999999985,
+        "p25": 9.227499999999997,
+        "p50": 11.655,
+        "p75": 13.340000000000003,
+        "p90": 15.179000000000002,
+        "max": 32.22
+      }
+    },
+    {
+      "path": "train/forests/LG3.laz",
+      "point_count": 64150018,
+      "num_instances": 315,
+      "fractions": [
+        0.6205946504956553,
+        0.3794053495043446,
+        0.0
+      ],
+      "class_counts": {
+        "2": 24338860,
+        "4": 39811158
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.91,
+        "p10": 16.128,
+        "p25": 22.535,
+        "p50": 28.090000000000003,
+        "p75": 29.86,
+        "p90": 31.108,
+        "max": 33.25
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.740000000000002,
+        "p10": 7.711999999999999,
+        "p25": 9.035000000000004,
+        "p50": 11.080000000000002,
+        "p75": 13.350000000000001,
+        "p90": 15.345999999999998,
+        "max": 23.580000000000005
+      }
+    },
+    {
+      "path": "train/forests/O1N.laz",
+      "point_count": 54303644,
+      "num_instances": 160,
+      "fractions": [
+        0.5411223784540131,
+        0.4588776215459869,
+        0.0
+      ],
+      "class_counts": {
+        "2": 24918727,
+        "4": 29384917
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.8,
+        "p10": 23.291999999999998,
+        "p25": 41.43,
+        "p50": 43.225,
+        "p75": 44.0325,
+        "p90": 44.900999999999996,
+        "max": 46.550000000000004
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 1.6000000000000014,
+        "p10": 7.588000000000004,
+        "p25": 9.910000000000004,
+        "p50": 12.779999999999998,
+        "p75": 14.95,
+        "p90": 17.459999999999997,
+        "max": 31.009999999999998
+      }
+    },
+    {
+      "path": "train/forests/O1W.laz",
+      "point_count": 90522759,
+      "num_instances": 266,
+      "fractions": [
+        0.47343333846022084,
+        0.5265666615397792,
+        0.0
+      ],
+      "class_counts": {
+        "2": 47666267,
+        "4": 42856492
+      },
+      "z_extent_per_instance_m": {
+        "min": 9.59,
+        "p10": 10.81,
+        "p25": 19.09,
+        "p50": 31.17,
+        "p75": 36.352500000000006,
+        "p90": 38.125,
+        "max": 41.300000000000004
+      },
+      "xy_max_extent_per_instance_m": {
+        "min": 2.230000000000004,
+        "p10": 4.094999999999995,
+        "p25": 8.130000000000003,
+        "p50": 10.600000000000001,
+        "p75": 12.88,
+        "p90": 14.565000000000001,
+        "max": 25.47
+      }
+    }
+  ]
+}
