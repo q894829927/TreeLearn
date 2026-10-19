@@ -158,6 +158,15 @@ def check(config):
         optimizer.zero_grad(set_to_none=True)
         prediction = model(batch, teacher_fraction=1.)
         loss, statistics, components = instance_loss(prediction, batch, config['loss'], return_components=True)
+        if step == 0:
+            dtype_report = dict(inputs={name: str(value.dtype) for name, value in batch.items()},
+                                mask=str(prediction['layers'][-1]['masks'].dtype),
+                                score=str(prediction['layers'][-1]['scores'].dtype),
+                                total_loss=str(loss.dtype),
+                                components={name: str(value.dtype) for name, value in components.items()})
+            print('CHECK_DTYPES ' + json.dumps(dtype_report), flush=True)
+        if loss.dtype != prediction['layers'][-1]['masks'].dtype:
+            raise TypeError('Loss dtype differs from mask predictions; inspect CHECK_DTYPES.')
         if not torch.isfinite(loss):
             raise FloatingPointError('Non-finite loss in runtime check.')
         selected = {'backbone': next(model.input_conv.parameters())}

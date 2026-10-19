@@ -133,7 +133,10 @@ class RawForest:
             positive = labels > 0
             sizes[positive] = self.gt_counts[np.searchsorted(self.gt_ids, labels[positive])]
             # Uniform voxel subsampling has known inclusion probability.
-            weights = known_counts[selected].astype(np.float32) * total_voxels / len(selected)
+            # NumPy 1.x may promote float32 * a large Python integer to float64.
+            # Scale in place with an explicitly float32 sampling correction.
+            weights = known_counts[selected].astype(np.float32)
+            weights *= np.float32(total_voxels / len(selected))
             result.update(labels=labels, weights=weights, whole_sizes=sizes)
         return result
 

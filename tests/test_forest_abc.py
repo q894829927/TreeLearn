@@ -45,6 +45,67 @@ class ForestABCDeviceTests(unittest.TestCase):
 
 
 class ForestABCModuleTests(unittest.TestCase):
+    def test_large_training_crop_keeps_sampling_weights_float32(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            cache, index = root / 'cache', root / 'index'
+            cache.mkdir()
+            # 41^3 > 65535: NumPy 1.x integer scalar promotion is triggered by
+            # this realistic crop size in the old weight expression.
+            xyz = np.indices((41, 41, 41)).reshape(3, -1).T.astype(np.float32)
+            xyz = (xyz - 20) * np.float32(.4)
+            np.save(cache / 'coords.npy', xyz)
+            np.save(cache / 'labels.npy', np.ones(len(xyz), dtype=np.int64))
+            (cache / 'cache.json').write_text('{}')
+            prepare_index(cache, index, cell_size=8., with_labels=True)
+            forest = RawForest(cache, index, with_labels=True)
+            config = dict(radius=16., core_radius=12., voxel_size=.2, minimum_points=8,
+                          max_train_voxels=512, max_inference_voxels=512, neighbors=8)
+            block = forest.make_block(np.zeros(2), config, 42, training=True)
+            self.assertIsNotNone(block)
+            self.assertGreater(block['available_voxels'], 65535)
+            self.assertEqual(block['weights'].dtype, np.dtype('float32'))
+            self.assertEqual(block['whole_sizes'].dtype, np.dtype('float32'))
+            self.assertEqual(block['xyz'].dtype, np.dtype('float32'))
+            self.assertTrue(np.isfinite(block['weights']).all())
+
+    def test_tensor_boundary_casts_float_supervision_and_preserves_index_types(self):
+        from tree_learn.forest_abc.model import tensor_block
+
+        block = dict(xyz=np.zeros((4, 3), dtype=np.float64),
+                     grid=np.zeros((4, 3), dtype=np.int64),
+                     neighbors=np.zeros((4, 2), dtype=np.int32),
+                     core=np.ones(4, dtype=np.int8), labels=np.ones(4, dtype=np.int32),
+                     weights=np.ones(4, dtype=np.float64), whole_sizes=np.ones(4, dtype=np.float64))
+        batch = tensor_block(block, torch.device('cpu'), supervision=True)
+        for name in ('xyz', 'weights', 'whole_sizes'):
+            self.assertEqual(batch[name].dtype, torch.float32)
+        self.assertEqual(batch['grid'].dtype, torch.int32)
+        self.assertEqual(batch['neighbors'].dtype, torch.int64)
+        self.assertEqual(batch['labels'].dtype, torch.int64)
+        self.assertEqual(batch['core'].dtype, torch.bool)
+
+    def test_double_supervision_keeps_quality_loss_and_backward_float32(self):
+        torch.manual_seed(3)
+        block = dict(labels=torch.tensor([1, 1, 0, -1]),
+                     weights=torch.tensor([1., 1., 1., 0.], dtype=torch.float64),
+                     whole_sizes=torch.tensor([2., 2., 0., 0.], dtype=torch.float64))
+        prediction = dict(anchors=torch.tensor([0, 2, 3]),
+                          semantic=torch.randn(4, 2, requires_grad=True),
+                          embedding=torch.randn(4, 5, requires_grad=True),
+                          layers=[dict(masks=torch.randn(5, 4, requires_grad=True),
+                                       scores=torch.randn(5, requires_grad=True))])
+        config = dict(dice_weight=2., quality_weight=.5, semantic_query_weight=.5, embedding_weight=.1)
+        loss, _, components = instance_loss(prediction, block, config, return_components=True)
+        self.assertEqual(loss.dtype, torch.float32)
+        for component in components.values():
+            self.assertEqual(component.dtype, torch.float32)
+        loss.backward()
+        for value in (prediction['layers'][0]['scores'], prediction['layers'][0]['masks'],
+                      prediction['semantic'], prediction['embedding']):
+            self.assertIsNotNone(value.grad)
+            self.assertTrue(torch.isfinite(value.grad).all())
+
     def test_fps_is_unique_even_for_equal_embeddings(self):
         selected = farthest_points(torch.zeros(20, 5), 12)
         self.assertEqual(len(selected.unique()), 12)

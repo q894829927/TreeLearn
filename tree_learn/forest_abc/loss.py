@@ -23,7 +23,11 @@ def embedding_loss(embedding, labels):
 
 
 def instance_loss(prediction, block, config, return_components=False):
-    labels, weights = block['labels'], block['weights']
+    labels = block['labels']
+    # Loss callers may supply legacy/double supervision. Match the trainable
+    # predictions before computing masses or the non-differentiable IoU target.
+    weights = block['weights'].to(prediction['semantic'])
+    whole_sizes = block['whole_sizes'].to(prediction['semantic'])
     known = labels >= 0
     if not known.any():
         raise ValueError('Block has no labeled voxels.')
@@ -54,10 +58,11 @@ def instance_loss(prediction, block, config, return_components=False):
             # using source counts, not inference GT or source teacher masks.
             intersection_mass = (hard * target * weights[known]).sum(-1)
             predicted_mass = (hard * weights[known]).sum(-1)
-            denominator = block['whole_sizes'][anchors] + predicted_mass - intersection_mass
+            denominator = whole_sizes[anchors] + predicted_mass - intersection_mass
             target_quality = torch.where(positive, intersection_mass /
                                          denominator.clamp_min(1), 0.).clamp(0, 1)
         score = layer['scores'][:-2].sigmoid()
+        target_quality = target_quality.to(score)
         quality_losses.append(F.mse_loss(score[supervised], target_quality[supervised])
                               if supervised.any() else score.sum() * 0)
         semantic_logits = layer['masks'][-2:, known].T

@@ -110,7 +110,8 @@ class ForestABC(nn.Module):
 
 
 def tensor_block(block, device, supervision=False):
-    names = ['xyz', 'grid', 'neighbors', 'core']
+    dtypes = dict(xyz=torch.float32, grid=torch.int32, neighbors=torch.int64, core=torch.bool)
     if supervision:
-        names += ['labels', 'weights', 'whole_sizes']
-    return {name: torch.from_numpy(block[name]).to(device) for name in names}
+        dtypes.update(labels=torch.int64, weights=torch.float32, whole_sizes=torch.float32)
+    return {name: torch.from_numpy(block[name]).to(device=device, dtype=dtype)
+            for name, dtype in dtypes.items()}

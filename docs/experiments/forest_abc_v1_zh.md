@@ -119,3 +119,11 @@ work_dirs/forest_abc_v1_s42/external_evaluation/brief.json
 首次服务器运行停在 `torch.cuda.mem_get_info(torch.device('cuda'))`：该服务器版本要求设备带明确编号。现在在统一设备入口把 `cuda` 解析为当前逻辑设备（如 `cuda:0`），保留显式的 `cuda:1` 等设置，并同步设置当前设备；环境检查向设备名称/显存查询传整数编号并打印解析结果。这也覆盖后续训练、检查与评估入口，配置不需要修改。
 
 该次失败尚未进入 prepare/check/train，不存在需要恢复的本次训练断点。拉取修复后仍运行 `bash tools/forest_abc/run.sh all`，不要使用 resume。补充了设备解析的 mock 回归测试，留在服务器执行，本地只做静态检查。
+
+## check 反向传播的 Float/Double 兼容修复
+
+第二次运行已通过 doctor 和全部坐标索引准备，停在 check 的 `loss.backward()`，报 `Found dtype Double but expected Float`。根据数据和损失路径，采样权重原表达式 `float32_array * total_voxels / selected_count` 在 NumPy 1.x 遇到较大的整数体素数时可能提升为 float64，随后把质量 IoU 目标带成 Double。相关标量提升背景见 [NumPy NEP 50](https://numpy.org/neps/nep-0050-scalar-promotion.html)。
+
+修复包括：权重使用 float32 比例原位缩放；`tensor_block` 显式指定浮点输入/监督为 torch.float32，索引保持对应整数类型；损失内部将权重、完整树大小对齐预测类型，MSE 质量目标明确匹配 score 类型。check 首步打印 `CHECK_DTYPES`，包括输入、mask、score、总损失和各损失分量类型。
+
+补充了大于 65535 体素的真实数据块、张量类型边界、Double 监督下完整损失反传三类回归用例，尚未在本地执行。已有索引可复用，配置和工作目录不用改；仍运行 `bash tools/forest_abc/run.sh all`，prepare 会复用完成的索引，然后重新 check。正式训练尚未开始，不使用 resume。
