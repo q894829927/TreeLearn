@@ -4,7 +4,9 @@
 
 ## 1. 建议
 
-最新用户要求：以实际效果为目标，允许直接组合公开架构和模块，不把方法新颖性作为前置要求。当前优先方案更新为 **完整 ForestFormer3D + ForestMamba 风格几何/embedding 混合查询 + CompetitorFormer 风格查询关系编码**，具体接口和实验顺序见 [A+B+C 实施设计](abc_forest_query_plan_20261019_zh.md)。
+最新用户要求：以实际效果为目标，允许组合公开架构和模块，不把方法新颖性作为前置要求，并优先寻找近期期刊模块。当前建议是 **完整 ForestFormer3D + CoBa 风格局部几何增强 + DGLSS++ 思路的密度一致性训练**，来源、代码核验及接法见[期刊模块筛选](recent_journal_modules_20261019_zh.md)。
+
+**完整 ForestFormer3D + ForestMamba 风格混合查询 + CompetitorFormer 风格查询关系编码** 保留为查询模块备选，详见 [A+B+C 实施设计](abc_forest_query_plan_20261019_zh.md)。实际实现不同时叠加全部候选。
 
 下文的 **可训练 PTv3 多尺度主干 + 森林实例解码器 + 查询关系建模** 保留为需要更换主干的备选设计；第 4 节描述的是这一备选，而非当前第一轮工程入口。
 
