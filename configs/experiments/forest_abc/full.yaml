@@ -1,0 +1,65 @@
+# First run trains the complete A+B+C jointly. No ablation sweep is launched.
+cache_root: data/candidate_mask_mlp_a1
+external_cache_root: data/candidate_mask_mlp_a1_wytham_s42
+index_root: data/forest_abc_v1_index
+work_dir: work_dirs/forest_abc_v1_s42
+seed: 42
+splits:
+  train: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3]
+  validation: [G4N, G4W, L1N, O1N, O1W]
+
+model:
+  channels: 32
+  dim: 256
+  layers: 6
+  heads: 8
+  feedforward: 1024
+  num_queries: 300
+  isa_candidates: 8192
+  use_geometry: true
+  use_mfa: true
+
+blocks:
+  radius: 16.0
+  core_radius: 12.0
+  stride: 8.0
+  voxel_size: 0.2
+  max_train_voxels: 65536
+  max_inference_voxels: 98304
+  minimum_points: 64
+  neighbors: 16
+
+loss:
+  dice_weight: 2.0
+  quality_weight: 0.5
+  semantic_query_weight: 0.5
+  embedding_weight: 0.1
+
+training:
+  device: cuda
+  steps: 40000
+  learning_rate: 0.001
+  weight_decay: 0.05
+  warmup_steps: 1000
+  sampler_teacher_steps: 2000
+  gradient_clip: 10.0
+  evaluate_every: 5000
+  save_every: 500
+  log_every: 10
+  max_open_forests: 2
+  check_steps: 3
+  check_voxels: 4096
+
+inference:
+  mask_threshold: 0.5
+  quality_threshold: 0.3
+  nms_iou: 0.5
+  nms_containment: 0.8
+  minimum_instance_points: 20
+  minimum_retention: 0.5
+  allocation_score_threshold: 0.2
+  chunk_size: 16384
+  max_block_memberships: 8000000
+  max_forest_memberships: 1000000000
+  log_every_blocks: 5
+  keep_proposals: false
