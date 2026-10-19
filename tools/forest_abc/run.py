@@ -25,7 +25,9 @@ from tree_learn.forest_abc.data import RawForest, entries, prepare_rows
 from tree_learn.forest_abc.model import ForestABC, tensor_block
 from tree_learn.forest_abc.loss import instance_loss
 from tree_learn.forest_abc.inference import predict_forest
-from tree_learn.forest_abc.runtime import MaskGradientAudit, resolve_cuda_device
+from tree_learn.forest_abc.runtime import (
+    MaskGradientAudit, resolve_cuda_device, require_resume_compatible,
+    restore_training_state, require_trainable_gradients, selection_policy)
 
 
 def configuration(path):
@@ -36,6 +38,35 @@ def configuration(path):
                 raise ValueError(f'Expected a number: {group}.{name}')
             if isinstance(value, (int, float)) and value <= 0:
                 raise ValueError(f'{group}.{name} must be positive.')
+            if isinstance(value, (int, float)) and not math.isfinite(value):
+                raise ValueError(f'{group}.{name} must be finite.')
+    integer_fields = dict(model=('channels', 'dim', 'layers', 'heads', 'feedforward',
+                                 'num_queries', 'isa_candidates'),
+                          blocks=('max_train_voxels', 'max_inference_voxels', 'minimum_points', 'neighbors'),
+                          training=('steps', 'warmup_steps', 'sampler_teacher_steps', 'evaluate_every',
+                                    'save_every', 'log_every', 'max_open_forests', 'check_steps', 'check_voxels'),
+                          inference=('minimum_instance_points', 'chunk_size', 'max_block_memberships',
+                                     'max_forest_memberships', 'log_every_blocks'))
+    for group, names in integer_fields.items():
+        for name in names:
+            value = config[group][name]
+            if type(value) is not int or value <= 0:
+                raise ValueError(f'{group}.{name} must be a positive integer.')
+    for group, name in (('model', 'use_geometry'), ('model', 'use_mfa'), ('inference', 'keep_proposals')):
+        if type(config[group][name]) is not bool:
+            raise ValueError(f'{group}.{name} must be a boolean.')
+    for name in ('mask_threshold', 'quality_threshold', 'nms_iou', 'nms_containment',
+                 'minimum_retention', 'allocation_score_threshold'):
+        if not 0 < config['inference'][name] <= 1:
+            raise ValueError(f'inference.{name} must be in (0, 1].')
+    if config['blocks']['minimum_points'] < 2 or any(
+            config['blocks'][name] < config['blocks']['minimum_points']
+            for name in ('max_train_voxels', 'max_inference_voxels')):
+        raise ValueError('Voxel caps must be at least minimum_points >= 2.')
+    if not config['blocks']['minimum_points'] <= config['training']['check_voxels'] <= config['blocks']['max_train_voxels']:
+        raise ValueError('Require minimum_points <= check_voxels <= max_train_voxels.')
+    if config['model']['use_mfa'] and config['model']['layers'] < 2:
+        raise ValueError('MFA requires at least two decoder layers.')
     if not 0 < config['blocks']['core_radius'] <= config['blocks']['radius']:
         raise ValueError('Require 0 < core_radius <= radius.')
     if config['model']['dim'] % config['model']['heads']:
@@ -49,15 +80,23 @@ def source_hashes():
     paths = sorted((ROOT / 'tree_learn/forest_abc').rglob('*.py'))
     paths += [ROOT / 'tools/forest_abc/run.py', ROOT / 'tree_learn/query_segmentation/data.py',
               ROOT / 'tree_learn/query_segmentation/inference.py',
+              ROOT / 'tree_learn/mask_refinement/data.py',
               ROOT / 'tree_learn/mask_refinement/evaluation.py']
     return {p.relative_to(ROOT).as_posix(): file_digest(p) for p in paths}
 
 
 def signature(config, rows):
+    def label_stamps(row):
+        cache = Path(row['cache'])
+        names = ('labels',) if row['split'] == 'train' else ('labels', 'baseline')
+        return {name: dict(size=(cache / f'{name}.npy').stat().st_size,
+                           mtime_ns=(cache / f'{name}.npy').stat().st_mtime_ns) for name in names}
+
     return digest(dict(model=config['model'], blocks=config['blocks'], loss=config['loss'],
                        training=config['training'], seed=config['seed'],
                        forests=[dict(plot=r['plot'], split=r['split'],
                                      index=json.loads((Path(r['index']) / 'index.json').read_text()),
+                                     evaluation_inputs=label_stamps(r),
                                      labels=(json.loads((Path(r['index']) / 'gt.json').read_text())
                                              if r['split'] == 'train' else None)) for r in rows]))
 
@@ -126,29 +165,39 @@ def doctor(config):
                           inputs='coords only; no frozen features or teacher predictions'), indent=2), flush=True)
 
 
-def prepare(config):
+def prepare(config, require_external=False):
     rows = entries(config)
-    prepare_rows(config, rows)
     external = []
     if (Path(config['external_cache_root']) / 'manifest.json').is_file():
         external = entries(config, external=True)
         if set(r['plot'] for r in external) & set(r['plot'] for r in rows):
             raise ValueError('External forest repeats a source forest name.')
-        prepare_rows(config, external)
+    elif require_external:
+        raise FileNotFoundError('The complete workflow requires the external coordinate cache: '
+                                f'{config["external_cache_root"]}/manifest.json')
     else:
         print('External coordinate cache absent; prepare it before external evaluation.', flush=True)
+    prepare_rows(config, rows)
+    prepare_rows(config, external)
+    for row in rows + external:
+        # Verify every prepared index and all training-label stamps/counts
+        # before allocating any model/optimizer GPU state.
+        forest = RawForest(row['cache'], row['index'], with_labels=row['split'] == 'train')
+        del forest
     write_json(Path(config['index_root']) / 'manifest.json', dict(schema=1, forests=rows, external=external))
     print('PREPARE_DONE: no network features were loaded or computed.', flush=True)
 
 
 def check(config):
-    """Three bounded server steps verify mask gradients reach the full network."""
+    """Check gradients, production block sizes, checkpoint resume, and forest IO."""
     device = device_for(config)
     seed_everything(config['seed'])
     settings = copy.deepcopy(config)
     settings['blocks']['max_train_voxels'] = config['training']['check_voxels']
-    sampler = BlockSampler([r for r in entries(config) if r['split'] == 'train'],
+    rows = entries(config)
+    sampler = BlockSampler([r for r in rows if r['split'] == 'train'],
                            settings['blocks'], config['seed'])
+    output = Path(config['work_dir']) / 'check'
     model = ForestABC(config['model']).to(device).train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate(1, config),
                                   weight_decay=config['training']['weight_decay'])
@@ -174,17 +223,21 @@ def check(config):
         hooks.append(module.register_forward_pre_hook(capture_regions(name)))
     audit = MaskGradientAudit(selected)
     checks = []
-    for step in range(config['training']['check_steps']):
-        plot, block = sampler.draw()
+
+    def update(plot, block, teacher_fraction, phase, audit_mask=False):
+        step = len(checks) + 1
+        print('CHECK_BEGIN ' + json.dumps(dict(step=step, phase=phase, plot=plot,
+              input_voxels=len(block['xyz']), available_voxels=block['available_voxels'],
+              teacher_fraction=teacher_fraction)), flush=True)
         batch = tensor_block(block, device, supervision=True)
         optimizer.zero_grad(set_to_none=True)
-        rate = learning_rate(step + 1, config)
+        rate = learning_rate(step, config)
         for group in optimizer.param_groups:
             group['lr'] = rate
         region_activity.clear()
-        prediction = model(batch, teacher_fraction=1.)
+        prediction = model(batch, teacher_fraction=teacher_fraction)
         loss, statistics, components = instance_loss(prediction, batch, config['loss'], return_components=True)
-        if step == 0:
+        if step == 1:
             dtype_report = dict(inputs={name: str(value.dtype) for name, value in batch.items()},
                                 mask=str(prediction['layers'][-1]['masks'].dtype),
                                 score=str(prediction['layers'][-1]['scores'].dtype),
@@ -195,31 +248,83 @@ def check(config):
             raise TypeError('Loss dtype differs from mask predictions; inspect CHECK_DTYPES.')
         if not torch.isfinite(loss):
             raise FloatingPointError('Non-finite loss in runtime check.')
-        gradients = torch.autograd.grad(components['mask'], list(selected.values()),
-                                        retain_graph=True, allow_unused=True)
-        try:
-            gradient_report, probe_report = audit.observe(gradients)
-        except (RuntimeError, FloatingPointError):
-            print('CHECK_MFA_REGIONS ' + json.dumps(region_activity), flush=True)
-            raise
+        gradient_report, probe_report = {}, {}
+        if audit_mask:
+            gradients = torch.autograd.grad(components['mask'], list(selected.values()),
+                                            retain_graph=True, allow_unused=True)
+            try:
+                gradient_report, probe_report = audit.observe(gradients)
+            except (RuntimeError, FloatingPointError):
+                print('CHECK_MFA_REGIONS ' + json.dumps(region_activity), flush=True)
+                raise
         loss.backward()
+        require_trainable_gradients(model)
         torch.nn.utils.clip_grad_norm_(model.parameters(), config['training']['gradient_clip'], error_if_nonfinite=True)
         optimizer.step()
-        checks.append(dict(step=step + 1, plot=plot, learning_rate=rate,
+        checks.append(dict(step=step, phase=phase, plot=plot, input_voxels=len(block['xyz']),
+                           available_voxels=block['available_voxels'], teacher_fraction=teacher_fraction,
+                           learning_rate=rate,
                            mask_gradient_l1=gradient_report, mask_gradient_by_probe_l1=probe_report,
                            zero_gradient_groups=[name for name, value in gradient_report.items() if value == 0],
-                           mfa_regions=copy.deepcopy(region_activity), **statistics))
+                           mfa_regions=copy.deepcopy(region_activity), **statistics, **memory(device)))
         print('CHECK ' + json.dumps(checks[-1]), flush=True)
-        del prediction, loss, components, batch, gradients
+
+    for _ in range(config['training']['check_steps']):
+        plot, block = sampler.draw()
+        update(plot, block, 1., 'gradient_window', audit_mask=True)
+        del block
     gradient_audit = audit.finish()
     for hook in hooks:
         hook.remove()
-    model.eval()
-    with torch.no_grad():
-        prediction = model(tensor_block(block, device, supervision=False))
-        checks[-1]['inference_queries'] = len(prediction['anchors'])
-    output = Path(config['work_dir']) / 'check'
+
+    # The small graph audit alone cannot expose production-size OOM or the
+    # teacher-free query path. Exercise both sides of an actual resume roundtrip.
+    settings['blocks']['max_train_voxels'] = config['blocks']['max_train_voxels']
+    plot, block = sampler.draw()
+    update(plot, block, 1., 'production_training')
+    del block
+    roundtrip = output / 'roundtrip.pth'
+    atomic_checkpoint(roundtrip, dict(check_only=True, model=model.state_dict(),
+                      optimizer=optimizer.state_dict(), sampler_rng=sampler.rng.bit_generator.state,
+                      torch_rng=torch.get_rng_state(), cuda_rng=torch.cuda.get_rng_state_all()))
+    saved = torch.load(roundtrip, map_location='cpu', weights_only=False)
+    restore_training_state(saved, model, optimizer, sampler.rng)
+    del saved
+    plot, block = sampler.draw()
+    update(plot, block, 0., 'production_after_resume_without_teacher')
+    del block
+    optimizer.zero_grad(set_to_none=True)
+
+    partial_predictions = []
+    groups = [[r for r in rows if r['split'] == 'validation']]
+    if (Path(config['external_cache_root']) / 'manifest.json').is_file():
+        groups.append(entries(config, external=True))
+    for group in groups:
+        # Highest occupied-cell count is a cheap density proxy, not a guarantee
+        # that this crop reaches the configured cap. Report actual size below.
+        def density(row):
+            with np.load(Path(row['index']) / 'cells.npz', allow_pickle=False) as cells:
+                return int(cells['counts'].max())
+
+        row = max(group, key=density)
+        forest = RawForest(row['cache'], row['index'])
+        forest.centers = forest.centers[[int(forest.counts.argmax())]]
+        print(f'CHECK_INFERENCE_BEGIN {row["plot"]} cap={config["blocks"]["max_inference_voxels"]}', flush=True)
+        labels, statistics = predict_forest(model, forest, config, output / 'partial' / row['plot'],
+                                            device, max_blocks=1)
+        truth = np.load(Path(row['cache']) / 'labels.npy', mmap_mode='r', allow_pickle=False)
+        try:
+            metrics = evaluate_labels(truth, labels)
+        finally:
+            labels._mmap.close()
+            truth._mmap.close()
+        result = dict(plot=row['plot'], check_only=True, not_for_model_selection=True,
+                      prediction=statistics, metrics=metrics, **memory(device))
+        partial_predictions.append(result)
+        print('CHECK_PARTIAL ' + json.dumps(result), flush=True)
+        del forest, labels, truth
     write_json(output / 'report.json', dict(check_only=True, checks=checks, gradient_audit=gradient_audit,
+               checkpoint_roundtrip=True, partial_predictions=partial_predictions,
                parameter_count=sum(p.numel() for p in model.parameters()),
                trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
                code=source_hashes(), **memory(device)))
@@ -227,6 +332,12 @@ def check(config):
 
 
 def evaluate_model(config, model, rows, output, device, checkpoint_step):
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    # An interrupted rerun must not leave a previous run's success summary
+    # appearing to describe the new predictions/checkpoint.
+    for name in ('summary.json', 'brief.json'):
+        (output / name).unlink(missing_ok=True)
     reports = []
     for row in rows:
         print(f'EVALUATE {row["plot"]}: full backbone + GeoMixer + MFA', flush=True)
@@ -285,14 +396,10 @@ def train(config, resume=False):
     step, validated_step, best = 0, 0, -1.
     if resume:
         saved = torch.load(work / 'last.pth', map_location='cpu', weights_only=False)
-        if saved['signature'] != identity or saved.get('check_only', False):
-            raise ValueError('Resume configuration/data differ from the checkpoint.')
-        model.load_state_dict(saved['model'])
-        optimizer.load_state_dict(saved['optimizer'])
+        require_resume_compatible(saved, identity, config)
+        restore_training_state(saved, model, optimizer, sampler.rng)
         step, validated_step, best = saved['step'], saved['validated_step'], saved['best_validation_f1']
-        sampler.rng.bit_generator.state = saved['sampler_rng']
-        torch.set_rng_state(saved['torch_rng'])
-        torch.cuda.set_rng_state_all(saved['cuda_rng'])
+        del saved
         print(f'RESUME step={step} last_validation={validated_step} best_f1={best:.5f}', flush=True)
     elif (work / 'last.pth').exists():
         raise FileExistsError('last.pth exists. Use resume to continue or choose a new work_dir.')
@@ -305,6 +412,7 @@ def train(config, resume=False):
 
     def checkpoint():
         return dict(schema=1, check_only=False, signature=identity, config=config, code=code,
+                    selection_policy=selection_policy(config),
                     model=model.state_dict(), optimizer=optimizer.state_dict(), step=step,
                     validated_step=validated_step, best_validation_f1=best,
                     sampler_rng=sampler.rng.bit_generator.state, torch_rng=torch.get_rng_state(),
@@ -373,15 +481,15 @@ def evaluate(config, external=False, checkpoint_path=None):
     source_rows = entries(config)
     if saved.get('check_only', True) or saved['signature'] != signature(config, source_rows):
         raise ValueError('Evaluation requires a compatible full-training checkpoint.')
-    model = ForestABC(config['model']).to(device)
-    model.load_state_dict(saved['model'])
     rows = entries(config, external=True) if external else [r for r in source_rows if r['split'] == 'validation']
     if external and set(r['plot'] for r in rows) & set(r['plot'] for r in source_rows):
         raise ValueError('External forest overlaps source forests.')
+    model = ForestABC(config['model']).to(device)
+    model.load_state_dict(saved['model'])
     output = Path(config['work_dir']) / ('external_evaluation' if external else 'evaluation')
     summary = evaluate_model(config, model, rows, output, device, saved['step'])
     summary.update(checkpoint=str(path), checkpoint_sha256=file_digest(path),
-                   training_code=saved['code'], config=config)
+                   training_code=saved['code'], training_selection_policy=saved.get('selection_policy'), config=config)
     write_json(output / 'summary.json', summary)
 
 
@@ -391,6 +499,8 @@ def main():
     parser.add_argument('--config', default='configs/experiments/forest_abc/full.yaml')
     parser.add_argument('--resume', action='store_true')
     parser.add_argument('--checkpoint')
+    parser.add_argument('--require-external', action='store_true',
+                        help='Fail before training if the external evaluation inputs are absent.')
     args = parser.parse_args()
     os.chdir(ROOT)
     config = configuration(args.config)
@@ -398,6 +508,8 @@ def main():
         train(config, resume=args.resume)
     elif args.command in ('evaluate', 'external'):
         evaluate(config, external=args.command == 'external', checkpoint_path=args.checkpoint)
+    elif args.command == 'prepare':
+        prepare(config, require_external=args.require_external)
     else:
         {'doctor': doctor, 'prepare': prepare, 'check': check}[args.command](config)
 

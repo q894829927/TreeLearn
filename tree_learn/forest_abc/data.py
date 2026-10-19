@@ -10,6 +10,29 @@ from tree_learn.query_segmentation.data import (
     Forest, fingerprint, prepare_index, balanced_subset)
 
 
+def validate_cache_files(cache, split):
+    """Read array headers, not GT values, before a long training/evaluation run."""
+    cache = Path(cache)
+    arrays = ('coords', 'labels') + (() if split == 'train' else ('baseline',))
+    count = None
+    for name in arrays:
+        path = cache / f'{name}.npy'
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        values = np.load(path, mmap_mode='r', allow_pickle=False)
+        try:
+            if name == 'coords':
+                if values.ndim != 2 or values.shape[1] != 3 or not len(values):
+                    raise ValueError(f'Expected nonempty Nx3 coordinates: {path}')
+                if not np.issubdtype(values.dtype, np.floating):
+                    raise TypeError(f'Coordinates must be floating point: {path}')
+                count = len(values)
+            elif values.shape != (count,) or not np.issubdtype(values.dtype, np.integer):
+                raise ValueError(f'Expected {count} aligned integer {name} labels: {path}')
+        finally:
+            values._mmap.close()
+
+
 def entries(config, external=False):
     root = Path(config['external_cache_root'] if external else config['cache_root'])
     manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
@@ -22,10 +45,13 @@ def entries(config, external=False):
         for filename in ('coords.npy', 'cache.json'):
             if not (cache / filename).is_file():
                 raise FileNotFoundError(cache / filename)
+        validate_cache_files(cache, split)
         rows.append(dict(plot=record['plot'], split=split, cache=str(cache),
                          index=str(Path(config['index_root']) / split / record['plot'])))
     if not rows:
         raise ValueError(f'No coordinate forests found in {root}.')
+    if len({r['plot'] for r in rows}) != len(rows):
+        raise ValueError(f'Duplicate forest names in {root / "manifest.json"}.')
     if not external:
         actual = {s: sorted(r['plot'] for r in rows if r['split'] == s)
                   for s in ('train', 'validation')}
@@ -61,9 +87,17 @@ class RawForest:
         if self.metadata['request']['source'] != fingerprint(self.cache):
             raise ValueError(f'Stale coordinate index: {index}')
         self.arrays = {'coords': np.load(self.cache / 'coords.npy', mmap_mode='r', allow_pickle=False)}
+        if self.arrays['coords'].shape != (self.metadata['num_points'], 3):
+            raise ValueError('Coordinates do not match the prepared spatial index.')
         self.order = np.load(self.index / 'order.npy', mmap_mode='r', allow_pickle=False)
         with np.load(self.index / 'cells.npz', allow_pickle=False) as cells:
             self.keys, self.starts, self.counts = [cells[k].copy() for k in ('keys', 'starts', 'counts')]
+        if (self.order.shape != (self.metadata['num_points'],) or not len(self.keys)
+                or self.starts.shape != self.keys.shape or self.counts.shape != self.keys.shape
+                or np.any(self.counts <= 0) or np.any(np.diff(self.keys) <= 0)
+                or not np.array_equal(self.starts, np.r_[0, np.cumsum(self.counts)[:-1]])
+                or self.counts.sum() != self.metadata['num_points']):
+            raise ValueError(f'Incomplete or inconsistent spatial index: {index}')
         self.cell_size = self.metadata['request']['cell_size']
         self.origin = np.asarray(self.metadata['origin'])
         self.dimensions = np.asarray(self.metadata['dimensions'])
@@ -72,12 +106,16 @@ class RawForest:
         self.labels = None
         if with_labels:
             self.labels = np.load(self.cache / 'labels.npy', mmap_mode='r', allow_pickle=False)
+            if self.labels.shape != (self.metadata['num_points'],):
+                raise ValueError('Training labels do not align with coordinates.')
             stamp = (self.cache / 'labels.npy').stat()
             expected = dict(size=stamp.st_size, mtime_ns=stamp.st_mtime_ns)
             if json.loads((self.index / 'gt.json').read_text()) != expected:
                 raise ValueError('Training labels changed; prepare a fresh index_root.')
             with np.load(self.index / 'gt_counts.npz', allow_pickle=False) as gt:
                 self.gt_ids, self.gt_counts = gt['ids'].copy(), gt['counts'].copy()
+            if not len(self.gt_ids):
+                raise ValueError(f'Training forest has no labeled trees: {cache}')
 
     def make_block(self, center, config, seed, training=False):
         rng = np.random.default_rng(seed)

@@ -16,6 +16,8 @@ from .model import tensor_block
 def predict_forest(model, forest, config, output, device, max_blocks=None):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
+    for name in ('prediction.json', 'instances.json', 'metrics.json'):
+        (output / name).unlink(missing_ok=True)
     infer, blocks = config['inference'], config['blocks']
     count = forest.metadata['num_points']
     dtype = np.int32 if count < 2 ** 31 else np.int64
@@ -38,7 +40,10 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
             prediction = model(tensor_block(block, device))
             layer = prediction['layers'][-1]
             mask_logits = layer['masks'][:-2]
-            quality = layer['scores'][:-2].sigmoid()
+            quality_logits = layer['scores'][:-2]
+            if not bool(torch.isfinite(mask_logits).all() & torch.isfinite(quality_logits).all()):
+                raise FloatingPointError(f'Non-finite prediction in block {block_id + 1}.')
+            quality = quality_logits.sigmoid()
             probability = mask_logits.sigmoid()
             membership = probability >= infer['mask_threshold']
             mask_confidence = (probability * membership).sum(-1) / membership.sum(-1).clamp_min(1)
@@ -47,7 +52,7 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
             scored += len(scores)
             score_sum += float(scores.sum())
             passing = np.flatnonzero((scores >= infer['quality_threshold']) & voxel_masks.any(-1))
-            del prediction, layer, mask_logits, quality, probability, membership, mask_confidence
+            del prediction, layer, mask_logits, quality_logits, quality, probability, membership, mask_confidence
             if len(passing):
                 tree_index = cKDTree(block['source_xyz'])
                 with BlockMaskStore(output, len(passing), dtype,
@@ -99,27 +104,31 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
             return members[record['offset']:record['offset'] + record['count']]
 
         print(f'GLOBAL_NMS proposals={len(records)} memberships={total_members}', flush=True)
-        kept = suppress_masks(records, read, infer['nms_iou'], infer['nms_containment'])
-        for row in kept:
+        def allocate(row):
+            nonlocal rejected
             record = records[row]
             indices = read(row)
             available = labels[indices] == 0
             retained = int(available.sum())
             ratio = retained / len(indices)
-            # Reject before claiming points, so rejected fragments do not leave
-            # holes that a lower-ranked complete proposal could have filled.
+            # A rejected fragment must neither claim points nor suppress any
+            # later proposal that survived local proposal pruning.
             if (retained < infer['minimum_instance_points'] or
                     ratio < infer['minimum_retention'] or
                     record['score'] * ratio < infer['allocation_score_threshold']):
                 rejected += 1
-                continue
+                return False
             identity = len(assigned) + 1
             labels[indices[available]] = identity
             assigned.append(dict(instance_id=identity, final_count=retained,
                                  retained_fraction=ratio,
                                  **{k: v for k, v in record.items() if k != 'offset'}))
-        del indices
-        members._mmap.close()
+            return True
+
+        try:
+            kept = suppress_masks(records, read, infer['nms_iou'], infer['nms_containment'], accept=allocate)
+        finally:
+            members._mmap.close()
     labels.flush()
     del labels
     if not infer['keep_proposals']:

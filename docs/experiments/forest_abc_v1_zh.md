@@ -55,8 +55,8 @@ bash tools/forest_abc/run.sh all
 该命令始终在当前终端前台运行，逐阶段同时打印、保存日志：
 
 1. `doctor`：显示 Python、torch/CUDA、GPU 和可用显存。
-2. `prepare`：建立独立坐标索引，复用已有坐标缓存，无需重跑 TreeLearn 特征导出。
-3. `check`：4096 体素小块、3 次训练更新，采用正式训练的 LR 热身，检查有限损失，并在三步窗口累计验证 **mask loss** 对主干、GeoMixer、MFA 的非零有限梯度证据。逐层检查连接与有限性，记录每层 MFA 的空区域数量；随后用无标签输入做一次前向。它不生成或选择正式模型权重。
+2. `tests` 与 `prepare`：执行模块回归用例，检查全部训练/验证/Wytham 输入文件的存在性与形状，建立或复用独立坐标索引。完整 `all/resume` 流程缺少外部评价输入时会在训练前报错，无需重跑 TreeLearn 特征导出。
+3. `check`：先用 4096 体素小块做 3 次热身训练更新，累计验证 **mask loss** 对主干、GeoMixer、MFA 的非零有限梯度证据，逐层记录连接、有限性及空区域数量。随后按正式训练上限做一次更新，保存并恢复模型/AdamW/随机状态，再关闭 GT 辅助选 query 做一次更新；总损失检查所有可训练参数是否连接。最后选源域和 Wytham 各一个较密块，按正式推理上限执行模型、磁盘提案合并、点分配和指标计算。记录实际点数；真实块未达到上限时不宣称覆盖了满上限负载。局部结果标为 partial/check_only，不能用于选模型。只生成独立的 `check/roundtrip.pth`，不生成正式 best/last。
 4. `train`：从头联合训练完整组合 40000 步，前 1000 步 LR 热身；每 10 步打印 loss、query 数、学习率、耗时、内存/显存。
 5. 每 5000 步进行完整 5 森林源域验证，按宏平均 F1 保存 `best.pth`。每 500 步保存断点，并在验证前先保存，以便验证中断后续跑。
 6. `evaluate`：用源域选出的 best 对 5 个源域验证森林完整评估。
@@ -74,7 +74,7 @@ bash tools/forest_abc/run.sh all
 bash tools/forest_abc/run.sh resume
 ```
 
-恢复模型、AdamW 状态、步数与采样/torch 随机状态；若中断发生在验证阶段，会先补完该次验证，不重复已完成的训练步骤。配置或坐标/训练标签改变时会拒绝误续训，应使用新目录。
+恢复模型、AdamW 状态、步数与采样/torch 随机状态；若中断发生在验证阶段，会先补完该次验证，不重复已完成的训练步骤。恢复前也会执行 tests/prepare。坐标、训练标签、验证标签或对照 baseline 改变时拒绝误续训；选 best 的阈值/分配规则也必须与断点一致，避免把不同规则的历史最佳 F1 混在一起。日志频率等不影响选模的推理设置不受此规则限制。
 
 仅重新评估 best，不重新训练：
 
@@ -83,13 +83,13 @@ bash tools/forest_abc/run.sh evaluate
 bash tools/forest_abc/run.sh external
 ```
 
-可选模块单元测试，仍在服务器运行：
+单独执行模块单元测试，仍在服务器运行（all/resume 已自动包含）：
 
 ```bash
 bash tools/forest_abc/run.sh tests
 ```
 
-全套流程不要求该测试步骤先行；默认 `check` 专注于验证真实 CUDA 主干和梯度能否跑通。若准备阶段还没有 Wytham 缓存，`prepare` 会显示提示；应先恢复原有外部坐标缓存，再运行 prepare/external。
+单独 `prepare` 可在缺少 Wytham 时仅准备源域；完整 `all/resume` 则要求外部输入齐全，避免训练结束才发现无法外部评价。预检读取标签/baseline 的文件头检查对齐，不把其值送入模型；预测路径不读取 GT 或教师特征。
 
 ## 结果与日志
 
@@ -108,7 +108,7 @@ work_dirs/forest_abc_v1_s42/external_evaluation/brief.json
 
 首轮跑完主要贴 `train_summary.json`、`evaluation/brief.json`、`external_evaluation/brief.json`。如运行报错，保留终端 traceback 及对应阶段日志。
 
-推理使用质量×掩码置信度排序、局部/全局 NMS，再进行点归属。分配后剩余不足原掩码一半、得分不足或点数太少的残片在占点前被拒绝，避免拒绝后留下不能再分配的洞；这些规则固定写在同一配置中。这是完整系统的一部分，首轮不单独调阈值来替代架构验证。
+推理使用质量×掩码置信度排序，局部 NMS 精简提案；全局阶段按分数依次做 NMS 和点分配，只有最终接受的提案才能抑制后续提案。剩余不足原掩码一半、分数不足或点数太少的残片既不占点，也不进入全局 NMS 的抑制集合。这不保证恢复局部精简时丢弃的提案；这些规则固定写在同一配置中，首轮不单独调阈值来替代架构验证。
 
 评价沿用 `aligned_voxels_ignore_negative_gt_iou_gt_0.5`，包括原有 FP 计数规则和按 GT 等权的 Coverage。Wytham 已参与此前开发分析，本轮仍按已使用的外部森林报告。
 
@@ -137,3 +137,9 @@ MFA 对空 hard-mask 区域会返回原 query：这种分支允许当前块的�
 check 输出新增 `mask_gradient_by_probe_l1`、`zero_gradient_groups` 和 `mfa_regions`。`mask_gradient_l1.mfa` 改为五层探针的 L1 总和；`check/report.json` 保存 `gradient_audit` 累计结果。零梯度后仍会执行真实总损失反向传播和优化器更新；全参数非有限梯度检查保留。
 
 同时修复 check 直接用 0.001 基础 LR、未走热身的问题：现在与正式训练相同，前三步 LR 为 0.00001，AdamW weight decay 也一致。没有改 MFA 的空区域回退、掩码阈值、正式模型结构或正式训练学习率。补充空区域零梯度、跨步证据、逐层断路及 NaN/Inf 回归用例，本地仍只做静态检查。拉取后重新运行 `all`，已有索引自动复用。
+
+## 完整代码审查后的修订
+
+多次返修后已对数据、模型、损失、检查、训练/恢复、整林推理/评价及共享的索引/NMS/指标函数做逐段审查。确定问题、修复证据和尚未验证的范围见 [2026-10-19 review 记录](forest_abc_review_20261019_zh.md)。当前服务器尚未进入本模型的正式训练，仍使用 `all`；本次 check 产生的 roundtrip 明确标记为检查权重，不能用于正式 resume/evaluate。
+
+本次增加了源域验证文件标记与选模规则版本，旧版本若另有正式训练断点，不会被静默当成本次实验继续。对本对话中只跑到 check 的情况无此迁移问题，已有坐标索引可复用。

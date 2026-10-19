@@ -40,10 +40,12 @@ stage() {
   fi
 }
 run() { stage "$1" "$PYTHON_BIN" -u tools/forest_abc/run.py "$@" --config "$CONFIG"; }
+tests() { stage tests "$PYTHON_BIN" -m unittest discover -s tests -p 'test_forest_abc.py' -v; }
 case "$MODE" in
   all)
     run doctor
-    run prepare
+    tests
+    run prepare --require-external
     run check
     run train
     run evaluate
@@ -51,10 +53,12 @@ case "$MODE" in
     ;;
   resume)
     run doctor
+    tests
+    run prepare --require-external
     run train --resume
     run evaluate
     run external
     ;;
-  tests) stage tests "$PYTHON_BIN" -m unittest discover -s tests -p 'test_forest_abc.py' -v ;;
+  tests) tests ;;
   *) run "$MODE" ;;
 esac

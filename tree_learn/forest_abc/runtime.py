@@ -16,6 +16,37 @@ def resolve_cuda_device(specification):
     return torch.device('cuda', index)
 
 
+def selection_policy(config):
+    """Rules that determine validation F1 and therefore the best checkpoint."""
+    keys = ('mask_threshold', 'quality_threshold', 'nms_iou', 'nms_containment',
+            'minimum_instance_points', 'minimum_retention', 'allocation_score_threshold')
+    return dict(revision=2, **{name: config['inference'][name] for name in keys})
+
+
+def require_resume_compatible(saved, identity, config):
+    if saved.get('signature') != identity or saved.get('check_only', True):
+        raise ValueError('Resume configuration/data differ from the full-training checkpoint.')
+    if saved.get('selection_policy') != selection_policy(config):
+        raise ValueError('Validation inference policy changed; previous best F1 is not comparable. '
+                         'Restore the training policy or use a new work_dir.')
+
+
+def restore_training_state(saved, model, optimizer, rng):
+    """Shared by actual resume and the server serialization/optimizer check."""
+    model.load_state_dict(saved['model'])
+    optimizer.load_state_dict(saved['optimizer'])
+    rng.bit_generator.state = saved['sampler_rng']
+    torch.set_rng_state(saved['torch_rng'])
+    torch.cuda.set_rng_state_all(saved['cuda_rng'])
+
+
+def require_trainable_gradients(model):
+    missing = [name for name, parameter in model.named_parameters()
+               if parameter.requires_grad and parameter.grad is None]
+    if missing:
+        raise RuntimeError(f'Total loss is disconnected from trainable parameters: {missing}')
+
+
 class MaskGradientAudit:
     """Require finite graph connections and positive group evidence over a window.
 

@@ -16,8 +16,13 @@ def boxes_overlap(first, second):
     return np.all(np.asarray(first[:3]) <= second[3:]) and np.all(np.asarray(second[:3]) <= first[3:])
 
 
-def suppress_masks(records, read_mask, iou_threshold=.5, containment_threshold=.8):
-    """Score order, exact point overlap, and an XY grid to avoid all-pairs NMS."""
+def suppress_masks(records, read_mask, iou_threshold=.5, containment_threshold=.8, accept=None):
+    """Score-ordered NMS; only finally accepted rows may suppress later rows.
+
+    The optional callback runs after overlap checks and before adding a row to
+    the spatial buckets. It may reject a mask after exclusive point allocation.
+    Existing callers without a callback retain their original NMS behavior.
+    """
     kept, buckets = [], {}
     for row in sorted(range(len(records)), key=lambda i: (-records[i]['score'], i)):
         record = records[row]
@@ -41,7 +46,7 @@ def suppress_masks(records, read_mask, iou_threshold=.5, containment_threshold=.
                     intersection / max(min(record['count'], previous['count']), 1) >= containment_threshold):
                 rejected = True
                 break
-        if not rejected:
+        if not rejected and (accept is None or accept(row)):
             kept.append(row)
             for cell in cells:
                 buckets.setdefault(cell, []).append(row)

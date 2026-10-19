@@ -10,10 +10,212 @@ from unittest.mock import patch
 import numpy as np
 import torch
 
-from tree_learn.forest_abc.data import RawForest, neighborhood, prepare_index
+from tree_learn.forest_abc.data import RawForest, entries, neighborhood, prepare_index, validate_cache_files
 from tree_learn.forest_abc.loss import instance_loss
 from tree_learn.forest_abc.modules import RegionGatedQueryUpdate, farthest_points
-from tree_learn.forest_abc.runtime import MaskGradientAudit, resolve_cuda_device
+from tree_learn.forest_abc.runtime import (
+    MaskGradientAudit, resolve_cuda_device, require_resume_compatible,
+    restore_training_state, require_trainable_gradients, selection_policy)
+
+
+class ForestABCWorkflowTests(unittest.TestCase):
+    def test_cache_preflight_rejects_missing_or_unaligned_evaluation_inputs(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            cache = Path(temporary)
+            np.save(cache / 'coords.npy', np.zeros((4, 3), dtype=np.float32))
+            np.save(cache / 'labels.npy', np.ones(4, dtype=np.int32))
+            validate_cache_files(cache, 'train')  # No baseline needed for training.
+            with self.assertRaises(FileNotFoundError):
+                validate_cache_files(cache, 'validation')
+            np.save(cache / 'baseline.npy', np.ones(3, dtype=np.int32))
+            with self.assertRaisesRegex(ValueError, 'aligned integer baseline'):
+                validate_cache_files(cache, 'external')
+            np.save(cache / 'baseline.npy', np.ones(4, dtype=np.int32))
+            validate_cache_files(cache, 'validation')
+
+    def test_external_manifest_rejects_duplicate_plot_names(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            cache = root / 'one'
+            cache.mkdir()
+            np.save(cache / 'coords.npy', np.zeros((4, 3), dtype=np.float32))
+            for name in ('labels', 'baseline'):
+                np.save(cache / f'{name}.npy', np.ones(4, dtype=np.int32))
+            (cache / 'cache.json').write_text('{}')
+            (root / 'manifest.json').write_text(json.dumps(dict(forests=[
+                dict(plot='same', cache='one'), dict(plot='same', cache='one')])))
+            with self.assertRaisesRegex(ValueError, 'Duplicate forest'):
+                entries(dict(external_cache_root=str(root), index_root=str(root / 'index')), external=True)
+
+    def test_resume_rejects_validation_policy_changes_but_allows_log_changes(self):
+        config = dict(inference=dict(mask_threshold=.5, quality_threshold=.3, nms_iou=.5,
+                      nms_containment=.8, minimum_instance_points=20, minimum_retention=.5,
+                      allocation_score_threshold=.2, log_every_blocks=5))
+        saved = dict(signature='same', check_only=False, config=copy.deepcopy(config),
+                     selection_policy=selection_policy(config))
+        require_resume_compatible(saved, 'same', config)
+        config['inference']['log_every_blocks'] = 10
+        require_resume_compatible(saved, 'same', config)
+        config['inference']['minimum_retention'] = .7
+        with self.assertRaisesRegex(ValueError, 'policy changed'):
+            require_resume_compatible(saved, 'same', config)
+        with self.assertRaisesRegex(ValueError, 'policy changed'):
+            require_resume_compatible(dict(saved, selection_policy=dict(revision=1)), 'same', saved['config'])
+        with self.assertRaisesRegex(ValueError, 'full-training checkpoint'):
+            require_resume_compatible(dict(saved, check_only=True), 'same', saved['config'])
+        self.assertNotIn('log_every_blocks', selection_policy(config))
+
+    def test_validation_label_and_baseline_changes_invalidate_data_signature(self):
+        from tools.forest_abc.run import signature
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'index.json').write_text('{}')
+            np.save(root / 'labels.npy', np.ones(4, dtype=np.int32))
+            np.save(root / 'baseline.npy', np.ones(4, dtype=np.int32))
+            row = dict(plot='validation', split='validation', index=str(root), cache=str(root))
+            config = dict(model={}, blocks={}, loss={}, training={}, seed=42)
+            original = signature(config, [row])
+            np.save(root / 'baseline.npy', np.ones(4, dtype=np.int64))
+            changed_baseline = signature(config, [row])
+            self.assertNotEqual(original, changed_baseline)
+            np.save(root / 'labels.npy', np.ones(4, dtype=np.int64))
+            self.assertNotEqual(changed_baseline, signature(config, [row]))
+
+    def test_optimizer_and_sampling_continue_identically_after_serialization(self):
+        torch.manual_seed(22)
+        model = torch.nn.Linear(2, 1)
+        optimizer = torch.optim.AdamW(model.parameters(), lr=.01)
+        rng = np.random.default_rng(22)
+
+        def step():
+            values = torch.from_numpy(rng.normal(size=(3, 2)).astype(np.float32))
+            target = torch.randn(3, 1)
+            optimizer.zero_grad(set_to_none=True)
+            (model(values) - target).square().mean().backward()
+            require_trainable_gradients(model)
+            optimizer.step()
+
+        step()
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / 'check_only.pth'
+            torch.save(dict(check_only=True, model=model.state_dict(), optimizer=optimizer.state_dict(),
+                            sampler_rng=rng.bit_generator.state, torch_rng=torch.get_rng_state(), cuda_rng=[]), path)
+            step()
+            expected = {name: value.detach().clone() for name, value in model.state_dict().items()}
+            saved = torch.load(path, map_location='cpu', weights_only=False)
+            with patch('torch.cuda.set_rng_state_all') as restore_cuda:
+                restore_training_state(saved, model, optimizer, rng)
+                restore_cuda.assert_called_once_with([])
+            step()
+            for name, value in model.state_dict().items():
+                torch.testing.assert_close(value, expected[name], rtol=0, atol=0)
+
+    def test_total_loss_check_reports_unused_parameters(self):
+        model = torch.nn.Sequential(torch.nn.Linear(2, 2), torch.nn.Linear(2, 1))
+        model[0](torch.ones(3, 2)).sum().backward()
+        with self.assertRaisesRegex(RuntimeError, '1.weight'):
+            require_trainable_gradients(model)
+
+    def test_config_rejects_fractional_counts_and_nonfinite_values_before_cuda(self):
+        from tools.forest_abc.run import configuration
+        import yaml
+
+        path = Path(__file__).resolve().parents[1] / 'configs/experiments/forest_abc/full.yaml'
+        original = yaml.safe_load(path.read_text())
+        with tempfile.TemporaryDirectory() as temporary:
+            target = Path(temporary) / 'config.yaml'
+            for group, name, value in [('model', 'heads', 0), ('blocks', 'neighbors', 1.5),
+                                       ('training', 'learning_rate', float('nan'))]:
+                with self.subTest(field=f'{group}.{name}'):
+                    config = copy.deepcopy(original)
+                    config[group][name] = value
+                    target.write_text(yaml.safe_dump(config))
+                    with self.assertRaises(ValueError):
+                        configuration(target)
+
+    def test_failed_evaluation_rerun_removes_old_success_summaries(self):
+        from tools.forest_abc.run import evaluate_model
+
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            for name in ('summary.json', 'brief.json'):
+                (output / name).write_text('{"old_success": true}')
+            row = dict(plot='example', cache='unused', index='unused')
+            with patch('tools.forest_abc.run.RawForest', side_effect=RuntimeError('new run failed')):
+                with self.assertRaisesRegex(RuntimeError, 'new run failed'):
+                    evaluate_model({}, None, [row], output, torch.device('cpu'), 5000)
+            self.assertFalse((output / 'summary.json').exists())
+            self.assertFalse((output / 'brief.json').exists())
+
+
+class ForestABCAllocationTests(unittest.TestCase):
+    def test_rejected_global_fragment_does_not_suppress_later_complete_mask(self):
+        from tree_learn.forest_abc.inference import predict_forest
+        from tree_learn.query_segmentation.inference import suppress_masks
+
+        # C takes 6 of A's 10 points without satisfying either NMS threshold.
+        # A would suppress B by 80% containment, but allocation rejects A at
+        # 40% retention. B's five points are all free and should remain usable.
+        proposals = [np.r_[0:6, 20:28], np.arange(10), np.arange(6, 11)]
+        records = [dict(score=3 - row, count=len(mask), bbox=[0, 0, 0, 30, 1, 1])
+                   for row, mask in enumerate(proposals)]
+        self.assertEqual(suppress_masks(records, lambda row: proposals[row]), [0, 1])
+        self.assertEqual(suppress_masks(records, lambda row: proposals[row], accept=lambda row: row != 1),
+                         [0, 2])
+
+        class FakeForest:
+            metadata = dict(num_points=28)
+            centers = np.zeros((3, 2))
+            arrays = dict(coords=np.column_stack((np.arange(28), np.zeros((28, 2)))).astype(np.float32))
+
+            def make_block(self, center, blocks, seed):
+                xyz = self.arrays['coords'].copy()
+                return dict(xyz=xyz, source_xyz=xyz, indices=np.arange(28),
+                            grid=xyz.astype(np.int32), neighbors=np.arange(28)[:, None],
+                            core=np.ones(28, dtype=bool), raw_points=28, available_voxels=28)
+
+        class ProposalModel(torch.nn.Module):
+            def __init__(self, nonfinite=None):
+                super().__init__()
+                self.block = 0
+                self.nonfinite = nonfinite
+
+            def forward(self, block):
+                logits = torch.full((3, 28), -20.)
+                logits[0, proposals[self.block]] = 20.
+                if self.nonfinite == 'mask':
+                    logits[0, 0] = float('nan')
+                scores = torch.tensor([3. - self.block, 0., 0.])
+                if self.nonfinite == 'score':
+                    scores[0] = float('inf')
+                self.block += 1
+                return dict(layers=[dict(masks=logits, scores=scores)])
+
+        config = dict(seed=42, blocks={}, inference=dict(mask_threshold=.5, quality_threshold=.3,
+                      nms_iou=.5, nms_containment=.8, minimum_instance_points=1, minimum_retention=.5,
+                      allocation_score_threshold=.2, chunk_size=7, max_block_memberships=4,
+                      max_forest_memberships=1000, keep_proposals=False, log_every_blocks=5))
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            result, stats = predict_forest(ProposalModel(), FakeForest(), config, output / 'valid',
+                                           torch.device('cpu'))
+            try:
+                self.assertEqual(stats['allocation_rejected'], 1)
+                self.assertEqual(stats['final_instances'], 2)
+                np.testing.assert_array_equal(result[proposals[2]], np.full(5, 2))
+                np.testing.assert_array_equal(result[proposals[0]], np.ones(14))
+            finally:
+                result._mmap.close()
+            for kind in ('mask', 'score'):
+                with self.subTest(nonfinite=kind):
+                    invalid = output / kind
+                    invalid.mkdir()
+                    (invalid / 'prediction.json').write_text('{"old_success": true}')
+                    with self.assertRaisesRegex(FloatingPointError, 'Non-finite prediction'):
+                        predict_forest(ProposalModel(nonfinite=kind), FakeForest(), config, invalid,
+                                       torch.device('cpu'))
+                    self.assertFalse((invalid / 'prediction.json').exists())
 
 
 class ForestABCDeviceTests(unittest.TestCase):
