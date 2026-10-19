@@ -13,7 +13,7 @@ import torch
 from tree_learn.forest_abc.data import RawForest, neighborhood, prepare_index
 from tree_learn.forest_abc.loss import instance_loss
 from tree_learn.forest_abc.modules import RegionGatedQueryUpdate, farthest_points
-from tree_learn.forest_abc.runtime import resolve_cuda_device
+from tree_learn.forest_abc.runtime import MaskGradientAudit, resolve_cuda_device
 
 
 class ForestABCDeviceTests(unittest.TestCase):
@@ -42,6 +42,38 @@ class ForestABCDeviceTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, 'requires CUDA'):
                     resolve_cuda_device(specification)
             selected.assert_not_called()
+
+
+class ForestABCGradientAuditTests(unittest.TestCase):
+    def test_later_zero_gradient_does_not_erase_previous_connection_evidence(self):
+        audit = MaskGradientAudit(['backbone', 'geometry', 'mfa.layer_1', 'mfa.layer_2'])
+        audit.observe([torch.ones(1), torch.ones(1), torch.ones(1), torch.zeros(1)])
+        groups, probes = audit.observe([torch.ones(1), torch.ones(1), torch.zeros(1), torch.zeros(1)])
+        self.assertEqual(groups['mfa'], 0.)
+        self.assertEqual(probes['mfa.layer_1'], 0.)
+        report = audit.finish()
+        self.assertEqual(report['steps'], 2)
+        self.assertGreater(report['group_gradient_l1']['mfa'], 0.)
+        self.assertIn('mfa.layer_2', report['zero_gradient_probes'])
+
+    def test_group_inactive_for_the_entire_window_still_fails(self):
+        audit = MaskGradientAudit(['backbone', 'mfa.layer_1'])
+        for _ in range(3):
+            audit.observe([torch.ones(1), torch.zeros(1)])
+        with self.assertRaisesRegex(RuntimeError, 'No nonzero.*mfa'):
+            audit.finish()
+
+    def test_disconnected_layer_cannot_hide_behind_another_active_layer(self):
+        audit = MaskGradientAudit(['backbone', 'mfa.layer_1', 'mfa.layer_2'])
+        with self.assertRaisesRegex(RuntimeError, 'disconnected.*mfa.layer_2'):
+            audit.observe([torch.ones(1), torch.ones(1), None])
+
+    def test_nonfinite_gradients_always_fail(self):
+        for value in (float('nan'), float('inf')):
+            with self.subTest(value=value):
+                audit = MaskGradientAudit(['mfa.layer_1'])
+                with self.assertRaisesRegex(FloatingPointError, 'Non-finite.*mfa.layer_1'):
+                    audit.observe([torch.tensor([value])])
 
 
 class ForestABCModuleTests(unittest.TestCase):
@@ -122,6 +154,18 @@ class ForestABCModuleTests(unittest.TestCase):
         result[1:].square().sum().backward()
         self.assertGreater(float(features.grad.abs().sum()), 0)
         self.assertGreater(float(module.output[0].weight.grad.abs().sum()), 0)
+
+    def test_all_empty_regions_have_connected_zero_update_gradient(self):
+        torch.manual_seed(11)
+        module = RegionGatedQueryUpdate(16)
+        query = torch.randn(3, 16, requires_grad=True)
+        features = torch.randn(8, 16, requires_grad=True)
+        result = module(query, features, torch.full((3, 8), -20.))
+        torch.testing.assert_close(result, query)
+        gradient, = torch.autograd.grad(result.square().sum(), [module.output[0].weight], allow_unused=True)
+        self.assertIsNotNone(gradient)
+        self.assertTrue(torch.isfinite(gradient).all())
+        self.assertEqual(float(gradient.abs().sum()), 0.)
 
     def test_unknown_points_do_not_change_mask_or_quality_targets(self):
         torch.manual_seed(1)

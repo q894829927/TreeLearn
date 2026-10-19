@@ -56,7 +56,7 @@ bash tools/forest_abc/run.sh all
 
 1. `doctor`：显示 Python、torch/CUDA、GPU 和可用显存。
 2. `prepare`：建立独立坐标索引，复用已有坐标缓存，无需重跑 TreeLearn 特征导出。
-3. `check`：4096 体素小块、3 次训练更新，检查有限损失，并明确验证 **mask loss** 对主干、GeoMixer、MFA 都产生非零有限梯度；随后用无标签输入做一次前向。它不生成或选择正式模型权重。
+3. `check`：4096 体素小块、3 次训练更新，采用正式训练的 LR 热身，检查有限损失，并在三步窗口累计验证 **mask loss** 对主干、GeoMixer、MFA 的非零有限梯度证据。逐层检查连接与有限性，记录每层 MFA 的空区域数量；随后用无标签输入做一次前向。它不生成或选择正式模型权重。
 4. `train`：从头联合训练完整组合 40000 步，前 1000 步 LR 热身；每 10 步打印 loss、query 数、学习率、耗时、内存/显存。
 5. 每 5000 步进行完整 5 森林源域验证，按宏平均 F1 保存 `best.pth`。每 500 步保存断点，并在验证前先保存，以便验证中断后续跑。
 6. `evaluate`：用源域选出的 best 对 5 个源域验证森林完整评估。
@@ -127,3 +127,13 @@ work_dirs/forest_abc_v1_s42/external_evaluation/brief.json
 修复包括：权重使用 float32 比例原位缩放；`tensor_block` 显式指定浮点输入/监督为 torch.float32，索引保持对应整数类型；损失内部将权重、完整树大小对齐预测类型，MSE 质量目标明确匹配 score 类型。check 首步打印 `CHECK_DTYPES`，包括输入、mask、score、总损失和各损失分量类型。
 
 补充了大于 65535 体素的真实数据块、张量类型边界、Double 监督下完整损失反传三类回归用例，尚未在本地执行。已有索引可复用，配置和工作目录不用改；仍运行 `bash tools/forest_abc/run.sh all`，prepare 会复用完成的索引，然后重新 check。正式训练尚未开始，不使用 resume。
+
+## check 的条件分支梯度判定修复
+
+第三次服务器运行已完成首个真实训练步，日志显示 mask loss 对 backbone、geometry、mfa 的梯度 L1 分别约为 78.10、18.65、313.75，说明这条端到端路径至少在首块上已经接通。第二块却触发统一的 `Mask loss does not reach mfa`。旧检查把 None、NaN/Inf、精确零梯度都合并成这条报错，因此仅凭该日志无法确认第二块属于哪一种。
+
+MFA 对空 hard-mask 区域会返回原 query：这种分支允许当前块的更新参数梯度为零，不能直接等同于计算图断开。现在每步仍立即拒绝 None 和非有限梯度，检查全部五层 MFA，而不再只抽第一层；对非零梯度按 backbone/geometry/mfa 三组在三步窗口累计取证。若某组整个窗口都没有非零证据，依然停止。逐层一直为零的探针保留在报告中，不用其他层的梯度掩盖 None 断路。
+
+check 输出新增 `mask_gradient_by_probe_l1`、`zero_gradient_groups` 和 `mfa_regions`。`mask_gradient_l1.mfa` 改为五层探针的 L1 总和；`check/report.json` 保存 `gradient_audit` 累计结果。零梯度后仍会执行真实总损失反向传播和优化器更新；全参数非有限梯度检查保留。
+
+同时修复 check 直接用 0.001 基础 LR、未走热身的问题：现在与正式训练相同，前三步 LR 为 0.00001，AdamW weight decay 也一致。没有改 MFA 的空区域回退、掩码阈值、正式模型结构或正式训练学习率。补充空区域零梯度、跨步证据、逐层断路及 NaN/Inf 回归用例，本地仍只做静态检查。拉取后重新运行 `all`，已有索引自动复用。

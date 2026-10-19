@@ -25,7 +25,7 @@ from tree_learn.forest_abc.data import RawForest, entries, prepare_rows
 from tree_learn.forest_abc.model import ForestABC, tensor_block
 from tree_learn.forest_abc.loss import instance_loss
 from tree_learn.forest_abc.inference import predict_forest
-from tree_learn.forest_abc.runtime import resolve_cuda_device
+from tree_learn.forest_abc.runtime import MaskGradientAudit, resolve_cuda_device
 
 
 def configuration(path):
@@ -150,12 +150,38 @@ def check(config):
     sampler = BlockSampler([r for r in entries(config) if r['split'] == 'train'],
                            settings['blocks'], config['seed'])
     model = ForestABC(config['model']).to(device).train()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=config['training']['learning_rate'])
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate(1, config),
+                                  weight_decay=config['training']['weight_decay'])
+    selected = {'backbone': next(model.input_conv.parameters())}
+    if model.geometry is not None:
+        selected['geometry'] = model.geometry.mixer.final.weight
+    region_activity = {}
+    hooks = []
+
+    def capture_regions(name):
+        def capture(module, inputs):
+            populated = (inputs[2].detach() > 0).any(-1)
+            semantic_count = model.decoder.num_semantic_queries
+            instances = populated[:-semantic_count] if semantic_count else populated
+            region_activity[name] = dict(queries=len(populated), nonempty_queries=int(populated.sum()),
+                                         instance_queries=len(instances),
+                                         nonempty_instance_queries=int(instances.sum()))
+        return capture
+
+    for index, module in model.decoder.region_updates.items():
+        name = f'mfa.layer_{index}'
+        selected[name] = module.output[0].weight
+        hooks.append(module.register_forward_pre_hook(capture_regions(name)))
+    audit = MaskGradientAudit(selected)
     checks = []
     for step in range(config['training']['check_steps']):
         plot, block = sampler.draw()
         batch = tensor_block(block, device, supervision=True)
         optimizer.zero_grad(set_to_none=True)
+        rate = learning_rate(step + 1, config)
+        for group in optimizer.param_groups:
+            group['lr'] = rate
+        region_activity.clear()
         prediction = model(batch, teacher_fraction=1.)
         loss, statistics, components = instance_loss(prediction, batch, config['loss'], return_components=True)
         if step == 0:
@@ -169,30 +195,31 @@ def check(config):
             raise TypeError('Loss dtype differs from mask predictions; inspect CHECK_DTYPES.')
         if not torch.isfinite(loss):
             raise FloatingPointError('Non-finite loss in runtime check.')
-        selected = {'backbone': next(model.input_conv.parameters())}
-        if model.geometry is not None:
-            selected['geometry'] = model.geometry.mixer.final.weight
-        if model.decoder.region_updates:
-            selected['mfa'] = next(iter(model.decoder.region_updates.values())).output[0].weight
         gradients = torch.autograd.grad(components['mask'], list(selected.values()),
                                         retain_graph=True, allow_unused=True)
-        gradient_report = {}
-        for name, grad in zip(selected, gradients):
-            if grad is None or not torch.isfinite(grad).all() or not bool(grad.abs().sum() > 0):
-                raise RuntimeError(f'Mask loss does not reach {name}; stop before full training.')
-            gradient_report[name] = float(grad.abs().sum())
+        try:
+            gradient_report, probe_report = audit.observe(gradients)
+        except (RuntimeError, FloatingPointError):
+            print('CHECK_MFA_REGIONS ' + json.dumps(region_activity), flush=True)
+            raise
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), config['training']['gradient_clip'], error_if_nonfinite=True)
         optimizer.step()
-        checks.append(dict(step=step + 1, plot=plot, mask_gradient_l1=gradient_report, **statistics))
+        checks.append(dict(step=step + 1, plot=plot, learning_rate=rate,
+                           mask_gradient_l1=gradient_report, mask_gradient_by_probe_l1=probe_report,
+                           zero_gradient_groups=[name for name, value in gradient_report.items() if value == 0],
+                           mfa_regions=copy.deepcopy(region_activity), **statistics))
         print('CHECK ' + json.dumps(checks[-1]), flush=True)
         del prediction, loss, components, batch, gradients
+    gradient_audit = audit.finish()
+    for hook in hooks:
+        hook.remove()
     model.eval()
     with torch.no_grad():
         prediction = model(tensor_block(block, device, supervision=False))
         checks[-1]['inference_queries'] = len(prediction['anchors'])
     output = Path(config['work_dir']) / 'check'
-    write_json(output / 'report.json', dict(check_only=True, checks=checks,
+    write_json(output / 'report.json', dict(check_only=True, checks=checks, gradient_audit=gradient_audit,
                parameter_count=sum(p.numel() for p in model.parameters()),
                trainable_parameters=sum(p.numel() for p in model.parameters() if p.requires_grad),
                code=source_hashes(), **memory(device)))
