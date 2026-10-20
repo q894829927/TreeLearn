@@ -33,8 +33,14 @@ class CenterDataTests(unittest.TestCase):
             row = dict(cache=str(cache), index=str(index), plot='synthetic', split='train')
             prepare_centers(row)
             with np.load(index / 'v2_centers.npz', allow_pickle=False) as targets:
+                self.assertEqual(targets['centers'].dtype, np.dtype('float32'))
                 for i, identifier in enumerate(targets['ids']):
-                    np.testing.assert_allclose(targets['centers'][i], xyz[labels == identifier, :2].mean(0), atol=1e-6)
+                    # Production accumulates in float64 before storing float32.
+                    # A float32 mean can differ by several float32 ULPs even in
+                    # this small fixture. Use an independent float64 reference,
+                    # then verify the stored values exactly after final casting.
+                    expected = xyz[labels == identifier, :2].mean(axis=0, dtype=np.float64).astype(np.float32)
+                    np.testing.assert_array_equal(targets['centers'][i], expected)
             forest = CenterForest(cache, index, with_labels=True)
             config = dict(radius=16., core_radius=12., voxel_size=.2, minimum_points=8, neighbors=4,
                           max_train_voxels=128, max_inference_voxels=128, scale_min=.5, scale_max=1.25, density_min=.4)
