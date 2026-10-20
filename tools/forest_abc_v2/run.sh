@@ -7,8 +7,8 @@ MODE="${1:-all}"
 CONFIG="${2:-configs/experiments/forest_abc_v2/full.yaml}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 case "$MODE" in
-  all|resume|doctor|prepare|check|train|evaluate|external|tests) ;;
-  *) printf 'Usage: bash tools/forest_abc_v2/run.sh {all|resume|doctor|prepare|check|train|evaluate|external|tests} [config]\n' >&2; exit 2 ;;
+  all|resume|doctor|prepare|check|train|evaluate|external|tests|probe) ;;
+  *) printf 'Usage: bash tools/forest_abc_v2/run.sh {all|resume|doctor|prepare|check|train|evaluate|external|tests|probe} [config]\n' >&2; exit 2 ;;
 esac
 mkdir -p logs/forest_abc_v1 logs/forest_abc_v2
 # Shared GPU/cache lock with V1 and the stage diagnostic.
@@ -57,5 +57,6 @@ case "$MODE" in
     run external
     ;;
   tests) tests ;;
+  probe) stage probe "$PYTHON_BIN" -u tools/forest_abc_v2/probe_scores.py ;;
   *) run "$MODE" ;;
 esac

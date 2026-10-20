@@ -77,6 +77,19 @@ def configuration(path):
         raise ValueError('This V2 experiment initializes from the frozen V1 step 20000.')
     if t['warmup_steps'] >= t['steps']:
         raise ValueError('Warmup must be shorter than training.')
+    revision = config['loss'].get('quality_target_revision', 1)
+    score_revision = infer.get('score_revision', 1)
+    if type(revision) is not int or type(score_revision) is not int or revision not in (1, 2) or score_revision != revision:
+        raise ValueError('Loss quality-target and inference score revisions must match (1 or 2).')
+    if 'safety' in config:
+        safety = config['safety']
+        if (type(safety['first_validation_step']) is not int or
+                not 0 < safety['first_validation_step'] < t['evaluate_every'] or
+                safety['first_validation_step'] >= t['steps']):
+            raise ValueError('Safety validation must precede the regular validation and final step.')
+        for name in ('minimum_f1', 'minimum_completeness'):
+            if type(safety[name]) not in (int, float) or not 0 < safety[name] <= 1:
+                raise ValueError(f'safety.{name} must be in (0, 1].')
     return config
 
 
@@ -86,10 +99,13 @@ def source_hashes():
 
 
 def signature(config, rows):
-    return digest(dict(revision=2, base=common.signature(config, rows),
+    value = dict(revision=2, base=common.signature(config, rows),
         initialization=config['initialization'],
         center_inputs={r['plot']: dict(inputs=center_request(r),
-            targets=file_digest(Path(r['index']) / 'v2_centers.npz')) for r in rows if r['split'] == 'train'}))
+            targets=file_digest(Path(r['index']) / 'v2_centers.npz')) for r in rows if r['split'] == 'train'})
+    if 'safety' in config:
+        value['safety'] = config['safety']
+    return digest(value)
 
 
 def require_initialization_checkpoint(saved, config):
@@ -290,10 +306,12 @@ def train(config, resume=False):
                            config['seed'], settings['max_open_forests'])
     model = CenterForestModel(config['model']).to(device).train()
     optimizer = torch.optim.AdamW(model.parameters(), lr=settings['learning_rate'], weight_decay=settings['weight_decay'])
-    step, validated, best, initialization = 0, 0, -1., None
+    step, validated, best, initialization, guard_failed = 0, 0, -1., None, False
     if resume:
         saved = torch.load(work / 'last.pth', map_location='cpu', weights_only=False)
         compatible(saved, config, rows)
+        if saved.get('validation_guard_failed', False):
+            raise RuntimeError('This run failed its validation safety check; inspect diagnostics before resuming.')
         restore_training_state(saved, model, optimizer, sampler.rng)
         step, validated, best = saved['step'], saved['validated_step'], saved['best_validation_f1']
         initialization = saved['initialization']
@@ -310,13 +328,24 @@ def train(config, resume=False):
         return dict(schema=2, check_only=False, signature=identity, config=config, code=code,
             inference=config['inference'], initialization=initialization, model=model.state_dict(),
             optimizer=optimizer.state_dict(), step=step, validated_step=validated, best_validation_f1=best,
+            validation_guard_failed=guard_failed,
             sampler_rng=sampler.rng.bit_generator.state, torch_rng=torch.get_rng_state(),
             cuda_rng=torch.cuda.get_rng_state_all())
 
     def validate():
-        nonlocal validated, best
+        nonlocal validated, best, guard_failed
         result = evaluate_model(config, model, validation, work / 'validation' / f'step_{step:06d}', device, step)
         validated = step
+        safety = config.get('safety')
+        if safety and (result['refined_macro']['f1'] < safety['minimum_f1'] or
+                       result['refined_macro']['completeness'] < safety['minimum_completeness']):
+            guard_failed = True
+            write_json(work / 'validation_guard_failed.json', dict(step=step, safety=safety,
+                       refined_macro=result['refined_macro'], not_for_advancement=True))
+            common.atomic_checkpoint(work / f'step_{step:06d}.pth', checkpoint())
+            common.atomic_checkpoint(work / 'last.pth', checkpoint())
+            raise RuntimeError('Validation collapsed below the configured safety floor. '
+                               'Stopped before further training; inspect validation_guard_failed.json.')
         if result['refined_macro']['f1'] > best:
             best = result['refined_macro']['f1']
             common.atomic_checkpoint(work / 'best.pth', checkpoint())
@@ -327,7 +356,8 @@ def train(config, resume=False):
 
     if not resume:
         common.atomic_checkpoint(work / 'last.pth', checkpoint())
-    if step and validated < step and (step % settings['evaluate_every'] == 0 or step == settings['steps']):
+    first_validation = config.get('safety', {}).get('first_validation_step', -1)
+    if step and validated < step and (step == first_validation or step % settings['evaluate_every'] == 0 or step == settings['steps']):
         validate()
     while step < settings['steps']:
         iteration = time.monotonic()
@@ -357,9 +387,9 @@ def train(config, resume=False):
         if step == 1 or step % settings['log_every'] == 0:
             print(json.dumps(log), flush=True)
         del loss, prediction, block, batch
-        if step % settings['save_every'] == 0 or step % settings['evaluate_every'] == 0 or step == settings['steps']:
+        if step == first_validation or step % settings['save_every'] == 0 or step % settings['evaluate_every'] == 0 or step == settings['steps']:
             common.atomic_checkpoint(work / 'last.pth', checkpoint())
-        if step % settings['evaluate_every'] == 0 or step == settings['steps']:
+        if step == first_validation or step % settings['evaluate_every'] == 0 or step == settings['steps']:
             validate()
     write_json(work / 'train_summary.json', dict(step=step, best_validation_f1=best,
                checkpoint=str(work / 'best.pth'), initialization=initialization, **common.memory(device)))

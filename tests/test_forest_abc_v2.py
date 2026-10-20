@@ -1,6 +1,7 @@
 """Server CPU regressions; full sparse GPU paths are covered by the V2 check stage."""
 
 import copy
+from contextlib import ExitStack
 import json
 from pathlib import Path
 import tempfile
@@ -11,7 +12,8 @@ import numpy as np
 import torch
 
 from tree_learn.forest_abc_v2.data import CenterForest, prepare_centers
-from tree_learn.forest_abc_v2.loss import balanced_mass, instance_loss, match_instances
+from tree_learn.forest_abc_v2.loss import balanced_mass, candidate_quality_targets, instance_loss, match_instances
+from tree_learn.forest_abc_v2.scoring import proposal_scores
 from tree_learn.forest_abc_v2.merge import compete, group_proposals
 from tree_learn.query_segmentation.data import prepare_index
 
@@ -146,6 +148,40 @@ class OwnershipLossTests(unittest.TestCase):
         other, _ = instance_loss(changed, block, config)
         torch.testing.assert_close(original, other)
 
+    def test_correct_candidate_keeps_positive_quality_supervision_before_winning_points(self):
+        # Q1 is the best binary mask, but Q0 temporarily wins its tree points.
+        # Relabeling both qualities as zero teaches the opposite of proposal IoU.
+        raw = torch.tensor([[10., 10., 10., -10.], [9., 9., -10., -10.]])
+        targets = torch.tensor([[1., 1., 0., 0.]])
+        quality = candidate_quality_targets(raw, targets, torch.ones(4), torch.tensor([2.]))
+        torch.testing.assert_close(quality, torch.tensor([2 / 3, 1.]))
+        _, _, config = self.synthetic()
+        config['quality_target_revision'] = 2
+        masks = torch.cat((raw, torch.tensor([[-6., -6., 6., 6.], [6., 6., -6., -6.]]))).requires_grad_()
+        scores = torch.zeros(4, requires_grad=True)
+        prediction = dict(anchors=torch.tensor([0, 1]), semantic=torch.zeros(4, 2, requires_grad=True),
+            embedding=torch.zeros(4, 5, requires_grad=True), offsets=torch.zeros(4, 2, requires_grad=True),
+            layers=[dict(masks=masks, scores=scores)])
+        block = dict(labels=torch.tensor([1, 1, 0, 0]), weights=torch.ones(4),
+                     whole_sizes=torch.tensor([2., 2., 0., 0.]), center_offsets=torch.zeros(4, 2))
+        _, stats, components = instance_loss(prediction, block, config, return_components=True)
+        self.assertAlmostEqual(stats['matched_raw_iou_mean'], 1.)
+        self.assertAlmostEqual(stats['matched_owner_iou_mean'], 0.)
+        components['quality'].backward()
+        self.assertLess(float(scores.grad[1]), 0., 'The correct proposal must be trained toward a higher score.')
+
+    def test_direct_quality_does_not_apply_a_second_mask_confidence_penalty(self):
+        masks = torch.full((1, 2), float(torch.logit(torch.tensor(.6))))
+        quality_logits = torch.logit(torch.tensor([.4]))
+        config = dict(mask_threshold=.5, score_revision=1)
+        legacy, membership, quality, confidence = proposal_scores(masks, quality_logits, config)
+        fixed, _, _, _ = proposal_scores(masks, quality_logits, dict(config, score_revision=2))
+        self.assertTrue(membership.all())
+        torch.testing.assert_close(legacy, torch.tensor([.24]))
+        torch.testing.assert_close(fixed, quality)
+        self.assertLess(float(legacy[0]), .3)
+        self.assertGreater(float(fixed[0]), .3)
+
 
 class MergeTests(unittest.TestCase):
     def record(self, mask, center, score=.8):
@@ -241,6 +277,56 @@ class DecoderTests(unittest.TestCase):
 
 
 class WholeForestTests(unittest.TestCase):
+    def test_collapsed_validation_stops_training_and_cannot_be_blindly_resumed(self):
+        from tools.forest_abc_v2 import run as workflow
+
+        class Model(torch.nn.Module):
+            def __init__(self, config):
+                super().__init__()
+                self.weight = torch.nn.Parameter(torch.ones(1))
+
+            def forward(self, batch, teacher_fraction=0.):
+                return dict(loss=self.weight.square().sum())
+
+        class Sampler:
+            def __init__(self, *args):
+                self.rng = np.random.default_rng(42)
+
+            def draw(self):
+                return 'example', dict(xyz=np.zeros((1, 3)), available_voxels=1, raw_points=1,
+                                       augmentation_scale=1., augmentation_density=1.)
+
+        with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
+            config = dict(work_dir=temporary, seed=42, model={}, blocks={}, loss={}, inference={},
+                safety=dict(first_validation_step=1, minimum_f1=.5, minimum_completeness=.4),
+                training=dict(steps=2, learning_rate=.0003, weight_decay=.05, max_open_forests=2,
+                    warmup_steps=1, sampler_teacher_steps=1, gradient_clip=10., evaluate_every=10,
+                    save_every=1, log_every=1))
+            replacements = dict(CenterForestModel=Model, BlockSampler=Sampler,
+                entries=lambda cfg: [dict(plot='example', split='train'), dict(plot='val', split='validation')],
+                signature=lambda cfg, rows: 'identity', source_hashes=lambda: {'test': 'hash'},
+                initialize=lambda model, cfg: {}, tensor_block=lambda *args, **kwargs: {},
+                instance_loss=lambda prediction, batch, cfg: (prediction['loss'], {}),
+                evaluate_model=lambda *args: dict(refined_macro=dict(f1=.03, completeness=.02)))
+            for name, value in replacements.items():
+                stack.enter_context(patch.object(workflow, name, value))
+            stack.enter_context(patch.object(workflow.common, 'device_for', lambda cfg: torch.device('cpu')))
+            stack.enter_context(patch.object(workflow.common, 'seed_everything', lambda seed: None))
+            stack.enter_context(patch.object(workflow.common, 'memory', lambda device: {}))
+            stack.enter_context(patch('torch.cuda.get_rng_state_all', return_value=[]))
+            with self.assertRaisesRegex(RuntimeError, 'Validation collapsed'):
+                workflow.train(config)
+            output = Path(temporary)
+            saved = torch.load(output / 'last.pth', map_location='cpu', weights_only=False)
+            self.assertEqual(saved['step'], 1)
+            self.assertTrue(saved['validation_guard_failed'])
+            self.assertFalse((output / 'best.pth').exists())
+            self.assertTrue((output / 'validation_guard_failed.json').exists())
+            with patch.object(workflow, 'restore_training_state') as restore:
+                with self.assertRaisesRegex(RuntimeError, 'failed its validation safety check'):
+                    workflow.train(config, resume=True)
+                restore.assert_not_called()
+
     def test_full_fusion_without_gt_is_chunk_invariant_and_clears_failure_markers(self):
         from tree_learn.forest_abc_v2.inference import predict_forest
 

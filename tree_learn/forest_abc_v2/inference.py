@@ -11,6 +11,7 @@ import torch
 from tree_learn.mask_refinement.data import write_json
 from .merge import compete, group_proposals
 from .model import tensor_block
+from .scoring import proposal_scores
 
 
 @torch.no_grad()
@@ -24,6 +25,7 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
     dtype = np.int32 if count < 2 ** 31 else np.int64
     members_path, evidence_path = output / 'proposal_members.bin', output / 'proposal_evidence.bin'
     records, total_members, scored, score_sum = [], 0, 0, 0.
+    quality_sum, confidence_sum, mask_nonempty, quality_passed, score_passed, ownership_passed = 0., 0., 0, 0, 0, 0
     skipped, subsampled, topk_pruned, maximum_voxels, maximum_points = 0, 0, 0, 0, 0
     started = time.monotonic()
     centers = forest.centers if max_blocks is None else forest.centers[:max_blocks]
@@ -40,15 +42,17 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
             prediction = model(tensor_block(block, device))
             layer = prediction['layers'][-1]
             logits = layer['masks'][:-2]
-            quality = layer['scores'][:-2].sigmoid()
             if not all(bool(torch.isfinite(value).all()) for value in
                        (layer['masks'], layer['scores'], prediction['centers'])):
                 raise FloatingPointError(f'Non-finite V2 prediction in block {block_id + 1}.')
-            probability = logits.sigmoid()
-            membership = probability >= infer['mask_threshold']
-            mask_confidence = (probability * membership).sum(-1) / membership.sum(-1).clamp_min(1)
-            scores = (quality * mask_confidence).cpu().numpy()
+            score, membership, quality, mask_confidence = proposal_scores(logits, layer['scores'][:-2], infer)
+            scores = score.cpu().numpy()
+            mask_nonempty += int(membership.any(-1).sum())
+            quality_passed += int(((quality >= infer['quality_threshold']) & membership.any(-1)).sum())
+            quality_sum += float(quality.sum())
+            confidence_sum += float(mask_confidence.sum())
             passing = np.flatnonzero((scores >= infer['quality_threshold']) & membership.any(-1).cpu().numpy())
+            score_passed += len(passing)
             passing = np.asarray(sorted(passing, key=lambda q: (-scores[q], q)), dtype=np.int64)
             topk_pruned += max(0, len(passing) - infer['max_proposals_per_block'])
             passing = passing[:infer['max_proposals_per_block']]
@@ -57,7 +61,7 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
             query_centers = prediction['centers'][passing].cpu().numpy() + block['center'][:2]
             scored += len(scores)
             score_sum += float(scores.sum())
-            del prediction, layer, logits, quality, probability, membership, mask_confidence
+            del prediction, layer, logits, quality, score, membership, mask_confidence
             if len(passing):
                 # Pairwise ownership vs background uses the same final logits as
                 # training; query quality supplies a fixed log prior at inference.
@@ -65,6 +69,7 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
                                  infer['quality_log_weight'] * np.log(scores[passing, None].clip(1e-8)))
                 binary = ((expit(raw) >= infer['mask_threshold']) &
                           (evidence >= infer['ownership_threshold']))
+                ownership_passed += int(binary.any(-1).sum())
                 coarse = [np.flatnonzero(mask) for mask in binary]
                 local_records = []
                 for local, query in enumerate(passing):
@@ -147,6 +152,11 @@ def predict_forest(model, forest, config, output, device, max_blocks=None):
                  subsampled_blocks=subsampled, max_input_voxels=maximum_voxels,
                  max_block_points=maximum_points, num_queries_scored=scored,
                  mean_score=score_sum / max(scored, 1), topk_pruned=topk_pruned,
+                 score_revision=infer.get('score_revision', 1),
+                 mean_quality=quality_sum / max(scored, 1),
+                 mean_mask_confidence=confidence_sum / max(scored, 1),
+                 nonempty_mask_queries=mask_nonempty, quality_passed_queries=quality_passed,
+                 score_passed_queries=score_passed, ownership_passed_queries=ownership_passed,
                  local_proposals=len(records), duplicate_groups=len(groups), allocation_rejected=rejected,
                  final_instances=len(instances), proposal_memberships=total_members,
                  inference_seconds=time.monotonic() - started,

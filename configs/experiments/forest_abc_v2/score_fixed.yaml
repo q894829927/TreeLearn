@@ -1,0 +1,82 @@
+# V2b: candidate-IoU quality, direct calibrated scores, early source validation.
+cache_root: data/candidate_mask_mlp_a1
+external_cache_root: data/candidate_mask_mlp_a1_wytham_s42
+index_root: data/forest_abc_v1_index
+work_dir: work_dirs/forest_abc_v2b_s42
+seed: 42
+initialization:
+  checkpoint: work_dirs/forest_abc_v1_s42/best_step_020000.pth
+  step: 20000
+splits:
+  train: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3]
+  validation: [G4N, G4W, L1N, O1N, O1W]
+model:
+  channels: 32
+  dim: 256
+  layers: 6
+  heads: 8
+  feedforward: 1024
+  num_queries: 300
+  isa_candidates: 8192
+  use_geometry: true
+  use_mfa: true
+  checkpoint_decoder: true
+  center_bandwidth: 4.0
+  position_scale: 16.0
+blocks:
+  radius: 16.0
+  core_radius: 12.0
+  stride: 8.0
+  voxel_size: 0.2
+  max_train_voxels: 49152
+  max_inference_voxels: 98304
+  minimum_points: 64
+  neighbors: 16
+  scale_min: 0.5
+  scale_max: 1.25
+  density_min: 0.4
+loss:
+  dice_weight: 2.0
+  quality_weight: 0.5
+  semantic_query_weight: 0.5
+  embedding_weight: 0.1
+  auxiliary_weight: 0.5
+  ownership_weight: 1.0
+  center_weight: 1.0
+  center_scale: 5.0
+  quality_target_revision: 2
+training:
+  device: cuda
+  steps: 20000
+  learning_rate: 0.0003
+  weight_decay: 0.05
+  warmup_steps: 500
+  sampler_teacher_steps: 1000
+  gradient_clip: 10.0
+  evaluate_every: 5000
+  save_every: 500
+  log_every: 10
+  max_open_forests: 2
+  check_steps: 3
+  check_voxels: 4096
+safety:
+  first_validation_step: 500
+  minimum_f1: 0.5
+  minimum_completeness: 0.4
+inference:
+  mask_threshold: 0.5
+  quality_threshold: 0.3
+  ownership_threshold: 0.5
+  quality_log_weight: 0.25
+  score_revision: 2
+  center_merge_distance: 1.5
+  mutual_overlap: 0.6
+  minimum_instance_points: 20
+  minimum_retention: 0.25
+  allocation_score_threshold: 0.1
+  chunk_size: 16384
+  max_proposals_per_block: 96
+  max_block_memberships: 200000000
+  max_forest_memberships: 1000000000
+  log_every_blocks: 5
+  keep_proposals: false

@@ -58,6 +58,17 @@ def match_instances(logits, targets, mass, dice_weight):
     return torch.as_tensor(queries[order], device=logits.device, dtype=torch.long)
 
 
+@torch.no_grad()
+def candidate_quality_targets(logits, targets, raw_mass, full_sizes, return_all=False):
+    """Full-tree IoU of each binary proposal, independent of ownership winners."""
+    hard = (logits >= 0).to(raw_mass)
+    intersection = (hard * raw_mass) @ targets.T
+    predicted = (hard * raw_mass).sum(-1)[:, None]
+    union = full_sizes[None] + predicted - intersection
+    overlaps = (intersection / union.clamp_min(1)).clamp(0, 1)
+    return overlaps if return_all else overlaps.max(-1).values
+
+
 def instance_loss(prediction, block, config, return_components=False):
     labels = block['labels']
     known = labels >= 0
@@ -103,17 +114,34 @@ def instance_loss(prediction, block, config, return_components=False):
         winner = classes.argmax(0)
         predicted_mass = raw_mass.new_zeros(len(logits) + 1).index_add(0, winner, raw_mass)[1:]
         quality_target = logits.new_zeros(len(logits))
+        full_sizes = torch.stack([whole_sizes[known][known_labels == identifier].max() for identifier in ids])
         for column, query in enumerate(selected):
             intersection = raw_mass[(winner == query + 1) & (known_labels == ids[column])].sum()
-            full_size = whole_sizes[known][known_labels == ids[column]].max()
+            full_size = full_sizes[column]
             quality_target[query] = intersection / (full_size + predicted_mass[query] - intersection).clamp_min(1)
-    quality_errors = (final['scores'][:-2].sigmoid() - quality_target).square()
+        ownership_quality_target = quality_target.clone()
+        raw_overlaps = candidate_quality_targets(logits, targets, raw_mass, full_sizes, return_all=True)
+        raw_quality_target = raw_overlaps.max(-1).values
+        matched_raw_iou = raw_overlaps[selected, torch.arange(len(ids), device=labels.device)]
+        revision = config.get('quality_target_revision', 1)
+        if revision == 2:
+            quality_target = raw_quality_target
+        elif revision != 1:
+            raise ValueError(f'Unknown quality target revision: {revision}')
+    predicted_quality = final['scores'][:-2].sigmoid()
+    quality_errors = (predicted_quality - quality_target).square()
     matched = torch.zeros(len(logits), dtype=torch.bool, device=labels.device)
     matched[selected] = True
-    quality = quality_errors[matched].mean()
-    negatives = ~matched & supervised
-    if negatives.any():
-        quality = .5 * (quality + quality_errors[negatives].mean())
+    if revision == 2:
+        # A correct duplicate is still a high-quality proposal. Exclusivity is
+        # supervised by ownership CE, not by relabeling its quality as zero.
+        quality_supervised = matched | supervised
+        quality = tree_mean(quality_errors[quality_supervised], query_labels[quality_supervised])
+    else:
+        quality = quality_errors[matched].mean()
+        negatives = ~matched & supervised
+        if negatives.any():
+            quality = .5 * (quality + quality_errors[negatives].mean())
     aux_mask = torch.stack(auxiliary).mean() if auxiliary else logits.sum() * 0
     aux_quality = torch.stack(auxiliary_quality).mean() if auxiliary_quality else logits.sum() * 0
     mask = final_mask + config['auxiliary_weight'] * aux_mask
@@ -140,5 +168,11 @@ def instance_loss(prediction, block, config, return_components=False):
                       quality_loss=float(quality.detach()), point_semantic_loss=float(point_semantic.detach()),
                       decoder_semantic_loss=float(decoder_semantic.detach()), embedding_loss=float(embedding.detach()),
                       matched_trees=len(ids), positive_queries=int(positive.sum()),
-                      background_queries=int((query_labels == 0).sum()))
+                      background_queries=int((query_labels == 0).sum()),
+                      mean_quality=float(predicted_quality.detach().mean()),
+                      mean_quality_target=float(quality_target.mean()),
+                      matched_raw_iou_mean=float(matched_raw_iou.mean()),
+                      matched_owner_iou_mean=float(ownership_quality_target[selected].mean()),
+                      raw_good_masks=int((raw_quality_target > .5).sum()),
+                      owned_good_matches=int((ownership_quality_target[selected] > .5).sum()))
     return (total, statistics, components) if return_components else (total, statistics)
