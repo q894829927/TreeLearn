@@ -1,6 +1,6 @@
 # TreeLearn 小改：多尺度残差融合与实例辅助监督
 
-日期：2026-10-21。状态：首版服务器 11 项测试和真实切块 check 通过，control 在打印 step 10 后因非有限梯度退出；本次稳定性修复待服务器重跑。本地没有运行模型、训练、推理或单元测试，也没有性能结果。
+日期：2026-10-21。状态：首版服务器 11 项测试和真实切块 check 通过后，control 曾因非有限梯度退出；稳定性修复后已收到两组 3000 步训练和 Wytham 外测结果，见下文。新增 CPU 掩码诊断待服务器执行。本地没有运行模型、训练、推理或单元测试。
 
 本轮直接实现完整小组合，并配相同步数的普通微调对照。不使用 ForestABC/V2b 权重。两组均从官方 `model_weights_with_small_20241213.pth` 初始化，MD5 固定为 `38266e515dc387ac5ca32619e791cc20`，旧模型张量必须全部按键名和形状加载成功。
 
@@ -94,6 +94,44 @@ cat work_dirs/treelearn_residual_instance_stable_s42/external_comparison.json
 
 Wytham 已参与本项目开发分析，不能把本轮称作全新盲测；官方预训练与各评价森林的重叠问题仍沿用已有数据审计说明。训练完成和 EXIT=0 仅表示流程完成，有效性以配对结果为准。
 
+## 首轮完成结果与最终掩码诊断
+
+服务器回传：两组源域最佳 checkpoint 都为 3000 步。五森林 macro F1 为官方 88.1946%、control 88.6739%、combined 88.6237%。组合相对 control 为 −0.0501 pp F1、−0.2690 pp Coverage、−0.5802 pp 点召回；该单种子结果没有新增组合收益的证据。
+
+Wytham 同口径结果：
+
+| 指标 | 官方 | control | combined |
+|---|---:|---:|---:|
+| TP / FP / FN | 596 / 222 / 281 | 555 / 175 / 322 | 555 / 173 / 322 |
+| F1 (%) | 70.3245 | 69.0728 | 69.1589 |
+| Completeness (%) | 67.9590 | 63.2839 | 63.2839 |
+| Commission (%) | 27.1394 | 23.9726 | 23.7637 |
+| Coverage (%) | 65.1253 | 61.1164 | 60.8451 |
+| 点精度 (%) | 71.2304 | 65.4641 | 65.3757 |
+| 点召回 (%) | 80.3670 | 73.6913 | 72.5107 |
+
+共同微调流程已经出现迁移退步，新增组合相对对照只减少 2 个 FP，TP 总数相同，点召回还低 1.1805 pp。两个 TP 数量相同并不能证明检出的是同一批 GT；官方 TP 到两组 TP 的净下降 41 也不能直接写成只丢失 41 棵，可能同时有更多丢失和部分恢复。当前没有依据把退步直接归因于小树、合并、遗忘或某个单独模块；结束当前组合训练，先诊断已有预测。
+
+只读取已有最终掩码，前台运行 CPU 诊断，不重新推理，也不加载权重或缓存网络特征：
+
+```bash
+cd ~/projects/zrx/code/TreeLearn
+conda activate TreeLearn
+git pull --ff-only origin codex/candidate-mask-mlp-step1
+(
+set -euo pipefail
+python -m unittest discover -s tests -p 'test_residual_instance_diagnostics.py' -v
+mkdir -p logs/treelearn_residual_instance
+python -u tools/treelearn_residual_instance/diagnose.py \
+  2>&1 | tee logs/treelearn_residual_instance/external_diagnostics.log
+cat work_dirs/treelearn_residual_instance_stable_s42/external_diagnostics/wytham_vox0.1/brief.json
+)
+```
+
+工具复用已回归的 ForestABC 有界计数与匹配核心，兼容这次的 `predictions.npy` 和 TreeLearn 轻量导出元数据。三个模型只扫描一次共同计数，逐一复现已保存指标后才输出诊断。配对包含官方→control、官方→combined、control→combined，输出 lost/recovered、丢失树最终错误类型、z 跨度分组和 GT 树点 assigned/unassigned 转换；另统计最佳 IoU 在 0.5 附近的数量。实例编号不跨模型直接比较。
+
+逐树详情在 `*_trees.csv`，完整分组指标和输入记录在 `summary.json`。`gt_point_assignment_fraction` 是真实树点被分配到任意正实例的比例，不代表归属正确。高召回低纯度也不能单独证明两树合并；最终未分配点也不能定位语义头、seed、聚类或剩余点分配的具体原因。该工具不改动模型、配置或训练运行代码，不使已完成 checkpoint 的代码来源记录失效。
+
 ## 本地交付验证范围
 
-仅进行 Python 3.10 语法/导入路径静态检查、Bash 语法检查和 git diff 空白检查。服务器单元测试与真实 GPU check 均包含在 all 中，本次新增检查尚未执行。修改为默认关闭的可选路径，原版未启用时不创建新增参数。
+仅进行 Python 3.10 语法/导入路径静态检查、Bash 语法检查和 git diff 空白检查。本次新增 4 项 CPU 诊断回归尚未在服务器执行，原模型测试与 GPU check 不由该诊断重新触发。模型修改为默认关闭的可选路径，原版未启用时不创建新增参数。
