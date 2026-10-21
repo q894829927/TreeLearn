@@ -1,0 +1,51 @@
+# Both arms start from exactly the same official checkpoint and crop sequence.
+seed: 42
+work_dir: work_dirs/treelearn_residual_instance_s42
+checkpoint: data/model_weights/model_weights_with_small_20241213.pth
+checkpoint_md5: 38266e515dc387ac5ca32619e791cc20
+pipeline_template: configs/experiments/candidate_mask_mlp/pipeline_template.yaml
+cache_root: data/candidate_mask_mlp_a1
+external_cache_root: data/candidate_mask_mlp_a1_wytham_s42
+index_root: data/treelearn_residual_instance_index
+splits:
+  train: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3]
+  validation: [G4N, G4W, L1N, O1N, O1W]
+blocks:
+  stride: 8.0
+adapter:
+  levels: [1, 2]
+  projection_dim: 16
+  hidden_dim: 64
+  embedding_dim: 8
+auxiliary:
+  weight: 0.05
+  max_trees: 64
+  points_per_tree: 48
+  pull_margin: 0.5
+  push_margin: 1.5
+  boundary_neighbors: 16
+  boundary_radius: 1.0
+  max_boundary_pairs: 2048
+  boundary_weight: 0.5
+training:
+  steps: 3000
+  branch_steps: 300
+  full_validation_steps: [1500, 3000]
+  pilot_step: 500
+  pilot_plot: G4N
+  adapter_lr: 0.0003
+  head_lr: 0.00002
+  decoder_lr: 0.00001
+  weight_decay: 0.001
+  gradient_clip: 1.0
+  warmup_steps: 30
+  save_every: 100
+  log_every: 10
+  max_open_forests: 2
+  outer_half_extent: 17.5
+  inner_half_extent: 4.0
+  max_points: 393216
+  minimum_points: 1024
+  fp16: true
+  # Abort a clearly destructive pilot; this is a failure floor, not a success claim.
+  pilot_max_f1_drop: 0.15

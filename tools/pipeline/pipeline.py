@@ -378,6 +378,23 @@ def run_treelearn_pipeline(config, config_path=None):
             'initial clustering produced no usable reference instances. '
             'No output was saved; inspect the clustering seed count and thresholds.')
 
+    prediction_export = getattr(config.save_cfg, 'prediction_export_dir', None)
+    if prediction_export:
+        # Lightweight paired evaluation: keep the original prediction, ensemble,
+        # grouping and assignment above, without exporting 32D forest features.
+        from pathlib import Path
+        from tree_learn.mask_refinement.data import write_json
+        destination = Path(prediction_export)
+        destination.mkdir(parents=True, exist_ok=True)
+        np.save(destination / 'coords.npy', coords, allow_pickle=False)
+        np.save(destination / 'predictions.npy', instance_preds, allow_pickle=False)
+        np.save(destination / 'gt_labels.npy', instance_labels, allow_pickle=False)
+        write_json(destination / 'prediction.json', dict(num_points=len(coords),
+            final_instances=int(len(np.unique(instance_preds[instance_preds > 0]))),
+            pipeline_seconds=time.time() - pipeline_start_time))
+        if bool(getattr(config.save_cfg, 'prediction_export_only', False)):
+            return
+
     if save_mask_refinement_cache:
         from tree_learn.mask_refinement.data import export_cache
         export_cache(

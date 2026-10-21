@@ -3,3 +3,4 @@ tools/mask_refinement/run_owner_rank.sh text eol=lf
 tools/query_segmentation/launch.sh text eol=lf
 tools/forest_abc/run.sh text eol=lf
 tools/forest_abc_v2/run.sh text eol=lf
+tools/treelearn_residual_instance/run.sh text eol=lf

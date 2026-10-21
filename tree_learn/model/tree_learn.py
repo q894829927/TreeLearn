@@ -71,6 +71,7 @@ class TreeLearn(nn.Module):
                  height_seed_offset_projection_margin=1e-3,
                  unet_enhancement=None,
                  unet_finetune=None,
+                 residual_instance=None,
                  **kwargs):
 
         super().__init__()
@@ -112,6 +113,8 @@ class TreeLearn(nn.Module):
             height_seed_offset_projection_margin)
         self.unet_enhancement = dict(unet_enhancement or {})
         self.unet_finetune = dict(unet_finetune or {})
+        self.residual_instance_config = dict(residual_instance or {})
+        self.residual_instance = None
         self.use_unet_finetune = bool(
             self.unet_finetune.get('enabled', False))
         self.keep_frozen_batchnorm_eval = bool(
@@ -220,6 +223,16 @@ class TreeLearn(nn.Module):
                 height_quantile=height_quantile,
                 minimum_height_scale=height_minimum_scale)
         self.init_weights()
+        if self.residual_instance_config.get('enabled', False):
+            if (use_upper_anchor or use_axis_branch or use_height_context_adapter
+                    or self.unet_enhancement.get('enabled', False)
+                    or self.use_unet_finetune):
+                raise ValueError('Residual-instance experiment requires original TreeLearn heads and U-Net.')
+            from .residual_instance import ResidualInstanceAdapter
+            self.residual_instance = ResidualInstanceAdapter(channels=channels,
+                **{key: value for key, value in self.residual_instance_config.items() if key != 'channels'})
+            if max(self.residual_instance.levels) >= num_blocks:
+                raise ValueError('Residual feature-tap levels exceed U-Net depth.')
         if use_axis_branch:
             nn.init.zeros_(self.axis_xy_head.weight)
             nn.init.zeros_(self.axis_xy_head.bias)
@@ -335,8 +348,12 @@ class TreeLearn(nn.Module):
 
         output = self.input_conv(input)
 
-        output = self.unet(output)
+        taps = ({level: None for level in self.residual_instance.levels}
+                if self.residual_instance is not None else None)
+        output = self.unet(output, feature_taps=taps) if taps is not None else self.unet(output)
         output = self.output_layer(output)
+        if self.residual_instance is not None:
+            output = self.residual_instance(output, taps)
         return output, v2p_map
     
 

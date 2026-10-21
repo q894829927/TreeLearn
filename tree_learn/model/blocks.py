@@ -189,14 +189,14 @@ class UBlock(nn.Module):
                     kernel_size, indice_key=f'subm{indice_key_id}')
             self.blocks_tail = spconv.SparseSequential(blocks_tail)
 
-    def forward(self, input):
+    def forward(self, input, feature_taps=None):
         output = self.blocks(input)
         identity = spconv.SparseConvTensor(
             output.features, output.indices, output.spatial_shape,
             output.batch_size)
         if len(self.nPlanes) > 1:
             output_decoder = self.conv(output)
-            output_decoder = self.u(output_decoder)
+            output_decoder = self.u(output_decoder, feature_taps=feature_taps)
             output_decoder = self.deconv(output_decoder)
             skip_features = identity.features
             if self.skip_enhancement is not None:
@@ -209,6 +209,8 @@ class UBlock(nn.Module):
             output = self.blocks_tail(output)
         if self.post_enhancement is not None:
             output = self.post_enhancement(output)
+        if feature_taps is not None and self.level in feature_taps:
+            feature_taps[self.level] = output
         return output
 
     def enhancement_statistics(self):
