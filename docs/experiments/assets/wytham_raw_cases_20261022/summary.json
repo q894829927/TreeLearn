@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "analysis": "raw GT geometry only; no prediction or network",
+  "local_baseline_predictions_available": false,
+  "num_raw_gt": 877,
+  "raw_crops": [
+    {
+      "crop": 0,
+      "points": 1480001,
+      "center": [
+        4.0,
+        4.0
+      ]
+    },
+    {
+      "crop": 1,
+      "points": 1293135,
+      "center": [
+        -20.0,
+        -20.0
+      ]
+    },
+    {
+      "crop": 2,
+      "points": 1636486,
+      "center": [
+        20.0,
+        20.0
+      ]
+    }
+  ],
+  "complete_gt_candidates": 37,
+  "selected_cases": [
+    {
+      "raw_gt_id": 381,
+      "crop": 2,
+      "raw_gt_points": 699,
+      "z_span_m": 4.013999999999999,
+      "xy_max_span_m": 2.346,
+      "lower_proxy_points": 54,
+      "lower_proxy_cells_02m": 12,
+      "lower_proxy_other_gt_nn_median_m": 0.7955477122962095,
+      "lower_proxy_other_gt_within_03m_fraction": 0.0,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    },
+    {
+      "raw_gt_id": 467,
+      "crop": 1,
+      "raw_gt_points": 202,
+      "z_span_m": 4.978,
+      "xy_max_span_m": 0.7659999999999982,
+      "lower_proxy_points": 41,
+      "lower_proxy_cells_02m": 9,
+      "lower_proxy_other_gt_nn_median_m": 1.1505525830726568,
+      "lower_proxy_other_gt_within_03m_fraction": 0.0,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    },
+    {
+      "raw_gt_id": 789,
+      "crop": 1,
+      "raw_gt_points": 524,
+      "z_span_m": 6.950999999999999,
+      "xy_max_span_m": 1.3780000000000001,
+      "lower_proxy_points": 56,
+      "lower_proxy_cells_02m": 12,
+      "lower_proxy_other_gt_nn_median_m": 0.29254616382324483,
+      "lower_proxy_other_gt_within_03m_fraction": 0.5357142857142857,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    },
+    {
+      "raw_gt_id": 813,
+      "crop": 2,
+      "raw_gt_points": 2841,
+      "z_span_m": 7.535000000000001,
+      "xy_max_span_m": 4.824000000000002,
+      "lower_proxy_points": 332,
+      "lower_proxy_cells_02m": 104,
+      "lower_proxy_other_gt_nn_median_m": 2.4428064587535347,
+      "lower_proxy_other_gt_within_03m_fraction": 0.0,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    },
+    {
+      "raw_gt_id": 230,
+      "crop": 0,
+      "raw_gt_points": 16642,
+      "z_span_m": 19.396,
+      "xy_max_span_m": 7.159000000000001,
+      "lower_proxy_points": 873,
+      "lower_proxy_cells_02m": 185,
+      "lower_proxy_other_gt_nn_median_m": 0.38154930499609974,
+      "lower_proxy_other_gt_within_03m_fraction": 0.292,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    },
+    {
+      "raw_gt_id": 491,
+      "crop": 2,
+      "raw_gt_points": 12512,
+      "z_span_m": 14.034,
+      "xy_max_span_m": 7.4399999999999995,
+      "lower_proxy_points": 1719,
+      "lower_proxy_cells_02m": 499,
+      "lower_proxy_other_gt_nn_median_m": 4.371164418588229,
+      "lower_proxy_other_gt_within_03m_fraction": 0.0,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    },
+    {
+      "raw_gt_id": 215,
+      "crop": 0,
+      "raw_gt_points": 21024,
+      "z_span_m": 20.609,
+      "xy_max_span_m": 9.425,
+      "lower_proxy_points": 1111,
+      "lower_proxy_cells_02m": 203,
+      "lower_proxy_other_gt_nn_median_m": 0.4545392188700881,
+      "lower_proxy_other_gt_within_03m_fraction": 0.186,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    },
+    {
+      "raw_gt_id": 302,
+      "crop": 2,
+      "raw_gt_points": 176856,
+      "z_span_m": 22.656,
+      "xy_max_span_m": 15.274000000000001,
+      "lower_proxy_points": 11190,
+      "lower_proxy_cells_02m": 2525,
+      "lower_proxy_other_gt_nn_median_m": 3.52227313293355,
+      "lower_proxy_other_gt_within_03m_fraction": 0.0,
+      "baseline_detection_status": "UNKNOWN_NO_LOCAL_BASELINE_PREDICTIONS"
+    }
+  ],
+  "notes": [
+    "Cannot identify the current 281 official false negatives from raw GT alone.",
+    "Raw IDs are not assumed to equal cache GT IDs until aligned.",
+    "Lower proxy uses points below the tree z 5th percentile + 0.5 m; it is not an annotated trunk or terrain-normalized height.",
+    "Nearest-other-tree distances use labeled neighbors in a local crop; distances beyond 2 m may be censored.",
+    "GT-selected geometry examples are development diagnostics, not evaluation results."
+  ],
+  "seconds": 11.953000000001339
+}
