@@ -209,7 +209,8 @@ def run_treelearn_pipeline(config, config_path=None):
     model = TreeLearn(**config.model).cuda()
     dataset = TreeDataset(**config.dataset_test, logger=logger)
     dataloader = build_dataloader(dataset, training=False, **config.dataloader)
-    load_checkpoint(config.pretrain, logger, model)
+    load_checkpoint(config.pretrain, logger, model,
+                    strict=getattr(model, 'structure_vote', None) is not None)
     pointwise_results = get_pointwise_preds(
         model, dataloader, config.model, logger,
         return_backbone_feats=bool(

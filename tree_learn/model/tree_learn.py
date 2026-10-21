@@ -72,6 +72,7 @@ class TreeLearn(nn.Module):
                  unet_enhancement=None,
                  unet_finetune=None,
                  residual_instance=None,
+                 structure_vote=None,
                  **kwargs):
 
         super().__init__()
@@ -115,6 +116,8 @@ class TreeLearn(nn.Module):
         self.unet_finetune = dict(unet_finetune or {})
         self.residual_instance_config = dict(residual_instance or {})
         self.residual_instance = None
+        self.structure_vote_config = dict(structure_vote or {})
+        self.structure_vote = None
         self.use_unet_finetune = bool(
             self.unet_finetune.get('enabled', False))
         self.keep_frozen_batchnorm_eval = bool(
@@ -233,6 +236,16 @@ class TreeLearn(nn.Module):
                 **{key: value for key, value in self.residual_instance_config.items() if key != 'channels'})
             if max(self.residual_instance.levels) >= num_blocks:
                 raise ValueError('Residual feature-tap levels exceed U-Net depth.')
+        if self.structure_vote_config.get('enabled', False):
+            if (use_upper_anchor or use_axis_branch or use_height_context_adapter
+                    or self.unet_enhancement.get('enabled', False)
+                    or self.use_unet_finetune or self.residual_instance is not None):
+                raise ValueError('Structure voting requires the unmodified official single-anchor model.')
+            from tree_learn.structure_voting.model import StructureVoteBranch
+            self.structure_vote = StructureVoteBranch(channels=channels,
+                **{key: value for key, value in self.structure_vote_config.items() if key != 'channels'})
+            self.fixed_modules = list(dict.fromkeys(self.fixed_modules + [
+                'input_conv', 'unet', 'output_layer', 'semantic_linear', 'offset_linear']))
         if use_axis_branch:
             nn.init.zeros_(self.axis_xy_head.weight)
             nn.init.zeros_(self.axis_xy_head.bias)
@@ -318,13 +331,16 @@ class TreeLearn(nn.Module):
 
 
     def forward(self, batch, return_loss, teacher_output=None):
+        if self.structure_vote is not None and return_loss:
+            raise ValueError('Use tools/structure_voting/run.py for instance-balanced structural training.')
         backbone_output, v2p_map = self.forward_backbone(**batch)
         output = self.forward_head(
             backbone_output,
             v2p_map,
             coords=batch['coords'],
             input_feats=batch['input_feats'],
-            batch_ids=batch['batch_ids'])
+            batch_ids=batch['batch_ids'],
+            structure_query_indices=batch.get('structure_query_indices'))
         if (
             not return_loss and
             self.unet_enhancement.get('return_attention_stats', False)
@@ -359,7 +375,7 @@ class TreeLearn(nn.Module):
 
     def forward_head(
             self, backbone_output, v2p_map, coords=None, input_feats=None,
-            batch_ids=None):
+            batch_ids=None, structure_query_indices=None):
         output = dict()
         backbone_feats = backbone_output.features[v2p_map]
         output['backbone_feats'] = backbone_feats
@@ -367,6 +383,16 @@ class TreeLearn(nn.Module):
         offset_predictions = self.offset_linear(backbone_feats)
         output['semantic_prediction_logits'] = semantic_logits
         output['offset_predictions'] = offset_predictions
+        if self.structure_vote is not None:
+            if coords is None or batch_ids is None:
+                raise ValueError('Structure voting requires coordinates and batch IDs.')
+            from tree_learn.structure_voting.model import apply_xy_correction
+            structural = self.structure_vote(backbone_feats, coords.to(backbone_feats.device),
+                offset_predictions, semantic_logits, batch_ids.to(backbone_feats.device),
+                query_indices=structure_query_indices)
+            output['structure_vote'] = structural
+            output['structure_base_offsets'] = offset_predictions
+            output['offset_predictions'] = apply_xy_correction(offset_predictions, structural)
         if self.use_upper_anchor:
             output['upper_offset_predictions'] = self.upper_offset_linear(backbone_feats)
         if self.use_height_context_adapter:

@@ -1,0 +1,50 @@
+# Only the graph/XY branch trains. Official features, semantics, Z and seed rules are frozen.
+seed: 42
+work_dir: work_dirs/treelearn_structure_voting_v1_s42
+checkpoint: data/model_weights/model_weights_with_small_20241213.pth
+checkpoint_md5: 38266e515dc387ac5ca32619e791cc20
+pipeline_template: configs/experiments/candidate_mask_mlp/pipeline_template.yaml
+cache_root: data/candidate_mask_mlp_a1
+external_cache_root: data/candidate_mask_mlp_a1_wytham_s42
+index_root: data/treelearn_structure_voting_index
+splits:
+  train: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3]
+  validation: [G4N, G4W, L1N, O1N, O1W]
+blocks:
+  stride: 8.0
+branch:
+  hidden_dim: 32
+  neighbors: 8
+  support_voxel_size: 0.4
+  radius: 1.2
+  query_chunk_size: 8192
+  max_delta_xy: 1.5
+  tree_conf_thresh: 0.5
+  vote_scale: 4.0
+supervision:
+  max_trees: 64
+  points_per_tree: 48
+  vote_weight: 1.0
+  connection_weight: 0.3
+  consistency_weight: 0.1
+  regularization_weight: 0.02
+training:
+  steps: 3000
+  full_validation_steps: [1500, 3000]
+  pilot_step: 500
+  pilot_plot: G4N
+  pilot_max_f1_drop: 0.05
+  branch_lr: 0.0003
+  weight_decay: 0.001
+  gradient_clip: 1.0
+  warmup_steps: 30
+  save_every: 100
+  log_every: 10
+  max_open_forests: 2
+  outer_half_extent: 17.5
+  inner_half_extent: 4.0
+  max_points: 393216
+  minimum_points: 1024
+  # Frozen backbone and heads retain the production FP32 path; branch is small.
+  fp16: false
+  fp16_retries: 0
