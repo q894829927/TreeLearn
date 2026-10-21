@@ -26,6 +26,7 @@ from tree_learn.mask_refinement.evaluation import evaluate_labels, macro_metrics
 from tree_learn.model import TreeLearn
 from tree_learn.model.residual_instance import instance_auxiliary_loss
 from tree_learn.residual_instance.data import PairedCropSampler, tile_batch
+from tree_learn.residual_instance.optimization import nonfinite_gradients, optimizer_update
 from tree_learn.util import get_config, munch_to_dict
 
 
@@ -80,6 +81,8 @@ def configuration(path):
         raise ValueError('Instance pull margin must be below the separation margin.')
     if type(training['fp16']) is not bool:
         raise ValueError('fp16 must be Boolean.')
+    if type(training['fp16_retries']) is not int or training['fp16_retries'] < 0:
+        raise ValueError('fp16_retries must be a nonnegative integer.')
     if set(config['splits']['train']) & set(config['splits']['validation']):
         raise ValueError('Train/validation plot names overlap.')
     if training['pilot_plot'] not in config['splits']['validation']:
@@ -226,6 +229,23 @@ def objective(model, batch, config, step):
     if not torch.isfinite(total) or not all(math.isfinite(value) for value in values.values()):
         raise FloatingPointError(f'Non-finite training objective: {values}')
     return total, dict(loss=float(total.detach()), **values)
+
+
+def numerical_logger(path, **context):
+    def log(event):
+        record = dict(context, **event)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open('a', encoding='utf-8') as stream:
+            stream.write(json.dumps(record) + '\n')
+        print(json.dumps(record), flush=True)
+    return log
+
+
+def set_learning_rate(optimizer, step, settings):
+    multiplier = min(1., (step + 1) / settings['warmup_steps']) * (
+        .1 + .9 * .5 * (1 + math.cos(math.pi * step / settings['steps'])))
+    for group in optimizer.param_groups:
+        group['lr'] = group['initial_rate'] * multiplier
 
 
 def save_checkpoint(path, model, optimizer, scaler, step, best, config, arm, experiment, **extra):
@@ -392,10 +412,30 @@ def check(config, rows, experiment):
                 missing_parents=dict(combined.residual_instance.alignment_missing)))
             del expected, actual
         del batch
-    combined.residual_instance.collect_alignment = False
-    del baseline
-    torch.cuda.empty_cache()
     sampler = PairedCropSampler([row for row in rows if row['split'] == 'train'], config['training'], config['seed'])
+    # The original check only exercised three combined updates. Replay the first
+    # 32 real control crops too, then two joint updates, before either full run.
+    control_optimizer = optimizer_for(baseline, config['training'])
+    control_scaler = torch.cuda.amp.GradScaler(enabled=config['training']['fp16'], init_scale=1024.)
+    control_reports = []
+    print('CHECK control: 32 head-warmup updates + 2 joint decoder updates.', flush=True)
+    for number in range(1, 35):
+        completed = number - 1 if number <= 32 else config['training']['branch_steps']
+        phase = set_stage(baseline, 'control', completed, config['training'])
+        set_learning_rate(control_optimizer, number - 1, config['training'])
+        batch, info = sampler.draw(number)
+        values, update = optimizer_update(baseline, control_optimizer, control_scaler,
+            lambda: objective(baseline, batch, config, number), config['training']['gradient_clip'],
+            fp16_retries=config['training']['fp16_retries'],
+            on_event=numerical_logger(Path(config['work_dir']) / 'check_numerical_events.jsonl',
+                                      arm='control', step=number, phase=phase, **info))
+        control_reports.append(dict(step=number, phase=phase, **info, **values, **update))
+        if number == 1 or number % 10 == 0 or number >= 32:
+            print('CHECK_CONTROL ' + json.dumps(control_reports[-1]), flush=True)
+        del batch
+    combined.residual_instance.collect_alignment = False
+    del baseline, control_optimizer, control_scaler
+    torch.cuda.empty_cache()
     optimizer = optimizer_for(combined, config['training'])
     scaler = torch.cuda.amp.GradScaler(enabled=config['training']['fp16'], init_scale=1024.)
     gradient_reports = []
@@ -404,42 +444,40 @@ def check(config, rows, experiment):
         completed = 0 if number < 2 else config['training']['branch_steps']
         phase = set_stage(combined, 'combined', completed, config['training'])
         batch, info = sampler.draw(number + 1)
-        optimizer.zero_grad(set_to_none=True)
-        with torch.cuda.amp.autocast(enabled=config['training']['fp16']):
-            loss, values = objective(combined, batch, config, number + 1)
-        scaler.scale(loss).backward()
-        scaler.unscale_(optimizer)
-        if any(not torch.isfinite(parameter.grad).all() for parameter in combined.parameters()
-               if parameter.grad is not None):
-            raise FloatingPointError('Non-finite production gradients.')
         groups = {name: 0. for name in ('fusion', 'embedding', 'decoder')}
-        for name, parameter in combined.named_parameters():
-            if parameter.grad is None:
-                continue
-            group = ('embedding' if name.startswith('residual_instance.embedding.') else
-                     'fusion' if name.startswith('residual_instance.') else
-                     'decoder' if decoder_parameter(name) else None)
-            if group:
-                groups[group] += float(parameter.grad.abs().sum())
-        if number == 1 and (groups['fusion'] <= 0 or groups['embedding'] <= 0):
-            raise RuntimeError('Second branch update does not reach both fusion and embedding.')
-        if number == 2 and groups['decoder'] <= 0:
-            raise RuntimeError('Joint loss does not reach the last decoder levels.')
-        torch.nn.utils.clip_grad_norm_(combined.parameters(), config['training']['gradient_clip'])
-        scaler.step(optimizer)
-        scaler.update()
-        gradient_reports.append(dict(phase=phase, gradients=groups, **info, **values))
+
+        def inspect_gradients():
+            for name, parameter in combined.named_parameters():
+                if parameter.grad is None:
+                    continue
+                group = ('embedding' if name.startswith('residual_instance.embedding.') else
+                         'fusion' if name.startswith('residual_instance.') else
+                         'decoder' if decoder_parameter(name) else None)
+                if group:
+                    groups[group] += float(parameter.grad.abs().sum())
+            if number == 1 and (groups['fusion'] <= 0 or groups['embedding'] <= 0):
+                raise RuntimeError('Second branch update does not reach both fusion and embedding.')
+            if number == 2 and groups['decoder'] <= 0:
+                raise RuntimeError('Joint loss does not reach the last decoder levels.')
+
+        values, update = optimizer_update(combined, optimizer, scaler,
+            lambda: objective(combined, batch, config, number + 1), config['training']['gradient_clip'],
+            fp16_retries=config['training']['fp16_retries'], before_step=inspect_gradients,
+            on_event=numerical_logger(Path(config['work_dir']) / 'check_numerical_events.jsonl',
+                                      arm='combined', step=number + 1, phase=phase, **info))
+        gradient_reports.append(dict(phase=phase, gradients=groups, **info, **values, **update))
         print('CHECK ' + json.dumps(gradient_reports[-1]), flush=True)
-        del batch, loss
+        del batch
     # Verify the auxiliary loss itself reaches the shared predictive feature path.
     optimizer.zero_grad(set_to_none=True)
     batch, _ = sampler.draw(4)
-    with torch.cuda.amp.autocast(enabled=config['training']['fp16']):
+    with torch.cuda.amp.autocast(enabled=False):
         output = combined(batch, return_loss=False)
         auxiliary, _ = instance_auxiliary_loss(combined.residual_instance, output['backbone_feats'],
                                                batch, config['auxiliary'], config['seed'] + 4)
-    scaler.scale(auxiliary).backward()
-    scaler.unscale_(optimizer)
+    auxiliary.backward()
+    if nonfinite_gradients(combined):
+        raise FloatingPointError('Non-finite FP32 auxiliary-only gradients.')
     auxiliary_decoder_gradient = sum(float(p.grad.abs().sum()) for name, p in combined.named_parameters()
                                      if decoder_parameter(name) and p.grad is not None)
     if auxiliary_decoder_gradient <= 0:
@@ -471,13 +509,14 @@ def check(config, rows, experiment):
         if not torch.equal(expected[name], actual[name]):
             raise RuntimeError(f'Checkpoint round trip changed {name}.')
     roundtrip_path.unlink()
-    report = dict(request=experiment, identity=identity, gradients=gradient_reports,
+    report = dict(request=experiment, identity=identity, control_updates=control_reports,
+                  gradients=gradient_reports,
                   auxiliary_decoder_gradient=auxiliary_decoder_gradient,
                   checkpoint_and_optimizer_roundtrip=True,
                   peak_cuda_bytes=torch.cuda.max_memory_allocated(),
                   added_parameters=sum(p.numel() for p in combined.residual_instance.parameters()))
     write_json(Path(config['work_dir']) / 'check.json', report)
-    print('CHECK PASSED: production identity, branch updates and auxiliary-to-decoder gradient.', flush=True)
+    print('CHECK PASSED: production identity, 34 control updates, branch updates and auxiliary-to-decoder gradient.', flush=True)
 
 
 def train(config, rows, experiment, arm, resume):
@@ -550,24 +589,16 @@ def train(config, rows, experiment, arm, resume):
             data_started = time.monotonic()
             batch, info = sampler.draw(step + 1)
             data_seconds = time.monotonic() - data_started
-            optimizer.zero_grad(set_to_none=True)
-            multiplier = min(1., (step + 1) / settings['warmup_steps']) * (
-                .1 + .9 * .5 * (1 + math.cos(math.pi * step / settings['steps'])))
-            for group in optimizer.param_groups:
-                group['lr'] = group['initial_rate'] * multiplier
+            set_learning_rate(optimizer, step, settings)
             step_started = time.monotonic()
-            with torch.cuda.amp.autocast(enabled=settings['fp16']):
-                loss, values = objective(model, batch, config, step + 1)
-            scaler.scale(loss).backward()
-            scaler.unscale_(optimizer)
-            gradient = torch.nn.utils.clip_grad_norm_(model.parameters(), settings['gradient_clip'])
-            if not torch.isfinite(gradient):
-                raise FloatingPointError('Non-finite gradient; checkpoint not advanced.')
-            scaler.step(optimizer)
-            scaler.update()
+            values, update = optimizer_update(model, optimizer, scaler,
+                lambda: objective(model, batch, config, step + 1), settings['gradient_clip'],
+                fp16_retries=settings['fp16_retries'],
+                on_event=numerical_logger(directory / 'numerical_events.jsonl',
+                    arm=arm, step=step + 1, phase=phase, **info))
             step += 1
-            record = dict(step=step, arm=arm, phase=phase, **info, **values,
-                gradient_norm=float(gradient), data_seconds=data_seconds,
+            record = dict(step=step, arm=arm, phase=phase, **info, **values, **update,
+                data_seconds=data_seconds,
                 step_seconds=time.monotonic() - step_started, elapsed_seconds=time.monotonic() - started,
                 gamma=float(model.residual_instance.gamma.tanh()) if model.residual_instance is not None else None,
                 learning_rates={group['group_name']: group['lr'] for group in optimizer.param_groups},
@@ -576,7 +607,7 @@ def train(config, rows, experiment, arm, resume):
             log.flush()
             if step == 1 or step % settings['log_every'] == 0:
                 print(json.dumps(record), flush=True)
-            del batch, loss
+            del batch
             if step % settings['save_every'] == 0 or step in due:
                 save_checkpoint(last, model, optimizer, scaler, step, best, config, arm, experiment)
             if step in due:

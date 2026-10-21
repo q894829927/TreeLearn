@@ -221,7 +221,9 @@ def masked_offset_loss(predictions, targets, mask, loss_type='smooth_l1', smooth
             predictions, targets, reduction='none', beta=smooth_l1_beta)
         return component_losses.sum(dim=1).mean()
     if loss_type == 'l2':
-        return (predictions - targets).pow(2).sum(dim=1).sqrt().mean()
+        # Same Euclidean objective, with a finite zero subgradient at exact hits.
+        # sqrt(sum(error**2)) backpropagates 0 * inf when error is exactly zero.
+        return torch.linalg.vector_norm(predictions - targets, dim=1).mean()
     raise ValueError(f'Unsupported offset loss type: {loss_type}')
 
 
