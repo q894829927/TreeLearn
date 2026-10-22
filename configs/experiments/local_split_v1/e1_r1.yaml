@@ -1,0 +1,15 @@
+schema: 1
+trial: E1-R1
+source_config: configs/experiments/local_split_v1/full.yaml
+proposal: docs/experiments/assets/local_split_failure_mechanisms_20261022/next_trial_spec.json
+output: work_dirs/treelearn_local_split_e1_r1_s42
+source_signature: 4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44
+baseline_checkpoint_sha256: 49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e
+optimizer_steps: 500
+hard_positive_fraction: 0.25
+hard_positive_weight: 0.5
+edge_threshold: 0.5
+max_same_false_cut_rate: 0.05
+min_other_tree_detection_rate: 0.8
+min_recovered: 1
+max_lost: 0

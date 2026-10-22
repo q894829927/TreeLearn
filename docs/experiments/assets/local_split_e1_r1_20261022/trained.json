@@ -1,0 +1,12 @@
+{
+  "signature": "51e80fc39c083f72ceae0082142bca140d87cac5a9034e61fd769099cd449c5b",
+  "optimizer_steps": 500,
+  "checkpoint": "work_dirs/treelearn_local_split_e1_r1_s42/step_500.pth",
+  "checkpoint_sha256": "c7ee611bb6a127836d00ad55edf710697f74142a15daec252f2fb2954055cd1e",
+  "parameter_count": 5265,
+  "initial_state_sha256": "3f52964c1cd4d0c9211c3c3da198611f2a235c0132d1ecebd2bb798d23862f09",
+  "torch_version": "2.0.0",
+  "cuda_version": "11.8",
+  "device": "cuda:0",
+  "gpu": "NVIDIA GeForce RTX 4090"
+}

@@ -1,0 +1,39 @@
+{
+  "source_work": "work_dirs/treelearn_local_split_e1_r1_s42",
+  "signature": "51e80fc39c083f72ceae0082142bca140d87cac5a9034e61fd769099cd449c5b",
+  "posthoc": true,
+  "exporter_sha256": "9caa34308803abfec99b9e556e9d0a64f0488a7612bf34c5cf673d716f85bf5e",
+  "checkpoint_sha256": "c7ee611bb6a127836d00ad55edf710697f74142a15daec252f2fb2954055cd1e",
+  "files_sha256": {
+    "brief.json": "1e9c2b9bcaa8319db335b02768c778c394edb5f1dd2daec3baffb114f28258b6",
+    "edge_rates.json": "d20f0779a1d190245c5e2eb1aac8fc89377cf4232ea2238ddaf4cdae7a93ba9e",
+    "edge_tradeoff.png": "62c1d892086311f8af948066609e3a2b7a91b97b7c8685e587532b2a0aabd9b6",
+    "forest_metrics.csv": "5da4208e9829f494e5baaa61b19a2d3617b731b5dd5116c9643126fd27493047",
+    "geometry_selected_policy.json": "e75059094d3cbbc92ccf4a05eeeda1c23691ebe6b7d810e1a14dcc4f9103b1ec",
+    "history.json": "68ea79fead4912291a040e6ac40bd6e284e395edb221dd601154668294f72d1f",
+    "learned_selected_policy.json": "0194812e32149df3cf2e9de3d7600d131172fdf9e5f588c4231969f246d3ae2a",
+    "manifest.json": "2f7746d4bfbe2ac8539db63be3bd85cd784652ecd383b667aaef3e39d53fce35",
+    "parent_edges.csv": "7ae744b68c8a51a47b1f7bbad13dbdf0dd8885e87412bfb687e0529f47cd5d21",
+    "run_logs/case_export_tests.log": "07f48ea83cb64009f006bf1de589ebf2e45dd3123a7c3657990f93880e568c75",
+    "run_logs/report.log": "8fee0997b4b07f60028635403d43f37964ae5fd4d83b9d8e037295d0fcb063ac",
+    "run_logs/run.log": "9a2ba7bbe0070c4488cb98ed30fbaa6c38fc5270dd35d9b71232dd2497506063",
+    "run_logs/tests.log": "8310f0eb5763a1d1bbce9194ebc74ee0031e6a74ef690c9369daf420acbde1ed",
+    "run_logs/verify.log": "88df2450f9938fbd5e0c8797493291ebaaa33099a59702b66987b1dbf0364f82",
+    "summary.json": "19e8f363880dba41c2938a5cefdc6bfeb0f0e02179dcf8b79837e63609dd5b69",
+    "threshold_bound.json": "3d4383cdefcc10e00744a582328d478de5a1d810e8e53715c70b97f1d3f5623c",
+    "trained.json": "da7df00c24c3d7a88c889f2ca120d08023115448c0b8bfae1074ce1625ad7f28",
+    "training_and_scores.png": "4fb8e9c280fb41df763b480c0a5625e5807b662774d2af03d85bb319695b5aff",
+    "training_input_equivalence.json": "71e271a5e20c6528fe6da4ddddb33293307ec190f7be7126ffd32c63fb3ec07b",
+    "verified.json": "3dd9551e679f29741da7710782b87c4c0b04eb21dae4e612d9b9804dbc320d07"
+  },
+  "runner_sha256": "aa9e88a0cd712b15b69d4eabcda098907fe7c34161290c0962678188da664c99",
+  "verifier_sha256": "86b8b2cb56d99676927a186d78c79826455ee30d105634aa3c876ee85c7e11bd",
+  "tests_sha256": "e8280860d54e52b5e6d22387c0a9710c139be857ef890876e7023dfa0c8c746c",
+  "tests_passed": 36,
+  "code_config_files_sha256": {
+    "tools/local_split_v1/run_hard_positive_trial.py": "aa9e88a0cd712b15b69d4eabcda098907fe7c34161290c0962678188da664c99",
+    "tools/local_split_v1/report_hard_positive_trial.py": "9caa34308803abfec99b9e556e9d0a64f0488a7612bf34c5cf673d716f85bf5e",
+    "tools/local_split_v1/verify_hard_positive_trial.py": "86b8b2cb56d99676927a186d78c79826455ee30d105634aa3c876ee85c7e11bd",
+    "configs/experiments/local_split_v1/e1_r1.yaml": "657d6d12844d1e86823f58980f8e6bd252855268c4d44bff299078715a86e1ae"
+  }
+}

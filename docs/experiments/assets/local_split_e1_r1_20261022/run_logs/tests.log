@@ -1,0 +1,42 @@
+test_contact_hops_distinguish_interior_same_tree_edges (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_degenerate_line_is_unidentifiable_circle (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_error_contributions_sum_to_population_counts (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_half_open_bins_and_outside_values (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_one_cylinder_halves_have_separated_centroids_but_shared_circle (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_two_cylinders_have_distinct_fitted_centers_and_translation_invariance (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_unknowns_and_background_are_not_other_tree_edges (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_background_recall_cannot_satisfy_other_tree_gate (test_local_split_hard_positive_trial.HardPositiveTrialTests) ... ok
+test_fraction_uses_ceiling_and_only_the_positive_pool (test_local_split_hard_positive_trial.HardPositiveTrialTests) ... ok
+test_gate_keeps_inclusive_edge_boundaries_and_strict_loss_protection (test_local_split_hard_positive_trial.HardPositiveTrialTests) ... ok
+test_hardest_positive_gets_extra_gradient_without_reweighting_negatives (test_local_split_hard_positive_trial.HardPositiveTrialTests) ... ok
+test_no_other_tree_population_cannot_pass (test_local_split_hard_positive_trial.HardPositiveTrialTests) ... ok
+test_one_positive_is_not_rounded_down_to_zero (test_local_split_hard_positive_trial.HardPositiveTrialTests) ... ok
+test_unknown_targets_and_missing_classes_refuse_training (test_local_split_hard_positive_trial.HardPositiveTrialTests) ... ok
+test_advancement_rejects_no_edits_and_three_to_one_ratio (test_local_split_v1.LocalSplitTests) ... ok
+test_budgets_refuse_without_truncation (test_local_split_v1.LocalSplitTests) ... ok
+test_connection_scores_change_actual_ownership (test_local_split_v1.LocalSplitTests) ... ok
+test_incremental_full_forest_counts_equal_full_point_evaluation (test_local_split_v1.LocalSplitTests) ... SCAN_IDS points=3/10
+SCAN_IDS points=10/10
+SCAN_COUNTS points=3/10
+SCAN_COUNTS points=10/10
+ok
+test_interrupted_training_cannot_silently_restart_budget (test_local_split_v1.LocalSplitTests) ... ok
+test_iou_equal_half_is_not_tp (test_local_split_v1.LocalSplitTests) ... ok
+test_later_third_track_overrides_earlier_accepted_pair (test_local_split_v1.LocalSplitTests) ... ok
+test_local_edits_keep_every_other_point_and_foreground (test_local_split_v1.LocalSplitTests) ... ok
+test_model_is_symmetric_and_has_exact_small_parameter_count (test_local_split_v1.LocalSplitTests) ... ok
+test_prepare_does_not_open_gt_and_is_chunk_independent (test_local_split_v1.LocalSplitTests) ... PREPARE train/synthetic parents=1/1 candidates=1
+ok
+test_seed_purity_ignores_unknown_but_counts_known_background (test_local_split_v1.LocalSplitTests) ... ok
+test_seedless_fragment_stays_parent (test_local_split_v1.LocalSplitTests) ... ok
+test_solver_failure_refuses (test_local_split_v1.LocalSplitTests) ... ok
+test_three_stable_supports_refuse_binary_split (test_local_split_v1.LocalSplitTests) ... ok
+test_touching_votes_still_allow_two_lower_tracks (test_local_split_v1.LocalSplitTests) ... ok
+test_unknown_and_background_pair_loss_mask (test_local_split_v1.LocalSplitTests) ... ok
+test_upper_fork_without_lower_pair_does_not_trigger (test_local_split_v1.LocalSplitTests) ... ok
+test_vote_pair_has_hash_and_shared_height_support (test_local_split_v1.LocalSplitTests) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.149s
+
+OK

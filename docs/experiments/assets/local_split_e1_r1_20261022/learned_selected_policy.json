@@ -1,0 +1,59 @@
+{
+  "signature": "51e80fc39c083f72ceae0082142bca140d87cac5a9034e61fd769099cd449c5b",
+  "scope": "GT-selected fitted source training parents; not independent validation",
+  "approved_for_deployment": false,
+  "threshold": 0.5,
+  "gt_arrays_opened": false,
+  "forests": [
+    {
+      "plot": "A1N",
+      "parents": [
+        {
+          "parent_id": 69,
+          "new_id": 642,
+          "entrance": "votes",
+          "payload": "work_dirs/treelearn_local_split_e1_r1_s42/deployment/learned/A1N/69.npz",
+          "payload_sha256": "1a8c2779b410b23052a39312651d245a25f46656fed2f113055fbdbf7a73cfb8"
+        },
+        {
+          "parent_id": 116,
+          "new_id": 643,
+          "entrance": "votes",
+          "payload": "work_dirs/treelearn_local_split_e1_r1_s42/deployment/learned/A1N/116.npz",
+          "payload_sha256": "89804ad8264784528bd68afabb386ebdf11941540f4d1b686441d14baa8cfc36"
+        },
+        {
+          "parent_id": 450,
+          "new_id": 644,
+          "entrance": "votes",
+          "payload": "work_dirs/treelearn_local_split_e1_r1_s42/deployment/learned/A1N/450.npz",
+          "payload_sha256": "c624bc875deb792e83ae43c0213b2dc1432d7bb937515283443dc01a9188c39b"
+        }
+      ]
+    },
+    {
+      "plot": "G2N",
+      "parents": [
+        {
+          "parent_id": 90,
+          "new_id": 756,
+          "entrance": "votes",
+          "payload": "work_dirs/treelearn_local_split_e1_r1_s42/deployment/learned/G2N/90.npz",
+          "payload_sha256": "11a64bd5b4f1e9764341482d82edea9a1340f80f442d8ce501ce4c3956375359"
+        }
+      ]
+    },
+    {
+      "plot": "LG1",
+      "parents": [
+        {
+          "parent_id": 265,
+          "new_id": 463,
+          "entrance": "votes",
+          "payload": "work_dirs/treelearn_local_split_e1_r1_s42/deployment/learned/LG1/265.npz",
+          "payload_sha256": "16ebd0f5af3e4ffbd39d95a9865d1e07530b5a871a6c9dd77982cda46d4a1f04"
+        }
+      ]
+    }
+  ]
+}

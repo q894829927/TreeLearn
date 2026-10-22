@@ -1,0 +1,10 @@
+{
+  "optimizer_steps": 0,
+  "old_checkpoint_sha256": "49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e",
+  "new_checkpoint_sha256": "c7ee611bb6a127836d00ad55edf710697f74142a15daec252f2fb2954055cd1e",
+  "normalization_exactly_equal": true,
+  "numpy_sampler_final_state_exactly_equal": true,
+  "torch_final_rng_state_exactly_equal": true,
+  "old_step": 500,
+  "new_step": 500
+}

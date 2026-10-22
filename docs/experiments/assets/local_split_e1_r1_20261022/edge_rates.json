@@ -1,0 +1,461 @@
+{
+  "totals": {
+    "same": {
+      "count": 5003262,
+      "cut": 152412
+    },
+    "other_tree": {
+      "count": 17702,
+      "cut": 4968
+    },
+    "tree_background": {
+      "count": 7878,
+      "cut": 5741
+    }
+  },
+  "per_parent": [
+    {
+      "plot": "A1N",
+      "parent_id": 69,
+      "category": "mixed",
+      "same": {
+        "count": 157788,
+        "cut": 3207
+      },
+      "other_tree": {
+        "count": 737,
+        "cut": 166
+      },
+      "tree_background": {
+        "count": 314,
+        "cut": 77
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 116,
+      "category": "mixed",
+      "same": {
+        "count": 247037,
+        "cut": 4526
+      },
+      "other_tree": {
+        "count": 1623,
+        "cut": 445
+      },
+      "tree_background": {
+        "count": 213,
+        "cut": 78
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 450,
+      "category": "mixed",
+      "same": {
+        "count": 81927,
+        "cut": 2868
+      },
+      "other_tree": {
+        "count": 918,
+        "cut": 318
+      },
+      "tree_background": {
+        "count": 501,
+        "cut": 93
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 575,
+      "category": "mixed",
+      "same": {
+        "count": 436463,
+        "cut": 61904
+      },
+      "other_tree": {
+        "count": 2862,
+        "cut": 1469
+      },
+      "tree_background": {
+        "count": 88,
+        "cut": 74
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 4,
+      "category": "correct",
+      "same": {
+        "count": 576855,
+        "cut": 17919
+      },
+      "other_tree": {
+        "count": 263,
+        "cut": 157
+      },
+      "tree_background": {
+        "count": 541,
+        "cut": 461
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 6,
+      "category": "correct",
+      "same": {
+        "count": 424893,
+        "cut": 22099
+      },
+      "other_tree": {
+        "count": 2699,
+        "cut": 963
+      },
+      "tree_background": {
+        "count": 86,
+        "cut": 86
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 11,
+      "category": "correct",
+      "same": {
+        "count": 845286,
+        "cut": 3628
+      },
+      "other_tree": {
+        "count": 664,
+        "cut": 235
+      },
+      "tree_background": {
+        "count": 425,
+        "cut": 425
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 12,
+      "category": "correct",
+      "same": {
+        "count": 141943,
+        "cut": 1069
+      },
+      "other_tree": {
+        "count": 0,
+        "cut": 0
+      },
+      "tree_background": {
+        "count": 339,
+        "cut": 339
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 18,
+      "category": "correct",
+      "same": {
+        "count": 598773,
+        "cut": 4906
+      },
+      "other_tree": {
+        "count": 2046,
+        "cut": 110
+      },
+      "tree_background": {
+        "count": 287,
+        "cut": 287
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 21,
+      "category": "correct",
+      "same": {
+        "count": 461722,
+        "cut": 5203
+      },
+      "other_tree": {
+        "count": 1579,
+        "cut": 237
+      },
+      "tree_background": {
+        "count": 527,
+        "cut": 527
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 23,
+      "category": "correct",
+      "same": {
+        "count": 203894,
+        "cut": 7506
+      },
+      "other_tree": {
+        "count": 0,
+        "cut": 0
+      },
+      "tree_background": {
+        "count": 2542,
+        "cut": 1529
+      }
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 28,
+      "category": "correct",
+      "same": {
+        "count": 444290,
+        "cut": 4064
+      },
+      "other_tree": {
+        "count": 275,
+        "cut": 206
+      },
+      "tree_background": {
+        "count": 414,
+        "cut": 414
+      }
+    },
+    {
+      "plot": "G1W",
+      "parent_id": 343,
+      "category": "mixed",
+      "same": {
+        "count": 166112,
+        "cut": 6103
+      },
+      "other_tree": {
+        "count": 1373,
+        "cut": 375
+      },
+      "tree_background": {
+        "count": 180,
+        "cut": 150
+      }
+    },
+    {
+      "plot": "G2N",
+      "parent_id": 90,
+      "category": "mixed",
+      "same": {
+        "count": 64028,
+        "cut": 1966
+      },
+      "other_tree": {
+        "count": 718,
+        "cut": 57
+      },
+      "tree_background": {
+        "count": 577,
+        "cut": 385
+      }
+    },
+    {
+      "plot": "G2W",
+      "parent_id": 252,
+      "category": "mixed",
+      "same": {
+        "count": 71084,
+        "cut": 3353
+      },
+      "other_tree": {
+        "count": 1924,
+        "cut": 226
+      },
+      "tree_background": {
+        "count": 392,
+        "cut": 364
+      }
+    },
+    {
+      "plot": "LG1",
+      "parent_id": 265,
+      "category": "mixed",
+      "same": {
+        "count": 81167,
+        "cut": 2091
+      },
+      "other_tree": {
+        "count": 21,
+        "cut": 4
+      },
+      "tree_background": {
+        "count": 452,
+        "cut": 452
+      }
+    }
+  ],
+  "score_histogram": {
+    "bins": [
+      0.0,
+      0.025,
+      0.05,
+      0.07500000000000001,
+      0.1,
+      0.125,
+      0.15000000000000002,
+      0.17500000000000002,
+      0.2,
+      0.225,
+      0.25,
+      0.275,
+      0.30000000000000004,
+      0.325,
+      0.35000000000000003,
+      0.375,
+      0.4,
+      0.42500000000000004,
+      0.45,
+      0.47500000000000003,
+      0.5,
+      0.525,
+      0.55,
+      0.5750000000000001,
+      0.6000000000000001,
+      0.625,
+      0.65,
+      0.675,
+      0.7000000000000001,
+      0.7250000000000001,
+      0.75,
+      0.775,
+      0.8,
+      0.8250000000000001,
+      0.8500000000000001,
+      0.875,
+      0.9,
+      0.925,
+      0.9500000000000001,
+      0.9750000000000001,
+      1.0
+    ],
+    "same": [
+      783,
+      1319,
+      1904,
+      2265,
+      2982,
+      3957,
+      4885,
+      5555,
+      6028,
+      6715,
+      7243,
+      7975,
+      8711,
+      9561,
+      10456,
+      11509,
+      12851,
+      14115,
+      15683,
+      17915,
+      20577,
+      24442,
+      29042,
+      35475,
+      42994,
+      52265,
+      64235,
+      78723,
+      95997,
+      117612,
+      143070,
+      178317,
+      232951,
+      325477,
+      476649,
+      747031,
+      934210,
+      871581,
+      368613,
+      11589
+    ],
+    "other_tree": [
+      1,
+      7,
+      97,
+      82,
+      110,
+      150,
+      174,
+      199,
+      230,
+      239,
+      274,
+      281,
+      279,
+      319,
+      305,
+      365,
+      416,
+      468,
+      481,
+      491,
+      574,
+      641,
+      701,
+      780,
+      816,
+      867,
+      948,
+      829,
+      836,
+      802,
+      802,
+      886,
+      882,
+      863,
+      696,
+      490,
+      193,
+      101,
+      27,
+      0
+    ],
+    "tree_background": [
+      702,
+      760,
+      407,
+      325,
+      322,
+      314,
+      253,
+      207,
+      207,
+      227,
+      222,
+      225,
+      216,
+      198,
+      195,
+      203,
+      187,
+      206,
+      180,
+      185,
+      192,
+      175,
+      195,
+      188,
+      181,
+      179,
+      219,
+      146,
+      138,
+      115,
+      68,
+      61,
+      72,
+      56,
+      65,
+      27,
+      45,
+      15,
+      0,
+      0
+    ]
+  }
+}

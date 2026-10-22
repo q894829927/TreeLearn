@@ -1,0 +1,6 @@
+{
+  "max_same_false_cut_rate": 0.05,
+  "edge_score_threshold_must_be_below": 0.6000000000000001,
+  "strict_other_tree_detection_upper_bound": 0.4329454298949271,
+  "note": "Monotonic bound from 0.025-wide score bins. No new threshold chosen or run."
+}

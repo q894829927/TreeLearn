@@ -1,0 +1,121 @@
+{
+  "signature": "51e80fc39c083f72ceae0082142bca140d87cac5a9034e61fd769099cd449c5b",
+  "sources": {
+    "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+    "e0_sha256": "24f03341c69db51cf3617e5a767fa6ac6d85583430ccb2d9a9426818c78c3e32",
+    "e1_sha256": "01cbe425992261351ce7adc1acadcac7bbccb30edb6e09bf53420e1b3957926a",
+    "bank_manifest_sha256": "f11e5be6f762e35249c3752ac45feccad082b478d19bdd93262b1541d8f0e8f7",
+    "baseline_checkpoint_sha256": "49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e",
+    "label_sources": {
+      "A1N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/A1N/labels.npy",
+        "size": 130392696,
+        "mtime_ns": 1792077630417726062
+      },
+      "A1W": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/A1W/labels.npy",
+        "size": 127225808,
+        "mtime_ns": 1792080154321738612
+      },
+      "G1N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G1N/labels.npy",
+        "size": 85050416,
+        "mtime_ns": 1792080686608394939
+      },
+      "G1W": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G1W/labels.npy",
+        "size": 177144560,
+        "mtime_ns": 1792081840669724705
+      },
+      "G2N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G2N/labels.npy",
+        "size": 128260744,
+        "mtime_ns": 1792082811936645914
+      },
+      "G2W": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G2W/labels.npy",
+        "size": 119716224,
+        "mtime_ns": 1792083531082430673
+      },
+      "G3N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G3N/labels.npy",
+        "size": 120398608,
+        "mtime_ns": 1792084303107702015
+      },
+      "G3W": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G3W/labels.npy",
+        "size": 145354160,
+        "mtime_ns": 1792085161670818741
+      },
+      "L2N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/L2N/labels.npy",
+        "size": 106933960,
+        "mtime_ns": 1792085818312002168
+      },
+      "L2W": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/L2W/labels.npy",
+        "size": 150412184,
+        "mtime_ns": 1792086846946718722
+      },
+      "LG1": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG1/labels.npy",
+        "size": 78664048,
+        "mtime_ns": 1792087394694060982
+      },
+      "LG2": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG2/labels.npy",
+        "size": 125027888,
+        "mtime_ns": 1792088178321900870
+      },
+      "LG3": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG3/labels.npy",
+        "size": 132695368,
+        "mtime_ns": 1792088998030323734
+      },
+      "G4N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/G4N/labels.npy",
+        "size": 104991896,
+        "mtime_ns": 1792078282640642909
+      },
+      "G4W": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/G4W/labels.npy",
+        "size": 169583240,
+        "mtime_ns": 1792090309341595251
+      },
+      "L1N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/L1N/labels.npy",
+        "size": 137748744,
+        "mtime_ns": 1792091345720673098
+      },
+      "O1N": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/O1N/labels.npy",
+        "size": 82862088,
+        "mtime_ns": 1792091824210954133
+      },
+      "O1W": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/O1W/labels.npy",
+        "size": 150795416,
+        "mtime_ns": 1792092810073801630
+      }
+    }
+  },
+  "trial": {
+    "schema": 1,
+    "trial": "E1-R1",
+    "source_config": "configs/experiments/local_split_v1/full.yaml",
+    "proposal": "docs/experiments/assets/local_split_failure_mechanisms_20261022/next_trial_spec.json",
+    "output": "work_dirs/treelearn_local_split_e1_r1_s42",
+    "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+    "baseline_checkpoint_sha256": "49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e",
+    "optimizer_steps": 500,
+    "hard_positive_fraction": 0.25,
+    "hard_positive_weight": 0.5,
+    "edge_threshold": 0.5,
+    "max_same_false_cut_rate": 0.05,
+    "min_other_tree_detection_rate": 0.8,
+    "min_recovered": 1,
+    "max_lost": 0
+  },
+  "code_sha256": "aa9e88a0cd712b15b69d4eabcda098907fe7c34161290c0962678188da664c99",
+  "proposal_sha256": "d7a414edc735978979ef7e96935d7d514dbdb94e98cf57b4925f13f5b84a8eb5"
+}

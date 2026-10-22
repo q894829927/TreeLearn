@@ -1,0 +1,64 @@
+PREFLIGHT signature=51e80fc39c083f72ceae0082142bca140d87cac5a9034e61fd769099cd449c5b original=4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44 parents=16
+TRAIN E1-R1 {'step': 1, 'loss': 1.0893008708953857, 'balanced': 0.6925249099731445, 'hard_positive': 0.7935519814491272, 'positive': 0.7714889645576477, 'negative': 0.6135608553886414, 'hard_count': 1388, 'positive_count': 5549, 'negative_count': 2643}
+TRAIN E1-R1 {'step': 25, 'loss': 1.042155146598816, 'balanced': 0.6834475994110107, 'hard_positive': 0.7174150943756104, 'positive': 0.7020567655563354, 'negative': 0.664838433265686, 'hard_count': 1455, 'positive_count': 5818, 'negative_count': 2374}
+TRAIN E1-R1 {'step': 50, 'loss': 1.005043387413025, 'balanced': 0.6751964688301086, 'hard_positive': 0.6596938371658325, 'positive': 0.6296799182891846, 'negative': 0.7207130193710327, 'hard_count': 1508, 'positive_count': 6029, 'negative_count': 2163}
+TRAIN E1-R1 {'step': 75, 'loss': 0.9318394660949707, 'balanced': 0.6406680345535278, 'hard_positive': 0.5823428630828857, 'positive': 0.546857476234436, 'negative': 0.7344785332679749, 'hard_count': 1659, 'positive_count': 6634, 'negative_count': 1558}
+TRAIN E1-R1 {'step': 100, 'loss': 0.9050320386886597, 'balanced': 0.6238982677459717, 'hard_positive': 0.5622674822807312, 'positive': 0.4566839039325714, 'negative': 0.7911126613616943, 'hard_count': 1449, 'positive_count': 5796, 'negative_count': 2396}
+TRAIN E1-R1 {'step': 125, 'loss': 0.943109393119812, 'balanced': 0.6729646921157837, 'hard_positive': 0.5402894020080566, 'positive': 0.3797595500946045, 'negative': 0.9661698341369629, 'hard_count': 1383, 'positive_count': 5531, 'negative_count': 2661}
+TRAIN E1-R1 {'step': 150, 'loss': 0.760850191116333, 'balanced': 0.5480636954307556, 'hard_positive': 0.42557293176651, 'positive': 0.310811311006546, 'negative': 0.7853161096572876, 'hard_count': 1576, 'positive_count': 6301, 'negative_count': 1891}
+TRAIN E1-R1 {'step': 175, 'loss': 0.8391931056976318, 'balanced': 0.6173642873764038, 'hard_positive': 0.44365760684013367, 'positive': 0.2872934341430664, 'negative': 0.947435200214386, 'hard_count': 1459, 'positive_count': 5835, 'negative_count': 2357}
+TRAIN E1-R1 {'step': 200, 'loss': 0.7912270426750183, 'balanced': 0.5787521004676819, 'hard_positive': 0.42494988441467285, 'positive': 0.265595406293869, 'negative': 0.8919088244438171, 'hard_count': 1566, 'positive_count': 6261, 'negative_count': 1931}
+TRAIN E1-R1 {'step': 225, 'loss': 0.8002098798751831, 'balanced': 0.5961546897888184, 'hard_positive': 0.4081103801727295, 'positive': 0.25092944502830505, 'negative': 0.941379964351654, 'hard_count': 1549, 'positive_count': 6196, 'negative_count': 1996}
+TRAIN E1-R1 {'step': 250, 'loss': 0.7360924482345581, 'balanced': 0.5541861057281494, 'hard_positive': 0.3638126850128174, 'positive': 0.22264932096004486, 'negative': 0.8857229351997375, 'hard_count': 1626, 'positive_count': 6501, 'negative_count': 1691}
+TRAIN E1-R1 {'step': 275, 'loss': 0.8368997573852539, 'balanced': 0.620921790599823, 'hard_positive': 0.4319559931755066, 'positive': 0.2402287721633911, 'negative': 1.0016148090362549, 'hard_count': 1528, 'positive_count': 6109, 'negative_count': 2083}
+TRAIN E1-R1 {'step': 300, 'loss': 0.7139527201652527, 'balanced': 0.526072084903717, 'hard_positive': 0.3757612705230713, 'positive': 0.21281665563583374, 'negative': 0.8393275141716003, 'hard_count': 1585, 'positive_count': 6339, 'negative_count': 1853}
+TRAIN E1-R1 {'step': 325, 'loss': 0.5336294174194336, 'balanced': 0.357308030128479, 'hard_positive': 0.3526427149772644, 'positive': 0.18624672293663025, 'negative': 0.5283693075180054, 'hard_count': 1727, 'positive_count': 6905, 'negative_count': 1287}
+TRAIN E1-R1 {'step': 350, 'loss': 0.7382412552833557, 'balanced': 0.5197223424911499, 'hard_positive': 0.437037855386734, 'positive': 0.21034745872020721, 'negative': 0.8290972709655762, 'hard_count': 1478, 'positive_count': 5909, 'negative_count': 2283}
+TRAIN E1-R1 {'step': 375, 'loss': 0.7950913906097412, 'balanced': 0.5513469576835632, 'hard_positive': 0.4874888062477112, 'positive': 0.2288249433040619, 'negative': 0.873869001865387, 'hard_count': 1343, 'positive_count': 5371, 'negative_count': 2821}
+TRAIN E1-R1 {'step': 400, 'loss': 0.7073200941085815, 'balanced': 0.5154690146446228, 'hard_positive': 0.38370221853256226, 'positive': 0.18403057754039764, 'negative': 0.8469074964523315, 'hard_count': 1492, 'positive_count': 5966, 'negative_count': 2226}
+TRAIN E1-R1 {'step': 425, 'loss': 0.8054899573326111, 'balanced': 0.5331500768661499, 'hard_positive': 0.5446797609329224, 'positive': 0.2299085408449173, 'negative': 0.8363916277885437, 'hard_count': 1491, 'positive_count': 5961, 'negative_count': 2231}
+TRAIN E1-R1 {'step': 450, 'loss': 0.771819531917572, 'balanced': 0.5733880996704102, 'hard_positive': 0.3968628942966461, 'positive': 0.18837016820907593, 'negative': 0.9584059715270996, 'hard_count': 1488, 'positive_count': 5952, 'negative_count': 2240}
+TRAIN E1-R1 {'step': 475, 'loss': 0.5625813603401184, 'balanced': 0.37485480308532715, 'hard_positive': 0.3754531145095825, 'positive': 0.17434655129909515, 'negative': 0.575363039970398, 'hard_count': 1689, 'positive_count': 6754, 'negative_count': 1438}
+TRAIN E1-R1 {'step': 500, 'loss': 0.7082648277282715, 'balanced': 0.5079044103622437, 'hard_positive': 0.40072086453437805, 'positive': 0.18075087666511536, 'negative': 0.8350579738616943, 'hard_count': 1507, 'positive_count': 6025, 'negative_count': 2167}
+TRAINED optimizer_steps=500 checkpoint_sha256=c7ee611bb6a127836d00ad55edf710697f74142a15daec252f2fb2954055cd1e
+FULL_EDGE {'plot': 'A1N', 'parent_id': 69, 'category': 'mixed', 'same': {'count': 157788, 'cut': 3207}, 'other_tree': {'count': 737, 'cut': 166}, 'tree_background': {'count': 314, 'cut': 77}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 116, 'category': 'mixed', 'same': {'count': 247037, 'cut': 4526}, 'other_tree': {'count': 1623, 'cut': 445}, 'tree_background': {'count': 213, 'cut': 78}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 450, 'category': 'mixed', 'same': {'count': 81927, 'cut': 2868}, 'other_tree': {'count': 918, 'cut': 318}, 'tree_background': {'count': 501, 'cut': 93}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 575, 'category': 'mixed', 'same': {'count': 436463, 'cut': 61904}, 'other_tree': {'count': 2862, 'cut': 1469}, 'tree_background': {'count': 88, 'cut': 74}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 4, 'category': 'correct', 'same': {'count': 576855, 'cut': 17919}, 'other_tree': {'count': 263, 'cut': 157}, 'tree_background': {'count': 541, 'cut': 461}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 6, 'category': 'correct', 'same': {'count': 424893, 'cut': 22099}, 'other_tree': {'count': 2699, 'cut': 963}, 'tree_background': {'count': 86, 'cut': 86}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 11, 'category': 'correct', 'same': {'count': 845286, 'cut': 3628}, 'other_tree': {'count': 664, 'cut': 235}, 'tree_background': {'count': 425, 'cut': 425}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 12, 'category': 'correct', 'same': {'count': 141943, 'cut': 1069}, 'other_tree': {'count': 0, 'cut': 0}, 'tree_background': {'count': 339, 'cut': 339}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 18, 'category': 'correct', 'same': {'count': 598773, 'cut': 4906}, 'other_tree': {'count': 2046, 'cut': 110}, 'tree_background': {'count': 287, 'cut': 287}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 21, 'category': 'correct', 'same': {'count': 461722, 'cut': 5203}, 'other_tree': {'count': 1579, 'cut': 237}, 'tree_background': {'count': 527, 'cut': 527}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 23, 'category': 'correct', 'same': {'count': 203894, 'cut': 7506}, 'other_tree': {'count': 0, 'cut': 0}, 'tree_background': {'count': 2542, 'cut': 1529}}
+FULL_EDGE {'plot': 'A1N', 'parent_id': 28, 'category': 'correct', 'same': {'count': 444290, 'cut': 4064}, 'other_tree': {'count': 275, 'cut': 206}, 'tree_background': {'count': 414, 'cut': 414}}
+FULL_EDGE {'plot': 'G1W', 'parent_id': 343, 'category': 'mixed', 'same': {'count': 166112, 'cut': 6103}, 'other_tree': {'count': 1373, 'cut': 375}, 'tree_background': {'count': 180, 'cut': 150}}
+FULL_EDGE {'plot': 'G2N', 'parent_id': 90, 'category': 'mixed', 'same': {'count': 64028, 'cut': 1966}, 'other_tree': {'count': 718, 'cut': 57}, 'tree_background': {'count': 577, 'cut': 385}}
+FULL_EDGE {'plot': 'G2W', 'parent_id': 252, 'category': 'mixed', 'same': {'count': 71084, 'cut': 3353}, 'other_tree': {'count': 1924, 'cut': 226}, 'tree_background': {'count': 392, 'cut': 364}}
+FULL_EDGE {'plot': 'LG1', 'parent_id': 265, 'category': 'mixed', 'same': {'count': 81167, 'cut': 2091}, 'other_tree': {'count': 21, 'cut': 4}, 'tree_background': {'count': 452, 'cut': 452}}
+PARTITION learned A1N/69: proposal
+PARTITION learned A1N/116: proposal
+PARTITION learned A1N/450: proposal
+PARTITION learned A1N/575: ambiguous_ownership
+PARTITION learned G1W/343: proposal
+PARTITION learned G2N/90: proposal
+PARTITION learned G2W/252: ambiguous_ownership
+PARTITION learned LG1/265: proposal
+POINT_VERIFY A1N: {'plot': 'A1N', 'points': 16299071, 'changed_points': 24310, 'foreground_unchanged': True, 'all_unedited_labels_equal': True, 'exact_metrics': True, 'recovered_gt_ids': [63, 73, 80, 228, 247], 'lost_gt_ids': []}
+POINT_VERIFY G2N: {'plot': 'G2N', 'points': 16032577, 'changed_points': 2208, 'foreground_unchanged': True, 'all_unedited_labels_equal': True, 'exact_metrics': True, 'recovered_gt_ids': [473], 'lost_gt_ids': []}
+POINT_VERIFY LG1: {'plot': 'LG1', 'points': 9832990, 'changed_points': 3857, 'foreground_unchanged': True, 'all_unedited_labels_equal': True, 'exact_metrics': True, 'recovered_gt_ids': [233, 244], 'lost_gt_ids': []}
+PARTITION geometry A1N/69: proposal
+PARTITION geometry A1N/116: ambiguous_ownership
+PARTITION geometry A1N/450: proposal
+PARTITION geometry A1N/575: small_child
+PARTITION geometry G1W/343: ambiguous_ownership
+PARTITION geometry G2N/90: ambiguous_ownership
+PARTITION geometry G2W/252: small_child
+PARTITION geometry LG1/265: proposal
+POINT_VERIFY A1N: {'plot': 'A1N', 'points': 16299071, 'changed_points': 11101, 'foreground_unchanged': True, 'all_unedited_labels_equal': True, 'exact_metrics': True, 'recovered_gt_ids': [63, 73, 228, 247], 'lost_gt_ids': []}
+POINT_VERIFY LG1: {'plot': 'LG1', 'points': 9832990, 'changed_points': 3857, 'foreground_unchanged': True, 'all_unedited_labels_equal': True, 'exact_metrics': True, 'recovered_gt_ids': [233, 244], 'lost_gt_ids': []}
+R1_GATE {'passed': False, 'same_false_cut_rate': 0.030462526247875887, 'strict_other_tree_detection_rate': 0.2806462546604903, 'recovered': 8, 'lost': 0}
+STOP single-setting R1 complete; no E2 or Wytham stage in this entry point.
+PREFLIGHT signature=51e80fc39c083f72ceae0082142bca140d87cac5a9034e61fd769099cd449c5b original=4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44 parents=16
+VERIFIED original V1 caches, labels, banks, code and checkpoint unchanged.
