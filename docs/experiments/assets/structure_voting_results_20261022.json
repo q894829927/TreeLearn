@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "source": "User-pasted completed server outputs, 2026-10-22; arrays not present on development machine",
+  "protocol": "aligned_voxels_ignore_negative_gt_iou_gt_0.5",
+  "checkpoint_step": 3000,
+  "validation": {
+    "baseline_macro": {
+      "f1": 0.8819461650087632,
+      "completeness": 0.9116394255405943,
+      "commission": 0.14398590052095178,
+      "coverage": 0.820764705196767,
+      "point_precision": 0.893494182504744,
+      "point_recall": 0.9058118388637222
+    },
+    "refined_macro": {
+      "f1": 0.8784112831283887,
+      "completeness": 0.9125787349536996,
+      "commission": 0.15163462804484099,
+      "coverage": 0.8207717194830005,
+      "point_precision": 0.8940288419478495,
+      "point_recall": 0.9050775246265875
+    },
+    "totals": {"tp": 1634, "fp": 285, "fn": 148},
+    "train_summary": {
+      "step": 3000,
+      "best": {"step": 3000, "f1": 0.8784112831283887},
+      "checkpoint": "work_dirs/treelearn_structure_voting_v1_s42/best.pth",
+      "status": "completed_inspect_metrics_for_effectiveness"
+    }
+  },
+  "external": {
+    "plot": "wytham_vox0.1",
+    "baseline_macro": {
+      "f1": 0.7032448377581121,
+      "completeness": 0.6795895096921323,
+      "commission": 0.2713936430317848,
+      "coverage": 0.6512525337608083,
+      "point_precision": 0.7123044232080217,
+      "point_recall": 0.8036695600981618
+    },
+    "refined_macro": {
+      "f1": 0.7022900763358778,
+      "completeness": 0.6818700114025086,
+      "commission": 0.27602905569007263,
+      "coverage": 0.6535089219757995,
+      "point_precision": 0.7139170206858053,
+      "point_recall": 0.804802309398041
+    },
+    "baseline_totals_from_previously_verified_casepack": {"tp": 596, "fp": 222, "fn": 281},
+    "totals": {"tp": 598, "fp": 228, "fn": 279},
+    "foreground_identity": {"changed_foreground_points": 0, "official_foreground_points": 29031598},
+    "server_reported_exit_code": 0,
+    "server_reported_end": "2026-10-22T12:53:04+08:00"
+  },
+  "interpretation": {
+    "net_tp_change": 2,
+    "net_fp_change": 6,
+    "external_f1_delta_pp": -0.09547614222342737,
+    "validation_f1_delta_pp": -0.3534881880374541,
+    "demonstrated_f1_improvement": false,
+    "lost_and_recovered_gt_ids_known": false,
+    "decision": "Finish this 3000-step branch without extending training. Audit existing final masks before implementing the next relation repair."
+  }
+}

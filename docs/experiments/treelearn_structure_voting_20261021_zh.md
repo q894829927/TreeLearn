@@ -86,7 +86,56 @@ bash tools/structure_voting/run.sh evaluate
 
 训练日志给出树均衡的 `base_vote_loss` 和 `vote_loss`、连接正负边数量、连接准确率、平均 XY 残差。训练投票误差下降并不等于全林分割提升；连接准确率也不跨 batch 或把 unknown 当负例充数。
 
-目前尚无这一版模型的实测结果，不预先给出增益承诺。Wytham 已被用于多次开发诊断，结果应称为外部数据集开发评估，不称为完全未接触的盲测。5 森林验证仍沿用当前官方权重参照及其数据重叠限制，不直接对标论文 Table 3 的独立测试数值。
+2026-10-22 已完成 3,000 步和 Wytham 评估，结果与后续只读诊断见下节。Wytham 已被用于多次开发诊断，结果应称为外部数据集开发评估，不称为完全未接触的盲测。5 森林验证仍沿用当前官方权重参照及其数据重叠限制，不直接对标论文 Table 3 的独立测试数值。
+
+## 2026-10-22 完成结果与停止点
+
+记录来自用户回传的服务器日志，数值保存于[结果 JSON](assets/structure_voting_results_20261022.json)。开发机没有这轮全林预测，尚不能报告具体 lost/recovered ID。
+
+| 指标 | Wytham 官方 | 结构投票 3,000 步 | 差值（百分点） |
+| --- | ---: | ---: | ---: |
+| F1 ↑ | 70.3245% | 70.2290% | -0.0955 |
+| 检出完整率 ↑ | 67.9590% | 68.1870% | +0.2281 |
+| 误检率 ↓ | 27.1394% | 27.6029% | +0.4635，变差 |
+| Coverage ↑ | 65.1253% | 65.3509% | +0.2256 |
+| 点 precision ↑ | 71.2304% | 71.3917% | +0.1613 |
+| 点 recall ↑ | 80.3670% | 80.4802% | +0.1133 |
+
+TP 596→598，FP 222→228，FN 281→279。完成退出码为 0，前景变化点数为 0，官方前景共 29,031,598 点，包含未知 GT 区域，不能把这个数字当作已标注树点数。该结果确认了保留语义前景的工程约束，未获得 F1 净收益；净增 2 个 TP 不等于只恢复了 2 棵，也不能从总数断定新增 FP 都是碎裂。
+
+内部 5 森林 macro F1 为 87.8411%，官方为 88.1946%，下降 0.3535 个百分点。1500→3000 步内部 F1 只增加约 0.0088 个百分点。源域与 Wytham 都没有 F1 净收益，本版到 3000 步结束，不追加训练、不把分数接近基线当作已有效。
+
+结合[官方实例案例分析](wytham_official_case_findings_20261022_zh.md)，本版固定前景，无法恢复原前景不足半棵 GT 的 129 个漏检实例。下一版关系修复应明确处理同树碎片，前景补漏独立设计。当前总指标只能表明有微小归属变化，不能证明 local connection 已学到正确树结构或某个聚类环节已得到修复。
+
+### 读取已有预测的逐树诊断
+
+新增 `tools/diagnostics/diagnose_structure_voting.py`，读取已完成的 `predictions.npy`，复用原官方缓存，不重跑 pipeline 或网络。单 BLAS 线程、mmap 分块扫描、无 GPU 和训练锁；额外预测重叠表最多 2,000 万格。只增加独立工具与测试，没有改动训练来源签名。
+
+诊断复算原协议，必须同时复现官方及结构投票指标，并检查 step、完整点数、前景一致性与输入文件稳定性。输出：
+
+- 全部 GT 的 `lost / recovered / both_detected / both_missed`，验证 recovered−lost=2；
+- 六个同树碎片案例 259、375、419、629、720、801，前景缺失和原正确实例对照；
+- 原 596 个 TP 的完整点集是否保持原样。通过点集交集判断，不比较任意实例编号；点集改变也不等于该树丢失；
+- 新的误检表、错误类别、高度分组；GT 负标签仍在指标里忽略，但完整掩码一致性检查保留这些点。
+
+在服务器前台执行，工作区应没有需要先处理的本地代码改动：
+
+```bash
+cd ~/projects/zrx/code/TreeLearn
+conda activate TreeLearn
+git pull --ff-only origin codex/candidate-mask-mlp-step1
+
+python -m unittest discover -s tests -p 'test_structure_voting_diagnostics.py' -v &&
+python -u tools/diagnostics/diagnose_structure_voting.py
+```
+
+完成后回传：
+
+```bash
+cat work_dirs/treelearn_structure_voting_v1_s42/external_diagnostics/step_003000/wytham_vox0.1/brief.json
+```
+
+输出目录要求不存在，避免覆盖以前的诊断。需要重跑时用 `--output` 指定另一个新目录。这个工具不改变任何预测，也不会训练或执行 GT 指定的合并；它用于确定下一版需要修复的具体实例及保护范围。
 
 ## 本地验证范围
 
