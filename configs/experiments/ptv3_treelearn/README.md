@@ -24,6 +24,8 @@ ln -s /absolute/path/to/original/TreeLearn/data data/source
 
 本机的大型新裁剪池通过 `data/experiments/ptv3_treelearn/v1` 链接到项目数据盘的独立目录 `/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1`。系统盘只有数十 GB 余量，完整生成前应选择有数百 GB 空间的数据盘；本轮未覆盖 `data/source/train/random_crops`。
 
+本机还将 `work_dirs/ptv3_treelearn/{formal,inference,evaluation}` 分别链接到 `/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_treelearn_baseline_20261023/` 下同名的独立数据盘目录。九个正式 run 的周期 checkpoint 约需 200GB 量级，另需保留整林数据和输出空间。只建立了空存储目录，没有启动正式训练；迁移主机时应重新建立这些链接。
+
 FlashAttention 2.3.6 的 CPython 3.10 / torch 2.0 / CUDA 11.8 wheel 安装在 worktree 的独立目录，未修改 Conda 环境。CLI 自动加载该目录。重建同一运行环境：
 
 ```bash

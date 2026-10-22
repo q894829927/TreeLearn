@@ -45,6 +45,8 @@
 
 这里用实测同步单步成本作计算成本估计，没有编造稀疏网络 FLOPs。PTv3 的核心单步时间约为 E0-scratch 的 4.62 倍。缓存复用、森林密度、数据盘读取和并行数据准备会影响时延；不能将本表直接当作全数据吞吐或正式训练时长保证。
 
+系统盘不能容纳全部正式 checkpoint：按当前参数/AdamW 状态和每 20 epochs 留档估算，九个正式 run 的周期 checkpoint 约为 200GB 量级，尚不含整林输出和重复副本。已将尚未使用的 `work_dirs/ptv3_treelearn/{formal,inference,evaluation}` 链接到项目 HDD 的独立 namespace；没有在这些目录启动训练。新裁剪池也位于该数据盘，具体路径见 README。
+
 ### 完整真实裁剪的可行性边界
 
 | 实测输入/设置 | 结果 |
