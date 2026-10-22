@@ -1,0 +1,20 @@
+{
+  "semantic_tree_recall": 0.999718504585009,
+  "offset_xy_error_m": 0.33071375335410796,
+  "offset_xyz_error_m": 0.4175118977696975,
+  "foreground_points": 16605184,
+  "seed_points": 325544,
+  "initial_instances": 305,
+  "final_instances": 305,
+  "unassigned_tree_points": 0,
+  "gt_alignment_distance_quantiles_m": [
+    0.0042870154430248355,
+    0.016767937013557273,
+    0.05192614415263797,
+    0.1134560610181445
+  ],
+  "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+  "pointwise_sha256": "aad50a849e77f81f8027539d145f84f6769e03c1dfacc276052a612e270ab21a",
+  "gt_sha256": "528d92ca438488ff0a69245e5097dbb8e48f35c3707f9335196d0722f4025cf3",
+  "role": "evaluation diagnostics only"
+}

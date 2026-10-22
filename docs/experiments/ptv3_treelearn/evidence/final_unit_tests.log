@@ -1,0 +1,27 @@
+test_aggregate_rejects_smoke_scores (test_contract.ContractTests) ... ok
+test_canonical_voxel_ids_preserve_each_point_and_order (test_contract.ContractTests) ... ok
+test_constant_features_and_duplicate_voxel (test_contract.ContractTests) ... ok
+test_e0_is_original_class_and_state (test_contract.ContractTests) ... ok
+test_ensemble_main_averages_overlaps (test_contract.ContractTests) ... ok
+test_evaluation_perfect_and_empty_predictions (test_contract.ContractTests) ... ok
+test_grid_safety_preserves_valid_main_path_and_covers_augmented_extent (test_contract.ContractTests) ... ok
+test_grouping_empty_no_seed_no_cluster_and_small_knn (test_contract.ContractTests) ... ok
+test_grouping_normal_matches_main_and_five_nn (test_contract.ContractTests) ... ok
+test_gt_partition_exact_and_edge_counts (test_contract.ContractTests) ... ok
+test_hais_required_coverage_and_failure (test_contract.ContractTests) ... ok
+test_main_loss_formula_empty_masks_and_gradients (test_contract.ContractTests) ... ok
+test_ptv3_point_mapping_interleaved_and_duplicates (test_contract.ContractTests) ... ok
+test_resume_log_discards_only_unsaved_tail (test_contract.ContractTests) ... ok
+test_rng_round_trip (test_contract.ContractTests) ... ok
+test_seeded_augmentation_ignore_and_shared_subsampling (test_contract.ContractTests) ... ok
+test_standard_ptv3_output_order_and_batch_isolation (test_contract.ContractTests) ... ok
+test_streamed_tiles_match_main_arrays_and_metadata_exactly (test_contract.ContractTests) ... 0it [00:00, ?it/s]25it [00:00, 4805.13it/s]
+ok
+test_streaming_npz_hash_and_arrays_match_numpy (test_contract.ContractTests) ... ok
+test_tensor_checkpointing_gradient_and_bn_parity (test_contract.ContractTests) ... ok
+test_unknown_and_empty_laz_round_trip (test_contract.ContractTests) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 12.069s
+
+OK

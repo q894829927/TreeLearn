@@ -1,0 +1,53 @@
+{
+  "prediction": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/results/full_forest/L1W.laz",
+  "prediction_sha256": "748add7819d2ac08fe09e88fbba9540268aa0c65107ab4af9b1ef2c883e50b85",
+  "gt": "/home/szu-stu/projects/zrx/code/TreeLearn/data/benchmark/L1W_voxelized01_for_eval.laz",
+  "gt_sha256": "528d92ca438488ff0a69245e5097dbb8e48f35c3707f9335196d0722f4025cf3",
+  "config": {
+    "paths": {
+      "pred_forest_path": "data/pipeline/L1W/results/full_forest/L1W.laz",
+      "gt_forest_path": "data/benchmark/L1W_voxelized01_for_eval.laz"
+    },
+    "thresholds": {
+      "min_iou_for_match": 0.5,
+      "min_precision_for_pred": 0.5,
+      "min_recall_for_gt": 0.5
+    },
+    "partitions": {
+      "xy_partition": [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1
+      ],
+      "z_partition": [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1
+      ]
+    }
+  },
+  "git": {
+    "commit": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+    "branch": "codex/ptv3-treelearn-baseline",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "?? configs/experiments/\n?? docs/experiments/\n?? tests/\n?? tools/experiments/\n?? tree_learn/experiments/"
+  },
+  "seconds": 560.4498894866556,
+  "role": "external development evaluation; never training or checkpoint selection"
+}

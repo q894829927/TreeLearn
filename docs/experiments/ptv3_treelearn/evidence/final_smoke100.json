@@ -1,0 +1,105 @@
+{
+  "input": "real legacy G1N_0; 1060733 points; unverified_smoke only, no benchmark claim",
+  "common_digests_all_100_updates": true,
+  "groups": {
+    "e0_scratch": {
+      "updates": 100,
+      "optimizer_steps": 100,
+      "finite_gradients": true,
+      "parameter_count": 30106981,
+      "step_seconds_excluding_first_mean": 0.14747807803102816,
+      "step_seconds_excluding_first_std": 0.018230619731313583,
+      "update_wall_seconds_excluding_first_mean": 0.3281025475907055,
+      "peak_allocated_GiB": 3.1084723472595215,
+      "peak_reserved_GiB": 4.44921875,
+      "loss_first": 54.85138130187988,
+      "loss_last": 35.303457260131836,
+      "amp_scale_min": 1024.0,
+      "lr_values": [
+        6.98e-05
+      ],
+      "instance_retention_min": 1.0,
+      "xy_extents_exact": true,
+      "expanded_input_samples": 27,
+      "identity": {
+        "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+        "data_sha256": "9ab209f15296071d2aa5668af29fa26002e521a821fc54bf5398fe14abb528a1",
+        "plan_sha256": "577172592cf2aeb7caaea191b8129f62346f3476699581bf96f07769fa5146c3",
+        "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+        "git": {
+          "commit": "f80aab665514596caeda07883a3c39bb2610ffef",
+          "branch": "codex/ptv3-treelearn-baseline",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "status": ""
+        }
+      },
+      "sample_digest_sequence_sha256": "0e4efc51b5b49160212d5529e4b34cac4669453b76e9f58cb268d37f39fe13a6"
+    },
+    "e0_main_hais": {
+      "updates": 100,
+      "optimizer_steps": 100,
+      "finite_gradients": true,
+      "parameter_count": 30106981,
+      "step_seconds_excluding_first_mean": 0.13948055038774254,
+      "step_seconds_excluding_first_std": 0.007280450330054507,
+      "update_wall_seconds_excluding_first_mean": 0.3133069605030345,
+      "peak_allocated_GiB": 3.1086740493774414,
+      "peak_reserved_GiB": 4.44921875,
+      "loss_first": 53.80361557006836,
+      "loss_last": 33.8158597946167,
+      "amp_scale_min": 1024.0,
+      "lr_values": [
+        6.98e-05
+      ],
+      "instance_retention_min": 1.0,
+      "xy_extents_exact": true,
+      "expanded_input_samples": 27,
+      "identity": {
+        "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+        "data_sha256": "9ab209f15296071d2aa5668af29fa26002e521a821fc54bf5398fe14abb528a1",
+        "plan_sha256": "577172592cf2aeb7caaea191b8129f62346f3476699581bf96f07769fa5146c3",
+        "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+        "git": {
+          "commit": "f80aab665514596caeda07883a3c39bb2610ffef",
+          "branch": "codex/ptv3-treelearn-baseline",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "status": ""
+        }
+      },
+      "sample_digest_sequence_sha256": "0e4efc51b5b49160212d5529e4b34cac4669453b76e9f58cb268d37f39fe13a6"
+    },
+    "e1_ptv3": {
+      "updates": 100,
+      "optimizer_steps": 100,
+      "finite_gradients": true,
+      "parameter_count": 46167173,
+      "step_seconds_excluding_first_mean": 0.6820369824259118,
+      "step_seconds_excluding_first_std": 0.032633015166686694,
+      "update_wall_seconds_excluding_first_mean": 0.7028636932467119,
+      "peak_allocated_GiB": 10.572615146636963,
+      "peak_reserved_GiB": 12.23046875,
+      "loss_first": 55.70992565155029,
+      "loss_last": 28.189539909362793,
+      "amp_scale_min": 1024.0,
+      "lr_values": [
+        6.98e-05
+      ],
+      "instance_retention_min": 1.0,
+      "xy_extents_exact": true,
+      "expanded_input_samples": 27,
+      "identity": {
+        "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+        "data_sha256": "9ab209f15296071d2aa5668af29fa26002e521a821fc54bf5398fe14abb528a1",
+        "plan_sha256": "577172592cf2aeb7caaea191b8129f62346f3476699581bf96f07769fa5146c3",
+        "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+        "git": {
+          "commit": "f80aab665514596caeda07883a3c39bb2610ffef",
+          "branch": "codex/ptv3-treelearn-baseline",
+          "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "status": ""
+        }
+      },
+      "sample_digest_sequence_sha256": "0e4efc51b5b49160212d5529e4b34cac4669453b76e9f58cb268d37f39fe13a6"
+    }
+  }
+}

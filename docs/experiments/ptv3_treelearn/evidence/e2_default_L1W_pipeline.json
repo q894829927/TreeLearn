@@ -1,0 +1,204 @@
+{
+  "config": {
+    "model": {
+      "kernel_size": 3,
+      "channels": 32,
+      "num_blocks": 7,
+      "use_feats": false,
+      "use_coords": false,
+      "dim_coord": 3,
+      "dim_feat": 1,
+      "max_num_points_per_voxel": 3,
+      "fixed_modules": [],
+      "spatial_shape": [
+        500,
+        500,
+        1000
+      ],
+      "voxel_size": 0.1
+    },
+    "dataloader": {
+      "train": {
+        "batch_size": 2,
+        "num_workers": 2
+      },
+      "test": {
+        "batch_size": 1,
+        "num_workers": 1
+      }
+    },
+    "optimizer": {
+      "type": "AdamW",
+      "lr": 0.003,
+      "weight_decay": 0.001
+    },
+    "scheduler": {
+      "t_initial": 1000,
+      "lr_min": 5e-05,
+      "cycle_decay": 1,
+      "warmup_lr_init": 1e-05,
+      "warmup_t": 50,
+      "cycle_limit": 1,
+      "t_in_epochs": true
+    },
+    "epochs": 1000,
+    "examples_per_epoch": 500,
+    "fp16": true,
+    "pretrain": "data/experiments/ptv3_treelearn/weights/model_weights_20241213.pth",
+    "grad_norm_clip": true,
+    "save_frequency": 20,
+    "validation_frequency": 20,
+    "dataset_train": {
+      "training": true,
+      "data_root": "data/experiments/ptv3_treelearn/v1/random_crops/npz",
+      "data_augmentations": {
+        "jitter": true,
+        "flip": true,
+        "rot": true,
+        "scaled": true,
+        "point_jitter": true
+      },
+      "inner_square_edge_length": 8
+    },
+    "experiment": {
+      "group": "E2-official-20241213",
+      "protocol": "main-backbone-only-v1",
+      "variant": "main-budget-full-crop",
+      "accumulation_steps": 1,
+      "maximum_points": null,
+      "supported_seeds": [
+        42,
+        43,
+        44
+      ],
+      "crop_manifest": "data/experiments/ptv3_treelearn/v1/crop_manifest.json",
+      "sample_plan": "data/experiments/ptv3_treelearn/plans/s{seed}.npz",
+      "checkpoint_selection": "fixed_final",
+      "external_evaluation_role": "cross-domain development; never training/model selection",
+      "amp_init_scale": 1024.0
+    }
+  },
+  "pipeline": {
+    "model": {
+      "kernel_size": 3,
+      "channels": 32,
+      "num_blocks": 7,
+      "use_feats": false,
+      "use_coords": false,
+      "dim_coord": 3,
+      "dim_feat": 1,
+      "max_num_points_per_voxel": 3,
+      "fixed_modules": [],
+      "spatial_shape": [
+        500,
+        500,
+        1000
+      ],
+      "voxel_size": 0.1
+    },
+    "forest_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/forest/L1W.npz",
+    "pretrain": "data/experiments/ptv3_treelearn/weights/model_weights_20241213.pth",
+    "fp16": true,
+    "tile_generation": true,
+    "dataloader": {
+      "batch_size": 1,
+      "num_workers": 2
+    },
+    "shape_cfg": {
+      "outer_remove": null,
+      "alpha": 0.6,
+      "buffer_size_to_determine_edge_trees": 0.3
+    },
+    "save_cfg": {
+      "save_formats": [
+        "laz"
+      ],
+      "save_treewise": true,
+      "save_pointwise": true,
+      "return_type": "original",
+      "results_dir": "results"
+    },
+    "sample_generation": {
+      "voxel_size": 0.1,
+      "search_radius_features": 0.6,
+      "inner_edge": 8,
+      "outer_edge": 13.5,
+      "stride": 0.5,
+      "sample_generator": {
+        "n_neigh_sor": null,
+        "multiplier_sor": null,
+        "rad": null,
+        "npoints_rad": null,
+        "plot_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/forest_voxelized0.1/L1W.npz",
+        "features_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/features/L1W.npz",
+        "save_dir": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles"
+      }
+    },
+    "grouping": {
+      "tree_conf_thresh": 0.5,
+      "tau_vert": 0.6,
+      "tau_off": 4,
+      "tau_group": 0.15,
+      "tau_min": 50,
+      "use_hdbscan": true
+    },
+    "dataset_test": {
+      "training": false,
+      "data_root": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz",
+      "inner_square_edge_length": 8
+    }
+  },
+  "git": {
+    "commit": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+    "branch": "codex/ptv3-treelearn-baseline",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "?? configs/experiments/\n?? docs/experiments/\n?? tests/\n?? tools/experiments/\n?? tree_learn/experiments/"
+  },
+  "environment": {
+    "python": "3.10.19",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.0.0",
+      "numpy": "1.24.4",
+      "spconv-cu118": "2.3.8",
+      "scikit-learn": "1.5.0",
+      "timm": "0.6.12",
+      "flash-attn": "2.3.6",
+      "laspy": "2.5.1",
+      "torch-scatter": "2.1.2+pt20cu118"
+    },
+    "cuda": "11.8",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "cudnn": 8700,
+    "deterministic_algorithms": false,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": true,
+    "matmul_allow_tf32": false,
+    "cudnn_allow_tf32": false,
+    "spconv_bwd_splitk": null,
+    "cublas_workspace_config": ":4096:8",
+    "note": "CUDA scatter/spconv kernels can remain nondeterministic; exact restart is measured, not assumed."
+  },
+  "seed": 42,
+  "forest": "/home/szu-stu/projects/zrx/code/TreeLearn/data/pipeline/L1W/forest/L1W.laz",
+  "forest_sha256": "79a71993011c9a2ab5f1ca1b33aa2b8fef228701a10ca2ce58e7901980df4afb",
+  "checkpoint": "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/data/experiments/ptv3_treelearn/weights/model_weights_20241213.pth",
+  "checkpoint_sha256": "5df2f92828f92755bc12e114eaebe83f7ecea94a74c25a6170b68844cc5e19bb",
+  "seconds": 3027.779226901941,
+  "pointwise_coordinate_translation": [
+    5.21161404421822,
+    1.17656880343952,
+    -9.627992808411927
+  ],
+  "saved_backbone_features": false,
+  "peak_allocated_bytes": 3041280512,
+  "peak_reserved_bytes": 9359589376,
+  "normal_path": "main ensemble/thresholds/HDBSCAN/3D shifted 5NN/hash propagation",
+  "adaptations": [
+    "isolated forest staging",
+    "strict checkpoint loading",
+    "empty/insufficient seeds, clusters and KNN references guarded"
+  ],
+  "evidence_caveat": "Engineering run before first implementation commit; no execution-time code SHA256 was captured. Do not use as a frozen formal result.",
+  "observed_host_vm_hwm_kb": 74173900
+}

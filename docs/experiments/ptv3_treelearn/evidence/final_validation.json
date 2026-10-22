@@ -1,0 +1,22 @@
+{
+  "unit": {
+    "returncode": 0,
+    "wall_seconds": 17.37705397605896
+  },
+  "resume": {
+    "returncode": 0,
+    "wall_seconds": 28.278221130371094
+  },
+  "e0_scratch": {
+    "returncode": 0,
+    "wall_seconds": 46.71852660179138
+  },
+  "e0_main_hais": {
+    "returncode": 0,
+    "wall_seconds": 45.39125299453735
+  },
+  "e1_ptv3": {
+    "returncode": 0,
+    "wall_seconds": 81.640554189682
+  }
+}

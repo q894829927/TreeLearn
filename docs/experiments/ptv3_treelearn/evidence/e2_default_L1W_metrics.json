@@ -1,0 +1,40 @@
+{
+  "TP": 156,
+  "FP": 2,
+  "FN": 0,
+  "detection_precision": 0.9873417721518988,
+  "metric_units": "fractions 0..1",
+  "detection_recall": 1.0,
+  "detection_f1": 0.9936305732484076,
+  "completeness": 1.0,
+  "omission": 0.0,
+  "commission": 0.012658227848101222,
+  "coverage": 0.9809569803810932,
+  "segmentation_precision": 0.9895500153039037,
+  "segmentation_recall": 0.9910158349270085,
+  "z_extent_bins_m": {
+    "0_10": {
+      "gt": 0,
+      "tp": 0,
+      "fn": 0,
+      "recall": null
+    },
+    "10_20": {
+      "gt": 19,
+      "tp": 19,
+      "fn": 0,
+      "recall": 1.0
+    },
+    "20_inf": {
+      "gt": 137,
+      "tp": 137,
+      "fn": 0,
+      "recall": 1.0
+    }
+  },
+  "gt_trees": 156,
+  "predicted_trees": 305,
+  "unknown_prediction_points": 0,
+  "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+  "scale_name": "Z Extent; not ground-normalized tree height"
+}
