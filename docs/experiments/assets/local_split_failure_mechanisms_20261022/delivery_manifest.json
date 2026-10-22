@@ -1,0 +1,29 @@
+{
+  "start_commit": "f5f0df9d3573706ceb18b3c96079934e5b45057e",
+  "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "checkpoint_sha256": "49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e",
+  "additional_optimizer_steps": 0,
+  "e2_executed": false,
+  "e3_executed": false,
+  "code_sha256": {
+    "tools/local_split_v1/analyze_failure_mechanisms.py": "ee6261b29ccdf192797d1d131b2e7eeae08dcc3e73be777fc1fc9caad1378b03",
+    "tools/local_split_v1/plot_seed_sections.py": "e6893bce5f6cfd6e6c4c6d1c6c379608ea3839ff9881b620d8a55b695c7c0b99",
+    "tests/test_local_split_failure_mechanisms.py": "163cd205d03806e560a9c0c0f34e4039c6886280b07c3aa05d6e884fc12dd6e5"
+  },
+  "artifacts_sha256": {
+    "distance_feature_errors.png": "ac0a211e8c0094f35062c34dae5238dc549928ea925e710970396ebc6fa7e783",
+    "edge_failure_groups.png": "76d991bbf3d496efdac6f94b302e9fb03937076c32afd6c0504a926229b38df2",
+    "edge_groups.csv": "057f78357e866e60beb7348fe4d0f71a9ca6bf118875d844f2f3cb4408d50726",
+    "edge_mechanisms.json": "1749d54b3cdc54cec21ecacab60266f8e7d176e316b46d646b8ca47f27e5a149",
+    "next_trial_spec.json": "d7a414edc735978979ef7e96935d7d514dbdb94e98cf57b4925f13f5b84a8eb5",
+    "run_logs/analysis.log": "829ad49e6398db05ec835e15c7b1d687ef788cda3d5ac62ce9a22483d390b1bb",
+    "run_logs/seed_sections.log": "440d6c7b49348a1321b16cfc00d3cb63a5d1964e104a292e50acca3f57f9baa8",
+    "run_logs/tests.log": "be3ec4383adb035686717c6e10ca43844b22261f85eee6c8cbf9d592a0af9276",
+    "run_logs/tests_combined.log": "a8c15f71c51fa62b7a0d7924ae05000271222aadb021d422c2bcf0a3e542fae5",
+    "seed_circle_evidence.png": "70fa4edc7e863ae19dd85ca517c381bcb192ded5294f9bca98be4a9ded71b241",
+    "seed_section_manifest.json": "ec0b3d49dca3a28e6dc71fea96d64400cc5685d5208921caba680aa23f4f4422",
+    "seed_surfaces.json": "b345e440199279f3d45dad8c4879c83f76706d2a1094f915be60ebebeaf2e247",
+    "seed_xy_sections.png": "2463a4012cbe4934e3e1f0174f46db829837791f1efa3fe11e9dabca87c62493",
+    "summary.json": "fb0f1632cd906f11e92fee487e49937a3be6211321f5ff132f8376b22e110a2a"
+  }
+}

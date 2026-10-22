@@ -1,0 +1,1015 @@
+{
+  "groups": [
+    {
+      "dimension": "abs_dz",
+      "band": 0,
+      "category": "other_tree",
+      "count": 6664,
+      "cut": 4643,
+      "cut_fraction": 0.6967286914765907,
+      "mean_bce": 0.5848644287957145,
+      "mean_score": 0.36525327134256236,
+      "parents": 14
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 0,
+      "category": "same",
+      "count": 2447783,
+      "cut": 399819,
+      "cut_fraction": 0.16333923391084912,
+      "mean_bce": 0.3748817856278595,
+      "mean_score": 0.7707196516917956,
+      "parents": 16
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 0,
+      "category": "tree_background",
+      "count": 2492,
+      "cut": 2385,
+      "cut_fraction": 0.9570626003210273,
+      "mean_bce": 0.21506237971514433,
+      "mean_score": 0.16703189920889472,
+      "parents": 16
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 1,
+      "category": "other_tree",
+      "count": 4321,
+      "cut": 3230,
+      "cut_fraction": 0.7475121499652858,
+      "mean_bce": 0.5124027143516434,
+      "mean_score": 0.32525600647136527,
+      "parents": 14
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 1,
+      "category": "same",
+      "count": 1273494,
+      "cut": 229147,
+      "cut_fraction": 0.17993567303811403,
+      "mean_bce": 0.41441668142808386,
+      "mean_score": 0.7560663123829319,
+      "parents": 16
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 1,
+      "category": "tree_background",
+      "count": 1866,
+      "cut": 1775,
+      "cut_fraction": 0.9512325830653805,
+      "mean_bce": 0.1816145698401812,
+      "mean_score": 0.13666165046733758,
+      "parents": 16
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 2,
+      "category": "other_tree",
+      "count": 4729,
+      "cut": 3857,
+      "cut_fraction": 0.8156058363290336,
+      "mean_bce": 0.3990836536732553,
+      "mean_score": 0.27463632544375494,
+      "parents": 14
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 2,
+      "category": "same",
+      "count": 891092,
+      "cut": 203362,
+      "cut_fraction": 0.2282166151194265,
+      "mean_bce": 0.5151496980926702,
+      "mean_score": 0.7093214346607621,
+      "parents": 16
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 2,
+      "category": "tree_background",
+      "count": 1965,
+      "cut": 1860,
+      "cut_fraction": 0.9465648854961832,
+      "mean_bce": 0.20478689985743811,
+      "mean_score": 0.14824758477612107,
+      "parents": 16
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 3,
+      "category": "other_tree",
+      "count": 1988,
+      "cut": 1710,
+      "cut_fraction": 0.8601609657947686,
+      "mean_bce": 0.343664385930358,
+      "mean_score": 0.2396596666655955,
+      "parents": 14
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 3,
+      "category": "same",
+      "count": 390893,
+      "cut": 89064,
+      "cut_fraction": 0.22784751837459355,
+      "mean_bce": 0.5214468604956707,
+      "mean_score": 0.7001384961919845,
+      "parents": 16
+    },
+    {
+      "dimension": "abs_dz",
+      "band": 3,
+      "category": "tree_background",
+      "count": 1555,
+      "cut": 1514,
+      "cut_fraction": 0.9736334405144694,
+      "mean_bce": 0.1106930220468457,
+      "mean_score": 0.07964449174166133,
+      "parents": 16
+    },
+    {
+      "dimension": "cross_tree_contact",
+      "band": 0,
+      "category": "other_tree",
+      "count": 17702,
+      "cut": 13440,
+      "cut_fraction": 0.7592362444921478,
+      "mean_bce": 0.4904587097310174,
+      "mean_score": 0.3171775847104466,
+      "parents": 14
+    },
+    {
+      "dimension": "cross_tree_contact",
+      "band": 0,
+      "category": "same",
+      "count": 79267,
+      "cut": 47803,
+      "cut_fraction": 0.6030630653361424,
+      "mean_bce": 1.196562346533889,
+      "mean_score": 0.42357697911897185,
+      "parents": 14
+    },
+    {
+      "dimension": "cross_tree_contact",
+      "band": 1,
+      "category": "same",
+      "count": 125496,
+      "cut": 55513,
+      "cut_fraction": 0.4423487601198445,
+      "mean_bce": 0.898714953585698,
+      "mean_score": 0.5357696083403876,
+      "parents": 14
+    },
+    {
+      "dimension": "cross_tree_contact",
+      "band": 2,
+      "category": "same",
+      "count": 163316,
+      "cut": 55634,
+      "cut_fraction": 0.3406524774057655,
+      "mean_bce": 0.7361760115626576,
+      "mean_score": 0.6114904487836444,
+      "parents": 14
+    },
+    {
+      "dimension": "cross_tree_contact",
+      "band": 2,
+      "category": "tree_background",
+      "count": 19,
+      "cut": 19,
+      "cut_fraction": 1.0,
+      "mean_bce": 0.07390653268190561,
+      "mean_score": 0.07118456046047963,
+      "parents": 1
+    },
+    {
+      "dimension": "cross_tree_contact",
+      "band": 3,
+      "category": "same",
+      "count": 4635183,
+      "cut": 762442,
+      "cut_fraction": 0.16449016144562145,
+      "mean_bce": 0.38410560289385837,
+      "mean_score": 0.766845985010717,
+      "parents": 16
+    },
+    {
+      "dimension": "cross_tree_contact",
+      "band": 3,
+      "category": "tree_background",
+      "count": 7859,
+      "cut": 7515,
+      "cut_fraction": 0.9562285278025194,
+      "mean_bce": 0.1842420054655392,
+      "mean_score": 0.13806531552299653,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 0,
+      "category": "other_tree",
+      "count": 373,
+      "cut": 207,
+      "cut_fraction": 0.5549597855227882,
+      "mean_bce": 0.8189362016249158,
+      "mean_score": 0.4806205647730396,
+      "parents": 13
+    },
+    {
+      "dimension": "distance",
+      "band": 0,
+      "category": "same",
+      "count": 462414,
+      "cut": 55416,
+      "cut_fraction": 0.11984066226368578,
+      "mean_bce": 0.2841114427588163,
+      "mean_score": 0.8136762064397262,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 0,
+      "category": "tree_background",
+      "count": 390,
+      "cut": 367,
+      "cut_fraction": 0.941025641025641,
+      "mean_bce": 0.22318833634243104,
+      "mean_score": 0.17149075513872772,
+      "parents": 14
+    },
+    {
+      "dimension": "distance",
+      "band": 1,
+      "category": "other_tree",
+      "count": 3820,
+      "cut": 2437,
+      "cut_fraction": 0.6379581151832461,
+      "mean_bce": 0.6799463830842287,
+      "mean_score": 0.41121152173106057,
+      "parents": 14
+    },
+    {
+      "dimension": "distance",
+      "band": 1,
+      "category": "same",
+      "count": 2077566,
+      "cut": 292796,
+      "cut_fraction": 0.140932225498492,
+      "mean_bce": 0.3336847515395142,
+      "mean_score": 0.7905798975545477,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 1,
+      "category": "tree_background",
+      "count": 2300,
+      "cut": 2211,
+      "cut_fraction": 0.961304347826087,
+      "mean_bce": 0.1881503015891533,
+      "mean_score": 0.14785829364565078,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 2,
+      "category": "other_tree",
+      "count": 4234,
+      "cut": 2966,
+      "cut_fraction": 0.7005196032120926,
+      "mean_bce": 0.5668146978129953,
+      "mean_score": 0.35388351927918765,
+      "parents": 14
+    },
+    {
+      "dimension": "distance",
+      "band": 2,
+      "category": "same",
+      "count": 1199924,
+      "cut": 230560,
+      "cut_fraction": 0.19214550254849475,
+      "mean_bce": 0.43992495440500984,
+      "mean_score": 0.7417507682653938,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 2,
+      "category": "tree_background",
+      "count": 1169,
+      "cut": 1074,
+      "cut_fraction": 0.9187339606501284,
+      "mean_bce": 0.2838658762551975,
+      "mean_score": 0.19804876421576634,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 3,
+      "category": "other_tree",
+      "count": 3243,
+      "cut": 2485,
+      "cut_fraction": 0.7662658032685785,
+      "mean_bce": 0.468804187573549,
+      "mean_score": 0.3102296130591558,
+      "parents": 14
+    },
+    {
+      "dimension": "distance",
+      "band": 3,
+      "category": "same",
+      "count": 539850,
+      "cut": 130554,
+      "cut_fraction": 0.2418338427340928,
+      "mean_bce": 0.5436438801698538,
+      "mean_score": 0.6953521807011982,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 3,
+      "category": "tree_background",
+      "count": 1010,
+      "cut": 938,
+      "cut_fraction": 0.9287128712871288,
+      "mean_bce": 0.2508789004123828,
+      "mean_score": 0.17671663459427286,
+      "parents": 15
+    },
+    {
+      "dimension": "distance",
+      "band": 4,
+      "category": "other_tree",
+      "count": 6032,
+      "cut": 5345,
+      "cut_fraction": 0.8861074270557029,
+      "mean_bce": 0.30819235448099797,
+      "mean_score": 0.22549082644104904,
+      "parents": 14
+    },
+    {
+      "dimension": "distance",
+      "band": 4,
+      "category": "same",
+      "count": 723508,
+      "cut": 212066,
+      "cut_fraction": 0.29310802368460337,
+      "mean_bce": 0.6389290217559898,
+      "mean_score": 0.6509709060114496,
+      "parents": 16
+    },
+    {
+      "dimension": "distance",
+      "band": 4,
+      "category": "tree_background",
+      "count": 3009,
+      "cut": 2944,
+      "cut_fraction": 0.9783981389165836,
+      "mean_bce": 0.11443871767603706,
+      "mean_score": 0.08954787143450707,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 0,
+      "category": "other_tree",
+      "count": 1081,
+      "cut": 567,
+      "cut_fraction": 0.5245143385753932,
+      "mean_bce": 0.851590551497693,
+      "mean_score": 0.49110897824126853,
+      "parents": 14
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 0,
+      "category": "same",
+      "count": 1019996,
+      "cut": 68653,
+      "cut_fraction": 0.06730712669461449,
+      "mean_bce": 0.1936574002925684,
+      "mean_score": 0.8558385594705727,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 0,
+      "category": "tree_background",
+      "count": 279,
+      "cut": 234,
+      "cut_fraction": 0.8387096774193549,
+      "mean_bce": 0.5703821486881463,
+      "mean_score": 0.33937101681653314,
+      "parents": 12
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 1,
+      "category": "other_tree",
+      "count": 8757,
+      "cut": 5918,
+      "cut_fraction": 0.6758022153705607,
+      "mean_bce": 0.6216369556127177,
+      "mean_score": 0.38390465981654665,
+      "parents": 14
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 1,
+      "category": "same",
+      "count": 2902970,
+      "cut": 434655,
+      "cut_fraction": 0.14972769267336555,
+      "mean_bce": 0.343031185898436,
+      "mean_score": 0.7761456669667084,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 1,
+      "category": "tree_background",
+      "count": 1609,
+      "cut": 1440,
+      "cut_fraction": 0.8949658172778123,
+      "mean_bce": 0.369574440445357,
+      "mean_score": 0.24956344083794307,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 2,
+      "category": "other_tree",
+      "count": 5791,
+      "cut": 4948,
+      "cut_fraction": 0.8544292868243827,
+      "mean_bce": 0.34268496091805917,
+      "mean_score": 0.2493383537164494,
+      "parents": 14
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 2,
+      "category": "same",
+      "count": 848920,
+      "cut": 303956,
+      "cut_fraction": 0.3580502285256561,
+      "mean_bce": 0.7473819625522478,
+      "mean_score": 0.6023019756226704,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 2,
+      "category": "tree_background",
+      "count": 2457,
+      "cut": 2347,
+      "cut_fraction": 0.9552299552299552,
+      "mean_bce": 0.18749925565748776,
+      "mean_score": 0.15454045396774255,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 3,
+      "category": "other_tree",
+      "count": 1621,
+      "cut": 1566,
+      "cut_fraction": 0.9660703269586675,
+      "mean_bce": 0.16480870008992154,
+      "mean_score": 0.13770662434312947,
+      "parents": 13
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 3,
+      "category": "same",
+      "count": 183333,
+      "cut": 94915,
+      "cut_fraction": 0.5177191231256784,
+      "mean_bce": 1.2027588694872113,
+      "mean_score": 0.48680859593179476,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 3,
+      "category": "tree_background",
+      "count": 2079,
+      "cut": 2059,
+      "cut_fraction": 0.9903799903799904,
+      "mean_bce": 0.09455080349290622,
+      "mean_score": 0.08347848748018631,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 4,
+      "category": "other_tree",
+      "count": 404,
+      "cut": 395,
+      "cut_fraction": 0.9777227722772277,
+      "mean_bce": 0.14261086901330003,
+      "mean_score": 0.11898314990887031,
+      "parents": 11
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 4,
+      "category": "same",
+      "count": 40774,
+      "cut": 17371,
+      "cut_fraction": 0.4260312944523471,
+      "mean_bce": 1.3126706122239193,
+      "mean_score": 0.5723503938092949,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 4,
+      "category": "tree_background",
+      "count": 1260,
+      "cut": 1260,
+      "cut_fraction": 1.0,
+      "mean_bce": 0.024440966377945225,
+      "mean_score": 0.023706544750362695,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 5,
+      "category": "other_tree",
+      "count": 48,
+      "cut": 46,
+      "cut_fraction": 0.9583333333333334,
+      "mean_bce": 0.17911605385993676,
+      "mean_score": 0.14011783451375473,
+      "parents": 5
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 5,
+      "category": "same",
+      "count": 7269,
+      "cut": 1842,
+      "cut_fraction": 0.25340486999587286,
+      "mean_bce": 0.8842188983147992,
+      "mean_score": 0.7125442405772334,
+      "parents": 16
+    },
+    {
+      "dimension": "feature_rms",
+      "band": 5,
+      "category": "tree_background",
+      "count": 194,
+      "cut": 194,
+      "cut_fraction": 1.0,
+      "mean_bce": 0.0388033075548768,
+      "mean_score": 0.036328938600040744,
+      "parents": 11
+    },
+    {
+      "dimension": "parent_category",
+      "band": 0,
+      "category": "other_tree",
+      "count": 10176,
+      "cut": 7316,
+      "cut_fraction": 0.7189465408805031,
+      "mean_bce": 0.5431695761624389,
+      "mean_score": 0.3384589429845064,
+      "parents": 8
+    },
+    {
+      "dimension": "parent_category",
+      "band": 0,
+      "category": "same",
+      "count": 1305606,
+      "cut": 293376,
+      "cut_fraction": 0.22470484970197746,
+      "mean_bce": 0.5494508768743521,
+      "mean_score": 0.7156335055074202,
+      "parents": 8
+    },
+    {
+      "dimension": "parent_category",
+      "band": 0,
+      "category": "tree_background",
+      "count": 2717,
+      "cut": 2446,
+      "cut_fraction": 0.9002576370997424,
+      "mean_bce": 0.29767618297930487,
+      "mean_score": 0.1983237646729317,
+      "parents": 8
+    },
+    {
+      "dimension": "parent_category",
+      "band": 1,
+      "category": "other_tree",
+      "count": 7526,
+      "cut": 6124,
+      "cut_fraction": 0.8137124634600054,
+      "mean_bce": 0.41918767906318005,
+      "mean_score": 0.28840279042439393,
+      "parents": 6
+    },
+    {
+      "dimension": "parent_category",
+      "band": 1,
+      "category": "same",
+      "count": 3697656,
+      "cut": 628016,
+      "cut_fraction": 0.16984165103514226,
+      "mean_bce": 0.3761560729359916,
+      "mean_score": 0.762865682490223,
+      "parents": 8
+    },
+    {
+      "dimension": "parent_category",
+      "band": 1,
+      "category": "tree_background",
+      "count": 5161,
+      "cut": 5088,
+      "cut_fraction": 0.9858554543693083,
+      "mean_bce": 0.12411857312921086,
+      "mean_score": 0.10609613499857072,
+      "parents": 8
+    },
+    {
+      "dimension": "relative_height",
+      "band": 0,
+      "category": "other_tree",
+      "count": 1254,
+      "cut": 952,
+      "cut_fraction": 0.759170653907496,
+      "mean_bce": 0.4886920792537835,
+      "mean_score": 0.3510931937099751,
+      "parents": 4
+    },
+    {
+      "dimension": "relative_height",
+      "band": 0,
+      "category": "same",
+      "count": 616560,
+      "cut": 174118,
+      "cut_fraction": 0.28240236148955494,
+      "mean_bce": 0.61151040923474,
+      "mean_score": 0.6218615398396168,
+      "parents": 16
+    },
+    {
+      "dimension": "relative_height",
+      "band": 0,
+      "category": "tree_background",
+      "count": 7352,
+      "cut": 7145,
+      "cut_fraction": 0.9718443960826986,
+      "mean_bce": 0.15118203729963556,
+      "mean_score": 0.12653551807347319,
+      "parents": 16
+    },
+    {
+      "dimension": "relative_height",
+      "band": 1,
+      "category": "other_tree",
+      "count": 3031,
+      "cut": 1671,
+      "cut_fraction": 0.5513032002639393,
+      "mean_bce": 0.825445617736558,
+      "mean_score": 0.47753063971757476,
+      "parents": 7
+    },
+    {
+      "dimension": "relative_height",
+      "band": 1,
+      "category": "same",
+      "count": 928609,
+      "cut": 121545,
+      "cut_fraction": 0.1308893194013842,
+      "mean_bce": 0.3232020258458594,
+      "mean_score": 0.8038884444628367,
+      "parents": 16
+    },
+    {
+      "dimension": "relative_height",
+      "band": 1,
+      "category": "tree_background",
+      "count": 192,
+      "cut": 55,
+      "cut_fraction": 0.2864583333333333,
+      "mean_bce": 1.6136771189206822,
+      "mean_score": 0.6756962163296217,
+      "parents": 2
+    },
+    {
+      "dimension": "relative_height",
+      "band": 2,
+      "category": "other_tree",
+      "count": 5815,
+      "cut": 4548,
+      "cut_fraction": 0.7821152192605331,
+      "mean_bce": 0.4391434986290508,
+      "mean_score": 0.2903868369394369,
+      "parents": 11
+    },
+    {
+      "dimension": "relative_height",
+      "band": 2,
+      "category": "same",
+      "count": 1597050,
+      "cut": 315559,
+      "cut_fraction": 0.19758867912714068,
+      "mean_bce": 0.4388757680311764,
+      "mean_score": 0.7558213761573855,
+      "parents": 15
+    },
+    {
+      "dimension": "relative_height",
+      "band": 2,
+      "category": "tree_background",
+      "count": 254,
+      "cut": 254,
+      "cut_fraction": 1.0,
+      "mean_bce": 0.09241036867535277,
+      "mean_score": 0.08650760978687642,
+      "parents": 2
+    },
+    {
+      "dimension": "relative_height",
+      "band": 3,
+      "category": "other_tree",
+      "count": 7602,
+      "cut": 6269,
+      "cut_fraction": 0.8246514075243357,
+      "mean_bce": 0.3964397659019715,
+      "mean_score": 0.2681415303663802,
+      "parents": 13
+    },
+    {
+      "dimension": "relative_height",
+      "band": 3,
+      "category": "same",
+      "count": 1861043,
+      "cut": 310170,
+      "cut_fraction": 0.16666460688979245,
+      "mean_bce": 0.39235762328434287,
+      "mean_score": 0.7620204059367418,
+      "parents": 15
+    },
+    {
+      "dimension": "relative_height",
+      "band": 3,
+      "category": "tree_background",
+      "count": 80,
+      "cut": 80,
+      "cut_fraction": 1.0,
+      "mean_bce": 0.057169579642469236,
+      "mean_score": 0.05515107558312593,
+      "parents": 2
+    }
+  ],
+  "parents": [
+    {
+      "plot": "A1N",
+      "parent_id": 69,
+      "category": "mixed",
+      "points": 17253,
+      "edges": 161193
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 116,
+      "category": "mixed",
+      "points": 28536,
+      "edges": 250693
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 450,
+      "category": "mixed",
+      "points": 11204,
+      "edges": 91536
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 575,
+      "category": "mixed",
+      "points": 46739,
+      "edges": 439434
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 4,
+      "category": "correct",
+      "points": 60028,
+      "edges": 577867
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 6,
+      "category": "correct",
+      "points": 42441,
+      "edges": 427692
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 11,
+      "category": "correct",
+      "points": 87368,
+      "edges": 846530
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 12,
+      "category": "correct",
+      "points": 14147,
+      "edges": 142526
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 18,
+      "category": "correct",
+      "points": 62293,
+      "edges": 601159
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 21,
+      "category": "correct",
+      "points": 47444,
+      "edges": 464112
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 23,
+      "category": "correct",
+      "points": 23189,
+      "edges": 219831
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 28,
+      "category": "correct",
+      "points": 44753,
+      "edges": 445273
+    },
+    {
+      "plot": "G1W",
+      "parent_id": 343,
+      "category": "mixed",
+      "points": 18378,
+      "edges": 168341
+    },
+    {
+      "plot": "G2N",
+      "parent_id": 90,
+      "category": "mixed",
+      "points": 7466,
+      "edges": 67914
+    },
+    {
+      "plot": "G2W",
+      "parent_id": 252,
+      "category": "mixed",
+      "points": 7610,
+      "edges": 75588
+    },
+    {
+      "plot": "LG1",
+      "parent_id": 265,
+      "category": "mixed",
+      "points": 8497,
+      "edges": 84538
+    }
+  ],
+  "same_joint_count": [
+    [
+      263448,
+      170161,
+      23930,
+      3969,
+      785,
+      121
+    ],
+    [
+      580063,
+      1197268,
+      244274,
+      45232,
+      9085,
+      1644
+    ],
+    [
+      131967,
+      766745,
+      234987,
+      51692,
+      12002,
+      2531
+    ],
+    [
+      28200,
+      339898,
+      132331,
+      30769,
+      7492,
+      1160
+    ],
+    [
+      16318,
+      428898,
+      213398,
+      51671,
+      11410,
+      1813
+    ]
+  ],
+  "same_joint_cut": [
+    [
+      19905,
+      25848,
+      7916,
+      1587,
+      134,
+      26
+    ],
+    [
+      36957,
+      160385,
+      74052,
+      18520,
+      2480,
+      402
+    ],
+    [
+      8577,
+      114932,
+      79202,
+      23355,
+      3950,
+      544
+    ],
+    [
+      1960,
+      54095,
+      52053,
+      18109,
+      4019,
+      318
+    ],
+    [
+      1254,
+      79395,
+      90733,
+      33344,
+      6788,
+      552
+    ]
+  ],
+  "bins": {
+    "distance": [
+      0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.600001
+    ],
+    "abs_dz": [
+      0,
+      0.1,
+      0.2,
+      0.4,
+      0.600001
+    ],
+    "feature_rms": [
+      0,
+      0.1,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      "infinity"
+    ],
+    "relative_height": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1.000001
+    ],
+    "cross_tree_contact": [
+      "incident_to_cross_tree_edge",
+      "one_hop",
+      "two_hops",
+      "outside_two_hops"
+    ],
+    "parent_category": [
+      "mixed",
+      "correct"
+    ]
+  }
+}

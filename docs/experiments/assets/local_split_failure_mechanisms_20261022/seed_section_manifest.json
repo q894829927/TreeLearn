@@ -1,0 +1,24 @@
+{
+  "examples": [
+    {
+      "plot": "A1N",
+      "parent_id": 251
+    },
+    {
+      "plot": "G4N",
+      "parent_id": 63
+    },
+    {
+      "plot": "G2W",
+      "parent_id": 252
+    },
+    {
+      "plot": "LG1",
+      "parent_id": 437
+    }
+  ],
+  "code_sha256": "e6893bce5f6cfd6e6c4c6d1c6c379608ea3839ff9881b620d8a55b695c7c0b99",
+  "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "input_sha256": "b345e440199279f3d45dad8c4879c83f76706d2a1094f915be60ebebeaf2e247",
+  "labels_read": false
+}

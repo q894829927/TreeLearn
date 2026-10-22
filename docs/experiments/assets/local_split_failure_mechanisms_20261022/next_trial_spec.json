@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "status": "proposed_not_executed",
+  "is_training_config": false,
+  "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "baseline_commit": "f5f0df9d3573706ceb18b3c96079934e5b45057e",
+  "baseline_checkpoint_sha256": "49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e",
+  "parent_records": [
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        69
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        116
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        450
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        575
+      ]
+    },
+    {
+      "plot": "G1W",
+      "category": "mixed",
+      "parents": [
+        343
+      ]
+    },
+    {
+      "plot": "G2N",
+      "category": "mixed",
+      "parents": [
+        90
+      ]
+    },
+    {
+      "plot": "G2W",
+      "category": "mixed",
+      "parents": [
+        252
+      ]
+    },
+    {
+      "plot": "LG1",
+      "category": "mixed",
+      "parents": [
+        265
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        4
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        6
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        11
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        12
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        18
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        21
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        23
+      ]
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        28
+      ]
+    }
+  ],
+  "architecture": "identical 5265-parameter EdgeHead",
+  "normalization": "reuse locked source training normalization",
+  "initialization_seed": 42,
+  "start_from": "fresh same initialization, not V1 step_500 weights",
+  "proposed_additional_optimizer_steps": 500,
+  "batch_edges": 8192,
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.001,
+    "grad_clip": 2
+  },
+  "training_mixture": "same E1 mixed/correct sampler and banks",
+  "sole_training_change": {
+    "formula": "0.5*(mean_BCE_positive+mean_BCE_negative)+0.5*mean_top25pct_BCE_positive",
+    "hard_positive_fraction": 0.25,
+    "hard_positive_weight": 0.5,
+    "hard_count": "max(1, ceil(positive_count*0.25))",
+    "selection": "largest BCE among same positive GT edges in the current minibatch",
+    "negative_class": "same original negative class; includes tree-background for training",
+    "unknown_gt": "mask any edge with GT<0; mask 0/0"
+  },
+  "candidate_and_partition": "identical V1 candidates, seeds, graphs, thresholds and point-preservation rules",
+  "edge_threshold": 0.5,
+  "gate": {
+    "max_same_false_cut_rate": 0.05,
+    "min_strict_other_tree_detection_rate": 0.8,
+    "other_tree_definition": "both endpoints have different positive GT IDs",
+    "background_detection": "report separately; never substitute for strict other-tree recall",
+    "min_recovered": 1,
+    "max_lost": 0
+  },
+  "evaluation": "full graphs on original 16 fitted parents; exact complete-forest rematching after local edits",
+  "stop": "single setting, single seed; no threshold relaxation, no automatic E2 or Wytham",
+  "optimizer_steps_executed_this_round": 0
+}

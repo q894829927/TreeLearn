@@ -1,0 +1,12 @@
+test_contact_hops_distinguish_interior_same_tree_edges (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_degenerate_line_is_unidentifiable_circle (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_error_contributions_sum_to_population_counts (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_half_open_bins_and_outside_values (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_one_cylinder_halves_have_separated_centroids_but_shared_circle (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_two_cylinders_have_distinct_fitted_centers_and_translation_invariance (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+test_unknowns_and_background_are_not_other_tree_edges (test_local_split_failure_mechanisms.FailureMechanismTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.003s
+
+OK
