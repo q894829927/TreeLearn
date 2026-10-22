@@ -1,0 +1,140 @@
+model:
+  kernel_size: 3
+  channels: 32
+  num_blocks: 7
+  use_feats: false
+  use_coords: false
+  dim_coord: 3
+  dim_feat: 1
+  max_num_points_per_voxel: 3
+  fixed_modules: []
+  spatial_shape:
+  - 500
+  - 500
+  - 1000
+  voxel_size: 0.1
+  backbone: ptv3
+  ptv3:
+    order:
+    - z
+    - z-trans
+    - hilbert
+    - hilbert-trans
+    stride:
+    - 2
+    - 2
+    - 2
+    - 2
+    enc_depths:
+    - 2
+    - 2
+    - 2
+    - 6
+    - 2
+    enc_channels:
+    - 32
+    - 64
+    - 128
+    - 256
+    - 512
+    enc_num_head:
+    - 2
+    - 4
+    - 8
+    - 16
+    - 32
+    enc_patch_size:
+    - 1024
+    - 1024
+    - 1024
+    - 1024
+    - 1024
+    dec_depths:
+    - 2
+    - 2
+    - 2
+    - 2
+    dec_channels:
+    - 64
+    - 64
+    - 128
+    - 256
+    dec_num_head:
+    - 4
+    - 4
+    - 8
+    - 16
+    dec_patch_size:
+    - 1024
+    - 1024
+    - 1024
+    - 1024
+    mlp_ratio: 4
+    qkv_bias: true
+    qk_scale: null
+    attn_drop: 0.0
+    proj_drop: 0.0
+    drop_path: 0.3
+    pre_norm: true
+    shuffle_orders: true
+    enable_rpe: false
+    enable_flash: true
+    upcast_attention: false
+    upcast_softmax: false
+    cls_mode: false
+    pdnorm_bn: false
+    pdnorm_ln: false
+  activation_checkpointing: true
+  deterministic_voxels: true
+  cover_input_spatial_shape: true
+dataloader:
+  train:
+    batch_size: 1
+    num_workers: 2
+  test:
+    batch_size: 1
+    num_workers: 1
+optimizer:
+  type: AdamW
+  lr: 0.003
+  weight_decay: 0.001
+scheduler:
+  t_initial: 1000
+  lr_min: 5.0e-05
+  cycle_decay: 1
+  warmup_lr_init: 1.0e-05
+  warmup_t: 50
+  cycle_limit: 1
+  t_in_epochs: true
+epochs: 1000
+examples_per_epoch: 500
+fp16: true
+pretrain: null
+grad_norm_clip: true
+save_frequency: 20
+validation_frequency: 20
+dataset_train:
+  training: true
+  data_root: data/experiments/ptv3_treelearn/v1/random_crops/npz
+  data_augmentations:
+    jitter: true
+    flip: true
+    rot: true
+    scaled: true
+    point_jitter: true
+  inner_square_edge_length: 8
+experiment:
+  group: E1-ptv3
+  protocol: main-backbone-only-v1
+  variant: common-input-resource-limited-400k-covered-grid-micro1-accum2
+  accumulation_steps: 2
+  maximum_points: 400000
+  supported_seeds:
+  - 42
+  - 43
+  - 44
+  crop_manifest: data/experiments/ptv3_treelearn/v1/crop_manifest.json
+  sample_plan: data/experiments/ptv3_treelearn/plans/s{seed}.npz
+  checkpoint_selection: fixed_final
+  external_evaluation_role: cross-domain development; never training/model selection
+  amp_init_scale: 1024.0

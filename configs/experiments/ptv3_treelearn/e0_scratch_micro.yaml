@@ -1,0 +1,66 @@
+model:
+  kernel_size: 3
+  channels: 32
+  num_blocks: 7
+  use_feats: false
+  use_coords: false
+  dim_coord: 3
+  dim_feat: 1
+  max_num_points_per_voxel: 3
+  fixed_modules: []
+  spatial_shape:
+  - 500
+  - 500
+  - 1000
+  voxel_size: 0.1
+dataloader:
+  train:
+    batch_size: 1
+    num_workers: 2
+  test:
+    batch_size: 1
+    num_workers: 1
+optimizer:
+  type: AdamW
+  lr: 0.003
+  weight_decay: 0.001
+scheduler:
+  t_initial: 1000
+  lr_min: 5.0e-05
+  cycle_decay: 1
+  warmup_lr_init: 1.0e-05
+  warmup_t: 50
+  cycle_limit: 1
+  t_in_epochs: true
+epochs: 1000
+examples_per_epoch: 500
+fp16: true
+pretrain: null
+grad_norm_clip: true
+save_frequency: 20
+validation_frequency: 20
+dataset_train:
+  training: true
+  data_root: data/experiments/ptv3_treelearn/v1/random_crops/npz
+  data_augmentations:
+    jitter: true
+    flip: true
+    rot: true
+    scaled: true
+    point_jitter: true
+  inner_square_edge_length: 8
+experiment:
+  group: E0-scratch
+  protocol: main-backbone-only-v1
+  variant: full-crop-micro1-accum2
+  accumulation_steps: 2
+  maximum_points: null
+  supported_seeds:
+  - 42
+  - 43
+  - 44
+  crop_manifest: data/experiments/ptv3_treelearn/v1/crop_manifest.json
+  sample_plan: data/experiments/ptv3_treelearn/plans/s{seed}.npz
+  checkpoint_selection: fixed_final
+  external_evaluation_role: cross-domain development; never training/model selection
+  amp_init_scale: 1024.0

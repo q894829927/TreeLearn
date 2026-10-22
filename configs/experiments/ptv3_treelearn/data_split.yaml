@@ -1,0 +1,19 @@
+protocol: main-backbone-only-v1
+training_forests: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, G4N, G4W, L1N, L2N, L2W, LG1, LG2, LG3, O1N, O1W]
+source_root: data/source
+generated_root: data/experiments/ptv3_treelearn/v1
+crop_count: 25000
+crop_size_m: 35
+crop_generation_seed: 42
+voxel_size_m: 0.1
+generation_config: configs/data_gen/gen_train_data.yaml
+sample_plan_seeds: [42, 43, 44]
+source_domain_evaluation:
+  forest: data/source/pipeline/L1W/forest/L1W.laz
+  gt: data/source/benchmark/L1W_voxelized01_for_eval.laz
+cross_domain_development_evaluation:
+  forest: data/source/pipeline/wytham/forest/wytham_vox0.1.laz
+  gt: data/source/benchmark/wytham_vox0.1.laz
+evaluation_used_for_training_or_selection: false
+checkpoint_selection: fixed_1000_epoch_final
+official_weights_training_overlap: not_excluded_by_available_provenance

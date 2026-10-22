@@ -1,0 +1,1316 @@
+{
+  "main_commit": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+  "ptv3_commit": "3229e9b7de1770c8ad17c316f8e349982de509f8",
+  "source_root": "/home/szu-stu/projects/zrx/code/TreeLearn/data",
+  "git": {
+    "commit": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+    "branch": "codex/ptv3-treelearn-baseline",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "?? tools/experiments/\n?? tree_learn/experiments/"
+  },
+  "environment": {
+    "python": "3.10.19",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.0.0",
+      "numpy": "1.24.4",
+      "spconv-cu118": "2.3.8",
+      "scikit-learn": "1.5.0",
+      "timm": "0.6.12",
+      "flash-attn": null,
+      "laspy": "2.5.1",
+      "torch-scatter": "2.1.2+pt20cu118"
+    },
+    "cuda": "11.8",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "cudnn": 8700,
+    "deterministic_algorithms": false,
+    "cudnn_benchmark": false,
+    "cublas_workspace_config": null,
+    "note": "CUDA scatter/spconv kernels can remain nondeterministic; exact restart is measured, not assumed."
+  },
+  "training_forests": [
+    {
+      "forest": "A1N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/A1N.laz",
+      "sha256": "2c063cd612bcce42d1452bb9f9d887216dce567302d7b3e416e5e162a56b4937",
+      "points": 71543093,
+      "bounds": [
+        [
+          -97.28170429348945,
+          -106.60241012573243,
+          -7.42
+        ],
+        [
+          86.27829570651055,
+          93.26758987426757,
+          34.09
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 466,
+      "non_tree_fraction": 0.3755974877966207,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        569.0,
+        14793.5,
+        60468.5,
+        141747.0,
+        718171.0
+      ],
+      "z_extent_quantiles_m": [
+        9.56,
+        22.98,
+        28.925,
+        32.057500000000005,
+        35.39
+      ]
+    },
+    {
+      "forest": "A1W",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/A1W.laz",
+      "sha256": "9f48615ec6d29a99a0c1a3c81c6346885c45fa549976a67b55984aa415329fa4",
+      "points": 67636560,
+      "bounds": [
+        [
+          -78.4391121673584,
+          -78.40706039428711,
+          -5.78
+        ],
+        [
+          76.28088783264161,
+          71.04293960571289,
+          43.74
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 511,
+      "non_tree_fraction": 0.3668537400482816,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        1731.0,
+        38871.0,
+        69560.0,
+        104738.5,
+        511558.0
+      ],
+      "z_extent_quantiles_m": [
+        9.729999999999999,
+        18.814999999999998,
+        24.11,
+        26.455,
+        42.84
+      ]
+    },
+    {
+      "forest": "G1N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G1N.laz",
+      "sha256": "713f9021d314c0cf2e6df52aa5d5c3cc8a35e200802411c52b69b7b9f7f39580",
+      "points": 53556536,
+      "bounds": [
+        [
+          -63.08836456298828,
+          -60.98877639770508,
+          -3.64
+        ],
+        [
+          62.11163543701173,
+          52.24122360229492,
+          36.800000000000004
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 320,
+      "non_tree_fraction": 0.40054588295254945,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        821.0,
+        41507.75,
+        94289.5,
+        136621.5,
+        436516.0
+      ],
+      "z_extent_quantiles_m": [
+        9.91,
+        30.285000000000004,
+        33.37,
+        34.982499999999995,
+        37.0
+      ]
+    },
+    {
+      "forest": "G1W",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G1W.laz",
+      "sha256": "f56c209d6131f0907b55199669e98fd51051a20c972eadfbce5da0b8721247a5",
+      "points": 88666450,
+      "bounds": [
+        [
+          -80.5863722229004,
+          -103.93942016601562,
+          -4.24
+        ],
+        [
+          82.42362777709963,
+          96.13057983398437,
+          34.58
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 450,
+      "non_tree_fraction": 0.507933384047743,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        653.0,
+        45957.0,
+        85640.0,
+        137946.0,
+        376500.0
+      ],
+      "z_extent_quantiles_m": [
+        9.89,
+        25.712500000000002,
+        30.93,
+        32.2875,
+        35.58
+      ]
+    },
+    {
+      "forest": "G2N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G2N.laz",
+      "sha256": "6a042f1f7eb64c3bc30e69a20d0db41e70a520d8118e2fa7254eefdf763d1cc3",
+      "points": 71588563,
+      "bounds": [
+        [
+          -86.34822719573975,
+          -94.42528274536133,
+          -2.0300000000000002
+        ],
+        [
+          84.30177280426025,
+          78.00471725463868,
+          38.33
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 496,
+      "non_tree_fraction": 0.3724504569256405,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        1645.0,
+        19038.75,
+        65395.5,
+        127808.25,
+        560900.0
+      ],
+      "z_extent_quantiles_m": [
+        9.850000000000001,
+        16.9575,
+        25.68,
+        31.035,
+        35.040000000000006
+      ]
+    },
+    {
+      "forest": "G2W",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G2W.laz",
+      "sha256": "dd6f7bbcdbc2fedfa0e1522bf9104e4a64b287e03d2d2851a46e9d8125bdcde5",
+      "points": 77184517,
+      "bounds": [
+        [
+          -70.58127716064453,
+          -45.98705837249756,
+          -7.72
+        ],
+        [
+          64.93872283935546,
+          46.59294162750244,
+          35.33
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 265,
+      "non_tree_fraction": 0.5492360857812973,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        551.0,
+        25931.0,
+        106158.0,
+        211342.0,
+        728470.0
+      ],
+      "z_extent_quantiles_m": [
+        9.23,
+        11.89,
+        24.37,
+        32.8,
+        38.32
+      ]
+    },
+    {
+      "forest": "G3N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G3N.laz",
+      "sha256": "2723d84ccd1b9c29157afcd70fdb009a50926c7ae708b8efa2a3a59bff9c16ca",
+      "points": 71469505,
+      "bounds": [
+        [
+          -62.95488945007324,
+          -74.72752975463868,
+          -4.05
+        ],
+        [
+          69.74511054992676,
+          67.30247024536133,
+          37.0
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 355,
+      "non_tree_fraction": 0.4481188305417814,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        1897.0,
+        58042.5,
+        101242.0,
+        155575.0,
+        478002.0
+      ],
+      "z_extent_quantiles_m": [
+        9.86,
+        26.98,
+        34.120000000000005,
+        35.144999999999996,
+        38.32
+      ]
+    },
+    {
+      "forest": "G3W",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G3W.laz",
+      "sha256": "3c19ff8284e4a44e6f8bc37a027c0ac9d20c0be44464d206eec8bfff5447f76e",
+      "points": 89062783,
+      "bounds": [
+        [
+          -66.89392059326173,
+          -67.7687434387207,
+          -1.62
+        ],
+        [
+          57.56607940673828,
+          65.8812565612793,
+          39.57
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 332,
+      "non_tree_fraction": 0.5754548788353043,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        3756.0,
+        60801.25,
+        101673.0,
+        155135.25,
+        425845.0
+      ],
+      "z_extent_quantiles_m": [
+        9.950000000000001,
+        23.325,
+        31.375,
+        32.8125,
+        36.49
+      ]
+    },
+    {
+      "forest": "G4N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G4N.laz",
+      "sha256": "9e0641ada64bbe12b98d3c13333545d5dac6544028c5aa20c4a0f0b0d0bf3fb8",
+      "points": 67585806,
+      "bounds": [
+        [
+          -79.83095520019532,
+          -44.755622501373296,
+          -14.370000000000001
+        ],
+        [
+          61.83904479980469,
+          54.64437749862671,
+          53.46
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 318,
+      "non_tree_fraction": 0.38197934637340863,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        44.0,
+        47862.5,
+        110709.0,
+        188886.25,
+        658969.0
+      ],
+      "z_extent_quantiles_m": [
+        9.719999999999999,
+        18.4525,
+        32.400000000000006,
+        34.9675,
+        52.72
+      ]
+    },
+    {
+      "forest": "G4W",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/G4W.laz",
+      "sha256": "c5f449f282e3205df4f2f22e3844f6d07fc15f41a9a8cc46739612118e6d4306",
+      "points": 96734484,
+      "bounds": [
+        [
+          -95.72559875488281,
+          -82.38759872436523,
+          -2.5100000000000002
+        ],
+        [
+          113.68440124511719,
+          63.152401275634766,
+          64.02
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 585,
+      "non_tree_fraction": 0.39012543861814575,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        563.0,
+        32944.0,
+        84592.0,
+        141565.0,
+        636106.0
+      ],
+      "z_extent_quantiles_m": [
+        9.420000000000002,
+        22.46,
+        33.44,
+        36.07,
+        41.730000000000004
+      ]
+    },
+    {
+      "forest": "L1N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/L1N.laz",
+      "sha256": "49852c0665e655acb4f0a491d06da6cf495f30ebda6cd6d6fe107224db286525",
+      "points": 77373557,
+      "bounds": [
+        [
+          -75.39512756347656,
+          -69.85846328735352,
+          -2.92
+        ],
+        [
+          91.65487243652345,
+          74.12153671264649,
+          42.410000000000004
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 453,
+      "non_tree_fraction": 0.38157405636656977,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        345.0,
+        39660.0,
+        88654.0,
+        155171.0,
+        490754.0
+      ],
+      "z_extent_quantiles_m": [
+        9.73,
+        18.42,
+        30.220000000000002,
+        34.17,
+        41.81
+      ]
+    },
+    {
+      "forest": "L2N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/L2N.laz",
+      "sha256": "9569c42393ecf266c961a455af69d5104126abfc4d605a50077da3dc3ed07a3a",
+      "points": 67322200,
+      "bounds": [
+        [
+          -82.34153945922851,
+          -94.58155364990236,
+          -3.16
+        ],
+        [
+          61.13846054077149,
+          80.52844635009765,
+          40.07
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 233,
+      "non_tree_fraction": 0.42089402901271794,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        4021.0,
+        88302.0,
+        148857.0,
+        232641.0,
+        679578.0
+      ],
+      "z_extent_quantiles_m": [
+        9.52,
+        26.900000000000002,
+        35.25,
+        37.33,
+        40.36
+      ]
+    },
+    {
+      "forest": "L2W",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/L2W.laz",
+      "sha256": "fbf32ec4c549958725684aaab1106851a6bfa317d1eca6679e940d3f2c7d74cd",
+      "points": 82144621,
+      "bounds": [
+        [
+          -88.71787712097168,
+          -101.5312240600586,
+          -2.95
+        ],
+        [
+          79.52212287902832,
+          97.27877593994141,
+          38.61
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 401,
+      "non_tree_fraction": 0.4031124813394659,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        2357.0,
+        46793.0,
+        109875.0,
+        180248.0,
+        419985.0
+      ],
+      "z_extent_quantiles_m": [
+        9.41,
+        16.830000000000002,
+        29.3,
+        32.68,
+        36.55
+      ]
+    },
+    {
+      "forest": "LG1",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/LG1.laz",
+      "sha256": "f2d61f8cf2a3e01e729c06d99339e7392138c3f477000b12bde7e5c84d9bbf07",
+      "points": 46259166,
+      "bounds": [
+        [
+          -58.10907333374024,
+          -49.42993293762207,
+          -5.46
+        ],
+        [
+          73.33092666625977,
+          82.58006706237794,
+          43.57
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 407,
+      "non_tree_fraction": 0.34858453781894816,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        2400.0,
+        35729.5,
+        62617.0,
+        101721.5,
+        299029.0
+      ],
+      "z_extent_quantiles_m": [
+        9.8,
+        32.37,
+        36.22,
+        39.31,
+        43.480000000000004
+      ]
+    },
+    {
+      "forest": "LG2",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/LG2.laz",
+      "sha256": "04c6ee4e2a25d81f9117189f160b5938dcce3fab4f8cc014848f8d0b954a342a",
+      "points": 69693334,
+      "bounds": [
+        [
+          -71.84179702758789,
+          -101.03653106689453,
+          -3.75
+        ],
+        [
+          85.65820297241211,
+          83.09346893310547,
+          41.49
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 332,
+      "non_tree_fraction": 0.3701686591719088,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        2119.0,
+        73038.0,
+        120705.0,
+        173940.5,
+        487426.0
+      ],
+      "z_extent_quantiles_m": [
+        9.74,
+        20.2225,
+        33.510000000000005,
+        35.805,
+        39.230000000000004
+      ]
+    },
+    {
+      "forest": "LG3",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/LG3.laz",
+      "sha256": "9b0f53ca5ecdc0053aae92783d74d96b23e5cff724677394d3cf39bf8d6157db",
+      "points": 64150018,
+      "bounds": [
+        [
+          -68.76538345336914,
+          -101.22961151123047,
+          -2.64
+        ],
+        [
+          75.15461654663086,
+          86.98038848876953,
+          37.28
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 315,
+      "non_tree_fraction": 0.3794053495043446,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        10227.0,
+        76583.5,
+        113719.0,
+        162879.5,
+        441099.0
+      ],
+      "z_extent_quantiles_m": [
+        9.91,
+        22.535,
+        28.090000000000003,
+        29.86,
+        33.25
+      ]
+    },
+    {
+      "forest": "O1N",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/O1N.laz",
+      "sha256": "cb4d82dab87f1cf7738f06456f9a8fbfea33fbae6b7318969d28a37fbf09b65f",
+      "points": 54303644,
+      "bounds": [
+        [
+          -54.28029986330195,
+          -80.52487324404989,
+          -0.48
+        ],
+        [
+          53.309700136698055,
+          81.04512675595011,
+          52.800000000000004
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 160,
+      "non_tree_fraction": 0.4588776215459869,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        2070.0,
+        114176.0,
+        171922.0,
+        244441.0,
+        547150.0
+      ],
+      "z_extent_quantiles_m": [
+        9.8,
+        41.43,
+        43.225,
+        44.0325,
+        46.550000000000004
+      ]
+    },
+    {
+      "forest": "O1W",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/forests/O1W.laz",
+      "sha256": "0cc964887c0c2d7abbe3a3a5d6a7d11194b730f4447a12221488c0515061467b",
+      "points": 90522759,
+      "bounds": [
+        [
+          -76.63663177490234,
+          -63.09197368621827,
+          -1.54
+        ],
+        [
+          68.13336822509766,
+          72.95802631378174,
+          44.77
+        ]
+      ],
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "instances": 266,
+      "non_tree_fraction": 0.5265666615397792,
+      "ignore_fraction": 0.0,
+      "instance_point_count_quantiles": [
+        1044.0,
+        60988.5,
+        131883.5,
+        229411.25,
+        1000432.0
+      ],
+      "z_extent_quantiles_m": [
+        9.59,
+        19.09,
+        31.17,
+        36.352500000000006,
+        41.300000000000004
+      ]
+    }
+  ],
+  "evaluation": [
+    {
+      "name": "L1W_input",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/pipeline/L1W/forest/L1W.laz",
+      "sha256": "79a71993011c9a2ab5f1ca1b33aa2b8fef228701a10ca2ce58e7901980df4afb",
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "points": 85289646,
+      "instances": 200,
+      "non_tree_fraction": 0.29527846791625795,
+      "ignore_fraction": 0.27186448868600066,
+      "instance_point_count_quantiles": [
+        27285.0,
+        115164.75,
+        172387.5,
+        238025.0,
+        553528.0
+      ],
+      "z_extent_quantiles_m": [
+        10.160000000000002,
+        31.209999999999997,
+        33.09,
+        34.3775,
+        39.35
+      ],
+      "bounds": [
+        [
+          -67.28,
+          -62.56,
+          -22.19
+        ],
+        [
+          67.28,
+          62.56,
+          22.19
+        ]
+      ]
+    },
+    {
+      "name": "L1W_GT",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/benchmark/L1W_voxelized01_for_eval.laz",
+      "sha256": "528d92ca438488ff0a69245e5097dbb8e48f35c3707f9335196d0722f4025cf3",
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "points": 20434648,
+      "instances": 156,
+      "non_tree_fraction": 0.13815608666222193,
+      "ignore_fraction": 0.40828302988140536,
+      "instance_point_count_quantiles": [
+        5084.0,
+        37551.0,
+        55179.5,
+        81352.0,
+        168277.0
+      ],
+      "z_extent_quantiles_m": [
+        10.139999999999999,
+        29.492500000000003,
+        33.06,
+        34.5025,
+        39.33
+      ],
+      "bounds": [
+        [
+          -67.28,
+          -62.56,
+          -22.19
+        ],
+        [
+          67.28,
+          62.56,
+          22.19
+        ]
+      ]
+    },
+    {
+      "name": "Wytham_input",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/pipeline/wytham/forest/wytham_vox0.1.laz",
+      "sha256": "e7db7e8b096ea3ab89be2423b65afc729a4902ba4289e17647d5f732d9518de5",
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "points": 54592456,
+      "instances": 877,
+      "non_tree_fraction": 0.1143528329262197,
+      "ignore_fraction": 0.5353946156956192,
+      "instance_point_count_quantiles": [
+        128.0,
+        3691.0,
+        10080.0,
+        22926.0,
+        694820.0
+      ],
+      "z_extent_quantiles_m": [
+        2.368,
+        9.124,
+        14.689,
+        20.229,
+        30.612000000000002
+      ],
+      "bounds": [
+        [
+          -92.806,
+          -76.708,
+          -28.0
+        ],
+        [
+          92.806,
+          76.708,
+          28.0
+        ]
+      ]
+    },
+    {
+      "name": "Wytham_GT",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/benchmark/wytham_vox0.1.laz",
+      "sha256": "e7db7e8b096ea3ab89be2423b65afc729a4902ba4289e17647d5f732d9518de5",
+      "fields": [
+        "X",
+        "Y",
+        "Z",
+        "intensity",
+        "return_number",
+        "number_of_returns",
+        "scan_direction_flag",
+        "edge_of_flight_line",
+        "classification",
+        "synthetic",
+        "key_point",
+        "withheld",
+        "scan_angle_rank",
+        "user_data",
+        "point_source_id",
+        "gps_time",
+        "red",
+        "green",
+        "blue",
+        "treeID"
+      ],
+      "points": 54592456,
+      "instances": 877,
+      "non_tree_fraction": 0.1143528329262197,
+      "ignore_fraction": 0.5353946156956192,
+      "instance_point_count_quantiles": [
+        128.0,
+        3691.0,
+        10080.0,
+        22926.0,
+        694820.0
+      ],
+      "z_extent_quantiles_m": [
+        2.368,
+        9.124,
+        14.689,
+        20.229,
+        30.612000000000002
+      ],
+      "bounds": [
+        [
+          -92.806,
+          -76.708,
+          -28.0
+        ],
+        [
+          92.806,
+          76.708,
+          28.0
+        ]
+      ]
+    }
+  ],
+  "weights": [
+    {
+      "name": "hais_ckpt_spconv2.pth",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/model_weights/hais_ckpt_spconv2.pth",
+      "exists": true,
+      "sha256": "67cacb699d1a6fffb53ccb60e0d35d072495fa479771b6a46e16e2348f77702e"
+    },
+    {
+      "name": "model_weights_20241213.pth",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/model_weights/model_weights_20241213.pth",
+      "exists": false,
+      "sha256": null
+    },
+    {
+      "name": "model_weights_with_small_20241213.pth",
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/model_weights/model_weights_with_small_20241213.pth",
+      "exists": true,
+      "sha256": "513c98d44b5252bb215599b52cdc7a521ac376621738529ac79d0936b24ce1c6"
+    }
+  ],
+  "existing_crops": {
+    "count": 25000,
+    "generation_seed": null,
+    "accepted_for_training": false,
+    "reason": "Historical generation seed is not recorded; regenerate independently."
+  }
+}

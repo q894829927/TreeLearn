@@ -1,0 +1,36 @@
+{
+  "repository": "https://github.com/Pointcept/PointTransformerV3",
+  "commit": "3229e9b7de1770c8ad17c316f8e349982de509f8",
+  "license": "MIT",
+  "files": {
+    "model.py": {
+      "upstream_sha256": "695372fe66630656b158bd2697e9874a5919c255cc8d90a0b9bd60e3fb833461",
+      "vendored_sha256": "695372fe66630656b158bd2697e9874a5919c255cc8d90a0b9bd60e3fb833461"
+    },
+    "serialization/default.py": {
+      "upstream_sha256": "3d20c6cd07bcdf770740f2188a790d23707ab55d67d9b69d5ac763921d3f1084",
+      "vendored_sha256": "3d20c6cd07bcdf770740f2188a790d23707ab55d67d9b69d5ac763921d3f1084"
+    },
+    "serialization/z_order.py": {
+      "upstream_sha256": "e94d7aebff6b1fbf92eb9d0ac8cdb7c62fe4d13f17c7255bbc5be96661190fac",
+      "vendored_sha256": "e94d7aebff6b1fbf92eb9d0ac8cdb7c62fe4d13f17c7255bbc5be96661190fac"
+    },
+    "serialization/__init__.py": {
+      "upstream_sha256": "1e3aa8d47116a3d6cc86e816420483c496f4caac03efe8395f90b0aac5e97597",
+      "vendored_sha256": "1e3aa8d47116a3d6cc86e816420483c496f4caac03efe8395f90b0aac5e97597"
+    },
+    "serialization/hilbert.py": {
+      "upstream_sha256": "7166e14531407d93e151749f3b2cade69690516cea0d6a7a5968a3273770cc36",
+      "vendored_sha256": "7166e14531407d93e151749f3b2cade69690516cea0d6a7a5968a3273770cc36"
+    },
+    "LICENSE": {
+      "upstream_sha256": "8e293fb7c93586fb19294bcae2096755b467e465b010b1547f5658a3df1682ab",
+      "vendored_sha256": "8e293fb7c93586fb19294bcae2096755b467e465b010b1547f5658a3df1682ab"
+    }
+  },
+  "flash_attention_wheel": {
+    "source": "https://github.com/Dao-AILab/flash-attention/releases/tag/v2.3.6",
+    "file": "flash_attn-2.3.6+cu118torch2.0cxx11abiFALSE-cp310-cp310-linux_x86_64.whl",
+    "sha256": "1c918d84ff042582d547e4c9c7ec24ec9f3975589ca28cc4e6cbd15486b74f2a"
+  }
+}

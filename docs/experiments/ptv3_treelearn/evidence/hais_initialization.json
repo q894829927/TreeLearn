@@ -1,0 +1,1770 @@
+{
+  "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/model_weights/hais_ckpt_spconv2.pth",
+  "sha256": "67cacb699d1a6fffb53ccb60e0d35d072495fa479771b6a46e16e2348f77702e",
+  "kind": "hais",
+  "loaded": {
+    "unet.blocks.block0.conv_branch.0.weight": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.0.bias": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.0.running_mean": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.0.running_var": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.blocks.block0.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "unet.blocks.block0.conv_branch.3.weight": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.3.bias": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.3.running_mean": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.3.running_var": [
+      32
+    ],
+    "unet.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.blocks.block0.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "unet.blocks.block1.conv_branch.0.weight": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.0.bias": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.0.running_mean": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.0.running_var": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.blocks.block1.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "unet.blocks.block1.conv_branch.3.weight": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.3.bias": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.3.running_mean": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.3.running_var": [
+      32
+    ],
+    "unet.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.blocks.block1.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "unet.conv.0.weight": [
+      32
+    ],
+    "unet.conv.0.bias": [
+      32
+    ],
+    "unet.conv.0.running_mean": [
+      32
+    ],
+    "unet.conv.0.running_var": [
+      32
+    ],
+    "unet.conv.0.num_batches_tracked": [],
+    "unet.conv.2.weight": [
+      64,
+      2,
+      2,
+      2,
+      32
+    ],
+    "unet.u.blocks.block0.conv_branch.0.weight": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.0.bias": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.0.running_mean": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.0.running_var": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.blocks.block0.conv_branch.2.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.3.weight": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.3.bias": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.3.running_mean": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.3.running_var": [
+      64
+    ],
+    "unet.u.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.blocks.block0.conv_branch.5.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.0.weight": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.0.bias": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.0.running_mean": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.0.running_var": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.blocks.block1.conv_branch.2.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.3.weight": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.3.bias": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.3.running_mean": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.3.running_var": [
+      64
+    ],
+    "unet.u.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.blocks.block1.conv_branch.5.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.u.conv.0.weight": [
+      64
+    ],
+    "unet.u.conv.0.bias": [
+      64
+    ],
+    "unet.u.conv.0.running_mean": [
+      64
+    ],
+    "unet.u.conv.0.running_var": [
+      64
+    ],
+    "unet.u.conv.0.num_batches_tracked": [],
+    "unet.u.conv.2.weight": [
+      96,
+      2,
+      2,
+      2,
+      64
+    ],
+    "unet.u.u.blocks.block0.conv_branch.0.weight": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.0.bias": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.0.running_mean": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.0.running_var": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.blocks.block0.conv_branch.2.weight": [
+      96,
+      3,
+      3,
+      3,
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.3.weight": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.3.bias": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.3.running_mean": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.3.running_var": [
+      96
+    ],
+    "unet.u.u.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.blocks.block0.conv_branch.5.weight": [
+      96,
+      3,
+      3,
+      3,
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.0.weight": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.0.bias": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.0.running_mean": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.0.running_var": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.blocks.block1.conv_branch.2.weight": [
+      96,
+      3,
+      3,
+      3,
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.3.weight": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.3.bias": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.3.running_mean": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.3.running_var": [
+      96
+    ],
+    "unet.u.u.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.blocks.block1.conv_branch.5.weight": [
+      96,
+      3,
+      3,
+      3,
+      96
+    ],
+    "unet.u.u.conv.0.weight": [
+      96
+    ],
+    "unet.u.u.conv.0.bias": [
+      96
+    ],
+    "unet.u.u.conv.0.running_mean": [
+      96
+    ],
+    "unet.u.u.conv.0.running_var": [
+      96
+    ],
+    "unet.u.u.conv.0.num_batches_tracked": [],
+    "unet.u.u.conv.2.weight": [
+      128,
+      2,
+      2,
+      2,
+      96
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.0.weight": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.0.bias": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.0.running_mean": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.0.running_var": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.blocks.block0.conv_branch.2.weight": [
+      128,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.3.weight": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.3.bias": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.3.running_mean": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.3.running_var": [
+      128
+    ],
+    "unet.u.u.u.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.blocks.block0.conv_branch.5.weight": [
+      128,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.0.weight": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.0.bias": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.0.running_mean": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.0.running_var": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.blocks.block1.conv_branch.2.weight": [
+      128,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.3.weight": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.3.bias": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.3.running_mean": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.3.running_var": [
+      128
+    ],
+    "unet.u.u.u.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.blocks.block1.conv_branch.5.weight": [
+      128,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.u.u.conv.0.weight": [
+      128
+    ],
+    "unet.u.u.u.conv.0.bias": [
+      128
+    ],
+    "unet.u.u.u.conv.0.running_mean": [
+      128
+    ],
+    "unet.u.u.u.conv.0.running_var": [
+      128
+    ],
+    "unet.u.u.u.conv.0.num_batches_tracked": [],
+    "unet.u.u.u.conv.2.weight": [
+      160,
+      2,
+      2,
+      2,
+      128
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.0.weight": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.0.bias": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.0.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.0.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks.block0.conv_branch.2.weight": [
+      160,
+      3,
+      3,
+      3,
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.3.weight": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.3.bias": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.3.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.3.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks.block0.conv_branch.5.weight": [
+      160,
+      3,
+      3,
+      3,
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.0.weight": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.0.bias": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.0.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.0.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks.block1.conv_branch.2.weight": [
+      160,
+      3,
+      3,
+      3,
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.3.weight": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.3.bias": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.3.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.3.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks.block1.conv_branch.5.weight": [
+      160,
+      3,
+      3,
+      3,
+      160
+    ],
+    "unet.u.u.u.u.conv.0.weight": [
+      160
+    ],
+    "unet.u.u.u.u.conv.0.bias": [
+      160
+    ],
+    "unet.u.u.u.u.conv.0.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.conv.0.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.conv.0.num_batches_tracked": [],
+    "unet.u.u.u.u.conv.2.weight": [
+      192,
+      2,
+      2,
+      2,
+      160
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.0.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.0.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.0.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.0.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.2.weight": [
+      192,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.3.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.3.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.3.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.3.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks.block0.conv_branch.5.weight": [
+      192,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.0.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.0.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.0.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.0.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.2.weight": [
+      192,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.3.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.3.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.3.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.3.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks.block1.conv_branch.5.weight": [
+      192,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.u.u.u.conv.0.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.conv.0.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.conv.0.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.conv.0.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.conv.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.conv.2.weight": [
+      224,
+      2,
+      2,
+      2,
+      192
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.0.weight": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.0.bias": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.0.running_mean": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.0.running_var": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.2.weight": [
+      224,
+      3,
+      3,
+      3,
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.3.weight": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.3.bias": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.3.running_mean": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.3.running_var": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.u.u.blocks.block0.conv_branch.5.weight": [
+      224,
+      3,
+      3,
+      3,
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.0.weight": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.0.bias": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.0.running_mean": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.0.running_var": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.2.weight": [
+      224,
+      3,
+      3,
+      3,
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.3.weight": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.3.bias": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.3.running_mean": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.3.running_var": [
+      224
+    ],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.u.u.blocks.block1.conv_branch.5.weight": [
+      224,
+      3,
+      3,
+      3,
+      224
+    ],
+    "unet.u.u.u.u.u.deconv.0.weight": [
+      224
+    ],
+    "unet.u.u.u.u.u.deconv.0.bias": [
+      224
+    ],
+    "unet.u.u.u.u.u.deconv.0.running_mean": [
+      224
+    ],
+    "unet.u.u.u.u.u.deconv.0.running_var": [
+      224
+    ],
+    "unet.u.u.u.u.u.deconv.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.deconv.2.weight": [
+      192,
+      2,
+      2,
+      2,
+      224
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.i_branch.0.weight": [
+      192,
+      1,
+      1,
+      1,
+      384
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.0.weight": [
+      384
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.0.bias": [
+      384
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.0.running_mean": [
+      384
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.0.running_var": [
+      384
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.2.weight": [
+      192,
+      3,
+      3,
+      3,
+      384
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.3.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.3.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.3.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.3.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks_tail.block0.conv_branch.5.weight": [
+      192,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.0.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.0.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.0.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.0.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.2.weight": [
+      192,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.3.weight": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.3.bias": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.3.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.3.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.u.blocks_tail.block1.conv_branch.5.weight": [
+      192,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.u.u.deconv.0.weight": [
+      192
+    ],
+    "unet.u.u.u.u.deconv.0.bias": [
+      192
+    ],
+    "unet.u.u.u.u.deconv.0.running_mean": [
+      192
+    ],
+    "unet.u.u.u.u.deconv.0.running_var": [
+      192
+    ],
+    "unet.u.u.u.u.deconv.0.num_batches_tracked": [],
+    "unet.u.u.u.u.deconv.2.weight": [
+      160,
+      2,
+      2,
+      2,
+      192
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.i_branch.0.weight": [
+      160,
+      1,
+      1,
+      1,
+      320
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.0.weight": [
+      320
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.0.bias": [
+      320
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.0.running_mean": [
+      320
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.0.running_var": [
+      320
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.2.weight": [
+      160,
+      3,
+      3,
+      3,
+      320
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.3.weight": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.3.bias": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.3.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.3.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks_tail.block0.conv_branch.5.weight": [
+      160,
+      3,
+      3,
+      3,
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.0.weight": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.0.bias": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.0.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.0.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.2.weight": [
+      160,
+      3,
+      3,
+      3,
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.3.weight": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.3.bias": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.3.running_mean": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.3.running_var": [
+      160
+    ],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.u.blocks_tail.block1.conv_branch.5.weight": [
+      160,
+      3,
+      3,
+      3,
+      160
+    ],
+    "unet.u.u.u.deconv.0.weight": [
+      160
+    ],
+    "unet.u.u.u.deconv.0.bias": [
+      160
+    ],
+    "unet.u.u.u.deconv.0.running_mean": [
+      160
+    ],
+    "unet.u.u.u.deconv.0.running_var": [
+      160
+    ],
+    "unet.u.u.u.deconv.0.num_batches_tracked": [],
+    "unet.u.u.u.deconv.2.weight": [
+      128,
+      2,
+      2,
+      2,
+      160
+    ],
+    "unet.u.u.u.blocks_tail.block0.i_branch.0.weight": [
+      128,
+      1,
+      1,
+      1,
+      256
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.0.weight": [
+      256
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.0.bias": [
+      256
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.0.running_mean": [
+      256
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.0.running_var": [
+      256
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.2.weight": [
+      128,
+      3,
+      3,
+      3,
+      256
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.3.weight": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.3.bias": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.3.running_mean": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.3.running_var": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.blocks_tail.block0.conv_branch.5.weight": [
+      128,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.0.weight": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.0.bias": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.0.running_mean": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.0.running_var": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.2.weight": [
+      128,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.3.weight": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.3.bias": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.3.running_mean": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.3.running_var": [
+      128
+    ],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.u.blocks_tail.block1.conv_branch.5.weight": [
+      128,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.u.deconv.0.weight": [
+      128
+    ],
+    "unet.u.u.deconv.0.bias": [
+      128
+    ],
+    "unet.u.u.deconv.0.running_mean": [
+      128
+    ],
+    "unet.u.u.deconv.0.running_var": [
+      128
+    ],
+    "unet.u.u.deconv.0.num_batches_tracked": [],
+    "unet.u.u.deconv.2.weight": [
+      96,
+      2,
+      2,
+      2,
+      128
+    ],
+    "unet.u.u.blocks_tail.block0.i_branch.0.weight": [
+      96,
+      1,
+      1,
+      1,
+      192
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.0.weight": [
+      192
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.0.bias": [
+      192
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.0.running_mean": [
+      192
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.0.running_var": [
+      192
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.blocks_tail.block0.conv_branch.2.weight": [
+      96,
+      3,
+      3,
+      3,
+      192
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.3.weight": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.3.bias": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.3.running_mean": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.3.running_var": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.blocks_tail.block0.conv_branch.5.weight": [
+      96,
+      3,
+      3,
+      3,
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.0.weight": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.0.bias": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.0.running_mean": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.0.running_var": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.u.blocks_tail.block1.conv_branch.2.weight": [
+      96,
+      3,
+      3,
+      3,
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.3.weight": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.3.bias": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.3.running_mean": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.3.running_var": [
+      96
+    ],
+    "unet.u.u.blocks_tail.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.u.blocks_tail.block1.conv_branch.5.weight": [
+      96,
+      3,
+      3,
+      3,
+      96
+    ],
+    "unet.u.deconv.0.weight": [
+      96
+    ],
+    "unet.u.deconv.0.bias": [
+      96
+    ],
+    "unet.u.deconv.0.running_mean": [
+      96
+    ],
+    "unet.u.deconv.0.running_var": [
+      96
+    ],
+    "unet.u.deconv.0.num_batches_tracked": [],
+    "unet.u.deconv.2.weight": [
+      64,
+      2,
+      2,
+      2,
+      96
+    ],
+    "unet.u.blocks_tail.block0.i_branch.0.weight": [
+      64,
+      1,
+      1,
+      1,
+      128
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.0.weight": [
+      128
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.0.bias": [
+      128
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.0.running_mean": [
+      128
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.0.running_var": [
+      128
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.u.blocks_tail.block0.conv_branch.2.weight": [
+      64,
+      3,
+      3,
+      3,
+      128
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.3.weight": [
+      64
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.3.bias": [
+      64
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.3.running_mean": [
+      64
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.3.running_var": [
+      64
+    ],
+    "unet.u.blocks_tail.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.u.blocks_tail.block0.conv_branch.5.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.0.weight": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.0.bias": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.0.running_mean": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.0.running_var": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.u.blocks_tail.block1.conv_branch.2.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.3.weight": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.3.bias": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.3.running_mean": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.3.running_var": [
+      64
+    ],
+    "unet.u.blocks_tail.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.u.blocks_tail.block1.conv_branch.5.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.deconv.0.weight": [
+      64
+    ],
+    "unet.deconv.0.bias": [
+      64
+    ],
+    "unet.deconv.0.running_mean": [
+      64
+    ],
+    "unet.deconv.0.running_var": [
+      64
+    ],
+    "unet.deconv.0.num_batches_tracked": [],
+    "unet.deconv.2.weight": [
+      32,
+      2,
+      2,
+      2,
+      64
+    ],
+    "unet.blocks_tail.block0.i_branch.0.weight": [
+      32,
+      1,
+      1,
+      1,
+      64
+    ],
+    "unet.blocks_tail.block0.conv_branch.0.weight": [
+      64
+    ],
+    "unet.blocks_tail.block0.conv_branch.0.bias": [
+      64
+    ],
+    "unet.blocks_tail.block0.conv_branch.0.running_mean": [
+      64
+    ],
+    "unet.blocks_tail.block0.conv_branch.0.running_var": [
+      64
+    ],
+    "unet.blocks_tail.block0.conv_branch.0.num_batches_tracked": [],
+    "unet.blocks_tail.block0.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      64
+    ],
+    "unet.blocks_tail.block0.conv_branch.3.weight": [
+      32
+    ],
+    "unet.blocks_tail.block0.conv_branch.3.bias": [
+      32
+    ],
+    "unet.blocks_tail.block0.conv_branch.3.running_mean": [
+      32
+    ],
+    "unet.blocks_tail.block0.conv_branch.3.running_var": [
+      32
+    ],
+    "unet.blocks_tail.block0.conv_branch.3.num_batches_tracked": [],
+    "unet.blocks_tail.block0.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.0.weight": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.0.bias": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.0.running_mean": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.0.running_var": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.0.num_batches_tracked": [],
+    "unet.blocks_tail.block1.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.3.weight": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.3.bias": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.3.running_mean": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.3.running_var": [
+      32
+    ],
+    "unet.blocks_tail.block1.conv_branch.3.num_batches_tracked": [],
+    "unet.blocks_tail.block1.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "output_layer.0.weight": [
+      32
+    ],
+    "output_layer.0.bias": [
+      32
+    ],
+    "output_layer.0.running_mean": [
+      32
+    ],
+    "output_layer.0.running_var": [
+      32
+    ],
+    "output_layer.0.num_batches_tracked": [],
+    "semantic_linear.0.weight": [
+      32,
+      32
+    ],
+    "semantic_linear.0.bias": [
+      32
+    ],
+    "semantic_linear.1.weight": [
+      32
+    ],
+    "semantic_linear.1.bias": [
+      32
+    ],
+    "semantic_linear.1.running_mean": [
+      32
+    ],
+    "semantic_linear.1.running_var": [
+      32
+    ],
+    "semantic_linear.1.num_batches_tracked": [],
+    "offset_linear.0.weight": [
+      32,
+      32
+    ],
+    "offset_linear.0.bias": [
+      32
+    ],
+    "offset_linear.1.weight": [
+      32
+    ],
+    "offset_linear.1.bias": [
+      32
+    ],
+    "offset_linear.1.running_mean": [
+      32
+    ],
+    "offset_linear.1.running_var": [
+      32
+    ],
+    "offset_linear.1.num_batches_tracked": [],
+    "offset_linear.3.weight": [
+      3,
+      32
+    ],
+    "offset_linear.3.bias": [
+      3
+    ]
+  },
+  "missing": {
+    "input_conv.0.weight": [
+      32,
+      3,
+      3,
+      3,
+      4
+    ],
+    "semantic_linear.3.weight": [
+      2,
+      32
+    ],
+    "semantic_linear.3.bias": [
+      2
+    ]
+  },
+  "shape_mismatch": {
+    "input_conv.0.weight": {
+      "source": [
+        32,
+        3,
+        3,
+        3,
+        6
+      ],
+      "target": [
+        32,
+        3,
+        3,
+        3,
+        4
+      ]
+    },
+    "semantic_linear.3.weight": {
+      "source": [
+        20,
+        32
+      ],
+      "target": [
+        2,
+        32
+      ]
+    },
+    "semantic_linear.3.bias": {
+      "source": [
+        20
+      ],
+      "target": [
+        2
+      ]
+    }
+  },
+  "skipped_source": {
+    "tiny_unet.blocks.block0.conv_branch.0.weight": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.0.bias": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.0.running_mean": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.0.running_var": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "tiny_unet.blocks.block0.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.3.weight": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.3.bias": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.3.running_mean": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.3.running_var": [
+      32
+    ],
+    "tiny_unet.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "tiny_unet.blocks.block0.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.0.weight": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.0.bias": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.0.running_mean": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.0.running_var": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "tiny_unet.blocks.block1.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.3.weight": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.3.bias": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.3.running_mean": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.3.running_var": [
+      32
+    ],
+    "tiny_unet.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "tiny_unet.blocks.block1.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "tiny_unet.conv.0.weight": [
+      32
+    ],
+    "tiny_unet.conv.0.bias": [
+      32
+    ],
+    "tiny_unet.conv.0.running_mean": [
+      32
+    ],
+    "tiny_unet.conv.0.running_var": [
+      32
+    ],
+    "tiny_unet.conv.0.num_batches_tracked": [],
+    "tiny_unet.conv.2.weight": [
+      64,
+      2,
+      2,
+      2,
+      32
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.0.weight": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.0.bias": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.0.running_mean": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.0.running_var": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.0.num_batches_tracked": [],
+    "tiny_unet.u.blocks.block0.conv_branch.2.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.3.weight": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.3.bias": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.3.running_mean": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.3.running_var": [
+      64
+    ],
+    "tiny_unet.u.blocks.block0.conv_branch.3.num_batches_tracked": [],
+    "tiny_unet.u.blocks.block0.conv_branch.5.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.0.weight": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.0.bias": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.0.running_mean": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.0.running_var": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.0.num_batches_tracked": [],
+    "tiny_unet.u.blocks.block1.conv_branch.2.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.3.weight": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.3.bias": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.3.running_mean": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.3.running_var": [
+      64
+    ],
+    "tiny_unet.u.blocks.block1.conv_branch.3.num_batches_tracked": [],
+    "tiny_unet.u.blocks.block1.conv_branch.5.weight": [
+      64,
+      3,
+      3,
+      3,
+      64
+    ],
+    "tiny_unet.deconv.0.weight": [
+      64
+    ],
+    "tiny_unet.deconv.0.bias": [
+      64
+    ],
+    "tiny_unet.deconv.0.running_mean": [
+      64
+    ],
+    "tiny_unet.deconv.0.running_var": [
+      64
+    ],
+    "tiny_unet.deconv.0.num_batches_tracked": [],
+    "tiny_unet.deconv.2.weight": [
+      32,
+      2,
+      2,
+      2,
+      64
+    ],
+    "tiny_unet.blocks_tail.block0.i_branch.0.weight": [
+      32,
+      1,
+      1,
+      1,
+      64
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.0.weight": [
+      64
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.0.bias": [
+      64
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.0.running_mean": [
+      64
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.0.running_var": [
+      64
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.0.num_batches_tracked": [],
+    "tiny_unet.blocks_tail.block0.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      64
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.3.weight": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.3.bias": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.3.running_mean": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.3.running_var": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block0.conv_branch.3.num_batches_tracked": [],
+    "tiny_unet.blocks_tail.block0.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.0.weight": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.0.bias": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.0.running_mean": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.0.running_var": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.0.num_batches_tracked": [],
+    "tiny_unet.blocks_tail.block1.conv_branch.2.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.3.weight": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.3.bias": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.3.running_mean": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.3.running_var": [
+      32
+    ],
+    "tiny_unet.blocks_tail.block1.conv_branch.3.num_batches_tracked": [],
+    "tiny_unet.blocks_tail.block1.conv_branch.5.weight": [
+      32,
+      3,
+      3,
+      3,
+      32
+    ],
+    "tiny_unet_outputlayer.0.weight": [
+      32
+    ],
+    "tiny_unet_outputlayer.0.bias": [
+      32
+    ],
+    "tiny_unet_outputlayer.0.running_mean": [
+      32
+    ],
+    "tiny_unet_outputlayer.0.running_var": [
+      32
+    ],
+    "tiny_unet_outputlayer.0.num_batches_tracked": [],
+    "iou_score_linear.weight": [
+      1,
+      32
+    ],
+    "iou_score_linear.bias": [
+      1
+    ],
+    "mask_linear.0.weight": [
+      32,
+      32
+    ],
+    "mask_linear.0.bias": [
+      32
+    ],
+    "mask_linear.2.weight": [
+      1,
+      32
+    ],
+    "mask_linear.2.bias": [
+      1
+    ]
+  },
+  "required_tensor_numel": 30118209,
+  "matched_required_numel": 30118209,
+  "required_coverage": 1.0,
+  "unexpected_missing": [],
+  "is_complete_initialization": false,
+  "status": "pass"
+}
