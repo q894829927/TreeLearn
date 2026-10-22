@@ -1,0 +1,62 @@
+seed: 42
+work_dir: work_dirs/treelearn_instance_relation_v3_s42
+prepared_root: data/treelearn_instance_relation_v3_s42
+point_prepared_root: data/treelearn_instance_relation_v2_s42
+base_prepared_root: data/treelearn_instance_relation_v1_s42
+cache_root: data/candidate_mask_mlp_a1
+external_cache_root: data/candidate_mask_mlp_a1_wytham_s42
+checkpoint: data/model_weights/model_weights_with_small_20241213.pth
+checkpoint_md5: 38266e515dc387ac5ca32619e791cc20
+splits:
+  train: [A1N, A1W, G1N, G1W, G2N, G2W, G3N, G3W, L2N, L2W, LG1, LG2, LG3]
+  validation: [G4N, G4W, L1N, O1N, O1W]
+geometry:
+  height_strata: 4
+  points_per_stratum: 64
+  vote_radius_m: 4.0
+  lower_radius_m: 4.0
+  vote_scale_m: 4.0
+  max_pairs: 200000
+  max_instances: 20000
+# Same V1/V2 count provenance. These no longer gate recovery outcome labels.
+supervision:
+  min_known_fraction: 0.2
+  same_tree_purity: 0.6
+  min_union_precision: 0.65
+  min_iou_gain: 0.02
+augmentation:
+  bank_points: 512
+  min_bank_points: 48
+  min_foreground_coverage: 0.7
+  density_min: 0.65
+model:
+  hidden_dim: 64
+  geometric_neighbors: 4
+  vote_neighbors: 2
+  height_bands: 8
+  minimum_layer_points: 2
+training:
+  device: cuda:0
+  steps: 3000
+  batch_size: 24
+  real_fraction: 0.75
+  learning_rate: 0.0003
+  weight_decay: 0.001
+  grad_clip: 2.0
+  validation_every: 500
+  save_every: 100
+  log_every: 50
+  hard_mining_every: 500
+  hard_pool_size: 128
+objective:
+  destruction_cost: 3.0
+  ranking_margin: 0.2
+  ranking_weight: 0.5
+  quality_weight: 0.1
+  connection_weight: 0.25
+policy:
+  destruction_cost: 3.0
+  thresholds: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
+chunk_points: 500000
+expected_validation_baseline_f1: 0.8819461650087632
+expected_wytham_baseline_counts: [596, 222, 281]
