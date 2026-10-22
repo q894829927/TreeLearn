@@ -6,7 +6,7 @@
 
 - TreeLearn 基线：`fd240ce7caa4c444fe3418aca454dc578bc557d4`，通过 fetch 和远端引用核验的 `origin/main`。
 - 独立分支：`codex/ptv3-treelearn-baseline`；worktree：`/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn`。
-- 实现提交：`9521588`；保留上游字节表示的提交：`f80aab665514596caeda07883a3c39bb2610ffef`。最终源码测试在后者运行，公共 Python 源码 SHA256 为 `cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612`。后续提交记录证据和交付文档。
+- 实现提交：`9521588`；模型/训练接口冻结提交：`f80aab665514596caeda07883a3c39bb2610ffef`。100-step、恢复和五组推理证据的公共 Python 源码 SHA256 为 `cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612`。后续补充的聚合门禁仅修改 aggregate.py 及对应测试，未改变模型、数据、训练或推理运算；其实际源码哈希见 [聚合验证](evidence/aggregation_validation.json)。每份运行证据保留当时的完整哈希，不追改为交付版本。
 - PTv3 上游：`Pointcept/PointTransformerV3@3229e9b7de1770c8ad17c316f8e349982de509f8`，MIT；model、serialization、LICENSE 的上游与 vendor SHA256 逐文件一致，见 [上游记录](evidence/ptv3_upstream.json)。
 
 原有模型、数据集、工具与默认配置没有改动；原工作目录仍处于历史实验分支。修改文件完整清单见 [changed_files.txt](changed_files.txt)。主要新增内容：
@@ -23,9 +23,9 @@
 
 ## 已实际执行的测试
 
-1. 最终源码的 **21 项契约测试全部通过**，测试主体 12.069s，含进程启动为 17.377s。覆盖 E0 原类/参数一致性、4 常数特征、重复体素/多 batch/交错 batch 映射、PTv3 点序、GT 的 11/12 点边界、ignore/masks、Loss/空 mask、梯度、HAIS 加载门禁、原版正常 grouping/ensemble、空 seed/全 noise/少参考点、评价极端输入、未知标签 LAZ 往返、checkpointing 梯度和 BN、streaming tile 数组/元数据、无损 NPZ/SHA、恢复日志回滚和拒绝 smoke 正式聚合。见 [测试日志](evidence/final_unit_tests.log)。
+1. **22 项契约测试全部通过**，最新测试主体 2.792s。覆盖 E0 原类/参数一致性、4 常数特征、重复体素/多 batch/交错 batch 映射、PTv3 点序、GT 的 11/12 点边界、ignore/masks、Loss/空 mask、梯度、HAIS 加载门禁、原版正常 grouping/ensemble、空 seed/全 noise/少参考点、评价极端输入、未知标签 LAZ 往返、checkpointing 梯度和 BN、streaming tile 数组/元数据、无损 NPZ/SHA、恢复日志回滚和拒绝 smoke 正式聚合。新增的聚合测试使用明确标注的合成记账 fixture，验证三 seed 正常统计，并拒绝跨轮预测路径、改写预测文件、不同 grouping/config/data；它不冒充正式训练。另已对两份实际 E2 测试片结果运行聚合门禁。见 [测试日志](evidence/final_unit_tests.log)。
 2. 实际 CUDA 共享前缀测试：连续训练至 update 4，与同一 update 2 checkpoint 重启后训练至 update 4 比较。恢复前所有保存状态逐值一致，样本序列、LR、Scaler、RNG 和游标一致；后续模型最大绝对差值 **0.0001275615**，低于预先规定的 0.0002 容差，见 [恢复记录](evidence/final_resume.json)。**继续计算的模型和优化器不是逐位相同**；不能用这次短测试保证长程数值轨迹逐位重放。
-3. 最终源码分别完成 E0-scratch、E0-main-hais、E1 各 **100 updates / 100 次实际 optimizer.step**，全部梯度有限、没有 AMP 跳步。三组全部 100 步的增强输入、GT、masks 摘要一致，公共公平性指纹一致。真实 G1N crop 原始 1,060,733 点，每 microbatch 共同选取 400,000 点；200 个增强样本的实例保留率均为 1.0，XY 极值范围逐项相等。见 [100 步记录](evidence/final_smoke100.json)。该旧 crop 被显式标为 unverified_smoke，只用于工程测试，不能用于正式训练。
+3. 冻结模型/训练版本分别完成 E0-scratch、E0-main-hais、E1 各 **100 updates / 100 次实际 optimizer.step**，全部梯度有限、没有 AMP 跳步。三组全部 100 步的增强输入、GT、masks 摘要一致，公共公平性指纹一致。真实 G1N crop 原始 1,060,733 点，每 microbatch 共同选取 400,000 点；200 个增强样本的实例保留率均为 1.0，XY 极值范围逐项相等。见 [100 步记录](evidence/final_smoke100.json)。该旧 crop 被显式标为 unverified_smoke，只用于工程测试，不能用于正式训练。
 
 短程 Loss 下降只说明优化过程可执行；不同初始条件、仅一个旧 crop 的结果不能用于科学性能比较。
 
@@ -112,7 +112,7 @@ main Commission 规则只计算满足对 GT 重叠条件的未匹配预测，因
 | 资源差异 | 完整输入与共同 400k 点变体分开；PTv3 checkpointing 不改网络规模；推理不限制点数 |
 | 后处理/评价 | 固定 main HDBSCAN、阈值、3D shifted 5NN、IoU>0.5 和 Commission，不为 PTv3 单独调参 |
 | 模型选择 | 仅完整预算终点 final.pth；L1W/Wytham 不进入训练或选择 |
-| 多 seed 统计 | 支持 42/43/44；正式聚合要求全部三个 seed、final SHA、GT/data/plan/公共协议匹配，标准差 ddof=1 |
+| 多 seed 统计 | 支持 42/43/44；正式聚合要求全部三个 seed、final SHA、GT/data/plan/公共协议匹配，标准差 ddof=1；评价预测必须来自索引中的推理目录且当前 SHA 匹配，分组/裁块/评价规则一致，同组跨 seed 不混配置、同组同 seed 跨域不换 checkpoint |
 | E2 解释 | default/with-small 分开；公开来源不足以排除历史训练与 L1W/Wytham 重叠，只作成熟模型参考 |
 
 正式长期训练仍需用户另行授权。授权前还应完成全数据 500-update Pilot，检查多密度 crop 的梯度、显存、AMP 跳步和 checkpoint 恢复；确认接受共同资源变体与 CUDA 非逐位重放限制。正式训练后才能在同一最终 commit、相同推理选项和固定 final 上重跑 L1W/Wytham、诊断 Semantic→Offset→Seed→HDBSCAN→5NN，并聚合三 seed。完整 Wytham 和 E2-with-small 的整林成绩本次未运行，不能填入预期数字。

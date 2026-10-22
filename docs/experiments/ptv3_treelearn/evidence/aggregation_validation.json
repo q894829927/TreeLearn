@@ -1,0 +1,16 @@
+{
+  "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+  "contract_tests": 22,
+  "contract_test_seconds": 2.792,
+  "status": "pass",
+  "formal_bookkeeping_fixture": "synthetic; not actual formal training or benchmark scores",
+  "rejection_checks": [
+    "mixed prediction directory",
+    "changed prediction bytes",
+    "different grouping rules",
+    "different inference configuration",
+    "different training data",
+    "incomplete smoke checkpoint"
+  ],
+  "actual_E2_engineering_aggregate": "work_dirs/ptv3_treelearn/final_pipeline/e2_engineering_aggregate.json"
+}

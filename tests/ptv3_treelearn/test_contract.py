@@ -25,7 +25,7 @@ from tree_learn.experiments.ptv3_treelearn.provenance import load_initialization
 from tree_learn.experiments.ptv3_treelearn.train import load_config, rewind_update_log
 from tree_learn.experiments.ptv3_treelearn.tiles import StreamingSampleGenerator
 from tree_learn.experiments.ptv3_treelearn.npz_io import save_npz_with_hash
-from tree_learn.experiments.ptv3_treelearn.aggregate import aggregate
+from tree_learn.experiments.ptv3_treelearn.aggregate import aggregate, METRICS
 
 
 class ContractTests(unittest.TestCase):
@@ -352,6 +352,70 @@ class ContractTests(unittest.TestCase):
             (root/"index.json").write_text(json.dumps(rows))
             with self.assertRaisesRegex(ValueError,"Only complete"):
                 aggregate(root/"index.json",root/"report.json")
+
+    def test_aggregate_binds_outputs_and_shared_protocol(self):
+        # Synthetic bookkeeping fixtures exercise the formal gate; these are
+        # deliberately not model training, LAZ data or measured benchmark scores.
+        from tree_learn.experiments.ptv3_treelearn.provenance import sha256
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); rows = []
+            for group in ("E0-scratch", "E1-ptv3"):
+                for seed in (42, 43, 44):
+                    folder = root/f"{group}_{seed}"; folder.mkdir()
+                    prediction = folder/"results/full_forest/forest.laz"
+                    prediction.parent.mkdir(parents=True); prediction.write_bytes(b"synthetic bookkeeping only")
+                    metrics = {name: .5 for name in METRICS}
+                    (folder/"metrics.json").write_text(json.dumps(metrics))
+                    evaluation = dict(gt_sha256="gt", prediction=str(prediction), prediction_sha256=sha256(prediction),
+                                      code_sha256="code", config={"thresholds":{"min_iou_for_match":.5}})
+                    (folder/"evaluation_manifest.json").write_text(json.dumps(evaluation))
+                    config_id = group
+                    pipeline = dict(checkpoint_sha256="checkpoint"+config_id, seed=seed, config_sha256=config_id,
+                        forest_sha256="forest", code_sha256="code", streamed_tiles=True, saved_backbone_features=False,
+                        pipeline=dict(grouping=dict(self.grouping), sample_generation=dict(voxel_size=.1,
+                            sample_generator=dict(plot_path=str(folder/"input.npz"),rad=None)), shape_cfg={},
+                            dataset_test=dict(data_root=str(folder/"tiles"),inner_square_edge_length=8),
+                            dataloader=dict(batch_size=1),fp16=True,save_cfg=dict(return_type="original")))
+                    (folder/"pipeline.json").write_text(json.dumps(pipeline))
+                    train = folder/"train"; train.mkdir()
+                    run = dict(phase="formal",seed=seed,config_sha256=config_id,data_sha256="data",plan_sha256=str(seed),
+                        fairness_sha256="fair",code_sha256="code",config=dict(experiment=dict(group=group,variant="resource-limited-test")))
+                    (train/"experiment_manifest.json").write_text(json.dumps(run))
+                    (train/"checkpoint_provenance.json").write_text(json.dumps(dict(is_formal_final=True,global_update=250000,
+                                                                                 final_sha256=pipeline["checkpoint_sha256"])))
+                    rows.append(dict(group=group,domain="L1W",seed=seed,metrics=str(folder/"metrics.json"),
+                                     pipeline_manifest=str(folder/"pipeline.json"),training_run=str(train)))
+            index = root/"index.json"; index.write_text(json.dumps(rows)); report = root/"report.json"
+            aggregate(index,report)
+            summary = json.loads(report.read_text())["results"]
+            self.assertEqual(len(summary),2)
+            self.assertEqual(summary[1]["summary"]["coverage"],dict(mean=.5,std=0.,n=3))
+            victim = Path(rows[-1]["pipeline_manifest"])
+            original = json.loads(victim.read_text())
+            altered = copy.deepcopy(original); altered["pipeline"]["grouping"]["tau_vert"] = .7
+            victim.write_text(json.dumps(altered))
+            with self.assertRaisesRegex(ValueError,"Different inference/evaluation"):
+                aggregate(index,report)
+            altered = copy.deepcopy(original); altered["config_sha256"] = "another-config"
+            victim.write_text(json.dumps(altered))
+            with self.assertRaisesRegex(ValueError,"Inference configuration"):
+                aggregate(index,report)
+            victim.write_text(json.dumps(original))
+            runpath = Path(rows[-1]["training_run"])/"experiment_manifest.json"
+            saved_run = json.loads(runpath.read_text()); changed_run = copy.deepcopy(saved_run)
+            changed_run["data_sha256"] = "different-data"
+            runpath.write_text(json.dumps(changed_run))
+            with self.assertRaisesRegex(ValueError,"fairness mismatch"):
+                aggregate(index,report)
+            runpath.write_text(json.dumps(saved_run))
+            evpath = victim.parent/"evaluation_manifest.json"; ev = json.loads(evpath.read_text())
+            changed = copy.deepcopy(ev); changed["prediction"] = json.loads((Path(rows[0]["metrics"]).parent/evpath.name).read_text())["prediction"]
+            evpath.write_text(json.dumps(changed))
+            with self.assertRaisesRegex(ValueError,"not an output"):
+                aggregate(index,report)
+            evpath.write_text(json.dumps(ev)); Path(ev["prediction"]).write_bytes(b"changed")
+            with self.assertRaisesRegex(ValueError,"file/hash changed"):
+                aggregate(index,report)
 
 
 if __name__ == "__main__":

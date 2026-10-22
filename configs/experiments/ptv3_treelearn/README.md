@@ -175,3 +175,5 @@ Wytham 的同样命令只替换 forest=`data/source/pipeline/wytham/forest/wytha
 完整森林可统一增加 `--compact-pointwise --stream-tiles`：前者只省略保存的 backbone features，保留全部预测和 Verticality；后者只改变 tile 生成的内存执行方式。两项均已验证不改变 tile 点集或实例规则。三个正式训练 seed 的推理分别明确传入 `--seed 42`、`--seed 43`、`--seed 44`，并为所有模型采用相同执行选项。
 
 正式指标聚合使用 `aggregate --index /path/to/index.json --output /path/to/report.json`。index 是记录列表，每项含 `group`（如 E0-scratch / E1-ptv3）、`domain`、`seed`、`metrics`（metrics.json 路径）、`pipeline_manifest`、`training_run`。聚合器要求完整 250,000-update formal final 的 SHA 与推理权重一致，要求三个 seed 齐备并核对数据/计划/公共协议，不接受 smoke/pilot；按 seed 列出指标，标准差使用 ddof=1。E2 独立分组，seed=null、无需 training_run，不能与 E0/E1 合并归因。
+
+聚合时还核查实际预测文件属于所索引的 `results/full_forest`，并与评价时的 SHA256 一致；推理/评价代码来源、输入森林、裁块、分组、评价规则及公共执行选项必须匹配。同组跨 seed 不允许改变数据/配置/代码，同组同 seed 跨评价域使用同一 checkpoint。旧工程运行缺少必要 provenance 时，应在最终 commit 上重跑后再作正式聚合。

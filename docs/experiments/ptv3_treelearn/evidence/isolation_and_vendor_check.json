@@ -1,0 +1,48 @@
+{
+  "implementation_commit": "9521588",
+  "source_freeze_commit": "f80aab665514596caeda07883a3c39bb2610ffef",
+  "checked_head": "b070a82b18119169156263560348dedbd2836f4d",
+  "main_commit": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+  "original_main_paths_unchanged": true,
+  "checked_main_paths": [
+    "tree_learn/model",
+    "tree_learn/dataset",
+    "tree_learn/util",
+    "tools/training",
+    "tools/pipeline",
+    "tools/data_gen",
+    "tools/evaluation",
+    "configs/_modular",
+    "configs/training",
+    "configs/pipeline",
+    "configs/evaluation",
+    "configs/data_gen"
+  ],
+  "vendor_files": {
+    "model.py": {
+      "disk_git_blob_and_upstream_equal": true,
+      "sha256": "695372fe66630656b158bd2697e9874a5919c255cc8d90a0b9bd60e3fb833461"
+    },
+    "serialization/default.py": {
+      "disk_git_blob_and_upstream_equal": true,
+      "sha256": "3d20c6cd07bcdf770740f2188a790d23707ab55d67d9b69d5ac763921d3f1084"
+    },
+    "serialization/z_order.py": {
+      "disk_git_blob_and_upstream_equal": true,
+      "sha256": "e94d7aebff6b1fbf92eb9d0ac8cdb7c62fe4d13f17c7255bbc5be96661190fac"
+    },
+    "serialization/__init__.py": {
+      "disk_git_blob_and_upstream_equal": true,
+      "sha256": "1e3aa8d47116a3d6cc86e816420483c496f4caac03efe8395f90b0aac5e97597"
+    },
+    "serialization/hilbert.py": {
+      "disk_git_blob_and_upstream_equal": true,
+      "sha256": "7166e14531407d93e151749f3b2cade69690516cea0d6a7a5968a3273770cc36"
+    },
+    "LICENSE": {
+      "disk_git_blob_and_upstream_equal": true,
+      "sha256": "8e293fb7c93586fb19294bcae2096755b467e465b010b1547f5658a3df1682ab"
+    }
+  },
+  "original_worktree_branch": "codex/candidate-mask-mlp-step1"
+}
