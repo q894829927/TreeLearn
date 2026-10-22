@@ -1,0 +1,49 @@
+{
+  "accepted_wytham": 51,
+  "harmful": 8,
+  "beneficial": 13,
+  "neither_harmful_nor_beneficial": 30,
+  "harmful_above_recovered_case": 6,
+  "all_rejected_watch_pairs_below_all_accepted_harmful_pairs": true,
+  "accepted_with_insufficient_known_fraction": 35,
+  "accepted_unlabeled_fraction": 0.6862745098039216,
+  "source_accepted": 24,
+  "source_beneficial": 13,
+  "source_keep_but_beneficial": 8,
+  "source_lost": 0,
+  "source_recovered": 4,
+  "source_no_monotonic_recovery_increase": [
+    [
+      500,
+      1
+    ],
+    [
+      1000,
+      4
+    ],
+    [
+      1500,
+      2
+    ],
+    [
+      2000,
+      3
+    ],
+    [
+      2500,
+      1
+    ],
+    [
+      3000,
+      1
+    ],
+    [
+      3500,
+      1
+    ],
+    [
+      4000,
+      2
+    ]
+  ]
+}

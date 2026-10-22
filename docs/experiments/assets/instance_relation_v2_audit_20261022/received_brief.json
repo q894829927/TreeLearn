@@ -1,0 +1,1027 @@
+{
+  "schema": 2,
+  "posthoc": true,
+  "eligible_for_advancement": false,
+  "split": "both",
+  "forests": [
+    {
+      "schema": 2,
+      "posthoc": true,
+      "eligible_for_advancement": false,
+      "scope": "saved_v2_scores_and_exact_union_counts",
+      "official_model_loaded": false,
+      "baseline": {
+        "tp": 282,
+        "fp": 35,
+        "fn": 36,
+        "num_gt": 318,
+        "num_predictions": 364,
+        "ignored_points": 0,
+        "f1": 0.8881889763779528,
+        "completeness": 0.8867924528301887,
+        "commission": 0.11041009463722397,
+        "coverage": 0.7963008585504365,
+        "point_precision": 0.8631960901969854,
+        "point_recall": 0.9122197139464728
+      },
+      "refined": {
+        "tp": 282,
+        "fp": 35,
+        "fn": 36,
+        "num_gt": 318,
+        "num_predictions": 364,
+        "ignored_points": 0,
+        "f1": 0.8881889763779528,
+        "completeness": 0.8867924528301887,
+        "commission": 0.11041009463722397,
+        "coverage": 0.7963008585504365,
+        "point_precision": 0.8631960901969854,
+        "point_recall": 0.9122197139464728
+      },
+      "accepted_pairs": 0,
+      "lost_gt_ids": [],
+      "recovered_gt_ids": [],
+      "accepted_two_original_tp": 0,
+      "accepted_harmful_pairs_in_isolation": 0,
+      "accepted_beneficial_pairs_in_isolation": 0,
+      "selected_strict_label_counts": {},
+      "accepted_keep_label_but_beneficial_in_isolation": 0,
+      "isolated_pair_sum_matches_combined_counts": true,
+      "risk_and_value_by_outcome": {
+        "harmful_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "safe_recovery_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "all_accepted": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        }
+      },
+      "harmful_actions": [],
+      "watched_cases": [],
+      "plot": "G4N",
+      "checkpoint_step": 1000,
+      "threshold": 1.0,
+      "provenance": {
+        "prediction_marker_sha256": "0cdac5523048b7ec6f0ef32df7178d3f64d0cf207d1eb3903681906eaf6f0e4d",
+        "scores_sha256": "9a4fb7d0debf62a63f791bb48c3f880c8437c28afd187029852a0bb984a3d29e",
+        "audit_code_sha256": "32f89c0ce56250a4d2d3c8e2799d219caa3f2044fa0c1500baf191ec810048ce"
+      },
+      "verification": "Saved-score/count replay; original point-set invariants are read from prediction.json, not rescanned."
+    },
+    {
+      "schema": 2,
+      "posthoc": true,
+      "eligible_for_advancement": false,
+      "scope": "saved_v2_scores_and_exact_union_counts",
+      "official_model_loaded": false,
+      "baseline": {
+        "tp": 545,
+        "fp": 50,
+        "fn": 40,
+        "num_gt": 585,
+        "num_predictions": 653,
+        "ignored_points": 0,
+        "f1": 0.923728813559322,
+        "completeness": 0.9316239316239316,
+        "commission": 0.08403361344537816,
+        "coverage": 0.8071391879868852,
+        "point_precision": 0.8859198184120907,
+        "point_recall": 0.9006411035666003
+      },
+      "refined": {
+        "tp": 545,
+        "fp": 48,
+        "fn": 40,
+        "num_gt": 585,
+        "num_predictions": 651,
+        "ignored_points": 0,
+        "f1": 0.9252971137521222,
+        "completeness": 0.9316239316239316,
+        "commission": 0.08094435075885328,
+        "coverage": 0.8074503944179926,
+        "point_precision": 0.8858424332172233,
+        "point_recall": 0.9010475257297909
+      },
+      "accepted_pairs": 2,
+      "lost_gt_ids": [],
+      "recovered_gt_ids": [],
+      "accepted_two_original_tp": 0,
+      "accepted_harmful_pairs_in_isolation": 0,
+      "accepted_beneficial_pairs_in_isolation": 2,
+      "selected_strict_label_counts": {
+        "complete": 1,
+        "keep": 1
+      },
+      "accepted_keep_label_but_beneficial_in_isolation": 1,
+      "isolated_pair_sum_matches_combined_counts": true,
+      "risk_and_value_by_outcome": {
+        "harmful_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "safe_recovery_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "all_accepted": {
+          "predicted_risk": {
+            "n": 2,
+            "minimum": 0.004165053367614746,
+            "median": 0.008575699757784605,
+            "maximum": 0.012986346147954464
+          },
+          "predicted_utility": {
+            "n": 2,
+            "minimum": 0.6078527569770813,
+            "median": 0.6436379253864288,
+            "maximum": 0.6794230937957764
+          },
+          "score": {
+            "n": 2,
+            "minimum": 1.1250613927841187,
+            "median": 1.1928402781486511,
+            "maximum": 1.2606191635131836
+          }
+        }
+      },
+      "harmful_actions": [],
+      "watched_cases": [],
+      "plot": "G4W",
+      "checkpoint_step": 1000,
+      "threshold": 1.0,
+      "provenance": {
+        "prediction_marker_sha256": "1cd128b855048b466942ad80dfcf143be11e442db861a3a0fc8ef1de0f3cf4e5",
+        "scores_sha256": "d47f8674e7eaf594a79235679245d4a014d9ec79475025bd9040d3f1597705d4",
+        "audit_code_sha256": "32f89c0ce56250a4d2d3c8e2799d219caa3f2044fa0c1500baf191ec810048ce"
+      },
+      "verification": "Saved-score/count replay; original point-set invariants are read from prediction.json, not rescanned."
+    },
+    {
+      "schema": 2,
+      "posthoc": true,
+      "eligible_for_advancement": false,
+      "scope": "saved_v2_scores_and_exact_union_counts",
+      "official_model_loaded": false,
+      "baseline": {
+        "tp": 431,
+        "fp": 90,
+        "fn": 22,
+        "num_gt": 453,
+        "num_predictions": 685,
+        "ignored_points": 0,
+        "f1": 0.8850102669404517,
+        "completeness": 0.9514348785871964,
+        "commission": 0.1727447216890595,
+        "coverage": 0.8389741195412181,
+        "point_precision": 0.9175604097077905,
+        "point_recall": 0.9021577472373711
+      },
+      "refined": {
+        "tp": 432,
+        "fp": 86,
+        "fn": 21,
+        "num_gt": 453,
+        "num_predictions": 679,
+        "ignored_points": 0,
+        "f1": 0.8898043254376931,
+        "completeness": 0.9536423841059603,
+        "commission": 0.16602316602316602,
+        "coverage": 0.8392814782326132,
+        "point_precision": 0.9165798362051321,
+        "point_recall": 0.9032919970629543
+      },
+      "accepted_pairs": 6,
+      "lost_gt_ids": [],
+      "recovered_gt_ids": [
+        240
+      ],
+      "accepted_two_original_tp": 0,
+      "accepted_harmful_pairs_in_isolation": 0,
+      "accepted_beneficial_pairs_in_isolation": 3,
+      "selected_strict_label_counts": {
+        "keep": 6
+      },
+      "accepted_keep_label_but_beneficial_in_isolation": 3,
+      "isolated_pair_sum_matches_combined_counts": true,
+      "risk_and_value_by_outcome": {
+        "harmful_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "safe_recovery_in_isolation": {
+          "predicted_risk": {
+            "n": 1,
+            "minimum": 0.009720592759549618,
+            "median": 0.009720592759549618,
+            "maximum": 0.009720592759549618
+          },
+          "predicted_utility": {
+            "n": 1,
+            "minimum": 0.703436017036438,
+            "median": 0.703436017036438,
+            "maximum": 0.703436017036438
+          },
+          "score": {
+            "n": 1,
+            "minimum": 1.2747467756271362,
+            "median": 1.2747467756271362,
+            "maximum": 1.2747467756271362
+          }
+        },
+        "all_accepted": {
+          "predicted_risk": {
+            "n": 6,
+            "minimum": 0.0059747942723333836,
+            "median": 0.01869892468675971,
+            "maximum": 0.037466395646333694
+          },
+          "predicted_utility": {
+            "n": 6,
+            "minimum": 0.5620714426040649,
+            "median": 0.6393180787563324,
+            "maximum": 0.748476505279541
+          },
+          "score": {
+            "n": 6,
+            "minimum": 1.0488874912261963,
+            "median": 1.196458637714386,
+            "maximum": 1.322027325630188
+          }
+        }
+      },
+      "harmful_actions": [],
+      "watched_cases": [],
+      "plot": "L1N",
+      "checkpoint_step": 1000,
+      "threshold": 1.0,
+      "provenance": {
+        "prediction_marker_sha256": "140c7f3efbdf465ee0d962e0e013dd14f9c977d0d4d7e4178a1a0b0b334d44d6",
+        "scores_sha256": "94040cbae7840e7bbf5be6e860c5511d40861f859a31d53bf4ac28189199f842",
+        "audit_code_sha256": "32f89c0ce56250a4d2d3c8e2799d219caa3f2044fa0c1500baf191ec810048ce"
+      },
+      "verification": "Saved-score/count replay; original point-set invariants are read from prediction.json, not rescanned."
+    },
+    {
+      "schema": 2,
+      "posthoc": true,
+      "eligible_for_advancement": false,
+      "scope": "saved_v2_scores_and_exact_union_counts",
+      "official_model_loaded": false,
+      "baseline": {
+        "tp": 152,
+        "fp": 11,
+        "fn": 8,
+        "num_gt": 160,
+        "num_predictions": 190,
+        "ignored_points": 0,
+        "f1": 0.9411764705882353,
+        "completeness": 0.95,
+        "commission": 0.06748466257668712,
+        "coverage": 0.9029393550823052,
+        "point_precision": 0.9355148646905477,
+        "point_recall": 0.9621859269768196
+      },
+      "refined": {
+        "tp": 152,
+        "fp": 10,
+        "fn": 8,
+        "num_gt": 160,
+        "num_predictions": 189,
+        "ignored_points": 0,
+        "f1": 0.9440993788819876,
+        "completeness": 0.95,
+        "commission": 0.06172839506172839,
+        "coverage": 0.9034287772483932,
+        "point_precision": 0.9355362250443561,
+        "point_recall": 0.9626926285132693
+      },
+      "accepted_pairs": 1,
+      "lost_gt_ids": [],
+      "recovered_gt_ids": [],
+      "accepted_two_original_tp": 0,
+      "accepted_harmful_pairs_in_isolation": 0,
+      "accepted_beneficial_pairs_in_isolation": 1,
+      "selected_strict_label_counts": {
+        "complete": 1
+      },
+      "accepted_keep_label_but_beneficial_in_isolation": 0,
+      "isolated_pair_sum_matches_combined_counts": true,
+      "risk_and_value_by_outcome": {
+        "harmful_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "safe_recovery_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "all_accepted": {
+          "predicted_risk": {
+            "n": 1,
+            "minimum": 0.0014718116726726294,
+            "median": 0.0014718116726726294,
+            "maximum": 0.0014718116726726294
+          },
+          "predicted_utility": {
+            "n": 1,
+            "minimum": 0.7356117963790894,
+            "median": 0.7356117963790894,
+            "maximum": 0.7356117963790894
+          },
+          "score": {
+            "n": 1,
+            "minimum": 1.3079099655151367,
+            "median": 1.3079099655151367,
+            "maximum": 1.3079099655151367
+          }
+        }
+      },
+      "harmful_actions": [],
+      "watched_cases": [],
+      "plot": "O1N",
+      "checkpoint_step": 1000,
+      "threshold": 1.0,
+      "provenance": {
+        "prediction_marker_sha256": "915f671faa3a20363217b69bee9e347874067a72541ae13a2bb3d423d078e276",
+        "scores_sha256": "730da1e0510fb96ec5eedd0963b9beb2c16b46b26059c50808db9d980f7fe411",
+        "audit_code_sha256": "32f89c0ce56250a4d2d3c8e2799d219caa3f2044fa0c1500baf191ec810048ce"
+      },
+      "verification": "Saved-score/count replay; original point-set invariants are read from prediction.json, not rescanned."
+    },
+    {
+      "schema": 2,
+      "posthoc": true,
+      "eligible_for_advancement": false,
+      "scope": "saved_v2_scores_and_exact_union_counts",
+      "official_model_loaded": false,
+      "baseline": {
+        "tp": 223,
+        "fp": 89,
+        "fn": 43,
+        "num_gt": 266,
+        "num_predictions": 703,
+        "ignored_points": 0,
+        "f1": 0.7716262975778547,
+        "completeness": 0.8383458646616542,
+        "commission": 0.28525641025641024,
+        "coverage": 0.7584700048229904,
+        "point_precision": 0.8652797295163054,
+        "point_recall": 0.8518547025913471
+      },
+      "refined": {
+        "tp": 226,
+        "fp": 79,
+        "fn": 40,
+        "num_gt": 266,
+        "num_predictions": 688,
+        "ignored_points": 0,
+        "f1": 0.7915936952714536,
+        "completeness": 0.849624060150376,
+        "commission": 0.25901639344262295,
+        "coverage": 0.7609799102917324,
+        "point_precision": 0.8627817711033816,
+        "point_recall": 0.8581658196898465
+      },
+      "accepted_pairs": 15,
+      "lost_gt_ids": [],
+      "recovered_gt_ids": [
+        25,
+        41,
+        126
+      ],
+      "accepted_two_original_tp": 0,
+      "accepted_harmful_pairs_in_isolation": 0,
+      "accepted_beneficial_pairs_in_isolation": 7,
+      "selected_strict_label_counts": {
+        "keep": 12,
+        "recover": 3
+      },
+      "accepted_keep_label_but_beneficial_in_isolation": 4,
+      "isolated_pair_sum_matches_combined_counts": true,
+      "risk_and_value_by_outcome": {
+        "harmful_in_isolation": {
+          "predicted_risk": {
+            "n": 0
+          },
+          "predicted_utility": {
+            "n": 0
+          },
+          "score": {
+            "n": 0
+          }
+        },
+        "safe_recovery_in_isolation": {
+          "predicted_risk": {
+            "n": 3,
+            "minimum": 0.0030987525824457407,
+            "median": 0.01565246284008026,
+            "maximum": 0.05229944735765457
+          },
+          "predicted_utility": {
+            "n": 3,
+            "minimum": 0.5242704749107361,
+            "median": 0.562317967414856,
+            "maximum": 0.6626424193382263
+          },
+          "score": {
+            "n": 3,
+            "minimum": 1.0301064252853394,
+            "median": 1.0836809873580933,
+            "maximum": 1.233559012413025
+          }
+        },
+        "all_accepted": {
+          "predicted_risk": {
+            "n": 15,
+            "minimum": 0.0030987525824457407,
+            "median": 0.025732118636369705,
+            "maximum": 0.06203588843345642
+          },
+          "predicted_utility": {
+            "n": 15,
+            "minimum": 0.5148647427558899,
+            "median": 0.5881575345993042,
+            "maximum": 0.7384390830993652
+          },
+          "score": {
+            "n": 15,
+            "minimum": 1.0075318813323975,
+            "median": 1.118922472000122,
+            "maximum": 1.3454750776290894
+          }
+        }
+      },
+      "harmful_actions": [],
+      "watched_cases": [],
+      "plot": "O1W",
+      "checkpoint_step": 1000,
+      "threshold": 1.0,
+      "provenance": {
+        "prediction_marker_sha256": "d56291e7dff8e862d165a69ffc40bc4fd7336beb0c21fc3ae3c31a648300d4d9",
+        "scores_sha256": "22e4c00cfcc36c042b306631a72dd40dce0dc60e707c914517b7ce687552583b",
+        "audit_code_sha256": "32f89c0ce56250a4d2d3c8e2799d219caa3f2044fa0c1500baf191ec810048ce"
+      },
+      "verification": "Saved-score/count replay; original point-set invariants are read from prediction.json, not rescanned."
+    },
+    {
+      "schema": 2,
+      "posthoc": true,
+      "eligible_for_advancement": false,
+      "scope": "saved_v2_scores_and_exact_union_counts",
+      "official_model_loaded": false,
+      "baseline": {
+        "tp": 596,
+        "fp": 222,
+        "fn": 281,
+        "num_gt": 877,
+        "num_predictions": 860,
+        "ignored_points": 20131977,
+        "f1": 0.7032448377581121,
+        "completeness": 0.6795895096921323,
+        "commission": 0.2713936430317848,
+        "coverage": 0.6512525337608083,
+        "point_precision": 0.7123044232080217,
+        "point_recall": 0.8036695600981618
+      },
+      "refined": {
+        "tp": 589,
+        "fp": 208,
+        "fn": 288,
+        "num_gt": 877,
+        "num_predictions": 839,
+        "ignored_points": 20131977,
+        "f1": 0.7037037037037037,
+        "completeness": 0.6716077537058153,
+        "commission": 0.26097867001254704,
+        "coverage": 0.6443549693062827,
+        "point_precision": 0.7013792776776303,
+        "point_recall": 0.8078014203453283
+      },
+      "accepted_pairs": 51,
+      "lost_gt_ids": [
+        50,
+        51,
+        59,
+        101,
+        153,
+        230,
+        628,
+        847
+      ],
+      "recovered_gt_ids": [
+        375
+      ],
+      "accepted_two_original_tp": 7,
+      "accepted_harmful_pairs_in_isolation": 8,
+      "accepted_beneficial_pairs_in_isolation": 13,
+      "selected_strict_label_counts": {
+        "unlabeled": 35,
+        "keep": 15,
+        "recover": 1
+      },
+      "accepted_keep_label_but_beneficial_in_isolation": 7,
+      "isolated_pair_sum_matches_combined_counts": true,
+      "risk_and_value_by_outcome": {
+        "harmful_in_isolation": {
+          "predicted_risk": {
+            "n": 8,
+            "minimum": 0.004096686840057373,
+            "median": 0.015421248506754637,
+            "maximum": 0.04528365656733513
+          },
+          "predicted_utility": {
+            "n": 8,
+            "minimum": 0.502103328704834,
+            "median": 0.6502701640129089,
+            "maximum": 0.7119174003601074
+          },
+          "score": {
+            "n": 8,
+            "minimum": 1.0552620887756348,
+            "median": 1.2121946811676025,
+            "maximum": 1.329174518585205
+          }
+        },
+        "safe_recovery_in_isolation": {
+          "predicted_risk": {
+            "n": 1,
+            "minimum": 0.002997455419972539,
+            "median": 0.002997455419972539,
+            "maximum": 0.002997455419972539
+          },
+          "predicted_utility": {
+            "n": 1,
+            "minimum": 0.6110731363296509,
+            "median": 0.6110731363296509,
+            "maximum": 0.6110731363296509
+          },
+          "score": {
+            "n": 1,
+            "minimum": 1.16118586063385,
+            "median": 1.16118586063385,
+            "maximum": 1.16118586063385
+          }
+        },
+        "all_accepted": {
+          "predicted_risk": {
+            "n": 51,
+            "minimum": 0.0015062232268974185,
+            "median": 0.012208840809762478,
+            "maximum": 0.0635177493095398
+          },
+          "predicted_utility": {
+            "n": 51,
+            "minimum": 0.4973526895046234,
+            "median": 0.6097004413604736,
+            "maximum": 0.799953818321228
+          },
+          "score": {
+            "n": 51,
+            "minimum": 1.0056054592132568,
+            "median": 1.1637053489685059,
+            "maximum": 1.3816426992416382
+          }
+        }
+      },
+      "harmful_actions": [
+        {
+          "original_ids": [
+            732,
+            744
+          ],
+          "original_matched_gt": [
+            688,
+            101
+          ],
+          "isolated_lost_gt_ids": [
+            101
+          ],
+          "predicted_risk": 0.004096686840057373,
+          "predicted_utility": 0.7119174003601074,
+          "score": 1.329174518585205,
+          "same_tree_label": false
+        },
+        {
+          "original_ids": [
+            472,
+            473
+          ],
+          "original_matched_gt": [
+            769,
+            153
+          ],
+          "isolated_lost_gt_ids": [
+            153
+          ],
+          "predicted_risk": 0.005267876200377941,
+          "predicted_utility": 0.6957095861434937,
+          "score": 1.2856860160827637,
+          "same_tree_label": false
+        },
+        {
+          "original_ids": [
+            1089,
+            1090
+          ],
+          "original_matched_gt": [
+            215,
+            230
+          ],
+          "isolated_lost_gt_ids": [
+            230
+          ],
+          "predicted_risk": 0.024292469024658203,
+          "predicted_utility": 0.6654174327850342,
+          "score": 1.2384870052337646,
+          "same_tree_label": false
+        },
+        {
+          "original_ids": [
+            308,
+            309
+          ],
+          "original_matched_gt": [
+            51,
+            436
+          ],
+          "isolated_lost_gt_ids": [
+            51
+          ],
+          "predicted_risk": 0.03585205599665642,
+          "predicted_utility": 0.6730819344520569,
+          "score": 1.2159802913665771,
+          "same_tree_label": false
+        },
+        {
+          "original_ids": [
+            973,
+            974
+          ],
+          "original_matched_gt": [
+            59,
+            660
+          ],
+          "isolated_lost_gt_ids": [
+            59
+          ],
+          "predicted_risk": 0.01706964522600174,
+          "predicted_utility": 0.6138646602630615,
+          "score": 1.208409070968628,
+          "same_tree_label": false
+        },
+        {
+          "original_ids": [
+            1149,
+            1150
+          ],
+          "original_matched_gt": [
+            482,
+            847
+          ],
+          "isolated_lost_gt_ids": [
+            847
+          ],
+          "predicted_risk": 0.013772851787507534,
+          "predicted_utility": 0.6351228952407837,
+          "score": 1.1637053489685059,
+          "same_tree_label": false
+        },
+        {
+          "original_ids": [
+            197,
+            198
+          ],
+          "original_matched_gt": [
+            50,
+            0
+          ],
+          "isolated_lost_gt_ids": [
+            50
+          ],
+          "predicted_risk": 0.008650521747767925,
+          "predicted_utility": 0.5450080633163452,
+          "score": 1.126973271369934,
+          "same_tree_label": false
+        },
+        {
+          "original_ids": [
+            1072,
+            1073
+          ],
+          "original_matched_gt": [
+            836,
+            628
+          ],
+          "isolated_lost_gt_ids": [
+            628
+          ],
+          "predicted_risk": 0.04528365656733513,
+          "predicted_utility": 0.502103328704834,
+          "score": 1.0552620887756348,
+          "same_tree_label": false
+        }
+      ],
+      "watched_cases": [
+        {
+          "gt_id": 259,
+          "case_pair_in_candidates": true,
+          "decision": "below_threshold",
+          "score": 0.6966448426246643,
+          "isolated_lost_gt_ids": [],
+          "isolated_recovered_gt_ids": [
+            259
+          ]
+        },
+        {
+          "gt_id": 375,
+          "case_pair_in_candidates": true,
+          "decision": "accepted",
+          "score": 1.16118586063385,
+          "isolated_lost_gt_ids": [],
+          "isolated_recovered_gt_ids": [
+            375
+          ]
+        },
+        {
+          "gt_id": 419,
+          "case_pair_in_candidates": true,
+          "decision": "below_threshold",
+          "score": -1.8793214559555054,
+          "isolated_lost_gt_ids": [],
+          "isolated_recovered_gt_ids": [
+            419
+          ]
+        },
+        {
+          "gt_id": 629,
+          "case_pair_in_candidates": true,
+          "decision": "below_threshold",
+          "score": 0.6092157363891602,
+          "isolated_lost_gt_ids": [],
+          "isolated_recovered_gt_ids": [
+            629
+          ]
+        },
+        {
+          "gt_id": 720,
+          "case_pair_in_candidates": true,
+          "decision": "below_threshold",
+          "score": -2.288642644882202,
+          "isolated_lost_gt_ids": [],
+          "isolated_recovered_gt_ids": [
+            720
+          ]
+        },
+        {
+          "gt_id": 801,
+          "case_pair_in_candidates": true,
+          "decision": "below_threshold",
+          "score": -1.738887071609497,
+          "isolated_lost_gt_ids": [],
+          "isolated_recovered_gt_ids": [
+            801
+          ]
+        }
+      ],
+      "plot": "wytham_vox0.1",
+      "checkpoint_step": 1000,
+      "threshold": 1.0,
+      "provenance": {
+        "prediction_marker_sha256": "803a5cbcbffd6bfe32ce735dd3b9b2e724a4fe2cd10b5537038493946015ac8b",
+        "scores_sha256": "48572e8d9934d3e07ea070e5d525cf0b43a5a17e403ae793356125168f746d91",
+        "audit_code_sha256": "32f89c0ce56250a4d2d3c8e2799d219caa3f2044fa0c1500baf191ec810048ce"
+      },
+      "verification": "Saved-score/count replay; original point-set invariants are read from prediction.json, not rescanned."
+    }
+  ],
+  "source_calibration_history": [
+    {
+      "step": 500,
+      "threshold": 0.75,
+      "f1": 0.8846416588512426,
+      "lost": 0,
+      "recovered": 1,
+      "accepted_pairs": 8,
+      "recovery_classifier": {
+        "tp": 0,
+        "fp": 52,
+        "fn": 12,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "selected_label_counts": {
+        "keep": 6,
+        "recover": 0,
+        "complete": 2
+      }
+    },
+    {
+      "step": 1000,
+      "threshold": 1.0,
+      "f1": 0.887796697944242,
+      "lost": 0,
+      "recovered": 4,
+      "accepted_pairs": 24,
+      "recovery_classifier": {
+        "tp": 6,
+        "fp": 115,
+        "fn": 6,
+        "precision": 0.049586776859504134,
+        "recall": 0.5
+      },
+      "selected_label_counts": {
+        "keep": 19,
+        "recover": 3,
+        "complete": 2
+      }
+    },
+    {
+      "step": 1500,
+      "threshold": 0.5,
+      "f1": 0.8855342813993842,
+      "lost": 0,
+      "recovered": 2,
+      "accepted_pairs": 12,
+      "recovery_classifier": {
+        "tp": 2,
+        "fp": 27,
+        "fn": 10,
+        "precision": 0.06896551724137931,
+        "recall": 0.16666666666666666
+      },
+      "selected_label_counts": {
+        "keep": 8,
+        "recover": 1,
+        "complete": 3
+      }
+    },
+    {
+      "step": 2000,
+      "threshold": 0.75,
+      "f1": 0.8878336556852601,
+      "lost": 0,
+      "recovered": 3,
+      "accepted_pairs": 32,
+      "recovery_classifier": {
+        "tp": 3,
+        "fp": 105,
+        "fn": 9,
+        "precision": 0.027777777777777776,
+        "recall": 0.25
+      },
+      "selected_label_counts": {
+        "keep": 23,
+        "recover": 2,
+        "complete": 7
+      }
+    },
+    {
+      "step": 2500,
+      "threshold": 1.0,
+      "f1": 0.8836596116786636,
+      "lost": 0,
+      "recovered": 1,
+      "accepted_pairs": 7,
+      "recovery_classifier": {
+        "tp": 1,
+        "fp": 83,
+        "fn": 11,
+        "precision": 0.011904761904761904,
+        "recall": 0.08333333333333333
+      },
+      "selected_label_counts": {
+        "keep": 6,
+        "recover": 0,
+        "complete": 1
+      }
+    },
+    {
+      "step": 3000,
+      "threshold": 1.25,
+      "f1": 0.8831237600831233,
+      "lost": 0,
+      "recovered": 1,
+      "accepted_pairs": 3,
+      "recovery_classifier": {
+        "tp": 2,
+        "fp": 40,
+        "fn": 10,
+        "precision": 0.047619047619047616,
+        "recall": 0.16666666666666666
+      },
+      "selected_label_counts": {
+        "keep": 2,
+        "recover": 0,
+        "complete": 1
+      }
+    },
+    {
+      "step": 3500,
+      "threshold": 1.0,
+      "f1": 0.8847425565116083,
+      "lost": 0,
+      "recovered": 1,
+      "accepted_pairs": 22,
+      "recovery_classifier": {
+        "tp": 1,
+        "fp": 88,
+        "fn": 11,
+        "precision": 0.011235955056179775,
+        "recall": 0.08333333333333333
+      },
+      "selected_label_counts": {
+        "keep": 20,
+        "recover": 0,
+        "complete": 2
+      }
+    },
+    {
+      "step": 4000,
+      "threshold": 0.5,
+      "f1": 0.8851684831155454,
+      "lost": 0,
+      "recovered": 2,
+      "accepted_pairs": 14,
+      "recovery_classifier": {
+        "tp": 1,
+        "fp": 19,
+        "fn": 11,
+        "precision": 0.05,
+        "recall": 0.08333333333333333
+      },
+      "selected_label_counts": {
+        "keep": 11,
+        "recover": 1,
+        "complete": 2
+      }
+    }
+  ],
+  "notes": [
+    "No model, forward pass, training, full-forest scan or policy change.",
+    "Pair classifier TP/FP are not tree-instance TP/FP.",
+    "Strict keep labels do not imply every selected pair is harmful; inspect exact action effects.",
+    "Isolated action effects can differ from combined effects under global Hungarian matching.",
+    "Watched pairs are GT-selected posthoc examples, not a deployable decision rule."
+  ]
+}
