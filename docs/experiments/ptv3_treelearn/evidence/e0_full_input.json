@@ -1,0 +1,184 @@
+{
+  "experiment_manifest": {
+    "config_sha256": "b1f23f8aa78c5fd8c1821dad3091db72307460b01f79e1c8c2ae7992020afa5f",
+    "data_sha256": "9ab209f15296071d2aa5668af29fa26002e521a821fc54bf5398fe14abb528a1",
+    "plan_sha256": "577172592cf2aeb7caaea191b8129f62346f3476699581bf96f07769fa5146c3",
+    "seed": 42,
+    "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+    "environment_sha256": "6b7dc30f19fd05d4cbb4f630e085084c459516678f06a49a0ab256fb48e13cbf",
+    "effective_batch_size": 2,
+    "updates_per_epoch": 250,
+    "total_updates": 250000,
+    "phase": "smoke",
+    "unverified_smoke": true,
+    "config": {
+      "model": {
+        "kernel_size": 3,
+        "channels": 32,
+        "num_blocks": 7,
+        "use_feats": false,
+        "use_coords": false,
+        "dim_coord": 3,
+        "dim_feat": 1,
+        "max_num_points_per_voxel": 3,
+        "fixed_modules": [],
+        "spatial_shape": [
+          500,
+          500,
+          1000
+        ],
+        "voxel_size": 0.1
+      },
+      "dataloader": {
+        "train": {
+          "batch_size": 2,
+          "num_workers": 2
+        },
+        "test": {
+          "batch_size": 1,
+          "num_workers": 1
+        }
+      },
+      "optimizer": {
+        "type": "AdamW",
+        "lr": 0.003,
+        "weight_decay": 0.001
+      },
+      "scheduler": {
+        "t_initial": 1000,
+        "lr_min": 5e-05,
+        "cycle_decay": 1,
+        "warmup_lr_init": 1e-05,
+        "warmup_t": 50,
+        "cycle_limit": 1,
+        "t_in_epochs": true
+      },
+      "epochs": 1000,
+      "examples_per_epoch": 500,
+      "fp16": true,
+      "pretrain": null,
+      "grad_norm_clip": true,
+      "save_frequency": 20,
+      "validation_frequency": 20,
+      "dataset_train": {
+        "training": true,
+        "data_root": "data/experiments/ptv3_treelearn/v1/random_crops/npz",
+        "data_augmentations": {
+          "jitter": true,
+          "flip": true,
+          "rot": true,
+          "scaled": true,
+          "point_jitter": true
+        },
+        "inner_square_edge_length": 8
+      },
+      "experiment": {
+        "group": "E0-scratch",
+        "protocol": "main-backbone-only-v1",
+        "variant": "main-budget-full-crop",
+        "accumulation_steps": 1,
+        "maximum_points": null,
+        "supported_seeds": [
+          42,
+          43,
+          44
+        ],
+        "crop_manifest": "data/experiments/ptv3_treelearn/v1/crop_manifest.json",
+        "sample_plan": "data/experiments/ptv3_treelearn/plans/s{seed}.npz",
+        "checkpoint_selection": "fixed_final",
+        "external_evaluation_role": "cross-domain development; never training/model selection",
+        "amp_init_scale": 1024.0
+      }
+    },
+    "git": {
+      "commit": "29c70bdd35b727a03053aa8fd92757cdd3053656",
+      "branch": "codex/ptv3-treelearn-baseline",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "?? docs/experiments/ptv3_treelearn/implementation_report_zh.md"
+    },
+    "fairness_sha256": "c046b49d424057f2ae1b3c04189570cd4846a3dd4df72d08071fdf3debec9660",
+    "initialization_report_sha256": null,
+    "parameter_count": 30106981,
+    "checkpoint_selection": "fixed full-budget final checkpoint; no L1W/Wytham selection",
+    "validation_policy": "held-out evaluation callbacks disabled; original frequency is retained only as configuration provenance",
+    "voxel_policy": {
+      "deterministic_voxels": false,
+      "cover_input_spatial_shape": false
+    },
+    "training_adaptations": [
+      "separate data RNG and frozen sample plan",
+      "unscale AMP gradients before clip(max_norm=1)",
+      "common AMP initial scale 1024; GradScaler may reject overflow steps and this is logged",
+      "save scheduler/scaler/RNG/data cursor and hashes",
+      "no evaluation-set validation/early stopping"
+    ],
+    "batchnorm_caveat": null
+  },
+  "monitoring": {
+    "update": 1,
+    "epoch": 1,
+    "semantic_loss": 34.415687561035156,
+    "offset_loss": 20.453012466430664,
+    "lr": 6.98e-05,
+    "gradient_norm": 55.042868446345885,
+    "seconds": 32.159146507270634,
+    "amp_scale": 1024.0,
+    "optimizer_step_skipped": false,
+    "data_and_digest_seconds": 1.0206330083310604,
+    "update_wall_seconds": 33.17978630028665,
+    "semantic_head_bias_delta_l2": 9.871210932033136e-05,
+    "semantic_points": 159555,
+    "offset_points": 141906,
+    "sample_digests": [
+      "93bb1ffd3b9275f2e1e095895cf6a1bb16b8a78fecfee1a84bd3808158368432"
+    ],
+    "points": 2121466,
+    "sampling_audit": [
+      {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/random_crops/npz/G1N_0.npz",
+        "augmentation_seed": 1608637542,
+        "points_before": 1060733,
+        "points_after": 1060733,
+        "instances_before": 52,
+        "instances_after": 52,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          40.25969148256607,
+          41.98441940910598,
+          37.79384307230669
+        ],
+        "xyz_extent_after": [
+          40.25969148256607,
+          41.98441940910598,
+          37.79384307230669
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      },
+      {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/train/random_crops/npz/G1N_0.npz",
+        "augmentation_seed": 3421126067,
+        "points_before": 1060733,
+        "points_after": 1060733,
+        "instances_before": 52,
+        "instances_after": 52,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          38.42956885329155,
+          46.113356824207486,
+          38.61246278285569
+        ],
+        "xyz_extent_after": [
+          38.42956885329155,
+          46.113356824207486,
+          38.61246278285569
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      }
+    ],
+    "grid_support": [
+      null
+    ],
+    "peak_allocated_bytes": 8928134144,
+    "peak_reserved_bytes": 10382999552
+  }
+}

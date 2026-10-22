@@ -1,0 +1,34 @@
+{
+  "input": "data/source/train/random_crops/npz/G2W_348.npz",
+  "input_sha256": "f0785a67b032a4faf11d01ef27ff89fe256f7d27a96dfe862b608b67efade8b0",
+  "points": 2717262,
+  "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+  "git": {
+    "commit": "29c70bdd35b727a03053aa8fd92757cdd3053656",
+    "branch": "codex/ptv3-treelearn-baseline",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "?? docs/experiments/ptv3_treelearn/evidence/final_pipeline.json\n?? docs/experiments/ptv3_treelearn/implementation_report_zh.md"
+  },
+  "precision": "main inference FP32; upstream FlashAttention internally FP16",
+  "training": false,
+  "point_cap": null,
+  "status": "pass",
+  "outputs": {
+    "backbone_feats": [
+      2717262,
+      64
+    ],
+    "semantic_prediction_logits": [
+      2717262,
+      2
+    ],
+    "offset_predictions": [
+      2717262,
+      3
+    ]
+  },
+  "finite_predictions": true,
+  "seconds": 1.7996250037103891,
+  "peak_allocated_bytes": 9139730432,
+  "peak_reserved_bytes": 16357785600
+}

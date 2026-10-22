@@ -1,0 +1,400 @@
+{
+  "role": "27822-point A1N patch, 2 visible instances; engineering smoke only",
+  "groups": {
+    "e0_scratch": {
+      "status": "pass",
+      "pipeline_seconds": 2.6469227662310004,
+      "peak_allocated_bytes": 209924096,
+      "peak_reserved_bytes": 232783872,
+      "peak_host_process_rss_bytes": 1275416576,
+      "git": {
+        "commit": "29c70bdd35b727a03053aa8fd92757cdd3053656",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+      "config_sha256": "f28fcdf5b5df884dcf29bf8b9e697cc923f781889f2ff10f8971d57c1707dffa",
+      "forest_sha256": "47a875046c25c83490063ea1c4f94841be98986c0008fed9db86751e1158656f",
+      "checkpoint_sha256": "7d622c28efbdcdb1c843227f9a6f51c882e473b66ce285e667f1355ea0881bf1",
+      "streamed_tiles": true,
+      "saved_backbone_features": false,
+      "metrics": {
+        "TP": 0,
+        "FP": 15,
+        "FN": 2,
+        "detection_precision": 0.0,
+        "metric_units": "fractions 0..1",
+        "detection_recall": 0.0,
+        "detection_f1": 0.0,
+        "completeness": 0.0,
+        "omission": 1.0,
+        "commission": 1.0,
+        "coverage": 0.14964989893077607,
+        "segmentation_precision": 0.4931019588970878,
+        "segmentation_recall": 0.6450007179438089,
+        "z_extent_bins_m": {
+          "0_10": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          },
+          "10_20": {
+            "gt": 0,
+            "tp": 0,
+            "fn": 0,
+            "recall": null
+          },
+          "20_inf": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          }
+        },
+        "gt_trees": 2,
+        "predicted_trees": 16,
+        "unknown_prediction_points": 0,
+        "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+        "scale_name": "Z Extent; not ground-normalized tree height"
+      },
+      "diagnostics": {
+        "semantic_tree_recall": 0.8495956357371871,
+        "offset_xy_error_m": 2.177239038440004,
+        "offset_xyz_error_m": 18.862177009314635,
+        "foreground_points": 20447,
+        "seed_points": 9115,
+        "initial_instances": 16,
+        "final_instances": 16,
+        "unassigned_tree_points": 0,
+        "gt_alignment_distance_quantiles_m": [
+          0.003342576988957443,
+          0.005578212980124904,
+          0.045359447610031335,
+          0.08237267499700908
+        ],
+        "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+        "pointwise_sha256": "bd3e0f307e90600c6bce0ecc00bf66470cf09b823d25c75d673f277697ab5719",
+        "gt_sha256": "2c237dbbce8a9ed4a04e96659f582329cb0de96b82ba17974db52d51f8e35a03",
+        "role": "evaluation diagnostics only"
+      }
+    },
+    "e0_main_hais": {
+      "status": "pass",
+      "pipeline_seconds": 2.543050052598119,
+      "peak_allocated_bytes": 209924096,
+      "peak_reserved_bytes": 232783872,
+      "peak_host_process_rss_bytes": 1271640064,
+      "git": {
+        "commit": "29c70bdd35b727a03053aa8fd92757cdd3053656",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+      "config_sha256": "8dfd0f99daae89a7330d3e83db7df7196e6e788525f580309c2e9965b3fd3915",
+      "forest_sha256": "47a875046c25c83490063ea1c4f94841be98986c0008fed9db86751e1158656f",
+      "checkpoint_sha256": "5338d1eeb8b4207e3e8f3a7152173d96e99260450dcecdb899b2e33fa44e16de",
+      "streamed_tiles": true,
+      "saved_backbone_features": false,
+      "metrics": {
+        "TP": 0,
+        "FP": 10,
+        "FN": 2,
+        "detection_precision": 0.0,
+        "metric_units": "fractions 0..1",
+        "detection_recall": 0.0,
+        "detection_f1": 0.0,
+        "completeness": 0.0,
+        "omission": 1.0,
+        "commission": 1.0,
+        "coverage": 0.13734555143160898,
+        "segmentation_precision": 0.5151515151515151,
+        "segmentation_recall": 0.6221940362800938,
+        "z_extent_bins_m": {
+          "0_10": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          },
+          "10_20": {
+            "gt": 0,
+            "tp": 0,
+            "fn": 0,
+            "recall": null
+          },
+          "20_inf": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          }
+        },
+        "gt_trees": 2,
+        "predicted_trees": 11,
+        "unknown_prediction_points": 0,
+        "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+        "scale_name": "Z Extent; not ground-normalized tree height"
+      },
+      "diagnostics": {
+        "semantic_tree_recall": 0.5700339761688281,
+        "offset_xy_error_m": 2.008511813012321,
+        "offset_xyz_error_m": 18.98502815201101,
+        "foreground_points": 13679,
+        "seed_points": 7045,
+        "initial_instances": 11,
+        "final_instances": 11,
+        "unassigned_tree_points": 0,
+        "gt_alignment_distance_quantiles_m": [
+          0.003342576988957443,
+          0.005578212980124904,
+          0.045359447610031335,
+          0.08237267499700908
+        ],
+        "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+        "pointwise_sha256": "207d3f65bd7dde741b94e333e3715a349efc6eb86af2d638e677d88ad1998eca",
+        "gt_sha256": "2c237dbbce8a9ed4a04e96659f582329cb0de96b82ba17974db52d51f8e35a03",
+        "role": "evaluation diagnostics only"
+      }
+    },
+    "e1_ptv3": {
+      "status": "pass",
+      "pipeline_seconds": 3.0700720325112343,
+      "peak_allocated_bytes": 330771968,
+      "peak_reserved_bytes": 448790528,
+      "peak_host_process_rss_bytes": 1475497984,
+      "git": {
+        "commit": "29c70bdd35b727a03053aa8fd92757cdd3053656",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+      "config_sha256": "25f07fea972f3c8d0bb6544713c8d3b6d7e30f87baed9908872d1ee1734f3022",
+      "forest_sha256": "47a875046c25c83490063ea1c4f94841be98986c0008fed9db86751e1158656f",
+      "checkpoint_sha256": "53a80f88d52f48531a47c70faee5ff5e2a77c13dc80259fd6fd406cb3c65a15a",
+      "streamed_tiles": true,
+      "saved_backbone_features": false,
+      "metrics": {
+        "TP": 0,
+        "FP": 1,
+        "FN": 2,
+        "detection_precision": 0.0,
+        "metric_units": "fractions 0..1",
+        "detection_recall": 0.0,
+        "detection_f1": 0.0,
+        "completeness": 0.0,
+        "omission": 1.0,
+        "commission": 1.0,
+        "coverage": 0.016453819294972975,
+        "segmentation_precision": 0.49002849002849,
+        "segmentation_recall": 0.016464844684822667,
+        "z_extent_bins_m": {
+          "0_10": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          },
+          "10_20": {
+            "gt": 0,
+            "tp": 0,
+            "fn": 0,
+            "recall": null
+          },
+          "20_inf": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          }
+        },
+        "gt_trees": 2,
+        "predicted_trees": 2,
+        "unknown_prediction_points": 0,
+        "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+        "scale_name": "Z Extent; not ground-normalized tree height"
+      },
+      "diagnostics": {
+        "semantic_tree_recall": 0.0662774560941762,
+        "offset_xy_error_m": 2.1897943264774846,
+        "offset_xyz_error_m": 18.946728977131546,
+        "foreground_points": 1368,
+        "seed_points": 894,
+        "initial_instances": 2,
+        "final_instances": 2,
+        "unassigned_tree_points": 0,
+        "gt_alignment_distance_quantiles_m": [
+          0.003342576988957443,
+          0.005578212980124904,
+          0.045359447610031335,
+          0.08237267499700908
+        ],
+        "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+        "pointwise_sha256": "7320ae028d364a01a0fdd7e922065d122c3a05db1cf86c8f4d3c42e02e47814e",
+        "gt_sha256": "2c237dbbce8a9ed4a04e96659f582329cb0de96b82ba17974db52d51f8e35a03",
+        "role": "evaluation diagnostics only"
+      }
+    },
+    "e2_default": {
+      "status": "pass",
+      "pipeline_seconds": 2.2247083885595202,
+      "peak_allocated_bytes": 209523200,
+      "peak_reserved_bytes": 230686720,
+      "peak_host_process_rss_bytes": 1193349120,
+      "git": {
+        "commit": "29c70bdd35b727a03053aa8fd92757cdd3053656",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+      "config_sha256": "0a7ecf4b659e0204e260f276f0497992d1664cbb2da192cf22e316cc0339ea7e",
+      "forest_sha256": "47a875046c25c83490063ea1c4f94841be98986c0008fed9db86751e1158656f",
+      "checkpoint_sha256": "5df2f92828f92755bc12e114eaebe83f7ecea94a74c25a6170b68844cc5e19bb",
+      "streamed_tiles": true,
+      "saved_backbone_features": false,
+      "metrics": {
+        "TP": 1,
+        "FP": 1,
+        "FN": 1,
+        "detection_precision": 0.5,
+        "metric_units": "fractions 0..1",
+        "detection_recall": 0.5,
+        "detection_f1": 0.5,
+        "completeness": 0.5,
+        "omission": 0.5,
+        "commission": 0.5,
+        "coverage": 0.2724222424234972,
+        "segmentation_precision": 0.4983393060047199,
+        "segmentation_recall": 0.7727947159335662,
+        "z_extent_bins_m": {
+          "0_10": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          },
+          "10_20": {
+            "gt": 0,
+            "tp": 0,
+            "fn": 0,
+            "recall": null
+          },
+          "20_inf": {
+            "gt": 1,
+            "tp": 1,
+            "fn": 0,
+            "recall": 1.0
+          }
+        },
+        "gt_trees": 2,
+        "predicted_trees": 2,
+        "unknown_prediction_points": 0,
+        "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+        "scale_name": "Z Extent; not ground-normalized tree height"
+      },
+      "diagnostics": {
+        "semantic_tree_recall": 0.9991386323395702,
+        "offset_xy_error_m": 6.672280641953945,
+        "offset_xyz_error_m": 8.932740550980236,
+        "foreground_points": 24875,
+        "seed_points": 562,
+        "initial_instances": 2,
+        "final_instances": 2,
+        "unassigned_tree_points": 0,
+        "gt_alignment_distance_quantiles_m": [
+          0.003342576988957443,
+          0.005578212980124904,
+          0.045359447610031335,
+          0.08237267499700908
+        ],
+        "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+        "pointwise_sha256": "16b238c3acc43760658248db7cb9136e23455cb25cdd0c2f9a85f67d882df679",
+        "gt_sha256": "2c237dbbce8a9ed4a04e96659f582329cb0de96b82ba17974db52d51f8e35a03",
+        "role": "evaluation diagnostics only"
+      }
+    },
+    "e2_small": {
+      "status": "pass",
+      "pipeline_seconds": 1.566034653224051,
+      "peak_allocated_bytes": 209523200,
+      "peak_reserved_bytes": 230686720,
+      "peak_host_process_rss_bytes": 1214406656,
+      "git": {
+        "commit": "29c70bdd35b727a03053aa8fd92757cdd3053656",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "code_sha256": "cdda8c80992985dfeb8ee56f3aed917977d1f647780cafa1874527ab2e97c612",
+      "config_sha256": "afc0512ebd54699c3f00f0c802324e6d4c82420368b1d76220775a314280a74a",
+      "forest_sha256": "47a875046c25c83490063ea1c4f94841be98986c0008fed9db86751e1158656f",
+      "checkpoint_sha256": "513c98d44b5252bb215599b52cdc7a521ac376621738529ac79d0936b24ce1c6",
+      "streamed_tiles": true,
+      "saved_backbone_features": false,
+      "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 2,
+        "detection_precision": 0.0,
+        "metric_units": "fractions 0..1",
+        "detection_recall": 0.0,
+        "detection_f1": 0.0,
+        "completeness": 0.0,
+        "omission": 1.0,
+        "commission": null,
+        "coverage": 0.0,
+        "segmentation_precision": 0.0,
+        "segmentation_recall": 0.0,
+        "z_extent_bins_m": {
+          "0_10": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          },
+          "10_20": {
+            "gt": 0,
+            "tp": 0,
+            "fn": 0,
+            "recall": null
+          },
+          "20_inf": {
+            "gt": 1,
+            "tp": 0,
+            "fn": 1,
+            "recall": 0.0
+          }
+        },
+        "gt_trees": 2,
+        "predicted_trees": 0,
+        "unknown_prediction_points": 27521,
+        "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+        "scale_name": "Z Extent; not ground-normalized tree height"
+      },
+      "diagnostics": {
+        "semantic_tree_recall": 0.9985643872326171,
+        "offset_xy_error_m": 4.7608037129979,
+        "offset_xyz_error_m": 7.0750854698920325,
+        "foreground_points": 24656,
+        "seed_points": 403,
+        "initial_instances": 0,
+        "final_instances": 0,
+        "unassigned_tree_points": 24656,
+        "gt_alignment_distance_quantiles_m": [
+          0.003342576988957443,
+          0.005578212980124904,
+          0.045359447610031335,
+          0.08237267499700908
+        ],
+        "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+        "pointwise_sha256": "f653d9b89cbab8ba58f6cbb935aab4265d6308c8f4eb819e1612d22dc5809806",
+        "gt_sha256": "2c237dbbce8a9ed4a04e96659f582329cb0de96b82ba17974db52d51f8e35a03",
+        "role": "evaluation diagnostics only"
+      }
+    }
+  }
+}
