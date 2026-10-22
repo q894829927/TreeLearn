@@ -1,0 +1,5263 @@
+{
+  "schema": 1,
+  "signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "protocol": "aligned_voxels_ignore_negative_gt_iou_gt_0.5",
+  "stage": "E0",
+  "model_executed": false,
+  "predictions_modified": false,
+  "gate": {
+    "reliable_train": 11,
+    "reliable_train_forests": 6,
+    "recoverable_validation": 6,
+    "passed": true
+  },
+  "forests": [
+    {
+      "plot": "A1N",
+      "split": "train",
+      "baseline": {
+        "tp": 386,
+        "fp": 113,
+        "fn": 80,
+        "num_gt": 466,
+        "num_predictions": 641,
+        "ignored_points": 0,
+        "f1": 0.8,
+        "completeness": 0.8283261802575107,
+        "commission": 0.22645290581162325,
+        "coverage": 0.7707629370148603,
+        "point_precision": 0.8523910561893255,
+        "point_recall": 0.892265510678142
+      },
+      "num_parents": 641,
+      "num_candidates": 18,
+      "reasons": {
+        "no_seeds": 592,
+        "candidate": 18,
+        "third_stable_support": 30,
+        "small_core": 1
+      },
+      "entrances": {
+        "votes": 11,
+        "geometry": 7
+      },
+      "reliable": 4,
+      "recoverable_candidates": 4,
+      "selected_original_tp": 7,
+      "reliable_original_tp": 2,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/A1N/labels.npy",
+        "size": 130392696,
+        "mtime_ns": 1792077630417726062
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 480,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 267,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 50,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1451,
+          "graph_edges": 13134,
+          "components": 11,
+          "seedless_points": 63,
+          "same_edges": 41,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 324,
+              "ignored_points": 0,
+              "dominant_gt_id": 228,
+              "purity": 1.0
+            },
+            {
+              "known_points": 163,
+              "ignored_points": 0,
+              "dominant_gt_id": 247,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 69,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [
+            228,
+            247
+          ],
+          "core_points": 17253,
+          "graph_edges": 161193,
+          "components": 49,
+          "seedless_points": 327,
+          "same_edges": 157788,
+          "different_edges": 1051
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 109,
+              "ignored_points": 0,
+              "dominant_gt_id": 41,
+              "purity": 1.0
+            },
+            {
+              "known_points": 167,
+              "ignored_points": 0,
+              "dominant_gt_id": 80,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 116,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            80
+          ],
+          "core_points": 28536,
+          "graph_edges": 250693,
+          "components": 68,
+          "seedless_points": 387,
+          "same_edges": 247037,
+          "different_edges": 1836
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 283,
+              "ignored_points": 0,
+              "dominant_gt_id": 57,
+              "purity": 1.0
+            },
+            {
+              "known_points": 186,
+              "ignored_points": 0,
+              "dominant_gt_id": 57,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 251,
+          "entrance": "geometry",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 26997,
+          "graph_edges": 246413,
+          "components": 22,
+          "seedless_points": 117,
+          "same_edges": 244312,
+          "different_edges": 1925
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 142,
+              "ignored_points": 0,
+              "dominant_gt_id": 266,
+              "purity": 1.0
+            },
+            {
+              "known_points": 300,
+              "ignored_points": 0,
+              "dominant_gt_id": 266,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 365,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 14893,
+          "graph_edges": 136653,
+          "components": 129,
+          "seedless_points": 3733,
+          "same_edges": 127706,
+          "different_edges": 1256
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 353,
+              "ignored_points": 0,
+              "dominant_gt_id": 364,
+              "purity": 0.9830028328611898
+            },
+            {
+              "known_points": 98,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 372,
+          "entrance": "geometry",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 45631,
+          "graph_edges": 443048,
+          "components": 3,
+          "seedless_points": 0,
+          "same_edges": 435446,
+          "different_edges": 5620
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 682,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 213,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 382,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 3359,
+          "graph_edges": 31019,
+          "components": 19,
+          "seedless_points": 316,
+          "same_edges": 839,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 81,
+              "ignored_points": 0,
+              "dominant_gt_id": 390,
+              "purity": 0.8518518518518519
+            },
+            {
+              "known_points": 171,
+              "ignored_points": 0,
+              "dominant_gt_id": 397,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 431,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 10043,
+          "graph_edges": 88444,
+          "components": 34,
+          "seedless_points": 1530,
+          "same_edges": 86438,
+          "different_edges": 431
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 222,
+              "ignored_points": 0,
+              "dominant_gt_id": 304,
+              "purity": 0.990990990990991
+            },
+            {
+              "known_points": 153,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 440,
+          "entrance": "geometry",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 16536,
+          "graph_edges": 162419,
+          "components": 9,
+          "seedless_points": 20,
+          "same_edges": 154708,
+          "different_edges": 6217
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 109,
+              "ignored_points": 0,
+              "dominant_gt_id": 73,
+              "purity": 1.0
+            },
+            {
+              "known_points": 65,
+              "ignored_points": 0,
+              "dominant_gt_id": 63,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 450,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [
+            63,
+            73
+          ],
+          "core_points": 11204,
+          "graph_edges": 91536,
+          "components": 188,
+          "seedless_points": 1729,
+          "same_edges": 81927,
+          "different_edges": 1419
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 285,
+              "ignored_points": 0,
+              "dominant_gt_id": 58,
+              "purity": 1.0
+            },
+            {
+              "known_points": 80,
+              "ignored_points": 0,
+              "dominant_gt_id": 58,
+              "purity": 0.075
+            }
+          ],
+          "reliable": false,
+          "parent_id": 462,
+          "entrance": "geometry",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 14226,
+          "graph_edges": 126808,
+          "components": 82,
+          "seedless_points": 259,
+          "same_edges": 124835,
+          "different_edges": 917
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 137,
+              "ignored_points": 0,
+              "dominant_gt_id": 357,
+              "purity": 0.145985401459854
+            },
+            {
+              "known_points": 63,
+              "ignored_points": 0,
+              "dominant_gt_id": 357,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 468,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1613,
+          "graph_edges": 13865,
+          "components": 11,
+          "seedless_points": 27,
+          "same_edges": 9674,
+          "different_edges": 381
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 555,
+              "ignored_points": 0,
+              "dominant_gt_id": 291,
+              "purity": 0.47387387387387386
+            },
+            {
+              "known_points": 266,
+              "ignored_points": 0,
+              "dominant_gt_id": 302,
+              "purity": 0.9586466165413534
+            }
+          ],
+          "reliable": false,
+          "parent_id": 486,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 4309,
+          "graph_edges": 41090,
+          "components": 3,
+          "seedless_points": 100,
+          "same_edges": 38272,
+          "different_edges": 2213
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 322,
+              "ignored_points": 0,
+              "dominant_gt_id": 125,
+              "purity": 1.0
+            },
+            {
+              "known_points": 59,
+              "ignored_points": 0,
+              "dominant_gt_id": 125,
+              "purity": 0.3559322033898305
+            }
+          ],
+          "reliable": false,
+          "parent_id": 529,
+          "entrance": "geometry",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 14481,
+          "graph_edges": 136899,
+          "components": 10,
+          "seedless_points": 18,
+          "same_edges": 133184,
+          "different_edges": 3434
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 209,
+              "ignored_points": 0,
+              "dominant_gt_id": 458,
+              "purity": 0.44019138755980863
+            },
+            {
+              "known_points": 210,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 538,
+          "entrance": "geometry",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 5616,
+          "graph_edges": 41089,
+          "components": 139,
+          "seedless_points": 308,
+          "same_edges": 38014,
+          "different_edges": 438
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 69,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 41,
+              "ignored_points": 0,
+              "dominant_gt_id": 130,
+              "purity": 0.12195121951219512
+            }
+          ],
+          "reliable": false,
+          "parent_id": 555,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 463,
+          "graph_edges": 3516,
+          "components": 17,
+          "seedless_points": 20,
+          "same_edges": 1595,
+          "different_edges": 179
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 1084,
+              "ignored_points": 0,
+              "dominant_gt_id": 144,
+              "purity": 0.9972324723247232
+            },
+            {
+              "known_points": 54,
+              "ignored_points": 0,
+              "dominant_gt_id": 142,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 575,
+          "entrance": "votes",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            142
+          ],
+          "core_points": 46739,
+          "graph_edges": 439434,
+          "components": 28,
+          "seedless_points": 1449,
+          "same_edges": 436463,
+          "different_edges": 2950
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 130,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 66,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 619,
+          "entrance": "geometry",
+          "plot": "A1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 277,
+          "graph_edges": 2070,
+          "components": 18,
+          "seedless_points": 24,
+          "same_edges": 10,
+          "different_edges": 1
+        }
+      ]
+    },
+    {
+      "plot": "A1W",
+      "split": "train",
+      "baseline": {
+        "tp": 483,
+        "fp": 93,
+        "fn": 28,
+        "num_gt": 511,
+        "num_predictions": 651,
+        "ignored_points": 0,
+        "f1": 0.8886844526218951,
+        "completeness": 0.9452054794520548,
+        "commission": 0.16145833333333334,
+        "coverage": 0.8176002463249348,
+        "point_precision": 0.9135830693827635,
+        "point_recall": 0.884385711768724
+      },
+      "num_parents": 651,
+      "num_candidates": 4,
+      "reasons": {
+        "no_seeds": 640,
+        "candidate": 4,
+        "small_core": 2,
+        "third_stable_support": 5
+      },
+      "entrances": {
+        "geometry": 2,
+        "votes": 2
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 1,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/A1W/labels.npy",
+        "size": 127225808,
+        "mtime_ns": 1792080154321738612
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 191,
+              "ignored_points": 0,
+              "dominant_gt_id": 79,
+              "purity": 0.9895287958115183
+            },
+            {
+              "known_points": 540,
+              "ignored_points": 0,
+              "dominant_gt_id": 79,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 23,
+          "entrance": "geometry",
+          "plot": "A1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 44639,
+          "graph_edges": 439132,
+          "components": 1,
+          "seedless_points": 0,
+          "same_edges": 436434,
+          "different_edges": 2220
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 99,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 102,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 101,
+          "entrance": "votes",
+          "plot": "A1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1913,
+          "graph_edges": 18473,
+          "components": 3,
+          "seedless_points": 60,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 224,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 147,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 111,
+          "entrance": "geometry",
+          "plot": "A1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2600,
+          "graph_edges": 23742,
+          "components": 5,
+          "seedless_points": 1690,
+          "same_edges": 14304,
+          "different_edges": 144
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 52,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 281,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 558,
+          "entrance": "votes",
+          "plot": "A1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1422,
+          "graph_edges": 14028,
+          "components": 4,
+          "seedless_points": 3,
+          "same_edges": 0,
+          "different_edges": 0
+        }
+      ]
+    },
+    {
+      "plot": "G1N",
+      "split": "train",
+      "baseline": {
+        "tp": 311,
+        "fp": 35,
+        "fn": 9,
+        "num_gt": 320,
+        "num_predictions": 440,
+        "ignored_points": 0,
+        "f1": 0.933933933933934,
+        "completeness": 0.971875,
+        "commission": 0.10115606936416185,
+        "coverage": 0.8960932395258709,
+        "point_precision": 0.9401507643193489,
+        "point_recall": 0.9484345375450418
+      },
+      "num_parents": 440,
+      "num_candidates": 9,
+      "reasons": {
+        "no_seeds": 408,
+        "small_core": 4,
+        "third_stable_support": 19,
+        "candidate": 9
+      },
+      "entrances": {
+        "geometry": 7,
+        "votes": 2
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 5,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G1N/labels.npy",
+        "size": 85050416,
+        "mtime_ns": 1792080686608394939
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 144,
+              "ignored_points": 0,
+              "dominant_gt_id": 257,
+              "purity": 0.8888888888888888
+            },
+            {
+              "known_points": 115,
+              "ignored_points": 0,
+              "dominant_gt_id": 257,
+              "purity": 0.9043478260869565
+            }
+          ],
+          "reliable": false,
+          "parent_id": 74,
+          "entrance": "geometry",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 10310,
+          "graph_edges": 99348,
+          "components": 8,
+          "seedless_points": 8844,
+          "same_edges": 98625,
+          "different_edges": 571
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 183,
+              "ignored_points": 0,
+              "dominant_gt_id": 315,
+              "purity": 1.0
+            },
+            {
+              "known_points": 313,
+              "ignored_points": 0,
+              "dominant_gt_id": 315,
+              "purity": 0.9968051118210862
+            }
+          ],
+          "reliable": false,
+          "parent_id": 146,
+          "entrance": "geometry",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 19012,
+          "graph_edges": 177316,
+          "components": 25,
+          "seedless_points": 716,
+          "same_edges": 174094,
+          "different_edges": 2244
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 194,
+              "ignored_points": 0,
+              "dominant_gt_id": 245,
+              "purity": 1.0
+            },
+            {
+              "known_points": 216,
+              "ignored_points": 0,
+              "dominant_gt_id": 245,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 201,
+          "entrance": "geometry",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 2109,
+          "graph_edges": 21342,
+          "components": 14,
+          "seedless_points": 122,
+          "same_edges": 21326,
+          "different_edges": 16
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 313,
+              "ignored_points": 0,
+              "dominant_gt_id": 319,
+              "purity": 1.0
+            },
+            {
+              "known_points": 311,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 256,
+          "entrance": "geometry",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 29375,
+          "graph_edges": 282807,
+          "components": 30,
+          "seedless_points": 975,
+          "same_edges": 277181,
+          "different_edges": 2820
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 700,
+              "ignored_points": 0,
+              "dominant_gt_id": 263,
+              "purity": 0.94
+            },
+            {
+              "known_points": 235,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 275,
+          "entrance": "geometry",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 37022,
+          "graph_edges": 366474,
+          "components": 11,
+          "seedless_points": 28,
+          "same_edges": 362497,
+          "different_edges": 976
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 515,
+              "ignored_points": 0,
+              "dominant_gt_id": 282,
+              "purity": 0.9495145631067962
+            },
+            {
+              "known_points": 628,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 327,
+          "entrance": "geometry",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 32887,
+          "graph_edges": 318042,
+          "components": 1,
+          "seedless_points": 0,
+          "same_edges": 309803,
+          "different_edges": 1753
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 306,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 116,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 329,
+          "entrance": "votes",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1541,
+          "graph_edges": 13088,
+          "components": 38,
+          "seedless_points": 631,
+          "same_edges": 3677,
+          "different_edges": 13
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 293,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 100,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 387,
+          "entrance": "votes",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 707,
+          "graph_edges": 6348,
+          "components": 4,
+          "seedless_points": 20,
+          "same_edges": 6,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 465,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 246,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 413,
+          "entrance": "geometry",
+          "plot": "G1N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 989,
+          "graph_edges": 8514,
+          "components": 22,
+          "seedless_points": 88,
+          "same_edges": 87,
+          "different_edges": 0
+        }
+      ]
+    },
+    {
+      "plot": "G1W",
+      "split": "train",
+      "baseline": {
+        "tp": 442,
+        "fp": 47,
+        "fn": 8,
+        "num_gt": 450,
+        "num_predictions": 701,
+        "ignored_points": 0,
+        "f1": 0.9414270500532481,
+        "completeness": 0.9822222222222222,
+        "commission": 0.09611451942740286,
+        "coverage": 0.8834072629667755,
+        "point_precision": 0.9382025751989718,
+        "point_recall": 0.93592362217424
+      },
+      "num_parents": 701,
+      "num_candidates": 18,
+      "reasons": {
+        "no_seeds": 651,
+        "third_stable_support": 27,
+        "candidate": 18,
+        "small_core": 5
+      },
+      "entrances": {
+        "geometry": 12,
+        "votes": 6
+      },
+      "reliable": 1,
+      "recoverable_candidates": 1,
+      "selected_original_tp": 8,
+      "reliable_original_tp": 1,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G1W/labels.npy",
+        "size": 177144560,
+        "mtime_ns": 1792081840669724705
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 282,
+              "ignored_points": 0,
+              "dominant_gt_id": 304,
+              "purity": 0.8439716312056738
+            },
+            {
+              "known_points": 118,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 158,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 13285,
+          "graph_edges": 121806,
+          "components": 12,
+          "seedless_points": 16,
+          "same_edges": 118887,
+          "different_edges": 899
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 241,
+              "ignored_points": 0,
+              "dominant_gt_id": 205,
+              "purity": 1.0
+            },
+            {
+              "known_points": 301,
+              "ignored_points": 0,
+              "dominant_gt_id": 178,
+              "purity": 0.8106312292358804
+            }
+          ],
+          "reliable": false,
+          "parent_id": 216,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 13484,
+          "graph_edges": 125736,
+          "components": 11,
+          "seedless_points": 19,
+          "same_edges": 125194,
+          "different_edges": 106
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 29,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 116,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 281,
+          "entrance": "votes",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1424,
+          "graph_edges": 12697,
+          "components": 9,
+          "seedless_points": 419,
+          "same_edges": 1,
+          "different_edges": 4
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 115,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 139,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 325,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 346,
+          "graph_edges": 3129,
+          "components": 8,
+          "seedless_points": 16,
+          "same_edges": 25,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 88,
+              "ignored_points": 0,
+              "dominant_gt_id": 224,
+              "purity": 1.0
+            },
+            {
+              "known_points": 562,
+              "ignored_points": 0,
+              "dominant_gt_id": 229,
+              "purity": 0.9199288256227758
+            }
+          ],
+          "reliable": true,
+          "parent_id": 343,
+          "entrance": "votes",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            229
+          ],
+          "core_points": 18378,
+          "graph_edges": 168341,
+          "components": 20,
+          "seedless_points": 200,
+          "same_edges": 166112,
+          "different_edges": 1553
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 420,
+              "ignored_points": 0,
+              "dominant_gt_id": 200,
+              "purity": 0.9595238095238096
+            },
+            {
+              "known_points": 192,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 344,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 21949,
+          "graph_edges": 212180,
+          "components": 12,
+          "seedless_points": 157,
+          "same_edges": 209810,
+          "different_edges": 256
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 375,
+              "ignored_points": 0,
+              "dominant_gt_id": 148,
+              "purity": 0.9946666666666667
+            },
+            {
+              "known_points": 182,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 367,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 63782,
+          "graph_edges": 617377,
+          "components": 11,
+          "seedless_points": 117,
+          "same_edges": 607900,
+          "different_edges": 759
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 403,
+              "ignored_points": 0,
+              "dominant_gt_id": 207,
+              "purity": 0.8188585607940446
+            },
+            {
+              "known_points": 81,
+              "ignored_points": 0,
+              "dominant_gt_id": 183,
+              "purity": 0.07407407407407407
+            }
+          ],
+          "reliable": false,
+          "parent_id": 368,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 19872,
+          "graph_edges": 197433,
+          "components": 12,
+          "seedless_points": 409,
+          "same_edges": 195538,
+          "different_edges": 305
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 639,
+              "ignored_points": 0,
+              "dominant_gt_id": 324,
+              "purity": 0.9765258215962441
+            },
+            {
+              "known_points": 452,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 398,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 61425,
+          "graph_edges": 578568,
+          "components": 2,
+          "seedless_points": 1,
+          "same_edges": 573526,
+          "different_edges": 413
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 206,
+              "ignored_points": 0,
+              "dominant_gt_id": 121,
+              "purity": 0.019417475728155338
+            },
+            {
+              "known_points": 129,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 501,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 712,
+          "graph_edges": 6045,
+          "components": 4,
+          "seedless_points": 2,
+          "same_edges": 11,
+          "different_edges": 62
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 249,
+              "ignored_points": 0,
+              "dominant_gt_id": 222,
+              "purity": 1.0
+            },
+            {
+              "known_points": 57,
+              "ignored_points": 0,
+              "dominant_gt_id": 222,
+              "purity": 0.631578947368421
+            }
+          ],
+          "reliable": false,
+          "parent_id": 506,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 1613,
+          "graph_edges": 15991,
+          "components": 7,
+          "seedless_points": 12,
+          "same_edges": 15661,
+          "different_edges": 153
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 95,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 103,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 522,
+          "entrance": "votes",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 498,
+          "graph_edges": 4108,
+          "components": 9,
+          "seedless_points": 28,
+          "same_edges": 121,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 117,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 75,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 541,
+          "entrance": "votes",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 681,
+          "graph_edges": 5781,
+          "components": 7,
+          "seedless_points": 117,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 157,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 142,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 557,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 391,
+          "graph_edges": 2793,
+          "components": 15,
+          "seedless_points": 31,
+          "same_edges": 3,
+          "different_edges": 21
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 27,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 34,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 571,
+          "entrance": "votes",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 338,
+          "graph_edges": 2310,
+          "components": 37,
+          "seedless_points": 88,
+          "same_edges": 185,
+          "different_edges": 5
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 140,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 131,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 576,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 527,
+          "graph_edges": 4246,
+          "components": 14,
+          "seedless_points": 40,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 67,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 65,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 647,
+          "entrance": "geometry",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 289,
+          "graph_edges": 2178,
+          "components": 2,
+          "seedless_points": 3,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 73,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 34,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 678,
+          "entrance": "votes",
+          "plot": "G1W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 202,
+          "graph_edges": 1561,
+          "components": 3,
+          "seedless_points": 8,
+          "same_edges": 15,
+          "different_edges": 33
+        }
+      ]
+    },
+    {
+      "plot": "G2N",
+      "split": "train",
+      "baseline": {
+        "tp": 460,
+        "fp": 89,
+        "fn": 36,
+        "num_gt": 496,
+        "num_predictions": 755,
+        "ignored_points": 0,
+        "f1": 0.8803827751196173,
+        "completeness": 0.9274193548387096,
+        "commission": 0.1621129326047359,
+        "coverage": 0.8092592775759472,
+        "point_precision": 0.9068654291540916,
+        "point_recall": 0.881543649502228
+      },
+      "num_parents": 755,
+      "num_candidates": 16,
+      "reasons": {
+        "no_seeds": 713,
+        "candidate": 16,
+        "third_stable_support": 26
+      },
+      "entrances": {
+        "geometry": 10,
+        "votes": 6
+      },
+      "reliable": 2,
+      "recoverable_candidates": 1,
+      "selected_original_tp": 9,
+      "reliable_original_tp": 2,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G2N/labels.npy",
+        "size": 128260744,
+        "mtime_ns": 1792082811936645914
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 201,
+              "ignored_points": 0,
+              "dominant_gt_id": 368,
+              "purity": 1.0
+            },
+            {
+              "known_points": 230,
+              "ignored_points": 0,
+              "dominant_gt_id": 368,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 43,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 34450,
+          "graph_edges": 330440,
+          "components": 12,
+          "seedless_points": 1706,
+          "same_edges": 324892,
+          "different_edges": 2573
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 266,
+              "ignored_points": 0,
+              "dominant_gt_id": 269,
+              "purity": 1.0
+            },
+            {
+              "known_points": 255,
+              "ignored_points": 0,
+              "dominant_gt_id": 269,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 68,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 40541,
+          "graph_edges": 385053,
+          "components": 14,
+          "seedless_points": 80,
+          "same_edges": 382925,
+          "different_edges": 2037
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 75,
+              "ignored_points": 0,
+              "dominant_gt_id": 7,
+              "purity": 1.0
+            },
+            {
+              "known_points": 201,
+              "ignored_points": 0,
+              "dominant_gt_id": 473,
+              "purity": 0.9701492537313433
+            }
+          ],
+          "reliable": true,
+          "parent_id": 90,
+          "entrance": "votes",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            473
+          ],
+          "core_points": 7466,
+          "graph_edges": 67914,
+          "components": 32,
+          "seedless_points": 83,
+          "same_edges": 64028,
+          "different_edges": 1295
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 155,
+              "ignored_points": 0,
+              "dominant_gt_id": 275,
+              "purity": 1.0
+            },
+            {
+              "known_points": 177,
+              "ignored_points": 0,
+              "dominant_gt_id": 275,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 234,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 8955,
+          "graph_edges": 78976,
+          "components": 41,
+          "seedless_points": 268,
+          "same_edges": 75428,
+          "different_edges": 1610
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 433,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 224,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 319,
+          "entrance": "votes",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1726,
+          "graph_edges": 15780,
+          "components": 17,
+          "seedless_points": 162,
+          "same_edges": 53,
+          "different_edges": 15
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 144,
+              "ignored_points": 0,
+              "dominant_gt_id": 387,
+              "purity": 0.9583333333333334
+            },
+            {
+              "known_points": 84,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 379,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 5942,
+          "graph_edges": 49846,
+          "components": 23,
+          "seedless_points": 407,
+          "same_edges": 47054,
+          "different_edges": 520
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 89,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 273,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 380,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1396,
+          "graph_edges": 11933,
+          "components": 17,
+          "seedless_points": 21,
+          "same_edges": 39,
+          "different_edges": 34
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 278,
+              "ignored_points": 0,
+              "dominant_gt_id": 217,
+              "purity": 0.9784172661870504
+            },
+            {
+              "known_points": 150,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 395,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 21118,
+          "graph_edges": 199012,
+          "components": 18,
+          "seedless_points": 212,
+          "same_edges": 195629,
+          "different_edges": 657
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 543,
+              "ignored_points": 0,
+              "dominant_gt_id": 234,
+              "purity": 1.0
+            },
+            {
+              "known_points": 203,
+              "ignored_points": 0,
+              "dominant_gt_id": 197,
+              "purity": 0.7487684729064039
+            }
+          ],
+          "reliable": false,
+          "parent_id": 419,
+          "entrance": "votes",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 5402,
+          "graph_edges": 49353,
+          "components": 12,
+          "seedless_points": 30,
+          "same_edges": 48856,
+          "different_edges": 490
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 148,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 82,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 490,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 943,
+          "graph_edges": 8330,
+          "components": 24,
+          "seedless_points": 72,
+          "same_edges": 451,
+          "different_edges": 59
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 245,
+              "ignored_points": 0,
+              "dominant_gt_id": 487,
+              "purity": 1.0
+            },
+            {
+              "known_points": 187,
+              "ignored_points": 0,
+              "dominant_gt_id": 8,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 513,
+          "entrance": "votes",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 2970,
+          "graph_edges": 29114,
+          "components": 7,
+          "seedless_points": 173,
+          "same_edges": 27693,
+          "different_edges": 12
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 180,
+              "ignored_points": 0,
+              "dominant_gt_id": 53,
+              "purity": 0.9944444444444445
+            },
+            {
+              "known_points": 148,
+              "ignored_points": 0,
+              "dominant_gt_id": 53,
+              "purity": 0.006756756756756757
+            }
+          ],
+          "reliable": false,
+          "parent_id": 535,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 2359,
+          "graph_edges": 23396,
+          "components": 3,
+          "seedless_points": 3,
+          "same_edges": 20431,
+          "different_edges": 379
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 180,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 229,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 607,
+          "entrance": "votes",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1743,
+          "graph_edges": 15570,
+          "components": 22,
+          "seedless_points": 54,
+          "same_edges": 100,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 120,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 315,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 646,
+          "entrance": "votes",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1276,
+          "graph_edges": 11929,
+          "components": 12,
+          "seedless_points": 70,
+          "same_edges": 10,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 71,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 106,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 711,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1031,
+          "graph_edges": 10025,
+          "components": 3,
+          "seedless_points": 59,
+          "same_edges": 1322,
+          "different_edges": 609
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 67,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 103,
+              "ignored_points": 0,
+              "dominant_gt_id": 159,
+              "purity": 0.009708737864077669
+            }
+          ],
+          "reliable": false,
+          "parent_id": 728,
+          "entrance": "geometry",
+          "plot": "G2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 4135,
+          "graph_edges": 36943,
+          "components": 104,
+          "seedless_points": 3442,
+          "same_edges": 30006,
+          "different_edges": 278
+        }
+      ]
+    },
+    {
+      "plot": "G2W",
+      "split": "train",
+      "baseline": {
+        "tp": 227,
+        "fp": 85,
+        "fn": 38,
+        "num_gt": 265,
+        "num_predictions": 591,
+        "ignored_points": 0,
+        "f1": 0.7868284228769498,
+        "completeness": 0.8566037735849057,
+        "commission": 0.2724358974358974,
+        "coverage": 0.7267804640877029,
+        "point_precision": 0.8477860663008415,
+        "point_recall": 0.8276225068485789
+      },
+      "num_parents": 591,
+      "num_candidates": 16,
+      "reasons": {
+        "no_seeds": 546,
+        "third_stable_support": 29,
+        "candidate": 16
+      },
+      "entrances": {
+        "votes": 10,
+        "geometry": 6
+      },
+      "reliable": 1,
+      "recoverable_candidates": 1,
+      "selected_original_tp": 2,
+      "reliable_original_tp": 1,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G2W/labels.npy",
+        "size": 119716224,
+        "mtime_ns": 1792083531082430673
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 265,
+              "ignored_points": 0,
+              "dominant_gt_id": 179,
+              "purity": 0.9811320754716981
+            },
+            {
+              "known_points": 103,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 56,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1139,
+          "graph_edges": 10568,
+          "components": 7,
+          "seedless_points": 76,
+          "same_edges": 7823,
+          "different_edges": 228
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 758,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 320,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 207,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2452,
+          "graph_edges": 24023,
+          "components": 3,
+          "seedless_points": 9,
+          "same_edges": 0,
+          "different_edges": 16
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 321,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 144,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 208,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1524,
+          "graph_edges": 15036,
+          "components": 3,
+          "seedless_points": 1,
+          "same_edges": 6,
+          "different_edges": 49
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 305,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 373,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 217,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2665,
+          "graph_edges": 25963,
+          "components": 2,
+          "seedless_points": 3,
+          "same_edges": 3,
+          "different_edges": 46
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 106,
+              "ignored_points": 0,
+              "dominant_gt_id": 188,
+              "purity": 0.9433962264150944
+            },
+            {
+              "known_points": 175,
+              "ignored_points": 0,
+              "dominant_gt_id": 176,
+              "purity": 0.9942857142857143
+            }
+          ],
+          "reliable": true,
+          "parent_id": 252,
+          "entrance": "geometry",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            188
+          ],
+          "core_points": 7610,
+          "graph_edges": 75588,
+          "components": 3,
+          "seedless_points": 2,
+          "same_edges": 71084,
+          "different_edges": 2316
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 433,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 191,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 288,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1268,
+          "graph_edges": 11966,
+          "components": 6,
+          "seedless_points": 149,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 110,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 194,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 378,
+          "entrance": "geometry",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1464,
+          "graph_edges": 13475,
+          "components": 4,
+          "seedless_points": 16,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 144,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 64,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 388,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 757,
+          "graph_edges": 7101,
+          "components": 7,
+          "seedless_points": 31,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 124,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 139,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 391,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1202,
+          "graph_edges": 11613,
+          "components": 3,
+          "seedless_points": 49,
+          "same_edges": 0,
+          "different_edges": 16
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 129,
+              "ignored_points": 0,
+              "dominant_gt_id": 38,
+              "purity": 0.8837209302325582
+            },
+            {
+              "known_points": 175,
+              "ignored_points": 0,
+              "dominant_gt_id": 38,
+              "purity": 0.005714285714285714
+            }
+          ],
+          "reliable": false,
+          "parent_id": 394,
+          "entrance": "geometry",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2706,
+          "graph_edges": 26828,
+          "components": 2,
+          "seedless_points": 2,
+          "same_edges": 21401,
+          "different_edges": 513
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 154,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 114,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 403,
+          "entrance": "geometry",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1243,
+          "graph_edges": 11664,
+          "components": 5,
+          "seedless_points": 382,
+          "same_edges": 2975,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 141,
+              "ignored_points": 0,
+              "dominant_gt_id": 56,
+              "purity": 1.0
+            },
+            {
+              "known_points": 177,
+              "ignored_points": 0,
+              "dominant_gt_id": 56,
+              "purity": 0.3559322033898305
+            }
+          ],
+          "reliable": false,
+          "parent_id": 412,
+          "entrance": "geometry",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 3904,
+          "graph_edges": 39654,
+          "components": 3,
+          "seedless_points": 20,
+          "same_edges": 36042,
+          "different_edges": 1049
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 237,
+              "ignored_points": 0,
+              "dominant_gt_id": 31,
+              "purity": 0.8396624472573839
+            },
+            {
+              "known_points": 257,
+              "ignored_points": 0,
+              "dominant_gt_id": 31,
+              "purity": 0.0038910505836575876
+            }
+          ],
+          "reliable": false,
+          "parent_id": 437,
+          "entrance": "geometry",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 3014,
+          "graph_edges": 30933,
+          "components": 1,
+          "seedless_points": 0,
+          "same_edges": 18782,
+          "different_edges": 1117
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 49,
+              "ignored_points": 0,
+              "dominant_gt_id": 247,
+              "purity": 1.0
+            },
+            {
+              "known_points": 84,
+              "ignored_points": 0,
+              "dominant_gt_id": 247,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 481,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1655,
+          "graph_edges": 15119,
+          "components": 5,
+          "seedless_points": 20,
+          "same_edges": 10973,
+          "different_edges": 429
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 81,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 57,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 527,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 924,
+          "graph_edges": 7722,
+          "components": 7,
+          "seedless_points": 10,
+          "same_edges": 71,
+          "different_edges": 156
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 43,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 83,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 553,
+          "entrance": "votes",
+          "plot": "G2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 566,
+          "graph_edges": 4874,
+          "components": 10,
+          "seedless_points": 44,
+          "same_edges": 0,
+          "different_edges": 0
+        }
+      ]
+    },
+    {
+      "plot": "G3N",
+      "split": "train",
+      "baseline": {
+        "tp": 346,
+        "fp": 23,
+        "fn": 9,
+        "num_gt": 355,
+        "num_predictions": 475,
+        "ignored_points": 0,
+        "f1": 0.9558011049723757,
+        "completeness": 0.9746478873239437,
+        "commission": 0.06233062330623306,
+        "coverage": 0.9093245251481346,
+        "point_precision": 0.9464200224250192,
+        "point_recall": 0.959162611760233
+      },
+      "num_parents": 475,
+      "num_candidates": 6,
+      "reasons": {
+        "no_seeds": 441,
+        "third_stable_support": 24,
+        "candidate": 6,
+        "small_core": 4
+      },
+      "entrances": {
+        "votes": 4,
+        "geometry": 2
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 3,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G3N/labels.npy",
+        "size": 120398608,
+        "mtime_ns": 1792084303107702015
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 176,
+              "ignored_points": 0,
+              "dominant_gt_id": 249,
+              "purity": 1.0
+            },
+            {
+              "known_points": 3612,
+              "ignored_points": 0,
+              "dominant_gt_id": 274,
+              "purity": 0.801218161683278
+            }
+          ],
+          "reliable": false,
+          "parent_id": 214,
+          "entrance": "votes",
+          "plot": "G3N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 52675,
+          "graph_edges": 509017,
+          "components": 1,
+          "seedless_points": 0,
+          "same_edges": 503230,
+          "different_edges": 5787
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 515,
+              "ignored_points": 0,
+              "dominant_gt_id": 122,
+              "purity": 0.9825242718446602
+            },
+            {
+              "known_points": 241,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 342,
+          "entrance": "geometry",
+          "plot": "G3N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 32438,
+          "graph_edges": 312834,
+          "components": 12,
+          "seedless_points": 876,
+          "same_edges": 309679,
+          "different_edges": 605
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 124,
+              "ignored_points": 0,
+              "dominant_gt_id": 178,
+              "purity": 1.0
+            },
+            {
+              "known_points": 124,
+              "ignored_points": 0,
+              "dominant_gt_id": 178,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 378,
+          "entrance": "votes",
+          "plot": "G3N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 3045,
+          "graph_edges": 26600,
+          "components": 27,
+          "seedless_points": 1139,
+          "same_edges": 19210,
+          "different_edges": 26
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 327,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 169,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 381,
+          "entrance": "votes",
+          "plot": "G3N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 971,
+          "graph_edges": 8941,
+          "components": 7,
+          "seedless_points": 11,
+          "same_edges": 1,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 48,
+              "ignored_points": 0,
+              "dominant_gt_id": 188,
+              "purity": 0.7291666666666666
+            },
+            {
+              "known_points": 27,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 442,
+          "entrance": "votes",
+          "plot": "G3N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 217,
+          "graph_edges": 1374,
+          "components": 28,
+          "seedless_points": 36,
+          "same_edges": 469,
+          "different_edges": 60
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 328,
+              "ignored_points": 0,
+              "dominant_gt_id": 183,
+              "purity": 0.9847560975609756
+            },
+            {
+              "known_points": 59,
+              "ignored_points": 0,
+              "dominant_gt_id": 183,
+              "purity": 0.06779661016949153
+            }
+          ],
+          "reliable": false,
+          "parent_id": 470,
+          "entrance": "geometry",
+          "plot": "G3N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 19771,
+          "graph_edges": 192691,
+          "components": 2,
+          "seedless_points": 0,
+          "same_edges": 191385,
+          "different_edges": 745
+        }
+      ]
+    },
+    {
+      "plot": "G3W",
+      "split": "train",
+      "baseline": {
+        "tp": 318,
+        "fp": 39,
+        "fn": 14,
+        "num_gt": 332,
+        "num_predictions": 535,
+        "ignored_points": 0,
+        "f1": 0.9230769230769231,
+        "completeness": 0.9578313253012049,
+        "commission": 0.1092436974789916,
+        "coverage": 0.8623603296245386,
+        "point_precision": 0.9210227602760707,
+        "point_recall": 0.9277180494921198
+      },
+      "num_parents": 535,
+      "num_candidates": 11,
+      "reasons": {
+        "no_seeds": 500,
+        "third_stable_support": 24,
+        "candidate": 11
+      },
+      "entrances": {
+        "geometry": 5,
+        "votes": 6
+      },
+      "reliable": 1,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 2,
+      "reliable_original_tp": 1,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G3W/labels.npy",
+        "size": 145354160,
+        "mtime_ns": 1792085161670818741
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 182,
+              "ignored_points": 0,
+              "dominant_gt_id": 329,
+              "purity": 1.0
+            },
+            {
+              "known_points": 134,
+              "ignored_points": 0,
+              "dominant_gt_id": 54,
+              "purity": 0.917910447761194
+            }
+          ],
+          "reliable": true,
+          "parent_id": 78,
+          "entrance": "geometry",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 7227,
+          "graph_edges": 68539,
+          "components": 31,
+          "seedless_points": 1925,
+          "same_edges": 68147,
+          "different_edges": 319
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 69,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 45,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 124,
+          "entrance": "votes",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 350,
+          "graph_edges": 3074,
+          "components": 8,
+          "seedless_points": 45,
+          "same_edges": 210,
+          "different_edges": 40
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 137,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 288,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 138,
+          "entrance": "votes",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1035,
+          "graph_edges": 9170,
+          "components": 23,
+          "seedless_points": 128,
+          "same_edges": 79,
+          "different_edges": 16
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 295,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 280,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 202,
+          "entrance": "votes",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2113,
+          "graph_edges": 19703,
+          "components": 6,
+          "seedless_points": 546,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 248,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 189,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 225,
+          "entrance": "geometry",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 645,
+          "graph_edges": 5575,
+          "components": 7,
+          "seedless_points": 23,
+          "same_edges": 53,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 253,
+              "ignored_points": 0,
+              "dominant_gt_id": 263,
+              "purity": 0.9288537549407114
+            },
+            {
+              "known_points": 112,
+              "ignored_points": 0,
+              "dominant_gt_id": 263,
+              "purity": 0.044642857142857144
+            }
+          ],
+          "reliable": false,
+          "parent_id": 242,
+          "entrance": "geometry",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1822,
+          "graph_edges": 18043,
+          "components": 3,
+          "seedless_points": 8,
+          "same_edges": 14614,
+          "different_edges": 185
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 110,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 40,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 368,
+          "entrance": "votes",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 336,
+          "graph_edges": 2645,
+          "components": 13,
+          "seedless_points": 78,
+          "same_edges": 316,
+          "different_edges": 48
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 480,
+              "ignored_points": 0,
+              "dominant_gt_id": 135,
+              "purity": 0.9708333333333333
+            },
+            {
+              "known_points": 85,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 390,
+          "entrance": "geometry",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 41333,
+          "graph_edges": 395742,
+          "components": 4,
+          "seedless_points": 45,
+          "same_edges": 376402,
+          "different_edges": 781
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 74,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 62,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 475,
+          "entrance": "geometry",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1244,
+          "graph_edges": 11366,
+          "components": 1,
+          "seedless_points": 0,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 371,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 96,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 506,
+          "entrance": "votes",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1740,
+          "graph_edges": 16081,
+          "components": 22,
+          "seedless_points": 114,
+          "same_edges": 13,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 121,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 611,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 516,
+          "entrance": "votes",
+          "plot": "G3W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 3766,
+          "graph_edges": 36378,
+          "components": 1,
+          "seedless_points": 0,
+          "same_edges": 0,
+          "different_edges": 0
+        }
+      ]
+    },
+    {
+      "plot": "L2N",
+      "split": "train",
+      "baseline": {
+        "tp": 221,
+        "fp": 34,
+        "fn": 12,
+        "num_gt": 233,
+        "num_predictions": 356,
+        "ignored_points": 0,
+        "f1": 0.9057377049180327,
+        "completeness": 0.9484978540772532,
+        "commission": 0.13333333333333333,
+        "coverage": 0.8333575884891722,
+        "point_precision": 0.9127443622783171,
+        "point_recall": 0.9044690839450875
+      },
+      "num_parents": 356,
+      "num_candidates": 5,
+      "reasons": {
+        "no_seeds": 337,
+        "third_stable_support": 14,
+        "candidate": 5
+      },
+      "entrances": {
+        "geometry": 2,
+        "votes": 3
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 1,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/L2N/labels.npy",
+        "size": 106933960,
+        "mtime_ns": 1792085818312002168
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 97,
+              "ignored_points": 0,
+              "dominant_gt_id": 94,
+              "purity": 1.0
+            },
+            {
+              "known_points": 70,
+              "ignored_points": 0,
+              "dominant_gt_id": 94,
+              "purity": 0.02857142857142857
+            }
+          ],
+          "reliable": false,
+          "parent_id": 214,
+          "entrance": "geometry",
+          "plot": "L2N",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 2139,
+          "graph_edges": 19086,
+          "components": 2,
+          "seedless_points": 4,
+          "same_edges": 15767,
+          "different_edges": 520
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 339,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 75,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 220,
+          "entrance": "votes",
+          "plot": "L2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1746,
+          "graph_edges": 16921,
+          "components": 2,
+          "seedless_points": 1,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 221,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 162,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 226,
+          "entrance": "votes",
+          "plot": "L2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1001,
+          "graph_edges": 8782,
+          "components": 12,
+          "seedless_points": 56,
+          "same_edges": 1,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 90,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 109,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 293,
+          "entrance": "geometry",
+          "plot": "L2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2677,
+          "graph_edges": 24724,
+          "components": 9,
+          "seedless_points": 90,
+          "same_edges": 210,
+          "different_edges": 278
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 277,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 259,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 331,
+          "entrance": "votes",
+          "plot": "L2N",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1886,
+          "graph_edges": 18289,
+          "components": 3,
+          "seedless_points": 31,
+          "same_edges": 223,
+          "different_edges": 131
+        }
+      ]
+    },
+    {
+      "plot": "L2W",
+      "split": "train",
+      "baseline": {
+        "tp": 394,
+        "fp": 23,
+        "fn": 7,
+        "num_gt": 401,
+        "num_predictions": 465,
+        "ignored_points": 0,
+        "f1": 0.9633251833740831,
+        "completeness": 0.9825436408977556,
+        "commission": 0.05515587529976019,
+        "coverage": 0.8604372386729293,
+        "point_precision": 0.9256882868815743,
+        "point_recall": 0.926435932376755
+      },
+      "num_parents": 465,
+      "num_candidates": 2,
+      "reasons": {
+        "no_seeds": 456,
+        "third_stable_support": 6,
+        "small_core": 1,
+        "candidate": 2
+      },
+      "entrances": {
+        "votes": 2
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 0,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/L2W/labels.npy",
+        "size": 150412184,
+        "mtime_ns": 1792086846946718722
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 75,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 71,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 401,
+          "entrance": "votes",
+          "plot": "L2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 264,
+          "graph_edges": 2484,
+          "components": 4,
+          "seedless_points": 81,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 233,
+              "ignored_points": 0,
+              "dominant_gt_id": 65,
+              "purity": 0.004291845493562232
+            },
+            {
+              "known_points": 232,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 459,
+          "entrance": "votes",
+          "plot": "L2W",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 3638,
+          "graph_edges": 30955,
+          "components": 82,
+          "seedless_points": 917,
+          "same_edges": 5662,
+          "different_edges": 223
+        }
+      ]
+    },
+    {
+      "plot": "LG1",
+      "split": "train",
+      "baseline": {
+        "tp": 392,
+        "fp": 25,
+        "fn": 15,
+        "num_gt": 407,
+        "num_predictions": 462,
+        "ignored_points": 0,
+        "f1": 0.9514563106796117,
+        "completeness": 0.9631449631449631,
+        "commission": 0.05995203836930456,
+        "coverage": 0.909673949811851,
+        "point_precision": 0.9484310473560501,
+        "point_recall": 0.9553561989200866
+      },
+      "num_parents": 462,
+      "num_candidates": 7,
+      "reasons": {
+        "no_seeds": 448,
+        "third_stable_support": 7,
+        "candidate": 7
+      },
+      "entrances": {
+        "geometry": 6,
+        "votes": 1
+      },
+      "reliable": 2,
+      "recoverable_candidates": 2,
+      "selected_original_tp": 6,
+      "reliable_original_tp": 1,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG1/labels.npy",
+        "size": 78664048,
+        "mtime_ns": 1792087394694060982
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 216,
+              "ignored_points": 0,
+              "dominant_gt_id": 339,
+              "purity": 1.0
+            },
+            {
+              "known_points": 180,
+              "ignored_points": 0,
+              "dominant_gt_id": 339,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 80,
+          "entrance": "geometry",
+          "plot": "LG1",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 23572,
+          "graph_edges": 227622,
+          "components": 3,
+          "seedless_points": 2,
+          "same_edges": 226468,
+          "different_edges": 802
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 198,
+              "ignored_points": 0,
+              "dominant_gt_id": 326,
+              "purity": 1.0
+            },
+            {
+              "known_points": 227,
+              "ignored_points": 0,
+              "dominant_gt_id": 326,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 125,
+          "entrance": "geometry",
+          "plot": "LG1",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 37225,
+          "graph_edges": 354989,
+          "components": 5,
+          "seedless_points": 25,
+          "same_edges": 351862,
+          "different_edges": 2698
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 1548,
+              "ignored_points": 0,
+              "dominant_gt_id": 340,
+              "purity": 1.0
+            },
+            {
+              "known_points": 231,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 160,
+          "entrance": "geometry",
+          "plot": "LG1",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 30962,
+          "graph_edges": 290838,
+          "components": 19,
+          "seedless_points": 63,
+          "same_edges": 284205,
+          "different_edges": 536
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 309,
+              "ignored_points": 0,
+              "dominant_gt_id": 247,
+              "purity": 0.9870550161812298
+            },
+            {
+              "known_points": 177,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 231,
+          "entrance": "geometry",
+          "plot": "LG1",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 12909,
+          "graph_edges": 120891,
+          "components": 27,
+          "seedless_points": 371,
+          "same_edges": 116674,
+          "different_edges": 578
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 184,
+              "ignored_points": 0,
+              "dominant_gt_id": 233,
+              "purity": 1.0
+            },
+            {
+              "known_points": 175,
+              "ignored_points": 0,
+              "dominant_gt_id": 244,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 265,
+          "entrance": "votes",
+          "plot": "LG1",
+          "split": "train",
+          "original_tp": false,
+          "recoverable_gt_ids": [
+            233,
+            244
+          ],
+          "core_points": 8497,
+          "graph_edges": 84538,
+          "components": 31,
+          "seedless_points": 298,
+          "same_edges": 81167,
+          "different_edges": 473
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 229,
+              "ignored_points": 0,
+              "dominant_gt_id": 125,
+              "purity": 0.9956331877729258
+            },
+            {
+              "known_points": 245,
+              "ignored_points": 0,
+              "dominant_gt_id": 125,
+              "purity": 0.02040816326530612
+            }
+          ],
+          "reliable": false,
+          "parent_id": 300,
+          "entrance": "geometry",
+          "plot": "LG1",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 23828,
+          "graph_edges": 220361,
+          "components": 14,
+          "seedless_points": 807,
+          "same_edges": 207776,
+          "different_edges": 2787
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 321,
+              "ignored_points": 0,
+              "dominant_gt_id": 36,
+              "purity": 1.0
+            },
+            {
+              "known_points": 287,
+              "ignored_points": 0,
+              "dominant_gt_id": 34,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 437,
+          "entrance": "geometry",
+          "plot": "LG1",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            34
+          ],
+          "core_points": 10246,
+          "graph_edges": 100961,
+          "components": 16,
+          "seedless_points": 172,
+          "same_edges": 99299,
+          "different_edges": 826
+        }
+      ]
+    },
+    {
+      "plot": "LG2",
+      "split": "train",
+      "baseline": {
+        "tp": 319,
+        "fp": 48,
+        "fn": 13,
+        "num_gt": 332,
+        "num_predictions": 396,
+        "ignored_points": 0,
+        "f1": 0.9127324749642346,
+        "completeness": 0.9608433734939759,
+        "commission": 0.1307901907356948,
+        "coverage": 0.8591994734487722,
+        "point_precision": 0.9303244041297625,
+        "point_recall": 0.9181869296336954
+      },
+      "num_parents": 396,
+      "num_candidates": 3,
+      "reasons": {
+        "no_seeds": 386,
+        "third_stable_support": 7,
+        "candidate": 3
+      },
+      "entrances": {
+        "geometry": 3
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 3,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG2/labels.npy",
+        "size": 125027888,
+        "mtime_ns": 1792088178321900870
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 381,
+              "ignored_points": 0,
+              "dominant_gt_id": 63,
+              "purity": 0.9973753280839895
+            },
+            {
+              "known_points": 539,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 61,
+          "entrance": "geometry",
+          "plot": "LG2",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 30901,
+          "graph_edges": 290173,
+          "components": 11,
+          "seedless_points": 13,
+          "same_edges": 274940,
+          "different_edges": 2787
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 146,
+              "ignored_points": 0,
+              "dominant_gt_id": 214,
+              "purity": 1.0
+            },
+            {
+              "known_points": 157,
+              "ignored_points": 0,
+              "dominant_gt_id": 214,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 77,
+          "entrance": "geometry",
+          "plot": "LG2",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 7190,
+          "graph_edges": 66533,
+          "components": 14,
+          "seedless_points": 52,
+          "same_edges": 65289,
+          "different_edges": 1105
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 284,
+              "ignored_points": 0,
+              "dominant_gt_id": 117,
+              "purity": 1.0
+            },
+            {
+              "known_points": 116,
+              "ignored_points": 0,
+              "dominant_gt_id": 117,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 373,
+          "entrance": "geometry",
+          "plot": "LG2",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 3976,
+          "graph_edges": 37947,
+          "components": 6,
+          "seedless_points": 30,
+          "same_edges": 37053,
+          "different_edges": 711
+        }
+      ]
+    },
+    {
+      "plot": "LG3",
+      "split": "train",
+      "baseline": {
+        "tp": 306,
+        "fp": 21,
+        "fn": 9,
+        "num_gt": 315,
+        "num_predictions": 340,
+        "ignored_points": 0,
+        "f1": 0.9532710280373832,
+        "completeness": 0.9714285714285714,
+        "commission": 0.06422018348623854,
+        "coverage": 0.841356340467261,
+        "point_precision": 0.923002342865506,
+        "point_recall": 0.9045016735168655
+      },
+      "num_parents": 340,
+      "num_candidates": 2,
+      "reasons": {
+        "no_seeds": 335,
+        "third_stable_support": 3,
+        "candidate": 2
+      },
+      "entrances": {
+        "votes": 1,
+        "geometry": 1
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 2,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG3/labels.npy",
+        "size": 132695368,
+        "mtime_ns": 1792088998030323734
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 71,
+              "ignored_points": 0,
+              "dominant_gt_id": 304,
+              "purity": 0.7605633802816901
+            },
+            {
+              "known_points": 1469,
+              "ignored_points": 0,
+              "dominant_gt_id": 304,
+              "purity": 0.7181756296800544
+            }
+          ],
+          "reliable": false,
+          "parent_id": 41,
+          "entrance": "votes",
+          "plot": "LG3",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 13155,
+          "graph_edges": 126050,
+          "components": 32,
+          "seedless_points": 283,
+          "same_edges": 124467,
+          "different_edges": 1552
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 587,
+              "ignored_points": 0,
+              "dominant_gt_id": 46,
+              "purity": 1.0
+            },
+            {
+              "known_points": 233,
+              "ignored_points": 0,
+              "dominant_gt_id": 46,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 145,
+          "entrance": "geometry",
+          "plot": "LG3",
+          "split": "train",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 10331,
+          "graph_edges": 92732,
+          "components": 29,
+          "seedless_points": 278,
+          "same_edges": 92055,
+          "different_edges": 622
+        }
+      ]
+    },
+    {
+      "plot": "G4N",
+      "split": "validation",
+      "baseline": {
+        "tp": 282,
+        "fp": 35,
+        "fn": 36,
+        "num_gt": 318,
+        "num_predictions": 364,
+        "ignored_points": 0,
+        "f1": 0.8881889763779528,
+        "completeness": 0.8867924528301887,
+        "commission": 0.11041009463722397,
+        "coverage": 0.7963008585504365,
+        "point_precision": 0.8631960901969854,
+        "point_recall": 0.9122197139464728
+      },
+      "num_parents": 364,
+      "num_candidates": 6,
+      "reasons": {
+        "third_stable_support": 12,
+        "no_seeds": 346,
+        "candidate": 6
+      },
+      "entrances": {
+        "votes": 4,
+        "geometry": 2
+      },
+      "reliable": 2,
+      "recoverable_candidates": 2,
+      "selected_original_tp": 1,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/G4N/labels.npy",
+        "size": 104991896,
+        "mtime_ns": 1792078282640642909
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 1236,
+              "ignored_points": 0,
+              "dominant_gt_id": 170,
+              "purity": 0.9983818770226537
+            },
+            {
+              "known_points": 319,
+              "ignored_points": 0,
+              "dominant_gt_id": 264,
+              "purity": 0.5924764890282131
+            }
+          ],
+          "reliable": false,
+          "parent_id": 43,
+          "entrance": "votes",
+          "plot": "G4N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 11626,
+          "graph_edges": 110990,
+          "components": 17,
+          "seedless_points": 2238,
+          "same_edges": 88903,
+          "different_edges": 3896
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 168,
+              "ignored_points": 0,
+              "dominant_gt_id": 75,
+              "purity": 1.0
+            },
+            {
+              "known_points": 108,
+              "ignored_points": 0,
+              "dominant_gt_id": 75,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 63,
+          "entrance": "geometry",
+          "plot": "G4N",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 3581,
+          "graph_edges": 32835,
+          "components": 23,
+          "seedless_points": 380,
+          "same_edges": 32588,
+          "different_edges": 224
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 959,
+              "ignored_points": 0,
+              "dominant_gt_id": 224,
+              "purity": 0.9436913451511991
+            },
+            {
+              "known_points": 82,
+              "ignored_points": 0,
+              "dominant_gt_id": 222,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 179,
+          "entrance": "votes",
+          "plot": "G4N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [
+            222
+          ],
+          "core_points": 7766,
+          "graph_edges": 72546,
+          "components": 77,
+          "seedless_points": 1449,
+          "same_edges": 70383,
+          "different_edges": 562
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 170,
+              "ignored_points": 0,
+              "dominant_gt_id": 221,
+              "purity": 1.0
+            },
+            {
+              "known_points": 606,
+              "ignored_points": 0,
+              "dominant_gt_id": 229,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 183,
+          "entrance": "votes",
+          "plot": "G4N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [
+            221,
+            229
+          ],
+          "core_points": 29831,
+          "graph_edges": 262834,
+          "components": 83,
+          "seedless_points": 4149,
+          "same_edges": 245786,
+          "different_edges": 4075
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 193,
+              "ignored_points": 0,
+              "dominant_gt_id": 62,
+              "purity": 0.9378238341968912
+            },
+            {
+              "known_points": 302,
+              "ignored_points": 0,
+              "dominant_gt_id": 57,
+              "purity": 0.890728476821192
+            }
+          ],
+          "reliable": false,
+          "parent_id": 210,
+          "entrance": "votes",
+          "plot": "G4N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 55725,
+          "graph_edges": 545613,
+          "components": 25,
+          "seedless_points": 671,
+          "same_edges": 538146,
+          "different_edges": 5658
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 458,
+              "ignored_points": 0,
+              "dominant_gt_id": 123,
+              "purity": 1.0
+            },
+            {
+              "known_points": 320,
+              "ignored_points": 0,
+              "dominant_gt_id": 123,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 332,
+          "entrance": "geometry",
+          "plot": "G4N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 4416,
+          "graph_edges": 43846,
+          "components": 8,
+          "seedless_points": 111,
+          "same_edges": 43745,
+          "different_edges": 101
+        }
+      ]
+    },
+    {
+      "plot": "G4W",
+      "split": "validation",
+      "baseline": {
+        "tp": 545,
+        "fp": 50,
+        "fn": 40,
+        "num_gt": 585,
+        "num_predictions": 653,
+        "ignored_points": 0,
+        "f1": 0.923728813559322,
+        "completeness": 0.9316239316239316,
+        "commission": 0.08403361344537816,
+        "coverage": 0.8071391879868852,
+        "point_precision": 0.8859198184120907,
+        "point_recall": 0.9006411035666003
+      },
+      "num_parents": 653,
+      "num_candidates": 10,
+      "reasons": {
+        "no_seeds": 628,
+        "candidate": 10,
+        "third_stable_support": 15
+      },
+      "entrances": {
+        "votes": 6,
+        "geometry": 4
+      },
+      "reliable": 4,
+      "recoverable_candidates": 4,
+      "selected_original_tp": 9,
+      "reliable_original_tp": 4,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/G4W/labels.npy",
+        "size": 169583240,
+        "mtime_ns": 1792090309341595251
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 72,
+              "ignored_points": 0,
+              "dominant_gt_id": 484,
+              "purity": 1.0
+            },
+            {
+              "known_points": 80,
+              "ignored_points": 0,
+              "dominant_gt_id": 232,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 10,
+          "entrance": "votes",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            232
+          ],
+          "core_points": 11116,
+          "graph_edges": 100248,
+          "components": 50,
+          "seedless_points": 1454,
+          "same_edges": 94345,
+          "different_edges": 827
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 438,
+              "ignored_points": 0,
+              "dominant_gt_id": 502,
+              "purity": 0.9885844748858448
+            },
+            {
+              "known_points": 77,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 11,
+          "entrance": "geometry",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 10360,
+          "graph_edges": 95894,
+          "components": 29,
+          "seedless_points": 160,
+          "same_edges": 92699,
+          "different_edges": 914
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 154,
+              "ignored_points": 0,
+              "dominant_gt_id": 119,
+              "purity": 1.0
+            },
+            {
+              "known_points": 139,
+              "ignored_points": 0,
+              "dominant_gt_id": 176,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 33,
+          "entrance": "votes",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            176
+          ],
+          "core_points": 6036,
+          "graph_edges": 55337,
+          "components": 57,
+          "seedless_points": 330,
+          "same_edges": 54366,
+          "different_edges": 379
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 308,
+              "ignored_points": 0,
+              "dominant_gt_id": 405,
+              "purity": 0.9935064935064936
+            },
+            {
+              "known_points": 246,
+              "ignored_points": 0,
+              "dominant_gt_id": 405,
+              "purity": 0.0040650406504065045
+            }
+          ],
+          "reliable": false,
+          "parent_id": 99,
+          "entrance": "geometry",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 4253,
+          "graph_edges": 38855,
+          "components": 54,
+          "seedless_points": 327,
+          "same_edges": 31661,
+          "different_edges": 169
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 252,
+              "ignored_points": 0,
+              "dominant_gt_id": 105,
+              "purity": 1.0
+            },
+            {
+              "known_points": 76,
+              "ignored_points": 0,
+              "dominant_gt_id": 175,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 101,
+          "entrance": "votes",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            175
+          ],
+          "core_points": 7741,
+          "graph_edges": 71730,
+          "components": 109,
+          "seedless_points": 718,
+          "same_edges": 66087,
+          "different_edges": 778
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 603,
+              "ignored_points": 0,
+              "dominant_gt_id": 163,
+              "purity": 1.0
+            },
+            {
+              "known_points": 534,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 155,
+          "entrance": "geometry",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 71661,
+          "graph_edges": 691832,
+          "components": 25,
+          "seedless_points": 3447,
+          "same_edges": 663733,
+          "different_edges": 13
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 71,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 67,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 317,
+          "entrance": "votes",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 694,
+          "graph_edges": 6151,
+          "components": 12,
+          "seedless_points": 262,
+          "same_edges": 305,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 571,
+              "ignored_points": 0,
+              "dominant_gt_id": 329,
+              "purity": 1.0
+            },
+            {
+              "known_points": 409,
+              "ignored_points": 0,
+              "dominant_gt_id": 329,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 337,
+          "entrance": "geometry",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 64123,
+          "graph_edges": 627927,
+          "components": 8,
+          "seedless_points": 22,
+          "same_edges": 621696,
+          "different_edges": 5480
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 1453,
+              "ignored_points": 0,
+              "dominant_gt_id": 574,
+              "purity": 1.0
+            },
+            {
+              "known_points": 39,
+              "ignored_points": 0,
+              "dominant_gt_id": 574,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 378,
+          "entrance": "votes",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 33309,
+          "graph_edges": 315651,
+          "components": 26,
+          "seedless_points": 160,
+          "same_edges": 313102,
+          "different_edges": 2320
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 763,
+              "ignored_points": 0,
+              "dominant_gt_id": 515,
+              "purity": 1.0
+            },
+            {
+              "known_points": 163,
+              "ignored_points": 0,
+              "dominant_gt_id": 477,
+              "purity": 1.0
+            }
+          ],
+          "reliable": true,
+          "parent_id": 570,
+          "entrance": "votes",
+          "plot": "G4W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [
+            477
+          ],
+          "core_points": 16661,
+          "graph_edges": 160896,
+          "components": 24,
+          "seedless_points": 201,
+          "same_edges": 147075,
+          "different_edges": 2475
+        }
+      ]
+    },
+    {
+      "plot": "L1N",
+      "split": "validation",
+      "baseline": {
+        "tp": 431,
+        "fp": 90,
+        "fn": 22,
+        "num_gt": 453,
+        "num_predictions": 685,
+        "ignored_points": 0,
+        "f1": 0.8850102669404517,
+        "completeness": 0.9514348785871964,
+        "commission": 0.1727447216890595,
+        "coverage": 0.8389741195412181,
+        "point_precision": 0.9175604097077905,
+        "point_recall": 0.9021577472373711
+      },
+      "num_parents": 685,
+      "num_candidates": 11,
+      "reasons": {
+        "no_seeds": 653,
+        "candidate": 11,
+        "third_stable_support": 21
+      },
+      "entrances": {
+        "votes": 3,
+        "geometry": 8
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 5,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/L1N/labels.npy",
+        "size": 137748744,
+        "mtime_ns": 1792091345720673098
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 649,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 554,
+              "ignored_points": 0,
+              "dominant_gt_id": 347,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 44,
+          "entrance": "votes",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 7328,
+          "graph_edges": 69299,
+          "components": 11,
+          "seedless_points": 145,
+          "same_edges": 34632,
+          "different_edges": 487
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 449,
+              "ignored_points": 0,
+              "dominant_gt_id": 251,
+              "purity": 0.9933184855233853
+            },
+            {
+              "known_points": 156,
+              "ignored_points": 0,
+              "dominant_gt_id": 367,
+              "purity": 0.5448717948717948
+            }
+          ],
+          "reliable": false,
+          "parent_id": 210,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 4259,
+          "graph_edges": 41721,
+          "components": 10,
+          "seedless_points": 499,
+          "same_edges": 40703,
+          "different_edges": 394
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 180,
+              "ignored_points": 0,
+              "dominant_gt_id": 160,
+              "purity": 1.0
+            },
+            {
+              "known_points": 219,
+              "ignored_points": 0,
+              "dominant_gt_id": 160,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 247,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 9972,
+          "graph_edges": 87275,
+          "components": 53,
+          "seedless_points": 1122,
+          "same_edges": 86488,
+          "different_edges": 777
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 233,
+              "ignored_points": 0,
+              "dominant_gt_id": 371,
+              "purity": 1.0
+            },
+            {
+              "known_points": 221,
+              "ignored_points": 0,
+              "dominant_gt_id": 371,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 353,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 6473,
+          "graph_edges": 58144,
+          "components": 48,
+          "seedless_points": 5564,
+          "same_edges": 58098,
+          "different_edges": 46
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 1119,
+              "ignored_points": 0,
+              "dominant_gt_id": 147,
+              "purity": 0.8239499553172476
+            },
+            {
+              "known_points": 1409,
+              "ignored_points": 0,
+              "dominant_gt_id": 147,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 437,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 42251,
+          "graph_edges": 390242,
+          "components": 65,
+          "seedless_points": 1954,
+          "same_edges": 382678,
+          "different_edges": 5496
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 253,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 214,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 441,
+          "entrance": "votes",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1291,
+          "graph_edges": 11168,
+          "components": 26,
+          "seedless_points": 201,
+          "same_edges": 981,
+          "different_edges": 50
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 89,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 171,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 465,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2158,
+          "graph_edges": 17406,
+          "components": 38,
+          "seedless_points": 1876,
+          "same_edges": 5285,
+          "different_edges": 89
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 87,
+              "ignored_points": 0,
+              "dominant_gt_id": 295,
+              "purity": 1.0
+            },
+            {
+              "known_points": 67,
+              "ignored_points": 0,
+              "dominant_gt_id": 295,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 490,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 1831,
+          "graph_edges": 17276,
+          "components": 2,
+          "seedless_points": 1,
+          "same_edges": 16984,
+          "different_edges": 150
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 294,
+              "ignored_points": 0,
+              "dominant_gt_id": 365,
+              "purity": 1.0
+            },
+            {
+              "known_points": 235,
+              "ignored_points": 0,
+              "dominant_gt_id": 365,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 560,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 31757,
+          "graph_edges": 286195,
+          "components": 11,
+          "seedless_points": 238,
+          "same_edges": 282871,
+          "different_edges": 3317
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 109,
+              "ignored_points": 0,
+              "dominant_gt_id": 333,
+              "purity": 0.009174311926605505
+            },
+            {
+              "known_points": 80,
+              "ignored_points": 0,
+              "dominant_gt_id": 333,
+              "purity": 0.0625
+            }
+          ],
+          "reliable": false,
+          "parent_id": 600,
+          "entrance": "geometry",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 8837,
+          "graph_edges": 67398,
+          "components": 124,
+          "seedless_points": 8098,
+          "same_edges": 59605,
+          "different_edges": 1566
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 224,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 148,
+              "ignored_points": 0,
+              "dominant_gt_id": 184,
+              "purity": 0.8918918918918919
+            }
+          ],
+          "reliable": false,
+          "parent_id": 632,
+          "entrance": "votes",
+          "plot": "L1N",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1464,
+          "graph_edges": 12762,
+          "components": 11,
+          "seedless_points": 37,
+          "same_edges": 2289,
+          "different_edges": 618
+        }
+      ]
+    },
+    {
+      "plot": "O1N",
+      "split": "validation",
+      "baseline": {
+        "tp": 152,
+        "fp": 11,
+        "fn": 8,
+        "num_gt": 160,
+        "num_predictions": 190,
+        "ignored_points": 0,
+        "f1": 0.9411764705882353,
+        "completeness": 0.95,
+        "commission": 0.06748466257668712,
+        "coverage": 0.9029393550823052,
+        "point_precision": 0.9355148646905477,
+        "point_recall": 0.9621859269768196
+      },
+      "num_parents": 190,
+      "num_candidates": 0,
+      "reasons": {
+        "no_seeds": 185,
+        "third_stable_support": 5
+      },
+      "entrances": {},
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 0,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/O1N/labels.npy",
+        "size": 82862088,
+        "mtime_ns": 1792091824210954133
+      },
+      "candidates": []
+    },
+    {
+      "plot": "O1W",
+      "split": "validation",
+      "baseline": {
+        "tp": 223,
+        "fp": 89,
+        "fn": 43,
+        "num_gt": 266,
+        "num_predictions": 703,
+        "ignored_points": 0,
+        "f1": 0.7716262975778547,
+        "completeness": 0.8383458646616542,
+        "commission": 0.28525641025641024,
+        "coverage": 0.7584700048229904,
+        "point_precision": 0.8652797295163054,
+        "point_recall": 0.8518547025913471
+      },
+      "num_parents": 703,
+      "num_candidates": 10,
+      "reasons": {
+        "no_seeds": 655,
+        "third_stable_support": 38,
+        "candidate": 10
+      },
+      "entrances": {
+        "votes": 5,
+        "geometry": 5
+      },
+      "reliable": 0,
+      "recoverable_candidates": 0,
+      "selected_original_tp": 4,
+      "reliable_original_tp": 0,
+      "label_source": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/O1W/labels.npy",
+        "size": 150795416,
+        "mtime_ns": 1792092810073801630
+      },
+      "candidates": [
+        {
+          "seeds": [
+            {
+              "known_points": 2651,
+              "ignored_points": 0,
+              "dominant_gt_id": 189,
+              "purity": 1.0
+            },
+            {
+              "known_points": 406,
+              "ignored_points": 0,
+              "dominant_gt_id": 189,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 8,
+          "entrance": "votes",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 98632,
+          "graph_edges": 908273,
+          "components": 15,
+          "seedless_points": 287,
+          "same_edges": 906773,
+          "different_edges": 1264
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 577,
+              "ignored_points": 0,
+              "dominant_gt_id": 61,
+              "purity": 1.0
+            },
+            {
+              "known_points": 134,
+              "ignored_points": 0,
+              "dominant_gt_id": 61,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 153,
+          "entrance": "geometry",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 18006,
+          "graph_edges": 169830,
+          "components": 3,
+          "seedless_points": 6,
+          "same_edges": 166712,
+          "different_edges": 2968
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 711,
+              "ignored_points": 0,
+              "dominant_gt_id": 99,
+              "purity": 1.0
+            },
+            {
+              "known_points": 392,
+              "ignored_points": 0,
+              "dominant_gt_id": 99,
+              "purity": 1.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 237,
+          "entrance": "geometry",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 20995,
+          "graph_edges": 205710,
+          "components": 4,
+          "seedless_points": 23,
+          "same_edges": 204865,
+          "different_edges": 501
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 889,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 27,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 316,
+          "entrance": "votes",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 3672,
+          "graph_edges": 35005,
+          "components": 2,
+          "seedless_points": 486,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 437,
+              "ignored_points": 0,
+              "dominant_gt_id": 27,
+              "purity": 1.0
+            },
+            {
+              "known_points": 234,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 331,
+          "entrance": "geometry",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": true,
+          "recoverable_gt_ids": [],
+          "core_points": 111107,
+          "graph_edges": 1064303,
+          "components": 3,
+          "seedless_points": 2,
+          "same_edges": 1058403,
+          "different_edges": 2777
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 126,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 87,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 464,
+          "entrance": "votes",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1986,
+          "graph_edges": 17489,
+          "components": 22,
+          "seedless_points": 30,
+          "same_edges": 0,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 22,
+              "ignored_points": 0,
+              "dominant_gt_id": 33,
+              "purity": 0.7727272727272727
+            },
+            {
+              "known_points": 255,
+              "ignored_points": 0,
+              "dominant_gt_id": 77,
+              "purity": 0.9215686274509803
+            }
+          ],
+          "reliable": false,
+          "parent_id": 571,
+          "entrance": "votes",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 4926,
+          "graph_edges": 41363,
+          "components": 113,
+          "seedless_points": 2616,
+          "same_edges": 23423,
+          "different_edges": 2182
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 244,
+              "ignored_points": 0,
+              "dominant_gt_id": 40,
+              "purity": 0.9918032786885246
+            },
+            {
+              "known_points": 230,
+              "ignored_points": 0,
+              "dominant_gt_id": 40,
+              "purity": 0.9652173913043478
+            }
+          ],
+          "reliable": false,
+          "parent_id": 606,
+          "entrance": "geometry",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 2260,
+          "graph_edges": 20384,
+          "components": 17,
+          "seedless_points": 213,
+          "same_edges": 17953,
+          "different_edges": 1063
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 526,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 177,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 616,
+          "entrance": "votes",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 4989,
+          "graph_edges": 49746,
+          "components": 2,
+          "seedless_points": 84,
+          "same_edges": 687,
+          "different_edges": 0
+        },
+        {
+          "seeds": [
+            {
+              "known_points": 230,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            },
+            {
+              "known_points": 240,
+              "ignored_points": 0,
+              "dominant_gt_id": 0,
+              "purity": 0.0
+            }
+          ],
+          "reliable": false,
+          "parent_id": 684,
+          "entrance": "geometry",
+          "plot": "O1W",
+          "split": "validation",
+          "original_tp": false,
+          "recoverable_gt_ids": [],
+          "core_points": 1060,
+          "graph_edges": 9833,
+          "components": 3,
+          "seedless_points": 2,
+          "same_edges": 0,
+          "different_edges": 0
+        }
+      ]
+    }
+  ],
+  "preparation_sha256": {
+    "A1N": "0351aab88bdfa48db3e3c5c847a626f90862de0b54bd716e217c6c84ef5fdaf6",
+    "A1W": "474c15bc4b32aaf4fcb4dbca424a8211f6b18ff9c27d2d4c6dced135c7dc14be",
+    "G1N": "cafb56f4aa95350f30b75fe3300756f882e9f8081c38b8012ee0c11d31ae16fc",
+    "G1W": "c48318667fc3b252e9e506a484c6a2f50207e206917ef46dc61d6eb918a7e7f9",
+    "G2N": "58c20c74d95e27202329e5f26f057af1ff2c47f34ee99272bd00c0511ec512a3",
+    "G2W": "3e8c72af73901b774bc8e9a46007ba031c09218f64b1453827fefe848576e09c",
+    "G3N": "4aa904bb60e0a640ed287b7c006d96df97376b6b121831c90b44d3e62256cc87",
+    "G3W": "e4300d2f77b38be772c53cef48f87ee6f5bdfd40b99043fbf80b3d386113c13a",
+    "L2N": "45446a8f94edbc80886f17a3ebb8ee0bdb848aff0f55a61294314d40f45a7dc8",
+    "L2W": "4417e141b3f434ed7c3539639e496397a175b6b14da11c639350a6edc3121f5f",
+    "LG1": "d56489abe098c5a1b0b45e69196fc9b831235ae8a5fcf59b6badde59f5ac31c8",
+    "LG2": "dd7cf58385e897ca1d0048d09eaaecfe8cb82f9c4086b74f21bd67ae859214e7",
+    "LG3": "b5e395ad8fa98057e87fc81f532789eb1c4edeaeca0071f6f403e9700e1d10f7",
+    "G4N": "b8da9e2416f57dfbdd64dd4f39f3ea697f5ab1832a2b32f462feb677c8dba3cd",
+    "G4W": "dec834ce6aecb8eb24b6b010ad29de24a9b197258a0ac1ca1c5f01ce8f4b997a",
+    "L1N": "0495daca7ecb6b5361615440a57be26f777fcf737f5cbb6208e7fe584ab0b553",
+    "O1N": "f872b822f51c9d744461f349f74a8a3a06fe6c0558de508a3594bd2f457837d6",
+    "O1W": "d25e7330fe38002f0187d203bb31b066db6ddf164facbc8ec785c5bfd3912d91"
+  },
+  "validation_baseline_macro": {
+    "f1": 0.8819461650087632,
+    "completeness": 0.9116394255405943,
+    "commission": 0.14398590052095178,
+    "coverage": 0.820764705196767,
+    "point_precision": 0.893494182504744,
+    "point_recall": 0.9058118388637222
+  }
+}

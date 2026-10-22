@@ -1,0 +1,28 @@
+test_advancement_rejects_no_edits_and_three_to_one_ratio (test_local_split_v1.LocalSplitTests) ... ok
+test_budgets_refuse_without_truncation (test_local_split_v1.LocalSplitTests) ... ok
+test_connection_scores_change_actual_ownership (test_local_split_v1.LocalSplitTests) ... ok
+test_incremental_full_forest_counts_equal_full_point_evaluation (test_local_split_v1.LocalSplitTests) ... SCAN_IDS points=3/10
+SCAN_IDS points=10/10
+SCAN_COUNTS points=3/10
+SCAN_COUNTS points=10/10
+ok
+test_interrupted_training_cannot_silently_restart_budget (test_local_split_v1.LocalSplitTests) ... ok
+test_iou_equal_half_is_not_tp (test_local_split_v1.LocalSplitTests) ... ok
+test_later_third_track_overrides_earlier_accepted_pair (test_local_split_v1.LocalSplitTests) ... ok
+test_local_edits_keep_every_other_point_and_foreground (test_local_split_v1.LocalSplitTests) ... ok
+test_model_is_symmetric_and_has_exact_small_parameter_count (test_local_split_v1.LocalSplitTests) ... ok
+test_prepare_does_not_open_gt_and_is_chunk_independent (test_local_split_v1.LocalSplitTests) ... PREPARE train/synthetic parents=1/1 candidates=1
+ok
+test_seed_purity_ignores_unknown_but_counts_known_background (test_local_split_v1.LocalSplitTests) ... ok
+test_seedless_fragment_stays_parent (test_local_split_v1.LocalSplitTests) ... ok
+test_solver_failure_refuses (test_local_split_v1.LocalSplitTests) ... ok
+test_three_stable_supports_refuse_binary_split (test_local_split_v1.LocalSplitTests) ... ok
+test_touching_votes_still_allow_two_lower_tracks (test_local_split_v1.LocalSplitTests) ... ok
+test_unknown_and_background_pair_loss_mask (test_local_split_v1.LocalSplitTests) ... ok
+test_upper_fork_without_lower_pair_does_not_trigger (test_local_split_v1.LocalSplitTests) ... ok
+test_vote_pair_has_hash_and_shared_height_support (test_local_split_v1.LocalSplitTests) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.667s
+
+OK

@@ -1,0 +1,2 @@
+REPORT_ASSETS docs/experiments/assets/local_split_v1_20261022
+STAGES {'E0': {'reliable_train': 11, 'reliable_train_forests': 6, 'recoverable_validation': 6, 'passed': True}, 'E1': {'passed': False, 'same': 5003262, 'different': 25580, 'same_cut': 921392, 'different_cut': 20974, 'same_false_cut_rate': 0.1841582551543373, 'different_detection_rate': 0.8199374511336982, 'recovered': 9, 'lost': 0}}

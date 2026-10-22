@@ -1,0 +1,722 @@
+STAGE all signature=41dc247d6c0a72e4464f1362558ea1ab98a36b2b9db8c287ffc3d9619aaffc43 protocol=aligned_voxels_ignore_negative_gt_iou_gt_0.5
+PREPARE train/A1N parents=1/641 candidates=0
+PREPARE train/A1N parents=25/641 candidates=0
+PREPARE train/A1N parents=50/641 candidates=1
+PREPARE train/A1N parents=75/641 candidates=2
+PREPARE train/A1N parents=100/641 candidates=2
+PREPARE train/A1N parents=125/641 candidates=3
+PREPARE train/A1N parents=150/641 candidates=3
+PREPARE train/A1N parents=175/641 candidates=3
+PREPARE train/A1N parents=200/641 candidates=3
+PREPARE train/A1N parents=225/641 candidates=3
+PREPARE train/A1N parents=250/641 candidates=3
+PREPARE train/A1N parents=275/641 candidates=4
+PREPARE train/A1N parents=300/641 candidates=4
+PREPARE train/A1N parents=325/641 candidates=4
+PREPARE train/A1N parents=350/641 candidates=4
+PREPARE train/A1N parents=375/641 candidates=6
+PREPARE train/A1N parents=400/641 candidates=7
+PREPARE train/A1N parents=425/641 candidates=7
+PREPARE train/A1N parents=450/641 candidates=10
+PREPARE train/A1N parents=475/641 candidates=12
+PREPARE train/A1N parents=500/641 candidates=13
+PREPARE train/A1N parents=525/641 candidates=13
+PREPARE train/A1N parents=550/641 candidates=15
+PREPARE train/A1N parents=575/641 candidates=17
+PREPARE train/A1N parents=600/641 candidates=17
+PREPARE train/A1N parents=625/641 candidates=18
+PREPARE train/A1N parents=641/641 candidates=18
+PREPARE train/A1W parents=1/651 candidates=0
+PREPARE train/A1W parents=25/651 candidates=1
+PREPARE train/A1W parents=50/651 candidates=1
+PREPARE train/A1W parents=75/651 candidates=1
+PREPARE train/A1W parents=100/651 candidates=1
+PREPARE train/A1W parents=125/651 candidates=3
+PREPARE train/A1W parents=150/651 candidates=3
+PREPARE train/A1W parents=175/651 candidates=3
+PREPARE train/A1W parents=200/651 candidates=3
+PREPARE train/A1W parents=225/651 candidates=3
+PREPARE train/A1W parents=250/651 candidates=3
+PREPARE train/A1W parents=275/651 candidates=3
+PREPARE train/A1W parents=300/651 candidates=3
+PREPARE train/A1W parents=325/651 candidates=3
+PREPARE train/A1W parents=350/651 candidates=3
+PREPARE train/A1W parents=375/651 candidates=3
+PREPARE train/A1W parents=400/651 candidates=3
+PREPARE train/A1W parents=425/651 candidates=3
+PREPARE train/A1W parents=450/651 candidates=3
+PREPARE train/A1W parents=475/651 candidates=3
+PREPARE train/A1W parents=500/651 candidates=3
+PREPARE train/A1W parents=525/651 candidates=3
+PREPARE train/A1W parents=550/651 candidates=3
+PREPARE train/A1W parents=575/651 candidates=4
+PREPARE train/A1W parents=600/651 candidates=4
+PREPARE train/A1W parents=625/651 candidates=4
+PREPARE train/A1W parents=650/651 candidates=4
+PREPARE train/A1W parents=651/651 candidates=4
+PREPARE train/G1N parents=1/440 candidates=0
+PREPARE train/G1N parents=25/440 candidates=0
+PREPARE train/G1N parents=50/440 candidates=0
+PREPARE train/G1N parents=75/440 candidates=1
+PREPARE train/G1N parents=100/440 candidates=1
+PREPARE train/G1N parents=125/440 candidates=1
+PREPARE train/G1N parents=150/440 candidates=2
+PREPARE train/G1N parents=175/440 candidates=2
+PREPARE train/G1N parents=200/440 candidates=2
+PREPARE train/G1N parents=225/440 candidates=3
+PREPARE train/G1N parents=250/440 candidates=3
+PREPARE train/G1N parents=275/440 candidates=5
+PREPARE train/G1N parents=300/440 candidates=5
+PREPARE train/G1N parents=325/440 candidates=5
+PREPARE train/G1N parents=350/440 candidates=7
+PREPARE train/G1N parents=375/440 candidates=7
+PREPARE train/G1N parents=400/440 candidates=8
+PREPARE train/G1N parents=425/440 candidates=9
+PREPARE train/G1N parents=440/440 candidates=9
+PREPARE train/G1W parents=1/701 candidates=0
+PREPARE train/G1W parents=25/701 candidates=0
+PREPARE train/G1W parents=50/701 candidates=0
+PREPARE train/G1W parents=75/701 candidates=0
+PREPARE train/G1W parents=100/701 candidates=0
+PREPARE train/G1W parents=125/701 candidates=0
+PREPARE train/G1W parents=150/701 candidates=0
+PREPARE train/G1W parents=175/701 candidates=1
+PREPARE train/G1W parents=200/701 candidates=1
+PREPARE train/G1W parents=225/701 candidates=2
+PREPARE train/G1W parents=250/701 candidates=2
+PREPARE train/G1W parents=275/701 candidates=2
+PREPARE train/G1W parents=300/701 candidates=3
+PREPARE train/G1W parents=325/701 candidates=4
+PREPARE train/G1W parents=350/701 candidates=6
+PREPARE train/G1W parents=375/701 candidates=8
+PREPARE train/G1W parents=400/701 candidates=9
+PREPARE train/G1W parents=425/701 candidates=9
+PREPARE train/G1W parents=450/701 candidates=9
+PREPARE train/G1W parents=475/701 candidates=9
+PREPARE train/G1W parents=500/701 candidates=9
+PREPARE train/G1W parents=525/701 candidates=12
+PREPARE train/G1W parents=550/701 candidates=13
+PREPARE train/G1W parents=575/701 candidates=15
+PREPARE train/G1W parents=600/701 candidates=16
+PREPARE train/G1W parents=625/701 candidates=16
+PREPARE train/G1W parents=650/701 candidates=17
+PREPARE train/G1W parents=675/701 candidates=17
+PREPARE train/G1W parents=700/701 candidates=18
+PREPARE train/G1W parents=701/701 candidates=18
+PREPARE train/G2N parents=1/755 candidates=0
+PREPARE train/G2N parents=25/755 candidates=0
+PREPARE train/G2N parents=50/755 candidates=1
+PREPARE train/G2N parents=75/755 candidates=2
+PREPARE train/G2N parents=100/755 candidates=3
+PREPARE train/G2N parents=125/755 candidates=3
+PREPARE train/G2N parents=150/755 candidates=3
+PREPARE train/G2N parents=175/755 candidates=3
+PREPARE train/G2N parents=200/755 candidates=3
+PREPARE train/G2N parents=225/755 candidates=3
+PREPARE train/G2N parents=250/755 candidates=4
+PREPARE train/G2N parents=275/755 candidates=4
+PREPARE train/G2N parents=300/755 candidates=4
+PREPARE train/G2N parents=325/755 candidates=5
+PREPARE train/G2N parents=350/755 candidates=5
+PREPARE train/G2N parents=375/755 candidates=5
+PREPARE train/G2N parents=400/755 candidates=8
+PREPARE train/G2N parents=425/755 candidates=9
+PREPARE train/G2N parents=450/755 candidates=9
+PREPARE train/G2N parents=475/755 candidates=9
+PREPARE train/G2N parents=500/755 candidates=10
+PREPARE train/G2N parents=525/755 candidates=11
+PREPARE train/G2N parents=550/755 candidates=12
+PREPARE train/G2N parents=575/755 candidates=12
+PREPARE train/G2N parents=600/755 candidates=12
+PREPARE train/G2N parents=625/755 candidates=13
+PREPARE train/G2N parents=650/755 candidates=14
+PREPARE train/G2N parents=675/755 candidates=14
+PREPARE train/G2N parents=700/755 candidates=14
+PREPARE train/G2N parents=725/755 candidates=15
+PREPARE train/G2N parents=750/755 candidates=16
+PREPARE train/G2N parents=755/755 candidates=16
+PREPARE train/G2W parents=1/591 candidates=0
+PREPARE train/G2W parents=25/591 candidates=0
+PREPARE train/G2W parents=50/591 candidates=0
+PREPARE train/G2W parents=75/591 candidates=1
+PREPARE train/G2W parents=100/591 candidates=1
+PREPARE train/G2W parents=125/591 candidates=1
+PREPARE train/G2W parents=150/591 candidates=1
+PREPARE train/G2W parents=175/591 candidates=1
+PREPARE train/G2W parents=200/591 candidates=1
+PREPARE train/G2W parents=225/591 candidates=4
+PREPARE train/G2W parents=250/591 candidates=4
+PREPARE train/G2W parents=275/591 candidates=5
+PREPARE train/G2W parents=300/591 candidates=6
+PREPARE train/G2W parents=325/591 candidates=6
+PREPARE train/G2W parents=350/591 candidates=6
+PREPARE train/G2W parents=375/591 candidates=6
+PREPARE train/G2W parents=400/591 candidates=10
+PREPARE train/G2W parents=425/591 candidates=12
+PREPARE train/G2W parents=450/591 candidates=13
+PREPARE train/G2W parents=475/591 candidates=13
+PREPARE train/G2W parents=500/591 candidates=14
+PREPARE train/G2W parents=525/591 candidates=14
+PREPARE train/G2W parents=550/591 candidates=15
+PREPARE train/G2W parents=575/591 candidates=16
+PREPARE train/G2W parents=591/591 candidates=16
+PREPARE train/G3N parents=1/475 candidates=0
+PREPARE train/G3N parents=25/475 candidates=0
+PREPARE train/G3N parents=50/475 candidates=0
+PREPARE train/G3N parents=75/475 candidates=0
+PREPARE train/G3N parents=100/475 candidates=0
+PREPARE train/G3N parents=125/475 candidates=0
+PREPARE train/G3N parents=150/475 candidates=0
+PREPARE train/G3N parents=175/475 candidates=0
+PREPARE train/G3N parents=200/475 candidates=0
+PREPARE train/G3N parents=225/475 candidates=1
+PREPARE train/G3N parents=250/475 candidates=1
+PREPARE train/G3N parents=275/475 candidates=1
+PREPARE train/G3N parents=300/475 candidates=1
+PREPARE train/G3N parents=325/475 candidates=1
+PREPARE train/G3N parents=350/475 candidates=2
+PREPARE train/G3N parents=375/475 candidates=2
+PREPARE train/G3N parents=400/475 candidates=4
+PREPARE train/G3N parents=425/475 candidates=4
+PREPARE train/G3N parents=450/475 candidates=5
+PREPARE train/G3N parents=475/475 candidates=6
+PREPARE train/G3W parents=1/535 candidates=0
+PREPARE train/G3W parents=25/535 candidates=0
+PREPARE train/G3W parents=50/535 candidates=0
+PREPARE train/G3W parents=75/535 candidates=0
+PREPARE train/G3W parents=100/535 candidates=1
+PREPARE train/G3W parents=125/535 candidates=2
+PREPARE train/G3W parents=150/535 candidates=3
+PREPARE train/G3W parents=175/535 candidates=3
+PREPARE train/G3W parents=200/535 candidates=3
+PREPARE train/G3W parents=225/535 candidates=5
+PREPARE train/G3W parents=250/535 candidates=6
+PREPARE train/G3W parents=275/535 candidates=6
+PREPARE train/G3W parents=300/535 candidates=6
+PREPARE train/G3W parents=325/535 candidates=6
+PREPARE train/G3W parents=350/535 candidates=6
+PREPARE train/G3W parents=375/535 candidates=7
+PREPARE train/G3W parents=400/535 candidates=8
+PREPARE train/G3W parents=425/535 candidates=8
+PREPARE train/G3W parents=450/535 candidates=8
+PREPARE train/G3W parents=475/535 candidates=9
+PREPARE train/G3W parents=500/535 candidates=9
+PREPARE train/G3W parents=525/535 candidates=11
+PREPARE train/G3W parents=535/535 candidates=11
+PREPARE train/L2N parents=1/356 candidates=0
+PREPARE train/L2N parents=25/356 candidates=0
+PREPARE train/L2N parents=50/356 candidates=0
+PREPARE train/L2N parents=75/356 candidates=0
+PREPARE train/L2N parents=100/356 candidates=0
+PREPARE train/L2N parents=125/356 candidates=0
+PREPARE train/L2N parents=150/356 candidates=0
+PREPARE train/L2N parents=175/356 candidates=0
+PREPARE train/L2N parents=200/356 candidates=0
+PREPARE train/L2N parents=225/356 candidates=3
+PREPARE train/L2N parents=250/356 candidates=4
+PREPARE train/L2N parents=275/356 candidates=4
+PREPARE train/L2N parents=300/356 candidates=5
+PREPARE train/L2N parents=325/356 candidates=5
+PREPARE train/L2N parents=350/356 candidates=6
+PREPARE train/L2N parents=356/356 candidates=6
+PREPARE train/L2W parents=1/465 candidates=0
+PREPARE train/L2W parents=25/465 candidates=0
+PREPARE train/L2W parents=50/465 candidates=0
+PREPARE train/L2W parents=75/465 candidates=0
+PREPARE train/L2W parents=100/465 candidates=0
+PREPARE train/L2W parents=125/465 candidates=0
+PREPARE train/L2W parents=150/465 candidates=0
+PREPARE train/L2W parents=175/465 candidates=0
+PREPARE train/L2W parents=200/465 candidates=0
+PREPARE train/L2W parents=225/465 candidates=0
+PREPARE train/L2W parents=250/465 candidates=0
+PREPARE train/L2W parents=275/465 candidates=0
+PREPARE train/L2W parents=300/465 candidates=0
+PREPARE train/L2W parents=325/465 candidates=0
+PREPARE train/L2W parents=350/465 candidates=0
+PREPARE train/L2W parents=375/465 candidates=0
+PREPARE train/L2W parents=400/465 candidates=0
+PREPARE train/L2W parents=425/465 candidates=1
+PREPARE train/L2W parents=450/465 candidates=1
+PREPARE train/L2W parents=465/465 candidates=2
+PREPARE train/LG1 parents=1/462 candidates=0
+PREPARE train/LG1 parents=25/462 candidates=0
+PREPARE train/LG1 parents=50/462 candidates=0
+PREPARE train/LG1 parents=75/462 candidates=0
+PREPARE train/LG1 parents=100/462 candidates=1
+PREPARE train/LG1 parents=125/462 candidates=2
+PREPARE train/LG1 parents=150/462 candidates=2
+PREPARE train/LG1 parents=175/462 candidates=3
+PREPARE train/LG1 parents=200/462 candidates=3
+PREPARE train/LG1 parents=225/462 candidates=3
+PREPARE train/LG1 parents=250/462 candidates=4
+PREPARE train/LG1 parents=275/462 candidates=5
+PREPARE train/LG1 parents=300/462 candidates=6
+PREPARE train/LG1 parents=325/462 candidates=6
+PREPARE train/LG1 parents=350/462 candidates=6
+PREPARE train/LG1 parents=375/462 candidates=6
+PREPARE train/LG1 parents=400/462 candidates=6
+PREPARE train/LG1 parents=425/462 candidates=6
+PREPARE train/LG1 parents=450/462 candidates=7
+PREPARE train/LG1 parents=462/462 candidates=7
+PREPARE train/LG2 parents=1/396 candidates=0
+PREPARE train/LG2 parents=25/396 candidates=0
+PREPARE train/LG2 parents=50/396 candidates=0
+PREPARE train/LG2 parents=75/396 candidates=1
+PREPARE train/LG2 parents=100/396 candidates=2
+PREPARE train/LG2 parents=125/396 candidates=2
+PREPARE train/LG2 parents=150/396 candidates=2
+PREPARE train/LG2 parents=175/396 candidates=2
+PREPARE train/LG2 parents=200/396 candidates=2
+PREPARE train/LG2 parents=225/396 candidates=2
+PREPARE train/LG2 parents=250/396 candidates=2
+PREPARE train/LG2 parents=275/396 candidates=2
+PREPARE train/LG2 parents=300/396 candidates=2
+PREPARE train/LG2 parents=325/396 candidates=2
+PREPARE train/LG2 parents=350/396 candidates=2
+PREPARE train/LG2 parents=375/396 candidates=3
+PREPARE train/LG2 parents=396/396 candidates=3
+PREPARE train/LG3 parents=1/340 candidates=0
+PREPARE train/LG3 parents=25/340 candidates=0
+PREPARE train/LG3 parents=50/340 candidates=1
+PREPARE train/LG3 parents=75/340 candidates=1
+PREPARE train/LG3 parents=100/340 candidates=1
+PREPARE train/LG3 parents=125/340 candidates=1
+PREPARE train/LG3 parents=150/340 candidates=2
+PREPARE train/LG3 parents=175/340 candidates=2
+PREPARE train/LG3 parents=200/340 candidates=2
+PREPARE train/LG3 parents=225/340 candidates=2
+PREPARE train/LG3 parents=250/340 candidates=2
+PREPARE train/LG3 parents=275/340 candidates=2
+PREPARE train/LG3 parents=300/340 candidates=2
+PREPARE train/LG3 parents=325/340 candidates=2
+PREPARE train/LG3 parents=340/340 candidates=2
+PREPARE validation/G4N parents=1/364 candidates=0
+PREPARE validation/G4N parents=25/364 candidates=0
+PREPARE validation/G4N parents=50/364 candidates=1
+PREPARE validation/G4N parents=75/364 candidates=2
+PREPARE validation/G4N parents=100/364 candidates=2
+PREPARE validation/G4N parents=125/364 candidates=2
+PREPARE validation/G4N parents=150/364 candidates=2
+PREPARE validation/G4N parents=175/364 candidates=2
+PREPARE validation/G4N parents=200/364 candidates=4
+PREPARE validation/G4N parents=225/364 candidates=5
+PREPARE validation/G4N parents=250/364 candidates=5
+PREPARE validation/G4N parents=275/364 candidates=5
+PREPARE validation/G4N parents=300/364 candidates=5
+PREPARE validation/G4N parents=325/364 candidates=5
+PREPARE validation/G4N parents=350/364 candidates=6
+PREPARE validation/G4N parents=364/364 candidates=6
+PREPARE validation/G4W parents=1/653 candidates=0
+PREPARE validation/G4W parents=25/653 candidates=2
+PREPARE validation/G4W parents=50/653 candidates=3
+PREPARE validation/G4W parents=75/653 candidates=3
+PREPARE validation/G4W parents=100/653 candidates=4
+PREPARE validation/G4W parents=125/653 candidates=5
+PREPARE validation/G4W parents=150/653 candidates=5
+PREPARE validation/G4W parents=175/653 candidates=6
+PREPARE validation/G4W parents=200/653 candidates=6
+PREPARE validation/G4W parents=225/653 candidates=6
+PREPARE validation/G4W parents=250/653 candidates=6
+PREPARE validation/G4W parents=275/653 candidates=6
+PREPARE validation/G4W parents=300/653 candidates=6
+PREPARE validation/G4W parents=325/653 candidates=7
+PREPARE validation/G4W parents=350/653 candidates=8
+PREPARE validation/G4W parents=375/653 candidates=8
+PREPARE validation/G4W parents=400/653 candidates=9
+PREPARE validation/G4W parents=425/653 candidates=9
+PREPARE validation/G4W parents=450/653 candidates=9
+PREPARE validation/G4W parents=475/653 candidates=9
+PREPARE validation/G4W parents=500/653 candidates=9
+PREPARE validation/G4W parents=525/653 candidates=9
+PREPARE validation/G4W parents=550/653 candidates=9
+PREPARE validation/G4W parents=575/653 candidates=10
+PREPARE validation/G4W parents=600/653 candidates=10
+PREPARE validation/G4W parents=625/653 candidates=10
+PREPARE validation/G4W parents=650/653 candidates=10
+PREPARE validation/G4W parents=653/653 candidates=10
+PREPARE validation/L1N parents=1/685 candidates=0
+PREPARE validation/L1N parents=25/685 candidates=0
+PREPARE validation/L1N parents=50/685 candidates=1
+PREPARE validation/L1N parents=75/685 candidates=1
+PREPARE validation/L1N parents=100/685 candidates=1
+PREPARE validation/L1N parents=125/685 candidates=1
+PREPARE validation/L1N parents=150/685 candidates=1
+PREPARE validation/L1N parents=175/685 candidates=1
+PREPARE validation/L1N parents=200/685 candidates=1
+PREPARE validation/L1N parents=225/685 candidates=2
+PREPARE validation/L1N parents=250/685 candidates=3
+PREPARE validation/L1N parents=275/685 candidates=3
+PREPARE validation/L1N parents=300/685 candidates=3
+PREPARE validation/L1N parents=325/685 candidates=3
+PREPARE validation/L1N parents=350/685 candidates=3
+PREPARE validation/L1N parents=375/685 candidates=4
+PREPARE validation/L1N parents=400/685 candidates=4
+PREPARE validation/L1N parents=425/685 candidates=5
+PREPARE validation/L1N parents=450/685 candidates=7
+PREPARE validation/L1N parents=475/685 candidates=8
+PREPARE validation/L1N parents=500/685 candidates=9
+PREPARE validation/L1N parents=525/685 candidates=9
+PREPARE validation/L1N parents=550/685 candidates=9
+PREPARE validation/L1N parents=575/685 candidates=10
+PREPARE validation/L1N parents=600/685 candidates=11
+PREPARE validation/L1N parents=625/685 candidates=11
+PREPARE validation/L1N parents=650/685 candidates=12
+PREPARE validation/L1N parents=675/685 candidates=12
+PREPARE validation/L1N parents=685/685 candidates=12
+PREPARE validation/O1N parents=1/190 candidates=0
+PREPARE validation/O1N parents=25/190 candidates=0
+PREPARE validation/O1N parents=50/190 candidates=0
+PREPARE validation/O1N parents=75/190 candidates=0
+PREPARE validation/O1N parents=100/190 candidates=0
+PREPARE validation/O1N parents=125/190 candidates=0
+PREPARE validation/O1N parents=150/190 candidates=0
+PREPARE validation/O1N parents=175/190 candidates=0
+PREPARE validation/O1N parents=190/190 candidates=0
+PREPARE validation/O1W parents=1/703 candidates=0
+PREPARE validation/O1W parents=25/703 candidates=1
+PREPARE validation/O1W parents=50/703 candidates=1
+PREPARE validation/O1W parents=75/703 candidates=1
+PREPARE validation/O1W parents=100/703 candidates=1
+PREPARE validation/O1W parents=125/703 candidates=1
+PREPARE validation/O1W parents=150/703 candidates=1
+PREPARE validation/O1W parents=175/703 candidates=2
+PREPARE validation/O1W parents=200/703 candidates=2
+PREPARE validation/O1W parents=225/703 candidates=2
+PREPARE validation/O1W parents=250/703 candidates=3
+PREPARE validation/O1W parents=275/703 candidates=3
+PREPARE validation/O1W parents=300/703 candidates=3
+PREPARE validation/O1W parents=325/703 candidates=4
+PREPARE validation/O1W parents=350/703 candidates=5
+PREPARE validation/O1W parents=375/703 candidates=5
+PREPARE validation/O1W parents=400/703 candidates=5
+PREPARE validation/O1W parents=425/703 candidates=5
+PREPARE validation/O1W parents=450/703 candidates=5
+PREPARE validation/O1W parents=475/703 candidates=6
+PREPARE validation/O1W parents=500/703 candidates=6
+PREPARE validation/O1W parents=525/703 candidates=6
+PREPARE validation/O1W parents=550/703 candidates=6
+PREPARE validation/O1W parents=575/703 candidates=7
+PREPARE validation/O1W parents=600/703 candidates=7
+PREPARE validation/O1W parents=625/703 candidates=9
+PREPARE validation/O1W parents=650/703 candidates=9
+PREPARE validation/O1W parents=675/703 candidates=9
+PREPARE validation/O1W parents=700/703 candidates=10
+PREPARE validation/O1W parents=703/703 candidates=10
+PREPARED source-only; no torch imported and no GT opened.
+AUDIT A1N/50 entrance=votes reliable=False recoverable=[]
+AUDIT A1N/69 entrance=votes reliable=True recoverable=[228, 247]
+AUDIT A1N/116 entrance=votes reliable=True recoverable=[80]
+AUDIT A1N/251 entrance=geometry reliable=False recoverable=[]
+AUDIT A1N/365 entrance=votes reliable=False recoverable=[]
+AUDIT A1N/372 entrance=geometry reliable=False recoverable=[]
+AUDIT A1N/382 entrance=votes reliable=False recoverable=[]
+AUDIT A1N/431 entrance=votes reliable=False recoverable=[]
+AUDIT A1N/440 entrance=geometry reliable=False recoverable=[]
+AUDIT A1N/450 entrance=votes reliable=True recoverable=[63, 73]
+AUDIT A1N/462 entrance=geometry reliable=False recoverable=[]
+AUDIT A1N/468 entrance=votes reliable=False recoverable=[]
+AUDIT A1N/486 entrance=votes reliable=False recoverable=[]
+AUDIT A1N/529 entrance=geometry reliable=False recoverable=[]
+AUDIT A1N/538 entrance=geometry reliable=False recoverable=[]
+AUDIT A1N/555 entrance=votes reliable=False recoverable=[]
+AUDIT A1N/575 entrance=votes reliable=True recoverable=[142]
+AUDIT A1N/619 entrance=geometry reliable=False recoverable=[]
+AUDIT A1W/23 entrance=geometry reliable=False recoverable=[]
+AUDIT A1W/101 entrance=votes reliable=False recoverable=[]
+AUDIT A1W/111 entrance=geometry reliable=False recoverable=[]
+AUDIT A1W/558 entrance=votes reliable=False recoverable=[]
+AUDIT G1N/74 entrance=geometry reliable=False recoverable=[]
+AUDIT G1N/146 entrance=geometry reliable=False recoverable=[]
+AUDIT G1N/201 entrance=geometry reliable=False recoverable=[]
+AUDIT G1N/256 entrance=geometry reliable=False recoverable=[]
+AUDIT G1N/275 entrance=geometry reliable=False recoverable=[]
+AUDIT G1N/327 entrance=geometry reliable=False recoverable=[]
+AUDIT G1N/329 entrance=votes reliable=False recoverable=[]
+AUDIT G1N/387 entrance=votes reliable=False recoverable=[]
+AUDIT G1N/413 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/158 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/216 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/281 entrance=votes reliable=False recoverable=[]
+AUDIT G1W/325 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/343 entrance=votes reliable=True recoverable=[229]
+AUDIT G1W/344 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/367 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/368 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/398 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/501 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/506 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/522 entrance=votes reliable=False recoverable=[]
+AUDIT G1W/541 entrance=votes reliable=False recoverable=[]
+AUDIT G1W/557 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/571 entrance=votes reliable=False recoverable=[]
+AUDIT G1W/576 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/647 entrance=geometry reliable=False recoverable=[]
+AUDIT G1W/678 entrance=votes reliable=False recoverable=[]
+AUDIT G2N/43 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/68 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/90 entrance=votes reliable=True recoverable=[473]
+AUDIT G2N/234 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/319 entrance=votes reliable=False recoverable=[]
+AUDIT G2N/379 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/380 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/395 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/419 entrance=votes reliable=False recoverable=[]
+AUDIT G2N/490 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/513 entrance=votes reliable=True recoverable=[]
+AUDIT G2N/535 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/607 entrance=votes reliable=False recoverable=[]
+AUDIT G2N/646 entrance=votes reliable=False recoverable=[]
+AUDIT G2N/711 entrance=geometry reliable=False recoverable=[]
+AUDIT G2N/728 entrance=geometry reliable=False recoverable=[]
+AUDIT G2W/56 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/207 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/208 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/217 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/252 entrance=geometry reliable=True recoverable=[188]
+AUDIT G2W/288 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/378 entrance=geometry reliable=False recoverable=[]
+AUDIT G2W/388 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/391 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/394 entrance=geometry reliable=False recoverable=[]
+AUDIT G2W/403 entrance=geometry reliable=False recoverable=[]
+AUDIT G2W/412 entrance=geometry reliable=False recoverable=[]
+AUDIT G2W/437 entrance=geometry reliable=False recoverable=[]
+AUDIT G2W/481 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/527 entrance=votes reliable=False recoverable=[]
+AUDIT G2W/553 entrance=votes reliable=False recoverable=[]
+AUDIT G3N/214 entrance=votes reliable=False recoverable=[]
+AUDIT G3N/342 entrance=geometry reliable=False recoverable=[]
+AUDIT G3N/378 entrance=votes reliable=False recoverable=[]
+AUDIT G3N/381 entrance=votes reliable=False recoverable=[]
+AUDIT G3N/442 entrance=votes reliable=False recoverable=[]
+AUDIT G3N/470 entrance=geometry reliable=False recoverable=[]
+AUDIT G3W/78 entrance=geometry reliable=True recoverable=[]
+AUDIT G3W/124 entrance=votes reliable=False recoverable=[]
+AUDIT G3W/138 entrance=votes reliable=False recoverable=[]
+AUDIT G3W/202 entrance=votes reliable=False recoverable=[]
+AUDIT G3W/225 entrance=geometry reliable=False recoverable=[]
+AUDIT G3W/242 entrance=geometry reliable=False recoverable=[]
+AUDIT G3W/368 entrance=votes reliable=False recoverable=[]
+AUDIT G3W/390 entrance=geometry reliable=False recoverable=[]
+AUDIT G3W/475 entrance=geometry reliable=False recoverable=[]
+AUDIT G3W/506 entrance=votes reliable=False recoverable=[]
+AUDIT G3W/516 entrance=votes reliable=False recoverable=[]
+AUDIT L2N/204 entrance=geometry reliable=False recoverable=[]
+AUDIT L2N/214 entrance=geometry reliable=False recoverable=[]
+AUDIT L2N/220 entrance=votes reliable=False recoverable=[]
+AUDIT L2N/226 entrance=votes reliable=False recoverable=[]
+AUDIT L2N/293 entrance=geometry reliable=False recoverable=[]
+AUDIT L2N/331 entrance=votes reliable=False recoverable=[]
+AUDIT L2W/401 entrance=votes reliable=False recoverable=[]
+AUDIT L2W/459 entrance=votes reliable=False recoverable=[]
+AUDIT LG1/80 entrance=geometry reliable=False recoverable=[]
+AUDIT LG1/125 entrance=geometry reliable=False recoverable=[]
+AUDIT LG1/160 entrance=geometry reliable=False recoverable=[]
+AUDIT LG1/231 entrance=geometry reliable=False recoverable=[]
+AUDIT LG1/265 entrance=votes reliable=True recoverable=[233, 244]
+AUDIT LG1/300 entrance=geometry reliable=False recoverable=[]
+AUDIT LG1/437 entrance=geometry reliable=True recoverable=[34]
+AUDIT LG2/61 entrance=geometry reliable=False recoverable=[]
+AUDIT LG2/77 entrance=geometry reliable=False recoverable=[]
+AUDIT LG2/373 entrance=geometry reliable=False recoverable=[]
+AUDIT LG3/41 entrance=votes reliable=False recoverable=[]
+AUDIT LG3/145 entrance=geometry reliable=False recoverable=[]
+AUDIT G4N/43 entrance=votes reliable=False recoverable=[]
+AUDIT G4N/63 entrance=geometry reliable=False recoverable=[]
+AUDIT G4N/179 entrance=votes reliable=True recoverable=[222]
+AUDIT G4N/183 entrance=votes reliable=True recoverable=[221, 229]
+AUDIT G4N/210 entrance=votes reliable=False recoverable=[]
+AUDIT G4N/332 entrance=geometry reliable=False recoverable=[]
+AUDIT G4W/10 entrance=votes reliable=True recoverable=[232]
+AUDIT G4W/11 entrance=geometry reliable=False recoverable=[]
+AUDIT G4W/33 entrance=votes reliable=True recoverable=[176]
+AUDIT G4W/99 entrance=geometry reliable=False recoverable=[]
+AUDIT G4W/101 entrance=votes reliable=True recoverable=[175]
+AUDIT G4W/155 entrance=geometry reliable=False recoverable=[]
+AUDIT G4W/317 entrance=votes reliable=False recoverable=[]
+AUDIT G4W/337 entrance=geometry reliable=False recoverable=[]
+AUDIT G4W/378 entrance=votes reliable=False recoverable=[]
+AUDIT G4W/570 entrance=votes reliable=True recoverable=[477]
+AUDIT L1N/44 entrance=votes reliable=False recoverable=[]
+AUDIT L1N/210 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/247 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/353 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/424 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/437 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/441 entrance=votes reliable=False recoverable=[]
+AUDIT L1N/465 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/490 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/560 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/600 entrance=geometry reliable=False recoverable=[]
+AUDIT L1N/632 entrance=votes reliable=False recoverable=[]
+AUDIT O1W/8 entrance=votes reliable=False recoverable=[]
+AUDIT O1W/153 entrance=geometry reliable=False recoverable=[]
+AUDIT O1W/237 entrance=geometry reliable=False recoverable=[]
+AUDIT O1W/316 entrance=votes reliable=False recoverable=[]
+AUDIT O1W/331 entrance=geometry reliable=False recoverable=[]
+AUDIT O1W/464 entrance=votes reliable=False recoverable=[]
+AUDIT O1W/571 entrance=votes reliable=False recoverable=[]
+AUDIT O1W/606 entrance=geometry reliable=False recoverable=[]
+AUDIT O1W/616 entrance=votes reliable=False recoverable=[]
+AUDIT O1W/684 entrance=geometry reliable=False recoverable=[]
+E0_GATE {'reliable_train': 11, 'reliable_train_forests': 6, 'recoverable_validation': 6, 'passed': True}
+NORMALIZE A1N points=65536
+NORMALIZE A1W points=65536
+NORMALIZE G1N points=65536
+NORMALIZE G1W points=65536
+NORMALIZE G2N points=65536
+NORMALIZE G2W points=65536
+NORMALIZE G3N points=65536
+NORMALIZE G3W points=65536
+NORMALIZE L2N points=65536
+NORMALIZE L2W points=65536
+NORMALIZE LG1 points=65536
+NORMALIZE LG2 points=65536
+NORMALIZE LG3 points=65536
+BANK A1N mixed [60] edges=5040
+BANK A1N mixed [69] edges=5147
+BANK A1N mixed [116] edges=5932
+BANK A1N mixed [162] edges=4722
+BANK A1N mixed [182] edges=6339
+BANK A1N mixed [209] edges=5174
+BANK A1N mixed [230] edges=4503
+BANK A1N mixed [246] edges=8192
+BANK A1N mixed [247] edges=6691
+BANK A1N mixed [282] edges=8068
+BANK A1N mixed [291] edges=8192
+BANK A1N mixed [297] edges=5055
+BANK A1N mixed [302] edges=8192
+BANK A1N mixed [319] edges=8192
+BANK A1N mixed [325] edges=8192
+BANK A1N mixed [356] edges=8192
+BANK A1N mixed [376] edges=4741
+BANK A1N mixed [391] edges=5019
+BANK A1N mixed [450] edges=5515
+BANK A1N mixed [538] edges=4534
+BANK A1N mixed [575] edges=7046
+BANK A1N mixed [592] edges=4529
+BANK A1N mixed [613] edges=8192
+BANK A1N correct [4] edges=4900
+BANK A1N correct [6] edges=6881
+BANK A1N correct [11] edges=5185
+BANK A1N correct [12] edges=4435
+BANK A1N correct [18] edges=6429
+BANK A1N correct [21] edges=6202
+BANK A1N correct [23] edges=6638
+BANK A1N correct [28] edges=4785
+BANK A1N synthetic [17, 18] edges=8192
+BANK A1N synthetic [18, 19] edges=7122
+BANK A1N synthetic [19, 20] edges=5262
+BANK A1N synthetic [29, 364] edges=6208
+BANK A1N synthetic [34, 35] edges=5517
+BANK A1N synthetic [41, 42] edges=8192
+BANK A1N synthetic [42, 165] edges=8192
+BANK A1N synthetic [45, 46] edges=6653
+BANK A1W mixed [8] edges=6097
+BANK A1W mixed [80] edges=8192
+BANK A1W mixed [190] edges=8192
+BANK A1W mixed [389] edges=8192
+BANK A1W mixed [481] edges=5470
+BANK A1W mixed [630] edges=8192
+BANK A1W mixed [636] edges=8192
+BANK A1W correct [1] edges=4513
+BANK A1W correct [6] edges=4462
+BANK A1W correct [9] edges=6879
+BANK A1W correct [11] edges=7565
+BANK A1W correct [14] edges=4933
+BANK A1W correct [15] edges=4348
+BANK A1W correct [16] edges=5550
+BANK A1W correct [19] edges=4903
+BANK A1W synthetic [4, 8] edges=6118
+BANK A1W synthetic [7, 442] edges=4809
+BANK A1W synthetic [7, 449] edges=6172
+BANK A1W synthetic [8, 442] edges=6725
+BANK A1W synthetic [8, 449] edges=7957
+BANK A1W synthetic [9, 10] edges=8192
+BANK A1W synthetic [23, 47] edges=8192
+BANK A1W synthetic [28, 39] edges=8192
+BANK G1N mixed [11] edges=8192
+BANK G1N mixed [37] edges=8192
+BANK G1N correct [5] edges=4625
+BANK G1N correct [6] edges=5168
+BANK G1N correct [10] edges=4927
+BANK G1N correct [12] edges=4242
+BANK G1N correct [13] edges=4884
+BANK G1N correct [16] edges=5020
+BANK G1N correct [19] edges=4889
+BANK G1N correct [20] edges=5673
+BANK G1N synthetic [8, 9] edges=6838
+BANK G1N synthetic [11, 12] edges=8192
+BANK G1N synthetic [15, 16] edges=6946
+BANK G1N synthetic [19, 43] edges=5386
+BANK G1N synthetic [20, 21] edges=8192
+BANK G1N synthetic [22, 23] edges=8192
+BANK G1N synthetic [27, 28] edges=8192
+BANK G1N synthetic [27, 128] edges=8192
+BANK G1W mixed [60] edges=8192
+BANK G1W mixed [97] edges=8192
+BANK G1W mixed [343] edges=5649
+BANK G1W correct [1] edges=5636
+BANK G1W correct [2] edges=4429
+BANK G1W correct [5] edges=4754
+BANK G1W correct [7] edges=4621
+BANK G1W correct [8] edges=8192
+BANK G1W correct [9] edges=5613
+BANK G1W correct [11] edges=5583
+BANK G1W correct [13] edges=5465
+BANK G1W synthetic [9, 337] edges=6215
+BANK G1W synthetic [41, 51] edges=8192
+BANK G1W synthetic [42, 43] edges=7218
+BANK G1W synthetic [51, 52] edges=8192
+BANK G1W synthetic [63, 64] edges=6261
+BANK G1W synthetic [66, 67] edges=8192
+BANK G1W synthetic [77, 78] edges=8192
+BANK G1W synthetic [79, 80] edges=7392
+BANK G2N mixed [81] edges=7929
+BANK G2N mixed [90] edges=5391
+BANK G2N mixed [196] edges=8192
+BANK G2N mixed [245] edges=7730
+BANK G2N mixed [360] edges=8192
+BANK G2N mixed [365] edges=7128
+BANK G2N mixed [399] edges=8192
+BANK G2N mixed [408] edges=8192
+BANK G2N mixed [468] edges=8192
+BANK G2N mixed [546] edges=8192
+BANK G2N mixed [576] edges=4890
+BANK G2N mixed [631] edges=8192
+BANK G2N mixed [742] edges=8192
+BANK G2N correct [2] edges=4612
+BANK G2N correct [5] edges=4653
+BANK G2N correct [6] edges=5751
+BANK G2N correct [7] edges=5438
+BANK G2N correct [8] edges=4375
+BANK G2N correct [10] edges=4821
+BANK G2N correct [11] edges=8120
+BANK G2N correct [12] edges=5124
+BANK G2N synthetic [6, 60] edges=6508
+BANK G2N synthetic [8, 9] edges=6047
+BANK G2N synthetic [11, 12] edges=8192
+BANK G2N synthetic [16, 17] edges=4982
+BANK G2N synthetic [25, 26] edges=6956
+BANK G2N synthetic [26, 27] edges=7473
+BANK G2N synthetic [27, 58] edges=5567
+BANK G2N synthetic [31, 80] edges=7771
+BANK G2W mixed [14] edges=8192
+Traceback (most recent call last):
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/local_split_v1/run.py", line 56, in <module>
+    main()
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tools/local_split_v1/run.py", line 38, in main
+    result = learning.fit(config, overfit=True)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tree_learn/local_split_v1/learning.py", line 260, in fit
+    saved_bank = bank(config, e0)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tree_learn/local_split_v1/learning.py", line 146, in bank
+    edges = graph_edges(xyz, config['graph'])
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/tree_learn/local_split_v1/geometry.py", line 222, in graph_edges
+    edges = np.unique(np.sort(np.concatenate(parts), axis=1), axis=0)
+  File "<__array_function__ internals>", line 200, in unique
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/numpy/lib/arraysetops.py", line 317, in unique
+    output = _unique1d(consolidated, return_index,
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/numpy/lib/arraysetops.py", line 336, in _unique1d
+    ar.sort()
+KeyboardInterrupt

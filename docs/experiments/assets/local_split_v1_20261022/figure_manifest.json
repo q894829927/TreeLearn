@@ -1,0 +1,70 @@
+{
+  "signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "examples": [
+    {
+      "plot": "A1N",
+      "parent_id": 69,
+      "file": "A1N_69_seeds.png",
+      "core_points": 17253,
+      "gt_color_ids": [
+        228,
+        247,
+        217,
+        227,
+        212,
+        211
+      ],
+      "posthoc": true,
+      "payload_sha256": "fb4f425329eda2ef5f78542cd01a349aea2afa772d705ba22737adf00025d361"
+    },
+    {
+      "plot": "A1N",
+      "parent_id": 251,
+      "file": "A1N_251_seeds.png",
+      "core_points": 26997,
+      "gt_color_ids": [
+        57,
+        51,
+        33,
+        89,
+        39,
+        63
+      ],
+      "posthoc": true,
+      "payload_sha256": "a9eea45b8d690c95da4b175bc6ad706c997e0213443e2c11e2a072da2570ad4e"
+    },
+    {
+      "plot": "G4N",
+      "parent_id": 179,
+      "file": "G4N_179_seeds.png",
+      "core_points": 7766,
+      "gt_color_ids": [
+        224,
+        222,
+        208,
+        216,
+        254,
+        259
+      ],
+      "posthoc": true,
+      "payload_sha256": "42a540cb1554c947656d0951a083ea68d7682c70898e6fcefe3b8414322fd5e0"
+    },
+    {
+      "plot": "G4N",
+      "parent_id": 63,
+      "file": "G4N_63_seeds.png",
+      "core_points": 3581,
+      "gt_color_ids": [
+        75,
+        63,
+        110,
+        129,
+        106
+      ],
+      "posthoc": true,
+      "payload_sha256": "12a3daf9b1c99e526f7da3ae1280550c975281084bb91f457af658b804e54845"
+    }
+  ],
+  "report_code_sha256": "5da0cef30449385c7dd9d99f7a869f416d8a916e5f176ed2bb47f8b3bf0d4b15",
+  "posthoc": true
+}

@@ -1,0 +1,22 @@
+{
+  "signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "posthoc": true,
+  "gate_changed": false,
+  "optimizer_steps": 0,
+  "sampled_bank": {
+    "same": 65536,
+    "same_cut": 11057,
+    "different": 25580,
+    "different_cut": 20974,
+    "same_false_cut_rate": 0.1687164306640625,
+    "different_detection_rate": 0.8199374511336982
+  },
+  "full_edge_threshold_bound": {
+    "max_same_false_cut": 0.05,
+    "threshold_must_be_below": 0.17500000000000002,
+    "different_detection_upper_bound": 0.4859265050820954,
+    "histogram_sha256": "2caf6f48c7148bd3a22c736cf099f60662064a7042420beaf6ad38089850133f",
+    "note": "Monotonicity bound from 0.025-wide full-edge score bins; no threshold is selected or changed."
+  },
+  "code_sha256": "f0ce22373565c8770f57a76e3d2aa6cabc5bf662aa7700048a1317082fc44c74"
+}

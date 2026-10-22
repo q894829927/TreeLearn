@@ -1,0 +1,120 @@
+{
+  "signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "source_observables_and_gt_unchanged": true,
+  "all_parent_payloads_verified": true,
+  "official_checkpoint_md5": "38266e515dc387ac5ca32619e791cc20",
+  "optimizer_steps": 500,
+  "cuda_smoke_optimizer_steps": 0,
+  "e2_executed": false,
+  "e3_executed": false,
+  "forests": [
+    {
+      "plot": "A1N",
+      "parents": 641,
+      "candidates": 18,
+      "preparation_sha256": "0351aab88bdfa48db3e3c5c847a626f90862de0b54bd716e217c6c84ef5fdaf6"
+    },
+    {
+      "plot": "A1W",
+      "parents": 651,
+      "candidates": 4,
+      "preparation_sha256": "474c15bc4b32aaf4fcb4dbca424a8211f6b18ff9c27d2d4c6dced135c7dc14be"
+    },
+    {
+      "plot": "G1N",
+      "parents": 440,
+      "candidates": 9,
+      "preparation_sha256": "cafb56f4aa95350f30b75fe3300756f882e9f8081c38b8012ee0c11d31ae16fc"
+    },
+    {
+      "plot": "G1W",
+      "parents": 701,
+      "candidates": 18,
+      "preparation_sha256": "c48318667fc3b252e9e506a484c6a2f50207e206917ef46dc61d6eb918a7e7f9"
+    },
+    {
+      "plot": "G2N",
+      "parents": 755,
+      "candidates": 16,
+      "preparation_sha256": "58c20c74d95e27202329e5f26f057af1ff2c47f34ee99272bd00c0511ec512a3"
+    },
+    {
+      "plot": "G2W",
+      "parents": 591,
+      "candidates": 16,
+      "preparation_sha256": "3e8c72af73901b774bc8e9a46007ba031c09218f64b1453827fefe848576e09c"
+    },
+    {
+      "plot": "G3N",
+      "parents": 475,
+      "candidates": 6,
+      "preparation_sha256": "4aa904bb60e0a640ed287b7c006d96df97376b6b121831c90b44d3e62256cc87"
+    },
+    {
+      "plot": "G3W",
+      "parents": 535,
+      "candidates": 11,
+      "preparation_sha256": "e4300d2f77b38be772c53cef48f87ee6f5bdfd40b99043fbf80b3d386113c13a"
+    },
+    {
+      "plot": "L2N",
+      "parents": 356,
+      "candidates": 5,
+      "preparation_sha256": "45446a8f94edbc80886f17a3ebb8ee0bdb848aff0f55a61294314d40f45a7dc8"
+    },
+    {
+      "plot": "L2W",
+      "parents": 465,
+      "candidates": 2,
+      "preparation_sha256": "4417e141b3f434ed7c3539639e496397a175b6b14da11c639350a6edc3121f5f"
+    },
+    {
+      "plot": "LG1",
+      "parents": 462,
+      "candidates": 7,
+      "preparation_sha256": "d56489abe098c5a1b0b45e69196fc9b831235ae8a5fcf59b6badde59f5ac31c8"
+    },
+    {
+      "plot": "LG2",
+      "parents": 396,
+      "candidates": 3,
+      "preparation_sha256": "dd7cf58385e897ca1d0048d09eaaecfe8cb82f9c4086b74f21bd67ae859214e7"
+    },
+    {
+      "plot": "LG3",
+      "parents": 340,
+      "candidates": 2,
+      "preparation_sha256": "b5e395ad8fa98057e87fc81f532789eb1c4edeaeca0071f6f403e9700e1d10f7"
+    },
+    {
+      "plot": "G4N",
+      "parents": 364,
+      "candidates": 6,
+      "preparation_sha256": "b8da9e2416f57dfbdd64dd4f39f3ea697f5ab1832a2b32f462feb677c8dba3cd"
+    },
+    {
+      "plot": "G4W",
+      "parents": 653,
+      "candidates": 10,
+      "preparation_sha256": "dec834ce6aecb8eb24b6b010ad29de24a9b197258a0ac1ca1c5f01ce8f4b997a"
+    },
+    {
+      "plot": "L1N",
+      "parents": 685,
+      "candidates": 11,
+      "preparation_sha256": "0495daca7ecb6b5361615440a57be26f777fcf737f5cbb6208e7fe584ab0b553"
+    },
+    {
+      "plot": "O1N",
+      "parents": 190,
+      "candidates": 0,
+      "preparation_sha256": "f872b822f51c9d744461f349f74a8a3a06fe6c0558de508a3594bd2f457837d6"
+    },
+    {
+      "plot": "O1W",
+      "parents": 703,
+      "candidates": 10,
+      "preparation_sha256": "d25e7330fe38002f0187d203bb31b066db6ddf164facbc8ec785c5bfd3912d91"
+    }
+  ]
+}
