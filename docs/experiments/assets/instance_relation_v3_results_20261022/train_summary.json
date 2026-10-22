@@ -1,0 +1,296 @@
+{
+  "step": 3000,
+  "best": {
+    "step": 2000,
+    "rank": [
+      1,
+      0.8831724381631778,
+      0.8209956602648614,
+      -6
+    ],
+    "threshold": 0.1,
+    "validation": {
+      "threshold": 0.1,
+      "macro": {
+        "f1": 0.8831724381631778,
+        "completeness": 0.9120809266443469,
+        "commission": 0.1421819472078737,
+        "coverage": 0.8209956602648614,
+        "point_precision": 0.8931200303297532,
+        "point_recall": 0.9063210948032049
+      },
+      "lost": 0,
+      "recovered": 1,
+      "accepted_pairs": 6,
+      "selected_labeled_counts": {
+        "other": 5,
+        "recover": 1,
+        "destroy": 0
+      },
+      "selected_unlabeled_pairs": 0,
+      "labeled_selection_precision": 0.16666666666666666,
+      "recovery_pair_recall": 0.05555555555555555,
+      "accepted_two_original_tp": 0,
+      "eligible": true,
+      "forests": [
+        {
+          "plot": "G4N",
+          "baseline": {
+            "tp": 282,
+            "fp": 35,
+            "fn": 36,
+            "num_gt": 318,
+            "num_predictions": 364,
+            "ignored_points": 0,
+            "f1": 0.8881889763779528,
+            "completeness": 0.8867924528301887,
+            "commission": 0.11041009463722397,
+            "coverage": 0.7963008585504365,
+            "point_precision": 0.8631960901969854,
+            "point_recall": 0.9122197139464728
+          },
+          "refined": {
+            "tp": 282,
+            "fp": 35,
+            "fn": 36,
+            "num_gt": 318,
+            "num_predictions": 364,
+            "ignored_points": 0,
+            "f1": 0.8881889763779528,
+            "completeness": 0.8867924528301887,
+            "commission": 0.11041009463722397,
+            "coverage": 0.7963008585504365,
+            "point_precision": 0.8631960901969854,
+            "point_recall": 0.9122197139464728
+          },
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 0
+        },
+        {
+          "plot": "G4W",
+          "baseline": {
+            "tp": 545,
+            "fp": 50,
+            "fn": 40,
+            "num_gt": 585,
+            "num_predictions": 653,
+            "ignored_points": 0,
+            "f1": 0.923728813559322,
+            "completeness": 0.9316239316239316,
+            "commission": 0.08403361344537816,
+            "coverage": 0.8071391879868852,
+            "point_precision": 0.8859198184120907,
+            "point_recall": 0.9006411035666003
+          },
+          "refined": {
+            "tp": 545,
+            "fp": 50,
+            "fn": 40,
+            "num_gt": 585,
+            "num_predictions": 653,
+            "ignored_points": 0,
+            "f1": 0.923728813559322,
+            "completeness": 0.9316239316239316,
+            "commission": 0.08403361344537816,
+            "coverage": 0.8071391879868852,
+            "point_precision": 0.8859198184120907,
+            "point_recall": 0.9006411035666003
+          },
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 0
+        },
+        {
+          "plot": "L1N",
+          "baseline": {
+            "tp": 431,
+            "fp": 90,
+            "fn": 22,
+            "num_gt": 453,
+            "num_predictions": 685,
+            "ignored_points": 0,
+            "f1": 0.8850102669404517,
+            "completeness": 0.9514348785871964,
+            "commission": 0.1727447216890595,
+            "coverage": 0.8389741195412181,
+            "point_precision": 0.9175604097077905,
+            "point_recall": 0.9021577472373711
+          },
+          "refined": {
+            "tp": 432,
+            "fp": 86,
+            "fn": 21,
+            "num_gt": 453,
+            "num_predictions": 682,
+            "ignored_points": 0,
+            "f1": 0.8898043254376931,
+            "completeness": 0.9536423841059603,
+            "commission": 0.16602316602316602,
+            "coverage": 0.8396306635505617,
+            "point_precision": 0.9166425277458323,
+            "point_recall": 0.9034368768641549
+          },
+          "lost": 0,
+          "recovered": 1,
+          "accepted_pairs": 3
+        },
+        {
+          "plot": "O1N",
+          "baseline": {
+            "tp": 152,
+            "fp": 11,
+            "fn": 8,
+            "num_gt": 160,
+            "num_predictions": 190,
+            "ignored_points": 0,
+            "f1": 0.9411764705882353,
+            "completeness": 0.95,
+            "commission": 0.06748466257668712,
+            "coverage": 0.9029393550823052,
+            "point_precision": 0.9355148646905477,
+            "point_recall": 0.9621859269768196
+          },
+          "refined": {
+            "tp": 152,
+            "fp": 11,
+            "fn": 8,
+            "num_gt": 160,
+            "num_predictions": 190,
+            "ignored_points": 0,
+            "f1": 0.9411764705882353,
+            "completeness": 0.95,
+            "commission": 0.06748466257668712,
+            "coverage": 0.9029393550823052,
+            "point_precision": 0.9355148646905477,
+            "point_recall": 0.9621859269768196
+          },
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 0
+        },
+        {
+          "plot": "O1W",
+          "baseline": {
+            "tp": 223,
+            "fp": 89,
+            "fn": 43,
+            "num_gt": 266,
+            "num_predictions": 703,
+            "ignored_points": 0,
+            "f1": 0.7716262975778547,
+            "completeness": 0.8383458646616542,
+            "commission": 0.28525641025641024,
+            "coverage": 0.7584700048229904,
+            "point_precision": 0.8652797295163054,
+            "point_recall": 0.8518547025913471
+          },
+          "refined": {
+            "tp": 223,
+            "fp": 88,
+            "fn": 43,
+            "num_gt": 266,
+            "num_predictions": 700,
+            "ignored_points": 0,
+            "f1": 0.7729636048526863,
+            "completeness": 0.8383458646616542,
+            "commission": 0.2829581993569132,
+            "coverage": 0.7589682361541181,
+            "point_precision": 0.8643268506033095,
+            "point_recall": 0.8531218526619766
+          },
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 3
+        }
+      ]
+    },
+    "natural_validation_action_counts": {
+      "other": 3658,
+      "recover": 18,
+      "destroy": 1000
+    },
+    "natural_recovery_classifier": {
+      "tp": 2,
+      "fp": 6,
+      "fn": 16,
+      "precision": 0.25,
+      "recall": 0.1111111111111111
+    },
+    "delta_pp": {
+      "f1_delta_pp": 0.12262731544145922,
+      "completeness_delta_pp": 0.04415011037526284,
+      "commission_delta_pp": -0.18039533130780883,
+      "coverage_delta_pp": 0.023095506809434063,
+      "point_precision_delta_pp": -0.03741521749908161,
+      "point_recall_delta_pp": 0.05092559394827001
+    },
+    "leave_one_forest_out": {
+      "performed": true,
+      "folds": [
+        {
+          "held_out_plot": "G4N",
+          "threshold": 0.1,
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 0,
+          "baseline_f1": 0.8881889763779528,
+          "refined_f1": 0.8881889763779528,
+          "safe": true
+        },
+        {
+          "held_out_plot": "G4W",
+          "threshold": 0.1,
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 0,
+          "baseline_f1": 0.923728813559322,
+          "refined_f1": 0.923728813559322,
+          "safe": true
+        },
+        {
+          "held_out_plot": "L1N",
+          "threshold": 0.1,
+          "lost": 0,
+          "recovered": 1,
+          "accepted_pairs": 3,
+          "baseline_f1": 0.8850102669404517,
+          "refined_f1": 0.8898043254376931,
+          "safe": true
+        },
+        {
+          "held_out_plot": "O1N",
+          "threshold": 0.1,
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 0,
+          "baseline_f1": 0.9411764705882353,
+          "refined_f1": 0.9411764705882353,
+          "safe": true
+        },
+        {
+          "held_out_plot": "O1W",
+          "threshold": 0.1,
+          "lost": 0,
+          "recovered": 0,
+          "accepted_pairs": 3,
+          "baseline_f1": 0.7716262975778547,
+          "refined_f1": 0.7729636048526863,
+          "safe": true
+        }
+      ],
+      "all_source_folds_safe": true,
+      "selected_keep_all": false
+    }
+  },
+  "checkpoint": "work_dirs/treelearn_instance_relation_v3_s42/best.pth",
+  "parameter_count": 170183,
+  "official_model_trainable_parameters": 0,
+  "real_action_counts": {
+    "other": 5572,
+    "recover": 38,
+    "destroy": 2618
+  },
+  "newly_recovery_labeled": 10,
+  "note": "Outcome-aligned recovery first; source leave-one-forest-out safety stress; keep-all is not an improvement."
+}

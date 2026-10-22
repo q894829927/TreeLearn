@@ -1,0 +1,123 @@
+{
+  "schema": 3,
+  "protocol": "aligned_voxels_ignore_negative_gt_iou_gt_0.5",
+  "checkpoint_step": 2000,
+  "source_leave_one_forest_out": {
+    "performed": true,
+    "folds": [
+      {
+        "held_out_plot": "G4N",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 0,
+        "baseline_f1": 0.8881889763779528,
+        "refined_f1": 0.8881889763779528,
+        "safe": true
+      },
+      {
+        "held_out_plot": "G4W",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 0,
+        "baseline_f1": 0.923728813559322,
+        "refined_f1": 0.923728813559322,
+        "safe": true
+      },
+      {
+        "held_out_plot": "L1N",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 1,
+        "accepted_pairs": 3,
+        "baseline_f1": 0.8850102669404517,
+        "refined_f1": 0.8898043254376931,
+        "safe": true
+      },
+      {
+        "held_out_plot": "O1N",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 0,
+        "baseline_f1": 0.9411764705882353,
+        "refined_f1": 0.9411764705882353,
+        "safe": true
+      },
+      {
+        "held_out_plot": "O1W",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 3,
+        "baseline_f1": 0.7716262975778547,
+        "refined_f1": 0.7729636048526863,
+        "safe": true
+      }
+    ],
+    "all_source_folds_safe": true,
+    "selected_keep_all": false
+  },
+  "threshold": 0.1,
+  "baseline_macro": {
+    "f1": 0.7032448377581121,
+    "completeness": 0.6795895096921323,
+    "commission": 0.2713936430317848,
+    "coverage": 0.6512525337608083,
+    "point_precision": 0.7123044232080217,
+    "point_recall": 0.8036695600981618
+  },
+  "refined_macro": {
+    "f1": 0.6968973747016707,
+    "completeness": 0.6659064994298746,
+    "commission": 0.2690863579474343,
+    "coverage": 0.6432540117048338,
+    "point_precision": 0.701325750087032,
+    "point_recall": 0.8074841710638758
+  },
+  "delta_pp": {
+    "f1_delta_pp": -0.6347463056441405,
+    "completeness_delta_pp": -1.368301026225771,
+    "commission_delta_pp": -0.23072850843505188,
+    "coverage_delta_pp": -0.7998522055974511,
+    "point_precision_delta_pp": -1.0978673120989657,
+    "point_recall_delta_pp": 0.3814610965714005
+  },
+  "totals": {
+    "tp": 584,
+    "fp": 215,
+    "fn": 293
+  },
+  "accepted_pairs": 50,
+  "accepted_two_original_tp": 8,
+  "accepted_observed_outcome_counts": {
+    "other": 39,
+    "recover": 0,
+    "destroy": 11
+  },
+  "lost_gt": 12,
+  "recovered_gt": 0,
+  "lost_by_plot": {
+    "wytham_vox0.1": [
+      30,
+      50,
+      51,
+      59,
+      223,
+      416,
+      437,
+      445,
+      525,
+      621,
+      698,
+      768
+    ]
+  },
+  "recovered_by_plot": {
+    "wytham_vox0.1": []
+  },
+  "changed_foreground_points": 0,
+  "changed_unselected_points": 0,
+  "no_edit_result": false
+}

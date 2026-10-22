@@ -1,0 +1,120 @@
+{
+  "schema": 3,
+  "protocol": "aligned_voxels_ignore_negative_gt_iou_gt_0.5",
+  "checkpoint_step": 2000,
+  "source_leave_one_forest_out": {
+    "performed": true,
+    "folds": [
+      {
+        "held_out_plot": "G4N",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 0,
+        "baseline_f1": 0.8881889763779528,
+        "refined_f1": 0.8881889763779528,
+        "safe": true
+      },
+      {
+        "held_out_plot": "G4W",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 0,
+        "baseline_f1": 0.923728813559322,
+        "refined_f1": 0.923728813559322,
+        "safe": true
+      },
+      {
+        "held_out_plot": "L1N",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 1,
+        "accepted_pairs": 3,
+        "baseline_f1": 0.8850102669404517,
+        "refined_f1": 0.8898043254376931,
+        "safe": true
+      },
+      {
+        "held_out_plot": "O1N",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 0,
+        "baseline_f1": 0.9411764705882353,
+        "refined_f1": 0.9411764705882353,
+        "safe": true
+      },
+      {
+        "held_out_plot": "O1W",
+        "threshold": 0.1,
+        "lost": 0,
+        "recovered": 0,
+        "accepted_pairs": 3,
+        "baseline_f1": 0.7716262975778547,
+        "refined_f1": 0.7729636048526863,
+        "safe": true
+      }
+    ],
+    "all_source_folds_safe": true,
+    "selected_keep_all": false
+  },
+  "threshold": 0.1,
+  "baseline_macro": {
+    "f1": 0.8819461650087632,
+    "completeness": 0.9116394255405943,
+    "commission": 0.14398590052095178,
+    "coverage": 0.820764705196767,
+    "point_precision": 0.893494182504744,
+    "point_recall": 0.9058118388637222
+  },
+  "refined_macro": {
+    "f1": 0.8831724381631778,
+    "completeness": 0.9120809266443469,
+    "commission": 0.1421819472078737,
+    "coverage": 0.8209956602648614,
+    "point_precision": 0.8931200303297532,
+    "point_recall": 0.9063210948032049
+  },
+  "delta_pp": {
+    "f1_delta_pp": 0.12262731544145922,
+    "completeness_delta_pp": 0.04415011037526284,
+    "commission_delta_pp": -0.18039533130780883,
+    "coverage_delta_pp": 0.023095506809434063,
+    "point_precision_delta_pp": -0.03741521749908161,
+    "point_recall_delta_pp": 0.05092559394827001
+  },
+  "totals": {
+    "tp": 1634,
+    "fp": 270,
+    "fn": 148
+  },
+  "accepted_pairs": 6,
+  "accepted_two_original_tp": 0,
+  "accepted_observed_outcome_counts": {
+    "other": 5,
+    "recover": 1,
+    "destroy": 0
+  },
+  "lost_gt": 0,
+  "recovered_gt": 1,
+  "lost_by_plot": {
+    "G4N": [],
+    "G4W": [],
+    "L1N": [],
+    "O1N": [],
+    "O1W": []
+  },
+  "recovered_by_plot": {
+    "G4N": [],
+    "G4W": [],
+    "L1N": [
+      240
+    ],
+    "O1N": [],
+    "O1W": []
+  },
+  "changed_foreground_points": 0,
+  "changed_unselected_points": 0,
+  "no_edit_result": false
+}

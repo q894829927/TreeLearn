@@ -1,0 +1,25 @@
+{
+  "train_real_recovery_pairs": 38,
+  "train_real_valid_pairs": 8228,
+  "train_natural_recovery_fraction": 0.004618376276130287,
+  "real_batch_recovery_fraction": 0.3333333333333333,
+  "batch_recovery_enrichment_factor": 72.17543859649123,
+  "relabelled_recovery_pairs": 10,
+  "source_classifier_recovery_tp": 2,
+  "source_classifier_recovery_fn": 16,
+  "source_accepted": 6,
+  "source_lost": 0,
+  "source_recovered": 1,
+  "source_forests_without_edits": [
+    "G4N",
+    "G4W",
+    "O1N"
+  ],
+  "external_accepted": 50,
+  "external_destroy_pairs": 11,
+  "external_destroy_pair_fraction": 0.22,
+  "external_two_original_tp": 8,
+  "external_lost": 12,
+  "external_recovered": 0,
+  "external_f1_delta_pp": -0.6347463056441405
+}
