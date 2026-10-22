@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "cpu_only": true,
+  "optimizer_steps": 0,
+  "eligible_for_advancement": false,
+  "full_negative_bank_multisets_match": true,
+  "sampler_reproduces_both_checkpoint_rng_states": true,
+  "totals": {
+    "same_bank": 65536,
+    "strict_negative_full": 17702,
+    "background_negative_full": 7878,
+    "bank_rows_seen": {
+      "same": 65536,
+      "other_tree": 17702,
+      "tree_background": 7878
+    }
+  },
+  "sampler": {
+    "sampled_edges": {
+      "same": 3048605,
+      "other_tree": 681260,
+      "tree_background": 366135
+    },
+    "mean_within_negative_batch_share": {
+      "other_tree": 0.6347249735125589,
+      "tree_background": 0.3652750264874408
+    },
+    "steps": 500,
+    "rng_state": {
+      "bit_generator": "PCG64",
+      "state": {
+        "state": 226160637237212012363221407365918693659,
+        "inc": 332724090758049132448979897138935081983
+      },
+      "has_uint32": 1,
+      "uinteger": 2239369537
+    }
+  },
+  "exact_symmetric_bank_input_conflicts": {
+    "conflicting_input_groups": 0,
+    "positive_rows": 0,
+    "negative_rows": 0
+  },
+  "checkpoint_sha256": {
+    "v1": "49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e",
+    "r1": "c7ee611bb6a127836d00ad55edf710697f74142a15daec252f2fb2954055cd1e"
+  },
+  "code_sha256": "6bf3c216c31e0e002d7f0bd8dcb92e9804c257781539451cb8c03bcf61732ae6",
+  "source_bank_manifest_sha256": "f11e5be6f762e35249c3752ac45feccad082b478d19bdd93262b1541d8f0e8f7",
+  "immutable_source_hashes": {
+    "work_dirs/treelearn_local_split_v1_s42/banks/bank.json": "f11e5be6f762e35249c3752ac45feccad082b478d19bdd93262b1541d8f0e8f7",
+    "work_dirs/treelearn_local_split_v1_s42/e0/summary.json": "24f03341c69db51cf3617e5a767fa6ac6d85583430ccb2d9a9426818c78c3e32",
+    "work_dirs/treelearn_local_split_v1_s42/e1/summary.json": "01cbe425992261351ce7adc1acadcac7bbccb30edb6e09bf53420e1b3957926a",
+    "work_dirs/treelearn_local_split_e1_r1_s42/audit/summary.json": "19e8f363880dba41c2938a5cefdc6bfeb0f0e02179dcf8b79837e63609dd5b69"
+  },
+  "source_e1_summary_sha256": "01cbe425992261351ce7adc1acadcac7bbccb30edb6e09bf53420e1b3957926a",
+  "source_r1_summary_sha256": "19e8f363880dba41c2938a5cefdc6bfeb0f0e02179dcf8b79837e63609dd5b69",
+  "gt_source_stamps": {
+    "A1N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/A1N/labels.npy",
+      "size": 130392696,
+      "mtime_ns": 1792077630417726062
+    },
+    "A1W": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/A1W/labels.npy",
+      "size": 127225808,
+      "mtime_ns": 1792080154321738612
+    },
+    "G1N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G1N/labels.npy",
+      "size": 85050416,
+      "mtime_ns": 1792080686608394939
+    },
+    "G1W": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G1W/labels.npy",
+      "size": 177144560,
+      "mtime_ns": 1792081840669724705
+    },
+    "G2N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G2N/labels.npy",
+      "size": 128260744,
+      "mtime_ns": 1792082811936645914
+    },
+    "G2W": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G2W/labels.npy",
+      "size": 119716224,
+      "mtime_ns": 1792083531082430673
+    },
+    "G3N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G3N/labels.npy",
+      "size": 120398608,
+      "mtime_ns": 1792084303107702015
+    },
+    "G3W": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/G3W/labels.npy",
+      "size": 145354160,
+      "mtime_ns": 1792085161670818741
+    },
+    "L2N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/L2N/labels.npy",
+      "size": 106933960,
+      "mtime_ns": 1792085818312002168
+    },
+    "L2W": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/L2W/labels.npy",
+      "size": 150412184,
+      "mtime_ns": 1792086846946718722
+    },
+    "LG1": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG1/labels.npy",
+      "size": 78664048,
+      "mtime_ns": 1792087394694060982
+    },
+    "LG2": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG2/labels.npy",
+      "size": 125027888,
+      "mtime_ns": 1792088178321900870
+    },
+    "LG3": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/train/LG3/labels.npy",
+      "size": 132695368,
+      "mtime_ns": 1792088998030323734
+    },
+    "G4N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/G4N/labels.npy",
+      "size": 104991896,
+      "mtime_ns": 1792078282640642909
+    },
+    "G4W": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/G4W/labels.npy",
+      "size": 169583240,
+      "mtime_ns": 1792090309341595251
+    },
+    "L1N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/L1N/labels.npy",
+      "size": 137748744,
+      "mtime_ns": 1792091345720673098
+    },
+    "O1N": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/O1N/labels.npy",
+      "size": 82862088,
+      "mtime_ns": 1792091824210954133
+    },
+    "O1W": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1/validation/O1W/labels.npy",
+      "size": 150795416,
+      "mtime_ns": 1792092810073801630
+    }
+  },
+  "original_sources_verified": true,
+  "external_executed": false
+}

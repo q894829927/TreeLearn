@@ -1,0 +1,187 @@
+{
+  "gt_supervision_only": true,
+  "kind_names": [
+    "same",
+    "other_tree",
+    "tree_background"
+  ],
+  "original_inputs_unchanged": true,
+  "records": [
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        69
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_mixed_69.npz",
+      "sha256": "22ba107e3448e853576cb2a0b956cf6c67babe83856f6d36edba396307639617",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_69.npz",
+      "sidecar_sha256": "21ae0835e367f79e18e55d0723388ef3d495c9d94ba2e0ee31e0a92451327af6"
+    },
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        116
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_mixed_116.npz",
+      "sha256": "ff7e482e10c5fda177287c44f18742471642ff39b766ee2acb7f468a6d2857b3",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_116.npz",
+      "sidecar_sha256": "24f661e1757ea1a786d9767bff0d39cb96c8c0896cacfbcbbd7802d4270450f3"
+    },
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        450
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_mixed_450.npz",
+      "sha256": "d37ae02fb2a3f9c2cc086967267f567de502fbf27fa7238b790e73a0a950e894",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_450.npz",
+      "sidecar_sha256": "891323eb0554f99a34d77b1af2fdbae5d721b82b5bb8b428eba01bce8c627ae7"
+    },
+    {
+      "plot": "A1N",
+      "category": "mixed",
+      "parents": [
+        575
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_mixed_575.npz",
+      "sha256": "20ab3009130755553b2ebbe0bf2a868817a27c7d430424406ae6d121b4ecbcb5",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_575.npz",
+      "sidecar_sha256": "b65d76d1391fc289d0721cabb902d6c41132493fd7d318064bc8ee7f5f8d3166"
+    },
+    {
+      "plot": "G1W",
+      "category": "mixed",
+      "parents": [
+        343
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/G1W_mixed_343.npz",
+      "sha256": "d9677842f7d8762b47513c062e7254be97f577e7394518efc915abe4ca09ab42",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/G1W_343.npz",
+      "sidecar_sha256": "e0529a86cccc2b23a2e2f5f7dd00c4e947afe90cbf62a6862140b0782c97645d"
+    },
+    {
+      "plot": "G2N",
+      "category": "mixed",
+      "parents": [
+        90
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/G2N_mixed_90.npz",
+      "sha256": "2c3e68e879fc39c145770fe8af3aacafecb08ba901872b2beb279ddc70067510",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/G2N_90.npz",
+      "sidecar_sha256": "389b3ad9d1c336edf7691af1e235c78f92c66b3f22c50131d6dc148a4a0c8159"
+    },
+    {
+      "plot": "G2W",
+      "category": "mixed",
+      "parents": [
+        252
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/G2W_mixed_252.npz",
+      "sha256": "b604b55fcf141c6653bfaf359a9769a421e4f0239ae5973d977d8210bd208607",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/G2W_252.npz",
+      "sidecar_sha256": "4b60d9eb9ff5ec39e4f6781fe7ff8a44809399aa487a318519f307d213630002"
+    },
+    {
+      "plot": "LG1",
+      "category": "mixed",
+      "parents": [
+        265
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/LG1_mixed_265.npz",
+      "sha256": "24483b132c33999402b96e5955b9226d0724412111833f374e9b353bcf545238",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/LG1_265.npz",
+      "sidecar_sha256": "207bfb5df90e3d50c63d37fe3b9fdd724b776c1885d77155376e5db61cb869ad"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        4
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_4.npz",
+      "sha256": "8f6e50a7c4eaa9f10ae6a4a3d3ccf3d33ccf49cce8f437ae11e5509c7d916a66",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_4.npz",
+      "sidecar_sha256": "8fcc6d61491474c657a6fdc43d3e351205ef1f5159efae41a7ccc60f19782070"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        6
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_6.npz",
+      "sha256": "2097b8eb5c37844ad4d9aeb79ee2d6a21b158c82bd79eb0e4799a3b885a5cae9",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_6.npz",
+      "sidecar_sha256": "904628c1977a6e0ba76ad0929bab0a25bd8da769ed6afc5e664a38cdffee94fc"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        11
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_11.npz",
+      "sha256": "730793144674d7ce9e61de2cd28d97c2768c868a96e4b04e487ad6c5bb418ecd",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_11.npz",
+      "sidecar_sha256": "075c0bd7d14db7686e6cd3fc940321fe5a936cc64cfe69ec55e340f778bd3d47"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        12
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_12.npz",
+      "sha256": "8d4e576b0bdddcd647922a816a996adb234a018b8c997458bd6da42480f9f616",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_12.npz",
+      "sidecar_sha256": "f2abc376d9920afd295260187a7f0b1b895f5c9f5d62436a5eebe8ce71b60744"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        18
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_18.npz",
+      "sha256": "aaa5af68f114c511290999bfd60f00de3e2072224c2f020103e7c71ab7a601eb",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_18.npz",
+      "sidecar_sha256": "2c5bb30404d8229abd862e271ccf9bd8811d9a04bf5cb09ed4c713c84372fca4"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        21
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_21.npz",
+      "sha256": "4c2b858610c2eb754538b073a7fe4fbad22a317e0a05570bb0702ae82a520ef2",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_21.npz",
+      "sidecar_sha256": "4860173884a343ddf4b224865d9debf925ae6d9e3524a74c130ee72b52b0b378"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        23
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_23.npz",
+      "sha256": "b2f71dd8d84d0d2c7eaf1011e02cb78111340befeac263fb6154cb9083315525",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_23.npz",
+      "sidecar_sha256": "33d795d9d2ffdf8df7038239dda0a3ff0e36c3d7b1672d4bbeba0ae926fdeb9d"
+    },
+    {
+      "plot": "A1N",
+      "category": "correct",
+      "parents": [
+        28
+      ],
+      "path": "work_dirs/treelearn_local_split_v1_s42/banks/A1N_correct_28.npz",
+      "sha256": "87bacb8b7353ad45b401e7847f9b5620fe3dff8d6f92878a2f6ce4923825a013",
+      "sidecar": "work_dirs/treelearn_local_split_negative_audit_s42/subclasses/A1N_28.npz",
+      "sidecar_sha256": "ac08e2bad4e2301bee81a86aa3698133b40428669c687b64d6dd8ba24c6d961f"
+    }
+  ]
+}

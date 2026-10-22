@@ -1,0 +1,1352 @@
+[
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      217
+    ],
+    "edge_class": "tree_background",
+    "count": 138,
+    "median_distance_m": 0.3501368463039398,
+    "median_feature_rms": 0.39632392269150807,
+    "v1_cut": 83,
+    "r1_cut": 13
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      228
+    ],
+    "edge_class": "tree_background",
+    "count": 134,
+    "median_distance_m": 0.44570209085941315,
+    "median_feature_rms": 0.41759508166361364,
+    "v1_cut": 130,
+    "r1_cut": 22
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      247
+    ],
+    "edge_class": "tree_background",
+    "count": 42,
+    "median_distance_m": 0.4771960377693176,
+    "median_feature_rms": 0.864359363499497,
+    "v1_cut": 42,
+    "r1_cut": 42
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      211,
+      228
+    ],
+    "edge_class": "other_tree",
+    "count": 2,
+    "median_distance_m": 0.4385848194360733,
+    "median_feature_rms": 0.9093373377411427,
+    "v1_cut": 2,
+    "r1_cut": 1
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      212,
+      247
+    ],
+    "edge_class": "other_tree",
+    "count": 69,
+    "median_distance_m": 0.34583190083503723,
+    "median_feature_rms": 0.18883586174742786,
+    "v1_cut": 52,
+    "r1_cut": 4
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      217,
+      227
+    ],
+    "edge_class": "other_tree",
+    "count": 6,
+    "median_distance_m": 0.32144908607006073,
+    "median_feature_rms": 0.22895133647240817,
+    "v1_cut": 6,
+    "r1_cut": 3
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      217,
+      228
+    ],
+    "edge_class": "other_tree",
+    "count": 621,
+    "median_distance_m": 0.3668762147426605,
+    "median_feature_rms": 0.20793334798490468,
+    "v1_cut": 377,
+    "r1_cut": 140
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 69,
+    "category": "mixed",
+    "gt_ids": [
+      227,
+      228
+    ],
+    "edge_class": "other_tree",
+    "count": 39,
+    "median_distance_m": 0.4318552613258362,
+    "median_feature_rms": 0.3659408093461591,
+    "v1_cut": 39,
+    "r1_cut": 18
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      41
+    ],
+    "edge_class": "tree_background",
+    "count": 135,
+    "median_distance_m": 0.37855061888694763,
+    "median_feature_rms": 0.5094370305650866,
+    "v1_cut": 133,
+    "r1_cut": 67
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      80
+    ],
+    "edge_class": "tree_background",
+    "count": 78,
+    "median_distance_m": 0.37376247346401215,
+    "median_feature_rms": 0.45290715700975104,
+    "v1_cut": 63,
+    "r1_cut": 11
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      34,
+      41
+    ],
+    "edge_class": "other_tree",
+    "count": 161,
+    "median_distance_m": 0.3906400799751282,
+    "median_feature_rms": 0.24405891382860687,
+    "v1_cut": 115,
+    "r1_cut": 51
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      41,
+      66
+    ],
+    "edge_class": "other_tree",
+    "count": 248,
+    "median_distance_m": 0.3371191769838333,
+    "median_feature_rms": 0.22735298898905842,
+    "v1_cut": 133,
+    "r1_cut": 41
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      41,
+      69
+    ],
+    "edge_class": "other_tree",
+    "count": 168,
+    "median_distance_m": 0.4014654904603958,
+    "median_feature_rms": 0.21092672525290812,
+    "v1_cut": 168,
+    "r1_cut": 90
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      41,
+      80
+    ],
+    "edge_class": "other_tree",
+    "count": 530,
+    "median_distance_m": 0.3950933814048767,
+    "median_feature_rms": 0.24024681402004208,
+    "v1_cut": 306,
+    "r1_cut": 123
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      41,
+      110
+    ],
+    "edge_class": "other_tree",
+    "count": 128,
+    "median_distance_m": 0.44197990000247955,
+    "median_feature_rms": 0.2622667974365487,
+    "v1_cut": 128,
+    "r1_cut": 44
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      44,
+      80
+    ],
+    "edge_class": "other_tree",
+    "count": 152,
+    "median_distance_m": 0.43393436074256897,
+    "median_feature_rms": 0.2595508311803716,
+    "v1_cut": 152,
+    "r1_cut": 42
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      80,
+      82
+    ],
+    "edge_class": "other_tree",
+    "count": 191,
+    "median_distance_m": 0.4409048855304718,
+    "median_feature_rms": 0.22618401983480158,
+    "v1_cut": 118,
+    "r1_cut": 32
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      80,
+      87
+    ],
+    "edge_class": "other_tree",
+    "count": 41,
+    "median_distance_m": 0.46043816208839417,
+    "median_feature_rms": 0.23028101604850296,
+    "v1_cut": 41,
+    "r1_cut": 18
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 116,
+    "category": "mixed",
+    "gt_ids": [
+      80,
+      110
+    ],
+    "edge_class": "other_tree",
+    "count": 4,
+    "median_distance_m": 0.4175548255443573,
+    "median_feature_rms": 0.6553077095311981,
+    "v1_cut": 4,
+    "r1_cut": 4
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      58
+    ],
+    "edge_class": "tree_background",
+    "count": 39,
+    "median_distance_m": 0.42766836285591125,
+    "median_feature_rms": 0.29041503179308914,
+    "v1_cut": 32,
+    "r1_cut": 12
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      60
+    ],
+    "edge_class": "tree_background",
+    "count": 26,
+    "median_distance_m": 0.48661939799785614,
+    "median_feature_rms": 0.5479879839084423,
+    "v1_cut": 26,
+    "r1_cut": 19
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      63
+    ],
+    "edge_class": "tree_background",
+    "count": 152,
+    "median_distance_m": 0.3083830326795578,
+    "median_feature_rms": 0.3230872828122454,
+    "v1_cut": 141,
+    "r1_cut": 35
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      64
+    ],
+    "edge_class": "tree_background",
+    "count": 79,
+    "median_distance_m": 0.3472743034362793,
+    "median_feature_rms": 0.3740975097894552,
+    "v1_cut": 36,
+    "r1_cut": 0
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      73
+    ],
+    "edge_class": "tree_background",
+    "count": 45,
+    "median_distance_m": 0.3976176679134369,
+    "median_feature_rms": 0.48014632650411526,
+    "v1_cut": 42,
+    "r1_cut": 5
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      75
+    ],
+    "edge_class": "tree_background",
+    "count": 23,
+    "median_distance_m": 0.41641339659690857,
+    "median_feature_rms": 0.7009709468642307,
+    "v1_cut": 23,
+    "r1_cut": 22
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      105
+    ],
+    "edge_class": "tree_background",
+    "count": 137,
+    "median_distance_m": 0.36986351013183594,
+    "median_feature_rms": 0.14651683075403044,
+    "v1_cut": 6,
+    "r1_cut": 0
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      33,
+      58
+    ],
+    "edge_class": "other_tree",
+    "count": 25,
+    "median_distance_m": 0.4818710684776306,
+    "median_feature_rms": 0.27970447835761736,
+    "v1_cut": 25,
+    "r1_cut": 23
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      58,
+      60
+    ],
+    "edge_class": "other_tree",
+    "count": 73,
+    "median_distance_m": 0.2922343611717224,
+    "median_feature_rms": 0.3465943384806452,
+    "v1_cut": 46,
+    "r1_cut": 12
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      58,
+      63
+    ],
+    "edge_class": "other_tree",
+    "count": 320,
+    "median_distance_m": 0.33984901010990143,
+    "median_feature_rms": 0.23148006132432175,
+    "v1_cut": 168,
+    "r1_cut": 34
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      58,
+      75
+    ],
+    "edge_class": "other_tree",
+    "count": 17,
+    "median_distance_m": 0.5318807363510132,
+    "median_feature_rms": 0.5518103688792424,
+    "v1_cut": 17,
+    "r1_cut": 17
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      60,
+      63
+    ],
+    "edge_class": "other_tree",
+    "count": 30,
+    "median_distance_m": 0.3421161025762558,
+    "median_feature_rms": 0.363197580727806,
+    "v1_cut": 30,
+    "r1_cut": 25
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      60,
+      75
+    ],
+    "edge_class": "other_tree",
+    "count": 105,
+    "median_distance_m": 0.33151209354400635,
+    "median_feature_rms": 0.3564849795741139,
+    "v1_cut": 100,
+    "r1_cut": 34
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      61,
+      73
+    ],
+    "edge_class": "other_tree",
+    "count": 40,
+    "median_distance_m": 0.4704789072275162,
+    "median_feature_rms": 0.15924441908519268,
+    "v1_cut": 13,
+    "r1_cut": 3
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      63,
+      64
+    ],
+    "edge_class": "other_tree",
+    "count": 5,
+    "median_distance_m": 0.3124082386493683,
+    "median_feature_rms": 0.2551884237427145,
+    "v1_cut": 5,
+    "r1_cut": 3
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      63,
+      73
+    ],
+    "edge_class": "other_tree",
+    "count": 2,
+    "median_distance_m": 0.5444443225860596,
+    "median_feature_rms": 0.3588188415755641,
+    "v1_cut": 2,
+    "r1_cut": 2
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      63,
+      75
+    ],
+    "edge_class": "other_tree",
+    "count": 134,
+    "median_distance_m": 0.3625623732805252,
+    "median_feature_rms": 0.332884012997256,
+    "v1_cut": 111,
+    "r1_cut": 39
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      64,
+      73
+    ],
+    "edge_class": "other_tree",
+    "count": 159,
+    "median_distance_m": 0.4130372405052185,
+    "median_feature_rms": 0.24805456217511787,
+    "v1_cut": 159,
+    "r1_cut": 118
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 450,
+    "category": "mixed",
+    "gt_ids": [
+      73,
+      119
+    ],
+    "edge_class": "other_tree",
+    "count": 8,
+    "median_distance_m": 0.36667926609516144,
+    "median_feature_rms": 0.19322756493502352,
+    "v1_cut": 8,
+    "r1_cut": 8
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 575,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      144
+    ],
+    "edge_class": "tree_background",
+    "count": 88,
+    "median_distance_m": 0.37576594948768616,
+    "median_feature_rms": 0.5781853682008604,
+    "v1_cut": 88,
+    "r1_cut": 74
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 575,
+    "category": "mixed",
+    "gt_ids": [
+      139,
+      142
+    ],
+    "edge_class": "other_tree",
+    "count": 352,
+    "median_distance_m": 0.3256541043519974,
+    "median_feature_rms": 0.23364783455228,
+    "v1_cut": 325,
+    "r1_cut": 198
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 575,
+    "category": "mixed",
+    "gt_ids": [
+      142,
+      144
+    ],
+    "edge_class": "other_tree",
+    "count": 1495,
+    "median_distance_m": 0.3410276174545288,
+    "median_feature_rms": 0.22368529664123693,
+    "v1_cut": 1163,
+    "r1_cut": 478
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 575,
+    "category": "mixed",
+    "gt_ids": [
+      142,
+      399
+    ],
+    "edge_class": "other_tree",
+    "count": 704,
+    "median_distance_m": 0.3014129102230072,
+    "median_feature_rms": 0.2731976176148109,
+    "v1_cut": 704,
+    "r1_cut": 696
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 575,
+    "category": "mixed",
+    "gt_ids": [
+      144,
+      159
+    ],
+    "edge_class": "other_tree",
+    "count": 287,
+    "median_distance_m": 0.4050949215888977,
+    "median_feature_rms": 0.31408400631235306,
+    "v1_cut": 285,
+    "r1_cut": 73
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 575,
+    "category": "mixed",
+    "gt_ids": [
+      144,
+      399
+    ],
+    "edge_class": "other_tree",
+    "count": 24,
+    "median_distance_m": 0.24562066793441772,
+    "median_feature_rms": 0.3749519230651569,
+    "v1_cut": 24,
+    "r1_cut": 24
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 4,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      243
+    ],
+    "edge_class": "tree_background",
+    "count": 541,
+    "median_distance_m": 0.3584704101085663,
+    "median_feature_rms": 0.6888220825258508,
+    "v1_cut": 541,
+    "r1_cut": 461
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 4,
+    "category": "correct",
+    "gt_ids": [
+      70,
+      243
+    ],
+    "edge_class": "other_tree",
+    "count": 32,
+    "median_distance_m": 0.3477054834365845,
+    "median_feature_rms": 0.646796476251732,
+    "v1_cut": 32,
+    "r1_cut": 30
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 4,
+    "category": "correct",
+    "gt_ids": [
+      108,
+      243
+    ],
+    "edge_class": "other_tree",
+    "count": 105,
+    "median_distance_m": 0.4423794746398926,
+    "median_feature_rms": 0.3972029455805694,
+    "v1_cut": 103,
+    "r1_cut": 81
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 4,
+    "category": "correct",
+    "gt_ids": [
+      243,
+      336
+    ],
+    "edge_class": "other_tree",
+    "count": 92,
+    "median_distance_m": 0.25680598616600037,
+    "median_feature_rms": 0.3249677903496182,
+    "v1_cut": 92,
+    "r1_cut": 13
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 4,
+    "category": "correct",
+    "gt_ids": [
+      243,
+      412
+    ],
+    "edge_class": "other_tree",
+    "count": 34,
+    "median_distance_m": 0.4597269743680954,
+    "median_feature_rms": 1.3646973931719,
+    "v1_cut": 34,
+    "r1_cut": 33
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 6,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      255
+    ],
+    "edge_class": "tree_background",
+    "count": 86,
+    "median_distance_m": 0.18504946678876877,
+    "median_feature_rms": 0.7888337905914098,
+    "v1_cut": 86,
+    "r1_cut": 86
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 6,
+    "category": "correct",
+    "gt_ids": [
+      255,
+      349
+    ],
+    "edge_class": "other_tree",
+    "count": 2699,
+    "median_distance_m": 0.24289929866790771,
+    "median_feature_rms": 0.2450493695141679,
+    "v1_cut": 2274,
+    "r1_cut": 963
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 11,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      5
+    ],
+    "edge_class": "tree_background",
+    "count": 425,
+    "median_distance_m": 0.19000022113323212,
+    "median_feature_rms": 0.9191813337135554,
+    "v1_cut": 425,
+    "r1_cut": 425
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 11,
+    "category": "correct",
+    "gt_ids": [
+      5,
+      11
+    ],
+    "edge_class": "other_tree",
+    "count": 664,
+    "median_distance_m": 0.26457639038562775,
+    "median_feature_rms": 0.3030262108903249,
+    "v1_cut": 419,
+    "r1_cut": 235
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 12,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      109
+    ],
+    "edge_class": "tree_background",
+    "count": 339,
+    "median_distance_m": 0.3837966024875641,
+    "median_feature_rms": 0.9318426101880476,
+    "v1_cut": 339,
+    "r1_cut": 339
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 18,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      450
+    ],
+    "edge_class": "tree_background",
+    "count": 287,
+    "median_distance_m": 0.171172097325325,
+    "median_feature_rms": 0.8634412703152626,
+    "v1_cut": 287,
+    "r1_cut": 287
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 18,
+    "category": "correct",
+    "gt_ids": [
+      92,
+      111
+    ],
+    "edge_class": "other_tree",
+    "count": 24,
+    "median_distance_m": 0.2428876906633377,
+    "median_feature_rms": 0.47355366237270724,
+    "v1_cut": 24,
+    "r1_cut": 16
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 18,
+    "category": "correct",
+    "gt_ids": [
+      96,
+      450
+    ],
+    "edge_class": "other_tree",
+    "count": 25,
+    "median_distance_m": 0.4123106896877289,
+    "median_feature_rms": 0.638233615971806,
+    "v1_cut": 25,
+    "r1_cut": 25
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 18,
+    "category": "correct",
+    "gt_ids": [
+      111,
+      450
+    ],
+    "edge_class": "other_tree",
+    "count": 364,
+    "median_distance_m": 0.24768924713134766,
+    "median_feature_rms": 0.16846364659296198,
+    "v1_cut": 364,
+    "r1_cut": 13
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 18,
+    "category": "correct",
+    "gt_ids": [
+      447,
+      450
+    ],
+    "edge_class": "other_tree",
+    "count": 1417,
+    "median_distance_m": 0.23216360807418823,
+    "median_feature_rms": 0.17881561715292765,
+    "v1_cut": 944,
+    "r1_cut": 56
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 18,
+    "category": "correct",
+    "gt_ids": [
+      450,
+      460
+    ],
+    "edge_class": "other_tree",
+    "count": 216,
+    "median_distance_m": 0.27166174352169037,
+    "median_feature_rms": 0.1897079802388338,
+    "v1_cut": 18,
+    "r1_cut": 0
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 21,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      111
+    ],
+    "edge_class": "tree_background",
+    "count": 527,
+    "median_distance_m": 0.21000076830387115,
+    "median_feature_rms": 0.8406502701344012,
+    "v1_cut": 527,
+    "r1_cut": 527
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 21,
+    "category": "correct",
+    "gt_ids": [
+      11,
+      111
+    ],
+    "edge_class": "other_tree",
+    "count": 1135,
+    "median_distance_m": 0.22560995817184448,
+    "median_feature_rms": 0.18023666454480805,
+    "v1_cut": 1130,
+    "r1_cut": 124
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 21,
+    "category": "correct",
+    "gt_ids": [
+      97,
+      111
+    ],
+    "edge_class": "other_tree",
+    "count": 300,
+    "median_distance_m": 0.31416289508342743,
+    "median_feature_rms": 0.28210168049112505,
+    "v1_cut": 266,
+    "r1_cut": 35
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 21,
+    "category": "correct",
+    "gt_ids": [
+      111,
+      450
+    ],
+    "edge_class": "other_tree",
+    "count": 53,
+    "median_distance_m": 0.39255404472351074,
+    "median_feature_rms": 0.5019776316474005,
+    "v1_cut": 53,
+    "r1_cut": 47
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 21,
+    "category": "correct",
+    "gt_ids": [
+      111,
+      457
+    ],
+    "edge_class": "other_tree",
+    "count": 91,
+    "median_distance_m": 0.31969019770622253,
+    "median_feature_rms": 0.2628147588009801,
+    "v1_cut": 90,
+    "r1_cut": 31
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 23,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      315
+    ],
+    "edge_class": "tree_background",
+    "count": 2542,
+    "median_distance_m": 0.23162434250116348,
+    "median_feature_rms": 0.291235902253248,
+    "v1_cut": 2469,
+    "r1_cut": 1529
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 28,
+    "category": "correct",
+    "gt_ids": [
+      0,
+      290
+    ],
+    "edge_class": "tree_background",
+    "count": 414,
+    "median_distance_m": 0.4001249670982361,
+    "median_feature_rms": 0.867658205359787,
+    "v1_cut": 414,
+    "r1_cut": 414
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 28,
+    "category": "correct",
+    "gt_ids": [
+      251,
+      290
+    ],
+    "edge_class": "other_tree",
+    "count": 54,
+    "median_distance_m": 0.522724986076355,
+    "median_feature_rms": 0.4745596657684454,
+    "v1_cut": 54,
+    "r1_cut": 54
+  },
+  {
+    "plot": "A1N",
+    "parent_id": 28,
+    "category": "correct",
+    "gt_ids": [
+      290,
+      355
+    ],
+    "edge_class": "other_tree",
+    "count": 221,
+    "median_distance_m": 0.2491990178823471,
+    "median_feature_rms": 0.3080380586954066,
+    "v1_cut": 202,
+    "r1_cut": 152
+  },
+  {
+    "plot": "G1W",
+    "parent_id": 343,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      224
+    ],
+    "edge_class": "tree_background",
+    "count": 166,
+    "median_distance_m": 0.39166268706321716,
+    "median_feature_rms": 0.579403871085669,
+    "v1_cut": 166,
+    "r1_cut": 136
+  },
+  {
+    "plot": "G1W",
+    "parent_id": 343,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      229
+    ],
+    "edge_class": "tree_background",
+    "count": 14,
+    "median_distance_m": 0.3385215103626251,
+    "median_feature_rms": 0.4616221600251175,
+    "v1_cut": 14,
+    "r1_cut": 14
+  },
+  {
+    "plot": "G1W",
+    "parent_id": 343,
+    "category": "mixed",
+    "gt_ids": [
+      220,
+      224
+    ],
+    "edge_class": "other_tree",
+    "count": 63,
+    "median_distance_m": 0.2893102765083313,
+    "median_feature_rms": 0.17141254123906763,
+    "v1_cut": 24,
+    "r1_cut": 9
+  },
+  {
+    "plot": "G1W",
+    "parent_id": 343,
+    "category": "mixed",
+    "gt_ids": [
+      224,
+      228
+    ],
+    "edge_class": "other_tree",
+    "count": 87,
+    "median_distance_m": 0.27874505519866943,
+    "median_feature_rms": 0.39276138638289376,
+    "v1_cut": 87,
+    "r1_cut": 38
+  },
+  {
+    "plot": "G1W",
+    "parent_id": 343,
+    "category": "mixed",
+    "gt_ids": [
+      224,
+      229
+    ],
+    "edge_class": "other_tree",
+    "count": 721,
+    "median_distance_m": 0.35679101943969727,
+    "median_feature_rms": 0.2170456783045167,
+    "v1_cut": 570,
+    "r1_cut": 216
+  },
+  {
+    "plot": "G1W",
+    "parent_id": 343,
+    "category": "mixed",
+    "gt_ids": [
+      224,
+      231
+    ],
+    "edge_class": "other_tree",
+    "count": 502,
+    "median_distance_m": 0.4013725370168686,
+    "median_feature_rms": 0.2250483205825997,
+    "v1_cut": 326,
+    "r1_cut": 112
+  },
+  {
+    "plot": "G2N",
+    "parent_id": 90,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      7
+    ],
+    "edge_class": "tree_background",
+    "count": 194,
+    "median_distance_m": 0.29235996305942535,
+    "median_feature_rms": 0.526908720789822,
+    "v1_cut": 194,
+    "r1_cut": 189
+  },
+  {
+    "plot": "G2N",
+    "parent_id": 90,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      473
+    ],
+    "edge_class": "tree_background",
+    "count": 383,
+    "median_distance_m": 0.3184341788291931,
+    "median_feature_rms": 0.2994459251227558,
+    "v1_cut": 383,
+    "r1_cut": 196
+  },
+  {
+    "plot": "G2N",
+    "parent_id": 90,
+    "category": "mixed",
+    "gt_ids": [
+      7,
+      362
+    ],
+    "edge_class": "other_tree",
+    "count": 6,
+    "median_distance_m": 0.2697315216064453,
+    "median_feature_rms": 0.35258812708552967,
+    "v1_cut": 5,
+    "r1_cut": 0
+  },
+  {
+    "plot": "G2N",
+    "parent_id": 90,
+    "category": "mixed",
+    "gt_ids": [
+      7,
+      418
+    ],
+    "edge_class": "other_tree",
+    "count": 6,
+    "median_distance_m": 0.32150813937187195,
+    "median_feature_rms": 0.1532778735637377,
+    "v1_cut": 6,
+    "r1_cut": 0
+  },
+  {
+    "plot": "G2N",
+    "parent_id": 90,
+    "category": "mixed",
+    "gt_ids": [
+      7,
+      473
+    ],
+    "edge_class": "other_tree",
+    "count": 464,
+    "median_distance_m": 0.35672135651111603,
+    "median_feature_rms": 0.26093094691927926,
+    "v1_cut": 331,
+    "r1_cut": 34
+  },
+  {
+    "plot": "G2N",
+    "parent_id": 90,
+    "category": "mixed",
+    "gt_ids": [
+      7,
+      477
+    ],
+    "edge_class": "other_tree",
+    "count": 70,
+    "median_distance_m": 0.3131280988454819,
+    "median_feature_rms": 0.33551775193895617,
+    "v1_cut": 47,
+    "r1_cut": 19
+  },
+  {
+    "plot": "G2N",
+    "parent_id": 90,
+    "category": "mixed",
+    "gt_ids": [
+      473,
+      477
+    ],
+    "edge_class": "other_tree",
+    "count": 172,
+    "median_distance_m": 0.34885595738887787,
+    "median_feature_rms": 0.23165849876714117,
+    "v1_cut": 118,
+    "r1_cut": 4
+  },
+  {
+    "plot": "G2W",
+    "parent_id": 252,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      176
+    ],
+    "edge_class": "tree_background",
+    "count": 350,
+    "median_distance_m": 0.3854212015867233,
+    "median_feature_rms": 0.35328857274001824,
+    "v1_cut": 350,
+    "r1_cut": 322
+  },
+  {
+    "plot": "G2W",
+    "parent_id": 252,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      188
+    ],
+    "edge_class": "tree_background",
+    "count": 42,
+    "median_distance_m": 0.25583692640066147,
+    "median_feature_rms": 1.3424208518920273,
+    "v1_cut": 42,
+    "r1_cut": 42
+  },
+  {
+    "plot": "G2W",
+    "parent_id": 252,
+    "category": "mixed",
+    "gt_ids": [
+      176,
+      185
+    ],
+    "edge_class": "other_tree",
+    "count": 167,
+    "median_distance_m": 0.17464247345924377,
+    "median_feature_rms": 0.2038935099774015,
+    "v1_cut": 167,
+    "r1_cut": 41
+  },
+  {
+    "plot": "G2W",
+    "parent_id": 252,
+    "category": "mixed",
+    "gt_ids": [
+      176,
+      188
+    ],
+    "edge_class": "other_tree",
+    "count": 1561,
+    "median_distance_m": 0.23853699862957,
+    "median_feature_rms": 0.2196808110904024,
+    "v1_cut": 662,
+    "r1_cut": 98
+  },
+  {
+    "plot": "G2W",
+    "parent_id": 252,
+    "category": "mixed",
+    "gt_ids": [
+      176,
+      214
+    ],
+    "edge_class": "other_tree",
+    "count": 196,
+    "median_distance_m": 0.4263785630464554,
+    "median_feature_rms": 0.3271520594316244,
+    "v1_cut": 136,
+    "r1_cut": 87
+  },
+  {
+    "plot": "LG1",
+    "parent_id": 265,
+    "category": "mixed",
+    "gt_ids": [
+      0,
+      233
+    ],
+    "edge_class": "tree_background",
+    "count": 452,
+    "median_distance_m": 0.29283085465431213,
+    "median_feature_rms": 0.41032535076462484,
+    "v1_cut": 452,
+    "r1_cut": 452
+  },
+  {
+    "plot": "LG1",
+    "parent_id": 265,
+    "category": "mixed",
+    "gt_ids": [
+      227,
+      233
+    ],
+    "edge_class": "other_tree",
+    "count": 4,
+    "median_distance_m": 0.5133728086948395,
+    "median_feature_rms": 0.29635432030744135,
+    "v1_cut": 4,
+    "r1_cut": 3
+  },
+  {
+    "plot": "LG1",
+    "parent_id": 265,
+    "category": "mixed",
+    "gt_ids": [
+      233,
+      244
+    ],
+    "edge_class": "other_tree",
+    "count": 17,
+    "median_distance_m": 0.28477942943573,
+    "median_feature_rms": 0.16445757603203978,
+    "v1_cut": 7,
+    "r1_cut": 1
+  }
+]

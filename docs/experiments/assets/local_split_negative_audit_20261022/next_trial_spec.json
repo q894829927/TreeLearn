@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "status": "proposed_not_executed",
+  "is_training_config": false,
+  "trial": "E1-R2",
+  "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "audit_summary_sha256": "2ea50a91398ba0ad05d80b5b9d2fbba3034238af33b222382de91bc671e95db1",
+  "starting_point": "fresh seed-42 initialization; compare with V1 and R1, do not resume either checkpoint",
+  "proposed_additional_optimizer_steps": 500,
+  "optimizer_steps_executed_this_round": 0,
+  "sole_training_change": "Replace the original V1 loss with symmetric mean/hard edge BCE; keep total class weight equal.",
+  "formula": "0.25*(mean_BCE_pos+mean_top25pct_BCE_pos+mean_BCE_neg+mean_top25pct_BCE_neg)",
+  "hard_fraction": 0.25,
+  "hard_count": "max(1, ceil(class_count*0.25)) independently for each class",
+  "total_positive_weight": 0.5,
+  "total_negative_weight": 0.5,
+  "total_loss_coefficient": 1.0,
+  "contrast": "V1 gives mean positive/negative BCE weight 0.5/0.5; R1 adds 0.5 hard-positive BCE. R2 changes the loss formula only.",
+  "training_negatives": "All original label-0 training edges, including strict other-tree and known tree-background; no new GT filtering.",
+  "subclass_sidecars": "diagnostic only; R2 does not require or modify their supervision",
+  "fixed": "identical 16 parents, bank arrays, normalization, sampler, 5265-parameter network, candidates, seeds, graph and policy",
+  "training": {
+    "seed": 42,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.001,
+    "grad_clip": 2,
+    "edges_per_step": 8192
+  },
+  "edge_threshold": 0.5,
+  "gate": {
+    "max_same_false_cut_rate": 0.05,
+    "min_strict_other_tree_detection_rate": 0.8,
+    "min_recovered": 1,
+    "max_lost": 0
+  },
+  "cut_threshold_choices": [
+    null,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "scope": "Fitted E1 check only; success is not a generalization result.",
+  "stop": "One setting and one seed only; no automatic E2, Wytham, threshold relaxation or budget increase.",
+  "hypothesis": "Symmetric hard-edge emphasis may improve ordering without the unilateral positive weight increase. It may still fail both edge gates."
+}

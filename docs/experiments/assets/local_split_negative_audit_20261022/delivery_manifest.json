@@ -1,0 +1,32 @@
+{
+  "source_head": "d3d5649a83ff5376173fad6b94d04559d61ab335",
+  "optimizer_steps": 0,
+  "tests_passed": 38,
+  "source_signature": "4ff5c28159dcddf8ee322166f40ffac0e385a89e28f97bd261f70a06f1470e44",
+  "checkpoint_sha256": {
+    "v1": "49d02948f7eac89b23997ea485c4172d66dc8c2ae3fbbb682d9c0dc9d56b1f4e",
+    "r1": "c7ee611bb6a127836d00ad55edf710697f74142a15daec252f2fb2954055cd1e"
+  },
+  "code_sha256": {
+    "tools/local_split_v1/audit_negative_supervision.py": "6bf3c216c31e0e002d7f0bd8dcb92e9804c257781539451cb8c03bcf61732ae6",
+    "tools/local_split_v1/summarize_negative_supervision.py": "60aab97fdade3a7aaa490d4c2c2f1f07c6ab34ad3f7dc964dcdf339dce7f28d5",
+    "tests/test_local_split_negative_audit.py": "e6ef8d676cd4038a75848d083ec17bc60883af16b1766ba49a0f51bf412e2a7c"
+  },
+  "files_sha256": {
+    "analysis.json": "e2d79a8b9fcc3219f77a7972472779e6f3ebbbf9a8c40be802f10a2959ee1b9f",
+    "difficulty_groups.csv": "a3f48447868adea5ba1135477d5e0966d46e3b881bb7bba7fd93edc8984ce5f4",
+    "difficulty_groups.json": "7cd90941ab0e23bf4fd065a95bede49328c71870765b31e7eae6d1f8da84bfe2",
+    "edge_difficulty.json": "e61853c3855ffbd5c7f59e7649537df9599fa884b33eac7d60d6b83f533d2946",
+    "gt_pairs.json": "f47d787a96612125283fd8bac9cd90b5a67eabf57d1faa2821a680a49858ca28",
+    "negative_composition.png": "aa4e18b5f290b13b00801ccb8f50f9deb7cf5e6a114555fd37a2c704fc71c2eb",
+    "next_trial_spec.json": "e137739cb56bf0747649053d2ca32a739c67795c50504aea57a666b37f066a7f",
+    "parents.csv": "17a25609dbaa9db5197fad3b180a0be8e4a3205e52c042febec7e1592c931681",
+    "parents.json": "4377526c80fcaca2b5663151a5815f5590272cbbe45b921ac34b227537f362d7",
+    "run_logs/audit.log": "429935fa38708d2546b818e9ebfcd10da4e5cbfd7e1911c3e8f97fea8e60314c",
+    "run_logs/summary.log": "a9d95244ad9283160a812d8cd71d5a74c9965fb8476e82fd6e027596b3ba2df8",
+    "run_logs/tests.log": "dea5f896d6475e8944056804a3804ec32546dabce877febc19c1a53634060685",
+    "strict_negative_difficulty.png": "c14c4eaaa0f643ae8e1544f3c1c765e852589c3a20090727a88c49486642f73c",
+    "subclass_manifest.json": "34d4210ecf72362ed2ce9d39405904d88fb539f6f895f06725fd78561689e518",
+    "summary.json": "2ea50a91398ba0ad05d80b5b9d2fbba3034238af33b222382de91bc671e95db1"
+  }
+}
