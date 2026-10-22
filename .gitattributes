@@ -5,3 +5,4 @@ tools/forest_abc/run.sh text eol=lf
 tools/forest_abc_v2/run.sh text eol=lf
 tools/treelearn_residual_instance/run.sh text eol=lf
 tools/structure_voting/run.sh text eol=lf
+tools/instance_relation/run.sh text eol=lf
