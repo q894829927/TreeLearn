@@ -1,6 +1,6 @@
 # PTv3 / TreeLearn 实施、资源与公平性报告
 
-本次交付范围为 P0–P2，以及 P3/P4 的可执行入口。没有启动正式长期训练，没有产生 E0/E1 的正式单木分割成绩，也没有据此作 Backbone 优劣结论。
+P0–P2 已完成，P3/P4 的可执行入口已准备。没有启动正式长期训练，没有产生 E0/E1 的正式单木分割成绩，也没有据此作 Backbone 优劣结论。
 
 ## 代码和文件
 
@@ -26,6 +26,7 @@
 1. **22 项契约测试全部通过**，最新测试主体 2.792s。覆盖 E0 原类/参数一致性、4 常数特征、重复体素/多 batch/交错 batch 映射、PTv3 点序、GT 的 11/12 点边界、ignore/masks、Loss/空 mask、梯度、HAIS 加载门禁、原版正常 grouping/ensemble、空 seed/全 noise/少参考点、评价极端输入、未知标签 LAZ 往返、checkpointing 梯度和 BN、streaming tile 数组/元数据、无损 NPZ/SHA、恢复日志回滚和拒绝 smoke 正式聚合。新增的聚合测试使用明确标注的合成记账 fixture，验证三 seed 正常统计，并拒绝跨轮预测路径、改写预测文件、不同 grouping/config/data；它不冒充正式训练。另已对两份实际 E2 测试片结果运行聚合门禁。见 [测试日志](evidence/final_unit_tests.log)。
 2. 实际 CUDA 共享前缀测试：连续训练至 update 4，与同一 update 2 checkpoint 重启后训练至 update 4 比较。恢复前所有保存状态逐值一致，样本序列、LR、Scaler、RNG 和游标一致；后续模型最大绝对差值 **0.0001275615**，低于预先规定的 0.0002 容差，见 [恢复记录](evidence/final_resume.json)。**继续计算的模型和优化器不是逐位相同**；不能用这次短测试保证长程数值轨迹逐位重放。
 3. 冻结模型/训练版本分别完成 E0-scratch、E0-main-hais、E1 各 **100 updates / 100 次实际 optimizer.step**，全部梯度有限、没有 AMP 跳步。三组全部 100 步的增强输入、GT、masks 摘要一致，公共公平性指纹一致。真实 G1N crop 原始 1,060,733 点，每 microbatch 共同选取 400,000 点；200 个增强样本的实例保留率均为 1.0，XY 极值范围逐项相等。见 [100 步记录](evidence/final_smoke100.json)。该旧 crop 被显式标为 unverified_smoke，只用于工程测试，不能用于正式训练。
+4. 新 25,000-crop verified 数据池与三份完整计划就绪后，在干净提交 `069d8f10982e6d8117db9a6fd5a9c0dd98edb403` 上执行了九次入口验证：seed 42 每组 3 updates，seed 43/44 每组 1 update，共 **15 次真实更新**，全部梯度有限、没有 AMP 跳步。每个 seed 的三个模型输入/监督摘要严格相同，实例保留率均为 1.0；该次源码 SHA256 为 `538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a`，见 [新数据入口验证](evidence/verified_pool_validation.json)。这些仍是短程 smoke，不是 500-update Pilot 或正式训练。
 
 短程 Loss 下降只说明优化过程可执行；不同初始条件、仅一个旧 crop 的结果不能用于科学性能比较。
 
@@ -55,6 +56,7 @@
 | 相同 A1N，microbatch=1、累积=2 | 完成 2 次有效更新；peak allocated 12.76GiB |
 | G1N 1,060,733 点，完整输入，microbatch=1、累积=2、修复后 tensor checkpointing | 完成 10 次更新；peak allocated 17.61GiB |
 | G2W 2,717,262 点，完整输入，microbatch=1、累积=2、修复后 tensor checkpointing | 首次前向仍 OOM；peak allocated 21.94GiB，详见 [记录](evidence/gpu_largest_micro_checkpoint.json) |
+| **新 verified 池最大 G2W_529，2,677,003 点**，完整输入、microbatch=1、累积=2、AMP 和 tensor checkpointing | 隔离进程的首次前向仍 OOM，0 次更新；peak allocated 22.22GiB，申请 526MiB 时 GPU 仅余 105.88MiB，详见 [新池最大裁剪记录](evidence/fresh_largest_micro_checkpoint.json) |
 | G1N 1,060,733 点，原 main U-Net 物理 batch=2、完整输入 | 完成真实前向、反向和一次更新；peak allocated 8.32GiB，冷启动首步 32.16s，不能当稳态吞吐，详见 [记录](evidence/e0_full_input.json) |
 | G2W 2,717,262 点，PTv3 eval/no_grad、无点数上限、main FP32 推理 | 完成 `[N,2]` / `[N,3]` 有限输出；1.80s，allocated/reserved 8.51/15.23GiB，详见 [记录](evidence/largest_inference.json) |
 
@@ -67,6 +69,25 @@ main 的固定 50m XY grid 另有实际覆盖问题：200 个 G1N 增强输入�
 18 个 raw LAZ 的 SHA256、发布平台 MD5、点数、实例点数分布与 Z Extent 已核查，合计 6,665 个正标签实例；来源和所有逐文件哈希在 [source_manifest.json](evidence/source_manifest.json) 与 [published_checksums.json](evidence/published_checksums.json)。保留 raw 标签，没有按 10m 高度阈值重标注。
 
 已有 25,000 个 crop 缺少可核验的完整生成 seed，因此在独立数据盘目录重新生成。实际位置为 `/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1`，worktree 通过 `data/experiments/ptv3_treelearn/v1` 访问；不覆盖历史裁剪。生成保持 main 的 0.1m 下采样、0.6m Verticality、occupancy、候选选择和 35m 窗口定义。并行保存只改变执行方式；完整顺序随机选择计划先冻结，每 crop 保留写时 SHA256、中心、角度、点数、未增强监督点数、实例点数和 Z Extent。训练时另记实际增强后的点数和 masks。
+
+本轮已完成 **18 forests / 25,000 crops，status=verified**，裁剪目录约 442GiB。全池点数最小/中位/最大为 **265,208 / 1,226,978.5 / 2,677,003**，95% 分位为 1,790,794.5。按点数加权的非树占比约 21.80%、ignore 占比为 0；原始正标签没有按高度重标注。每个 crop 的点数、实例数/分布、Z Extent、边界和未增强有效监督点数保存在 `v1/crop_records.jsonl`。额外随机抽取 12 个文件，独立核查实际 NPZ SHA256、解码数组形状/有限值及对应 JSON SHA256，全部通过，见 [全池摘要](evidence/crop_summary.json)。对已 verified 数据再次执行 resume，manifest 的内容哈希和 mtime 均保持不变，见 [冻结保护检查](evidence/frozen_manifest_resume_guard.json)。
+
+**99.408% 的新 crop 超过 400k 点。** 因此，资源方案改变的是几乎整个训练池的点密度；保留空间范围、实例和完整 crop 的 GT 不能被解释成保留了全部原始训练输入。正式结果必须明确写出共同输入资源变体，并在此条件下比较 E0-scratch 与 E1。
+
+![新裁剪点数分布与共同 400k 上限](evidence/crop_point_counts.png)
+
+关键不可变数据哈希：
+
+| 文件 | SHA256 |
+| --- | --- |
+| `v1/crop_manifest.json` | `0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b` |
+| `v1/crop_records.jsonl` | `2a3d4ae30c2d945f115974724c8a060c659d2e98633120e886295891729867a2` |
+| `v1/generation_manifest.json` | `6c2119c158d6082b9a111f5a7ce4e28ee34890614f8db1bb77ef6e2db24fbe7a` |
+| seed 42 plan | `210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688` |
+| seed 43 plan | `7e25dc4cf54da4d17053ac61d35891d1020730d51dd2b8d7d2a89f6289d73083` |
+| seed 44 plan | `92ca00ef4eaf1fc864291c0329101ea43e065aae28d065a58eb51ad12ee28012` |
+
+三份计划均为 `[1000,500]`，每 epoch 是 500 个不同 crop，增强 seed 为 uint32；每份完整计划均覆盖全部 25,000 个 crop。计划元数据和独立检查见 [sample_plans.json](evidence/sample_plans.json)、[sample_plan_checks.json](evidence/sample_plan_checks.json)。生成配置、18 份 voxel/features/occupancy 文件哈希见 [generation_manifest.json](evidence/generation_manifest.json)。完整 formal 启动时会逐文件验证计划涉及的整个数据池，442GiB 的冷读取会增加启动时间；短程只检查实际将用到的输入。
 
 | 初始化 | SHA256 与核验 |
 | --- | --- |

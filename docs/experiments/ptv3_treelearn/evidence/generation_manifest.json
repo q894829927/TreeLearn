@@ -1,0 +1,93 @@
+{
+  "seed": 42,
+  "config": {
+    "base_dir": "data/experiments/ptv3_treelearn/v1",
+    "occupancy_res": 1,
+    "n_points_to_calculate_occupancy": 100000,
+    "min_percent_occupied_fill": 0.9,
+    "how_far_fill": 9,
+    "min_percent_occupied_choose": 0.45,
+    "n_samples_total": 25000,
+    "chunk_size": 35,
+    "sample_generation": {
+      "voxel_size": 0.1,
+      "search_radius_features": 0.6,
+      "inner_edge": 8,
+      "outer_edge": 13.5,
+      "stride": 0.5,
+      "sample_generator": {
+        "n_neigh_sor": null,
+        "multiplier_sor": null,
+        "rad": null,
+        "npoints_rad": null
+      }
+    }
+  },
+  "main_commit": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+  "directory_order": "sorted",
+  "status": "generated",
+  "save_workers": 4,
+  "crop_storage": "lossless NPZ; completed standard uncompressed caches preserved; new crops use deflate level 1 and write-time SHA256",
+  "preprocessing": {
+    "forests_voxelized0.1": {
+      "A1N.npz": "2a72e27a62cacea836e763018d08085baccd6f53a2d2514b3b0c51c20f987b3d",
+      "A1W.npz": "8d0cb3f9abeecb44c1a550cdb6ab7b9c818ce98f3ff26c902aa8a63185db1125",
+      "G1N.npz": "1a3bbd81135083afab508304020e50476d1c7de2ec1607071e74255f202102ea",
+      "G1W.npz": "324b70fa439efdb611711bc6a0f3dc6cac53543b62be438f52b8b43354c13ce0",
+      "G2N.npz": "b931722f8eb9d640af6261efafbe474e2f44bf73c909ba957d5bbb96c859b3aa",
+      "G2W.npz": "6429194af2916d04343929605fdb71ff52d4b29707b378a4b068f28db2c9e7e7",
+      "G3N.npz": "bceee2d7a25b998faab5c6726b9a89b5c8c46d1a85905f30b767f187b4c58e73",
+      "G3W.npz": "bc15f841ff91e015a00871892f8859f962158039bac78d4ea6a388f5cad1ecd0",
+      "G4N.npz": "23f32713e109a57d35f532abca951c8ff633021d10b5ca5eb6db86d55efde452",
+      "G4W.npz": "953b4dc8d886afe3f0e8c574b331a5bae58e70bfd655c2adaf6c630427b778ff",
+      "L1N.npz": "0537e44868eff8fe35170384e73e0cb1108ea062c169e2025bb3408eda937722",
+      "L2N.npz": "e86e5521087a622982e59ac5e0b58b592bcb061e1c055a8defef0e8b8160fc40",
+      "L2W.npz": "255d400a250c67370db17878a54bf9d1e7b4a9173bb30d24f594ab853db4a975",
+      "LG1.npz": "f8aaf54379324a02bb74e8b18236d63b2cabc34e56b0fcb08ccfa779aa0e8019",
+      "LG2.npz": "fc7b61c4917ea1d7db4bba135d6883e86a4a2545b66a7fefc2e51bab1c954fc0",
+      "LG3.npz": "6cc9827dbe4d82f787db79baca165aecc2050fb52730bc6693f6ee6e6b8f9cef",
+      "O1N.npz": "c7ec441baef9a6c4846c5c7b2e51e5346094966b497db88b3c6d3f9687ed45eb",
+      "O1W.npz": "b0cd3275b9911cc706828b42dbe54017b58b1a4d5f6a580721782f5f273f7d6e"
+    },
+    "features": {
+      "A1N.npz": "63b189ebde4587405cb08d32bb5ef599838490016e47696b05d2875cc3fa68f1",
+      "A1W.npz": "97136390e9363a088131b850421f990c5d64c52fec222660b3567f127b17e177",
+      "G1N.npz": "7af0d896589c501a96b7116799a82423d32609412647c0a038c75fc09f0ec0d6",
+      "G1W.npz": "f0d979c1e426899e47e0d094153902688346c87d70037184bd731df81a033c47",
+      "G2N.npz": "bd990c1ada088548d0f620cb1a49de0b9aadbd755424e362399c418c1bb348d5",
+      "G2W.npz": "79f441cdaee2c6d2eba71ce74f8cf38110f7e2f4f1852db1b8ec04dc4030e2ef",
+      "G3N.npz": "73a9e37c88921286d6fbed0554e22009635439a16098f60717bcb31275a383d8",
+      "G3W.npz": "1aa73f4c4effa410669703759521890e35cb204c749e8c1073a680c76cef5920",
+      "G4N.npz": "1a9f13d56fe3cea3765056e3145b9faffe871cd81fde23a7a5c428de184a322d",
+      "G4W.npz": "13eb54cd4f7f558004661b18d9efba48a2963aacd9b68f363fbaeee120c1379f",
+      "L1N.npz": "b05b0af6f6f249ffb890223c7e4da492b9d1b9031204adab77c5c0a85bdc8aac",
+      "L2N.npz": "899234d03ad1b8507d2e6532ceed18fdc8b53fad8b781bf5edcb995d72439bab",
+      "L2W.npz": "8c06c9fbaf4c5326cdfb2921fe40ad452d292bbc084726e54197aa7245aa9803",
+      "LG1.npz": "8ac6ef9fb79e09e2f0aa5e5152908ae311817333506c614b5b8aa6d0edd211ad",
+      "LG2.npz": "43b0910bf53ab2d462563da7b725b995c09aed05bf5424ff576d5d7768ae41e5",
+      "LG3.npz": "2d7601f248335ca5dbdf31eb7013c451338c82d0ad7f2c539b3f890eae88575c",
+      "O1N.npz": "3cd3d8966017f2d06719ed1f33c5aa02d2616f0e1a2fcce658cf856fdecda068",
+      "O1W.npz": "ec4a9de77d1fbfc7d5ccf56747556c345175bf98cc502681c906fc455c78e38e"
+    },
+    "occupancy": {
+      "A1N.npz": "96c2250fa8ce62b58820561ba36a6fc92daeb39743bab60fba016a87c46485ef",
+      "A1W.npz": "9a7e471e15a632586111e9a44633d65859a43507d27127e4178ec1ce00c75e91",
+      "G1N.npz": "f25b3c8d6e72a2f7340695418a1571278bb70809d2e2afc4b4c9419da3496a55",
+      "G1W.npz": "5f1c1bbbab37a1fd36ae76bee457dbfd57d688296e46d8cac8c5b00b163c4f1a",
+      "G2N.npz": "5c63843c192f48349e1b569dee97b8cf60a53054bcd495135fe62901c86915b7",
+      "G2W.npz": "5547d77e99c87a1b68bd563deb23df014c2be42e23ac9c748007ba90e75cfc47",
+      "G3N.npz": "c661df1a0223a16d939478a2573e5733179eabb17d2ebe0defc6c00a2f098362",
+      "G3W.npz": "05fc652ef4b4c134de32e68961dbcec12de7a66bc02a2f725fb49c4bf5586dd1",
+      "G4N.npz": "cf05bca4f97627701f49755a34cc207e0c4e9cf949d0222f70a3f95b4c9dc766",
+      "G4W.npz": "0d8dc12e5dd1a6368554bd15d0f7da3a27fe8ba5948f8dacd04ce72e7ab9aa1a",
+      "L1N.npz": "8b5ae8dbf254b53feb6ba880887049246ceec7e5cb6c277b6841ee3a8a152b4e",
+      "L2N.npz": "57ba57c1737b11c27b8089723638a2687604b691a2d87429b113571eb11d677d",
+      "L2W.npz": "d46bb1c80ec8d38082a113f4e3b46aaf7b9b6f1c4c49245a01751fb63588b2cf",
+      "LG1.npz": "5d17df1b8b2d19fe2ffb4cdc142e2b7fe09b64d73b62a7340ce90cea5fa20191",
+      "LG2.npz": "77db3935522e32f0664a7faec83d45b37d8df637038fb47f94806ca53a356851",
+      "LG3.npz": "0855d5cf24ca995e8dd505fcc7a7d9e209b67b748f8ac8241f33e750c4854409",
+      "O1N.npz": "ba394d7f9e5c50d7dea52118c74f1da553682333ddb2a1d8b9473db6748729f2",
+      "O1W.npz": "bbd5632917fa9381b107e3813ed387195db7f31ca0e422a3ad85444aa58c84f1"
+    }
+  }
+}

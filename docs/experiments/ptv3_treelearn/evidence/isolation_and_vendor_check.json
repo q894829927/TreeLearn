@@ -1,7 +1,7 @@
 {
   "implementation_commit": "9521588",
   "source_freeze_commit": "f80aab665514596caeda07883a3c39bb2610ffef",
-  "checked_head": "b070a82b18119169156263560348dedbd2836f4d",
+  "checked_head": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
   "main_commit": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
   "original_main_paths_unchanged": true,
   "checked_main_paths": [
@@ -44,5 +44,6 @@
       "sha256": "8e293fb7c93586fb19294bcae2096755b467e465b010b1547f5658a3df1682ab"
     }
   },
-  "original_worktree_branch": "codex/candidate-mask-mlp-step1"
+  "original_worktree_branch": "codex/candidate-mask-mlp-step1",
+  "delivery_python_code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a"
 }

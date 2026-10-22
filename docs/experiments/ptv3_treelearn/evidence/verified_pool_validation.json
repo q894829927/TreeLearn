@@ -1,0 +1,289 @@
+{
+  "role": "short fresh verified corpus/plan integration validation, not formal training",
+  "seeds": {
+    "42": {
+      "all_three_group_digests_equal": true,
+      "plan_sha256": "210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688"
+    },
+    "43": {
+      "all_three_group_digests_equal": true,
+      "plan_sha256": "7e25dc4cf54da4d17053ac61d35891d1020730d51dd2b8d7d2a89f6289d73083"
+    },
+    "44": {
+      "all_three_group_digests_equal": true,
+      "plan_sha256": "92ca00ef4eaf1fc864291c0329101ea43e065aae28d065a58eb51ad12ee28012"
+    }
+  },
+  "runs": {
+    "e0_scratch_s42": {
+      "updates": 3,
+      "actual_optimizer_steps": 3,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "f28fcdf5b5df884dcf29bf8b9e697cc923f781889f2ff10f8971d57c1707dffa",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 3244213760,
+      "peak_reserved_bytes": 3730833408,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_574.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_1355.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_921.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_589.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_929.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_231.npz"
+      ],
+      "input_points_before": [
+        1584057,
+        2031204,
+        586216,
+        1288687,
+        1341861,
+        2059694
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "6e99f91657b90bc1ef20fe176dd69e5941446cd353a2b97e03c66ab6f9f7790a"
+    },
+    "e0_main_hais_s42": {
+      "updates": 3,
+      "actual_optimizer_steps": 3,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "8dfd0f99daae89a7330d3e83db7df7196e6e788525f580309c2e9965b3fd3915",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 3244246528,
+      "peak_reserved_bytes": 3730833408,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_574.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_1355.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_921.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_589.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_929.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_231.npz"
+      ],
+      "input_points_before": [
+        1584057,
+        2031204,
+        586216,
+        1288687,
+        1341861,
+        2059694
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "6e99f91657b90bc1ef20fe176dd69e5941446cd353a2b97e03c66ab6f9f7790a"
+    },
+    "e1_ptv3_s42": {
+      "updates": 3,
+      "actual_optimizer_steps": 3,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "25f07fea972f3c8d0bb6544713c8d3b6d7e30f87baed9908872d1ee1734f3022",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 10880077824,
+      "peak_reserved_bytes": 11943280640,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_574.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_1355.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_921.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_589.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_929.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_231.npz"
+      ],
+      "input_points_before": [
+        1584057,
+        2031204,
+        586216,
+        1288687,
+        1341861,
+        2059694
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "6e99f91657b90bc1ef20fe176dd69e5941446cd353a2b97e03c66ab6f9f7790a"
+    },
+    "e0_scratch_s43": {
+      "updates": 1,
+      "actual_optimizer_steps": 1,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "7e25dc4cf54da4d17053ac61d35891d1020730d51dd2b8d7d2a89f6289d73083",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "f28fcdf5b5df884dcf29bf8b9e697cc923f781889f2ff10f8971d57c1707dffa",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 3057732096,
+      "peak_reserved_bytes": 3464495104,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_985.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_731.npz"
+      ],
+      "input_points_before": [
+        1413639,
+        2123895
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "226b2421fbb495c360c0193d644650c6d5ce2e8cc53384f9c315c51d2e12c175"
+    },
+    "e0_main_hais_s43": {
+      "updates": 1,
+      "actual_optimizer_steps": 1,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "7e25dc4cf54da4d17053ac61d35891d1020730d51dd2b8d7d2a89f6289d73083",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "8dfd0f99daae89a7330d3e83db7df7196e6e788525f580309c2e9965b3fd3915",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 3057684992,
+      "peak_reserved_bytes": 3464495104,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_985.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_731.npz"
+      ],
+      "input_points_before": [
+        1413639,
+        2123895
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "226b2421fbb495c360c0193d644650c6d5ce2e8cc53384f9c315c51d2e12c175"
+    },
+    "e1_ptv3_s43": {
+      "updates": 1,
+      "actual_optimizer_steps": 1,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "7e25dc4cf54da4d17053ac61d35891d1020730d51dd2b8d7d2a89f6289d73083",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "25f07fea972f3c8d0bb6544713c8d3b6d7e30f87baed9908872d1ee1734f3022",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 10775730688,
+      "peak_reserved_bytes": 11695816704,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_985.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_731.npz"
+      ],
+      "input_points_before": [
+        1413639,
+        2123895
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "226b2421fbb495c360c0193d644650c6d5ce2e8cc53384f9c315c51d2e12c175"
+    },
+    "e0_scratch_s44": {
+      "updates": 1,
+      "actual_optimizer_steps": 1,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "92ca00ef4eaf1fc864291c0329101ea43e065aae28d065a58eb51ad12ee28012",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "f28fcdf5b5df884dcf29bf8b9e697cc923f781889f2ff10f8971d57c1707dffa",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 3025373696,
+      "peak_reserved_bytes": 3542089728,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_1557.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1N_159.npz"
+      ],
+      "input_points_before": [
+        1413664,
+        872496
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "16336e91bb61835661c38b6921200556cb3b019969351adf51bb4f8ce8dd9cd1"
+    },
+    "e0_main_hais_s44": {
+      "updates": 1,
+      "actual_optimizer_steps": 1,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "92ca00ef4eaf1fc864291c0329101ea43e065aae28d065a58eb51ad12ee28012",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "8dfd0f99daae89a7330d3e83db7df7196e6e788525f580309c2e9965b3fd3915",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 3025399808,
+      "peak_reserved_bytes": 3542089728,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_1557.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1N_159.npz"
+      ],
+      "input_points_before": [
+        1413664,
+        872496
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "16336e91bb61835661c38b6921200556cb3b019969351adf51bb4f8ce8dd9cd1"
+    },
+    "e1_ptv3_s44": {
+      "updates": 1,
+      "actual_optimizer_steps": 1,
+      "code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+      "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+      "plan_sha256": "92ca00ef4eaf1fc864291c0329101ea43e065aae28d065a58eb51ad12ee28012",
+      "fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1",
+      "config_sha256": "25f07fea972f3c8d0bb6544713c8d3b6d7e30f87baed9908872d1ee1734f3022",
+      "git": {
+        "commit": "069d8f10982e6d8117db9a6fd5a9c0dd98edb403",
+        "branch": "codex/ptv3-treelearn-baseline",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": ""
+      },
+      "peak_allocated_bytes": 11179891200,
+      "peak_reserved_bytes": 12043943936,
+      "sample_paths": [
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_1557.npz",
+        "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1N_159.npz"
+      ],
+      "input_points_before": [
+        1413664,
+        872496
+      ],
+      "instance_retention_min": 1.0,
+      "sample_digest_sequence_sha256": "16336e91bb61835661c38b6921200556cb3b019969351adf51bb4f8ce8dd9cd1"
+    }
+  },
+  "common_code_sha256": "538380260cfcf87778b7ac2eaeacdb502f4fcdde29b69ba8c790ea0322a0881a",
+  "common_data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+  "common_fairness_sha256": "1dcb4329228e955690b892820a27db2fb06c7b879be6c83744fb241958f47ec1"
+}

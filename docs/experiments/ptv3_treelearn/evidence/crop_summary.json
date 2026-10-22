@@ -1,0 +1,271 @@
+{
+  "count": 25000,
+  "forests": 18,
+  "generation_seed": 42,
+  "crop_manifest_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+  "records_sha256": "2a3d4ae30c2d945f115974724c8a060c659d2e98633120e886295891729867a2",
+  "generation_manifest_sha256": "6c2119c158d6082b9a111f5a7ce4e28ee34890614f8db1bb77ef6e2db24fbe7a",
+  "forest_selection_plan_sha256": "64d4166923818281187dd705e44ead2d904e9a6961c61f300c48d6b0e1a33d6e",
+  "point_quantiles": {
+    "0": 265208.0,
+    "0.01": 426393.87,
+    "0.05": 557605.85,
+    "0.25": 894372.5,
+    "0.5": 1226978.5,
+    "0.75": 1465266.75,
+    "0.95": 1790794.5,
+    "0.99": 2159076.629999998,
+    "1": 2677003.0
+  },
+  "total_crop_point_occurrences": 29844391006,
+  "fraction_crops_above_400k": 0.99408,
+  "non_tree_fraction_point_weighted": 0.21798916002983826,
+  "ignore_fraction_point_weighted": 0.0,
+  "unaugmented_valid_semantic_point_occurrences": 1706470404,
+  "unaugmented_valid_offset_point_occurrences": 1333281985,
+  "by_forest": {
+    "A1N": {
+      "crops": 1606,
+      "point_quantiles": [
+        265208.0,
+        412846.25,
+        1172323.0,
+        1636319.25,
+        1752798.0
+      ]
+    },
+    "A1W": {
+      "crops": 1339,
+      "point_quantiles": [
+        481036.0,
+        636245.6,
+        1314115.0,
+        1760244.4,
+        1936786.0
+      ]
+    },
+    "G1N": {
+      "crops": 1008,
+      "point_quantiles": [
+        290863.0,
+        480480.6,
+        1102136.0,
+        1631162.2,
+        1712130.0
+      ]
+    },
+    "G1W": {
+      "crops": 1934,
+      "point_quantiles": [
+        422978.0,
+        610001.6,
+        1285380.0,
+        1642819.2,
+        1756060.0
+      ]
+    },
+    "G2N": {
+      "crops": 1453,
+      "point_quantiles": [
+        341755.0,
+        538799.6,
+        1196266.0,
+        1726521.4,
+        1915571.0
+      ]
+    },
+    "G2W": {
+      "crops": 944,
+      "point_quantiles": [
+        433184.0,
+        782370.75,
+        1770280.5,
+        2415214.2999999993,
+        2677003.0
+      ]
+    },
+    "G3N": {
+      "crops": 1470,
+      "point_quantiles": [
+        352939.0,
+        506841.05,
+        1174752.5,
+        1543141.4,
+        1677420.0
+      ]
+    },
+    "G3W": {
+      "crops": 1411,
+      "point_quantiles": [
+        468015.0,
+        685734.5,
+        1445323.0,
+        1810404.5,
+        1928277.0
+      ]
+    },
+    "G4N": {
+      "crops": 1019,
+      "point_quantiles": [
+        416593.0,
+        620320.9,
+        1389301.0,
+        1949993.0,
+        2102583.0
+      ]
+    },
+    "G4W": {
+      "crops": 1912,
+      "point_quantiles": [
+        364809.0,
+        548072.15,
+        1292785.0,
+        1595027.3999999997,
+        1769254.0
+      ]
+    },
+    "L1N": {
+      "crops": 1580,
+      "point_quantiles": [
+        398631.0,
+        549685.3,
+        1210529.5,
+        1567741.0,
+        1766227.0
+      ]
+    },
+    "L2N": {
+      "crops": 1173,
+      "point_quantiles": [
+        436601.0,
+        620058.0,
+        1252200.0,
+        1580943.0,
+        1773982.0
+      ]
+    },
+    "L2W": {
+      "crops": 1552,
+      "point_quantiles": [
+        380783.0,
+        607773.2000000001,
+        1351193.5,
+        1820457.9999999998,
+        2016533.0
+      ]
+    },
+    "LG1": {
+      "crops": 1077,
+      "point_quantiles": [
+        323840.0,
+        427715.4,
+        973777.0,
+        1358516.4,
+        1468202.0
+      ]
+    },
+    "LG2": {
+      "crops": 1449,
+      "point_quantiles": [
+        428878.0,
+        574851.8,
+        1189651.0,
+        1602032.2,
+        1775958.0
+      ]
+    },
+    "LG3": {
+      "crops": 1507,
+      "point_quantiles": [
+        419957.0,
+        616787.2,
+        1149428.0,
+        1552686.4,
+        1676802.0
+      ]
+    },
+    "O1N": {
+      "crops": 1185,
+      "point_quantiles": [
+        284119.0,
+        510660.2,
+        971021.0,
+        1208385.4,
+        1293668.0
+      ]
+    },
+    "O1W": {
+      "crops": 1381,
+      "point_quantiles": [
+        553400.0,
+        719620.0,
+        1522598.0,
+        2037088.0,
+        2280704.0
+      ]
+    }
+  },
+  "scale_note": "Z Extent quantiles retained per crop and per source forest; not quantiles-of-quantiles pooled as tree height",
+  "independent_file_probes": [
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_93.npz",
+      "sha256": "bfd8c3203c20dfa968e9d9ea44ecade0d4fdefdcf90896a36961c682832091a8",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_1097.npz",
+      "sha256": "ef110babd01d17b7e46ba779248dbf7be3e8f73a482510c210c1a10b0f1f740f",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1N_1112.npz",
+      "sha256": "a713d7176de11316f408e6ef0b3d43033875aa4a50b244d479efa034ed21a73b",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2N_660.npz",
+      "sha256": "4ef218f1998a4214c17a9df0b4e27bd806ff380058e5a810397c5172265bfde5",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1W_1355.npz",
+      "sha256": "1d57f5d63c64b81592e78188fcd69195a082b188b92c026821c3cdd72c8ed565",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_1156.npz",
+      "sha256": "cee9454089425bac26ca85f5568c22cf3e8fb4e68ed62b9895b43257925f1603",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1W_1345.npz",
+      "sha256": "24e9f57bbaed53d4283f374227bea766ee83634c12ab192a9f2c19c963838766",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_588.npz",
+      "sha256": "108d03971f4168c3b84b88facc5da1c1416479e3f5f5816df7849297fd815ce1",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_414.npz",
+      "sha256": "42dd0f6113a319d519469b963297e8c81d9c0092a8b81615c84e176615c96c85",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_539.npz",
+      "sha256": "6e86aacb334b46e4ae5ba406ffc38430370099b3bbb471cecae60861f0fd35e5",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG2_162.npz",
+      "sha256": "ffc7342c36ead8f5b9435a84372c859ede32bbf848350550eb7573a20b159bc2",
+      "status": "pass"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2N_498.npz",
+      "sha256": "b13e68912bbae1c23e97ccd940d76fd190184c2994fe3a40493a725a28084b5f",
+      "status": "pass"
+    }
+  ]
+}

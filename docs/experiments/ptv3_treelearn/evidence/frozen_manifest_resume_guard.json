@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "frozen_manifest_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+  "manifest_mtime_unchanged": true,
+  "stdout": "Frozen verified manifest found; no files rewritten. Use a new destination for regeneration.",
+  "purpose": "Resume of verified corpus must not rewrite data/provenance"
+}
