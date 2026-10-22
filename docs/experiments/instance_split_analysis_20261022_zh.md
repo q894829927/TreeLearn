@@ -236,9 +236,11 @@ Z=-8 至 -6m 冠层有明显跨目标接触；两 GT 的最小点距约 0.028m�
 **复现材料。** 新代码为 `tools/instance_relation_v3/analyze_split_cases.py`，
 公开汇总统计在 [analysis.json](assets/instance_split_analysis_20261022/analysis.json)，
 紧凑表在 [summary.csv](assets/instance_split_analysis_20261022/summary.csv)。
-完整逐层坐标、GT 组成和点邻域诊断保留在服务器：
-`work_dirs/treelearn_instance_relation_v3_s42/split_case_cpu_private_20261022/analysis_full.json`，
-不放入公开资产；详细检查日志同样留在该私有目录和原始 `logs/` 中。
+完整逐层坐标、GT 组成和点邻域诊断现已补交为
+[analysis_full.json](assets/instance_split_analysis_20261022/analysis_full.json)，
+详细检查日志为 [inspection.log](assets/instance_split_analysis_20261022/run_logs/inspection.log)。
+服务器原副本仍保留在 `work_dirs/treelearn_instance_relation_v3_s42/split_case_cpu_private_20261022/`。
+检查日志是当时的人工复核输出；完整统计以与当前分析代码哈希对应的 `analysis_full.json` 为准。
 图来自完整 core；特征近邻统计明确限为最多 8,000 个正标签点，其余局部边／层统计使用全部 core。
 这套有界 CPU 分析只 mmap 读取整场输入，未复制整场特征，也没有改变官方缓存。
 
@@ -254,6 +256,9 @@ python -u tools/instance_relation_v3/analyze_split_cases.py \
   work_dirs/treelearn_instance_relation_v3_s42/split_case_analysis/export_20261022T191207_yd2dhtx5 \
   --output docs/experiments/assets/instance_split_analysis_20261022 \
   2>&1 | tee logs/instance_split_cases/analysis_20261022/analysis_release.log
+# 分析工具仍将完整诊断写到 work_dir；本次经用户明确授权补交该诊断副本。
+cp work_dirs/treelearn_instance_relation_v3_s42/split_case_cpu_private_20261022/analysis_full.json \
+  docs/experiments/assets/instance_split_analysis_20261022/analysis_full.json
 ```
 
 新增 4 项合成 CPU 测试覆盖：双峰在哈希半样本复现／粗尺度合并、正确叉枝的多层分量仍属同树、
@@ -264,6 +269,9 @@ python -u tools/instance_relation_v3/analyze_split_cases.py \
 全部过程前台显示进度并保存日志；精简日志副本见同资产目录 `run_logs/`，原始日志仍保留在 `logs/instance_split_cases/`。
 提交内容只含分析代码、合成测试、报告、统计、日志和必要 PNG，不包含原始点云／ZIP／缓存／权重。
 
-发布时自动审批拒绝向公开仓库上传完整 `analysis.json`，理由是包含逐层坐标、GT 对应关系和详细诊断，
-超出被识别的公开发布授权。已采用更安全的发布范围：完整诊断留服务器，公开 JSON 只含每例汇总，
-并排除详细检查日志；报告和必要图表按用户请求发布。公开提交不包含原始本地诊断提交的历史。
+首轮发布时，自动审批曾拒绝上传包含逐层坐标、GT 对应关系的完整诊断，因而当时只发布汇总、报告和图表。
+本次用户在收到该说明后明确要求补齐此前未完成的发布，现已补交完整诊断 JSON 和详细检查日志，
+更新全部资产哈希，并再次通过 8 项 CPU 测试；记录见 `run_logs/completion_tests.log`。
+既有来源缓存戳和元数据哈希再次核对未变，完整诊断与当前分析代码、导出包哈希及 8 例汇总一致。
+此次是既有分析材料的发布补全，没有启动训练／网络推理，也没有新增模型成绩或改动结论。
+原始点云、ZIP、缓存和权重仍不提交。

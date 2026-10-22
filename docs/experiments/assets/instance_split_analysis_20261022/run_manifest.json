@@ -19,6 +19,7 @@
   "tests": "8/8 pass",
   "artifact_sha256": {
     "analysis.json": "b6e0e2ed580d92d2237040289b9edc8ba8e42920d09621511736a6bd44ecd044",
+    "analysis_full.json": "031fe85bdc5b8a7daddee0b9523aa48d5450e4ea6b03a97f7e0c260b78af3ca5",
     "feature_edge_audit.png": "a28582002bb2cbd7fe1a184f20615dbc593066be497f529eaa5a196c52752c15",
     "pair_1427_connections.png": "26ef0499ce545a2fa65e6fd3c539ddc3e3e3269a727af6b386108685308c69c9",
     "pair_1427_geometry.png": "b61f607f971945b5b5a16034ba7fa607212a5f13514ddd5f44ef519ece2eda43",
@@ -43,11 +44,22 @@
     "all_tests.log": "0f169e4196f72928b16a79d412eec2b1a91360f91c4bcdf5ec408b796b42e889",
     "analysis_release.log": "e34a3ec8945534e1b06d987b4df8b4eaf38e3b197833b8bdb34a058b90a9d0e2",
     "analysis_tests_final.log": "3e9e3bb1ebd96b8c96c0019f0d54b8ed750e0352f011b4e84bcb63214854225b",
+    "completion_tests.log": "81a8319a4be3289ff8b6882284868032848bf8cbefcfa3c865d8abaabb698d55",
     "export_tests.log": "ef9c49cddff3ee796ca540f9ad47ddccf758b8f5bb59ebfd97e56d1b59b547c5",
+    "inspection.log": "ef9d7da5938848d6f5abbfd1661a51331a6d02f9703d8f050630efb4888a61ea",
     "original_export.log": "47ebc8a9201074c7b66c78b9854cf7f97222e0f67c692f8cd83241e0a5da0e66",
     "regression_tests.log": "88f8688e3a55cb5ad13df4021f7e066bfe32b881f8931dbd55dcbfb07b69cae4",
     "tests_release.log": "81a8319a4be3289ff8b6882284868032848bf8cbefcfa3c865d8abaabb698d55"
   },
-  "report_sha256": "4b2554533a4cadfaf6ce35208579234416213f048b70ae8e22e99de9c97b1d70",
-  "publication_scope": "Per-case aggregate statistics, requested report and figures. Full coordinates/GT identity diagnostics remain server-only."
+  "report_sha256": "bad5a5647b344885e09f45a33f65087327b3bb175243e070620e48f91b4a8c02",
+  "publication_scope": "Full per-case diagnostic JSON and detailed inspection log, aggregate statistics, report and figures; raw point clouds, archives, caches and weights excluded.",
+  "publication_completion": {
+    "completed_at": "2026-10-22T19:55:15.422469+08:00",
+    "base_commit": "696c5814eea3fcecf5a4d1e4ad958d748f356808",
+    "authorization": "Explicit follow-up request to complete the previously withheld diagnostic publication.",
+    "diagnostic_recomputed": false,
+    "existing_official_source_stamps_and_metadata_rechecked": true,
+    "tests": "8/8 pass",
+    "test_log": "run_logs/completion_tests.log"
+  }
 }
