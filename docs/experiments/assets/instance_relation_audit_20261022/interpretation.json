@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "source_kind": "user-supplied server saved-count audit; no local model or prediction replay",
+  "source_sha256": "a2e54a1f92034bdb42786692d58ab019003e1d1d93306142807bdad1898b6b9c",
+  "train_forests": 13,
+  "train_valid_pairs": 8228,
+  "train_positive_pairs": 184,
+  "train_positive_fraction": 0.02236266407389402,
+  "accepted_beneficial_label_fraction": 0.03333333333333333,
+  "selected_tp_quality_underestimates_crossing_protection": 11,
+  "selected_tp_below_actual_protection_threshold": 1,
+  "confirmed": {
+    "watched_pairs_all_in_candidates": true,
+    "potential_recoveries_removed_before_mutual_selection": true,
+    "harmful_pairs_all_different_tree_labels": true,
+    "harmful_pairs_all_negative_actual_gain": true
+  },
+  "candidate_attrition": [
+    {
+      "stage": "all_candidates",
+      "pairs": 4291,
+      "beneficial_label_pairs": 22,
+      "potential_recovery_pairs": 6,
+      "potential_recovery_gt_ids": [
+        259,
+        375,
+        419,
+        629,
+        720,
+        801
+      ]
+    },
+    {
+      "stage": "merge",
+      "pairs": 171,
+      "beneficial_label_pairs": 5,
+      "potential_recovery_pairs": 2,
+      "potential_recovery_gt_ids": [
+        375,
+        629
+      ]
+    },
+    {
+      "stage": "same",
+      "pairs": 171,
+      "beneficial_label_pairs": 5,
+      "potential_recovery_pairs": 2,
+      "potential_recovery_gt_ids": [
+        375,
+        629
+      ]
+    },
+    {
+      "stage": "union_precision",
+      "pairs": 159,
+      "beneficial_label_pairs": 4,
+      "potential_recovery_pairs": 1,
+      "potential_recovery_gt_ids": [
+        629
+      ]
+    },
+    {
+      "stage": "union_recall",
+      "pairs": 151,
+      "beneficial_label_pairs": 4,
+      "potential_recovery_pairs": 1,
+      "potential_recovery_gt_ids": [
+        629
+      ]
+    },
+    {
+      "stage": "union_iou",
+      "pairs": 145,
+      "beneficial_label_pairs": 3,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    },
+    {
+      "stage": "union_gain",
+      "pairs": 127,
+      "beneficial_label_pairs": 2,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    },
+    {
+      "stage": "original_protection",
+      "pairs": 37,
+      "beneficial_label_pairs": 1,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    },
+    {
+      "stage": "mutual_selection",
+      "pairs": 30,
+      "beneficial_label_pairs": 1,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    }
+  ],
+  "limitations": [
+    "Beneficial-label fraction is not detection precision or the fraction of all edits that are harmful.",
+    "184 positive pairs are not 184 independent forests or independent tree geometries.",
+    "Six potential recovery candidates are IoU counterfactuals, not confirmed new detections or deployable actions.",
+    "The complete watched-pair scores and their isolated match replays were not included in this attachment.",
+    "These observations locate decision errors; they do not establish feature collapse or a unique cause of domain shift.",
+    "A 50/50 training sampler changes the label prior; it does not alone explain the observed ranking mistakes."
+  ]
+}

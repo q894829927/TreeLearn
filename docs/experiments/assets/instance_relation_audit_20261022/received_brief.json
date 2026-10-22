@@ -1,0 +1,541 @@
+{
+  "schema": 1,
+  "posthoc": true,
+  "eligible_for_advancement": false,
+  "scope": "saved_candidates_scores_and_exact_union_counts",
+  "official_model_loaded": false,
+  "baseline": {
+    "tp": 596,
+    "fp": 222,
+    "fn": 281,
+    "num_gt": 877,
+    "num_predictions": 860,
+    "ignored_points": 20131977,
+    "f1": 0.7032448377581121,
+    "completeness": 0.6795895096921323,
+    "commission": 0.2713936430317848,
+    "coverage": 0.6512525337608083,
+    "point_precision": 0.7123044232080217,
+    "point_recall": 0.8036695600981618
+  },
+  "refined": {
+    "tp": 591,
+    "fp": 215,
+    "fn": 286,
+    "num_gt": 877,
+    "num_predictions": 848,
+    "ignored_points": 20131977,
+    "f1": 0.7023172905525846,
+    "completeness": 0.6738882554161916,
+    "commission": 0.2667493796526055,
+    "coverage": 0.6476893888270264,
+    "point_precision": 0.7064129233031999,
+    "point_recall": 0.8069614581019597
+  },
+  "accepted_pairs": 30,
+  "lost_gt_ids": [
+    50,
+    101,
+    202,
+    669,
+    804
+  ],
+  "recovered_gt_ids": [],
+  "accepted_harmful_pairs_in_isolation": 5,
+  "accepted_beneficial_label_pairs": 1,
+  "accepted_pairs_covering_two_original_tp": 4,
+  "selected_original_tp_masks": 12,
+  "selected_tp_predicted_below_protection": 12,
+  "selected_tp_actual_below_protection": 1,
+  "selected_tp_actual_at_or_above_protection": 11,
+  "potential_recovery_candidates": {
+    "pairs": 6,
+    "beneficial_label_pairs": 6,
+    "potential_recovery_pairs": 6,
+    "potential_recovery_gt_ids": [
+      259,
+      375,
+      419,
+      629,
+      720,
+      801
+    ]
+  },
+  "potential_recovery_first_rejection": {
+    "merge": 4,
+    "union_iou": 1,
+    "union_precision": 1
+  },
+  "stages": {
+    "all_candidates": {
+      "pairs": 4291,
+      "beneficial_label_pairs": 22,
+      "potential_recovery_pairs": 6,
+      "potential_recovery_gt_ids": [
+        259,
+        375,
+        419,
+        629,
+        720,
+        801
+      ]
+    },
+    "merge": {
+      "pairs": 171,
+      "beneficial_label_pairs": 5,
+      "potential_recovery_pairs": 2,
+      "potential_recovery_gt_ids": [
+        375,
+        629
+      ]
+    },
+    "same": {
+      "pairs": 171,
+      "beneficial_label_pairs": 5,
+      "potential_recovery_pairs": 2,
+      "potential_recovery_gt_ids": [
+        375,
+        629
+      ]
+    },
+    "union_precision": {
+      "pairs": 159,
+      "beneficial_label_pairs": 4,
+      "potential_recovery_pairs": 1,
+      "potential_recovery_gt_ids": [
+        629
+      ]
+    },
+    "union_recall": {
+      "pairs": 151,
+      "beneficial_label_pairs": 4,
+      "potential_recovery_pairs": 1,
+      "potential_recovery_gt_ids": [
+        629
+      ]
+    },
+    "union_iou": {
+      "pairs": 145,
+      "beneficial_label_pairs": 3,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    },
+    "union_gain": {
+      "pairs": 127,
+      "beneficial_label_pairs": 2,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    },
+    "original_protection": {
+      "pairs": 37,
+      "beneficial_label_pairs": 1,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    },
+    "mutual_selection": {
+      "pairs": 30,
+      "beneficial_label_pairs": 1,
+      "potential_recovery_pairs": 0,
+      "potential_recovery_gt_ids": []
+    }
+  },
+  "potential_recovery_note": "IoU-feasible candidate union, not a guaranteed global Hungarian detection; reported actions and watched pairs have exact isolated replays.",
+  "harmful_actions": [
+    {
+      "original_ids": [
+        301,
+        302
+      ],
+      "original_matched_gt": [
+        202,
+        777
+      ],
+      "isolated_lost_gt_ids": [
+        202
+      ],
+      "predicted_merge": 0.9952700734138489,
+      "predicted_original_iou": [
+        0.4108291268348694,
+        0.09564294666051865
+      ],
+      "actual_original_iou": [
+        0.7057745187901008,
+        0.9033063006862133
+      ],
+      "predicted_union_quality": [
+        0.853171706199646,
+        0.8404897451400757,
+        0.7519622445106506
+      ],
+      "actual_union_quality": [
+        0.8210030479357162,
+        0.9764376338770803,
+        0.8050536611873387
+      ],
+      "predicted_gain": 0.07345333695411682,
+      "actual_gain": -0.09825263917446136,
+      "actual_same_tree_label": false
+    },
+    {
+      "original_ids": [
+        1107,
+        1108
+      ],
+      "original_matched_gt": [
+        804,
+        596
+      ],
+      "isolated_lost_gt_ids": [
+        804
+      ],
+      "predicted_merge": 0.99759441614151,
+      "predicted_original_iou": [
+        0.5618242025375366,
+        0.3396731913089752
+      ],
+      "actual_original_iou": [
+        0.7744924108022866,
+        0.8494988207547169
+      ],
+      "predicted_union_quality": [
+        0.8527451157569885,
+        0.8062416315078735,
+        0.6800482869148254
+      ],
+      "actual_union_quality": [
+        0.5895948434622468,
+        0.9945635290462876,
+        0.5877007801743919
+      ],
+      "predicted_gain": 0.29988133907318115,
+      "actual_gain": -0.26179805397987366,
+      "actual_same_tree_label": false
+    },
+    {
+      "original_ids": [
+        1278,
+        1285
+      ],
+      "original_matched_gt": [
+        669,
+        122
+      ],
+      "isolated_lost_gt_ids": [
+        669
+      ],
+      "predicted_merge": 0.7802854180335999,
+      "predicted_original_iou": [
+        0.09262363612651825,
+        0.6001051068305969
+      ],
+      "actual_original_iou": [
+        0.6556473829201102,
+        0.856056095786201
+      ],
+      "predicted_union_quality": [
+        0.9052063822746277,
+        0.9231172204017639,
+        0.8570443391799927
+      ],
+      "actual_union_quality": [
+        0.837427258805513,
+        0.9392648574373068,
+        0.7944099017955721
+      ],
+      "predicted_gain": 0.07971879839897156,
+      "actual_gain": -0.06164619326591492,
+      "actual_same_tree_label": false
+    },
+    {
+      "original_ids": [
+        197,
+        198
+      ],
+      "original_matched_gt": [
+        50,
+        0
+      ],
+      "isolated_lost_gt_ids": [
+        50
+      ],
+      "predicted_merge": 0.9725338220596313,
+      "predicted_original_iou": [
+        0.6076183915138245,
+        0.3567308187484741
+      ],
+      "actual_original_iou": [
+        0.6303236797274276,
+        0.41156462585034015
+      ],
+      "predicted_union_quality": [
+        0.8979109525680542,
+        0.6244884729385376,
+        0.609295129776001
+      ],
+      "actual_union_quality": [
+        0.4801980198019802,
+        0.9816571790006325,
+        0.4759276295614842
+      ],
+      "predicted_gain": 0.16436734795570374,
+      "actual_gain": -0.15439605712890625,
+      "actual_same_tree_label": false
+    },
+    {
+      "original_ids": [
+        732,
+        744
+      ],
+      "original_matched_gt": [
+        688,
+        101
+      ],
+      "isolated_lost_gt_ids": [
+        101
+      ],
+      "predicted_merge": 0.8681623339653015,
+      "predicted_original_iou": [
+        0.5781733989715576,
+        0.03812557831406593
+      ],
+      "actual_original_iou": [
+        0.9320982182430636,
+        0.7135822732868281
+      ],
+      "predicted_union_quality": [
+        0.8472990393638611,
+        0.6766557693481445,
+        0.623062014579773
+      ],
+      "actual_union_quality": [
+        0.6357263717669809,
+        0.999619916381604,
+        0.6355727404543258
+      ],
+      "predicted_gain": 0.12444622814655304,
+      "actual_gain": -0.2965254783630371,
+      "actual_same_tree_label": false
+    }
+  ],
+  "isolated_pair_sum_matches_combined_counts": true,
+  "transition_counts": {
+    "both_missed": 281,
+    "both_detected": 591,
+    "lost": 5
+  },
+  "checkpoint_step": 2500,
+  "plot": "wytham_vox0.1",
+  "policy": {
+    "same_threshold": 0.5,
+    "min_union_precision": 0.65,
+    "min_union_recall": 0.5,
+    "min_union_iou": 0.5,
+    "min_iou_gain": 0.02,
+    "merge_threshold": 0.6,
+    "protect_threshold": 0.65
+  },
+  "source_supervision_counts": [
+    {
+      "plot": "A1N",
+      "split": "train",
+      "valid_pairs": 791,
+      "merge_positive_pairs": 30,
+      "valid_nodes": 641
+    },
+    {
+      "plot": "A1W",
+      "split": "train",
+      "valid_pairs": 880,
+      "merge_positive_pairs": 44,
+      "valid_nodes": 651
+    },
+    {
+      "plot": "G1N",
+      "split": "train",
+      "valid_pairs": 432,
+      "merge_positive_pairs": 4,
+      "valid_nodes": 440
+    },
+    {
+      "plot": "G1W",
+      "split": "train",
+      "valid_pairs": 785,
+      "merge_positive_pairs": 16,
+      "valid_nodes": 701
+    },
+    {
+      "plot": "G2N",
+      "split": "train",
+      "valid_pairs": 1393,
+      "merge_positive_pairs": 20,
+      "valid_nodes": 755
+    },
+    {
+      "plot": "G2W",
+      "split": "train",
+      "valid_pairs": 1400,
+      "merge_positive_pairs": 20,
+      "valid_nodes": 591
+    },
+    {
+      "plot": "G3N",
+      "split": "train",
+      "valid_pairs": 379,
+      "merge_positive_pairs": 9,
+      "valid_nodes": 475
+    },
+    {
+      "plot": "G3W",
+      "split": "train",
+      "valid_pairs": 574,
+      "merge_positive_pairs": 6,
+      "valid_nodes": 535
+    },
+    {
+      "plot": "L2N",
+      "split": "train",
+      "valid_pairs": 456,
+      "merge_positive_pairs": 7,
+      "valid_nodes": 356
+    },
+    {
+      "plot": "L2W",
+      "split": "train",
+      "valid_pairs": 338,
+      "merge_positive_pairs": 6,
+      "valid_nodes": 465
+    },
+    {
+      "plot": "LG1",
+      "split": "train",
+      "valid_pairs": 391,
+      "merge_positive_pairs": 3,
+      "valid_nodes": 462
+    },
+    {
+      "plot": "LG2",
+      "split": "train",
+      "valid_pairs": 264,
+      "merge_positive_pairs": 15,
+      "valid_nodes": 396
+    },
+    {
+      "plot": "LG3",
+      "split": "train",
+      "valid_pairs": 145,
+      "merge_positive_pairs": 4,
+      "valid_nodes": 340
+    },
+    {
+      "plot": "G4N",
+      "split": "validation",
+      "valid_pairs": 263,
+      "merge_positive_pairs": 6,
+      "valid_nodes": 364
+    },
+    {
+      "plot": "G4W",
+      "split": "validation",
+      "valid_pairs": 482,
+      "merge_positive_pairs": 12,
+      "valid_nodes": 653
+    },
+    {
+      "plot": "L1N",
+      "split": "validation",
+      "valid_pairs": 1382,
+      "merge_positive_pairs": 26,
+      "valid_nodes": 685
+    },
+    {
+      "plot": "O1N",
+      "split": "validation",
+      "valid_pairs": 46,
+      "merge_positive_pairs": 3,
+      "valid_nodes": 190
+    },
+    {
+      "plot": "O1W",
+      "split": "validation",
+      "valid_pairs": 2503,
+      "merge_positive_pairs": 21,
+      "valid_nodes": 703
+    }
+  ],
+  "provenance": {
+    "prediction_marker_sha256": "7a51aeba7ca0f7302792d8101e2e35ac4434294bb4f58775e4bc01c1bd301c3d",
+    "scores_sha256": "bf37844a6b1a65ba6a27d7ec3bfec70d9308cd74bbb4d3a700cf62f13ceb88bb",
+    "supervision_sha256": "b39302c41deb37d26f03a8d523ead12d32f111351d37fe742e89b662279889ad",
+    "audit_code_sha256": "629a5e849ab061da9a815db7a6813d97833b02f8a9adfd7f34c208b74a9c6a03"
+  },
+  "watched_cases": [
+    {
+      "gt_id": 259,
+      "case_pair_in_candidates": true,
+      "failed_gates": [
+        "merge",
+        "original_protection"
+      ],
+      "potential_recovery_candidate_pairs": 1,
+      "accepted": false
+    },
+    {
+      "gt_id": 375,
+      "case_pair_in_candidates": true,
+      "failed_gates": [
+        "union_precision"
+      ],
+      "potential_recovery_candidate_pairs": 1,
+      "accepted": false
+    },
+    {
+      "gt_id": 419,
+      "case_pair_in_candidates": true,
+      "failed_gates": [
+        "merge",
+        "same",
+        "union_precision",
+        "union_recall",
+        "union_iou"
+      ],
+      "potential_recovery_candidate_pairs": 1,
+      "accepted": false
+    },
+    {
+      "gt_id": 629,
+      "case_pair_in_candidates": true,
+      "failed_gates": [
+        "union_iou"
+      ],
+      "potential_recovery_candidate_pairs": 1,
+      "accepted": false
+    },
+    {
+      "gt_id": 720,
+      "case_pair_in_candidates": true,
+      "failed_gates": [
+        "merge",
+        "same",
+        "union_precision",
+        "union_iou",
+        "union_gain"
+      ],
+      "potential_recovery_candidate_pairs": 1,
+      "accepted": false
+    },
+    {
+      "gt_id": 801,
+      "case_pair_in_candidates": true,
+      "failed_gates": [
+        "merge",
+        "same",
+        "union_precision",
+        "union_recall",
+        "union_iou",
+        "union_gain"
+      ],
+      "potential_recovery_candidate_pairs": 1,
+      "accepted": false
+    }
+  ]
+}
