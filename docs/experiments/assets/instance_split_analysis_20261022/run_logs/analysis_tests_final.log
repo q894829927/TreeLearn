@@ -1,0 +1,9 @@
+test_correct_fork_has_multiple_slab_components_but_one_3d_component (test_instance_split_case_analysis.SplitCaseAnalysisTests) ... ok
+test_distance_rank_statistic_handles_ties_and_missing_negative_edges (test_instance_split_case_analysis.SplitCaseAnalysisTests) ... ok
+test_graph_construction_is_label_independent_and_unknown_is_not_negative (test_instance_split_case_analysis.SplitCaseAnalysisTests) ... ok
+test_vote_modes_reproduce_in_hash_halves_and_merge_at_coarse_scale (test_instance_split_case_analysis.SplitCaseAnalysisTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.018s
+
+OK

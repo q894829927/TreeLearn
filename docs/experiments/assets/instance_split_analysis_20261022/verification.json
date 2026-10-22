@@ -1,0 +1,115 @@
+{
+  "reused_export": "work_dirs/treelearn_instance_relation_v3_s42/split_case_analysis/export_20261022T191207_yd2dhtx5",
+  "archive_sha256": "478ab5157bfee5da1d86d5eabee48bca798e0ac846c1a0d49803e21619f427d2",
+  "baseline": {
+    "tp": 596,
+    "fp": 222,
+    "fn": 281,
+    "num_gt": 877,
+    "num_predictions": 860,
+    "ignored_points": 20131977,
+    "f1": 0.7032448377581121,
+    "completeness": 0.6795895096921323,
+    "commission": 0.2713936430317848,
+    "coverage": 0.6512525337608083,
+    "point_precision": 0.7123044232080217,
+    "point_recall": 0.8036695600981618
+  },
+  "verified": [
+    {
+      "original_id": 1767,
+      "core_points": 44040,
+      "selected_points": 52232,
+      "inputs_sha256": "2b362184a599752d3b282270dceecf35ac0cc0b2885248012fbf731f8c2591e7",
+      "audit_sha256": "af38f194872aa79ae25e389b43a48496bd6acb98f4ff84bd88e113194a48f988"
+    },
+    {
+      "original_id": 250,
+      "core_points": 27653,
+      "selected_points": 35845,
+      "inputs_sha256": "f4c34a23f5d5f6b4fdb2557110c8cf00a69a34763cce7342a89b54b0c57d8f5b",
+      "audit_sha256": "1d3d382f27670022a9fba1c5cd86161381a5c605fc8710c1d66a87b41bfc0870"
+    },
+    {
+      "original_id": 262,
+      "core_points": 5830,
+      "selected_points": 14022,
+      "inputs_sha256": "bdf928e38be9ecb2a8372b46d24c4eae0d0f5bcf141a548482325248961a8ab3",
+      "audit_sha256": "633de1cbdad2c9a39e2e03133f652aba0bb776d2c14fabee638725761015a4d3"
+    },
+    {
+      "original_id": 1427,
+      "core_points": 6374,
+      "selected_points": 14566,
+      "inputs_sha256": "dd006408296a749a19b261fef93565b0eacc91bc72e9e9197c1bbbd7ee30d74b",
+      "audit_sha256": "0457796bb5dcb7c85eb65a837b8523a866fb187c30efbb8736f2a795a01f85c0"
+    },
+    {
+      "original_id": 840,
+      "core_points": 39424,
+      "selected_points": 47616,
+      "inputs_sha256": "0aab52f7d345feadbec6e7031422c923d526c5924b21a45fae9dd4137bc6bf12",
+      "audit_sha256": "f88b9e68830d96ffa09fe3098fd1d6ac4cc735a7f2a7a5a2c3c146921cee764d"
+    },
+    {
+      "original_id": 249,
+      "core_points": 12465,
+      "selected_points": 20657,
+      "inputs_sha256": "e05a2339249aa181b6abbf7d4b2a4634bf1a81770c44eaab98b84df3f63004dd",
+      "audit_sha256": "747f92abdf2bdf2c475a0fa348b9d32a1dd3c8f5d9ef2fda1f8154e381abd0e8"
+    },
+    {
+      "original_id": 261,
+      "core_points": 4783,
+      "selected_points": 12975,
+      "inputs_sha256": "d9ca79e5c1b57621024cde0ea13095f310dc3566d1b2dbe76321956344f65f94",
+      "audit_sha256": "cd9c066f949a255b809a5de98bbbfa45b40252d615e203568806157fedc5bd3f"
+    },
+    {
+      "original_id": 498,
+      "core_points": 6399,
+      "selected_points": 14591,
+      "inputs_sha256": "a167eaa332398497ec11528479580b214900958a57577aae2f0365eed67317e9",
+      "audit_sha256": "d787fc1b4a9f7071e98b7f122ad360211ecb9dd0b6f67f7c5ff1f79f50d2e395"
+    }
+  ],
+  "source_stamps": {
+    "coords": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1_wytham_s42/external/wytham_vox0.1/coords.npy",
+      "size": 447168140,
+      "mtime_ns": 1792169508159670411
+    },
+    "baseline": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1_wytham_s42/external/wytham_vox0.1/baseline.npy",
+      "size": 298112136,
+      "mtime_ns": 1792169510035754164
+    },
+    "votes_xy": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1_wytham_s42/external/wytham_vox0.1/votes_xy.npy",
+      "size": 298112136,
+      "mtime_ns": 1792169512773876401
+    },
+    "tree_probability": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1_wytham_s42/external/wytham_vox0.1/tree_probability.npy",
+      "size": 149056132,
+      "mtime_ns": 1792169512824878677
+    },
+    "features": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1_wytham_s42/external/wytham_vox0.1/features.npy",
+      "size": 4769792256,
+      "mtime_ns": 1792169509947750235
+    },
+    "labels": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/candidate_mask_mlp_a1_wytham_s42/external/wytham_vox0.1/labels.npy",
+      "size": 298112136,
+      "mtime_ns": 1792169510133758539
+    }
+  },
+  "guarded_sha256": {
+    "data/candidate_mask_mlp_a1_wytham_s42/external/wytham_vox0.1/cache.json": "4bc8e013de7ebfa22ba791084a4803df88df889d26b4eb677b83f97f9d00d7cb",
+    "data/treelearn_instance_relation_v1_s42/external/wytham_vox0.1/features.json": "bb81d634eb60ee9df516548ad9f6bb2e9a781140e7c712bcd457bd0eb9e99f91",
+    "data/treelearn_instance_relation_v1_s42/external/wytham_vox0.1/supervision.json": "ead2727b0e0c5285922878cd0e14a015989b6f966ace87f4ec501a1eff9c07c4"
+  },
+  "export_code_sha256": "986846501285891cfff2032183e1f60eaa68fb706d31b54be56eb054e5149360",
+  "checks": "Code/config/stamps/metadata/compact counts/GT case plan; full-forest core/context index reconstruction; every selected observable and GT value; archive CRC/membership/byte hashes."
+}

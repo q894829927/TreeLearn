@@ -1,0 +1,47 @@
+INDEX_CORE points=500000/37264001
+INDEX_CORE points=5000000/37264001
+INDEX_CORE points=10000000/37264001
+INDEX_CORE points=15000000/37264001
+INDEX_CORE points=20000000/37264001
+INDEX_CORE points=25000000/37264001
+INDEX_CORE points=30000000/37264001
+INDEX_CORE points=35000000/37264001
+INDEX_CORE points=37264001/37264001
+INDEX_CONTEXT points=500000/37264001
+INDEX_CONTEXT points=5000000/37264001
+INDEX_CONTEXT points=10000000/37264001
+INDEX_CONTEXT points=15000000/37264001
+INDEX_CONTEXT points=20000000/37264001
+INDEX_CONTEXT points=25000000/37264001
+INDEX_CONTEXT points=30000000/37264001
+INDEX_CONTEXT points=35000000/37264001
+INDEX_CONTEXT points=37264001/37264001
+VERIFIED original=1767 all_core_and_context_values_exact
+VERIFIED original=250 all_core_and_context_values_exact
+VERIFIED original=262 all_core_and_context_values_exact
+VERIFIED original=1427 all_core_and_context_values_exact
+VERIFIED original=840 all_core_and_context_values_exact
+VERIFIED original=249 all_core_and_context_values_exact
+VERIFIED original=261 all_core_and_context_values_exact
+VERIFIED original=498 all_core_and_context_values_exact
+ANALYZE original=1767 core=44040
+STATS original=1767 radius_large=[1, 1, 1] vote_modes=[1, 1, 1]
+ANALYZE original=250 core=27653
+STATS original=250 radius_large=[2, 2, 2] vote_modes=[1, 1, 1]
+ANALYZE original=262 core=5830
+STATS original=262 radius_large=[6, 6, 5] vote_modes=[2, 2, 1]
+ANALYZE original=1427 core=6374
+STATS original=1427 radius_large=[4, 3, 4] vote_modes=[1, 1, 1]
+ANALYZE original=840 core=39424
+STATS original=840 radius_large=[1, 1, 1] vote_modes=[1, 1, 1]
+ANALYZE original=249 core=12465
+STATS original=249 radius_large=[1, 1, 1] vote_modes=[1, 1, 1]
+ANALYZE original=261 core=4783
+STATS original=261 radius_large=[1, 1, 1] vote_modes=[1, 1, 1]
+ANALYZE original=498 core=6399
+STATS original=498 radius_large=[1, 1, 1] vote_modes=[1, 1, 1]
+PLOTS pair=1767/840
+PLOTS pair=250/249
+PLOTS pair=262/261
+PLOTS pair=1427/498
+COMPLETE output=/home/szu-stu/projects/zrx/code/TreeLearn/docs/experiments/assets/instance_split_analysis_20261022 cases=8

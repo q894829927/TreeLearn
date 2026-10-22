@@ -1,0 +1,53 @@
+{
+  "completed_at": "2026-10-22T19:40:59.234622+08:00",
+  "python": "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+  "versions": {
+    "python": "3.10.19",
+    "numpy": "1.24.4",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.9"
+  },
+  "original_head": "4f9711f",
+  "branch": "codex/candidate-mask-mlp-step1",
+  "threads": 4,
+  "training": false,
+  "network_inference": false,
+  "predictions_modified": false,
+  "export_reused_after_exact_verification": true,
+  "figure_count": 17,
+  "code_sha256": "10e4542ee7c1c40e6bc2f5f564fbb88c9929fe81124a8b8cf9c1dbacf03ae48d",
+  "tests": "8/8 pass",
+  "artifact_sha256": {
+    "analysis.json": "b6e0e2ed580d92d2237040289b9edc8ba8e42920d09621511736a6bd44ecd044",
+    "feature_edge_audit.png": "a28582002bb2cbd7fe1a184f20615dbc593066be497f529eaa5a196c52752c15",
+    "pair_1427_connections.png": "26ef0499ce545a2fa65e6fd3c539ddc3e3e3269a727af6b386108685308c69c9",
+    "pair_1427_geometry.png": "b61f607f971945b5b5a16034ba7fa607212a5f13514ddd5f44ef519ece2eda43",
+    "pair_1427_lower.png": "8e3e7f1620d3132b4b3d53dd19f924093d551fa02ed6eb0ec0685101fca1f904",
+    "pair_1427_votes.png": "acca17917aba381d3e192a7b10e0cd34fd2a5c34f62c0bb8997c65507e1b6dc5",
+    "pair_1767_connections.png": "1c64d398682bdd8de2ea45f3c7c7ba10b012d626de3f4ba5455fa21e3ec95399",
+    "pair_1767_geometry.png": "b8ea8a85104407c078e57919778cc2c5c5ad5f95dd9f545a902f608b60de3d63",
+    "pair_1767_lower.png": "1b633d3a2eecfd864f1efc467b7fce186155a6cc0a639fff0f6c286b7680358d",
+    "pair_1767_votes.png": "0a839c1482449bd4f65d3430a976f517e57b15797f11ea26a48225aa9a262737",
+    "pair_250_connections.png": "f6f35706a072648fc1884d285af537a1b54b8a70136c355653c11deb83d8db62",
+    "pair_250_geometry.png": "45285ef2ab4b114973bfdb843a79763d4c557f8755dd4df40cadbc3e8e1b82db",
+    "pair_250_lower.png": "394df5b797b88961f5448c4c010d7c5b77ef5fdba31e0995f32ab1d09d50c9e5",
+    "pair_250_votes.png": "f9448d85c57494c907d9b6d7f04c645156912c83ab562b710dde7cc393c791e8",
+    "pair_262_connections.png": "b5672de1bd7bbdbb0870c6ea6e4741aa114c66a13154d2967d25b88e7e1b9d45",
+    "pair_262_geometry.png": "6b43127d9e41cc81f5a7e0110658fc6cbca15a91502d480ebcafd78a286288f3",
+    "pair_262_lower.png": "79b758ce7e1f8ce753f9b8363f1d86052a6bb409c29b219faf0f122c99201fd3",
+    "pair_262_votes.png": "28cc66916bfd98bd73514ebac27775bd83d023abfab42547392af0b5b747f203",
+    "summary.csv": "7fe73d60e60ffa7e3f8e7dc77c3ccc4879cdfe883698e18c49472c35da8fbb23",
+    "verification.json": "d6c91f7b404e40f688c98bc83410f34903cbbbd2d971f1607f390a1805de6579"
+  },
+  "log_sha256": {
+    "all_tests.log": "0f169e4196f72928b16a79d412eec2b1a91360f91c4bcdf5ec408b796b42e889",
+    "analysis_release.log": "e34a3ec8945534e1b06d987b4df8b4eaf38e3b197833b8bdb34a058b90a9d0e2",
+    "analysis_tests_final.log": "3e9e3bb1ebd96b8c96c0019f0d54b8ed750e0352f011b4e84bcb63214854225b",
+    "export_tests.log": "ef9c49cddff3ee796ca540f9ad47ddccf758b8f5bb59ebfd97e56d1b59b547c5",
+    "original_export.log": "47ebc8a9201074c7b66c78b9854cf7f97222e0f67c692f8cd83241e0a5da0e66",
+    "regression_tests.log": "88f8688e3a55cb5ad13df4021f7e066bfe32b881f8931dbd55dcbfb07b69cae4",
+    "tests_release.log": "81a8319a4be3289ff8b6882284868032848bf8cbefcfa3c865d8abaabb698d55"
+  },
+  "report_sha256": "4b2554533a4cadfaf6ce35208579234416213f048b70ae8e22e99de9c97b1d70",
+  "publication_scope": "Per-case aggregate statistics, requested report and figures. Full coordinates/GT identity diagnostics remain server-only."
+}

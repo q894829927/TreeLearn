@@ -1,0 +1,28 @@
+CASE_PLAN [{"original_id": 1767, "node": 1766, "role": "mixed_case", "total_points": 44040, "matched_gt_id": 0}, {"original_id": 250, "node": 249, "role": "mixed_case", "total_points": 27653, "matched_gt_id": 0}, {"original_id": 262, "node": 261, "role": "mixed_case", "total_points": 5830, "matched_gt_id": 0}, {"original_id": 1427, "node": 1426, "role": "mixed_case", "total_points": 6374, "matched_gt_id": 0}, {"original_id": 840, "node": 839, "role": "detected_control", "control_for_original_id": 1767, "total_points": 39424, "matched_gt_id": 228, "matching_distance": 1.0366982772346218}, {"original_id": 249, "node": 248, "role": "detected_control", "control_for_original_id": 250, "total_points": 12465, "matched_gt_id": 860, "matching_distance": 0.9629189702943588}, {"original_id": 261, "node": 260, "role": "detected_control", "control_for_original_id": 262, "total_points": 4783, "matched_gt_id": 499, "matching_distance": 0.5042207445293911}, {"original_id": 498, "node": 497, "role": "detected_control", "control_for_original_id": 1427, "total_points": 6399, "matched_gt_id": 172, "matching_distance": 0.9677892646288299}]
+INDEX_CORE points=500000/37264001
+INDEX_CORE points=5000000/37264001
+INDEX_CORE points=10000000/37264001
+INDEX_CORE points=15000000/37264001
+INDEX_CORE points=20000000/37264001
+INDEX_CORE points=25000000/37264001
+INDEX_CORE points=30000000/37264001
+INDEX_CORE points=35000000/37264001
+INDEX_CORE points=37264001/37264001
+INDEX_CONTEXT points=500000/37264001
+INDEX_CONTEXT points=5000000/37264001
+INDEX_CONTEXT points=10000000/37264001
+INDEX_CONTEXT points=15000000/37264001
+INDEX_CONTEXT points=20000000/37264001
+INDEX_CONTEXT points=25000000/37264001
+INDEX_CONTEXT points=30000000/37264001
+INDEX_CONTEXT points=35000000/37264001
+INDEX_CONTEXT points=37264001/37264001
+SAVE original=1767 role=mixed_case complete_core=44040 context=8192
+SAVE original=250 role=mixed_case complete_core=27653 context=8192
+SAVE original=262 role=mixed_case complete_core=5830 context=8192
+SAVE original=1427 role=mixed_case complete_core=6374 context=8192
+SAVE original=840 role=detected_control complete_core=39424 context=8192
+SAVE original=249 role=detected_control complete_core=12465 context=8192
+SAVE original=261 role=detected_control complete_core=4783 context=8192
+SAVE original=498 role=detected_control complete_core=6399 context=8192
+UPLOAD=/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/treelearn_instance_relation_v3_s42/split_case_analysis/export_20261022T191207_yd2dhtx5/split_casepack.zip bytes=22663826
