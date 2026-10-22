@@ -113,3 +113,42 @@ cat work_dirs/treelearn_instance_relation_v1_s42/external_evaluation/wytham_vox0
 六个已有碎片案例在 watchlist 中直接比较，但不能将这六例当作随机独立测试集。当前方法仅合并，不能从原 0 点找回 129 棵前景缺失树，也不能拆开已经混合的实例。使用同一已反复分析的 Wytham 仍属于外部数据开发评估。
 
 回归用例覆盖 GT 不参与特征或部署、分块采样一致、pair 对称性、密集候选内存保护、unknown 监督隔离、union 计数与逐点评价一致、互为优先且不连锁、未选点集不变、keep-all 复现、归一化 checkpoint 和小流程训练 / 推理。它们由上述服务器 tests 阶段执行，本地没有执行。
+
+## 首轮结果与保存结果诊断
+
+3000 步训练结束，源域选择 2500 步 checkpoint，merge 阈值 0.6、保护阈值 0.65。用户服务器结果：
+
+| 数据 | 接受合并 | 找回 / 丢失 GT | F1 变化 |
+| --- | ---: | ---: | ---: |
+| 5 个源域验证森林 | 5 | 0 / 0 | +0.1257 个百分点 |
+| Wytham | 30 | 0 / 5 | −0.0928 个百分点 |
+
+Wytham TP/FP/FN 从 596/222/281 变为 591/215/286。未选实例与前景逐点不变，但选择的 12 个原 TP 中有 5 棵在最终结果中失去检测资格。因此这轮没有实现找回漏检的目标，不能把 FP 减少或源域 F1 微增说成外部修复成功。
+
+已有事实和待验证假设需分开：训练 merge 正例同时包含“原 TP 加同树碎片的有益补全”和“两个碎片合并找回原漏检”；源域这次只体现了前者或误检清理的收益。保护阈值检查的是预测 IoU ≥0.65，真正 TP 的条件却是 IoU >0.5。实际 IoU 在 0.5～0.65 的原正确实例即使预测准确，也仍允许参与合并；实际高质量却预测低于 0.65 则是另一种失败。哪些属于哪一种，及已知六组可合并碎片为何未恢复，需要读取保存的分数和交集表，不能仅凭总指标认定特征坍缩或候选不足。
+
+新增 CPU 诊断入口只读已保存的 `features.npz`、`supervision.npz`、`scores.npz` 与结果元数据；不修改训练配置、模型、策略或预测，不执行模型前向，不重新扫描 3700 万点。它保留原训练代码签名，可直接审计已有 checkpoint：
+
+```bash
+cd ~/projects/zrx/code/TreeLearn
+conda activate TreeLearn
+git pull --ff-only origin codex/candidate-mask-mlp-step1
+
+python -m unittest discover -s tests -p 'test_instance_relation_diagnostics.py' -v &&
+python -u tools/instance_relation/diagnose.py
+```
+
+输出保存在 `work_dirs/treelearn_instance_relation_v1_s42/relation_diagnostics/wytham_vox0.1/`：
+
+- `brief.json`：各训练森林正例数、候选覆盖、逐道门槛剩余数量、保护阈值设计缺口与预测低估数量、丢失 / 找回 ID；
+- `accepted_pair_audit.json`：每个已接受 pair 的预测 / 实际 union 质量、原实例质量、单独执行该合并时的完整匹配评价；
+- `watchlist.json`：六组已知碎片是否进入候选、全部未通过的门槛、是否被互选规则排除、对应 GT 的实际 union IoU 与独立匹配结果。
+
+```bash
+cat work_dirs/treelearn_instance_relation_v1_s42/relation_diagnostics/wytham_vox0.1/brief.json
+cat work_dirs/treelearn_instance_relation_v1_s42/relation_diagnostics/wytham_vox0.1/watchlist.json
+```
+
+候选中的 `potential_recovery` 只代表合并后有 IoU >0.5 的可能匹配，且原 TP 未丢失其 IoU 匹配，不是最终检测数或可部署收益。现有协议先做最大总 IoU 的 Hungarian 分配，再按严格 >0.5 筛选，因此不能把每个局部 IoU 超阈值都直接计作找回。报告中每个已接受动作和六组关注 pair 都重新执行完整匹配，并将所有动作一起执行的结果与原保存指标核对。保留原评价协议，不为这轮修改指标。
+
+诊断用例覆盖实际逐点评价一致性、合并两个真树的损害、保护门槛筛除、已知案例的追踪、IoU 可行但 Hungarian 未检出的反例、分数 / 动作不一致和空候选。仍由服务器执行，本地只做静态检查。诊断完成后再确定是否修改候选、关系学习或保护策略；不直接延长训练，也不根据 Wytham GT 反选部署动作。
