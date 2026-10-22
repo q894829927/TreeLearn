@@ -58,7 +58,11 @@
     "external_f1_delta_pp": -0.09547614222342737,
     "validation_f1_delta_pp": -0.3534881880374541,
     "demonstrated_f1_improvement": false,
-    "lost_and_recovered_gt_ids_known": false,
-    "decision": "Finish this 3000-step branch without extending training. Audit existing final masks before implementing the next relation repair."
+    "full_lost_and_recovered_gt_ids_known": false,
+    "reported_transitions": {"both_detected": 593, "both_missed": 276, "lost": 3, "recovered": 5},
+    "reported_original_tp_masks": {"total": 596, "exact_masks_preserved": 15, "masks_changed": 581},
+    "same_tree_fragment_watch_recovered_gt_ids": [629],
+    "diagnostic_record": "structure_voting_audit_20261022/received_brief.json",
+    "decision": "Close this 3000-step branch. Use official predictions as the base for a local keep/merge relation model; no extension of the global XY experiment."
   }
 }

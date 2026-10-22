@@ -90,7 +90,7 @@ bash tools/structure_voting/run.sh evaluate
 
 ## 2026-10-22 完成结果与停止点
 
-记录来自用户回传的服务器日志，数值保存于[结果 JSON](assets/structure_voting_results_20261022.json)。开发机没有这轮全林预测，尚不能报告具体 lost/recovered ID。
+记录来自用户回传的服务器日志，数值保存于[结果 JSON](assets/structure_voting_results_20261022.json)。后续逐树诊断已回传，确认恢复 5 棵、丢失 3 棵，六个定向碎片实例中仅恢复 629，详见[逐树诊断结论与下一版边界](structure_voting_case_conclusion_20261022_zh.md)。完整丢失及恢复 ID 不在这份 brief 中，保存在服务器诊断的 `all_gt_trees.csv`。
 
 | 指标 | Wytham 官方 | 结构投票 3,000 步 | 差值（百分点） |
 | --- | ---: | ---: | ---: |

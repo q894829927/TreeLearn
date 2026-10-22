@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "source_kind": "user-supplied saved-mask diagnostic, full prediction arrays not available locally",
+  "source_sha256": "c565d5f00aeda204e58bc2478cfe7ab1e85e229d9827b9da4b55900b5804b5a1",
+  "observed_transitions": {
+    "both_detected": 593,
+    "both_missed": 276,
+    "lost": 3,
+    "recovered": 5
+  },
+  "detected_original_gt_retained_percent": 99.49664429530202,
+  "original_tp_exact_mask_accounting": {
+    "total": 596,
+    "exact_masks_preserved": 15,
+    "masks_changed": 581
+  },
+  "original_tp_masks_changed_percent": 97.48322147651007,
+  "same_tree_fragment_watch_recovered_gt_ids": [
+    629
+  ],
+  "same_tree_fragment_watch_count": 6,
+  "fragment_cases": [
+    {
+      "gt_id": 259,
+      "baseline_iou": 0.4916104622470801,
+      "structure_xy_iou": 0.46780022999835713,
+      "transition": "both_missed",
+      "gt_selected_original_pair_union_iou": 0.5694854146181579
+    },
+    {
+      "gt_id": 375,
+      "baseline_iou": 0.3823005345476143,
+      "structure_xy_iou": 0.4504821958456973,
+      "transition": "both_missed",
+      "gt_selected_original_pair_union_iou": 0.6599183673469388
+    },
+    {
+      "gt_id": 419,
+      "baseline_iou": 0.35122263292578904,
+      "structure_xy_iou": 0.3455877124368911,
+      "transition": "both_missed",
+      "gt_selected_original_pair_union_iou": 0.6217039977317834
+    },
+    {
+      "gt_id": 629,
+      "baseline_iou": 0.4624069797279959,
+      "structure_xy_iou": 0.5115570231140463,
+      "transition": "recovered",
+      "gt_selected_original_pair_union_iou": 0.6684147794994041
+    },
+    {
+      "gt_id": 720,
+      "baseline_iou": 0.4706362153344209,
+      "structure_xy_iou": 0.4778284969025106,
+      "transition": "both_missed",
+      "gt_selected_original_pair_union_iou": 0.8070381231671554
+    },
+    {
+      "gt_id": 801,
+      "baseline_iou": 0.284987958255285,
+      "structure_xy_iou": 0.28170505692348424,
+      "transition": "both_missed",
+      "gt_selected_original_pair_union_iou": 0.5143894218304381
+    }
+  ],
+  "recovered_gt_ids_not_listed_in_received_watchlist": 4,
+  "lost_gt_ids_not_listed_in_received_watchlist": 3,
+  "limitations": [
+    "Mask changed means any point-set difference, not a lost detection or a large edit.",
+    "GT-selected pair unions are prior counterfactuals, not new learned model measurements.",
+    "The received brief contains transitions and a watchlist, not all lost/recovered GT IDs.",
+    "Final masks and aggregate metrics cannot prove a specific clustering stage caused the changes."
+  ]
+}
