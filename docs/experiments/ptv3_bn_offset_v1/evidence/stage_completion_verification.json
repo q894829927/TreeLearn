@@ -1,0 +1,105 @@
+{
+  "observed_at": "2026-10-24T00:19:49.771508+08:00",
+  "checks": {
+    "checkpoint_update_5000": true,
+    "partial_final": true,
+    "policy_matches": true,
+    "checkpoint_sha_matches": true,
+    "all_floating_state_finite": true,
+    "bn_counts_match": true,
+    "evaluation_source_config_protocol_unchanged": true,
+    "protocol_file_hash_matches": true,
+    "original_three_results_preserved": true,
+    "csv_four_rows": true,
+    "stage_four_hundred_attempts": true,
+    "no_stage_amp_skips": true,
+    "no_stage_allocator_oom": true
+  },
+  "checkpoint_metadata": {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/training/to_5000_head_fp32_v1/formal_final.pth",
+    "global_update": 5000,
+    "sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+    "is_formal_final": false,
+    "saved_unix": 1792771760.6469576
+  },
+  "actual_checkpoint_sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+  "nonfinite_state_paths": [],
+  "bn_buffers": 15,
+  "bn_counter_values": [
+    10000
+  ],
+  "optimizer_step_values": [
+    4991.0
+  ],
+  "stage_cost": {
+    "training_update_wall_seconds_sum": 813.328774577938,
+    "training_seconds_sum": 771.8605852965266,
+    "median_update_wall_seconds": 1.9584893132559955,
+    "mean_update_wall_seconds": 2.033321936444845,
+    "restore_to_checkpoint_seconds": 857.4117469787598,
+    "launch_to_training_complete_seconds": 2001.034607410431,
+    "evaluation_seconds": 158.91919206362218,
+    "evaluation_pointwise_seconds": 109.88079127669334,
+    "peak_allocated_GiB": 17.0607328414917,
+    "peak_reserved_GiB": 18.861328125
+  },
+  "metrics_comparison": [
+    {
+      "tag": "e1_u2900",
+      "checkpoint_update": 2900,
+      "TP": 0,
+      "FP": 24,
+      "FN": 24,
+      "detection_precision": 0.0,
+      "detection_recall": 0.0,
+      "detection_f1": 0.0,
+      "coverage": 0.15749983393636427,
+      "semantic_tree_recall": 0.20038600563202183,
+      "offset_xy_error_m": 2.8751745910254334,
+      "offset_xyz_error_m": 16.810574339918695
+    },
+    {
+      "tag": "e1_initial",
+      "checkpoint_update": 0,
+      "TP": 0,
+      "FP": 36,
+      "FN": 24,
+      "detection_precision": 0.0,
+      "detection_recall": 0.0,
+      "detection_f1": 0.0,
+      "coverage": 0.015079478379035534,
+      "semantic_tree_recall": 0.05710498549012594,
+      "offset_xy_error_m": 2.8855162893593542,
+      "offset_xyz_error_m": 20.659272938845074
+    },
+    {
+      "tag": "e2_official",
+      "checkpoint_update": null,
+      "TP": 24,
+      "FP": 0,
+      "FN": 0,
+      "detection_precision": 1.0,
+      "detection_recall": 1.0,
+      "detection_f1": 1.0,
+      "coverage": 0.9823507627149883,
+      "semantic_tree_recall": 0.9995514625648022,
+      "offset_xy_error_m": 0.31338638348854275,
+      "offset_xyz_error_m": 0.3899789527180741
+    },
+    {
+      "tag": "e1_u5000_head_fp32_v1",
+      "checkpoint_update": 5000,
+      "TP": 0,
+      "FP": 0,
+      "FN": 24,
+      "detection_precision": 0.0,
+      "detection_recall": 0.0,
+      "detection_f1": 0.0,
+      "coverage": 0.0,
+      "semantic_tree_recall": 0.032429187239075306,
+      "offset_xy_error_m": 4.2408640031720015,
+      "offset_xyz_error_m": 334.54111198450505
+    }
+  ],
+  "next_action": "Await user decision. Recommend diagnosing evaluation-mode BN/Offset behavior before adding training budget; no new job is authorized or launched."
+}

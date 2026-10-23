@@ -1,0 +1,184 @@
+{
+  "runtime_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1",
+  "artifacts": {
+    "saved": {
+      "status": "complete",
+      "files": {
+        "result.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/saved/result.json",
+          "runtime_sha256": "15200afb34206a1849bb2971a93ef6caf651c1f8158d3614e9f9852593e885c2",
+          "archive": "evidence/saved/result.json.gz",
+          "archive_sha256": "4c68bf3e3500007f70703a29d3b926ce36d697c9c094dea101c9dc17725a2c08"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/saved/diagnostic_source.py",
+          "runtime_sha256": "c1d232b06e9d624e7268aa28203e0c7655ea006d9cc49a715d43d94bdaa2f01d",
+          "archive": "evidence/saved/diagnostic_source.py.gz",
+          "archive_sha256": "0f0e82102203d085c0c63eef3a17ccddc4de0c086ac089ecde983e56fea4d4cb"
+        }
+      }
+    },
+    "train_fp32_evaluation_kernel": {
+      "status": "complete",
+      "files": {
+        "result.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_fp32_evaluation_kernel/result.json",
+          "runtime_sha256": "24e0651552a87f1809121a74c9627a441131f4cb0f8444001108b0c8d8159259",
+          "archive": "evidence/train_fp32_evaluation_kernel/result.json.gz",
+          "archive_sha256": "f92d673c2345014e759ee3f3293a2dfb1e05df788ea47369f53f8b7fd42edd94"
+        },
+        "manifest.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_fp32_evaluation_kernel/manifest.json",
+          "runtime_sha256": "f2ebcedc1f76b3035a5467308c23ec9f29b8eda6e0c88e1269767e6e75ff2ab9",
+          "archive": "evidence/train_fp32_evaluation_kernel/manifest.json",
+          "archive_sha256": "f2ebcedc1f76b3035a5467308c23ec9f29b8eda6e0c88e1269767e6e75ff2ab9"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_fp32_evaluation_kernel/diagnostic_source.py",
+          "runtime_sha256": "7ee04d85f98f3f7402a77d793edd241f209fa2aa4b122e7253167cd905b6db0f",
+          "archive": "evidence/train_fp32_evaluation_kernel/diagnostic_source.py.gz",
+          "archive_sha256": "917eec85878ce9fffaf7a408349e4568b573cfba82e8d878317a0ac0f0e6a77d"
+        }
+      }
+    },
+    "train_amp_training_kernel": {
+      "status": "complete",
+      "files": {
+        "result.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_amp_training_kernel/result.json",
+          "runtime_sha256": "ecc919fb772c460cd106a47e8e743ea54a274564819455005234d4c8c3c0cba9",
+          "archive": "evidence/train_amp_training_kernel/result.json.gz",
+          "archive_sha256": "249f60763456c673d26bfc7448a44502f56417ed402d583f7bb1190efc57c86c"
+        },
+        "manifest.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_amp_training_kernel/manifest.json",
+          "runtime_sha256": "073ccecb386838b1d35c4b901b749fb0b1cfd7f0c09944df1ad48a09018c5b36",
+          "archive": "evidence/train_amp_training_kernel/manifest.json",
+          "archive_sha256": "073ccecb386838b1d35c4b901b749fb0b1cfd7f0c09944df1ad48a09018c5b36"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_amp_training_kernel/diagnostic_source.py",
+          "runtime_sha256": "2cbc2827a61e63b32dbc9ee9806c76dbecbf2a0aaaf93fe0abe227a6dfb0aef6",
+          "archive": "evidence/train_amp_training_kernel/diagnostic_source.py.gz",
+          "archive_sha256": "554a135ea45be153cb143c00b51ec83c9b98036ffd6ef1f671af54680150719c"
+        }
+      }
+    },
+    "train_fp32_training_kernel": {
+      "status": "complete",
+      "files": {
+        "result.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_fp32_training_kernel/result.json",
+          "runtime_sha256": "87c367991d6ef30d89c46f893a67b4b21f42162def8af4af49413198dc3b61fd",
+          "archive": "evidence/train_fp32_training_kernel/result.json.gz",
+          "archive_sha256": "19902f17300e2925cb2b7d678bd0aba8c2755486154e7524f43fb280cce023ff"
+        },
+        "manifest.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_fp32_training_kernel/manifest.json",
+          "runtime_sha256": "1fdf64efffa2ce89bde5e3f289c4faaf76c3f69637756de207317bf02101e571",
+          "archive": "evidence/train_fp32_training_kernel/manifest.json",
+          "archive_sha256": "1fdf64efffa2ce89bde5e3f289c4faaf76c3f69637756de207317bf02101e571"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_fp32_training_kernel/diagnostic_source.py",
+          "runtime_sha256": "7b79e88f074eab38f73500b3c9e6b62dfab4e092a4505d57451cfd5ebf8506b8",
+          "archive": "evidence/train_fp32_training_kernel/diagnostic_source.py.gz",
+          "archive_sha256": "3877bd9cd32fd4d64a8b61d48d6b785aab61f5b439473d5bf4ae703f2a94d584"
+        }
+      }
+    },
+    "l1w_center_fp32": {
+      "status": "complete",
+      "files": {
+        "result.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/l1w_center_fp32/result.json",
+          "runtime_sha256": "c0f2724a56c18f14d49b13ca61aeac02c4575bf3a6944b68400e085045e7c6f7",
+          "archive": "evidence/l1w_center_fp32/result.json.gz",
+          "archive_sha256": "4e31730536f15f863a702b1351fade40d840288a67a2e11341d73ee76bbf489c"
+        },
+        "manifest.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/l1w_center_fp32/manifest.json",
+          "runtime_sha256": "7e862a3ad5536b7dc4ee77c0a65dd2843a1bea6b4252f7cdc4d14da7db5f3203",
+          "archive": "evidence/l1w_center_fp32/manifest.json",
+          "archive_sha256": "7e862a3ad5536b7dc4ee77c0a65dd2843a1bea6b4252f7cdc4d14da7db5f3203"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/l1w_center_fp32/diagnostic_source.py",
+          "runtime_sha256": "7b79e88f074eab38f73500b3c9e6b62dfab4e092a4505d57451cfd5ebf8506b8",
+          "archive": "evidence/l1w_center_fp32/diagnostic_source.py.gz",
+          "archive_sha256": "3877bd9cd32fd4d64a8b61d48d6b785aab61f5b439473d5bf4ae703f2a94d584"
+        }
+      }
+    },
+    "l1w_ne_fp32": {
+      "status": "complete",
+      "files": {
+        "result.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/l1w_ne_fp32/result.json",
+          "runtime_sha256": "53a4bbfc49b2cf67d90628a154667d809c9ff95c0b929b9802bc46a9a2307af7",
+          "archive": "evidence/l1w_ne_fp32/result.json.gz",
+          "archive_sha256": "e81c7b93546c8903596bfb4ed9189f39e73700ee1269613d02feb913a83c9fbb"
+        },
+        "manifest.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/l1w_ne_fp32/manifest.json",
+          "runtime_sha256": "98f6e5d9d6a7e2f68987316fe342fa99db889eb50c9a80c682850d4c0311f665",
+          "archive": "evidence/l1w_ne_fp32/manifest.json",
+          "archive_sha256": "98f6e5d9d6a7e2f68987316fe342fa99db889eb50c9a80c682850d4c0311f665"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/l1w_ne_fp32/diagnostic_source.py",
+          "runtime_sha256": "7b79e88f074eab38f73500b3c9e6b62dfab4e092a4505d57451cfd5ebf8506b8",
+          "archive": "evidence/l1w_ne_fp32/diagnostic_source.py.gz",
+          "archive_sha256": "3877bd9cd32fd4d64a8b61d48d6b785aab61f5b439473d5bf4ae703f2a94d584"
+        }
+      }
+    },
+    "train_amp": {
+      "status": "failed_native_amp_sparse_kernel",
+      "files": {
+        "manifest.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_amp/manifest.json",
+          "runtime_sha256": "89686e14c9e5b3d602f90fea6059940ca3809ad8d0bce8aa1bcec29d632555ff",
+          "archive": "evidence/train_amp/manifest.json",
+          "archive_sha256": "89686e14c9e5b3d602f90fea6059940ca3809ad8d0bce8aa1bcec29d632555ff"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_amp/diagnostic_source.py",
+          "runtime_sha256": "3b6e9a1f6e0acbef1140b70a42584b018ffd8a420951ab8dd92830a2702b4ff4",
+          "archive": "evidence/train_amp/diagnostic_source.py.gz",
+          "archive_sha256": "e1f967018341ecffcfda5bb21fc185071d9dc44c7c82e38179c98a5fbf49541a"
+        },
+        "exception.txt": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train_amp/exception.txt",
+          "runtime_sha256": "5fa44befd31ce7b328c0ef18f0149b396167b3d0be3bf11c2626080ce804d3de",
+          "archive": "evidence/train_amp/exception.txt",
+          "archive_sha256": "5fa44befd31ce7b328c0ef18f0149b396167b3d0be3bf11c2626080ce804d3de"
+        }
+      }
+    },
+    "train": {
+      "status": "partial_early_prototype",
+      "files": {
+        "manifest.json": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train/manifest.json",
+          "runtime_sha256": "09f26856d7d9061719aa77dddf879e7226b677ef02a4d165d283568f8effcab4",
+          "archive": "evidence/train/manifest.json",
+          "archive_sha256": "09f26856d7d9061719aa77dddf879e7226b677ef02a4d165d283568f8effcab4"
+        },
+        "diagnostic_source.py": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train/diagnostic_source.py",
+          "runtime_sha256": "c1d232b06e9d624e7268aa28203e0c7655ea006d9cc49a715d43d94bdaa2f01d",
+          "archive": "evidence/train/diagnostic_source.py.gz",
+          "archive_sha256": "0f0e82102203d085c0c63eef3a17ccddc4de0c086ac089ecde983e56fea4d4cb"
+        },
+        "modes.jsonl": {
+          "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_offset_v1/train/modes.jsonl",
+          "runtime_sha256": "19ef1f19ffd0f94e0b3b0ed8dd59e9e827718f150a94177b0b647685af2ec70a",
+          "archive": "evidence/train/modes.jsonl.gz",
+          "archive_sha256": "e6ee98a57343773bc78cc34e3cabf2ee49c99b4336f064723ce04ed054e3d62f"
+        }
+      }
+    }
+  },
+  "note": "Full tensor fixtures/predictions remain in the isolated runtime; only JSON/traces/executed scripts are archived here."
+}

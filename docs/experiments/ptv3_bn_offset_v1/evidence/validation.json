@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-10-24T00:58:25.072473+08:00",
+  "tool_sha256": "7ee04d85f98f3f7402a77d793edd241f209fa2aa4b122e7253167cd905b6db0f",
+  "checks": {
+    "final_tool_py_compile": true,
+    "successful_full_input_gpu_forwards": 20,
+    "five_gpu_runs_four_bn_modes_each": true,
+    "all_predictions_finite": true,
+    "all_bn_state_dicts_unchanged": true,
+    "all_post_forward_rng_equal": true,
+    "head_only_pre_bn_mean_variance_equal_to_eval": true,
+    "precision_comparison_same_fixture_sha256": true,
+    "all_archived_raw_and_compressed_hashes_verified": true,
+    "refused_existing_output_without_modifying_any_file": true,
+    "tracked_diff_check": true
+  },
+  "native_amp_eval": "unsupported spconv inference kernel, retained exception; not counted as successful forward",
+  "no_training_or_optimizer_steps": true
+}

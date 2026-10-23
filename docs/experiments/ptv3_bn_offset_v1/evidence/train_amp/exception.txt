@@ -1,0 +1,43 @@
+Traceback (most recent call last):
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_bn_offset_diagnosis_v1.py", line 187, in <module>
+    main()
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_bn_offset_diagnosis_v1.py", line 156, in main
+    pred=model(batch,return_loss=False)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/model/tree_learn.py", line 76, in forward
+    backbone_output, v2p_map = self.forward_backbone(**batch)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_bn_offset_diagnosis_v1.py", line 114, in fixed_backbone
+    point=self.backbone(dict(fixture))
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 979, in forward
+    point = self.enc(point)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 231, in forward
+    input = module(input)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 231, in forward
+    input = module(input)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_memory_v1/adapters.py", line 62, in forward
+    return _original(point)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 588, in forward
+    point = self.cpe(point)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 235, in forward
+    input.sparse_conv_feat = module(input.sparse_conv_feat)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/spconv/pytorch/conv.py", line 755, in forward
+    return self._conv_forward(self.training,
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/spconv/pytorch/conv.py", line 467, in _conv_forward
+    out_features, _, _ = ops.implicit_gemm(
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/spconv/pytorch/ops.py", line 1513, in implicit_gemm
+    mask_width, tune_res_cpp = ConvGemmOps.implicit_gemm(
+RuntimeError: /io/build/temp.linux-x86_64-cpython-310/spconv/build/core_cc/src/csrc/sparse/convops/convops/ConvTunerSimple/ConvTunerSimple_tune_and_cache.cc(103)
+!all_profile_res.empty() assert faild. can't find suitable algorithm for 0

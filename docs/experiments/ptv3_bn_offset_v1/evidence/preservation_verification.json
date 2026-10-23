@@ -1,0 +1,36 @@
+{
+  "observed_at": "2026-10-24T00:54:31.868543+08:00",
+  "successful_gpu_forwards": 20,
+  "all_predictions_finite": true,
+  "all_bn_buffers_and_parameters_bitwise_unchanged": true,
+  "all_post_forward_rng_equal": true,
+  "all_head_only_pre_bn_inputs_equal": true,
+  "protocol_sha256": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+  "frozen_sources": {
+    "source": {
+      "commit": "649c1749ea654cb42add12db2eacff3da9532c09",
+      "git_status_porcelain": ""
+    },
+    "source_validation_v1": {
+      "commit": "a32ec3cd6233f37e050ca03d0f8a1bf959324b91",
+      "git_status_porcelain": ""
+    },
+    "source_head_fp32_v1": {
+      "commit": "e4ea04b3e46eb86bf7d094e6ff72a7b70c7fe50a",
+      "git_status_porcelain": ""
+    }
+  },
+  "stage_status": {
+    "status": "awaiting_stage_decision",
+    "checkpoint_update": 5000,
+    "comparison": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/comparison_at_5000_head_fp32_v1.json",
+    "numerical_policy": "treelearn-both-heads-fp32-v1",
+    "automatic_later_training": false,
+    "updated_unix": 1792771926.3582478,
+    "automatic_resume": false
+  },
+  "active_relevant_python_processes": [],
+  "free_disk_GiB": 4335.928913116455,
+  "optimizer_or_training_steps_in_this_diagnosis": 0,
+  "update_5000_checkpoint_preserved_in_all_probes": true
+}

@@ -1,0 +1,18 @@
+{
+  "case": "l1w_ne",
+  "checkpoint": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_5000_head_fp32_v1.pth",
+  "checkpoint_sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+  "input_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_502.npz",
+  "input_sha256": "8353e10679d5ecb5eedcd0ee52ca535f53d130bd3fbc25bf3b488e54bb4a74af",
+  "augmentation_seed": null,
+  "input_digest": "47782ec375c295e1d84086d925d915aa7918696c030c03fccf1764128a676b7d",
+  "points": 1671942,
+  "voxels": 1431328,
+  "voxel_fixture_sha256": "efb89fff17717340b82cdc6e39a2e78d5367c96d2ca093114f9fc0d0cb9337e1",
+  "frozen_source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1",
+  "precision": "fp32",
+  "sparse_kernel": "evaluation",
+  "fixture_reused_from": null,
+  "input_policy": "Complete original input; same frozen voxels/map and restored RNG for every mode",
+  "scope": "Local diagnostic only; no optimizer, no BN running-stat writes, no official evaluation or checkpoint selection"
+}

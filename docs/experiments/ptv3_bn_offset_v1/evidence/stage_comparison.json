@@ -1,0 +1,208 @@
+{
+  "role": "regional development comparison",
+  "results": [
+    {
+      "TP": 0,
+      "FP": 24,
+      "FN": 24,
+      "detection_precision": 0.0,
+      "metric_units": "fractions 0..1",
+      "detection_recall": 0.0,
+      "detection_f1": 0.0,
+      "completeness": 0.0,
+      "omission": 1.0,
+      "commission": 1.0,
+      "coverage": 0.15749983393636427,
+      "segmentation_precision": 0.8149235504532298,
+      "segmentation_recall": 0.16570153347508973,
+      "z_extent_bins_m": {
+        "0_10": {
+          "gt": 0,
+          "tp": 0,
+          "fn": 0,
+          "recall": null
+        },
+        "10_20": {
+          "gt": 5,
+          "tp": 0,
+          "fn": 5,
+          "recall": 0.0
+        },
+        "20_inf": {
+          "gt": 19,
+          "tp": 0,
+          "fn": 19,
+          "recall": 0.0
+        }
+      },
+      "gt_trees": 24,
+      "predicted_trees": 56,
+      "unknown_prediction_points": 0,
+      "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+      "scale_name": "Z Extent; not ground-normalized tree height",
+      "role": "L1W regional development validation",
+      "checkpoint_update": 2900,
+      "tag": "e1_u2900",
+      "semantic_tree_recall": 0.20038600563202183,
+      "offset_xy_error_m": 2.8751745910254334,
+      "offset_xyz_error_m": 16.810574339918695,
+      "total_seconds": 189.79349265340716,
+      "pointwise_seconds": 108.36763968039304,
+      "checkpoint_sha256": "5a61e228abc542201a4d21414409b2fa209f4aaeb3578f54fd5a6c30f15881ab"
+    },
+    {
+      "TP": 0,
+      "FP": 36,
+      "FN": 24,
+      "detection_precision": 0.0,
+      "metric_units": "fractions 0..1",
+      "detection_recall": 0.0,
+      "detection_f1": 0.0,
+      "completeness": 0.0,
+      "omission": 1.0,
+      "commission": 1.0,
+      "coverage": 0.015079478379035534,
+      "segmentation_precision": 0.8150976104460329,
+      "segmentation_recall": 0.015143764922077377,
+      "z_extent_bins_m": {
+        "0_10": {
+          "gt": 0,
+          "tp": 0,
+          "fn": 0,
+          "recall": null
+        },
+        "10_20": {
+          "gt": 5,
+          "tp": 0,
+          "fn": 5,
+          "recall": 0.0
+        },
+        "20_inf": {
+          "gt": 19,
+          "tp": 0,
+          "fn": 19,
+          "recall": 0.0
+        }
+      },
+      "gt_trees": 24,
+      "predicted_trees": 117,
+      "unknown_prediction_points": 0,
+      "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+      "scale_name": "Z Extent; not ground-normalized tree height",
+      "role": "L1W regional development validation",
+      "checkpoint_update": 0,
+      "tag": "e1_initial",
+      "semantic_tree_recall": 0.05710498549012594,
+      "offset_xy_error_m": 2.8855162893593542,
+      "offset_xyz_error_m": 20.659272938845074,
+      "total_seconds": 176.2695570886135,
+      "pointwise_seconds": 107.82650689594448,
+      "checkpoint_sha256": "ae01c71602feba4bbdfcbabffd0c4e90ae61507353abb34609d383cc39a4f871"
+    },
+    {
+      "TP": 24,
+      "FP": 0,
+      "FN": 0,
+      "detection_precision": 1.0,
+      "metric_units": "fractions 0..1",
+      "detection_recall": 1.0,
+      "detection_f1": 1.0,
+      "completeness": 1.0,
+      "omission": 0.0,
+      "commission": 0.0,
+      "coverage": 0.9823507627149883,
+      "segmentation_precision": 0.9902998410267472,
+      "segmentation_recall": 0.9919047796059249,
+      "z_extent_bins_m": {
+        "0_10": {
+          "gt": 0,
+          "tp": 0,
+          "fn": 0,
+          "recall": null
+        },
+        "10_20": {
+          "gt": 5,
+          "tp": 5,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "20_inf": {
+          "gt": 19,
+          "tp": 19,
+          "fn": 0,
+          "recall": 1.0
+        }
+      },
+      "gt_trees": 24,
+      "predicted_trees": 57,
+      "unknown_prediction_points": 0,
+      "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+      "scale_name": "Z Extent; not ground-normalized tree height",
+      "role": "L1W regional development validation",
+      "checkpoint_update": null,
+      "tag": "e2_official",
+      "semantic_tree_recall": 0.9995514625648022,
+      "offset_xy_error_m": 0.31338638348854275,
+      "offset_xyz_error_m": 0.3899789527180741,
+      "total_seconds": 128.13466415181756,
+      "pointwise_seconds": 35.89316631667316,
+      "checkpoint_sha256": "5df2f92828f92755bc12e114eaebe83f7ecea94a74c25a6170b68844cc5e19bb"
+    },
+    {
+      "TP": 0,
+      "FP": 0,
+      "FN": 24,
+      "detection_precision": 0.0,
+      "metric_units": "fractions 0..1",
+      "detection_recall": 0.0,
+      "detection_f1": 0.0,
+      "completeness": 0.0,
+      "omission": 1.0,
+      "commission": null,
+      "coverage": 0.0,
+      "segmentation_precision": 0.0,
+      "segmentation_recall": 0.0,
+      "z_extent_bins_m": {
+        "0_10": {
+          "gt": 0,
+          "tp": 0,
+          "fn": 0,
+          "recall": null
+        },
+        "10_20": {
+          "gt": 5,
+          "tp": 0,
+          "fn": 5,
+          "recall": 0.0
+        },
+        "20_inf": {
+          "gt": 19,
+          "tp": 0,
+          "fn": 19,
+          "recall": 0.0
+        }
+      },
+      "gt_trees": 24,
+      "predicted_trees": 0,
+      "unknown_prediction_points": 98193,
+      "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+      "scale_name": "Z Extent; not ground-normalized tree height",
+      "role": "L1W regional development validation",
+      "checkpoint_update": 5000,
+      "tag": "e1_u5000_head_fp32_v1",
+      "semantic_tree_recall": 0.032429187239075306,
+      "offset_xy_error_m": 4.2408640031720015,
+      "offset_xyz_error_m": 334.54111198450505,
+      "total_seconds": 158.91919206362218,
+      "pointwise_seconds": 109.88079127669334,
+      "checkpoint_sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+      "training_numerical_policy": "treelearn-both-heads-fp32-v1",
+      "precision_change_update": 4600,
+      "migration_receipt_sha256": "357a45e085675c53dca1ce88f6c8fd0a992e50111e2f20022ba7dc943ddd4875"
+    }
+  ],
+  "protocol_sha256": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+  "full_forest": false,
+  "formal_final": false,
+  "numerical_variant_note": "E1 update 5000 switches both training heads to FP32 from the original update-4600 state; inference protocol is unchanged."
+}
