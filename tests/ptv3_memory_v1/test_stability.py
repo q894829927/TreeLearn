@@ -1,7 +1,11 @@
 """Verify bounded stress scheduling without accessing production crop files."""
 import unittest
+import tempfile
+from pathlib import Path
 
-from tree_learn.experiments.ptv3_memory_v1.stability import selected_crops, schedule, UPDATES
+from tree_learn.experiments.ptv3_memory_v1.stability import selected_crops, schedule, write_config, UPDATES
+from tree_learn.experiments.ptv3_memory_v1.run import config
+from tree_learn.experiments.ptv3_treelearn.train import load_config
 
 
 class StabilityPlanTests(unittest.TestCase):
@@ -37,6 +41,15 @@ class StabilityPlanTests(unittest.TestCase):
         with self.assertRaises(ValueError):selected_crops(dict(status="pending",crops=self.rows))
         with self.assertRaises(ValueError):selected_crops(dict(status="verified",crops=self.rows[:100]))
         with self.assertRaises(ValueError):schedule(selected_crops(self.manifest),45)
+
+    def test_reference_yaml_reader_preserves_all_config_types(self):
+        options=config()
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/"config.yaml"
+            write_config(path,options)
+            loaded=load_config(path)
+            self.assertEqual(loaded,options)
+            self.assertIsInstance(loaded["scheduler"]["warmup_lr_init"],float)
 
 
 if __name__=="__main__":unittest.main()

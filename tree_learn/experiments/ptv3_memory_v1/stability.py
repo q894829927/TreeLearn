@@ -13,6 +13,7 @@ from types import SimpleNamespace
 
 import numpy as np
 import torch
+import yaml
 
 from tree_learn.experiments.ptv3_treelearn import train as reference_train
 from tree_learn.experiments.ptv3_treelearn.provenance import sha256, write_json, environment, git_state
@@ -56,6 +57,13 @@ def schedule(crops, seed):
             for i,role in enumerate(role for pair in PAIRS for role in pair)]
 
 
+def write_config(path, cfg):
+    # The reference reader uses YAML 1.1: JSON's 1e-05 would become a string.
+    Path(path).write_text(yaml.safe_dump(cfg,sort_keys=False))
+    if reference_train.load_config(path)!=cfg:
+        raise ValueError("Configuration types changed during serialization")
+
+
 def prepare(output):
     output = Path(output).resolve(); output.mkdir(parents=True,exist_ok=False)
     cfg = config(); manifest_path = Path(cfg["experiment"]["crop_manifest"])
@@ -86,7 +94,7 @@ def prepare(output):
     cfg["experiment"]["sample_plan"] = str(output/"plans"/"s{seed}.npz")
     cfg["experiment"]["memory_adapter"] = "block_nested"
     cfg["experiment"]["stability_audit_only"] = True
-    write_json(output/"config.json",cfg)
+    write_config(output/"config.yaml",cfg)
     write_json(output/"plan.json",dict(status="prepared",updates_per_seed=UPDATES,seeds=SEEDS,
         variant="block_nested",physical_batch=1,accumulation=2,maximum_points=None,
         crop_manifest_sha256=sha256(manifest_path),crops=crops,plans=plans,
@@ -159,7 +167,7 @@ def run(plan_dir,seed):
     root=Path(plan_dir).resolve(); plan=json.loads((root/"plan.json").read_text())
     if plan["updates_per_seed"]!=UPDATES or seed not in SEEDS:
         raise ValueError("This entry point is restricted to 12 updates per seed")
-    cfg=reference_train.load_config(root/"config.json")
+    cfg=reference_train.load_config(root/"config.yaml")
     expected=config()
     expected["experiment"].update(sample_plan=str(root/"plans"/"s{seed}.npz"),
                                   memory_adapter="block_nested",stability_audit_only=True)
@@ -176,7 +184,7 @@ def run(plan_dir,seed):
         model=build_optimized_model(config,"block_nested"); probe.attach(model)
         sources=[Path(__file__),Path(__file__).with_name("adapters.py"),Path(reference_train.__file__),Path(sys.argv[0])]
         provenance=dict(seed=seed,variant="block_nested",updates=UPDATES,phase="smoke",pilot=False,
-            plan_sha256=sha256(root/"plan.json"),config_sha256=sha256(root/"config.json"),
+            plan_sha256=sha256(root/"plan.json"),config_sha256=sha256(root/"config.yaml"),
             git=git_state(),environment=environment(),command=sys.argv,
             source_sha256={str(p):sha256(p) for p in sources},
             integration="unchanged reference_train.run with model factory substitution and scalar telemetry",
@@ -201,7 +209,7 @@ def run(plan_dir,seed):
     reference_train.write_json=writer;Point.__init__=point_init
     started=time.perf_counter();result=dict(status="running",seed=seed,maximum_updates=UPDATES)
     try:
-        reference_train.run(SimpleNamespace(config=str(root/"config.json"),seed=seed,work_dir=str(output),
+        reference_train.run(SimpleNamespace(config=str(root/"config.yaml"),seed=seed,work_dir=str(output),
             phase="smoke",max_updates=UPDATES,resume=None,smoke_crop=None))
         if len(probe.records)!=UPDATES: raise RuntimeError("Missing optimizer update records")
         steps=[int(state["step"]) for state in probe.optimizer.state.values() if "step" in state]
