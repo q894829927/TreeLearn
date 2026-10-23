@@ -1,0 +1,40 @@
+{
+  "head_only": {
+    "argv": [
+      "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+      "-u",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1/tools/experiments/ptv3_stage_v1.py",
+      "evaluate",
+      "--root",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation",
+      "--config",
+      "configs/experiments/ptv3_memory_v1/e1_full_formal.yaml",
+      "--checkpoint",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/inference_only.pth",
+      "--tag",
+      "e1_u5000_bn_head_only_v1",
+      "--output",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation/evaluation"
+    ],
+    "cwd": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1"
+  },
+  "all_sequential": {
+    "argv": [
+      "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+      "-u",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1/tools/experiments/ptv3_stage_v1.py",
+      "evaluate",
+      "--root",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation",
+      "--config",
+      "configs/experiments/ptv3_memory_v1/e1_full_formal.yaml",
+      "--checkpoint",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/inference_only.pth",
+      "--tag",
+      "e1_u5000_bn_all_sequential_v1",
+      "--output",
+      "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation/evaluation"
+    ],
+    "cwd": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1"
+  }
+}

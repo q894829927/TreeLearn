@@ -1,0 +1,258 @@
+{
+  "runtime_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1",
+  "artifacts": [
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/calibration_result.json",
+      "runtime_sha256": "64d669597ae220e0f2fdefbdd062a3346d725f1a78323f2b1e97757d1e5c9278",
+      "archive": "evidence/all_sequential/calibration_result.json",
+      "archive_sha256": "64d669597ae220e0f2fdefbdd062a3346d725f1a78323f2b1e97757d1e5c9278"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/evaluation_console.log",
+      "runtime_sha256": "89e2fc60dd82bf5975bf34183c1aa8a6a60ea5c42c702cfbb19f8d043c042df9",
+      "archive": "evidence/all_sequential/evaluation_console.log.gz",
+      "archive_sha256": "711c4d7220b561aa58b0c57a6aeb897e4ceed15c75912f8f910ecfdf34e24f88"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_00.json",
+      "runtime_sha256": "1c307911c80d84cbba5010cbf33b5625c427d5a39d8ae0e4659698072d506e89",
+      "archive": "evidence/all_sequential/group_00.json.gz",
+      "archive_sha256": "e79dfc2516df48aa707eb9a45df99c81c8b1c6782ca1781076bdf9b85166a8d8"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_01.json",
+      "runtime_sha256": "c49053562e4c14758e60c8a7173518289b3990dc8ae5f3788a0ad5deda011cd9",
+      "archive": "evidence/all_sequential/group_01.json.gz",
+      "archive_sha256": "1de9e3731905b380145d7bba588c8eebe9edf7f8994e629298f1720c147ab3f8"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_02.json",
+      "runtime_sha256": "e8b0935df037e4adf61bc8e89f0bf694d49113d4627f6f5a5e877cb5bd408877",
+      "archive": "evidence/all_sequential/group_02.json.gz",
+      "archive_sha256": "305362808f4664398ed905cbf35c354ba4f5fb234c6d490a10e2c2a9b21dedd4"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_03.json",
+      "runtime_sha256": "7f26dd01d51e3d7fbc8c1a847d768a9b8613d3cb35be002d1a196f843d0bb0df",
+      "archive": "evidence/all_sequential/group_03.json.gz",
+      "archive_sha256": "019171ea84e95c7f9c5fd3b17cf2a1fc0eb3bfbe2925138e4ee651de32e764ee"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_04.json",
+      "runtime_sha256": "bd82c1367d1624cc976ecbb7d34b333bf2c898d1f41e0de4dd3950990dbf6b3a",
+      "archive": "evidence/all_sequential/group_04.json.gz",
+      "archive_sha256": "2753d06f679faa861005846e5acb0182aa044202cccd5ba0cc8e38d6dc82fa1a"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_05.json",
+      "runtime_sha256": "6e11b27fe835111cff062b222e6b3cdc13afcc953d2c94d6d5ad1c428f491da5",
+      "archive": "evidence/all_sequential/group_05.json.gz",
+      "archive_sha256": "02c0b6ef0949d70e12d6f5a8b9334747b3ed6f17b700f51e1b8c2437d0f62ba8"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_06.json",
+      "runtime_sha256": "7e42074caf4aa35962f85b97f6bfa92ddd721d94d81f0c86236c53c9257fb26c",
+      "archive": "evidence/all_sequential/group_06.json.gz",
+      "archive_sha256": "98ebf6f8940a46ab806bc1d972188f0391ee253f68c9883c536170e513d36567"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_07.json",
+      "runtime_sha256": "5f26b37fba0877bc2c2bf467caadac2ba7e810d8f632f95d5f492fc8f65e23ee",
+      "archive": "evidence/all_sequential/group_07.json.gz",
+      "archive_sha256": "334d91ecc0dc1ff581a9b49f54cbbeff37b818081a940ccdc8296df0e37bb0f5"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_08.json",
+      "runtime_sha256": "704a59e21540dfa7b3c35891ea4601317d8b05ec098cb03aa4c51f861cd50246",
+      "archive": "evidence/all_sequential/group_08.json.gz",
+      "archive_sha256": "3bdcecb987fe648596c3f1e72916bac8d3e70abf9a26ad60e442b9c49ea929cb"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/group_09.json",
+      "runtime_sha256": "c01985315dae831eb2eed7ce67d7bd7dd82d895ae33b53b0708df85276bd3202",
+      "archive": "evidence/all_sequential/group_09.json.gz",
+      "archive_sha256": "8eee3bccba2c41f648afd886c53a76fbbe2a1a49c8c76c545b9afca347928579"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/raw_output_audit.json",
+      "runtime_sha256": "63065f676de2aa48e317dd1e031c02247067c2d187a04ee33e0fdadaac21fd2c",
+      "archive": "evidence/all_sequential/raw_output_audit.json",
+      "archive_sha256": "63065f676de2aa48e317dd1e031c02247067c2d187a04ee33e0fdadaac21fd2c"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation/evaluation/diagnostics.json",
+      "runtime_sha256": "b513bccb5cc17582d9c1cb712484dfbe293458b31f5b7042a6b9475395767666",
+      "archive": "evidence/all_sequential/validation/evaluation/diagnostics.json",
+      "archive_sha256": "b513bccb5cc17582d9c1cb712484dfbe293458b31f5b7042a6b9475395767666"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation/evaluation/evaluation.log",
+      "runtime_sha256": "9c29294b4e19eebf8555b42fe455973408ba95c320bcfb9ab03491f5b71e8dc4",
+      "archive": "evidence/all_sequential/validation/evaluation/evaluation.log.gz",
+      "archive_sha256": "87c01f0ed5cc50aa7e08c7609c6a427917687e6f290a3560d425f5ea9456ac71"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation/evaluation/evaluation_manifest.json",
+      "runtime_sha256": "8a17faa2227cba3bb36ac422d41077426c2e0ab30bdd9b52768fa2ba70be7b24",
+      "archive": "evidence/all_sequential/validation/evaluation/evaluation_manifest.json",
+      "archive_sha256": "8a17faa2227cba3bb36ac422d41077426c2e0ab30bdd9b52768fa2ba70be7b24"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation/evaluation/metrics.json",
+      "runtime_sha256": "e1d820df7980c0b5c6c826411f3c189bcaebf12fd53276a7776900fc280e4aec",
+      "archive": "evidence/all_sequential/validation/evaluation/metrics.json",
+      "archive_sha256": "e1d820df7980c0b5c6c826411f3c189bcaebf12fd53276a7776900fc280e4aec"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation/protocol.json",
+      "runtime_sha256": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+      "archive": "evidence/all_sequential/validation/protocol.json.gz",
+      "archive_sha256": "a3529ddd85c82bfb78732e8b1ad102120333a7dede457b11c560c3be227a36fa"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/validation/stage_status.json",
+      "runtime_sha256": "d05e8fe37cf3f2ce17e21fd5a5b229e0437d29083945051cd3a5426b00e7bd4e",
+      "archive": "evidence/all_sequential/validation/stage_status.json",
+      "archive_sha256": "d05e8fe37cf3f2ce17e21fd5a5b229e0437d29083945051cd3a5426b00e7bd4e"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/calibration_complete_before_validation.json",
+      "runtime_sha256": "7dda2c6b008c4492e76c1eda4940f74a68c1aedbdb74b18fb788e6919590007e",
+      "archive": "evidence/calibration_complete_before_validation.json",
+      "archive_sha256": "7dda2c6b008c4492e76c1eda4940f74a68c1aedbdb74b18fb788e6919590007e"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/calibration_inputs.json",
+      "runtime_sha256": "995fbf03aa88e8cdb84c60901a8b2c98e55f53470fff0b7b5b7e82853720c7c1",
+      "archive": "evidence/calibration_inputs.json",
+      "archive_sha256": "995fbf03aa88e8cdb84c60901a8b2c98e55f53470fff0b7b5b7e82853720c7c1"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/comparison.json",
+      "runtime_sha256": "8b7685d46891b92a55c9f5c846203ce4c682368b64a01d4fc7aaa4804a518203",
+      "archive": "evidence/comparison.json",
+      "archive_sha256": "8b7685d46891b92a55c9f5c846203ce4c682368b64a01d4fc7aaa4804a518203"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/completion_verification.json",
+      "runtime_sha256": "e1b857d10744aac7fce222a62724e04349f00d54a78580d40eb43df50a21af35",
+      "archive": "evidence/completion_verification.json",
+      "archive_sha256": "e1b857d10744aac7fce222a62724e04349f00d54a78580d40eb43df50a21af35"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/environment.json",
+      "runtime_sha256": "0605d4b43d2a4c6553fed237b3c3048ac93d9b25d48e0a57604c645c9d1a8ea2",
+      "archive": "evidence/environment.json",
+      "archive_sha256": "0605d4b43d2a4c6553fed237b3c3048ac93d9b25d48e0a57604c645c9d1a8ea2"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/evaluation_commands.json",
+      "runtime_sha256": "87ab5655c9a7d91d6d3efd3c96efbe748bdc9eedd197ee763ff6dd2d9f31e546",
+      "archive": "evidence/evaluation_commands.json",
+      "archive_sha256": "87ab5655c9a7d91d6d3efd3c96efbe748bdc9eedd197ee763ff6dd2d9f31e546"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/events.jsonl",
+      "runtime_sha256": "b73dfb62a8597996d9475fcf10b49fd8a57b83721652d892900ead470b8d6fad",
+      "archive": "evidence/events.jsonl.gz",
+      "archive_sha256": "1a50e684d6648a44dca7abb5e8934f89b509c1bd1cd84d04ecdc6c32a1aa3d69"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/executed_controller.py",
+      "runtime_sha256": "4d8c7d6cd4bdd73c261c792c142c057f16e7f8dc921866ff08cd0f3aa87b9513",
+      "archive": "evidence/executed_controller.py",
+      "archive_sha256": "4d8c7d6cd4bdd73c261c792c142c057f16e7f8dc921866ff08cd0f3aa87b9513"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/executed_implementation.py",
+      "runtime_sha256": "a84c729c215cb95671a90d282b209f2c351159e8322494b129be8d8b215e6461",
+      "archive": "evidence/executed_implementation.py",
+      "archive_sha256": "a84c729c215cb95671a90d282b209f2c351159e8322494b129be8d8b215e6461"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/gpu_gate.json",
+      "runtime_sha256": "cef3a92dab4f0cb62b326cb4ed59d1db86c85b0a7bfba2d492fe80261e743c3e",
+      "archive": "evidence/gpu_gate.json",
+      "archive_sha256": "cef3a92dab4f0cb62b326cb4ed59d1db86c85b0a7bfba2d492fe80261e743c3e"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/calibration_result.json",
+      "runtime_sha256": "aea58aabd63336a7db9588aec03b91d995abf37631ab56ed415e3725b8f65576",
+      "archive": "evidence/head_only/calibration_result.json",
+      "archive_sha256": "aea58aabd63336a7db9588aec03b91d995abf37631ab56ed415e3725b8f65576"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/evaluation_console.log",
+      "runtime_sha256": "fcc6829270d774244f9a10cc52e5f834ebac2ad8bf08f36496437920f58ea105",
+      "archive": "evidence/head_only/evaluation_console.log.gz",
+      "archive_sha256": "bd1c46e7452fb9d8380ff15681f329e49a9883bb7805b45c6fd023237725a793"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/group_00.json",
+      "runtime_sha256": "323d13ba1d10bd8307fe853083de5a17eb1f8caa780bafe247de789654c921b0",
+      "archive": "evidence/head_only/group_00.json.gz",
+      "archive_sha256": "2ec3a53aebc7c3aab766c1d79bdc7e015afe3e6afe93bcddfbf79abb41fafff1"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/raw_output_audit.json",
+      "runtime_sha256": "8d1c3607a231089b0b692eca6f444fe11d6cfe30ccc68a3248363a7022b9f786",
+      "archive": "evidence/head_only/raw_output_audit.json",
+      "archive_sha256": "8d1c3607a231089b0b692eca6f444fe11d6cfe30ccc68a3248363a7022b9f786"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation/evaluation/diagnostics.json",
+      "runtime_sha256": "e93ef01e36aa417cd43eeb8c55dc3c86269e1f1acb8c71c3e43de4966fe79e74",
+      "archive": "evidence/head_only/validation/evaluation/diagnostics.json",
+      "archive_sha256": "e93ef01e36aa417cd43eeb8c55dc3c86269e1f1acb8c71c3e43de4966fe79e74"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation/evaluation/evaluation.log",
+      "runtime_sha256": "9c29294b4e19eebf8555b42fe455973408ba95c320bcfb9ab03491f5b71e8dc4",
+      "archive": "evidence/head_only/validation/evaluation/evaluation.log.gz",
+      "archive_sha256": "87c01f0ed5cc50aa7e08c7609c6a427917687e6f290a3560d425f5ea9456ac71"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation/evaluation/evaluation_manifest.json",
+      "runtime_sha256": "66951e707ce8dec1635db515761e4310e555409d94d6149eebd1f9feea97a434",
+      "archive": "evidence/head_only/validation/evaluation/evaluation_manifest.json",
+      "archive_sha256": "66951e707ce8dec1635db515761e4310e555409d94d6149eebd1f9feea97a434"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation/evaluation/metrics.json",
+      "runtime_sha256": "05be3763b969510478c8ab0f9cfef75102a81ad60e2aacb4971807c6e8167c38",
+      "archive": "evidence/head_only/validation/evaluation/metrics.json",
+      "archive_sha256": "05be3763b969510478c8ab0f9cfef75102a81ad60e2aacb4971807c6e8167c38"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation/protocol.json",
+      "runtime_sha256": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+      "archive": "evidence/head_only/validation/protocol.json.gz",
+      "archive_sha256": "a3529ddd85c82bfb78732e8b1ad102120333a7dede457b11c560c3be227a36fa"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/validation/stage_status.json",
+      "runtime_sha256": "fb6b6db9ea11bc6cd35edb946615428a56ba81c7ccceca965abb1a6e0450490e",
+      "archive": "evidence/head_only/validation/stage_status.json",
+      "archive_sha256": "fb6b6db9ea11bc6cd35edb946615428a56ba81c7ccceca965abb1a6e0450490e"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/protocol.json",
+      "runtime_sha256": "8b8feef6ae2e8a7748881c434aef8c1ae8fa090310af02f906ee78662503558a",
+      "archive": "evidence/protocol.json",
+      "archive_sha256": "8b8feef6ae2e8a7748881c434aef8c1ae8fa090310af02f906ee78662503558a"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/result.json",
+      "runtime_sha256": "90312f1bbd01092835f3bd388d93bac7dc8658fddf459b0b2d1eaad3450bf1a0",
+      "archive": "evidence/result.json",
+      "archive_sha256": "90312f1bbd01092835f3bd388d93bac7dc8658fddf459b0b2d1eaad3450bf1a0"
+    },
+    {
+      "runtime_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/status.json",
+      "runtime_sha256": "470d6d5e66fdbed4483e5c3f16073373d3be0b19f3648903be7b80254e28a132",
+      "archive": "evidence/status.json",
+      "archive_sha256": "470d6d5e66fdbed4483e5c3f16073373d3be0b19f3648903be7b80254e28a132"
+    }
+  ],
+  "excluded_large_artifacts": "Full fixtures, inference_only.pth, pointwise_results.npz, predictions_on_gt.npz and evaluation_results.pt remain in the independent run directory. Hashes are in calibration_inputs/result/evaluation manifests."
+}

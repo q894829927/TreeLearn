@@ -1,0 +1,111 @@
+{
+  "results": {
+    "head_only": {
+      "variant": "head_only",
+      "checkpoint": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/inference_only.pth",
+      "checkpoint_sha256": "ffd7fcb735922105c486166639a416abd7967b5569131730828078468474b85e",
+      "preservation": {
+        "allowed_changed_keys": [
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var",
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var"
+        ],
+        "actual_changed_keys": [
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var",
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var"
+        ],
+        "all_other_state_bitwise_preserved": true,
+        "bn_counters_and_affine_parameters_bitwise_preserved": true
+      },
+      "groups": 1,
+      "full_forwards": 72,
+      "seconds": 38.90611725114286,
+      "population_stability_within_tolerance": true,
+      "peak_allocated_bytes": 7527076352,
+      "peak_reserved_bytes": 19673382912
+    },
+    "all_sequential": {
+      "variant": "all_sequential",
+      "checkpoint": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/inference_only.pth",
+      "checkpoint_sha256": "6ad6efe34b9b1d7e0baea52e7db13d0b892f081ba3c4ccb3cef76a777c4d148e",
+      "preservation": {
+        "allowed_changed_keys": [
+          "backbone.dec.dec0.up.proj.1.running_mean",
+          "backbone.dec.dec0.up.proj.1.running_var",
+          "backbone.dec.dec0.up.proj_skip.1.running_mean",
+          "backbone.dec.dec0.up.proj_skip.1.running_var",
+          "backbone.dec.dec1.up.proj.1.running_mean",
+          "backbone.dec.dec1.up.proj.1.running_var",
+          "backbone.dec.dec1.up.proj_skip.1.running_mean",
+          "backbone.dec.dec1.up.proj_skip.1.running_var",
+          "backbone.dec.dec2.up.proj.1.running_mean",
+          "backbone.dec.dec2.up.proj.1.running_var",
+          "backbone.dec.dec2.up.proj_skip.1.running_mean",
+          "backbone.dec.dec2.up.proj_skip.1.running_var",
+          "backbone.dec.dec3.up.proj.1.running_mean",
+          "backbone.dec.dec3.up.proj.1.running_var",
+          "backbone.dec.dec3.up.proj_skip.1.running_mean",
+          "backbone.dec.dec3.up.proj_skip.1.running_var",
+          "backbone.embedding.stem.norm.running_mean",
+          "backbone.embedding.stem.norm.running_var",
+          "backbone.enc.enc1.down.norm.0.running_mean",
+          "backbone.enc.enc1.down.norm.0.running_var",
+          "backbone.enc.enc2.down.norm.0.running_mean",
+          "backbone.enc.enc2.down.norm.0.running_var",
+          "backbone.enc.enc3.down.norm.0.running_mean",
+          "backbone.enc.enc3.down.norm.0.running_var",
+          "backbone.enc.enc4.down.norm.0.running_mean",
+          "backbone.enc.enc4.down.norm.0.running_var",
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var",
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var"
+        ],
+        "actual_changed_keys": [
+          "backbone.embedding.stem.norm.running_mean",
+          "backbone.embedding.stem.norm.running_var",
+          "backbone.enc.enc1.down.norm.0.running_mean",
+          "backbone.enc.enc1.down.norm.0.running_var",
+          "backbone.enc.enc2.down.norm.0.running_mean",
+          "backbone.enc.enc2.down.norm.0.running_var",
+          "backbone.enc.enc3.down.norm.0.running_mean",
+          "backbone.enc.enc3.down.norm.0.running_var",
+          "backbone.enc.enc4.down.norm.0.running_mean",
+          "backbone.enc.enc4.down.norm.0.running_var",
+          "backbone.dec.dec3.up.proj.1.running_mean",
+          "backbone.dec.dec3.up.proj.1.running_var",
+          "backbone.dec.dec3.up.proj_skip.1.running_mean",
+          "backbone.dec.dec3.up.proj_skip.1.running_var",
+          "backbone.dec.dec2.up.proj.1.running_mean",
+          "backbone.dec.dec2.up.proj.1.running_var",
+          "backbone.dec.dec2.up.proj_skip.1.running_mean",
+          "backbone.dec.dec2.up.proj_skip.1.running_var",
+          "backbone.dec.dec1.up.proj.1.running_mean",
+          "backbone.dec.dec1.up.proj.1.running_var",
+          "backbone.dec.dec1.up.proj_skip.1.running_mean",
+          "backbone.dec.dec1.up.proj_skip.1.running_var",
+          "backbone.dec.dec0.up.proj.1.running_mean",
+          "backbone.dec.dec0.up.proj.1.running_var",
+          "backbone.dec.dec0.up.proj_skip.1.running_mean",
+          "backbone.dec.dec0.up.proj_skip.1.running_var",
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var",
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var"
+        ],
+        "all_other_state_bitwise_preserved": true,
+        "bn_counters_and_affine_parameters_bitwise_preserved": true
+      },
+      "groups": 10,
+      "full_forwards": 720,
+      "seconds": 351.20539742987603,
+      "population_stability_within_tolerance": true,
+      "peak_allocated_bytes": 7528951808,
+      "peak_reserved_bytes": 19874709504
+    }
+  },
+  "completed_unix": 1792775959.629249
+}

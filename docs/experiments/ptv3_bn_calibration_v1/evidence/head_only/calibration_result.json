@@ -1,0 +1,27 @@
+{
+  "variant": "head_only",
+  "checkpoint": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/head_only/inference_only.pth",
+  "checkpoint_sha256": "ffd7fcb735922105c486166639a416abd7967b5569131730828078468474b85e",
+  "preservation": {
+    "allowed_changed_keys": [
+      "offset_linear.1.running_mean",
+      "offset_linear.1.running_var",
+      "semantic_linear.1.running_mean",
+      "semantic_linear.1.running_var"
+    ],
+    "actual_changed_keys": [
+      "semantic_linear.1.running_mean",
+      "semantic_linear.1.running_var",
+      "offset_linear.1.running_mean",
+      "offset_linear.1.running_var"
+    ],
+    "all_other_state_bitwise_preserved": true,
+    "bn_counters_and_affine_parameters_bitwise_preserved": true
+  },
+  "groups": 1,
+  "full_forwards": 72,
+  "seconds": 38.90611725114286,
+  "population_stability_within_tolerance": true,
+  "peak_allocated_bytes": 7527076352,
+  "peak_reserved_bytes": 19673382912
+}

@@ -181,3 +181,7 @@ python tools/experiments/ptv3_bn_offset_diagnosis_v1.py \
 早期探索脚本修订及未完成的混合精度尝试单列为partial，不作为主结论依据；
 后续独立AMP失败进程保存完整异常，5组完整GPU进程的20次成功前向支撑本报告。
 大型体素fixture和点级预测仅保留在独立诊断运行目录，不提交到Git。
+
+后续用户已授权并完成训练域独立BN校准及原协议复测，结果见
+[训练域BN校准 v1](../ptv3_bn_calibration_v1/README_zh.md)。
+该后续变体未更新可训练参数；原始诊断和本报告证据继续保留。

@@ -1,0 +1,121 @@
+{
+  "observed_at": "2026-10-24T01:29:26.507751+08:00",
+  "serialized_artifact_checks": {
+    "head_only": {
+      "serialized_checkpoint_preservation": {
+        "allowed_changed_keys": [
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var",
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var"
+        ],
+        "actual_changed_keys": [
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var",
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var"
+        ],
+        "all_other_state_bitwise_preserved": true,
+        "bn_counters_and_affine_parameters_bitwise_preserved": true
+      },
+      "checkpoint_sha256": "ffd7fcb735922105c486166639a416abd7967b5569131730828078468474b85e",
+      "all_15_bn_counters_10000": true,
+      "inference_only": true,
+      "optimizer_and_scaler_absent": true
+    },
+    "all_sequential": {
+      "serialized_checkpoint_preservation": {
+        "allowed_changed_keys": [
+          "backbone.dec.dec0.up.proj.1.running_mean",
+          "backbone.dec.dec0.up.proj.1.running_var",
+          "backbone.dec.dec0.up.proj_skip.1.running_mean",
+          "backbone.dec.dec0.up.proj_skip.1.running_var",
+          "backbone.dec.dec1.up.proj.1.running_mean",
+          "backbone.dec.dec1.up.proj.1.running_var",
+          "backbone.dec.dec1.up.proj_skip.1.running_mean",
+          "backbone.dec.dec1.up.proj_skip.1.running_var",
+          "backbone.dec.dec2.up.proj.1.running_mean",
+          "backbone.dec.dec2.up.proj.1.running_var",
+          "backbone.dec.dec2.up.proj_skip.1.running_mean",
+          "backbone.dec.dec2.up.proj_skip.1.running_var",
+          "backbone.dec.dec3.up.proj.1.running_mean",
+          "backbone.dec.dec3.up.proj.1.running_var",
+          "backbone.dec.dec3.up.proj_skip.1.running_mean",
+          "backbone.dec.dec3.up.proj_skip.1.running_var",
+          "backbone.embedding.stem.norm.running_mean",
+          "backbone.embedding.stem.norm.running_var",
+          "backbone.enc.enc1.down.norm.0.running_mean",
+          "backbone.enc.enc1.down.norm.0.running_var",
+          "backbone.enc.enc2.down.norm.0.running_mean",
+          "backbone.enc.enc2.down.norm.0.running_var",
+          "backbone.enc.enc3.down.norm.0.running_mean",
+          "backbone.enc.enc3.down.norm.0.running_var",
+          "backbone.enc.enc4.down.norm.0.running_mean",
+          "backbone.enc.enc4.down.norm.0.running_var",
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var",
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var"
+        ],
+        "actual_changed_keys": [
+          "backbone.embedding.stem.norm.running_mean",
+          "backbone.embedding.stem.norm.running_var",
+          "backbone.enc.enc1.down.norm.0.running_mean",
+          "backbone.enc.enc1.down.norm.0.running_var",
+          "backbone.enc.enc2.down.norm.0.running_mean",
+          "backbone.enc.enc2.down.norm.0.running_var",
+          "backbone.enc.enc3.down.norm.0.running_mean",
+          "backbone.enc.enc3.down.norm.0.running_var",
+          "backbone.enc.enc4.down.norm.0.running_mean",
+          "backbone.enc.enc4.down.norm.0.running_var",
+          "backbone.dec.dec3.up.proj.1.running_mean",
+          "backbone.dec.dec3.up.proj.1.running_var",
+          "backbone.dec.dec3.up.proj_skip.1.running_mean",
+          "backbone.dec.dec3.up.proj_skip.1.running_var",
+          "backbone.dec.dec2.up.proj.1.running_mean",
+          "backbone.dec.dec2.up.proj.1.running_var",
+          "backbone.dec.dec2.up.proj_skip.1.running_mean",
+          "backbone.dec.dec2.up.proj_skip.1.running_var",
+          "backbone.dec.dec1.up.proj.1.running_mean",
+          "backbone.dec.dec1.up.proj.1.running_var",
+          "backbone.dec.dec1.up.proj_skip.1.running_mean",
+          "backbone.dec.dec1.up.proj_skip.1.running_var",
+          "backbone.dec.dec0.up.proj.1.running_mean",
+          "backbone.dec.dec0.up.proj.1.running_var",
+          "backbone.dec.dec0.up.proj_skip.1.running_mean",
+          "backbone.dec.dec0.up.proj_skip.1.running_var",
+          "semantic_linear.1.running_mean",
+          "semantic_linear.1.running_var",
+          "offset_linear.1.running_mean",
+          "offset_linear.1.running_var"
+        ],
+        "all_other_state_bitwise_preserved": true,
+        "bn_counters_and_affine_parameters_bitwise_preserved": true
+      },
+      "checkpoint_sha256": "6ad6efe34b9b1d7e0baea52e7db13d0b892f081ba3c4ccb3cef76a777c4d148e",
+      "all_15_bn_counters_10000": true,
+      "inference_only": true,
+      "optimizer_and_scaler_absent": true
+    }
+  },
+  "parent_checkpoint_sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+  "parent_checkpoint_unchanged": true,
+  "original_stage_status_unchanged": {
+    "status": "awaiting_stage_decision",
+    "checkpoint_update": 5000,
+    "comparison": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/comparison_at_5000_head_fp32_v1.json",
+    "numerical_policy": "treelearn-both-heads-fp32-v1",
+    "automatic_later_training": false,
+    "updated_unix": 1792771926.3582478,
+    "automatic_resume": false
+  },
+  "original_evaluation_predictions_unchanged": true,
+  "original_protocol_sha256": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+  "both_artifacts_frozen_before_any_validation": true,
+  "calibration_completed_unix": 1792775959.629249,
+  "first_evaluation_unix": 1792775959.6306355,
+  "active_relevant_python_processes": [],
+  "optimizer_steps": 0,
+  "controller_exit_code": 0,
+  "free_disk_GiB": 4331.111686706543
+}

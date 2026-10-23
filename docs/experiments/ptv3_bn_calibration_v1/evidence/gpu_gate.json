@@ -1,0 +1,28 @@
+{
+  "full_input_points": 1436827,
+  "trace": [
+    "backbone.embedding.stem.norm",
+    "backbone.enc.enc1.down.norm.0",
+    "backbone.enc.enc2.down.norm.0",
+    "backbone.enc.enc3.down.norm.0",
+    "backbone.enc.enc4.down.norm.0",
+    "backbone.dec.dec3.up.proj.1",
+    "backbone.dec.dec3.up.proj_skip.1",
+    "backbone.dec.dec2.up.proj.1",
+    "backbone.dec.dec2.up.proj_skip.1",
+    "backbone.dec.dec1.up.proj.1",
+    "backbone.dec.dec1.up.proj_skip.1",
+    "backbone.dec.dec0.up.proj.1",
+    "backbone.dec.dec0.up.proj_skip.1",
+    "semantic_linear.1",
+    "offset_linear.1"
+  ],
+  "predictions_finite": true,
+  "preservation": {
+    "allowed_changed_keys": [],
+    "actual_changed_keys": [],
+    "all_other_state_bitwise_preserved": true,
+    "bn_counters_and_affine_parameters_bitwise_preserved": true
+  },
+  "optimizer_steps": 0
+}

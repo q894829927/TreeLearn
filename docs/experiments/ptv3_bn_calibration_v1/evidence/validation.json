@@ -1,0 +1,13 @@
+{
+  "implementation_commit": "9dfe126",
+  "cpu_unit_tests": 6,
+  "cpu_unit_tests_passed": 6,
+  "unit_test_command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /home/szu-stu/miniconda3/envs/TreeLearn/bin/python -m unittest discover -s tests/ptv3_memory_v1 -p test_bn_calibration.py -v",
+  "gpu_full_input_gate_passed": true,
+  "calibration_full_forwards": 792,
+  "gpu_gate_forwards": 1,
+  "full_validation_forwards": 390,
+  "existing_output_refusal_preserves_every_file": true,
+  "serialized_artifact_verification_passed": true,
+  "native_evaluator_identity_unchanged": true
+}

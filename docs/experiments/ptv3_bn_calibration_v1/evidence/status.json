@@ -1,0 +1,9 @@
+{
+  "phase": "complete",
+  "pid": 3392240,
+  "updated_unix": 1792776355.8773463,
+  "elapsed_seconds": 831.5882553607225,
+  "policy": "training-population-fp32-sequential-bn-v1",
+  "comparison": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/comparison.json",
+  "automatic_training": false
+}

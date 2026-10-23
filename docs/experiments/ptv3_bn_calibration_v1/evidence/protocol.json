@@ -1,0 +1,728 @@
+{
+  "policy": "training-population-fp32-sequential-bn-v1",
+  "parent": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_5000_head_fp32_v1.pth",
+  "parent_sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+  "source_commits": {
+    "source": "649c1749ea654cb42add12db2eacff3da9532c09",
+    "source_validation_v1": "a32ec3cd6233f37e050ca03d0f8a1bf959324b91",
+    "source_head_fp32_v1": "e4ea04b3e46eb86bf7d094e6ff72a7b70c7fe50a"
+  },
+  "config_sha256": "0591bd70deb34937f38a794e9bf86efeef86cbb2d94c160729cb11501bfb5f00",
+  "controller_sha256": "4d8c7d6cd4bdd73c261c792c142c057f16e7f8dc921866ff08cd0f3aa87b9513",
+  "implementation_sha256": "a84c729c215cb95671a90d282b209f2c351159e8322494b129be8d8b215e6461",
+  "sample_plan_sha256": "210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688",
+  "crop_manifest_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+  "calibration_samples": [
+    {
+      "plan_position": 29,
+      "crop_manifest_index": 423,
+      "augmentation_seed": 1855139918,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_1379.npz",
+      "sha256": "e4b3794263cd3e2b9bb04f8fa88d252f2cb7485ad9f385f498e7ab44c725c1b6",
+      "source_forest": "A1N",
+      "points": 1436827
+    },
+    {
+      "plan_position": 14,
+      "crop_manifest_index": 2518,
+      "augmentation_seed": 4208717142,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1W_614.npz",
+      "sha256": "04ef14d1b28b72c7fd0893e600aa506cf61749f12d3fdc4cbf85f8c7df4f7b91",
+      "source_forest": "A1W",
+      "points": 1182608
+    },
+    {
+      "plan_position": 8,
+      "crop_manifest_index": 3386,
+      "augmentation_seed": 2502255415,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1N_489.npz",
+      "sha256": "715b6fadff9e54664a69d11465dded5e538294c4170fa5bafe52ab899c8ae7da",
+      "source_forest": "G1N",
+      "points": 562242
+    },
+    {
+      "plan_position": 6,
+      "crop_manifest_index": 5804,
+      "augmentation_seed": 337233895,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1W_924.npz",
+      "sha256": "457eb9179a3aa87910e395887cc8d920781ed1b573158b279cbe350832ab5fcd",
+      "source_forest": "G1W",
+      "points": 996860
+    },
+    {
+      "plan_position": 0,
+      "crop_manifest_index": 6868,
+      "augmentation_seed": 1559894502,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_574.npz",
+      "sha256": "acde499096e384af6e7e0f43d6c09e3a46533ec72a78c6178e2305d0b2329126",
+      "source_forest": "G2N",
+      "points": 1584057
+    },
+    {
+      "plan_position": 5,
+      "crop_manifest_index": 7488,
+      "augmentation_seed": 3503043688,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_231.npz",
+      "sha256": "3f1f8fe7d54a20c5cde74d006989b983a12f2ac14048ceaf04aee095e9eb4860",
+      "source_forest": "G2W",
+      "points": 2059694
+    },
+    {
+      "plan_position": 2,
+      "crop_manifest_index": 9668,
+      "augmentation_seed": 3686218170,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_921.npz",
+      "sha256": "8bcc2f975213db93e4b02b5d5c53f998e4fbdcd1eea7aead08d567750000c00b",
+      "source_forest": "G3N",
+      "points": 586216
+    },
+    {
+      "plan_position": 34,
+      "crop_manifest_index": 10277,
+      "augmentation_seed": 1871801918,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_2.npz",
+      "sha256": "baf5a7180f277b37d6fe8be4fe37b574eef1757fab2e83de053e4ae386c5b1ac",
+      "source_forest": "G3W",
+      "points": 1548350
+    },
+    {
+      "plan_position": 24,
+      "crop_manifest_index": 12060,
+      "augmentation_seed": 3481585796,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_888.npz",
+      "sha256": "4045e9d2fe8ac7569f31c0739d3392b6a9e90914f7dab40fe5a3cf97be9d2201",
+      "source_forest": "G4N",
+      "points": 1149875
+    },
+    {
+      "plan_position": 3,
+      "crop_manifest_index": 13640,
+      "augmentation_seed": 3110382853,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_589.npz",
+      "sha256": "fff0d0acce51ec8de63084ae3209f99a7c0927b6406c8054e76cc9fc88d8967d",
+      "source_forest": "G4W",
+      "points": 1288687
+    },
+    {
+      "plan_position": 30,
+      "crop_manifest_index": 14337,
+      "augmentation_seed": 3140084770,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_1214.npz",
+      "sha256": "03f3393b92b93e9b57732cb6b5e2c46c4de0e795ae378de2fc4eabf589bf81ed",
+      "source_forest": "L1N",
+      "points": 1733761
+    },
+    {
+      "plan_position": 28,
+      "crop_manifest_index": 16447,
+      "augmentation_seed": 3384584736,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2N_637.npz",
+      "sha256": "46170e54292e2b50f6eb4b8e60c4933d16c67de91513d8ae5a4444007a6ade48",
+      "source_forest": "L2N",
+      "points": 762182
+    },
+    {
+      "plan_position": 39,
+      "crop_manifest_index": 17716,
+      "augmentation_seed": 3754969777,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2W_382.npz",
+      "sha256": "3d14f09bbdaeff5c7e9de64cd7dcc9a59f7462474b0b4a6255bfb58547bee896",
+      "source_forest": "L2W",
+      "points": 1649486
+    },
+    {
+      "plan_position": 13,
+      "crop_manifest_index": 19192,
+      "augmentation_seed": 2613092113,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG1_741.npz",
+      "sha256": "c52b59a5712699412a2d9744ea5b37030922ad38242c1eb1f8671e080320d94f",
+      "source_forest": "LG1",
+      "points": 784533
+    },
+    {
+      "plan_position": 32,
+      "crop_manifest_index": 19839,
+      "augmentation_seed": 1020732525,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG2_1322.npz",
+      "sha256": "220a6d1c946e0e1f494857b9812123bf4827f1f5bf5f47aab824beff53412cca",
+      "source_forest": "LG2",
+      "points": 1385154
+    },
+    {
+      "plan_position": 10,
+      "crop_manifest_index": 21423,
+      "augmentation_seed": 2748774356,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_1444.npz",
+      "sha256": "3270a0a13e48912a35aba5743e92445d2457f339b08d08325f460341bd126003",
+      "source_forest": "LG3",
+      "points": 1217051
+    },
+    {
+      "plan_position": 35,
+      "crop_manifest_index": 23085,
+      "augmentation_seed": 1575804884,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1N_518.npz",
+      "sha256": "777792b2e37f150a880f247c31d87c4f42bac812c3cfc73c270a8621aaff00d8",
+      "source_forest": "O1N",
+      "points": 481928
+    },
+    {
+      "plan_position": 1,
+      "crop_manifest_index": 24016,
+      "augmentation_seed": 3930499525,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_1355.npz",
+      "sha256": "5c0cc13f72fe2e0d818961d8505910c8767907e8d8ee8affdedeccddcf0a9bb5",
+      "source_forest": "O1W",
+      "points": 2031204
+    },
+    {
+      "plan_position": 48,
+      "crop_manifest_index": 733,
+      "augmentation_seed": 1439644845,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_212.npz",
+      "sha256": "5e94ae8636eed563186faed84c7bc2e28fd9bfce39426dc8e48a4afbc41f5fd5",
+      "source_forest": "A1N",
+      "points": 656613
+    },
+    {
+      "plan_position": 23,
+      "crop_manifest_index": 2227,
+      "augmentation_seed": 2007290259,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1W_352.npz",
+      "sha256": "1f40b380b76c1c4f5a61a69f9dadef01735c4c518b95e4652d3bc59d971507e8",
+      "source_forest": "A1W",
+      "points": 1002191
+    },
+    {
+      "plan_position": 11,
+      "crop_manifest_index": 3503,
+      "augmentation_seed": 3278119080,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1N_594.npz",
+      "sha256": "a48cde4a8524b5b12beb41b04013436c47d3c102ef8f39620be066f8c7df4051",
+      "source_forest": "G1N",
+      "points": 1482103
+    },
+    {
+      "plan_position": 40,
+      "crop_manifest_index": 4972,
+      "augmentation_seed": 270879103,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1W_1915.npz",
+      "sha256": "61f3e9408e0bfe30e532b0acad316c0328c6d1b1a3f23c4b77d4f7341fc3483f",
+      "source_forest": "G1W",
+      "points": 836567
+    },
+    {
+      "plan_position": 12,
+      "crop_manifest_index": 6657,
+      "augmentation_seed": 3682027,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_384.npz",
+      "sha256": "25610b5fa153bd8ac8a4b865c11c629e2da219122b488cba30cad52e80f7560d",
+      "source_forest": "G2N",
+      "points": 831125
+    },
+    {
+      "plan_position": 20,
+      "crop_manifest_index": 7752,
+      "augmentation_seed": 836677126,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_47.npz",
+      "sha256": "eb9ca76904b940d798956fc4f1f2cdb340ec666416f256b230b542258847fc46",
+      "source_forest": "G2W",
+      "points": 2095216
+    },
+    {
+      "plan_position": 9,
+      "crop_manifest_index": 9567,
+      "augmentation_seed": 4177404341,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_830.npz",
+      "sha256": "c8e5a7ca4b4ae600b066db8422c651457766ba2e89f787c3998ace63894c7163",
+      "source_forest": "G3N",
+      "points": 1234022
+    },
+    {
+      "plan_position": 52,
+      "crop_manifest_index": 9888,
+      "augmentation_seed": 3582985508,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1118.npz",
+      "sha256": "b45e9f5b82041a1569c2fbc3bb780ce1af2b7ea37c322fcd81f54272f7da9e5a",
+      "source_forest": "G3W",
+      "points": 1381212
+    },
+    {
+      "plan_position": 72,
+      "crop_manifest_index": 12042,
+      "augmentation_seed": 1311109821,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_871.npz",
+      "sha256": "8aede03f74ca73eb4b76b8ecb94d2b98fddaae71a4f48fa53cbc6c9a56a94266",
+      "source_forest": "G4N",
+      "points": 986467
+    },
+    {
+      "plan_position": 4,
+      "crop_manifest_index": 14018,
+      "augmentation_seed": 3541981726,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_929.npz",
+      "sha256": "be941e3d2c284e063ddda243316959f9fbc7516a209763a15cf58628686bf4ca",
+      "source_forest": "G4W",
+      "points": 1341861
+    },
+    {
+      "plan_position": 56,
+      "crop_manifest_index": 15191,
+      "augmentation_seed": 2668298924,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_562.npz",
+      "sha256": "e6c02c9f14228c98d10e6fa379e1398c6ac5b6f56b3d547f13f4c482248880de",
+      "source_forest": "L1N",
+      "points": 1327112
+    },
+    {
+      "plan_position": 57,
+      "crop_manifest_index": 15694,
+      "augmentation_seed": 1604676124,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2N_1013.npz",
+      "sha256": "b562a7c48032ada0782327a34003501cc26ae815721eceff1d366a96c6fec989",
+      "source_forest": "L2N",
+      "points": 1437218
+    },
+    {
+      "plan_position": 42,
+      "crop_manifest_index": 17238,
+      "augmentation_seed": 4048006375,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2W_1348.npz",
+      "sha256": "5f2c8f810176b1917f4dca9fcf8f18dadb5cbd1c591884ef1f1aa165396f6e74",
+      "source_forest": "L2W",
+      "points": 1396251
+    },
+    {
+      "plan_position": 25,
+      "crop_manifest_index": 19122,
+      "augmentation_seed": 3108179217,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG1_679.npz",
+      "sha256": "a9737c9ec5e542226550d76968533c754860e4500c84160bf18516404e669592",
+      "source_forest": "LG1",
+      "points": 1098229
+    },
+    {
+      "plan_position": 58,
+      "crop_manifest_index": 19946,
+      "augmentation_seed": 2318899496,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG2_1419.npz",
+      "sha256": "47635b5b9cd7f564566b90dd28b22d641288fda67513b50f96f1d23ea4ab3c00",
+      "source_forest": "LG2",
+      "points": 650560
+    },
+    {
+      "plan_position": 16,
+      "crop_manifest_index": 21135,
+      "augmentation_seed": 1746194454,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_1185.npz",
+      "sha256": "bccf689484f6a6fb35f54f636a4c6f81d65d5db90b76c12ba3011973b14b7011",
+      "source_forest": "LG3",
+      "points": 949793
+    },
+    {
+      "plan_position": 51,
+      "crop_manifest_index": 22714,
+      "augmentation_seed": 3121393475,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1N_184.npz",
+      "sha256": "74904e955d514f2a534fb1e7cda3f183123d29039b5e9b8b96d7ed679a56f79b",
+      "source_forest": "O1N",
+      "points": 657955
+    },
+    {
+      "plan_position": 38,
+      "crop_manifest_index": 24427,
+      "augmentation_seed": 180113192,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_483.npz",
+      "sha256": "8aac3ced4a8106a0c5072fa1e2e6207e9e6ec6aa5bdb78116a3e1f18ef8fbabb",
+      "source_forest": "O1W",
+      "points": 1883075
+    },
+    {
+      "plan_position": 79,
+      "crop_manifest_index": 866,
+      "augmentation_seed": 3066140543,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_332.npz",
+      "sha256": "d86f770f51484e23cac9755fa03ed0509b0dc2abcc0ee721abd6733abcc13b05",
+      "source_forest": "A1N",
+      "points": 1248033
+    },
+    {
+      "plan_position": 36,
+      "crop_manifest_index": 1805,
+      "augmentation_seed": 638347591,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1W_1177.npz",
+      "sha256": "651a19758baf624e5132ee8ac09efddaf9d2f0866012416cdb821fac5a5ca5e9",
+      "source_forest": "A1W",
+      "points": 1487730
+    },
+    {
+      "plan_position": 50,
+      "crop_manifest_index": 3848,
+      "augmentation_seed": 491433061,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1N_904.npz",
+      "sha256": "3f46754c9c0a79e103b4b638d2f3e4dba8f67878a5d9ef1c9086d27ee623fc1e",
+      "source_forest": "G1N",
+      "points": 1218562
+    },
+    {
+      "plan_position": 45,
+      "crop_manifest_index": 5100,
+      "augmentation_seed": 3847900453,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1W_290.npz",
+      "sha256": "f43751d6e3203ae41520b1342a43cac88b7eb6a05da7d751e72b3b40d42cefa4",
+      "source_forest": "G1W",
+      "points": 1588391
+    },
+    {
+      "plan_position": 18,
+      "crop_manifest_index": 6492,
+      "augmentation_seed": 2221972131,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_235.npz",
+      "sha256": "ce7789d35e58609f6dccbd045694fedcede6b5ae5930fa92baa87b16fb217380",
+      "source_forest": "G2N",
+      "points": 1371371
+    },
+    {
+      "plan_position": 41,
+      "crop_manifest_index": 7613,
+      "augmentation_seed": 3791963499,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_344.npz",
+      "sha256": "32446c18b3dea13116d514357322627682aad7242a6f21e3ea10f29025f07cae",
+      "source_forest": "G2W",
+      "points": 1869154
+    },
+    {
+      "plan_position": 21,
+      "crop_manifest_index": 8614,
+      "augmentation_seed": 4273277649,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_1295.npz",
+      "sha256": "60fe76b4ad2aa2c6acfa163a7efc5515421138fbdbdc8f61f00b727b1cf63d2f",
+      "source_forest": "G3N",
+      "points": 1017725
+    },
+    {
+      "plan_position": 85,
+      "crop_manifest_index": 9807,
+      "augmentation_seed": 3349398379,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1045.npz",
+      "sha256": "059dd43e36e1a24f7b4b9e9f9067863f5f004081891a5d094c1b7ee28145a140",
+      "source_forest": "G3W",
+      "points": 1665692
+    },
+    {
+      "plan_position": 80,
+      "crop_manifest_index": 11506,
+      "augmentation_seed": 222483760,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_389.npz",
+      "sha256": "f7b205a72ebbeff7ea70f6062915b9a04c90b7f8c0c76d898fdbe71e3d5ba066",
+      "source_forest": "G4N",
+      "points": 1359380
+    },
+    {
+      "plan_position": 7,
+      "crop_manifest_index": 12909,
+      "augmentation_seed": 3744842077,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_1650.npz",
+      "sha256": "414dbe85542ca93553d0acd41c74f5c6b1ba86fa3bae3c00e4b9e828dce17cba",
+      "source_forest": "G4W",
+      "points": 793101
+    },
+    {
+      "plan_position": 59,
+      "crop_manifest_index": 14354,
+      "augmentation_seed": 3098671159,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_123.npz",
+      "sha256": "89ba0b04e7ce962dc22e156ac960a5ef86bb3438f024318602a2395d69bd69a5",
+      "source_forest": "L1N",
+      "points": 1372044
+    },
+    {
+      "plan_position": 82,
+      "crop_manifest_index": 15978,
+      "augmentation_seed": 3777050818,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2N_214.npz",
+      "sha256": "aca86d909c729ecb44f95aed674fe20539d5c631759833399e53725ef364d1b5",
+      "source_forest": "L2N",
+      "points": 1322862
+    },
+    {
+      "plan_position": 61,
+      "crop_manifest_index": 18353,
+      "augmentation_seed": 1404275727,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2W_956.npz",
+      "sha256": "de4a364a31eed25c501d9f141ba42999b510aa1f83bccd1114c80d17f684ea1a",
+      "source_forest": "L2W",
+      "points": 730654
+    },
+    {
+      "plan_position": 49,
+      "crop_manifest_index": 18404,
+      "augmentation_seed": 1328466311,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG1_100.npz",
+      "sha256": "5ff6b8f4964876f3a0c0d92b9aec7c128db99f234140dbcd9f9ab8e0b8e19529",
+      "source_forest": "LG1",
+      "points": 1002253
+    },
+    {
+      "plan_position": 65,
+      "crop_manifest_index": 20523,
+      "augmentation_seed": 2835191442,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG2_635.npz",
+      "sha256": "3d9a3eb03b2d098d693245ea606d5cd9004ac202746a83c44103f84c686216fe",
+      "source_forest": "LG2",
+      "points": 993761
+    },
+    {
+      "plan_position": 17,
+      "crop_manifest_index": 21080,
+      "augmentation_seed": 780151771,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_1135.npz",
+      "sha256": "10d655e220173ad4447366f724f97b603d6563efb3c726f6d034849d1ae71c4d",
+      "source_forest": "LG3",
+      "points": 918180
+    },
+    {
+      "plan_position": 54,
+      "crop_manifest_index": 22683,
+      "augmentation_seed": 2131579788,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1N_156.npz",
+      "sha256": "f8d232052f102dde7272980acc41f663546d03e7b538f0a8f2990a16465261ae",
+      "source_forest": "O1N",
+      "points": 565591
+    },
+    {
+      "plan_position": 46,
+      "crop_manifest_index": 23948,
+      "augmentation_seed": 407925282,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_1294.npz",
+      "sha256": "7b9f47569a2f4ef1da918499e2527dc664bd12cb4f0418baf9f4f54b0ff6061d",
+      "source_forest": "O1W",
+      "points": 1615102
+    },
+    {
+      "plan_position": 134,
+      "crop_manifest_index": 1427,
+      "augmentation_seed": 4244954510,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_838.npz",
+      "sha256": "2d4d396489744d8d6a9b9d23633b56db2d2f8e099639a1dda4aaa82d1bfe2435",
+      "source_forest": "A1N",
+      "points": 788436
+    },
+    {
+      "plan_position": 37,
+      "crop_manifest_index": 2790,
+      "augmentation_seed": 3215956934,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1W_86.npz",
+      "sha256": "2c987023b2894f7cc060929cb2cb858cc792385b101d02c01efcf7c6801f0ca4",
+      "source_forest": "A1W",
+      "points": 505682
+    },
+    {
+      "plan_position": 55,
+      "crop_manifest_index": 3352,
+      "augmentation_seed": 227488968,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1N_458.npz",
+      "sha256": "4b00359efb29ee998ecdf535c9c5c02bf0f30b9186aeb27056981aa624514213",
+      "source_forest": "G1N",
+      "points": 1438258
+    },
+    {
+      "plan_position": 53,
+      "crop_manifest_index": 4405,
+      "augmentation_seed": 1308660820,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G1W_1404.npz",
+      "sha256": "24f024d702fddcbc94d8001b624a130f315859966bf65a14a90316c6eac8bbfd",
+      "source_forest": "G1W",
+      "points": 943483
+    },
+    {
+      "plan_position": 19,
+      "crop_manifest_index": 6891,
+      "augmentation_seed": 2949181720,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2N_595.npz",
+      "sha256": "ae408299b0b14a0b91888288b4a26a12ee83695e3f8c1e8e7d10ec9afa0c2f60",
+      "source_forest": "G2N",
+      "points": 697289
+    },
+    {
+      "plan_position": 44,
+      "crop_manifest_index": 7946,
+      "augmentation_seed": 4228556189,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_644.npz",
+      "sha256": "ff154afd3d2f1a4faa519ed60d9f482f74b550346bb5564f47c77cda37c6f97a",
+      "source_forest": "G2W",
+      "points": 1027168
+    },
+    {
+      "plan_position": 26,
+      "crop_manifest_index": 9622,
+      "augmentation_seed": 2516388457,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_880.npz",
+      "sha256": "854e2aedff7429396ed2942d8048b27b3cf632444965e7cfb8cb08d3f6805664",
+      "source_forest": "G3N",
+      "points": 1306797
+    },
+    {
+      "plan_position": 122,
+      "crop_manifest_index": 10600,
+      "augmentation_seed": 3143667174,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_490.npz",
+      "sha256": "ef5c78efa4a0e20de8f0b7ffd90ebfeb97af7c3aa5148e7e199c7101ddb9483e",
+      "source_forest": "G3W",
+      "points": 1350930
+    },
+    {
+      "plan_position": 91,
+      "crop_manifest_index": 12146,
+      "augmentation_seed": 3486700717,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_965.npz",
+      "sha256": "cc232eaafa3f35df85a36c56057a9c9f5dd8816f1ad248bfa3b3395433745300",
+      "source_forest": "G4N",
+      "points": 756877
+    },
+    {
+      "plan_position": 15,
+      "crop_manifest_index": 13361,
+      "augmentation_seed": 1569492197,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4W_337.npz",
+      "sha256": "2de7757928dc0f1e92200fb1df288e0814aae335aa0ba445b6ca532257626861",
+      "source_forest": "G4W",
+      "points": 1306178
+    },
+    {
+      "plan_position": 68,
+      "crop_manifest_index": 15657,
+      "augmentation_seed": 1914236375,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_982.npz",
+      "sha256": "8868157c2b76098b3a0f031ee3cb10a2a0e4036bafb13c5c331f566aba9c2db9",
+      "source_forest": "L1N",
+      "points": 1431541
+    },
+    {
+      "plan_position": 92,
+      "crop_manifest_index": 16541,
+      "augmentation_seed": 172058790,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2N_721.npz",
+      "sha256": "7a88dd56d594ee2cc0d47c922c6da9f1ea3b445be6f3e0625778e4e775b6658a",
+      "source_forest": "L2N",
+      "points": 1681935
+    },
+    {
+      "plan_position": 62,
+      "crop_manifest_index": 17580,
+      "augmentation_seed": 1370662539,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L2W_26.npz",
+      "sha256": "263175a14aad5733eb65406d1177ab0880473eb25dbe5bef9a4587611b24d590",
+      "source_forest": "L2W",
+      "points": 1760901
+    },
+    {
+      "plan_position": 67,
+      "crop_manifest_index": 19349,
+      "augmentation_seed": 3151372175,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG1_883.npz",
+      "sha256": "17877353b87b578984ea28607a914a0a0e33a3db0484be05394f56a93aafd356",
+      "source_forest": "LG1",
+      "points": 818416
+    },
+    {
+      "plan_position": 78,
+      "crop_manifest_index": 20198,
+      "augmentation_seed": 452898448,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG2_342.npz",
+      "sha256": "b984de04e6cd52b55e2c4a37d3496a6b4379cf4b92c701a6d80b86b998bc7b68",
+      "source_forest": "LG2",
+      "points": 1446208
+    },
+    {
+      "plan_position": 31,
+      "crop_manifest_index": 22163,
+      "augmentation_seed": 1762249198,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_755.npz",
+      "sha256": "8c006e0b478df7f7a51e85f050210b6e4328ede516a028ea901d331234c56d6b",
+      "source_forest": "LG3",
+      "points": 636421
+    },
+    {
+      "plan_position": 63,
+      "crop_manifest_index": 22488,
+      "augmentation_seed": 2703935553,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1N_1046.npz",
+      "sha256": "68b202da46b354ad838b2d639c730d0f8de0eb56f547ebe275ebe7789209a52f",
+      "source_forest": "O1N",
+      "points": 1210842
+    },
+    {
+      "plan_position": 90,
+      "crop_manifest_index": 24661,
+      "augmentation_seed": 3184460332,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_694.npz",
+      "sha256": "f1b2bfcb0cd1a06ca3ccd042e543d6315f1ef5d23c629a0fcfb2b16d3695159f",
+      "source_forest": "O1W",
+      "points": 1576882
+    }
+  ],
+  "samples": 72,
+  "crops_per_training_forest": 4,
+  "already_consumed_sample_prefix": 10000,
+  "validation_protocol_sha256": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+  "precision": "global FP32, native sparse eval kernel; FlashAttention native internal QKV precision",
+  "statistic": "point-weighted pooled FP64 central moments; unbiased aggregate running variance",
+  "calibration_order": [
+    [
+      "backbone.embedding.stem.norm"
+    ],
+    [
+      "backbone.enc.enc1.down.norm.0"
+    ],
+    [
+      "backbone.enc.enc2.down.norm.0"
+    ],
+    [
+      "backbone.enc.enc3.down.norm.0"
+    ],
+    [
+      "backbone.enc.enc4.down.norm.0"
+    ],
+    [
+      "backbone.dec.dec3.up.proj.1",
+      "backbone.dec.dec3.up.proj_skip.1"
+    ],
+    [
+      "backbone.dec.dec2.up.proj.1",
+      "backbone.dec.dec2.up.proj_skip.1"
+    ],
+    [
+      "backbone.dec.dec1.up.proj.1",
+      "backbone.dec.dec1.up.proj_skip.1"
+    ],
+    [
+      "backbone.dec.dec0.up.proj.1",
+      "backbone.dec.dec0.up.proj_skip.1"
+    ],
+    [
+      "semantic_linear.1",
+      "offset_linear.1"
+    ]
+  ],
+  "variants": [
+    "head_only",
+    "all_sequential"
+  ],
+  "prefixes": [
+    18,
+    36,
+    72
+  ],
+  "stability_flag_threshold": {
+    "normalized_mean_shift": 0.1,
+    "relative_std_change": 0.1
+  },
+  "stability_policy": "Measure 36->72; flag failures without automatic sample/budget expansion or result-based tuning",
+  "selection": "First four unique consumed crops per training forest, round-robin; no labels or validation outcomes",
+  "labels_used": false,
+  "automatic_training": false,
+  "optimizer_steps": 0,
+  "num_batches_tracked": "Preserve original 10000; population statistics provenance is separate",
+  "resumable_training_checkpoint": false
+}
