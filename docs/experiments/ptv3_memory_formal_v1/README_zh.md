@@ -31,4 +31,6 @@ env -u PYTORCH_CUDA_ALLOC_CONF OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
 
 不要在已有进程运行时再次执行。停止后恢复仍使用冻结代码、原配置和相同 allocator。原训练器恢复前逐项校验 model、optimizer、scheduler、scaler、RNG 和游标；CUDA 后续轨迹不承诺逐位一致。L1W/Wytham 不参与训练、早停或模型选择，最终模型仍按固定终点选择。
 
-本入口与既有适配器共 **16 项回归测试通过**，日志见 [unit_tests.log](unit_tests.log)，覆盖完整配置/正式计划保护、限点与改通道拒绝、空目录保护、滚动 checkpoint 路由、作用域恢复及已有重计算检查。原 TreeLearn 核心、baseline/vendor、原配置未改；main 和 baseline 分支未动。正式运行状态与启动 commit 在启动后补充到本目录的证据文件，不把尚未发生的更新或结果提前记为通过。
+本入口与既有适配器共 **16 项回归测试通过**，日志见 [unit_tests.log](unit_tests.log)，覆盖完整配置/正式计划保护、限点与改通道拒绝、空目录保护、滚动 checkpoint 路由、作用域恢复及已有重计算检查。原 TreeLearn 核心、baseline/vendor、原配置未改；main 和 baseline 分支未动。
+
+实际作业已于 **2026-10-23 16:01（Asia/Shanghai）**启动，PID **1986728**；冻结源 commit 为 **`649c1749ea654cb42add12db2eacff3da9532c09`**。[launch.json](evidence/launch.json) 保存命令与进程信息，[启动状态快照](evidence/startup_run_status.json) 及 [完整性核对](evidence/startup_integrity.json) 记录取证时的真实状态。取证时仍为全量数据 SHA256 核验，正式 update=0；这不是完成训练或通过长期稳定性验证的证据。实时状态以独立运行目录中的 `run/run_status.json` 为准，进程将于全部数据校验通过后自动进入训练。

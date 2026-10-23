@@ -1,0 +1,28 @@
+{
+  "pid": 1986728,
+  "launched_unix": 1792742473.2345657,
+  "source_commit": "649c1749ea654cb42add12db2eacff3da9532c09",
+  "source_branch": "codex/ptv3-full-cloud-memory-v1",
+  "cwd": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source",
+  "command": [
+    "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+    "-u",
+    "tools/experiments/ptv3_memory_train_v1.py",
+    "--seed",
+    "42",
+    "--work-dir",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/run"
+  ],
+  "output": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/run",
+  "phase": "formal",
+  "seed": 42,
+  "target_updates": 250000,
+  "epochs": 1000,
+  "physical_batch": 1,
+  "accumulation_steps": 2,
+  "maximum_points": null,
+  "initialization": "scratch",
+  "preflight": "full 25,000-crop SHA256 verification before first update",
+  "console": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/console.log",
+  "automatic_restart": false
+}

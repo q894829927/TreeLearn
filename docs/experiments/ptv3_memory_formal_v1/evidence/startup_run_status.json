@@ -1,0 +1,13 @@
+{
+  "status": "verifying_data",
+  "phase": "formal",
+  "seed": 42,
+  "target_updates": 250000,
+  "completed_updates": 0,
+  "verified_crops": 900,
+  "total_crops": 25000,
+  "pid": 1986728,
+  "started_unix": 1792742477.5343714,
+  "resumed_from": null,
+  "updated_unix": 1792742622.0679102
+}
