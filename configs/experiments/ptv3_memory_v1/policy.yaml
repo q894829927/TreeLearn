@@ -1,0 +1,27 @@
+# Audit policy, NOT a long-training configuration.
+reference_config: configs/experiments/ptv3_treelearn/e1_ptv3_micro_checkpoint.yaml
+base_commit: 855f831c01089261b93658fa2d9a4507bc43be27
+factory: tree_learn.experiments.ptv3_memory_v1.build_optimized_model
+recommended_variant: block_nested
+alternative_variant: block
+variants:
+  reference: baseline Attention/MLP tensor checkpointing
+  serialization: expand inverse-scatter source instead of repeat; baseline checkpointing
+  block: BN-free Block checkpointing; two distinct dense/sparse feature inputs
+  stage: contiguous BN-free Blocks per stage; pool/unpool outside recomputation
+  block_nested: Block checkpointing plus baseline Attention/MLP checkpointing
+  stage_nested: Stage checkpointing plus baseline Attention/MLP checkpointing
+  offload: byte-preserving CPU saved-tensor offload; baseline checkpointing
+invariants:
+  maximum_points: null
+  voxel_size: 0.1
+  serialization_order: [z, z-trans, hilbert, hilbert-trans]
+  patch_size: 1024
+  architecture: identical to reference_config
+  precision: same baseline CUDA autocast FP16 and Flash FP16
+  batchnorm_recomputed: false
+audit_budget:
+  maximum_optimizer_steps_per_process: 3
+  physical_batch_size: 1
+  final_accumulation_steps: 2
+  long_training_started: false
