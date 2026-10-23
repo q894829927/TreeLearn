@@ -1,0 +1,175 @@
+{
+  "collected_at": "2026-10-23T21:31:36.464800+08:00",
+  "run_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42",
+  "diagnostic_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1",
+  "files": [
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/manifest.json",
+      "evidence": "replay_01/manifest.json",
+      "sha256": "ec8539c2d6e135b13a609c644674e16a7c30a85031931b23c855ba77ffdde1c0",
+      "bytes": 6383
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/status.json",
+      "evidence": "replay_01/status.json",
+      "sha256": "4cfbfac4399e809951fae107bcf61dfa56331fd1100c98e7dc1b8c2f9e0d1f3a",
+      "bytes": 944
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/target_input.json",
+      "evidence": "replay_01/target_input.json",
+      "sha256": "0be4a37570d483b22d27c8fee391abfb1ba47031da2ba8421a4826fed2c346ee",
+      "bytes": 2414
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/target_loss.json",
+      "evidence": "replay_01/target_loss.json",
+      "sha256": "6e239c2d86ada7bf5880855b975aa6b7414e6b25957be9fcb9343ea7b177c54d",
+      "bytes": 1138
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/first_nonfinite_module.json",
+      "evidence": "replay_01/first_nonfinite_module.json",
+      "sha256": "7cf0a9ca0bb78536ad553f2f85724bd0159c4fb4576255625ae1b9c6eaed8960",
+      "bytes": 571
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/replay_updates.jsonl",
+      "evidence": "replay_01/replay_updates.jsonl",
+      "sha256": "c61a31bdeb7e8ca1f420b3d1595eef2109f5b98739c82564d843da377799fa5a",
+      "bytes": 9879
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/exception.txt",
+      "evidence": "replay_01/exception.txt",
+      "sha256": "f4b9601528fcb3cf195dc4fcdff6dae98b2010fcab4e44639c0d409c2e514473",
+      "bytes": 301
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/operator_probe_01/result.json",
+      "evidence": "operator_probe_01/result.json",
+      "sha256": "966cda1e18fce84b733987c9642eb7e1291c5e004700cbb0a98cec11b57e3366",
+      "bytes": 6968
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/reference_probe_01/result.json",
+      "evidence": "reference_probe_01/result.json",
+      "sha256": "f29d524ffab0e831d5e9a6f26e0d43db67aaf9da927ac918723ae055073c307f",
+      "bytes": 2815
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/module_trace.jsonl",
+      "evidence": "replay_01/module_trace.jsonl.gz",
+      "raw_sha256": "577d9df89cd70d02a876f29423e91df2fe7fbc3ae4064eb0784d7750b533bd60",
+      "compressed_sha256": "3bc7b1e09ffa927a7ba558f5f60750e072b5a259121f6e6fe85d410fab2f3105",
+      "raw_bytes": 254767
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/monitor/failure_5000_report.json",
+      "evidence": "failure_5000_report.json",
+      "sha256": "3e1c21c982af2a23884cbe7fc2ae0f9c4614796210081a265636036502b5c388",
+      "bytes": 5494
+    },
+    {
+      "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/monitor/failure_5000_checkpoint_health.json",
+      "evidence": "failure_5000_checkpoint_health.json",
+      "sha256": "32106eb3fb42d847c1899aa26f57af54b40f4070e43c936ebda277528602f8bc",
+      "bytes": 992
+    }
+  ],
+  "large_artifacts": [
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/first_bad_operator.pt",
+      "sha256": "9eaf1fc414a733f34869e953d403cf454f62763114d0e5114744547d4648a1a8",
+      "bytes": 199848410,
+      "kept_in_git": false
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/state_before_target.pth",
+      "sha256": "f687779fe5025c2ae8f6169799a9f5f598a60a5b3f82cbad1fb15384e76e58ba",
+      "bytes": 554623258,
+      "kept_in_git": false
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/reference_probe_01/fixed_voxels.pth",
+      "sha256": "467e1699753431ad65ff63e1ea2dfdfe57044468f8d639dc4a4a56fc5c9ba0ed",
+      "bytes": 38365823,
+      "kept_in_git": false
+    }
+  ],
+  "diagnostic_sources": [
+    {
+      "runtime_copy": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/replay_01/diagnostic_source.py",
+      "versioned_tool": "tools/experiments/ptv3_nonfinite_diagnosis_v1.py",
+      "sha256": "3cf021cd1c5f0138b15d10155256bcc2be01ecac5421ebf0dd0d59936699716c",
+      "matches_versioned_tool": true
+    },
+    {
+      "runtime_copy": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/operator_probe_01/diagnostic_source.py",
+      "versioned_tool": "tools/experiments/ptv3_nonfinite_operator_probe_v1.py",
+      "sha256": "8a8c131ef0e5b47f3228e3c3f6e4263d35b6caac6d20ec466164087fcda208b7",
+      "matches_versioned_tool": true
+    },
+    {
+      "runtime_copy": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/nonfinite_v1/reference_probe_01/diagnostic_source.py",
+      "versioned_tool": "tools/experiments/ptv3_nonfinite_reference_probe_v1.py",
+      "sha256": "805777b7a22ae401446e1e84c53986e4e4cd46a71538a6855ca8f3f5499d0479",
+      "matches_versioned_tool": true
+    }
+  ],
+  "preservation_check": {
+    "frozen_sources": {
+      "source": {
+        "commit": "649c1749ea654cb42add12db2eacff3da9532c09",
+        "status": ""
+      },
+      "source_validation_v1": {
+        "commit": "a32ec3cd6233f37e050ca03d0f8a1bf959324b91",
+        "status": ""
+      }
+    },
+    "original_run_status": {
+      "status": "failed",
+      "phase": "formal",
+      "seed": 42,
+      "target_updates": 5000,
+      "completed_updates": 4616,
+      "verified_crops": 8305,
+      "total_crops": 25000,
+      "pid": 2297492,
+      "started_unix": 1792754867.6175773,
+      "resumed_from": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_2900.pth",
+      "updated_unix": 1792759773.1639485,
+      "epoch": 19,
+      "loss": 12.713401794433594,
+      "lr": 0.0011462,
+      "optimizer_skips_this_process": 6,
+      "memory": {
+        "allocated": 1702499328,
+        "reserved": 10026483712,
+        "peak_allocated": 19577586688,
+        "peak_reserved": 20329791488
+      },
+      "error": "Nonfinite training loss",
+      "partial_voxels": [
+        669147
+      ],
+      "failure_memory": {
+        "allocated": 4687734784,
+        "reserved": 13535019008,
+        "peak_allocated": 19577586688,
+        "peak_reserved": 20329791488
+      }
+    },
+    "original_checkpoint_metadata": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/training/to_5000/recovery.pth",
+      "global_update": 4600,
+      "sha256": "e056b26fee0ca643e9bc9067828f6e25703a9993f7d68c735c242bf42e84b8af",
+      "is_formal_final": false,
+      "saved_unix": 1792759743.4244068
+    },
+    "original_checkpoint_sha256_matches": true,
+    "formal_training_resumed": false,
+    "stage_evaluation_started": false
+  }
+}

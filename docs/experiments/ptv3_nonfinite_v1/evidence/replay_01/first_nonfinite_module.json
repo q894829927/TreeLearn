@@ -1,0 +1,33 @@
+{
+  "sequence": 606,
+  "module": "semantic_linear.0",
+  "type": "Linear",
+  "grad_enabled": true,
+  "inputs": {
+    "0.tensor": {
+      "shape": [
+        780587,
+        64
+      ],
+      "dtype": "torch.float32",
+      "numel": 49957568,
+      "finite": true,
+      "min": -3624.938720703125,
+      "max": 3189.105224609375
+    }
+  },
+  "outputs": {
+    "tensor": {
+      "shape": [
+        780587,
+        64
+      ],
+      "dtype": "torch.float16",
+      "numel": 49957568,
+      "finite": false,
+      "nan": 0,
+      "posinf": 780587,
+      "neginf": 0
+    }
+  }
+}

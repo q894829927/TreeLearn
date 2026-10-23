@@ -1,0 +1,30 @@
+{
+  "status": "diagnosis_complete",
+  "first_nonfinite_module": "semantic_linear.0",
+  "target_attempt": 4617,
+  "target_microbatch": 1,
+  "input_points": 780587,
+  "voxels": 669147,
+  "raw_semantic_loss": "NaN",
+  "raw_offset_loss": 10.312067031860352,
+  "amp_positive_inf_count": 780587,
+  "bad_output_channel_zero_based": 57,
+  "same_operator_fp32_bad_channel_range": [
+    66826.328125,
+    67188.390625
+  ],
+  "fp16_max": 65504,
+  "fp32_head_loss": 7.415501117706299,
+  "fp32_head_gradients_finite": true,
+  "reference_vs_block_nested_head_input_max_abs_error": 0,
+  "reference_vs_block_nested_post_forward_rng_equal": true,
+  "history_input_digests_match": true,
+  "replay_history_max_abs_loss_errors": {
+    "semantic_loss_abs_error": 2.5410810708999634,
+    "offset_loss_abs_error": 1.1459896564483643
+  },
+  "formal_restart": false,
+  "formal_precision_changed": false,
+  "safe_checkpoint_update": 4600,
+  "scope_limitation": "Diagnostic replay is not the historical post-4600 CUDA trajectory. FP32 probe validates only the semantic Head, not full network backward or optimizer step."
+}

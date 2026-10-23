@@ -1,0 +1,34 @@
+{
+  "observed_at": "2026-10-23T20:51:44.782552+08:00",
+  "checkpoint_metadata": {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/training/to_5000/recovery.pth",
+    "global_update": 4600,
+    "sha256": "e056b26fee0ca643e9bc9067828f6e25703a9993f7d68c735c242bf42e84b8af",
+    "is_formal_final": false,
+    "saved_unix": 1792759743.4244068
+  },
+  "actual_checkpoint_global_update": 4600,
+  "metadata_matches_update": true,
+  "sha256": "e056b26fee0ca643e9bc9067828f6e25703a9993f7d68c735c242bf42e84b8af",
+  "sha256_matches": true,
+  "all_floating_tensors_finite": true,
+  "nonfinite_tensor_paths": [],
+  "bn_buffers_checked": 15,
+  "bn_counter_values": [
+    9200
+  ],
+  "bn_counts_match": true,
+  "optimizer_steps": [
+    4591.0
+  ],
+  "scaler": {
+    "scale": 2.0,
+    "growth_factor": 2.0,
+    "backoff_factor": 0.5,
+    "growth_interval": 2000,
+    "_growth_tracker": 259
+  },
+  "sampler": {
+    "next_sample": 9200
+  }
+}

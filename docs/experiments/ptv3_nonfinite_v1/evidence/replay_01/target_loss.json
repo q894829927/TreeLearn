@@ -1,0 +1,59 @@
+{
+  "attempt": 4617,
+  "microbatch": 1,
+  "semantic_loss": {
+    "shape": [],
+    "dtype": "torch.float32",
+    "numel": 1,
+    "finite": false,
+    "nan": 1,
+    "posinf": 0,
+    "neginf": 0
+  },
+  "offset_loss": {
+    "shape": [],
+    "dtype": "torch.float32",
+    "numel": 1,
+    "finite": true,
+    "min": 10.312067031860352,
+    "max": 10.312067031860352
+  },
+  "weighted_semantic": {
+    "shape": [],
+    "dtype": "torch.float32",
+    "numel": 1,
+    "finite": false,
+    "nan": 1,
+    "posinf": 0,
+    "neginf": 0
+  },
+  "weighted_offset": {
+    "shape": [],
+    "dtype": "torch.float32",
+    "numel": 1,
+    "finite": true,
+    "min": 8.656673431396484,
+    "max": 8.656673431396484
+  },
+  "total": {
+    "shape": [],
+    "dtype": "torch.float32",
+    "numel": 1,
+    "finite": false,
+    "nan": 1,
+    "posinf": 0,
+    "neginf": 0
+  },
+  "semantic_count": 73805,
+  "offset_count": 56407,
+  "spatial_support": {
+    "actual_grid_shape": [
+      350,
+      350,
+      480
+    ],
+    "cover_all_input": true,
+    "policy": "PTv3 native sparse shape covers grid with upstream padding",
+    "voxels_outside_main_fixed_shape": 0
+  }
+}

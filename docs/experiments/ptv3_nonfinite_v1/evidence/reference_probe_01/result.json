@@ -1,0 +1,118 @@
+{
+  "status": "complete",
+  "purpose": "Diagnostic forward A/B only, no formal model or optimizer changes",
+  "state_sha256": "f687779fe5025c2ae8f6169799a9f5f598a60a5b3f82cbad1fb15384e76e58ba",
+  "voxel_fixture_sha256": "467e1699753431ad65ff63e1ea2dfdfe57044468f8d639dc4a4a56fc5c9ba0ed",
+  "point_count": 780587,
+  "voxels": 669147,
+  "variants": [
+    {
+      "variant": "reference",
+      "head_input": {
+        "shape": [
+          780587,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true,
+        "nan": 0,
+        "inf": 0,
+        "min": -3624.8828125,
+        "max": 3189.197998046875
+      },
+      "semantic_first_linear": {
+        "shape": [
+          780587,
+          64
+        ],
+        "dtype": "torch.float16",
+        "finite": false,
+        "nan": 0,
+        "inf": 780587
+      },
+      "semantic_loss": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "finite": false,
+        "nan": 1,
+        "inf": 0
+      },
+      "offset_loss": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "finite": true,
+        "nan": 0,
+        "inf": 0,
+        "min": 10.313528060913086,
+        "max": 10.313528060913086
+      },
+      "total_loss": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "finite": false,
+        "nan": 1,
+        "inf": 0
+      },
+      "peak_allocated_bytes": 11785754624,
+      "bn_counter_values": [
+        9233
+      ]
+    },
+    {
+      "variant": "block_nested",
+      "head_input": {
+        "shape": [
+          780587,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true,
+        "nan": 0,
+        "inf": 0,
+        "min": -3624.8828125,
+        "max": 3189.197998046875
+      },
+      "semantic_first_linear": {
+        "shape": [
+          780587,
+          64
+        ],
+        "dtype": "torch.float16",
+        "finite": false,
+        "nan": 0,
+        "inf": 780587
+      },
+      "semantic_loss": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "finite": false,
+        "nan": 1,
+        "inf": 0
+      },
+      "offset_loss": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "finite": true,
+        "nan": 0,
+        "inf": 0,
+        "min": 10.313528060913086,
+        "max": 10.313528060913086
+      },
+      "total_loss": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "finite": false,
+        "nan": 1,
+        "inf": 0
+      },
+      "peak_allocated_bytes": 4974524928,
+      "bn_counter_values": [
+        9233
+      ]
+    }
+  ],
+  "head_input_max_abs_error": 0.0,
+  "head_input_relative_l2": 0.0,
+  "post_forward_rng_equal": true,
+  "scope": "Same diagnostic state, fixed voxels/map, complete crop, training mode, enabled grad, original AMP and restored RNG; no backward or optimizer step."
+}

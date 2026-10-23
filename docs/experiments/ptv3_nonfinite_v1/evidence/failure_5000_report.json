@@ -1,0 +1,118 @@
+{
+  "observed_at": "2026-10-23T20:53:17.158230+08:00",
+  "automation_id": "ptv3-5000",
+  "issue": {
+    "kind": "nonfinite_training_loss",
+    "last_completed_update": 4616,
+    "failing_update_attempt": 4617,
+    "failure_time": "2026-10-23T20:49:33.163949+08:00",
+    "safe_checkpoint_update": 4600,
+    "exception_path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/training/to_5000/exception_1792759773163236392.txt"
+  },
+  "last_safe_checkpoint_health": {
+    "observed_at": "2026-10-23T20:51:44.782552+08:00",
+    "checkpoint_metadata": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/training/to_5000/recovery.pth",
+      "global_update": 4600,
+      "sha256": "e056b26fee0ca643e9bc9067828f6e25703a9993f7d68c735c242bf42e84b8af",
+      "is_formal_final": false,
+      "saved_unix": 1792759743.4244068
+    },
+    "actual_checkpoint_global_update": 4600,
+    "metadata_matches_update": true,
+    "sha256": "e056b26fee0ca643e9bc9067828f6e25703a9993f7d68c735c242bf42e84b8af",
+    "sha256_matches": true,
+    "all_floating_tensors_finite": true,
+    "nonfinite_tensor_paths": [],
+    "bn_buffers_checked": 15,
+    "bn_counter_values": [
+      9200
+    ],
+    "bn_counts_match": true,
+    "optimizer_steps": [
+      4591.0
+    ],
+    "scaler": {
+      "scale": 2.0,
+      "growth_factor": 2.0,
+      "backoff_factor": 0.5,
+      "growth_interval": 2000,
+      "_growth_tracker": 259
+    },
+    "sampler": {
+      "next_sample": 9200
+    }
+  },
+  "inferred_input_plan_for_failed_attempt": [
+    {
+      "plan_position_zero_based": 9232,
+      "crop_index": 19450,
+      "augmentation_seed": 2841047932,
+      "crop_manifest_row": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG1_974.npz",
+        "sha256": "d4708c664c42d0074f4be82a0b2f48d94f7e8f2af4079729d37217a5fe7256de",
+        "source_forest": "LG1",
+        "points": 780587
+      }
+    },
+    {
+      "plan_position_zero_based": 9233,
+      "crop_index": 1434,
+      "augmentation_seed": 2954035921,
+      "crop_manifest_row": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_844.npz",
+        "sha256": "eac5354dd18bc44ba561d9bf296fef5c3c8341372bd33978549ca5c78cbd383b",
+        "source_forest": "A1N",
+        "points": 821956
+      }
+    }
+  ],
+  "input_plan_scope_note": "Two planned inputs for attempt 4617, inferred from immutable plan and completed_updates=4616. First microbatch implicated by the one-entry partial_voxels telemetry; exact nonfinite layer/loss remains unknown.",
+  "source_status": {
+    "source": {
+      "commit": "649c1749ea654cb42add12db2eacff3da9532c09",
+      "status": ""
+    },
+    "source_validation_v1": {
+      "commit": "a32ec3cd6233f37e050ca03d0f8a1bf959324b91",
+      "status": ""
+    }
+  },
+  "frozen_training_source_hash_checks": {
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source/tree_learn/experiments/ptv3_memory_v1/formal.py": {
+      "expected": "7aa91a8022b5fd2c4429a8f324c38788f548119cc5fbfd66332e88967d7bbb2e",
+      "actual": "7aa91a8022b5fd2c4429a8f324c38788f548119cc5fbfd66332e88967d7bbb2e",
+      "match": true
+    },
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source/tree_learn/experiments/ptv3_memory_v1/adapters.py": {
+      "expected": "99496c7c00082d68d50dcd218481c7dc6c74719fe90c0b72c435e744d5d79f28",
+      "actual": "99496c7c00082d68d50dcd218481c7dc6c74719fe90c0b72c435e744d5d79f28",
+      "match": true
+    },
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source/tree_learn/experiments/ptv3_treelearn/train.py": {
+      "expected": "a6827354c8107ba9f26c4ff08b7649206a64de4e5a9a65ab7edfcbada3f2d989",
+      "actual": "a6827354c8107ba9f26c4ff08b7649206a64de4e5a9a65ab7edfcbada3f2d989",
+      "match": true
+    },
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source/tools/experiments/ptv3_memory_train_v1.py": {
+      "expected": "5fd48e6fbde6b941351a1550df61a3c7752661efe857981b725df5f3d97aab93",
+      "actual": "5fd48e6fbde6b941351a1550df61a3c7752661efe857981b725df5f3d97aab93",
+      "match": true
+    }
+  },
+  "cuda_peak_allocated_GiB": 18.23304843902588,
+  "cuda_peak_reserved_GiB": 18.93359375,
+  "automatic_evaluation_started": false,
+  "comparison_at_5000_exists": false,
+  "active_training_or_evaluation": false,
+  "automatic_restart": false,
+  "automatic_budget_extension": false,
+  "next_action": "Diagnose the numerical source in attempt 4617 before deciding whether to resume from the intact update-4600 snapshot. No diagnostic GPU replay, new evaluation, or restart was launched by this monitor.",
+  "failed_microbatch_inference": {
+    "microbatch_index_one_based": 1,
+    "crop_path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG1_974.npz",
+    "basis": "run_status.partial_voxels has one entry; the frozen trainer appends once at backbone entry and clears only after a fully completed update. This identifies the first microbatch of attempt 4617, but does not identify the nonfinite layer or loss component."
+  },
+  "monitor_automation_deleted_at": "2026-10-23T20:54:16.171001+08:00",
+  "monitor_automation_delete_status": "deleted"
+}
