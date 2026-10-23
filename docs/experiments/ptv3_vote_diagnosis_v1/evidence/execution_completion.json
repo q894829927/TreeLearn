@@ -1,0 +1,70 @@
+{
+  "version": "ptv3-paper-plan-execution-v1",
+  "status": "complete_stopped_at_failed_learnability_gate",
+  "formal_update": 5000,
+  "parent_checkpoint_sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+  "D0": {
+    "status": "complete",
+    "successful_ordinary_full_forwards": 18,
+    "failed_partial_forward": 1,
+    "reused_successful_forward": 1,
+    "independent_diagnostic_backwards": 4,
+    "optimizer_updates": 0,
+    "oracle_replays": 6
+  },
+  "D1": {
+    "status": "complete_gate_failed",
+    "arms": [
+      {
+        "name": "lr_1",
+        "attempts": 200,
+        "optimizer_updates": 200,
+        "fit_gate": false
+      },
+      {
+        "name": "lr_01",
+        "attempts": 200,
+        "optimizer_updates": 200,
+        "fit_gate": false
+      }
+    ],
+    "matched_parent_verified": true
+  },
+  "D2": {
+    "status": "complete_gate_failed",
+    "attempts": 200,
+    "optimizer_updates": 200,
+    "full_input_memory_gate_passed": true,
+    "architecture_fair_comparison": false
+  },
+  "T0": {
+    "status": "not_entered",
+    "reason": "Both PTv3 fixed-input arms and the bounded scratch sanity check failed the predeclared learnability gate",
+    "additional_formal_updates": 0,
+    "new_l1w_calibrations_or_evaluations": 0
+  },
+  "local_training_updates": 600,
+  "local_training_forwards_and_backwards": 1200,
+  "local_node_check_forwards": 48,
+  "formal_sampler_and_checkpoint_unchanged": true,
+  "frozen_sources_clean": true,
+  "all_saved_net_adam_states_finite": true,
+  "no_new_amp_skips_or_oom": true,
+  "active_jobs": false,
+  "automatic_budget_extension": false,
+  "tests": {
+    "cpu_metric_tests_passed": 3,
+    "commands": [
+      "python -m unittest discover -s tests/ptv3_memory_v1 -p test_vote_diagnosis.py -v",
+      "python -m py_compile tools/experiments/ptv3_vote_diagnosis_v1.py tools/experiments/ptv3_vote_trial_v1.py tools/experiments/ptv3_vote_report_v1.py"
+    ],
+    "runtime_assertions": "Full input/digest/map/GT; BN state/RNG invariance; exhaustive parameter mapping and Adam restoration; warmup/decay LR multiplier; checkpoint float/BN/Adam-step audits"
+  },
+  "limitations": [
+    "Training crop partial inner supervision is not formal L1W instance performance",
+    "PTv3 arms test short recovery from 5000, not a from-scratch optimizer recipe",
+    "U-Net scratch uses native epoch1 warmup versus PTv3 parent epoch21; no architecture conclusion",
+    "Saved-stage failure gates end this authorized plan; future budgets need a new decision"
+  ],
+  "completed_unix": 1792782473.6938622
+}

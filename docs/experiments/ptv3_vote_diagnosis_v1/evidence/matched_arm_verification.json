@@ -1,0 +1,9 @@
+{
+  "initial_rng_equal": true,
+  "parent_sha256_equal": true,
+  "inputs_equal": true,
+  "metrics_equal": true,
+  "training_code_identical": true,
+  "source_difference": "Added math import and replaced CPU LR exact-equality guard with math.isclose rel_tol=1e-14; no training operations changed",
+  "training_code_sha256": "ee7c271a779664c266fc6b24bf7b6406bfde9527ee50b473c278651df440ba55"
+}

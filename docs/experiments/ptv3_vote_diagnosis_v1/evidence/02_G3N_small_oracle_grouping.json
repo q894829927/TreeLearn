@@ -1,0 +1,38 @@
+[
+  {
+    "kind": "model",
+    "seconds": 0.2662566592916846,
+    "groups": [],
+    "cluster_count": 0,
+    "seed_cluster_count": 0,
+    "diagnostic_only": true,
+    "unknown_gt_unchanged": true
+  },
+  {
+    "kind": "semantic",
+    "seconds": 0.22968440037220716,
+    "groups": [],
+    "cluster_count": 0,
+    "seed_cluster_count": 0,
+    "diagnostic_only": true,
+    "unknown_gt_unchanged": true
+  },
+  {
+    "kind": "xy",
+    "seconds": 0.30781626980751753,
+    "groups": [],
+    "cluster_count": 0,
+    "seed_cluster_count": 0,
+    "diagnostic_only": true,
+    "unknown_gt_unchanged": true
+  },
+  {
+    "kind": "z",
+    "seconds": 0.2879150118678808,
+    "groups": [],
+    "cluster_count": 0,
+    "seed_cluster_count": 0,
+    "diagnostic_only": true,
+    "unknown_gt_unchanged": true
+  }
+]

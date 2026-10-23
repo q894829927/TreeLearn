@@ -1,0 +1,30 @@
+{
+  "runtime_base": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42",
+  "files": [
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/vote_diagnosis_v1/attempt_v2/result.json",
+      "bytes": 924873,
+      "sha256": "4e12d1300928cd53bd91091b57eb459423d0b2a7946b6d6e224f836f7dd48a37"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/vote_diagnosis_v1/attempt_v2/manifest.json",
+      "bytes": 11624,
+      "sha256": "c4b0afd43399a56e23edb7d775c040d2e99cd2512c9016fb19d2eeb304f236dd"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/vote_microfit_v1/lr_1/result.json",
+      "bytes": 102384,
+      "sha256": "f23a6ae190cd706671ea7972028c34e357a43f40d8176619e971d15c204604ea"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/vote_microfit_v1/lr_01/result.json",
+      "bytes": 102360,
+      "sha256": "fba07d249355f143d4bfd4d87e5c8647bba07e1a6ad29973b3ebd36742ef17cd"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/vote_microfit_v1/unet_scratch/result.json",
+      "bytes": 102831,
+      "sha256": "2b29cb78f914c6c4a3e4e5710a6fcff593e09984e90f482308cf79f4a86f9d9e"
+    }
+  ]
+}

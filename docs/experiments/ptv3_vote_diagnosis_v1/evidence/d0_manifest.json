@@ -1,0 +1,243 @@
+{
+  "version": "ptv3-vote-d0-v1",
+  "pid": 3699673,
+  "started_unix": 1792781387.9871738,
+  "checkpoint": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_5000_head_fp32_v1.pth",
+  "checkpoint_sha256": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+  "calibrated": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/inference_only.pth",
+  "inputs": [
+    {
+      "plan_position": 48,
+      "crop_manifest_index": 733,
+      "augmentation_seed": 1439644845,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_212.npz",
+      "sha256": "5e94ae8636eed563186faed84c7bc2e28fd9bfce39426dc8e48a4afbc41f5fd5",
+      "source_forest": "A1N",
+      "points": 656613,
+      "input_digest": "e4a605f0acacd89c82f3c548e037108596e6dbb6f91ac8461f1bb8671e71e362",
+      "fixture": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/fixtures/018.pth",
+      "fixture_sha256": "98beed2019eeeaa4796d1ca64e2671c6c20904529a982120f08d4bf14840a29b",
+      "voxels": 561897,
+      "input_audit": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_212.npz",
+        "augmentation_seed": 1439644845,
+        "points_before": 656613,
+        "points_after": 656613,
+        "instances_before": 32,
+        "instances_after": 32,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          41.25127969464323,
+          47.72527546151373,
+          37.99454512385309
+        ],
+        "xyz_extent_after": [
+          41.25127969464323,
+          47.72527546151373,
+          37.99454512385309
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      },
+      "role": "small",
+      "case_id": "00_A1N_small"
+    },
+    {
+      "plan_position": 29,
+      "crop_manifest_index": 423,
+      "augmentation_seed": 1855139918,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_1379.npz",
+      "sha256": "e4b3794263cd3e2b9bb04f8fa88d252f2cb7485ad9f385f498e7ab44c725c1b6",
+      "source_forest": "A1N",
+      "points": 1436827,
+      "input_digest": "6b9c45d814fbbe324a693a163138f823372380cfbd87a4a435112d0bc98c50f2",
+      "fixture": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/fixtures/000.pth",
+      "fixture_sha256": "e5b38fd9436f1b4bf8ebf7fae837f41cf7530f909c6b807b3f2a91cdbe718ed2",
+      "voxels": 1236800,
+      "input_audit": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_1379.npz",
+        "augmentation_seed": 1855139918,
+        "points_before": 1436827,
+        "points_after": 1436827,
+        "instances_before": 59,
+        "instances_after": 59,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          35.39565467834473,
+          35.39897346496582,
+          32.72096765041351
+        ],
+        "xyz_extent_after": [
+          35.39565467834473,
+          35.39897346496582,
+          32.72096765041351
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      },
+      "role": "large",
+      "case_id": "01_A1N_large"
+    },
+    {
+      "plan_position": 2,
+      "crop_manifest_index": 9668,
+      "augmentation_seed": 3686218170,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_921.npz",
+      "sha256": "8bcc2f975213db93e4b02b5d5c53f998e4fbdcd1eea7aead08d567750000c00b",
+      "source_forest": "G3N",
+      "points": 586216,
+      "input_digest": "1f9f5bf8d879c77658c7583e665a5056580d9310c3bf1989cbc31eb77a4b3538",
+      "fixture": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/fixtures/006.pth",
+      "fixture_sha256": "1f8c5b5d6485fb284d980de77783244c854e0bd8beb191405897b95eaaf4d901",
+      "voxels": 501162,
+      "input_audit": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_921.npz",
+        "augmentation_seed": 3686218170,
+        "points_before": 586216,
+        "points_after": 586216,
+        "instances_before": 28,
+        "instances_after": 28,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          34.47922265991653,
+          40.34053085578602,
+          42.38379006547861
+        ],
+        "xyz_extent_after": [
+          34.47922265991653,
+          40.34053085578602,
+          42.38379006547861
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      },
+      "role": "small",
+      "case_id": "02_G3N_small"
+    },
+    {
+      "plan_position": 26,
+      "crop_manifest_index": 9622,
+      "augmentation_seed": 2516388457,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_880.npz",
+      "sha256": "854e2aedff7429396ed2942d8048b27b3cf632444965e7cfb8cb08d3f6805664",
+      "source_forest": "G3N",
+      "points": 1306797,
+      "input_digest": "4209909bcff8d73d25f6053bccf6293a1ae55023de3a1f7f5cc633683232df0a",
+      "fixture": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/fixtures/060.pth",
+      "fixture_sha256": "c2c7e03e9a1ca3b38edaefc9b74631ba1f7bf5e8846cac3a892783ceee028645",
+      "voxels": 1026846,
+      "input_audit": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_880.npz",
+        "augmentation_seed": 2516388457,
+        "points_before": 1306797,
+        "points_after": 1306797,
+        "instances_before": 47,
+        "instances_after": 47,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          35.414915355236744,
+          35.41243236923029,
+          37.3700008392334
+        ],
+        "xyz_extent_after": [
+          35.414915355236744,
+          35.41243236923029,
+          37.3700008392334
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      },
+      "role": "large",
+      "case_id": "03_G3N_large"
+    },
+    {
+      "plan_position": 31,
+      "crop_manifest_index": 22163,
+      "augmentation_seed": 1762249198,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_755.npz",
+      "sha256": "8c006e0b478df7f7a51e85f050210b6e4328ede516a028ea901d331234c56d6b",
+      "source_forest": "LG3",
+      "points": 636421,
+      "input_digest": "0a5a4ca90278e81b84e85710c925c203779422e5f1f305249c162fc3b2346e4a",
+      "fixture": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/fixtures/069.pth",
+      "fixture_sha256": "879e5e16533919575f411db30b45d973a20d9c1487f46a2a5a7528846e6be68a",
+      "voxels": 473687,
+      "input_audit": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_755.npz",
+        "augmentation_seed": 1762249198,
+        "points_before": 636421,
+        "points_after": 636421,
+        "instances_before": 26,
+        "instances_after": 26,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          36.57544780110146,
+          19.495183968275107,
+          31.942701576413544
+        ],
+        "xyz_extent_after": [
+          36.57544780110146,
+          19.495183968275107,
+          31.942701576413544
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      },
+      "role": "small",
+      "case_id": "04_LG3_small"
+    },
+    {
+      "plan_position": 10,
+      "crop_manifest_index": 21423,
+      "augmentation_seed": 2748774356,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_1444.npz",
+      "sha256": "3270a0a13e48912a35aba5743e92445d2457f339b08d08325f460341bd126003",
+      "source_forest": "LG3",
+      "points": 1217051,
+      "input_digest": "c9f58edfa35ec0a7c17fcf96de16ce049cdea57016812657ac62bb9f298cba36",
+      "fixture": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/fixtures/015.pth",
+      "fixture_sha256": "47ffdb550188fced85427469e30cdf5301bfd2c019be06fff476f95ef6226fdf",
+      "voxels": 1052836,
+      "input_audit": {
+        "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/LG3_1444.npz",
+        "augmentation_seed": 2748774356,
+        "points_before": 1217051,
+        "points_after": 1217051,
+        "instances_before": 27,
+        "instances_after": 27,
+        "instance_retention": 1.0,
+        "xyz_extent_before": [
+          46.39945266805161,
+          32.17637484800454,
+          43.799106004581006
+        ],
+        "xyz_extent_after": [
+          46.39945266805161,
+          32.17637484800454,
+          43.799106004581006
+        ],
+        "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+      },
+      "role": "large",
+      "case_id": "05_LG3_large"
+    }
+  ],
+  "selection": "Per A1N/G3N/LG3, smallest/largest by prior metadata, independent of outputs",
+  "modes": [
+    "raw_eval",
+    "calibrated_eval",
+    "batch_bn"
+  ],
+  "ordinary_full_forwards_budget": 18,
+  "optimizer_updates": 0,
+  "backwards": 0,
+  "oracle_grouping_budget": 6,
+  "input_policy": "Full original crops and exact saved voxel fixtures; no input sampling",
+  "precision": "Global FP32 native evaluation; backbone FlashAttention internal half unchanged",
+  "bn_policy": "Batch branch: only BN.training=True, track_running_stats=False; every mode DropPath/dropout off",
+  "diagnostic_sampling": "Only display points, 256 points per known inner label for feature statistics, and 32 attention patches; full forwards/metrics use all points",
+  "reused_raw_first": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/vote_diagnosis_v1",
+  "frozen_hashes": {
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_5000_head_fp32_v1.pth": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/inference_only.pth": "6ad6efe34b9b1d7e0baea52e7db13d0b892f081ba3c4ccb3cef76a777c4d148e",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/protocol.json": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/stage_status.json": "ea3288992580fa5302692d487c362c9a1d972bcd80818343631d540407a98488"
+  },
+  "tool_sha256": "018d338800eba52e4e18309895fab4ba02b3c2898184491e765603ea34941939",
+  "metrics_sha256": "88a13a06b56b86951534e6706561895449e3c392dcb4506315d77dba93f1b2c3"
+}

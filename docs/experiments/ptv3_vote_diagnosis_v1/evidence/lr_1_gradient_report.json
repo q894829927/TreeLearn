@@ -1,0 +1,898 @@
+{
+  "rows": [
+    {
+      "case": "00_A1N_small",
+      "kind": "semantic",
+      "loss": 3.6519148349761963,
+      "groups": {
+        "backbone.embedding": {
+          "elements": 16064,
+          "nonfinite": 0,
+          "norm": 84.0530676975028,
+          "rms": 0.6631728236733065
+        },
+        "backbone.enc.enc0.block0": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 58.260421125588024,
+          "rms": 0.2859753777447366
+        },
+        "backbone.enc.enc0.block1": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 8.105440203457432,
+          "rms": 0.0397861237386948
+        },
+        "backbone.enc": {
+          "elements": 176960,
+          "nonfinite": 0,
+          "norm": 24.916417012586862,
+          "rms": 0.05923085967199675
+        },
+        "backbone.enc.enc1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 19.427831797579476,
+          "rms": 0.04783845426900915
+        },
+        "backbone.enc.enc1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 17.054650350729702,
+          "rms": 0.041994810299879844
+        },
+        "backbone.enc.enc2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 33.099730582303906,
+          "rms": 0.04081921900859392
+        },
+        "backbone.enc.enc2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 2.702568271218734,
+          "rms": 0.003332858733524953
+        },
+        "backbone.enc.enc3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 7.7425320762044185,
+          "rms": 0.004778073793989457
+        },
+        "backbone.enc.enc3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 3.7459715000974882,
+          "rms": 0.0023117150928771463
+        },
+        "backbone.enc.enc3.block2": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 2.6804318843801753,
+          "rms": 0.0016541489550546558
+        },
+        "backbone.enc.enc3.block3": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 2.197139088688041,
+          "rms": 0.001355899155222697
+        },
+        "backbone.enc.enc3.block4": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.7642096176145692,
+          "rms": 0.001088729585885125
+        },
+        "backbone.enc.enc3.block5": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.7762655688826412,
+          "rms": 0.0010961695582673676
+        },
+        "backbone.enc.enc4.block0": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 9.200514221453744,
+          "rms": 0.002840089131792462
+        },
+        "backbone.enc.enc4.block1": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 3.6450664998181925,
+          "rms": 0.001125188603769008
+        },
+        "backbone.dec": {
+          "elements": 267264,
+          "nonfinite": 0,
+          "norm": 9.643462036641072,
+          "rms": 0.018653603584287765
+        },
+        "backbone.dec.dec3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 6.109896659153034,
+          "rms": 0.003770541319525827
+        },
+        "backbone.dec.dec3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 3.9550294240506814,
+          "rms": 0.0024407289836864015
+        },
+        "backbone.dec.dec2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 5.0350177112667795,
+          "rms": 0.006209279865807367
+        },
+        "backbone.dec.dec2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 4.616952273724,
+          "rms": 0.005693713595183223
+        },
+        "backbone.dec.dec1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 3.170202866097332,
+          "rms": 0.00780620330736928
+        },
+        "backbone.dec.dec1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 3.438715650370459,
+          "rms": 0.00846738035918495
+        },
+        "backbone.dec.dec0.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 12.289940314833473,
+          "rms": 0.0302623449618945
+        },
+        "backbone.dec.dec0.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 8.140749172348288,
+          "rms": 0.02004551310997959
+        },
+        "semantic_linear.0": {
+          "elements": 4160,
+          "nonfinite": 0,
+          "norm": 8.56682898641765,
+          "rms": 0.13282304495018138
+        },
+        "semantic_linear.1": {
+          "elements": 128,
+          "nonfinite": 0,
+          "norm": 0.6841638584318377,
+          "rms": 0.06047211296748819
+        },
+        "semantic_linear.3": {
+          "elements": 130,
+          "nonfinite": 0,
+          "norm": 4.1790045776741085,
+          "rms": 0.3665229477569862
+        }
+      },
+      "seconds": 5.386554630473256,
+      "peak_allocated_bytes": 6742498304,
+      "output_gradient_analysis": {
+        "points": 23836,
+        "xy_mean_m": 3.659610142108005,
+        "xyz_mean_m": 4.585742652427776,
+        "abs_z_mean_m": 2.3196479069473432,
+        "xy_quantiles_m": [
+          0.06026929226534936,
+          1.3010776908775128,
+          3.512151691590656,
+          6.344251032850971,
+          7.679110936512566,
+          8.903515090549796
+        ],
+        "zero_xy_mean_m": 3.3771069771319233,
+        "mean_oracle_xy_mean_m": 2.527150610069999,
+        "xy_improvement_over_zero": -0.08365241814637558,
+        "prediction_mean": [
+          0.021672706325030284,
+          -0.4091651854879312,
+          -21.879347669951247
+        ],
+        "prediction_std": [
+          0.015807293755036197,
+          0.12087695916692551,
+          6.418112951802687
+        ],
+        "target_mean": [
+          -1.405078014205161,
+          2.112321065570504,
+          -20.355512472710707
+        ],
+        "target_std": [
+          1.8281758669448636,
+          2.2334824053685405,
+          5.448720747020786
+        ],
+        "cosine_xy_mean": -0.5721537707415083,
+        "cosine_defined_fraction": 1.0,
+        "xyz_output_gradient_axis_rms": [
+          0.5230638731687647,
+          0.6223741923990973,
+          0.5822839077471221
+        ]
+      },
+      "optimizer_updates": 0,
+      "training_mode": "Native AMP/backbone DropPath/BN in disposable state; reset net and parent RNG before each independent backward"
+    },
+    {
+      "case": "00_A1N_small",
+      "kind": "offset",
+      "loss": 4.585742473602295,
+      "groups": {
+        "backbone.embedding": {
+          "elements": 16064,
+          "nonfinite": 0,
+          "norm": 60.951895548852164,
+          "rms": 0.4809061916079674
+        },
+        "backbone.enc.enc0.block0": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 38.19003764950124,
+          "rms": 0.18745848780185245
+        },
+        "backbone.enc.enc0.block1": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 3.1861558731836417,
+          "rms": 0.01563947036055872
+        },
+        "backbone.enc": {
+          "elements": 176960,
+          "nonfinite": 0,
+          "norm": 6.64837188203872,
+          "rms": 0.015804390406267348
+        },
+        "backbone.enc.enc1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 7.501919731879828,
+          "rms": 0.018472480499240457
+        },
+        "backbone.enc.enc1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 4.4444244594692535,
+          "rms": 0.010943804664958822
+        },
+        "backbone.enc.enc2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 10.741722825932905,
+          "rms": 0.013246897447430767
+        },
+        "backbone.enc.enc2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 1.6956323203732528,
+          "rms": 0.002091086115376726
+        },
+        "backbone.enc.enc3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 2.8269933923173656,
+          "rms": 0.0017445950382468049
+        },
+        "backbone.enc.enc3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.6317041826887315,
+          "rms": 0.0010069577908251952
+        },
+        "backbone.enc.enc3.block2": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.7314068219620419,
+          "rms": 0.00045136600460493555
+        },
+        "backbone.enc.enc3.block3": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.5539591995780214,
+          "rms": 0.0003418594728949028
+        },
+        "backbone.enc.enc3.block4": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.5977939434346009,
+          "rms": 0.00036891078360642884
+        },
+        "backbone.enc.enc3.block5": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.5356206908159816,
+          "rms": 0.00033054240668525223
+        },
+        "backbone.enc.enc4.block0": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 2.9657652288445644,
+          "rms": 0.0009154963941307331
+        },
+        "backbone.enc.enc4.block1": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 2.1975619104824218,
+          "rms": 0.0006783611815792663
+        },
+        "backbone.dec": {
+          "elements": 267264,
+          "nonfinite": 0,
+          "norm": 13.621400624156164,
+          "rms": 0.026348235368206088
+        },
+        "backbone.dec.dec3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.772726376625829,
+          "rms": 0.00109398545084518
+        },
+        "backbone.dec.dec3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.028458706338855,
+          "rms": 0.0006346827555368646
+        },
+        "backbone.dec.dec2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 4.265637375195097,
+          "rms": 0.005260465362289748
+        },
+        "backbone.dec.dec2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 2.937910167207925,
+          "rms": 0.003623086847931915
+        },
+        "backbone.dec.dec1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 8.962214344634592,
+          "rms": 0.022068261942039077
+        },
+        "backbone.dec.dec1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 6.327164556095295,
+          "rms": 0.01557980197805561
+        },
+        "backbone.dec.dec0.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 27.723151776592214,
+          "rms": 0.06826457745133158
+        },
+        "backbone.dec.dec0.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 18.36355224862743,
+          "rms": 0.04521780729911272
+        },
+        "offset_linear.0": {
+          "elements": 4160,
+          "nonfinite": 0,
+          "norm": 4.587437328799528,
+          "rms": 0.0711251964402846
+        },
+        "offset_linear.1": {
+          "elements": 128,
+          "nonfinite": 0,
+          "norm": 0.9597098196890828,
+          "rms": 0.08482716518418365
+        },
+        "offset_linear.3": {
+          "elements": 195,
+          "nonfinite": 0,
+          "norm": 7.0357257775488256,
+          "rms": 0.5038387878965368
+        }
+      },
+      "seconds": 0.5201758993789554,
+      "peak_allocated_bytes": 6727122432,
+      "output_gradient_analysis": {
+        "points": 23836,
+        "xy_mean_m": 3.659610142108005,
+        "xyz_mean_m": 4.585742652427776,
+        "abs_z_mean_m": 2.3196479069473432,
+        "xy_quantiles_m": [
+          0.06026929226534936,
+          1.3010776908775128,
+          3.512151691590656,
+          6.344251032850971,
+          7.679110936512566,
+          8.903515090549796
+        ],
+        "zero_xy_mean_m": 3.3771069771319233,
+        "mean_oracle_xy_mean_m": 2.527150610069999,
+        "xy_improvement_over_zero": -0.08365241814637558,
+        "prediction_mean": [
+          0.021672706325030284,
+          -0.4091651854879312,
+          -21.879347669951247
+        ],
+        "prediction_std": [
+          0.015807293755036197,
+          0.12087695916692551,
+          6.418112951802687
+        ],
+        "target_mean": [
+          -1.405078014205161,
+          2.112321065570504,
+          -20.355512472710707
+        ],
+        "target_std": [
+          1.8281758669448636,
+          2.2334824053685405,
+          5.448720747020786
+        ],
+        "cosine_xy_mean": -0.5721537707415083,
+        "cosine_defined_fraction": 1.0,
+        "xyz_output_gradient_axis_rms": [
+          0.5230638731687647,
+          0.6223741923990973,
+          0.5822839077471221
+        ]
+      },
+      "optimizer_updates": 0,
+      "training_mode": "Native AMP/backbone DropPath/BN in disposable state; reset net and parent RNG before each independent backward"
+    },
+    {
+      "case": "02_G3N_small",
+      "kind": "semantic",
+      "loss": 11.718599319458008,
+      "groups": {
+        "backbone.embedding": {
+          "elements": 16064,
+          "nonfinite": 0,
+          "norm": 12693.41564992062,
+          "rms": 100.15016143029949
+        },
+        "backbone.enc.enc0.block0": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 8689.660902148584,
+          "rms": 42.65381215849439
+        },
+        "backbone.enc.enc0.block1": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 110.1834434261117,
+          "rms": 0.5408431872999112
+        },
+        "backbone.enc": {
+          "elements": 176960,
+          "nonfinite": 0,
+          "norm": 410.63662658065715,
+          "rms": 0.9761580243617799
+        },
+        "backbone.enc.enc1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 481.5530852207795,
+          "rms": 1.1857604845181278
+        },
+        "backbone.enc.enc1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 167.72636316595546,
+          "rms": 0.41300388214301237
+        },
+        "backbone.enc.enc2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 207.69330679032223,
+          "rms": 0.25613134691270795
+        },
+        "backbone.enc.enc2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 35.105708587438976,
+          "rms": 0.04329302934111087
+        },
+        "backbone.enc.enc3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 36.362895547741275,
+          "rms": 0.02244028136792846
+        },
+        "backbone.enc.enc3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 13.489814227406312,
+          "rms": 0.00832483833600775
+        },
+        "backbone.enc.enc3.block2": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 6.735938662760565,
+          "rms": 0.004156884554779195
+        },
+        "backbone.enc.enc3.block3": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 6.161046954834049,
+          "rms": 0.003802107205846065
+        },
+        "backbone.enc.enc3.block4": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 4.7212711445292115,
+          "rms": 0.0029135923116578697
+        },
+        "backbone.enc.enc3.block5": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 3.8993560393126154,
+          "rms": 0.002406371807245739
+        },
+        "backbone.enc.enc4.block0": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 17.191686250406587,
+          "rms": 0.005306868736001022
+        },
+        "backbone.enc.enc4.block1": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 12.104596786730967,
+          "rms": 0.0037365448225232566
+        },
+        "backbone.dec": {
+          "elements": 267264,
+          "nonfinite": 0,
+          "norm": 58.869189122936945,
+          "rms": 0.11387222898325625
+        },
+        "backbone.dec.dec3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 16.548122962290716,
+          "rms": 0.010212182770135532
+        },
+        "backbone.dec.dec3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 10.902115443384599,
+          "rms": 0.006727916860580842
+        },
+        "backbone.dec.dec2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 25.871695388927286,
+          "rms": 0.03190546816018057
+        },
+        "backbone.dec.dec2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 29.9216606775398,
+          "rms": 0.03689996259215219
+        },
+        "backbone.dec.dec1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 40.95527558393198,
+          "rms": 0.10084692406801152
+        },
+        "backbone.dec.dec1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 21.928952120476144,
+          "rms": 0.05399713072013474
+        },
+        "backbone.dec.dec0.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 113.91853212999929,
+          "rms": 0.28050924809698013
+        },
+        "backbone.dec.dec0.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 65.97883198104338,
+          "rms": 0.16246410661435884
+        },
+        "semantic_linear.0": {
+          "elements": 4160,
+          "nonfinite": 0,
+          "norm": 14.429889189188462,
+          "rms": 0.22372593446658492
+        },
+        "semantic_linear.1": {
+          "elements": 128,
+          "nonfinite": 0,
+          "norm": 5.122232794706838,
+          "rms": 0.45274569299416567
+        },
+        "semantic_linear.3": {
+          "elements": 130,
+          "nonfinite": 0,
+          "norm": 20.910639571811142,
+          "rms": 1.8339844125295868
+        }
+      },
+      "seconds": 0.5085516069084406,
+      "peak_allocated_bytes": 6138030080,
+      "output_gradient_analysis": {
+        "points": 15846,
+        "xy_mean_m": 6.842330538166275,
+        "xyz_mean_m": 7.82924391832624,
+        "abs_z_mean_m": 2.8759177875055384,
+        "xy_quantiles_m": [
+          0.27767405546495266,
+          1.7297066680038125,
+          7.687473094810974,
+          9.281199853614904,
+          10.00436847027356,
+          10.70938945497396
+        ],
+        "zero_xy_mean_m": 7.165284242822209,
+        "mean_oracle_xy_mean_m": 3.245061053081329,
+        "xy_improvement_over_zero": 0.0450720018510713,
+        "prediction_mean": [
+          0.023423522040886782,
+          -0.4269401770705214,
+          -22.76649394934186
+        ],
+        "prediction_std": [
+          0.011690798842923872,
+          0.09038252163386401,
+          4.736667128833976
+        ],
+        "target_mean": [
+          -3.311149968315061,
+          -5.834272591247411,
+          -22.125440869896487
+        ],
+        "target_std": [
+          2.6070693491139507,
+          2.501965800198998,
+          6.887989706796711
+        ],
+        "cosine_xy_mean": 0.7833732954163581,
+        "cosine_defined_fraction": 1.0,
+        "xyz_output_gradient_axis_rms": [
+          0.54488293585055,
+          0.6997022405508123,
+          0.46208155209557866
+        ]
+      },
+      "optimizer_updates": 0,
+      "training_mode": "Native AMP/backbone DropPath/BN in disposable state; reset net and parent RNG before each independent backward"
+    },
+    {
+      "case": "02_G3N_small",
+      "kind": "offset",
+      "loss": 7.8292436599731445,
+      "groups": {
+        "backbone.embedding": {
+          "elements": 16064,
+          "nonfinite": 0,
+          "norm": 2268.823984669304,
+          "rms": 17.90086250921651
+        },
+        "backbone.enc.enc0.block0": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 1554.5489280726647,
+          "rms": 7.6306128301054
+        },
+        "backbone.enc.enc0.block1": {
+          "elements": 41504,
+          "nonfinite": 0,
+          "norm": 18.848617534658068,
+          "rms": 0.09251976582559422
+        },
+        "backbone.enc": {
+          "elements": 176960,
+          "nonfinite": 0,
+          "norm": 71.96728047238985,
+          "rms": 0.1710793284797731
+        },
+        "backbone.enc.enc1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 85.05659704022858,
+          "rms": 0.2094405680562599
+        },
+        "backbone.enc.enc1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 26.438103421190718,
+          "rms": 0.06510031663088331
+        },
+        "backbone.enc.enc2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 29.51507053231203,
+          "rms": 0.03639854787085952
+        },
+        "backbone.enc.enc2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 3.3931072435822234,
+          "rms": 0.004184444563711269
+        },
+        "backbone.enc.enc3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 3.726703425830481,
+          "rms": 0.002299824372915033
+        },
+        "backbone.enc.enc3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.0942605845324853,
+          "rms": 0.0006752904309972679
+        },
+        "backbone.enc.enc3.block2": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.48274512003171577,
+          "rms": 0.00029791181805869694
+        },
+        "backbone.enc.enc3.block3": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.5007978982177724,
+          "rms": 0.00030905255412675954
+        },
+        "backbone.enc.enc3.block4": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.3750122398720194,
+          "rms": 0.00023142766967213996
+        },
+        "backbone.enc.enc3.block5": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 0.3405485490698421,
+          "rms": 0.00021015942612528671
+        },
+        "backbone.enc.enc4.block0": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 1.4118302306482313,
+          "rms": 0.0004358151726617866
+        },
+        "backbone.enc.enc4.block1": {
+          "elements": 10494464,
+          "nonfinite": 0,
+          "norm": 0.8249987881884908,
+          "rms": 0.00025466729746610435
+        },
+        "backbone.dec": {
+          "elements": 267264,
+          "nonfinite": 0,
+          "norm": 4.022105348793998,
+          "rms": 0.0077800647180003195
+        },
+        "backbone.dec.dec3.block0": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.3202975737777998,
+          "rms": 0.0008147824478407766
+        },
+        "backbone.dec.dec3.block1": {
+          "elements": 2625792,
+          "nonfinite": 0,
+          "norm": 1.0721489893370977,
+          "rms": 0.0006616449165187308
+        },
+        "backbone.dec.dec2.block0": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 2.6083363623020226,
+          "rms": 0.0032166501463249853
+        },
+        "backbone.dec.dec2.block1": {
+          "elements": 657536,
+          "nonfinite": 0,
+          "norm": 2.4063682975505616,
+          "rms": 0.002967579277082341
+        },
+        "backbone.dec.dec1.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 3.0588299586249703,
+          "rms": 0.007531962321734076
+        },
+        "backbone.dec.dec1.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 1.9305260011708867,
+          "rms": 0.004753663753340346
+        },
+        "backbone.dec.dec0.block0": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 5.10370249431214,
+          "rms": 0.0125671892221755
+        },
+        "backbone.dec.dec0.block1": {
+          "elements": 164928,
+          "nonfinite": 0,
+          "norm": 16.865526986045722,
+          "rms": 0.04152911914469067
+        },
+        "offset_linear.0": {
+          "elements": 4160,
+          "nonfinite": 0,
+          "norm": 1.967868611122061,
+          "rms": 0.03051050761086989
+        },
+        "offset_linear.1": {
+          "elements": 128,
+          "nonfinite": 0,
+          "norm": 0.21187063361977315,
+          "rms": 0.018726895220854013
+        },
+        "offset_linear.3": {
+          "elements": 195,
+          "nonfinite": 0,
+          "norm": 7.480237692026081,
+          "rms": 0.5356709472610275
+        }
+      },
+      "seconds": 0.47015295270830393,
+      "peak_allocated_bytes": 6138233856,
+      "output_gradient_analysis": {
+        "points": 15846,
+        "xy_mean_m": 6.842330538166275,
+        "xyz_mean_m": 7.82924391832624,
+        "abs_z_mean_m": 2.8759177875055384,
+        "xy_quantiles_m": [
+          0.27767405546495266,
+          1.7297066680038125,
+          7.687473094810974,
+          9.281199853614904,
+          10.00436847027356,
+          10.70938945497396
+        ],
+        "zero_xy_mean_m": 7.165284242822209,
+        "mean_oracle_xy_mean_m": 3.245061053081329,
+        "xy_improvement_over_zero": 0.0450720018510713,
+        "prediction_mean": [
+          0.023423522040886782,
+          -0.4269401770705214,
+          -22.76649394934186
+        ],
+        "prediction_std": [
+          0.011690798842923872,
+          0.09038252163386401,
+          4.736667128833976
+        ],
+        "target_mean": [
+          -3.311149968315061,
+          -5.834272591247411,
+          -22.125440869896487
+        ],
+        "target_std": [
+          2.6070693491139507,
+          2.501965800198998,
+          6.887989706796711
+        ],
+        "cosine_xy_mean": 0.7833732954163581,
+        "cosine_defined_fraction": 1.0,
+        "xyz_output_gradient_axis_rms": [
+          0.54488293585055,
+          0.6997022405508123,
+          0.46208155209557866
+        ]
+      },
+      "optimizer_updates": 0,
+      "training_mode": "Native AMP/backbone DropPath/BN in disposable state; reset net and parent RNG before each independent backward"
+    }
+  ],
+  "backwards": 4,
+  "optimizer_updates": 0
+}

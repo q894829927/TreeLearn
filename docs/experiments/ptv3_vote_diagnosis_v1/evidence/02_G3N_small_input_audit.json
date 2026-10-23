@@ -1,0 +1,47 @@
+{
+  "input_digest": "1f9f5bf8d879c77658c7583e665a5056580d9310c3bf1989cbc31eb77a4b3538",
+  "sampling": [
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3N_921.npz",
+      "augmentation_seed": 3686218170,
+      "points_before": 586216,
+      "points_after": 586216,
+      "instances_before": 28,
+      "instances_after": 28,
+      "instance_retention": 1.0,
+      "xyz_extent_before": [
+        34.47922265991653,
+        40.34053085578602,
+        42.38379006547861
+      ],
+      "xyz_extent_after": [
+        34.47922265991653,
+        40.34053085578602,
+        42.38379006547861
+      ],
+      "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+    }
+  ],
+  "points": 586216,
+  "voxels": 501162,
+  "full_input_retained": true,
+  "valid_offset_mask_subset": true,
+  "point_map_valid": true,
+  "voxel_cell_delta_min": [
+    0.0,
+    -9.5367431640625e-07,
+    -1.430511474609375e-06
+  ],
+  "voxel_cell_delta_max": [
+    0.09999971389770579,
+    0.09999961853027273,
+    0.10000009536743093
+  ],
+  "voxel_cell_outside_tolerance_points": 0,
+  "gt_anchor_max_deviation_m": 3.363817393405617e-06,
+  "gt_definition": "frozen main anchor - augmented xyz, metres",
+  "inner_points": 28515,
+  "offset_points": 15846,
+  "semantic_points": 28515,
+  "target_nonfinite": 0
+}

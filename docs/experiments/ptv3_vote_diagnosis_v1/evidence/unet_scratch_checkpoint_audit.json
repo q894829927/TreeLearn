@@ -1,0 +1,41 @@
+[
+  {
+    "trial_step": 50,
+    "net_finite": true,
+    "adam_finite": true,
+    "bn_counts": [
+      100
+    ],
+    "adam_steps": [
+      50
+    ],
+    "expected_bn": 100,
+    "expected_adam": 50
+  },
+  {
+    "trial_step": 100,
+    "net_finite": true,
+    "adam_finite": true,
+    "bn_counts": [
+      200
+    ],
+    "adam_steps": [
+      100
+    ],
+    "expected_bn": 200,
+    "expected_adam": 100
+  },
+  {
+    "trial_step": 200,
+    "net_finite": true,
+    "adam_finite": true,
+    "bn_counts": [
+      400
+    ],
+    "adam_steps": [
+      200
+    ],
+    "expected_bn": 400,
+    "expected_adam": 200
+  }
+]

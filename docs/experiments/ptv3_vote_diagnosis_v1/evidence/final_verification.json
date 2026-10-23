@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "file_hash_checks": {
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_5000_head_fp32_v1.pth": {
+      "expected": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+      "actual": "c9cc21c42f26f2052e887cdc5b4a9a2ed0f314e22509804846c8cb0d771919fd",
+      "equal": true
+    },
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/bn_calibration_v1/all_sequential/inference_only.pth": {
+      "expected": "6ad6efe34b9b1d7e0baea52e7db13d0b892f081ba3c4ccb3cef76a777c4d148e",
+      "actual": "6ad6efe34b9b1d7e0baea52e7db13d0b892f081ba3c4ccb3cef76a777c4d148e",
+      "equal": true
+    },
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/protocol.json": {
+      "expected": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+      "actual": "3f3d223ac9fe4247fd327bd8d7e10946e83efd51508340fd44273b4511d86b69",
+      "equal": true
+    },
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/stage_status.json": {
+      "expected": "ea3288992580fa5302692d487c362c9a1d972bcd80818343631d540407a98488",
+      "actual": "ea3288992580fa5302692d487c362c9a1d972bcd80818343631d540407a98488",
+      "equal": true
+    }
+  },
+  "complete_trials": 3,
+  "local_attempts": 600,
+  "all_gates_failed": true,
+  "local_nodes_per_trial": [
+    0,
+    50,
+    100,
+    200
+  ],
+  "active_jobs": [],
+  "formal_status": {
+    "status": "awaiting_stage_decision",
+    "checkpoint_update": 5000,
+    "comparison": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/comparison_at_5000_head_fp32_v1.json",
+    "numerical_policy": "treelearn-both-heads-fp32-v1",
+    "automatic_later_training": false,
+    "updated_unix": 1792771926.3582478,
+    "automatic_resume": false
+  },
+  "check_unix": 1792782688.5337057
+}

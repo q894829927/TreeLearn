@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_vote_diagnosis_v1.py", line 270, in <module>
+    try: main()
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_vote_diagnosis_v1.py", line 192, in main
+    with torch.no_grad(): pred = model(batch,return_loss=False)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/model/tree_learn.py", line 76, in forward
+    backbone_output, v2p_map = self.forward_backbone(**batch)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_vote_diagnosis_v1.py", line 127, in fixed_backbone
+    point = self.backbone(dict(fixture))
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 979, in forward
+    point = self.enc(point)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 231, in forward
+    input = module(input)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 231, in forward
+    input = module(input)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1547, in _call_impl
+    hook_result = hook(self, args, result)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_vote_diagnosis_v1.py", line 167, in hook
+    parent_hist = hist_by_id[id(p.pooling_parent)]
+KeyError: 139171419755184
