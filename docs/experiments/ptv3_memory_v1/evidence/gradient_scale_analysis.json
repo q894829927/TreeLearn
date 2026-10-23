@@ -1,0 +1,590 @@
+{
+  "comparison_1060k_reference_repeat": {
+    "largest_parameter_relative_errors": [
+      {
+        "parameter": "backbone.enc.enc2.down.proj.bias",
+        "reference_l2": 4.054950889521195e-06,
+        "error_l2": 5.8656637478222525e-06,
+        "relative_l2": 1.4465437209067815,
+        "max_abs": 1.380452886223793e-06
+      },
+      {
+        "parameter": "backbone.enc.enc3.down.proj.bias",
+        "reference_l2": 2.6180054116494113e-06,
+        "error_l2": 3.7777107284610593e-06,
+        "relative_l2": 1.4429728493498428,
+        "max_abs": 5.977926775813103e-07
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj_skip.0.bias",
+        "reference_l2": 7.309925869535908e-07,
+        "error_l2": 1.022620394127627e-06,
+        "relative_l2": 1.3989476943800403,
+        "max_abs": 2.924934960901737e-07
+      },
+      {
+        "parameter": "backbone.enc.enc4.down.proj.bias",
+        "reference_l2": 8.803639876253821e-07,
+        "error_l2": 1.180089741635164e-06,
+        "relative_l2": 1.3404566272846261,
+        "max_abs": 2.007582224905491e-07
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj.0.bias",
+        "reference_l2": 9.996237768389484e-07,
+        "error_l2": 1.2822832388450805e-06,
+        "relative_l2": 1.2827658450662003,
+        "max_abs": 2.9226066544651985e-07
+      },
+      {
+        "parameter": "backbone.enc.enc1.down.proj.bias",
+        "reference_l2": 6.252738097605365e-06,
+        "error_l2": 7.715729962184651e-06,
+        "relative_l2": 1.2339761943874754,
+        "max_abs": 2.620276063680649e-06
+      },
+      {
+        "parameter": "backbone.dec.dec2.up.proj_skip.0.bias",
+        "reference_l2": 1.5794476835617217e-06,
+        "error_l2": 1.9159856789039475e-06,
+        "relative_l2": 1.2130732146716745,
+        "max_abs": 5.629844963550568e-07
+      },
+      {
+        "parameter": "backbone.dec.dec2.up.proj.0.bias",
+        "reference_l2": 9.565510773312172e-07,
+        "error_l2": 1.0271330606983907e-06,
+        "relative_l2": 1.0737879921311653,
+        "max_abs": 3.2223761081695557e-07
+      },
+      {
+        "parameter": "backbone.dec.dec1.up.proj_skip.0.bias",
+        "reference_l2": 1.6849241281855909e-06,
+        "error_l2": 1.6240265461603897e-06,
+        "relative_l2": 0.963857374343153,
+        "max_abs": 4.6065542846918106e-07
+      },
+      {
+        "parameter": "backbone.dec.dec1.up.proj.0.bias",
+        "reference_l2": 1.2057824268901988e-06,
+        "error_l2": 7.858881767387787e-07,
+        "relative_l2": 0.6517661554959313,
+        "max_abs": 4.550674930214882e-07
+      }
+    ],
+    "largest_parameter_relative_errors_with_reference_l2_at_least_0_001": [
+      {
+        "parameter": "backbone.enc.enc1.block1.norm1.0.bias",
+        "reference_l2": 0.001121674963244788,
+        "error_l2": 9.24148552426203e-06,
+        "relative_l2": 0.008239004905242965,
+        "max_abs": 2.656539436429739e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.attn.proj.bias",
+        "reference_l2": 0.003397167385631412,
+        "error_l2": 2.5927749647175394e-05,
+        "relative_l2": 0.007632167245228734,
+        "max_abs": 9.328126907348633e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.attn.qkv.bias",
+        "reference_l2": 0.0018277728646719873,
+        "error_l2": 1.3799277799417535e-05,
+        "relative_l2": 0.007549777144707725,
+        "max_abs": 3.0994415283203125e-06
+      },
+      {
+        "parameter": "backbone.enc.enc0.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.0024004590597474394,
+        "error_l2": 1.8071201618464833e-05,
+        "relative_l2": 0.007528227380127103,
+        "max_abs": 7.62939453125e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.norm1.0.bias",
+        "reference_l2": 0.0011077568607969302,
+        "error_l2": 7.810110077693346e-06,
+        "relative_l2": 0.00705038294420915,
+        "max_abs": 2.461252734065056e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.attn.proj.bias",
+        "reference_l2": 0.003228813804369983,
+        "error_l2": 2.1420702417331146e-05,
+        "relative_l2": 0.006634232791107267,
+        "max_abs": 5.543231964111328e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.attn.qkv.bias",
+        "reference_l2": 0.002351271468054852,
+        "error_l2": 1.5188776983935029e-05,
+        "relative_l2": 0.006459814270829528,
+        "max_abs": 6.198883056640625e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.003335093257023994,
+        "error_l2": 2.0386489485847103e-05,
+        "relative_l2": 0.006112719469811346,
+        "max_abs": 4.947185516357422e-06
+      },
+      {
+        "parameter": "backbone.enc.enc3.down.proj.weight",
+        "reference_l2": 0.26362802723041584,
+        "error_l2": 0.0014837042656277713,
+        "relative_l2": 0.005628021729006021,
+        "max_abs": 3.528594970703125e-05
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.003957899542647076,
+        "error_l2": 2.12829691725127e-05,
+        "relative_l2": 0.005377339405203417,
+        "max_abs": 8.106231689453125e-06
+      }
+    ],
+    "count_relative_l2_above_0_001": 285
+  },
+  "comparison_1060k_block_nested": {
+    "largest_parameter_relative_errors": [
+      {
+        "parameter": "backbone.enc.enc2.down.proj.bias",
+        "reference_l2": 4.054950889521195e-06,
+        "error_l2": 5.832577350706939e-06,
+        "relative_l2": 1.438384214659538,
+        "max_abs": 1.293141394853592e-06
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj_skip.0.bias",
+        "reference_l2": 7.309925869535908e-07,
+        "error_l2": 1.029000207324651e-06,
+        "relative_l2": 1.407675297519782,
+        "max_abs": 1.994776539504528e-07
+      },
+      {
+        "parameter": "backbone.enc.enc3.down.proj.bias",
+        "reference_l2": 2.6180054116494113e-06,
+        "error_l2": 3.6696160528530496e-06,
+        "relative_l2": 1.4016839065818036,
+        "max_abs": 8.491333574056625e-07
+      },
+      {
+        "parameter": "backbone.enc.enc1.down.proj.bias",
+        "reference_l2": 6.252738097605365e-06,
+        "error_l2": 8.698093422515826e-06,
+        "relative_l2": 1.3910855191339244,
+        "max_abs": 4.032626748085022e-06
+      },
+      {
+        "parameter": "backbone.enc.enc4.down.proj.bias",
+        "reference_l2": 8.803639876253821e-07,
+        "error_l2": 1.172861254548614e-06,
+        "relative_l2": 1.332245833580936,
+        "max_abs": 1.7293496057391167e-07
+      },
+      {
+        "parameter": "backbone.dec.dec2.up.proj_skip.0.bias",
+        "reference_l2": 1.5794476835617217e-06,
+        "error_l2": 1.994036607869174e-06,
+        "relative_l2": 1.2624898112310607,
+        "max_abs": 5.854526534676552e-07
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj.0.bias",
+        "reference_l2": 9.996237768389484e-07,
+        "error_l2": 1.2028011699293237e-06,
+        "relative_l2": 1.2032538619007955,
+        "max_abs": 2.7084024623036385e-07
+      },
+      {
+        "parameter": "backbone.dec.dec1.up.proj_skip.0.bias",
+        "reference_l2": 1.6849241281855909e-06,
+        "error_l2": 1.8584537136143684e-06,
+        "relative_l2": 1.1029895545597312,
+        "max_abs": 6.659538485109806e-07
+      },
+      {
+        "parameter": "backbone.dec.dec2.up.proj.0.bias",
+        "reference_l2": 9.565510773312172e-07,
+        "error_l2": 8.846914691972596e-07,
+        "relative_l2": 0.9248763502159798,
+        "max_abs": 2.4633482098579407e-07
+      },
+      {
+        "parameter": "backbone.dec.dec1.up.proj.0.bias",
+        "reference_l2": 1.2057824268901988e-06,
+        "error_l2": 7.451194003111945e-07,
+        "relative_l2": 0.6179551001028536,
+        "max_abs": 3.684544935822487e-07
+      }
+    ],
+    "largest_parameter_relative_errors_with_reference_l2_at_least_0_001": [
+      {
+        "parameter": "backbone.enc.enc1.block1.norm1.0.bias",
+        "reference_l2": 0.001121674963244788,
+        "error_l2": 8.477503775582126e-06,
+        "relative_l2": 0.007557896942852636,
+        "max_abs": 2.6081688702106476e-06
+      },
+      {
+        "parameter": "backbone.enc.enc0.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.0024004590597474394,
+        "error_l2": 1.7885216491150323e-05,
+        "relative_l2": 0.00745074839686376,
+        "max_abs": 8.58306884765625e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.attn.proj.bias",
+        "reference_l2": 0.003397167385631412,
+        "error_l2": 2.5081836686514985e-05,
+        "relative_l2": 0.007383161863792934,
+        "max_abs": 8.106231689453125e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.attn.qkv.bias",
+        "reference_l2": 0.0018277728646719873,
+        "error_l2": 1.231293506994738e-05,
+        "relative_l2": 0.006736578328706649,
+        "max_abs": 2.86102294921875e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.attn.proj.bias",
+        "reference_l2": 0.003228813804369983,
+        "error_l2": 2.078279035537437e-05,
+        "relative_l2": 0.006436664240981087,
+        "max_abs": 4.410743713378906e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.attn.qkv.bias",
+        "reference_l2": 0.002351271468054852,
+        "error_l2": 1.424581347355506e-05,
+        "relative_l2": 0.006058770187578666,
+        "max_abs": 4.410743713378906e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.norm1.0.bias",
+        "reference_l2": 0.0011077568607969302,
+        "error_l2": 6.658855951954287e-06,
+        "relative_l2": 0.006011116868338641,
+        "max_abs": 2.036977093666792e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.003335093257023994,
+        "error_l2": 1.99836742326194e-05,
+        "relative_l2": 0.005991938663343839,
+        "max_abs": 4.76837158203125e-06
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.cpe.2.bias",
+        "reference_l2": 0.0014105642172848874,
+        "error_l2": 7.942547987956083e-06,
+        "relative_l2": 0.0056307595858657395,
+        "max_abs": 1.7604907043278217e-06
+      },
+      {
+        "parameter": "backbone.enc.enc3.down.proj.weight",
+        "reference_l2": 0.26362802723041584,
+        "error_l2": 0.0014836535742841265,
+        "relative_l2": 0.005627829445415474,
+        "max_abs": 3.8623809814453125e-05
+      }
+    ],
+    "count_relative_l2_above_0_001": 278
+  },
+  "comparison_2677k_block_nested": {
+    "largest_parameter_relative_errors": [
+      {
+        "parameter": "backbone.dec.dec2.up.proj_skip.0.bias",
+        "reference_l2": 1.1362858450500826e-06,
+        "error_l2": 1.5967819738991408e-06,
+        "relative_l2": 1.405264336306822,
+        "max_abs": 3.7567224353551865e-07
+      },
+      {
+        "parameter": "backbone.enc.enc4.down.proj.bias",
+        "reference_l2": 9.07015110030653e-07,
+        "error_l2": 1.235925586119914e-06,
+        "relative_l2": 1.3626295443723593,
+        "max_abs": 1.9528670236468315e-07
+      },
+      {
+        "parameter": "backbone.enc.enc2.down.proj.bias",
+        "reference_l2": 4.203645863922755e-06,
+        "error_l2": 5.689559238824058e-06,
+        "relative_l2": 1.353482054150651,
+        "max_abs": 1.4593824744224548e-06
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj_skip.0.bias",
+        "reference_l2": 7.021544560832696e-07,
+        "error_l2": 9.479922927259881e-07,
+        "relative_l2": 1.350119314223314,
+        "max_abs": 1.8515856936573982e-07
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj.0.bias",
+        "reference_l2": 9.869096274181597e-07,
+        "error_l2": 1.296567304375868e-06,
+        "relative_l2": 1.313764977415206,
+        "max_abs": 3.130408003926277e-07
+      },
+      {
+        "parameter": "backbone.dec.dec1.up.proj_skip.0.bias",
+        "reference_l2": 1.2141554630664862e-06,
+        "error_l2": 1.5912618787237713e-06,
+        "relative_l2": 1.3105915404810355,
+        "max_abs": 5.416804924607277e-07
+      },
+      {
+        "parameter": "backbone.enc.enc3.down.proj.bias",
+        "reference_l2": 3.003209914540289e-06,
+        "error_l2": 3.8870948738590786e-06,
+        "relative_l2": 1.294313412805208,
+        "max_abs": 9.452924132347107e-07
+      },
+      {
+        "parameter": "backbone.enc.enc1.down.proj.bias",
+        "reference_l2": 5.787395328219656e-06,
+        "error_l2": 7.137973224001578e-06,
+        "relative_l2": 1.2333654121045492,
+        "max_abs": 1.9301660358905792e-06
+      },
+      {
+        "parameter": "backbone.dec.dec2.up.proj.0.bias",
+        "reference_l2": 9.961887168727049e-07,
+        "error_l2": 8.116159332951333e-07,
+        "relative_l2": 0.8147210659472298,
+        "max_abs": 2.223532646894455e-07
+      },
+      {
+        "parameter": "backbone.dec.dec1.up.proj.0.bias",
+        "reference_l2": 1.0817268339615054e-06,
+        "error_l2": 6.352647578090671e-07,
+        "relative_l2": 0.5872691125564458,
+        "max_abs": 3.60771082341671e-07
+      }
+    ],
+    "largest_parameter_relative_errors_with_reference_l2_at_least_0_001": [
+      {
+        "parameter": "backbone.enc.enc0.block1.attn.qkv.bias",
+        "reference_l2": 0.0017834979925472599,
+        "error_l2": 1.658496146904988e-05,
+        "relative_l2": 0.009299119785025721,
+        "max_abs": 6.198883056640625e-06
+      },
+      {
+        "parameter": "backbone.enc.enc0.block1.norm1.0.bias",
+        "reference_l2": 0.0010252173253750398,
+        "error_l2": 9.527994228661805e-06,
+        "relative_l2": 0.009293633645116485,
+        "max_abs": 3.552297130227089e-06
+      },
+      {
+        "parameter": "backbone.enc.enc0.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.002107767397889263,
+        "error_l2": 1.935893440662961e-05,
+        "relative_l2": 0.009184568670155832,
+        "max_abs": 6.67572021484375e-06
+      },
+      {
+        "parameter": "backbone.enc.enc3.block0.cpe.0.bias",
+        "reference_l2": 0.018174380259920506,
+        "error_l2": 0.00014891244337691636,
+        "relative_l2": 0.008193536244276189,
+        "max_abs": 2.7120113372802734e-05
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.norm1.0.bias",
+        "reference_l2": 0.0012318983467933197,
+        "error_l2": 9.876075794872521e-06,
+        "relative_l2": 0.00801695677291908,
+        "max_abs": 2.7435598894953728e-06
+      },
+      {
+        "parameter": "backbone.enc.enc0.block1.attn.proj.bias",
+        "reference_l2": 0.0029609584980065913,
+        "error_l2": 2.3725273962592667e-05,
+        "relative_l2": 0.008012700609807686,
+        "max_abs": 7.867813110351562e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.attn.proj.bias",
+        "reference_l2": 0.0035292399883662725,
+        "error_l2": 2.8096011994368e-05,
+        "relative_l2": 0.007960924189622475,
+        "max_abs": 1.049041748046875e-05
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.0038035664604195176,
+        "error_l2": 2.981285192326035e-05,
+        "relative_l2": 0.007838130931455347,
+        "max_abs": 1.0728836059570312e-05
+      },
+      {
+        "parameter": "backbone.enc.enc3.block0.norm1.0.bias",
+        "reference_l2": 0.001971165060693504,
+        "error_l2": 1.5205281232623807e-05,
+        "relative_l2": 0.007713854885026329,
+        "max_abs": 2.785294782370329e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block0.cpe.0.weight",
+        "reference_l2": 1.6078169765929267,
+        "error_l2": 0.012384221125919748,
+        "relative_l2": 0.007702506756809319,
+        "max_abs": 0.00028228759765625
+      }
+    ],
+    "count_relative_l2_above_0_001": 323
+  },
+  "comparison_2677k_offload_repeat": {
+    "largest_parameter_relative_errors": [
+      {
+        "parameter": "backbone.dec.dec1.up.proj_skip.0.bias",
+        "reference_l2": 1.2141554630664862e-06,
+        "error_l2": 1.7977295137850163e-06,
+        "relative_l2": 1.4806419511094964,
+        "max_abs": 6.82193785905838e-07
+      },
+      {
+        "parameter": "backbone.enc.enc2.down.proj.bias",
+        "reference_l2": 4.203645863922755e-06,
+        "error_l2": 5.818360968458778e-06,
+        "relative_l2": 1.3841225347725188,
+        "max_abs": 1.453794538974762e-06
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj_skip.0.bias",
+        "reference_l2": 7.021544560832696e-07,
+        "error_l2": 9.563577232127276e-07,
+        "relative_l2": 1.3620332605270993,
+        "max_abs": 1.8515856936573982e-07
+      },
+      {
+        "parameter": "backbone.dec.dec3.up.proj.0.bias",
+        "reference_l2": 9.869096274181597e-07,
+        "error_l2": 1.3239718553938293e-06,
+        "relative_l2": 1.3415330224890532,
+        "max_abs": 4.908069968223572e-07
+      },
+      {
+        "parameter": "backbone.enc.enc1.down.proj.bias",
+        "reference_l2": 5.787395328219656e-06,
+        "error_l2": 7.741542671619117e-06,
+        "relative_l2": 1.3376557557543949,
+        "max_abs": 2.5937333703041077e-06
+      },
+      {
+        "parameter": "backbone.enc.enc4.down.proj.bias",
+        "reference_l2": 9.07015110030653e-07,
+        "error_l2": 1.194139231686478e-06,
+        "relative_l2": 1.3165593588028777,
+        "max_abs": 2.1659070625901222e-07
+      },
+      {
+        "parameter": "backbone.enc.enc3.down.proj.bias",
+        "reference_l2": 3.003209914540289e-06,
+        "error_l2": 3.908800008562537e-06,
+        "relative_l2": 1.301540724688527,
+        "max_abs": 6.977934390306473e-07
+      },
+      {
+        "parameter": "backbone.dec.dec2.up.proj_skip.0.bias",
+        "reference_l2": 1.1362858450500826e-06,
+        "error_l2": 1.4659969316070677e-06,
+        "relative_l2": 1.2901656198510973,
+        "max_abs": 4.3516047298908234e-07
+      },
+      {
+        "parameter": "backbone.dec.dec2.up.proj.0.bias",
+        "reference_l2": 9.961887168727049e-07,
+        "error_l2": 9.483703098493035e-07,
+        "relative_l2": 0.9519986462268758,
+        "max_abs": 2.551823854446411e-07
+      },
+      {
+        "parameter": "backbone.dec.dec1.up.proj.0.bias",
+        "reference_l2": 1.0817268339615054e-06,
+        "error_l2": 5.906126242900978e-07,
+        "relative_l2": 0.5459905456233838,
+        "max_abs": 1.89291313290596e-07
+      }
+    ],
+    "largest_parameter_relative_errors_with_reference_l2_at_least_0_001": [
+      {
+        "parameter": "backbone.enc.enc0.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.002107767397889263,
+        "error_l2": 1.8069722485322524e-05,
+        "relative_l2": 0.00857292057150979,
+        "max_abs": 9.298324584960938e-06
+      },
+      {
+        "parameter": "backbone.enc.enc3.block0.cpe.0.bias",
+        "reference_l2": 0.018174380259920506,
+        "error_l2": 0.00015505372365920767,
+        "relative_l2": 0.00853144489339995,
+        "max_abs": 2.5451183319091797e-05
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.0038035664604195176,
+        "error_l2": 3.228096779881754e-05,
+        "relative_l2": 0.008487026093730221,
+        "max_abs": 8.940696716308594e-06
+      },
+      {
+        "parameter": "backbone.enc.enc0.block1.attn.proj.bias",
+        "reference_l2": 0.0029609584980065913,
+        "error_l2": 2.360421071694597e-05,
+        "relative_l2": 0.007971814104397968,
+        "max_abs": 7.867813110351562e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block0.cpe.0.weight",
+        "reference_l2": 1.6078169765929267,
+        "error_l2": 0.012372002433749016,
+        "relative_l2": 0.00769490720266316,
+        "max_abs": 0.000274658203125
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.norm1.0.bias",
+        "reference_l2": 0.0012318983467933197,
+        "error_l2": 9.404204474001414e-06,
+        "relative_l2": 0.007633912731907573,
+        "max_abs": 2.9084039852023125e-06
+      },
+      {
+        "parameter": "backbone.enc.enc1.block1.cpe.0.weight",
+        "reference_l2": 1.3459422022837473,
+        "error_l2": 0.010247296882212951,
+        "relative_l2": 0.007613474683255863,
+        "max_abs": 0.0002288818359375
+      },
+      {
+        "parameter": "backbone.enc.enc3.block0.attn.proj.bias",
+        "reference_l2": 0.00618860094104707,
+        "error_l2": 4.675310246472097e-05,
+        "relative_l2": 0.00755471275496569,
+        "max_abs": 8.106231689453125e-06
+      },
+      {
+        "parameter": "backbone.enc.enc3.down.norm.0.bias",
+        "reference_l2": 0.01021083950037181,
+        "error_l2": 7.556818405667036e-05,
+        "relative_l2": 0.007400780714839233,
+        "max_abs": 1.344678457826376e-05
+      },
+      {
+        "parameter": "backbone.enc.enc2.block1.mlp.0.fc2.bias",
+        "reference_l2": 0.0030068013497704335,
+        "error_l2": 2.2126776272725985e-05,
+        "relative_l2": 0.007358908587165342,
+        "max_abs": 6.67572021484375e-06
+      }
+    ],
+    "count_relative_l2_above_0_001": 325
+  }
+}

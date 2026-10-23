@@ -1,0 +1,38 @@
+{
+  "status": "pass",
+  "completed_steps": 1,
+  "initial": {
+    "allocated": 238682112,
+    "reserved": 247463936,
+    "peak_allocated": 238682112,
+    "peak_reserved": 247463936
+  },
+  "steps": [
+    {
+      "step": 1,
+      "loss": 55.843746185302734,
+      "gradients_finite": true,
+      "forward_seconds": 1.345451284199953,
+      "backward_seconds": 7.438199199736118,
+      "total_seconds": 8.974678801372647,
+      "allocated": 1270768640,
+      "reserved": 17385390080,
+      "peak_allocated": 15158401024,
+      "peak_reserved": 17385390080,
+      "after_release": {
+        "allocated": 874452992,
+        "reserved": 17385390080,
+        "peak_allocated": 15158401024,
+        "peak_reserved": 17385390080
+      }
+    }
+  ],
+  "seconds": 9.059822775423527,
+  "final": {
+    "allocated": 874452992,
+    "reserved": 17385390080,
+    "peak_allocated": 15158401024,
+    "peak_reserved": 17385390080
+  },
+  "peak_host_rss_bytes": 1751822336
+}

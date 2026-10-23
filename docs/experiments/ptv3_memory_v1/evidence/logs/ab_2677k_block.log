@@ -1,0 +1,60 @@
+{
+  "status": "pass",
+  "completed_steps": 1,
+  "initial": {
+    "allocated": 312946176,
+    "reserved": 337641472,
+    "peak_allocated": 312946176,
+    "peak_reserved": 337641472
+  },
+  "steps": [
+    {
+      "step": 1,
+      "loss": 52.33959197998047,
+      "gradients_finite": true,
+      "forward_seconds": 3.713567078113556,
+      "backward_seconds": 20.149476538412273,
+      "optimizer_seconds": 0.021462193690240383,
+      "compute_seconds": 23.88450581021607,
+      "total_seconds": 24.07693708408624,
+      "micros": [
+        {
+          "micro": 1,
+          "loss": 52.33959197998047,
+          "forward_seconds": 3.713567078113556,
+          "backward_seconds": 20.149476538412273,
+          "after_forward": {
+            "allocated": 12531181056,
+            "reserved": 16827547648,
+            "peak_allocated": 13720115200,
+            "peak_reserved": 16827547648
+          },
+          "after_backward": {
+            "allocated": 3840913920,
+            "reserved": 22500343808,
+            "peak_allocated": 19933175808,
+            "peak_reserved": 22500343808
+          }
+        }
+      ],
+      "allocated": 4215503360,
+      "reserved": 22653435904,
+      "peak_allocated": 19933175808,
+      "peak_reserved": 22653435904,
+      "after_release": {
+        "allocated": 941673984,
+        "reserved": 22653435904,
+        "peak_allocated": 19933175808,
+        "peak_reserved": 22653435904
+      }
+    }
+  ],
+  "seconds": 24.165706013329327,
+  "final": {
+    "allocated": 941673984,
+    "reserved": 22653435904,
+    "peak_allocated": 19933175808,
+    "peak_reserved": 22653435904
+  },
+  "peak_host_rss_bytes": 1975595008
+}

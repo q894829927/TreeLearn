@@ -1,0 +1,24 @@
+{
+  "fixture_1060k": {
+    "crop_sha256": "71c0d23d44e4825ba9b5f5b533d4b3de8455337cf3ce6c6bbeeb5b4131cd6aae",
+    "matches_original_fixture": true
+  },
+  "fixture_2677k": {
+    "crop_sha256": "2762a6bcec5cba51ba564833cad2381c88c40049cf7bc00470ae535f047ace3a",
+    "matches_original_fixture": true
+  },
+  "tree_learn/model": {
+    "files_byte_identical": 3,
+    "base": "855f831c01089261b93658fa2d9a4507bc43be27"
+  },
+  "tree_learn/experiments/ptv3_treelearn": {
+    "files_byte_identical": 19,
+    "base": "855f831c01089261b93658fa2d9a4507bc43be27"
+  },
+  "configs/experiments/ptv3_treelearn": {
+    "files_byte_identical": 16,
+    "base": "855f831c01089261b93658fa2d9a4507bc43be27"
+  },
+  "main_ref": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+  "baseline_ref": "855f831c01089261b93658fa2d9a4507bc43be27"
+}

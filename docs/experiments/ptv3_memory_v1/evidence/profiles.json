@@ -1,0 +1,351 @@
+{
+  "profile_v4_block_nested_2677k": {
+    "result": {
+      "status": "pass",
+      "completed_steps": 1,
+      "initial": {
+        "allocated": 188400128,
+        "reserved": 205520896,
+        "peak_allocated": 188400128,
+        "peak_reserved": 205520896
+      },
+      "steps": [
+        {
+          "step": 1,
+          "loss": 52.338233947753906,
+          "gradients_finite": true,
+          "forward_seconds": 6.609788998961449,
+          "backward_seconds": 24.680170969106257,
+          "optimizer_seconds": 1.3087928807362914,
+          "compute_seconds": 32.598752848804,
+          "total_seconds": 33.72259499784559,
+          "micros": [
+            {
+              "micro": 1,
+              "loss": 52.338233947753906,
+              "forward_seconds": 6.609788998961449,
+              "backward_seconds": 24.680170969106257,
+              "after_forward": {
+                "allocated": 12491918848,
+                "reserved": 17177772032,
+                "peak_allocated": 13972267520,
+                "peak_reserved": 17177772032
+              },
+              "after_backward": {
+                "allocated": 3787471872,
+                "reserved": 22573744128,
+                "peak_allocated": 19525172224,
+                "peak_reserved": 22573744128
+              }
+            }
+          ],
+          "allocated": 816926720,
+          "reserved": 22724739072,
+          "peak_allocated": 19525172224,
+          "peak_reserved": 22724739072,
+          "after_release": {
+            "allocated": 816926720,
+            "reserved": 22724739072,
+            "peak_allocated": 19525172224,
+            "peak_reserved": 22724739072
+          }
+        }
+      ],
+      "seconds": 33.83017904590815,
+      "final": {
+        "allocated": 816926720,
+        "reserved": 22724739072,
+        "peak_allocated": 19525172224,
+        "peak_reserved": 22724739072
+      },
+      "peak_host_rss_bytes": 1789673472,
+      "last_successful_operator": "aten._local_scalar_dense.default",
+      "last_successful_module": "backbone.enc.enc0.block0.attn.proj_drop",
+      "point_created": 103,
+      "point_released": 103
+    },
+    "peak_operator": {
+      "event": "operator",
+      "phase": "backward",
+      "active": [],
+      "time": 5605025.988886911,
+      "operator": "aten.sum.dim_IntList",
+      "autograd_node": "AddmmBackward0",
+      "backward_module": "backbone.dec.dec0.block1.mlp.0.fc2",
+      "before": {
+        "allocated": 19500005376,
+        "reserved": 21307064320,
+        "peak_allocated": 19500005376,
+        "peak_reserved": 21307064320
+      },
+      "after": {
+        "allocated": 19500005888,
+        "reserved": 21307064320,
+        "peak_allocated": 19525172224,
+        "peak_reserved": 21307064320
+      },
+      "seconds": 0.0005083922296762466
+    },
+    "failed_operators": [],
+    "note": "module window peaks include live tensors from other modules; times are inclusive"
+  },
+  "profile_v4_reference_1060k": {
+    "result": {
+      "status": "pass",
+      "completed_steps": 1,
+      "initial": {
+        "allocated": 188400128,
+        "reserved": 205520896,
+        "peak_allocated": 188400128,
+        "peak_reserved": 205520896
+      },
+      "steps": [
+        {
+          "step": 1,
+          "loss": 55.84386444091797,
+          "gradients_finite": true,
+          "forward_seconds": 4.186610740609467,
+          "backward_seconds": 9.997320614755154,
+          "optimizer_seconds": 1.3149374965578318,
+          "compute_seconds": 15.498868851922452,
+          "total_seconds": 16.638266136869788,
+          "micros": [
+            {
+              "micro": 1,
+              "loss": 55.84386444091797,
+              "forward_seconds": 4.186610740609467,
+              "backward_seconds": 9.997320614755154,
+              "after_forward": {
+                "allocated": 14008784384,
+                "reserved": 15508439040,
+                "peak_allocated": 14384674304,
+                "peak_reserved": 15508439040
+              },
+              "after_backward": {
+                "allocated": 861696000,
+                "reserved": 17620271104,
+                "peak_allocated": 15125644800,
+                "peak_reserved": 17620271104
+              }
+            }
+          ],
+          "allocated": 823377920,
+          "reserved": 17756585984,
+          "peak_allocated": 15125644800,
+          "peak_reserved": 17756585984,
+          "after_release": {
+            "allocated": 823377920,
+            "reserved": 17756585984,
+            "peak_allocated": 15125644800,
+            "peak_reserved": 17756585984
+          }
+        }
+      ],
+      "seconds": 16.735964513383806,
+      "final": {
+        "allocated": 823377920,
+        "reserved": 17756585984,
+        "peak_allocated": 15125644800,
+        "peak_reserved": 17756585984
+      },
+      "peak_host_rss_bytes": 1610043392,
+      "last_successful_operator": "aten._local_scalar_dense.default",
+      "last_successful_module": "backbone.enc.enc0.block0.attn.proj_drop",
+      "point_created": 59,
+      "point_released": 59
+    },
+    "peak_operator": {
+      "event": "operator",
+      "phase": "backward",
+      "active": [],
+      "time": 5604988.927259978,
+      "operator": "aten.sum.dim_IntList",
+      "autograd_node": "AddmmBackward0",
+      "backward_module": "backbone.dec.dec0.block1.mlp.0.fc2",
+      "before": {
+        "allocated": 15100213248,
+        "reserved": 17114857472,
+        "peak_allocated": 15100213248,
+        "peak_reserved": 17114857472
+      },
+      "after": {
+        "allocated": 15100213760,
+        "reserved": 17114857472,
+        "peak_allocated": 15125644800,
+        "peak_reserved": 17114857472
+      },
+      "seconds": 0.0003397669643163681
+    },
+    "failed_operators": [],
+    "note": "module window peaks include live tensors from other modules; times are inclusive"
+  },
+  "profile_v4_reference_2677k": {
+    "result": {
+      "status": "cuda_oom",
+      "completed_steps": 0,
+      "initial": {
+        "allocated": 188400128,
+        "reserved": 205520896,
+        "peak_allocated": 188400128,
+        "peak_reserved": 205520896
+      },
+      "steps": [],
+      "error": "CUDA out of memory. Tried to allocate 526.00 MiB (GPU 0; 23.53 GiB total capacity; 22.22 GiB already allocated; 107.88 MiB free; 22.91 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF",
+      "seconds": 6.267167509533465,
+      "final": {
+        "allocated": 221960704,
+        "reserved": 24599592960,
+        "peak_allocated": 23857283584,
+        "peak_reserved": 24624758784
+      },
+      "peak_host_rss_bytes": 1564925952,
+      "last_successful_operator": "aten._to_copy.default",
+      "last_successful_module": "backbone.dec.dec0.block0.cpe.1",
+      "point_created": 35,
+      "point_released": 35
+    },
+    "peak_operator": {
+      "event": "operator",
+      "phase": "forward",
+      "active": [
+        "model",
+        "backbone",
+        "backbone.dec",
+        "backbone.dec.dec0",
+        "backbone.dec.dec0.block0",
+        "backbone.dec.dec0.block0.cpe",
+        "backbone.dec.dec0.block0.cpe.2"
+      ],
+      "time": 5605013.357038806,
+      "operator": "aten._to_copy.default",
+      "autograd_node": null,
+      "backward_module": null,
+      "before": {
+        "allocated": 23307267072,
+        "reserved": 24073207808,
+        "peak_allocated": 23307267072,
+        "peak_reserved": 24073207808
+      },
+      "after": {
+        "allocated": 23857283584,
+        "reserved": 24624758784,
+        "peak_allocated": 23857283584,
+        "peak_reserved": 24624758784
+      },
+      "seconds": 0.0013762358576059341
+    },
+    "failed_operators": [
+      {
+        "event": "operator_error",
+        "phase": "forward",
+        "active": [
+          "model",
+          "backbone",
+          "backbone.dec",
+          "backbone.dec.dec0",
+          "backbone.dec.dec0.block0",
+          "backbone.dec.dec0.block0.cpe",
+          "backbone.dec.dec0.block0.cpe.2"
+        ],
+        "time": 5605013.368394056,
+        "operator": "aten.native_layer_norm.default",
+        "before": {
+          "allocated": 23857283584,
+          "reserved": 24624758784,
+          "peak_allocated": 23857283584,
+          "peak_reserved": 24624758784
+        },
+        "after": {
+          "allocated": 23857283584,
+          "reserved": 24599592960,
+          "peak_allocated": 23857283584,
+          "peak_reserved": 24624758784
+        },
+        "autograd_node": null,
+        "backward_module": null,
+        "seconds": 0.010970029979944229,
+        "stack": "Traceback (most recent call last):\n  File \"/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/profile.py\", line 45, in __torch_dispatch__\n    result = func(*args, **(kwargs or {}))\n  File \"/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/_ops.py\", line 287, in __call__\n    return self._op(*args, **kwargs or {})\ntorch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 526.00 MiB (GPU 0; 23.53 GiB total capacity; 22.22 GiB already allocated; 107.88 MiB free; 22.91 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF\n"
+      }
+    ],
+    "note": "module window peaks include live tensors from other modules; times are inclusive"
+  },
+  "profile_v4_stage_2677k": {
+    "result": {
+      "status": "cuda_oom",
+      "completed_steps": 0,
+      "initial": {
+        "allocated": 188400128,
+        "reserved": 205520896,
+        "peak_allocated": 188400128,
+        "peak_reserved": 205520896
+      },
+      "steps": [],
+      "error": "CUDA out of memory. Tried to allocate 1.03 GiB (GPU 0; 23.53 GiB total capacity; 21.52 GiB already allocated; 459.88 MiB free; 22.54 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF",
+      "seconds": 6.463440777733922,
+      "final": {
+        "allocated": 8619561984,
+        "reserved": 24196939776,
+        "peak_allocated": 23145415680,
+        "peak_reserved": 24209522688
+      },
+      "peak_host_rss_bytes": 1629929472,
+      "last_successful_operator": "aten.t.default",
+      "last_successful_module": "backbone.dec.dec0.block1",
+      "point_created": 25,
+      "point_released": 25
+    },
+    "peak_operator": {
+      "event": "operator",
+      "phase": "backward",
+      "active": [
+        "backbone.dec.dec0.block1",
+        "backbone.dec.dec0.block1.mlp",
+        "backbone.dec.dec0.block1.mlp.0",
+        "backbone.dec.dec0.block1.mlp.0.fc2"
+      ],
+      "time": 5605065.143789547,
+      "operator": "aten.addmm.default",
+      "autograd_node": "CheckpointFunctionBackward",
+      "backward_module": "backbone.dec.dec0",
+      "before": {
+        "allocated": 22870407168,
+        "reserved": 24209522688,
+        "peak_allocated": 22870407168,
+        "peak_reserved": 24209522688
+      },
+      "after": {
+        "allocated": 23145415680,
+        "reserved": 24209522688,
+        "peak_allocated": 23145415680,
+        "peak_reserved": 24209522688
+      },
+      "seconds": 0.002220054157078266
+    },
+    "failed_operators": [
+      {
+        "event": "operator_error",
+        "phase": "backward",
+        "active": [],
+        "time": 5605065.163101643,
+        "operator": "aten.mm.default",
+        "before": {
+          "allocated": 23111027200,
+          "reserved": 24209522688,
+          "peak_allocated": 23145415680,
+          "peak_reserved": 24209522688
+        },
+        "after": {
+          "allocated": 23111027200,
+          "reserved": 24196939776,
+          "peak_allocated": 23145415680,
+          "peak_reserved": 24209522688
+        },
+        "autograd_node": "AddmmBackward0",
+        "backward_module": "backbone.dec.dec0.block1.mlp.0.fc2",
+        "seconds": 0.01177630852907896,
+        "stack": "Traceback (most recent call last):\n  File \"/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/profile.py\", line 45, in __torch_dispatch__\n    result = func(*args, **(kwargs or {}))\n  File \"/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/_ops.py\", line 287, in __call__\n    return self._op(*args, **kwargs or {})\ntorch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.03 GiB (GPU 0; 23.53 GiB total capacity; 21.52 GiB already allocated; 459.88 MiB free; 22.54 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF\n"
+      }
+    ],
+    "note": "module window peaks include live tensors from other modules; times are inclusive"
+  }
+}

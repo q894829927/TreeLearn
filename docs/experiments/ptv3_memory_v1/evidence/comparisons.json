@@ -1,0 +1,453 @@
+{
+  "comparison_1060k_block": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_1060k_reference",
+    "actual": "work_dirs/ptv3_memory_v1/ab_1060k_block",
+    "reference_sha256": "25d92b363706ce6a5327492818c3644a5033202d624fe08f774501f252bbbce3",
+    "actual_sha256": "aa2cce7f82f63f8ad7f41d8e6d580cf214eabd4899c00074b8d789752fefb83b",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 6172.034604524224,
+        "elements": 2121466,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 10337.487609209558,
+        "elements": 3182199,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.0006103515625,
+      "relative_l2": 0.00025842248491167474,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_1060k_block_nested": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_1060k_reference",
+    "actual": "work_dirs/ptv3_memory_v1/ab_1060k_block_nested",
+    "reference_sha256": "25d92b363706ce6a5327492818c3644a5033202d624fe08f774501f252bbbce3",
+    "actual_sha256": "aee5a39e60828ca6ecb22fedc7cfaf85dbf3bb2c568b9a88e452f40cf2937bb8",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 6172.034604524224,
+        "elements": 2121466,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 10337.487609209558,
+        "elements": 3182199,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.00048828125,
+      "relative_l2": 0.0002591837182625232,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_1060k_offload": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_1060k_reference",
+    "actual": "work_dirs/ptv3_memory_v1/ab_1060k_offload",
+    "reference_sha256": "25d92b363706ce6a5327492818c3644a5033202d624fe08f774501f252bbbce3",
+    "actual_sha256": "f9c82c5542a41bddf7cbedcbb4984aeea0d2abf2c280c5b4b91a072f25a29f49",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 6172.034604524224,
+        "elements": 2121466,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 10337.487609209558,
+        "elements": 3182199,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.0006103515625,
+      "relative_l2": 0.0002606571455912022,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_1060k_reference_repeat": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_1060k_reference",
+    "actual": "work_dirs/ptv3_memory_v1/ab_1060k_reference_repeat",
+    "reference_sha256": "25d92b363706ce6a5327492818c3644a5033202d624fe08f774501f252bbbce3",
+    "actual_sha256": "0dc7980623e892089fd71bfc2f3fc6fbab942ae7f54020ea50d0a625ff46cbd8",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 6172.034604524224,
+        "elements": 2121466,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 10337.487609209558,
+        "elements": 3182199,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.0006103515625,
+      "relative_l2": 0.00025841602360619445,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_1060k_serialization": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_1060k_reference",
+    "actual": "work_dirs/ptv3_memory_v1/ab_1060k_serialization",
+    "reference_sha256": "25d92b363706ce6a5327492818c3644a5033202d624fe08f774501f252bbbce3",
+    "actual_sha256": "34d25f46fae16b17536cf29b6a43291973652bd06b2e0bfb03fd380cb1160835",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 6172.034604524224,
+        "elements": 2121466,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 10337.487609209558,
+        "elements": 3182199,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.000732421875,
+      "relative_l2": 0.0002593806739476213,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_1060k_stage": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_1060k_reference",
+    "actual": "work_dirs/ptv3_memory_v1/ab_1060k_stage",
+    "reference_sha256": "25d92b363706ce6a5327492818c3644a5033202d624fe08f774501f252bbbce3",
+    "actual_sha256": "9bfe3751a50bfed02b81e3c8a38ce3677cd3c69dbe67dd7b68fde01df445d62d",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 6172.034604524224,
+        "elements": 2121466,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 10337.487609209558,
+        "elements": 3182199,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.0006103515625,
+      "relative_l2": 0.00025944919247150925,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_1060k_stage_nested": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_1060k_reference",
+    "actual": "work_dirs/ptv3_memory_v1/ab_1060k_stage_nested",
+    "reference_sha256": "25d92b363706ce6a5327492818c3644a5033202d624fe08f774501f252bbbce3",
+    "actual_sha256": "0ee689d773a81de0be5450a3df911ba7db5744cfc6c8cfb86184715909ae1f21",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 6172.034604524224,
+        "elements": 2121466,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 10337.487609209558,
+        "elements": 3182199,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.0006103515625,
+      "relative_l2": 0.0002612695374405429,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_2677k_block": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_2677k_offload",
+    "actual": "work_dirs/ptv3_memory_v1/ab_2677k_block",
+    "reference_sha256": "4c6a8ff8ecebb5b42758bdcdedb96e74e27a59e67eb9e5e1184e356edf382ab3",
+    "actual_sha256": "75e8ffbb19eb01d2d3a945f2dced1e46f6e89e1ecee481296208f2b1234cb3fc",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 15725.768948352426,
+        "elements": 5354006,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 25784.324518280577,
+        "elements": 8031009,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.00048828125,
+      "relative_l2": 0.0003717154445542698,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_2677k_block_nested": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_2677k_offload",
+    "actual": "work_dirs/ptv3_memory_v1/ab_2677k_block_nested",
+    "reference_sha256": "4c6a8ff8ecebb5b42758bdcdedb96e74e27a59e67eb9e5e1184e356edf382ab3",
+    "actual_sha256": "08d46f3d3ee5e179904b621997949ce9cc07bca88b858c060709d96a993fc408",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 15725.768948352426,
+        "elements": 5354006,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 25784.324518280577,
+        "elements": 8031009,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.00048828125,
+      "relative_l2": 0.0003683269497070569,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_2677k_stage_nested": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_2677k_offload",
+    "actual": "work_dirs/ptv3_memory_v1/ab_2677k_stage_nested",
+    "reference_sha256": "4c6a8ff8ecebb5b42758bdcdedb96e74e27a59e67eb9e5e1184e356edf382ab3",
+    "actual_sha256": "41850c880394c69d8017e5ebb9caa7d2c9a00950840b17ac0b48fa4f6c811fb5",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 15725.768948352426,
+        "elements": 5354006,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 25784.324518280577,
+        "elements": 8031009,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.0006103515625,
+      "relative_l2": 0.00036934512056392547,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  },
+  "comparison_2677k_offload_repeat": {
+    "reference": "work_dirs/ptv3_memory_v1/ab_2677k_offload",
+    "actual": "work_dirs/ptv3_memory_v1/ab_2677k_offload_repeat",
+    "reference_sha256": "4c6a8ff8ecebb5b42758bdcdedb96e74e27a59e67eb9e5e1184e356edf382ab3",
+    "actual_sha256": "cc54d84ab64318d619bf8c12404e4ccf039582024e34b473a7b051a24a9fe685",
+    "prediction_errors": {
+      "semantic_prediction_logits": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 15725.768948352426,
+        "elements": 5354006,
+        "bitwise_equal": true
+      },
+      "offset_predictions": {
+        "max_abs": 0.0,
+        "squared_error": 0.0,
+        "squared_reference": 25784.324518280577,
+        "elements": 8031009,
+        "bitwise_equal": true
+      }
+    },
+    "identical_input_and_initial_weights": true,
+    "identical_non_checkpoint_config": true,
+    "gradient_summary": {
+      "max_abs": 0.00054931640625,
+      "relative_l2": 0.0003683799660894369,
+      "tensors": 459,
+      "all_finite": true
+    },
+    "bn_and_all_buffers_exact": true,
+    "rng_after_backward_exact": true,
+    "loss_abs_diff": 0.0,
+    "acceptance": {
+      "prediction_atol": 0.0001,
+      "prediction_rtol": 0.001,
+      "gradient_relative_l2": 0.001,
+      "buffers": "exact",
+      "rng": "exact"
+    },
+    "status": "pass"
+  }
+}

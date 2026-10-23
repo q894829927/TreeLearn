@@ -52,7 +52,7 @@ def collect(root, output):
         with (output/(name+"_modules.csv")).open("w") as stream:
             fields = ["phase", "module", "calls", "seconds", "entry_allocated", "entry_reserved",
                       "allocated", "reserved", "window_peak_allocated", "window_peak_reserved"]
-            writer = csv.DictWriter(stream, fieldnames=fields); writer.writeheader()
+            writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n"); writer.writeheader()
             for (phase,module), record in sorted(modules.items()):
                 writer.writerow(dict(phase=phase, module=module, **record))
         profiles[name] = dict(result=result, peak_operator=peak_event, failed_operators=failures,
@@ -75,6 +75,11 @@ def collect(root, output):
     (output/"artifact_inventory.json").write_text(json.dumps(inventory, indent=2)+"\n")
     for filename in ("unit_tests_final.log",):
         (output/filename).write_bytes((root/filename).read_bytes())
+    logs = output/"logs"
+    logs.mkdir()
+    for path in sorted(root.glob("*.log")):
+        if path.name.startswith(("ab_", "timing_", "profile_v4_", "final_raw_", "release_")):
+            (logs/path.name).write_bytes(path.read_bytes())
 
 
 if __name__ == "__main__":

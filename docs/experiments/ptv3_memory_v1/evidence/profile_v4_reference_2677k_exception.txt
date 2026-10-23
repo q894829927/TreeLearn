@@ -1,0 +1,42 @@
+Traceback (most recent call last):
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/run.py", line 118, in run
+    predictions = model(batch, return_loss=False)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1538, in _call_impl
+    result = forward_call(*args, **kwargs)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/model/tree_learn.py", line 76, in forward
+    backbone_output, v2p_map = self.forward_backbone(**batch)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/util/train.py", line 41, in wrapper
+    return func(*new_args, **new_kwargs)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_treelearn/model.py", line 152, in forward_backbone
+    output = self.backbone(data)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1538, in _call_impl
+    result = forward_call(*args, **kwargs)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 981, in forward
+    point = self.dec(point)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1538, in _call_impl
+    result = forward_call(*args, **kwargs)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 231, in forward
+    input = module(input)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1538, in _call_impl
+    result = forward_call(*args, **kwargs)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 231, in forward
+    input = module(input)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1538, in _call_impl
+    result = forward_call(*args, **kwargs)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 588, in forward
+    point = self.cpe(point)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1538, in _call_impl
+    result = forward_call(*args, **kwargs)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_treelearn/vendor/model.py", line 242, in forward
+    input.feat = module(input.feat)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1538, in _call_impl
+    result = forward_call(*args, **kwargs)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/modules/normalization.py", line 190, in forward
+    return F.layer_norm(
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/nn/functional.py", line 2515, in layer_norm
+    return torch.layer_norm(input, normalized_shape, weight, bias, eps, torch.backends.cudnn.enabled)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/profile.py", line 45, in __torch_dispatch__
+    result = func(*args, **(kwargs or {}))
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/_ops.py", line 287, in __call__
+    return self._op(*args, **kwargs or {})
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 526.00 MiB (GPU 0; 23.53 GiB total capacity; 22.22 GiB already allocated; 107.88 MiB free; 22.91 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

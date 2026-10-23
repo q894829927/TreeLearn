@@ -1,0 +1,942 @@
+[
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block.log",
+    "bytes": 941,
+    "sha256": "64a4ce7127b4bcbfe5d24fadccf672be522b96f2a3d19d7e3bac69d923555be6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block/manifest.json",
+    "bytes": 6208,
+    "sha256": "6d24b086f391ae4e1b5b69417475fa416a65f1d317fd0dc6636d05c2d68b86e7"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block/progress.json",
+    "bytes": 735,
+    "sha256": "b0b64dfe41baf728a429a24845df8587980bcc390b9299b44fdce48ad5e16b5c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block/result.json",
+    "bytes": 941,
+    "sha256": "64a4ce7127b4bcbfe5d24fadccf672be522b96f2a3d19d7e3bac69d923555be6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block_nested.log",
+    "bytes": 941,
+    "sha256": "a074b7cf45d8b1b0c4d123ef64f80091f6124efb8465ab893c2b5161d51fc50c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block_nested/manifest.json",
+    "bytes": 6214,
+    "sha256": "871e225d1af915d4e2eaa96bf1b30af40fa72b534419cc4fdcfa57cca9abbbb3"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block_nested/progress.json",
+    "bytes": 735,
+    "sha256": "b32826b1ed17f3a4afc91a7e8aa7b8dc72b6837e09d3378687a2d89ea9da1810"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_block_nested/result.json",
+    "bytes": 941,
+    "sha256": "a074b7cf45d8b1b0c4d123ef64f80091f6124efb8465ab893c2b5161d51fc50c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_offload.log",
+    "bytes": 943,
+    "sha256": "9e2c68d570a15184bae9e6e78ee785379c7be361cc83ac0fad5c4d1ed03a8fb2"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_offload/manifest.json",
+    "bytes": 6209,
+    "sha256": "4a91e88d81060778bd1034597c223b33bb03b5128c2363eded9253cb396a2bf0"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_offload/progress.json",
+    "bytes": 735,
+    "sha256": "4abc46daab761c942a6e215ed39d8a217035724894c35c06ef96ac74ce5f2dde"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_offload/result.json",
+    "bytes": 943,
+    "sha256": "9e2c68d570a15184bae9e6e78ee785379c7be361cc83ac0fad5c4d1ed03a8fb2"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference.log",
+    "bytes": 952,
+    "sha256": "15b442ab82c819f9008af52c70d0a4535a862b610d724a4fae99d13764f09202"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference/manifest.json",
+    "bytes": 6211,
+    "sha256": "bde090d3a2e031ffe171ca68255f46f4edf82766d56315ae1ff71ce8e3e8528c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference/progress.json",
+    "bytes": 743,
+    "sha256": "30b7db789475b0bd3dde145d6287dc291c9064d658e09ec8c44d6d98c819f838"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference/result.json",
+    "bytes": 952,
+    "sha256": "15b442ab82c819f9008af52c70d0a4535a862b610d724a4fae99d13764f09202"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference_repeat.log",
+    "bytes": 1650,
+    "sha256": "deff21b7426813c6acd88c401fefbccf52ba8d3d7da0e6e341a0e6156ec5ff57"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference_repeat/manifest.json",
+    "bytes": 6295,
+    "sha256": "ca99ccfdccbeccf58341b501dd6ff1c9b64de75f0c936173a46011349e994cac"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference_repeat/progress.json",
+    "bytes": 1441,
+    "sha256": "a3697c88e001d99929d58688cd9bfa513814017bb5e048f23ae7f4c53abc4d4c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_reference_repeat/result.json",
+    "bytes": 1650,
+    "sha256": "deff21b7426813c6acd88c401fefbccf52ba8d3d7da0e6e341a0e6156ec5ff57"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_serialization.log",
+    "bytes": 951,
+    "sha256": "778a366546b8ae2f400fb360a8dbb20919c973300011c1cd5fa41fd098290b07"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_serialization/manifest.json",
+    "bytes": 6215,
+    "sha256": "36b7c71c8596e80bcc7f0b3ca7e2ba4c8fcada84b343bdc2ea4371bae80cf54b"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_serialization/progress.json",
+    "bytes": 742,
+    "sha256": "ac92148568441f7e11c73aeda91de2f772a698988ddba0bbff3c60bc66537505"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_serialization/result.json",
+    "bytes": 951,
+    "sha256": "778a366546b8ae2f400fb360a8dbb20919c973300011c1cd5fa41fd098290b07"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage.log",
+    "bytes": 949,
+    "sha256": "6ade7f7508d3f70a01e2d1e3141503201cd910178fa4b9aa0220b803d1696fb4"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage/manifest.json",
+    "bytes": 6208,
+    "sha256": "3ff2ba8579a91b20d857595c6685d42884d47313c358ff3d50a980aaf0443ea3"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage/progress.json",
+    "bytes": 743,
+    "sha256": "fb853588983657eb19ee62ef335ead7e3d5f914fd3be0082bf990f9acd35d98c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage/result.json",
+    "bytes": 949,
+    "sha256": "6ade7f7508d3f70a01e2d1e3141503201cd910178fa4b9aa0220b803d1696fb4"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage_nested.log",
+    "bytes": 948,
+    "sha256": "0a04bb10f63458f39481ba05da473387c505240a34e3c0f519e55c117007c4de"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage_nested/manifest.json",
+    "bytes": 6214,
+    "sha256": "34b71cbf08717a7e707ad4bdc943d8f9305cdd28cc8fd1c00fec3164a573f27c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage_nested/progress.json",
+    "bytes": 741,
+    "sha256": "aa393cf4251c463762d581dee12016d3b9d87ec40775e025774240f82818b0e6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_1060k_stage_nested/result.json",
+    "bytes": 948,
+    "sha256": "0a04bb10f63458f39481ba05da473387c505240a34e3c0f519e55c117007c4de"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block.log",
+    "bytes": 1650,
+    "sha256": "facb3e91ec295cd84ffc06663c4b6bbeb507bfd6cb731e8dff81acd4049b6760"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block/manifest.json",
+    "bytes": 6325,
+    "sha256": "a7431db7b81e094559b7989cb394ae65e93e889fe1d70d15802cedcea2c26da6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block/progress.json",
+    "bytes": 1440,
+    "sha256": "ffd6c56aa1eaa3cd08d7ea63cd386aab4e47e5f269d9ffd13836a76730300179"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block/result.json",
+    "bytes": 1650,
+    "sha256": "facb3e91ec295cd84ffc06663c4b6bbeb507bfd6cb731e8dff81acd4049b6760"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block_nested.log",
+    "bytes": 1650,
+    "sha256": "64a1eeed8eabd4e1e487dca976484adce11d20b45816200d066d6a2a50066e50"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block_nested/manifest.json",
+    "bytes": 6331,
+    "sha256": "313019300b2bf76bc4a13dcb04d136e74114551c118c82f12c0a429857bd835c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block_nested/progress.json",
+    "bytes": 1440,
+    "sha256": "4745c97b80b35a4122225acdd03e89843d460264679a1a9dae7cf0120548b164"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_block_nested/result.json",
+    "bytes": 1650,
+    "sha256": "64a1eeed8eabd4e1e487dca976484adce11d20b45816200d066d6a2a50066e50"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload.log",
+    "bytes": 1641,
+    "sha256": "0c75a6c2d779cb87ce5226a593d081ffdd7646d6624e1494bfbb47461f692fcd"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload/manifest.json",
+    "bytes": 6326,
+    "sha256": "5dca6c1efe15c0a17afbeaaed9864c3715cde42d70c868f669b01e6644ed3015"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload/progress.json",
+    "bytes": 1433,
+    "sha256": "6352dddbf6e11e8ec7e8f6d703d9f79182f7a7dd082f03d4cde44af12148173e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload/result.json",
+    "bytes": 1641,
+    "sha256": "0c75a6c2d779cb87ce5226a593d081ffdd7646d6624e1494bfbb47461f692fcd"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload_repeat.log",
+    "bytes": 1644,
+    "sha256": "3117095da493312f1cf3e794312903c68bfae9acf317356e6831e02660dd9cc9"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload_repeat/manifest.json",
+    "bytes": 7667,
+    "sha256": "b4f1a0addb6ac8a141d6ac6f78598d41b825d8575e52097dab004607bc3c27af"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload_repeat/progress.json",
+    "bytes": 1435,
+    "sha256": "a037216bb40e6a85d486a15a27f77c91e557834c5313a05afea41ba8b23257c9"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_offload_repeat/result.json",
+    "bytes": 1644,
+    "sha256": "3117095da493312f1cf3e794312903c68bfae9acf317356e6831e02660dd9cc9"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_reference.log",
+    "bytes": 766,
+    "sha256": "f74842ecc47384604f89380c9284fcfee57e47e272762671bc0a516be7788d31"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_reference/exception.txt",
+    "bytes": 3448,
+    "sha256": "0f31bbfe6b1bb8b8996d09c14e55c86cacfb798829be4b24e25f205528b76879"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_reference/manifest.json",
+    "bytes": 6328,
+    "sha256": "d6512a748adf487c3b139aba1a492e95b4cac1bbaf11be42b8c867f998a9df83"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_reference/result.json",
+    "bytes": 766,
+    "sha256": "f74842ecc47384604f89380c9284fcfee57e47e272762671bc0a516be7788d31"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage.log",
+    "bytes": 764,
+    "sha256": "f4f743d36db9a559bf2e508c5eccf06b65f6fc2b9ad7566b8349df483e338bd4"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage/exception.txt",
+    "bytes": 1533,
+    "sha256": "22f76d5c33da5a8a42ddc6971766584d2acea57eb1de7c10a404b53560d84909"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage/manifest.json",
+    "bytes": 6325,
+    "sha256": "1a19be737cdec574ca415759986cdd1fb3966334e7dbee56be5ffbbd465eb124"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage/result.json",
+    "bytes": 764,
+    "sha256": "f4f743d36db9a559bf2e508c5eccf06b65f6fc2b9ad7566b8349df483e338bd4"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage_nested.log",
+    "bytes": 1652,
+    "sha256": "5510be885585352d6603c8fedd51d250c12bef1524f40710188f236e51c12b2b"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage_nested/manifest.json",
+    "bytes": 6331,
+    "sha256": "5171a89ca825bc46cd983b2c066a882e93f22df0b4eecfa37b17938839e30a3f"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage_nested/progress.json",
+    "bytes": 1442,
+    "sha256": "bc1f500cd44d16868ba24e99b1723ee2fbc220c7479f1e844e8b1d945a1c6fff"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/ab_2677k_stage_nested/result.json",
+    "bytes": 1652,
+    "sha256": "5510be885585352d6603c8fedd51d250c12bef1524f40710188f236e51c12b2b"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_1060k_block.json",
+    "bytes": 120586,
+    "sha256": "c252410f0b06043b1a8ee0509840aadb5f8ebf84c16830debb2e0b0f308b0f9f"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_1060k_block_nested.json",
+    "bytes": 120669,
+    "sha256": "dbc582725fd486a4df796cd126646450c62d02bd29a47b5deaec27350c02ccc8"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_1060k_offload.json",
+    "bytes": 120659,
+    "sha256": "3fe4d35683281849ac9b85cea66d8c59238ff5484f915f5426d2d33fa9aaec27"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_1060k_reference_repeat.json",
+    "bytes": 120592,
+    "sha256": "bc478d5184b005b04ba40b0c5171ad2a71685105448f1e397931144f3b40c2c1"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_1060k_serialization.json",
+    "bytes": 120632,
+    "sha256": "0da3695f1efd4001ee3d407182367f6f7f7a969f9c6c6affb93b46cc9bf616f5"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_1060k_stage.json",
+    "bytes": 120647,
+    "sha256": "16fd298743c8806f753a80b054dc81a9698c5ddf64c87ecd0814d99bfa6b0a73"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_1060k_stage_nested.json",
+    "bytes": 120642,
+    "sha256": "f64335c38cfe2226d982f351267d8aff98e75c835c030db4e3b9cca5f861b338"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_2677k_block.json",
+    "bytes": 120886,
+    "sha256": "c5bb97b16b200b5013415d795a02f5d332cf6c20d1934329a1a16820d7902226"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_2677k_block_nested.json",
+    "bytes": 120880,
+    "sha256": "fa4d8f193032666006100c8e1830585ed3d020c9f9793dfb118207fb58ffd3c1"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_2677k_offload_repeat.json",
+    "bytes": 120858,
+    "sha256": "d0c7f93247c9c826a24b0c58c40d9e77f00eb95c729abe754e6ebe0015d63fba"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/comparison_2677k_stage_nested.json",
+    "bytes": 120820,
+    "sha256": "4d9d66e0403f2d935e26ce8879a94e816793ac41c315b3419b68a137916bb3ef"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_accum2.log",
+    "bytes": 5857,
+    "sha256": "6c22871423888561efd8e6dcb9f2aa7dd005679f4ecacc4b9c889993c32193c5"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_accum2/manifest.json",
+    "bytes": 7166,
+    "sha256": "b25d0471ca854cfa8b894291b49cb40821d79701e6e21be8696e193f42ff4a44"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_accum2/progress.json",
+    "bytes": 5648,
+    "sha256": "a330888c1e8d1541f2af62d6e5b9b32013be132936d0af0299582cfa422bb7f7"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_accum2/result.json",
+    "bytes": 5857,
+    "sha256": "6c22871423888561efd8e6dcb9f2aa7dd005679f4ecacc4b9c889993c32193c5"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_nested_accum2.log",
+    "bytes": 5863,
+    "sha256": "96dc6d2b89d6bb52f074fc9c94c5432693c7a6892762e865586e6fe50d95bf95"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_nested_accum2/manifest.json",
+    "bytes": 7186,
+    "sha256": "544d50624c2f75acb0d133d8ddc4282840eb10504558d0a7616014f0ac9178c9"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_nested_accum2/progress.json",
+    "bytes": 5653,
+    "sha256": "21ed557faba4948719bba887f57d8e51e403768edb2a6999383b467a53e56987"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/final_raw_2677k_block_nested_accum2/result.json",
+    "bytes": 5863,
+    "sha256": "96dc6d2b89d6bb52f074fc9c94c5432693c7a6892762e865586e6fe50d95bf95"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/fixture_1060k/manifest.json",
+    "bytes": 930,
+    "sha256": "1159e42aad7a03a2fbcd6c836213c07dce879f3e5a1cf40bd625afbc48872d35"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/fixture_2677k/manifest.json",
+    "bytes": 963,
+    "sha256": "3b6179c3e941962aa1e3a79aa60fe83c10e7625308552809313789dddf8d730c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/prepare_1060k.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/prepare_2677k.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_1060k.log",
+    "bytes": 1136,
+    "sha256": "899c95568bf3236a7a851a5ea345cbab75e689cfa8c722969872eee926421d80"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_1060k/events.jsonl",
+    "bytes": 8878184,
+    "sha256": "2b089752a7e1c7ab9c6c954fe6d85cc2ba620763b3072038bdbef827760e408d"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_1060k/manifest.json",
+    "bytes": 5581,
+    "sha256": "d709eee1f0802bc44ff88673e6758b1f33505baafb39e7922e8d3f91ecd87f83"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_1060k/progress.json",
+    "bytes": 742,
+    "sha256": "fff0a7e84fca11849cee27ae6dd0020027c4a6d73a3c92918920381b9487ea39"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_1060k/result.json",
+    "bytes": 1136,
+    "sha256": "899c95568bf3236a7a851a5ea345cbab75e689cfa8c722969872eee926421d80"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_2677k.log",
+    "bytes": 929,
+    "sha256": "d8f087ad8fe6bb8925129ea14e20302dda7d1f561cd9e2776c6aed81f1326842"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_2677k/events.jsonl",
+    "bytes": 3363426,
+    "sha256": "654a76ccec21babe017ed01fcb102b3aac1b661a3c3c9f6f38ecf9f3677b3a3c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_2677k/exception.txt",
+    "bytes": 3975,
+    "sha256": "258121886cbc77a39ee4431fac9f73a5ac35a35b3e0622b288ab7bb94a20466b"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_2677k/manifest.json",
+    "bytes": 5613,
+    "sha256": "5a1747c34349043e6e99ed92eae8928a1e6654d7e2beb13a4e224eb4aa87b9e5"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_reference_2677k/result.json",
+    "bytes": 929,
+    "sha256": "d8f087ad8fe6bb8925129ea14e20302dda7d1f561cd9e2776c6aed81f1326842"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_block_nested_2677k.log",
+    "bytes": 1831,
+    "sha256": "5c28fcca2063397d6db04cfd3cc506f33263c7fb3877b3284f264f6117dad8ae"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_block_nested_2677k/events.jsonl",
+    "bytes": 11093148,
+    "sha256": "5f9e65c5aee337bd3bd87c5ec5c8ca2f7ad7a1758c082afc5e620386e3eadab6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_block_nested_2677k/manifest.json",
+    "bytes": 5700,
+    "sha256": "c9900e8bd61d4541fa017876a3114bbd33c59a67d04be3f85f1e3368442e3510"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_block_nested_2677k/progress.json",
+    "bytes": 1436,
+    "sha256": "92bb3ac99f97bc52950dd212617cf810feaa50de59abfb2ab54015ac16ebcbb7"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_block_nested_2677k/result.json",
+    "bytes": 1831,
+    "sha256": "5c28fcca2063397d6db04cfd3cc506f33263c7fb3877b3284f264f6117dad8ae"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_1060k.log",
+    "bytes": 1829,
+    "sha256": "121c9ab9b8d4f4cbbed80c8c2d8d8cc9e6169ff059f6c0e75e3a0338205c73f3"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_1060k/events.jsonl",
+    "bytes": 8923829,
+    "sha256": "e84defa49f08f8fcbb059e0a9d446c315b81287e48cf401733f64e30a14fbfde"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_1060k/manifest.json",
+    "bytes": 5665,
+    "sha256": "60eb9c2b4acbe683833406d291cd3068c6437e7f65933648a2f9fa3194adb3e2"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_1060k/progress.json",
+    "bytes": 1435,
+    "sha256": "a3ec01cd3e4260062ea8e11e360496505472d3f091152f6408e2dd89c484a7d3"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_1060k/result.json",
+    "bytes": 1829,
+    "sha256": "121c9ab9b8d4f4cbbed80c8c2d8d8cc9e6169ff059f6c0e75e3a0338205c73f3"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_2677k.log",
+    "bytes": 929,
+    "sha256": "41b921b0c87344a52a68aa7a8c0f8b6734edde173a6c0637a006e288dbc7327f"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_2677k/events.jsonl",
+    "bytes": 3405852,
+    "sha256": "045c3edd71a857d0ef0460780e50dc361b9e2ec5e0fc7b309d14a07b9d756ac5"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_2677k/exception.txt",
+    "bytes": 3975,
+    "sha256": "0499eb2797d266613688f182b4bd85dcefd0d9abc27bcbc16272ff011b19ef5b"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_2677k/manifest.json",
+    "bytes": 5697,
+    "sha256": "00388be7132fc88db00b842567a76a287598c9f03ff788379504282d2badd253"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_reference_2677k/result.json",
+    "bytes": 929,
+    "sha256": "41b921b0c87344a52a68aa7a8c0f8b6734edde173a6c0637a006e288dbc7327f"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_stage_2677k.log",
+    "bytes": 915,
+    "sha256": "2ad4948839bafd4e50251aa2ddaf186e1963235c8c3e280dbf7cef9c8cf210fd"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_stage_2677k/events.jsonl",
+    "bytes": 3276101,
+    "sha256": "fddb012b46a5f828999b6aeac69c195bc68b30599c4980867eb44d98269ece8e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_stage_2677k/exception.txt",
+    "bytes": 1889,
+    "sha256": "4eb24311c89382aa862420c82fe1ae29ea91a377654c000ff47542f32d1c58c7"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_stage_2677k/manifest.json",
+    "bytes": 5720,
+    "sha256": "994baae27f59ac84190418fcb45b3b5cd6f98989fa1480eb91484d17a8abf5af"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v2_stage_2677k/result.json",
+    "bytes": 915,
+    "sha256": "2ad4948839bafd4e50251aa2ddaf186e1963235c8c3e280dbf7cef9c8cf210fd"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_block_nested_2677k.log",
+    "bytes": 1829,
+    "sha256": "839e1a34241e3037b87f49be03d85d8346019baf6665a837e6444cf370ab97a2"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_block_nested_2677k/events.jsonl",
+    "bytes": 11110406,
+    "sha256": "25408c4498865442ea8ed0de292697cd9b25753226f54ec4b59688577702a631"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_block_nested_2677k/manifest.json",
+    "bytes": 5726,
+    "sha256": "e2741db8e19cb2f0ed592c060cef9bcb21b8c35153033e5e631d168e7668bfed"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_block_nested_2677k/progress.json",
+    "bytes": 1434,
+    "sha256": "48da3b9f9507c4b2d9eec9b32431daaeef7ae15ec12906aa777463fad6bdd67e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_block_nested_2677k/result.json",
+    "bytes": 1829,
+    "sha256": "839e1a34241e3037b87f49be03d85d8346019baf6665a837e6444cf370ab97a2"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_1060k.log",
+    "bytes": 1829,
+    "sha256": "a5f27bc87f6aaad051056241533bf5f3659cd2b67b6dba91f2b1f3ea2bbbc818"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_1060k/events.jsonl",
+    "bytes": 8934371,
+    "sha256": "c36ed6962ad7574d5c8e861aaf263ca5248eb02fdc15816f9e43e634b9d65f44"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_1060k/manifest.json",
+    "bytes": 5691,
+    "sha256": "f9046bbc09b4777d1f91b5fdc034893c522cfda326c0c0fb3138cbe0a56bbc94"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_1060k/progress.json",
+    "bytes": 1436,
+    "sha256": "3ce97955ece2acc9cb9d706073213aa04859a4aa37dfb5510c664b9fdffa56d1"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_1060k/result.json",
+    "bytes": 1829,
+    "sha256": "a5f27bc87f6aaad051056241533bf5f3659cd2b67b6dba91f2b1f3ea2bbbc818"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_2677k.log",
+    "bytes": 929,
+    "sha256": "b1de1c500a4f462c4d833aafcbb5a97603325dabd9888d464393a0e5c47116b7"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_2677k/events.jsonl",
+    "bytes": 3405973,
+    "sha256": "ca674bc0c278f09fc3e0c46a5c1002c9fd0aa613f55fd067c3f0d1673f1b38b1"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_2677k/exception.txt",
+    "bytes": 3975,
+    "sha256": "d7d309a7d9d9d09360a80cc1ccdf3bd991688d9e28bd6bb775c12b1834763a51"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_2677k/manifest.json",
+    "bytes": 5723,
+    "sha256": "2b71fb098938156525e5522a686592033f3214d21501ff58191339a9459d0d92"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_reference_2677k/result.json",
+    "bytes": 929,
+    "sha256": "b1de1c500a4f462c4d833aafcbb5a97603325dabd9888d464393a0e5c47116b7"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_stage_2677k.log",
+    "bytes": 915,
+    "sha256": "26d4d41fbf92ef618608271ad4fa21302b704f41964ddf6c6d74dc4b65be1fe0"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_stage_2677k/events.jsonl",
+    "bytes": 3276293,
+    "sha256": "861648a76c875657972ab8d9fb9f9d4ea67dd6f5d8ba052b798fc3bcff8af64e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_stage_2677k/exception.txt",
+    "bytes": 1889,
+    "sha256": "6fae92c240c702e9080daf0deb0f800eb8bb2bc3c3dd5c8e082bc715fbaefc55"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_stage_2677k/manifest.json",
+    "bytes": 7094,
+    "sha256": "da69a149d42819a274836d34577c942abc007657f2cacfb8ea8501b09ae89305"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v3_stage_2677k/result.json",
+    "bytes": 915,
+    "sha256": "26d4d41fbf92ef618608271ad4fa21302b704f41964ddf6c6d74dc4b65be1fe0"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_block_nested_2677k.log",
+    "bytes": 1832,
+    "sha256": "7b5eb3dff9b3e55cf51dd93c9f4608de02452662bdebdb26dbd97bffcd07832c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_block_nested_2677k/events.jsonl",
+    "bytes": 11836746,
+    "sha256": "82823186ceed7a2575a5a8819c55f3e56383b140670b375a1352f68547e6a0e3"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_block_nested_2677k/manifest.json",
+    "bytes": 7201,
+    "sha256": "4673a777d96f43e2fb1e027db01566a122bada205cc545dd490af9e0b7215aac"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_block_nested_2677k/progress.json",
+    "bytes": 1437,
+    "sha256": "60b17f55738fd7a81db880b5499136a0ec925b2628719e424770f7345a020824"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_block_nested_2677k/result.json",
+    "bytes": 1832,
+    "sha256": "7b5eb3dff9b3e55cf51dd93c9f4608de02452662bdebdb26dbd97bffcd07832c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_1060k.log",
+    "bytes": 1830,
+    "sha256": "65f8a94cff059651d4cedd6f28ac7001166c9764aa6341d01cdc006d2e87f1be"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_1060k/events.jsonl",
+    "bytes": 9494911,
+    "sha256": "b8784dc94e3c2ae7b67fff180f1468fcf1db255f7c5127494134979db11824ab"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_1060k/manifest.json",
+    "bytes": 7141,
+    "sha256": "98665372edcecf9a8c0fcfcc8388b2f6fcbea89491b62de7e98fc82187e9134e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_1060k/progress.json",
+    "bytes": 1436,
+    "sha256": "fdeff08b10bc15c84ef82dacf00500674e30fac57a2f42ec667ede08686d9b50"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_1060k/result.json",
+    "bytes": 1830,
+    "sha256": "65f8a94cff059651d4cedd6f28ac7001166c9764aa6341d01cdc006d2e87f1be"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_2677k.log",
+    "bytes": 929,
+    "sha256": "f45122f82bf8cdebdadd10fa4a9be81e58ced2a99261f49c9bd2f5224c598481"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_2677k/events.jsonl",
+    "bytes": 3549577,
+    "sha256": "4f2d9cb1556e63ee91a131fc2bdf9d33efa75feb4df41fe03df5ae9c9a662eff"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_2677k/exception.txt",
+    "bytes": 3975,
+    "sha256": "2bdb199064f0587b4eedb788696b7befcba0245abf790cd269b6d8f0d5351119"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_2677k/manifest.json",
+    "bytes": 7192,
+    "sha256": "19f209c872a00067ee70f7b58eaa605437859eaa9ba724c0a4b5362faa23209a"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_reference_2677k/result.json",
+    "bytes": 929,
+    "sha256": "f45122f82bf8cdebdadd10fa4a9be81e58ced2a99261f49c9bd2f5224c598481"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_stage_2677k.log",
+    "bytes": 915,
+    "sha256": "3b2b3262934bd957a2a48d756a85791082188d9534852cb232088c803e135076"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_stage_2677k/events.jsonl",
+    "bytes": 3415655,
+    "sha256": "44f72227d18b114f0e1412aa5b1656daa7f01f7d4906236c4778a744c425bc14"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_stage_2677k/exception.txt",
+    "bytes": 1889,
+    "sha256": "de71c60ed11b612adfce8ee4cae919887148e66380a833af88e3eb534ec6d7fc"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_stage_2677k/manifest.json",
+    "bytes": 7181,
+    "sha256": "899eed1086587682ae8292deca2919c1bfb3dcfae20c6374a8c851eca4106d4c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/profile_v4_stage_2677k/result.json",
+    "bytes": 915,
+    "sha256": "3b2b3262934bd957a2a48d756a85791082188d9534852cb232088c803e135076"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/release_raw_2677k_block_nested_accum2.log",
+    "bytes": 5862,
+    "sha256": "6a6c495deb3814ec9d61d3859c76c2d1f702c0334a7b40d2821878f3ae72792d"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/release_raw_2677k_block_nested_accum2/manifest.json",
+    "bytes": 7034,
+    "sha256": "67342768360285a4aff26af25ebd5c67aee598d5ff42fa9940197ea14c824945"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/release_raw_2677k_block_nested_accum2/progress.json",
+    "bytes": 5653,
+    "sha256": "aa772edeee3333f6ef9446754363171457d97d010a84572c44fda15ffe2d319c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/release_raw_2677k_block_nested_accum2/result.json",
+    "bytes": 5862,
+    "sha256": "6a6c495deb3814ec9d61d3859c76c2d1f702c0334a7b40d2821878f3ae72792d"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block.log",
+    "bytes": 4085,
+    "sha256": "2f0d0196d75230a914bead62bef332c237c4cd4e4607d692d1ac9c128caf58a6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block/manifest.json",
+    "bytes": 7654,
+    "sha256": "24872e95517527442bf123b509c0b26d4f14c385dfce56715bccd5fecd99347d"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block/progress.json",
+    "bytes": 3878,
+    "sha256": "4b45c63f66274261e015011cc5b8f37e2b4e067467cc0ac4fea4a7c8f62f79ae"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block/result.json",
+    "bytes": 4085,
+    "sha256": "2f0d0196d75230a914bead62bef332c237c4cd4e4607d692d1ac9c128caf58a6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block_nested.log",
+    "bytes": 4083,
+    "sha256": "e3eef4b3ba9610163f5d216fabf00aee3a3e53864f2dc30569deedc23e2eda16"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block_nested/manifest.json",
+    "bytes": 7721,
+    "sha256": "428be62f42be71f410ea20ce3a9f0e7fdd052cd1f02524c72701aeebe41e7167"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block_nested/progress.json",
+    "bytes": 3876,
+    "sha256": "2220cb86f70a9ca0c6502a79b6aa69b5325da34bd6db1a1a15d49c5e60e1919e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_block_nested/result.json",
+    "bytes": 4083,
+    "sha256": "e3eef4b3ba9610163f5d216fabf00aee3a3e53864f2dc30569deedc23e2eda16"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_offload.log",
+    "bytes": 4071,
+    "sha256": "2eee1097fa245a0b100c69a3b9c8ff0db1333ffb5d16a36d88c1356f69432b56"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_offload/manifest.json",
+    "bytes": 7706,
+    "sha256": "15cd6fcbc5f6e7934f3b3d21c9488ab7582c502ddf3efbd00f8b02a47f40352c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_offload/progress.json",
+    "bytes": 3863,
+    "sha256": "e3d5d3fd6c547930b24c330f9e97a72b2e0dc8f337fb6bb6c28cfac61b8daa11"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_offload/result.json",
+    "bytes": 4071,
+    "sha256": "2eee1097fa245a0b100c69a3b9c8ff0db1333ffb5d16a36d88c1356f69432b56"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_reference.log",
+    "bytes": 4129,
+    "sha256": "ec8b3f87fd65e166fa2360caf1dc261cad7441414ebac0286386b10b3bc0d67e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_reference/manifest.json",
+    "bytes": 7665,
+    "sha256": "110e8e00d921ef37bc2071a8b835af4862fdcadddf8fb46e564a895969de453c"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_reference/progress.json",
+    "bytes": 3919,
+    "sha256": "636b664fa359e12dcb94ac4321bb672b2de27a5ddf00f0479da65f427c77797e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_reference/result.json",
+    "bytes": 4129,
+    "sha256": "ec8b3f87fd65e166fa2360caf1dc261cad7441414ebac0286386b10b3bc0d67e"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_serialization.log",
+    "bytes": 4125,
+    "sha256": "657f7a5b20f86dfa729485c2d1f6b04200431b9714c92891d619a3601dd87b84"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_serialization/manifest.json",
+    "bytes": 7677,
+    "sha256": "a0c8ad2fe778f5743f6f8506d05775b01b19d6af0d578eaa06c6cb3dc04bbb45"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_serialization/progress.json",
+    "bytes": 3915,
+    "sha256": "3dad5ac28728de7fa78596a6956fb081bf0b8250f8090a7322b8137617c0ead6"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_serialization/result.json",
+    "bytes": 4125,
+    "sha256": "657f7a5b20f86dfa729485c2d1f6b04200431b9714c92891d619a3601dd87b84"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage.log",
+    "bytes": 4121,
+    "sha256": "d8d450f548be5239ea83e33b38c871fc7c90a92e0decf458c3aab9000a44e52f"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage/manifest.json",
+    "bytes": 7701,
+    "sha256": "29662ca4be90d7736c2cb68c6f4c8379ffabc43e617c18fb5d109fbefd209c16"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage/progress.json",
+    "bytes": 3911,
+    "sha256": "257aa52c8b88ae8cd877ae32661c6162c2a21e77a6ead86281263684234c6b72"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage/result.json",
+    "bytes": 4121,
+    "sha256": "d8d450f548be5239ea83e33b38c871fc7c90a92e0decf458c3aab9000a44e52f"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage_nested.log",
+    "bytes": 4107,
+    "sha256": "66e46402ffa07145675c33a8795bb38daf81f10788a9bbceb0731a74bffd2124"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage_nested/manifest.json",
+    "bytes": 7721,
+    "sha256": "413200a742bf823804d7f6f866dd59867c31638774d65db9d8a07e9223dc05fb"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage_nested/progress.json",
+    "bytes": 3898,
+    "sha256": "0ea0b648972692f3a66458ea6f47fa01cd788ac943b49d2b6c5a889b91456230"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/timing_1060k_stage_nested/result.json",
+    "bytes": 4107,
+    "sha256": "66e46402ffa07145675c33a8795bb38daf81f10788a9bbceb0731a74bffd2124"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/unit_tests.log",
+    "bytes": 2599,
+    "sha256": "3c4f854cae2a3fe061eb843f4c65715f2e4f83c19e6e6a825a8a60ef0a04bb1a"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/unit_tests_final.log",
+    "bytes": 787,
+    "sha256": "17a7d243676f9612e6e5c292f8f9f04d0ae09367077bb62e261389adfccf5e52"
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/unit_tests_v2.log",
+    "bytes": 603,
+    "sha256": "2c249dd3cc3f8df9b8c131f44c1e5b7667a34b02dc9454563bfeea67330f0c0d"
+  }
+]

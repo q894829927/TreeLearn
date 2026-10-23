@@ -1,0 +1,140 @@
+{
+  "status": "pass",
+  "completed_steps": 3,
+  "initial": {
+    "allocated": 238682112,
+    "reserved": 247463936,
+    "peak_allocated": 238682112,
+    "peak_reserved": 247463936
+  },
+  "steps": [
+    {
+      "step": 1,
+      "loss": 55.843746185302734,
+      "gradients_finite": true,
+      "forward_seconds": 1.354312302544713,
+      "backward_seconds": 7.454772558994591,
+      "optimizer_seconds": 0.03344484884291887,
+      "compute_seconds": 8.842529710382223,
+      "total_seconds": 8.863286535255611,
+      "micros": [
+        {
+          "micro": 1,
+          "loss": 55.843746185302734,
+          "forward_seconds": 1.354312302544713,
+          "backward_seconds": 7.454772558994591,
+          "after_forward": {
+            "allocated": 14033071104,
+            "reserved": 15405678592,
+            "peak_allocated": 14408944640,
+            "peak_reserved": 15405678592
+          },
+          "after_backward": {
+            "allocated": 890675712,
+            "reserved": 17244880896,
+            "peak_allocated": 15158401024,
+            "peak_reserved": 17244880896
+          }
+        }
+      ],
+      "allocated": 869731840,
+      "reserved": 17381195776,
+      "peak_allocated": 15158401024,
+      "peak_reserved": 17381195776,
+      "after_release": {
+        "allocated": 869731840,
+        "reserved": 17381195776,
+        "peak_allocated": 15158401024,
+        "peak_reserved": 17381195776
+      }
+    },
+    {
+      "step": 2,
+      "loss": 55.040809631347656,
+      "gradients_finite": true,
+      "forward_seconds": 0.1993669020012021,
+      "backward_seconds": 0.3769595557823777,
+      "optimizer_seconds": 0.008445271290838718,
+      "compute_seconds": 0.5847717290744185,
+      "total_seconds": 0.5985370641574264,
+      "micros": [
+        {
+          "micro": 1,
+          "loss": 55.040809631347656,
+          "forward_seconds": 0.1993669020012021,
+          "backward_seconds": 0.3769595557823777,
+          "after_forward": {
+            "allocated": 14431544832,
+            "reserved": 17381195776,
+            "peak_allocated": 15158401024,
+            "peak_reserved": 17381195776
+          },
+          "after_backward": {
+            "allocated": 1267595776,
+            "reserved": 17381195776,
+            "peak_allocated": 15524255232,
+            "peak_reserved": 17381195776
+          }
+        }
+      ],
+      "allocated": 870387200,
+      "reserved": 17381195776,
+      "peak_allocated": 15524255232,
+      "peak_reserved": 17381195776,
+      "after_release": {
+        "allocated": 870387200,
+        "reserved": 17381195776,
+        "peak_allocated": 15524255232,
+        "peak_reserved": 17381195776
+      }
+    },
+    {
+      "step": 3,
+      "loss": 54.444236755371094,
+      "gradients_finite": true,
+      "forward_seconds": 0.19901789911091328,
+      "backward_seconds": 0.37687818612903357,
+      "optimizer_seconds": 0.008185227401554585,
+      "compute_seconds": 0.5840813126415014,
+      "total_seconds": 0.5979105457663536,
+      "micros": [
+        {
+          "micro": 1,
+          "loss": 54.444236755371094,
+          "forward_seconds": 0.19901789911091328,
+          "backward_seconds": 0.37687818612903357,
+          "after_forward": {
+            "allocated": 14431544832,
+            "reserved": 17381195776,
+            "peak_allocated": 15524255232,
+            "peak_reserved": 17381195776
+          },
+          "after_backward": {
+            "allocated": 1267595776,
+            "reserved": 17381195776,
+            "peak_allocated": 15524255232,
+            "peak_reserved": 17381195776
+          }
+        }
+      ],
+      "allocated": 870387200,
+      "reserved": 17381195776,
+      "peak_allocated": 15524255232,
+      "peak_reserved": 17381195776,
+      "after_release": {
+        "allocated": 870387200,
+        "reserved": 17381195776,
+        "peak_allocated": 15524255232,
+        "peak_reserved": 17381195776
+      }
+    }
+  ],
+  "seconds": 10.321629802696407,
+  "final": {
+    "allocated": 870387200,
+    "reserved": 17381195776,
+    "peak_allocated": 15524255232,
+    "peak_reserved": 17381195776
+  },
+  "peak_host_rss_bytes": 1617399808
+}

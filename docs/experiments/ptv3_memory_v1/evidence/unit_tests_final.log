@@ -1,0 +1,12 @@
+test_batchnorm_and_interleaved_stage_are_rejected (test_recomputation.RecomputationTests) ... ok
+test_configuration_changes_only_checkpoint_policy (test_recomputation.RecomputationTests) ... ok
+test_differentiable_geometry_is_rejected (test_recomputation.RecomputationTests) ... ok
+test_no_grad_inputs_keep_parameter_gradients (test_recomputation.RecomputationTests) ... ok
+test_profiler_peak_without_inherited_context (test_recomputation.RecomputationTests) ... ok
+test_serialization_exact_for_four_orders_and_multiple_batches (test_recomputation.RecomputationTests) ... ok
+test_two_sparse_inputs_output_gradient_rng_and_no_parent_retention (test_recomputation.RecomputationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.393s
+
+OK

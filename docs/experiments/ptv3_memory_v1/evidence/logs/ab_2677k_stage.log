@@ -1,0 +1,20 @@
+{
+  "status": "cuda_oom",
+  "completed_steps": 0,
+  "initial": {
+    "allocated": 312946176,
+    "reserved": 337641472,
+    "peak_allocated": 312946176,
+    "peak_reserved": 337641472
+  },
+  "steps": [],
+  "error": "CUDA out of memory. Tried to allocate 1.03 GiB (GPU 0; 23.53 GiB total capacity; 21.58 GiB already allocated; 745.88 MiB free; 22.26 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF",
+  "seconds": 3.884062179364264,
+  "final": {
+    "allocated": 8678522368,
+    "reserved": 23899144192,
+    "peak_allocated": 23203495936,
+    "peak_reserved": 24144510976
+  },
+  "peak_host_rss_bytes": 1689350144
+}
