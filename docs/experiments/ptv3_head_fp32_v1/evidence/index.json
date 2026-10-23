@@ -1,0 +1,20 @@
+{
+  "run_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42",
+  "gate_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/head_fp32_v1",
+  "attempt": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/continuations/to_5000_head_fp32_v1",
+  "gates": {
+    "failure_legacy": {
+      "result_sha256": "2037e8913e71b45ce61b299d1c07050d5ee2a27c1c9d712123829b0e258ed882",
+      "executed_gate_source_sha256": "51d348b80a1fbe28fed7f7cbd2b056f52cc30087e9429b6fb0f895bb6608208d"
+    },
+    "failure_fixed": {
+      "result_sha256": "2a52872b4795d908f5cd574c2882cce5be7a4ff28cabce832622131d967c650d",
+      "executed_gate_source_sha256": "51d348b80a1fbe28fed7f7cbd2b056f52cc30087e9429b6fb0f895bb6608208d"
+    },
+    "maximum_fixed": {
+      "result_sha256": "45560a39dd16eae3d74f99d6e72ab05533445d759dae9d36a40c22c4bc3943d1",
+      "executed_gate_source_sha256": "51d348b80a1fbe28fed7f7cbd2b056f52cc30087e9429b6fb0f895bb6608208d"
+    }
+  },
+  "adapter_sha256": "6258001c6effc6dc5191ed2a81c52827ef7403c5e6c0c1dec1cc895f2b05d8fb"
+}

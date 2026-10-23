@@ -1,0 +1,16 @@
+test_fp32_outputs_gradients_bn_rng_and_state_keys (test_head_fp32.HeadFP32Tests) ... ok
+test_only_numerical_policy_metadata_changes (test_head_fp32.HeadFP32Tests) ... ok
+test_overflow_guard_precedes_bn_mutation (test_head_fp32.HeadFP32Tests) ... ok
+test_no_caps_no_stress_schedule_no_model_changes (test_formal.FormalTests) ... ok
+test_only_adapter_allocator_and_checkpoint_metadata_change (test_formal.FormalTests) ... ok
+test_recovery_is_rolling_and_epoch_final_names_are_preserved (test_formal.FormalTests) ... ok
+test_scoped_integration_preserves_empty_run_guard_and_rolling_saves (test_formal.FormalTests) ... ok
+test_cut_trees_become_unknown_and_never_non_tree (test_stage_validation.StageRegionTests) ... ok
+test_empty_positive_and_core_boundaries (test_stage_validation.StageRegionTests) ... ok
+test_original_treelearn_nonfluent_eval_keeps_model_and_bn_state (test_stage_validation.StageRegionTests) ... ok
+test_tile_selection_uses_global_translation_and_full_inner_overlap (test_stage_validation.StageRegionTests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.224s
+
+OK

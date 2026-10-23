@@ -1,0 +1,26 @@
+{
+  "policy": "treelearn-both-heads-fp32-v1",
+  "all_required_gates_passed": true,
+  "approved_at": "2026-10-23T23:32:03.564048+08:00",
+  "adapter_sha256": "6258001c6effc6dc5191ed2a81c52827ef7403c5e6c0c1dec1cc895f2b05d8fb",
+  "required_results": [
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/head_fp32_v1/failure_fixed/result.json",
+      "sha256": "2a52872b4795d908f5cd574c2882cce5be7a4ff28cabce832622131d967c650d"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/head_fp32_v1/maximum_fixed/result.json",
+      "sha256": "45560a39dd16eae3d74f99d6e72ab05533445d759dae9d36a40c22c4bc3943d1"
+    }
+  ],
+  "unit_tests": {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/diagnosis/head_fp32_v1/unit_tests.log",
+    "sha256": "cf22907b7b9e8d77de42dff024f22a69e2ac6777110ed60b855dca5479dfbeb2",
+    "passed": 11
+  },
+  "authorization": "User requested the next step after the diagnosed semantic-head overflow; conditional bounded continuation remains stop_update=5000.",
+  "formal_parent_update": 4600,
+  "stop_update": 5000,
+  "new_update_attempts": 400,
+  "automatic_later_training": false
+}
