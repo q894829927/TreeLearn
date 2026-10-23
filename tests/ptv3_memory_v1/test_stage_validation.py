@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from tree_learn.experiments.ptv3_stage_v1.validation import inside, complete_tree_ids, masked_gt, tile_contributes
+from tree_learn.experiments.ptv3_stage_v1.validation import inside, complete_tree_ids, masked_gt, tile_contributes, evaluation_model
 
 
 class StageRegionTests(unittest.TestCase):
@@ -24,6 +24,16 @@ class StageRegionTests(unittest.TestCase):
         self.assertTrue(tile_contributes([30, 0, 0], [-2, 0, 0]))
         self.assertFalse(tile_contributes([30.03, 0, 0], [-2, 0, 0]))
         self.assertTrue(tile_contributes([-30, -30, 0], [2, 2, 0]))
+
+    def test_original_treelearn_nonfluent_eval_keeps_model_and_bn_state(self):
+        import torch
+        from tree_learn.experiments.ptv3_memory_v1 import build_optimized_model
+        from tree_learn.experiments.ptv3_memory_v1.formal import formal_config
+        model = build_optimized_model(formal_config(), "block_nested")
+        buffers = {name: value.clone() for name, value in model.named_buffers()}
+        self.assertIs(evaluation_model(model, "cpu"), model)
+        self.assertTrue(all(not module.training for module in model.modules()))
+        self.assertTrue(all(torch.equal(value, buffers[name]) for name, value in model.named_buffers()))
 
 
 if __name__ == "__main__": unittest.main()

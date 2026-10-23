@@ -64,6 +64,13 @@ def tile_contributes(center, translation, box=CORE):
     return x0-4.02 <= x <= x1+4.02 and y0-4.02 <= y <= y1+4.02
 
 
+def evaluation_model(model, device="cuda"):
+    model.to(device)
+    # TreeLearn.train() intentionally returns None, hence so does eval().
+    model.eval()
+    return model
+
+
 def prepare(args):
     root = Path(args.root).resolve()
     if (root / "protocol.json").exists():
@@ -159,7 +166,7 @@ def evaluate(args):
         model.load_state_dict(checkpoint["net"], strict=True)
         update = checkpoint.get("global_update")
         del checkpoint
-        model = model.cuda().eval()
+        model = evaluation_model(model)
         # Keep evaluation RNG independent of constructor consumption.
         seed_all(protocol["inference_seed"])
         def omit_features(module, inputs, result):

@@ -16,9 +16,10 @@ test_selected_indices_preserve_real_manifest_records (test_stability.StabilityPl
 test_unverified_data_and_unsupported_seeds_are_rejected (test_stability.StabilityPlanTests) ... ok
 test_cut_trees_become_unknown_and_never_non_tree (test_stage_validation.StageRegionTests) ... ok
 test_empty_positive_and_core_boundaries (test_stage_validation.StageRegionTests) ... ok
+test_original_treelearn_nonfluent_eval_keeps_model_and_bn_state (test_stage_validation.StageRegionTests) ... ok
 test_tile_selection_uses_global_translation_and_full_inner_overlap (test_stage_validation.StageRegionTests) ... ok
 
 ----------------------------------------------------------------------
-Ran 19 tests in 0.642s
+Ran 20 tests in 0.743s
 
 OK
