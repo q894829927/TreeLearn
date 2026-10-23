@@ -1,0 +1,36 @@
+{
+  "policy": "treelearn-both-heads-fp32-v1",
+  "parent": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/training/to_5000/recovery.pth",
+  "parent_sha256": "e056b26fee0ca643e9bc9067828f6e25703a9993f7d68c735c242bf42e84b8af",
+  "migrated": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/continuations/to_5000_head_fp32_v1/resume_update_4600_head_fp32_v1.pth",
+  "migrated_sha256": "b0ebe4f3a28f7c1e182c5579cc4f69e08a63fa3e6d3ec3efeed831ff2e2f1e22",
+  "identity_changes": {
+    "config_sha256": {
+      "from": "1c01a60c44a92b31a763603e9574c7e927c1ece065430e34236d31d26036f663",
+      "to": "0591bd70deb34937f38a794e9bf86efeef86cbb2d94c160729cb11501bfb5f00"
+    },
+    "code_sha256": {
+      "from": "f66eb555d77344d823c3b546fdb6aaa592bf17721a05006570c5c6b19b820574",
+      "to": "d58298e917c00b4cb5892394f4583f0ac9fc9ed77b2185ecb1d435159d01d6c9"
+    }
+  },
+  "exact_parent_state_preservation": {
+    "net": true,
+    "optimizer": true,
+    "scheduler": true,
+    "scaler": true,
+    "rng": true,
+    "sampler": true,
+    "global_update": true,
+    "epoch": true
+  },
+  "global_update": 4600,
+  "stop_update": 5000,
+  "declaration": "New numerical variant from update 4600; not an unchanged-precision continuation",
+  "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1",
+  "gate_approval_sha256": "094eb2076d907dc3eb4a8c306eda9dd8f5663e451c85e074cda3b784badef6fd",
+  "implementation_sha256": {
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tools/experiments/ptv3_head_fp32_train_v1.py": "1977e2bbbfac05199a755e95d936cccb9e1485203552872668c7172fc14f03c4",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1/tree_learn/experiments/ptv3_head_fp32_v1/__init__.py": "6258001c6effc6dc5191ed2a81c52827ef7403c5e6c0c1dec1cc895f2b05d8fb"
+  }
+}

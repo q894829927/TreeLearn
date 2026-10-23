@@ -1,0 +1,8 @@
+{
+  "source": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_head_fp32_v1",
+  "commit": "e4ea04b3e46eb86bf7d094e6ff72a7b70c7fe50a",
+  "clean_status": "",
+  "frozen": true,
+  "original_source_preserved": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source",
+  "validation_source_preserved": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1"
+}

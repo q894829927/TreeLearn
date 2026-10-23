@@ -50,6 +50,13 @@ BN污染前的异常保护，以及原formal和L1W协议回归。
 训练输出为 `stage_validation_v1/training/to_5000_head_fp32_v1/`。
 门禁及精度策略见本目录 `evidence/`；实际启动源commit、迁移及实时状态以运行目录JSON为准。
 
+本阶段已于2026-10-23 23:35:53（Asia/Shanghai）启动，冻结源commit为
+`e4ea04b3e46eb86bf7d094e6ff72a7b70c7fe50a`，初始控制器/训练PID为3089312/3089314。
+迁移8项状态保持检查全部为true，新code/config哈希及父子快照SHA256见
+`evidence/startup/migration.json`。23:38的启动观测为正常预检1200/8305；
+原native严格恢复检查将在预检后执行，不能将预检期间的completed_updates=0视为训练状态重置。
+已为该有界阶段建立10分钟巡检，正常推进保持安静，异常或阶段完成时通知。
+
 预检沿用原native按stop_update=5000核验计划前10000个样本的规则：8305个独立裁剪、
 158043461422字节（147.19 GiB），包含已训练前缀。没有修改或缩小输入池。
 CPU/GPU预检等待阶段不能按GPU低利用率判故障。
