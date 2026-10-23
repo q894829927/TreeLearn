@@ -1,0 +1,15 @@
+{
+  "controller_pid": 2297490,
+  "launched_unix": 1792754862.1699173,
+  "start_update": 2900,
+  "stop_update": 5000,
+  "seed": 42,
+  "additional_update_attempts": 2100,
+  "training_source_commit": "649c1749ea654cb42add12db2eacff3da9532c09",
+  "validation_source_commit": "a32ec3cd6233f37e050ca03d0f8a1bf959324b91",
+  "controller_sha256": "c523fa3312f161086f203e6332977c8ad169b899a63eb6cc9c518b2f2acefc27",
+  "commands_sha256": "948c0fe3afdde75100e3355df4ae22540b9f49486c943dfa719ad3b31a204561",
+  "automatic_l1w_evaluation": true,
+  "automatic_later_training": false,
+  "attempt": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/continuations/to_5000"
+}

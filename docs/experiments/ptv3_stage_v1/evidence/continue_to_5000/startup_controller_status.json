@@ -1,0 +1,19 @@
+{
+  "status": "training",
+  "controller_pid": 2297490,
+  "child_pid": 2297492,
+  "command": [
+    "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+    "-u",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1/tools/experiments/ptv3_stage_train_v1.py",
+    "--frozen-source",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source",
+    "--root",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1",
+    "--resume",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_2900.pth",
+    "--stage-end",
+    "5000"
+  ],
+  "updated_unix": 1792754862.185924
+}

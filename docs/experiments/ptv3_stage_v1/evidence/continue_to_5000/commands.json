@@ -1,0 +1,36 @@
+{
+  "stage_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1",
+  "attempt": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/continuations/to_5000",
+  "cwd": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1",
+  "training": [
+    "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+    "-u",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1/tools/experiments/ptv3_stage_train_v1.py",
+    "--frozen-source",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source",
+    "--root",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1",
+    "--resume",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_2900.pth",
+    "--stage-end",
+    "5000"
+  ],
+  "evaluation": [
+    "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+    "-u",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/source_validation_v1/tools/experiments/ptv3_stage_v1.py",
+    "evaluate",
+    "--root",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1",
+    "--config",
+    "configs/experiments/ptv3_memory_v1/e1_full_formal.yaml",
+    "--checkpoint",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_5000.pth",
+    "--tag",
+    "e1_u5000",
+    "--output",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/continuations/to_5000/evaluation"
+  ],
+  "stop_update": 5000,
+  "automatic_later_training": false
+}

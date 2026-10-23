@@ -1,0 +1,11 @@
+{
+  "stop_update": 5000,
+  "effective_batch": 2,
+  "prefix_samples": 10000,
+  "unique_crops_to_verify": 8305,
+  "total_corpus_crops": 25000,
+  "bytes_to_verify": 158043461422,
+  "GiB_to_verify": 147.1894433926791,
+  "verification_policy": "unchanged baseline verifies every distinct input in the plan prefix up to the requested stop, including the already-trained prefix",
+  "native_corpus_counter_note": "run_status.total_crops is corpus size, not the bounded preflight target"
+}

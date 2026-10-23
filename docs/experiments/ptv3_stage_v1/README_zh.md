@@ -23,11 +23,11 @@
 | 12,500 | 50 | 原 50-epoch warmup 结束后的判断节点 |
 | 25,000 | 100 | 仅在此前有改善、值得继续时再安排 |
 
-不缩短 warmup，不根据单次早期零/低 F1 判定 PTv3 无效。继续的依据是固定区域多次 checkpoint 的实例 F1 与 Coverage 趋势，并用 Offset/语义/seed 诊断解释变化；需要整林确认后才下泛化结论。当前不自动追加后续训练预算。
+不缩短 warmup，不根据单次早期零/低 F1 判定 PTv3 无效。继续的依据是固定区域多次 checkpoint 的实例 F1 与 Coverage 趋势，并用 Offset/语义/seed 诊断解释变化；需要整林确认后才下泛化结论。首轮交付后，用户已明确授权只推进下一段至 5000，启动记录见文末；不自动追加其他节点预算。
 
 新评价入口 `tools/experiments/ptv3_stage_v1.py` 提供 prepare/initialize/evaluate，所有输出独立目录。新有界训练入口 `tools/experiments/ptv3_stage_train_v1.py` 可在**不修改冻结源目录**的条件下恢复同一 checkpoint，只将 baseline 原本支持的运行参数 `max_updates` 设为节点上限；配置计算的 `identity.total_updates=250000` 不变，恢复仍执行原模型/optimizer/scheduler/scaler/RNG/游标严格核对，节点完成写 `is_formal_final=false`。
 
-该行政入口的文件和 SHA 单独写入 `bounded_training_manifest.json`，不声称它属于冻结训练的源码 hash。每节点训练使用新目录，保留原训练历史，并把节点终点快照单独留档。原正式入口会对全计划约 473GB 文件重新 SHA 预检，阶段恢复保留此行为，所以 CPU/I/O 启动时间须另计；尚未为了速度更改该验证策略。脚本本身不会排队启动其他节点。运行入口示例：
+该行政入口的文件和 SHA 单独写入 `bounded_training_manifest.json`，不声称它属于冻结训练的源码 hash。每节点训练使用新目录，保留原训练历史，并把节点终点快照单独留档。原训练器按 `max_updates` 核验计划前缀实际涉及的所有输入，包含已经训练过的前缀；完整预算覆盖全池约 473GB。当前 5000 步上限对应前 10000 个样本、**8305 个独立裁剪，158,043,461,422 bytes（147.19 GiB）**。先前按完整预算估计的预检量不适用于这个有界阶段。这里没有修改原训练器的校验策略，CPU/I/O 启动时间仍须另计。脚本本身不会排队启动其他训练节点。运行入口示例：
 
 ```bash
 env -u PYTORCH_CUDA_ALLOC_CONF OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
@@ -39,7 +39,7 @@ env -u PYTORCH_CUDA_ALLOC_CONF OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
   --stage-end 5000
 ```
 
-该例仅准备，未据此默认续训。训练在节点自动停下后，再运行同一冻结验证协议。现有每 10 分钟巡检已改为识别主动暂停、区域评价和有界训练，避免把主动暂停报成故障；不会擅自恢复到原 250,000 步。
+该入口首轮仅准备；后续用户明确要求继续后，已按上述 5000 上限启动。训练在节点自动停下后，再运行同一冻结验证协议；不会擅自恢复到原 250,000 步。
 
 ## 首次实测对照
 
@@ -59,6 +59,16 @@ env -u PYTORCH_CUDA_ALLOC_CONF OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
 
 保留首轮因 TreeLearn.train()/eval() 返回 None 导致的入口异常 [原始调用栈](evidence/failed_initial/exception.txt)。该次尚未运行任何 tile 前向或产生分数；修复为独立调用 eval 后在 v2 新目录重跑，没有覆盖失败目录。新增真实 PTv3 CPU 构造/BN 模式回归，共 [20 项测试通过](evidence/unit_tests.log)。三个完整评价均为修复后的有效运行。
 
-当前状态为 **`awaiting_stage_decision`**，训练停在 2900，GPU 已释放，不自动续训。本次建议下一笔预算只到 **5000**，完成相同区域评价后再决定是否推进到 **12500**；25000 为有改善才考虑的后续节点。原 optimizer/scheduler/精度与输入保持不变，完整恢复源身份已再次核对；有界续训入口已准备，但未宣称实际执行了新的恢复测试。
+首轮交付时状态为 **`awaiting_stage_decision`**，训练停在 2900，GPU 已释放。下一笔预算建议只到 **5000**，完成相同区域评价后再决定是否推进到 **12500**；25000 为有改善才考虑的后续节点。原 optimizer/scheduler/精度与输入保持不变，完整恢复源身份已再次核对；实际恢复各状态的结果由有界运行写入 `resume_restoration.json`，不预先宣称通过。
 
 所有大数组与恢复快照位于独立运行根目录的 `stage_validation_v1/`。Git 保存原始日志、协议、指标、逐树诊断、SHA 清单、暂停和完整性证据；大文件列表见 [large_artifact_inventory.json](evidence/large_artifact_inventory.json)，证据采集脚本为本目录 `collect_evidence.py`。
+
+## 已授权并启动 2900→5000 阶段
+
+2026-10-23 **19:27（Asia/Shanghai）**，用户要求继续后，启动 controller PID **2297490**、训练子进程 **2297492**。只增加 **2100 次更新尝试**，目标到 5000 自动停止，再串行执行一次同协议的 L1W 开发验证，不自动继续到 12500 或 250000。
+
+训练仍使用冻结 `source/`（`649c174`）；验证额外冻结为独立 `source_validation_v1/`（`a32ec3c`），与首次三项对照的源码指纹一致，避免后续开发影响等待中的验证任务。控制器只串行调用既有有界训练和验证入口；其源码与 SHA、完整命令和启动信息见 [continue_to_5000](evidence/continue_to_5000/launch.json)，保留 [控制器源码](evidence/continue_to_5000/controller.py) 和 [输入校验范围](evidence/continue_to_5000/preflight_scope.json)。
+
+训练输出为 `stage_validation_v1/training/to_5000/`；控制器与日志位于 `stage_validation_v1/continuations/to_5000/`。训练完成后验证输出到该 continuation 的 `evaluation/`，新增汇总为 `comparison_at_5000.json/.csv`，保留首轮 `comparison.json/.csv`。控制器还要求本轮与首次验证的源码、配置、协议 SHA 相同，达到 5000 且 `is_formal_final=false`，才写本阶段完成。
+
+启动取证时正在 SHA 预检，已核验约 2200/8305 个目标裁剪，尚未执行本段模型恢复与更新。[启动状态快照](evidence/continue_to_5000/startup_run_status.json) 中的 `total_crops=25000` 是完整池大小，不能当成本段预检目标数；数据核验完成后才恢复训练。每 10 分钟巡检已重新创建为 `ptv3-5000`，区分预检、训练、验证和主动等待决策，并在异常或阶段完成时报告。
