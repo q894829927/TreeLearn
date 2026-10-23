@@ -18,4 +18,6 @@ formal_or_pilot_started: false
 allocator_controls:
   default: unchanged native allocator
   split128: native allocator with max_split_size_mb=128, process-local only
+  gc70: cache garbage_collection_threshold=0.7, memory fraction=1.0 to enable torch 2.0 GC
+  split128_gc70: combine split128 and gc70 after individual controls
 allocator_selection: experimental until the same stress schedule and numerical controls pass

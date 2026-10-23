@@ -11,9 +11,12 @@ os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG",":4096:8")
 
 if __name__=="__main__":
     early=argparse.ArgumentParser(add_help=False)
-    early.add_argument("--allocator",choices=("default","split128"),default="default")
+    settings={"default":None,"split128":"max_split_size_mb:128",
+              "gc70":"garbage_collection_threshold:0.7",
+              "split128_gc70":"max_split_size_mb:128,garbage_collection_threshold:0.7"}
+    early.add_argument("--allocator",choices=tuple(settings),default="default")
     selected,_=early.parse_known_args()
-    required=None if selected.allocator=="default" else "max_split_size_mb:128"
+    required=settings[selected.allocator]
     existing=os.environ.get("PYTORCH_CUDA_ALLOC_CONF")
     if existing is not None and existing!=required:
         early.error("Conflicting inherited PYTORCH_CUDA_ALLOC_CONF; use a fresh subprocess environment")

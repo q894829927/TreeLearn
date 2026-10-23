@@ -25,6 +25,9 @@ from .run import config
 
 UPDATES = 12
 SEEDS = (42, 43, 44)
+ALLOCATORS = {"default":None,"split128":"max_split_size_mb:128",
+              "gc70":"garbage_collection_threshold:0.7",
+              "split128_gc70":"max_split_size_mb:128,garbage_collection_threshold:0.7"}
 # p10, p50, p90, largest crop, largest crops in two other forests.
 PAIRS = ((3,3), (0,1), (3,0), (2,4), (1,3), (5,2),
          (3,3), (1,0), (0,3), (4,2), (3,1), (2,5))
@@ -185,9 +188,13 @@ def run(plan_dir,seed,allocator="default"):
         raise ValueError("Require full input, physical batch=1, accumulation=2")
     if sha256(plan["plans"][str(seed)]["path"])!=plan["plans"][str(seed)]["sha256"]:
         raise ValueError("Changed stress schedule")
-    required=None if allocator=="default" else "max_split_size_mb:128"
-    if allocator not in ("default","split128") or os.environ.get("PYTORCH_CUDA_ALLOC_CONF")!=required:
+    required=ALLOCATORS.get(allocator)
+    if allocator not in ALLOCATORS or os.environ.get("PYTORCH_CUDA_ALLOC_CONF")!=required:
         raise ValueError("Allocator must be selected in the isolated CLI before importing torch")
+    if "gc70" in allocator:
+        # torch 2.0's native GC path is gated by set_fraction. 1.0 retains the
+        # entire original capacity; it only enables the configured cache GC.
+        torch.cuda.set_per_process_memory_fraction(1.0)
     output=root/"runs"/allocator/f"s{seed}"
     if output.exists(): raise FileExistsError(output)
     probe=Probe(); originals=(reference_train.build_model,reference_train.build_optimizer,reference_train.write_json,Point.__init__)
@@ -198,6 +205,7 @@ def run(plan_dir,seed,allocator="default"):
             plan_sha256=sha256(root/"plan.json"),config_sha256=sha256(root/"config.yaml"),
             git=git_state(),environment=environment(),command=sys.argv,
             allocator_config=required,allocator_backend=torch.cuda.memory.get_allocator_backend(),
+            allocator_memory_fraction=1.0 if "gc70" in allocator else None,
             source_sha256={str(p):sha256(p) for p in sources},
             integration="unchanged reference_train.run with model factory substitution and scalar telemetry",
             optimizer="unchanged baseline optimizer/scheduler, per-valid-point accumulation, GradScaler and clipping",
@@ -262,6 +270,6 @@ def main():
     parser.add_argument("command",choices=("prepare","run"))
     parser.add_argument("--plan-dir",required=True)
     parser.add_argument("--seed",type=int,choices=SEEDS,default=42)
-    parser.add_argument("--allocator",choices=("default","split128"),default="default")
+    parser.add_argument("--allocator",choices=tuple(ALLOCATORS),default="default")
     args=parser.parse_args()
     prepare(args.plan_dir) if args.command=="prepare" else run(args.plan_dir,args.seed,args.allocator)
