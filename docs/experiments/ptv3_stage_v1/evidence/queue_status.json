@@ -1,0 +1,12 @@
+{
+  "status": "complete",
+  "completed": [
+    "e1_u2900",
+    "e1_initial",
+    "e2_official"
+  ],
+  "attempt": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2",
+  "controller_pid": 2218010,
+  "automatic_training_resume": false,
+  "updated_unix": 1792753903.087422
+}

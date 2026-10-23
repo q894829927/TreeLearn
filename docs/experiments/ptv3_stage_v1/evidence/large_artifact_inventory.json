@@ -1,0 +1,80 @@
+[
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/gt_core.npz",
+    "bytes": 98537310,
+    "sha256": "8b23f9d38f06bb6cf383006f64e1b2204c588d1f738b12905f388c36d300f631",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_0_reconstructed.pth",
+    "bytes": 184882423,
+    "sha256": "ae01c71602feba4bbdfcbabffd0c4e90ae61507353abb34609d383cc39a4f871",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_2900.pth",
+    "bytes": 554633423,
+    "sha256": "5a61e228abc542201a4d21414409b2fa209f4aaeb3578f54fd5a6c30f15881ab",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e1_u2900/pointwise_results.npz",
+    "bytes": 248209290,
+    "sha256": "af860d6ddbdb2660b1d7b409bb17eea328a02286539ef195aafe8654bebe47d7",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e1_u2900/evaluation_results.pt",
+    "bytes": 53317,
+    "sha256": "d1d4d28c80b0dc0ffa79c678cdc21caedd0199dde1f593ec71a1409b720dec42",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e1_u2900/predictions_on_gt.npz",
+    "bytes": 98537310,
+    "sha256": "c29b19be45364024da184c4954ac2883eac3491edd22825385d672af67476e05",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e1_initial/pointwise_results.npz",
+    "bytes": 248209290,
+    "sha256": "31f90f44afbaa1d71debc924c1a9143edf148bc74f2e7131957084e0d66386c6",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e1_initial/evaluation_results.pt",
+    "bytes": 89989,
+    "sha256": "99fade101ca33b9f53a3fd065fb639c38f7930d4156a6acc14ec685eb84c473d",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e1_initial/predictions_on_gt.npz",
+    "bytes": 98537310,
+    "sha256": "9007054b2113d60df7934037d512f224a195d837f32543a3edd60ce55e816bab",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/data/experiments/ptv3_treelearn/weights/model_weights_20241213.pth",
+    "bytes": 120627653,
+    "sha256": "5df2f92828f92755bc12e114eaebe83f7ecea94a74c25a6170b68844cc5e19bb",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e2_official/pointwise_results.npz",
+    "bytes": 248209290,
+    "sha256": "14be7c0e607cc5345473dd64dded273db81a2ce256e3f2fe9da3ddaaa87922a9",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e2_official/evaluation_results.pt",
+    "bytes": 56197,
+    "sha256": "c420f9ff6f9128688defbc7cbc6ccdaa7888fe24256fdd2de60db871c2c96bac",
+    "copied_into_git": false
+  },
+  {
+    "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/attempts/v2/evaluations/e2_official/predictions_on_gt.npz",
+    "bytes": 98537310,
+    "sha256": "2a7cb9890c5cac796adf695c5d4d4248f0bb762542d5e1660d5e4fc3b4e06303",
+    "copied_into_git": false
+  }
+]

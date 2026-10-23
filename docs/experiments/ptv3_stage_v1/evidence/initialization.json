@@ -1,0 +1,14 @@
+{
+  "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_0_reconstructed.pth",
+  "sha256": "ae01c71602feba4bbdfcbabffd0c4e90ae61507353abb34609d383cc39a4f871",
+  "seed": 42,
+  "global_update": 0,
+  "config_sha256": "1c01a60c44a92b31a763603e9574c7e927c1ece065430e34236d31d26036f663",
+  "git": {
+    "commit": "e97ce689d5cc9fad080c4c195b0443778306cace",
+    "branch": "codex/ptv3-full-cloud-memory-v1",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "?? docs/experiments/ptv3_stage_v1/\n?? tests/ptv3_memory_v1/test_stage_validation.py\n?? tools/experiments/ptv3_stage_train_v1.py\n?? tools/experiments/ptv3_stage_v1.py\n?? tree_learn/experiments/ptv3_stage_v1/"
+  },
+  "note": "Same CPU seed_all/build_optimized_model initialization path as the frozen training source"
+}

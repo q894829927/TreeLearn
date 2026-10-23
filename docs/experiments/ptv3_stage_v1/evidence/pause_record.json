@@ -1,0 +1,35 @@
+{
+  "paused_at": "2026-10-23T18:49:05.996951+08:00",
+  "reason": "User requested staged effectiveness checks instead of uninterrupted full-budget training; explicitly approved L1W as development validation",
+  "pid": 1986728,
+  "checkpoint": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/checkpoints/update_2900.pth",
+  "checkpoint_sha256": "5a61e228abc542201a4d21414409b2fa209f4aaeb3578f54fd5a6c30f15881ab",
+  "checkpoint_update": 2900,
+  "previous_run_status": {
+    "status": "training",
+    "phase": "formal",
+    "seed": 42,
+    "target_updates": 250000,
+    "completed_updates": 2900,
+    "verified_crops": 25000,
+    "total_crops": 25000,
+    "pid": 1986728,
+    "started_unix": 1792742477.5343714,
+    "resumed_from": null,
+    "updated_unix": 1792752540.340901,
+    "epoch": 12,
+    "loss": 9.59383562207222,
+    "lr": 0.0007276000000000001,
+    "optimizer_skips_this_process": 3,
+    "memory": {
+      "allocated": 1553920000,
+      "reserved": 12838764544,
+      "peak_allocated": 21051127296,
+      "peak_reserved": 21774729216
+    }
+  },
+  "resume_source_commit": "649c1749ea654cb42add12db2eacff3da9532c09",
+  "automatic_resume": false,
+  "development_validation": "L1W",
+  "reserved_external_evaluation": "Wytham"
+}

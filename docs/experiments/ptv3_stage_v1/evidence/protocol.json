@@ -1,0 +1,2067 @@
+{
+  "version": "ptv3-stage-l1w-v1",
+  "role": "L1W regional development validation",
+  "authorized_change": "User approved L1W for staged validation and continuation decisions on 2026-10-23",
+  "reserved_external_domain": "Wytham; no stage selection or tuning",
+  "core_xy": [
+    -24.0,
+    24.0,
+    -24.0,
+    24.0
+  ],
+  "gt_core": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/gt_core.npz",
+  "gt_core_sha256": "8b23f9d38f06bb6cf383006f64e1b2204c588d1f738b12905f388c36d300f631",
+  "gt_source": "/home/szu-stu/projects/zrx/code/TreeLearn/data/benchmark/L1W_voxelized01_for_eval.laz",
+  "gt_source_sha256": "528d92ca438488ff0a69245e5097dbb8e48f35c3707f9335196d0722f4025cf3",
+  "forest": "/home/szu-stu/projects/zrx/code/TreeLearn/data/pipeline/L1W/forest/L1W.laz",
+  "forest_sha256": "79a71993011c9a2ab5f1ca1b33aa2b8fef228701a10ca2ce58e7901980df4afb",
+  "cache_pipeline_manifest_sha256": "3dbd68373a5a23bdce9ab9830d5cc685cd741b3cfd4a179f43b50b555a1f6ffc",
+  "translation": [
+    5.21161404421822,
+    1.17656880343952,
+    -9.627992808411927
+  ],
+  "tiles": [
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_381.npz",
+      "sha256": "9d3d464b1a6365d80d3889157b6573e89ea4855d66b9d41f805f44775ce636a2",
+      "points": 1359013,
+      "center": [
+        -32.484215,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_382.npz",
+      "sha256": "1a4f5e4072284ce872f6f43734b59d9fc07cba1ec4e1977c97a2dbc08045d42a",
+      "points": 1374843,
+      "center": [
+        -28.587904,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_383.npz",
+      "sha256": "81c1a971f06d7aeabbf99e04bdcb2002a0828e0272671044b9f5a3b77d46ca42",
+      "points": 1408793,
+      "center": [
+        -24.691586,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_384.npz",
+      "sha256": "79af76c9dc2c2c6aa8368f77a4fe7396f30fddcd9d6ffa95a98cacc129e1949b",
+      "points": 1401981,
+      "center": [
+        -20.795275,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_385.npz",
+      "sha256": "673551b89b74f38202b0f06c745a297c2f43b00220af86b2f2ddd05f4300d90e",
+      "points": 1320885,
+      "center": [
+        -16.898956,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_386.npz",
+      "sha256": "e413f1457ad220cbb08646e0789703d5c51952992bcaa9d0d9d51de93b6f6079",
+      "points": 1332874,
+      "center": [
+        -13.002645,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_387.npz",
+      "sha256": "bea09898e97098b184b89267284e006b30c4054ed5c886aa8488c07d3f70c6fb",
+      "points": 1390366,
+      "center": [
+        -9.106325,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_388.npz",
+      "sha256": "820e270ee3ad1405a16d0a975fa38c88eaaac402c327655283ff842d0d477ace",
+      "points": 1386392,
+      "center": [
+        -5.210015,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_389.npz",
+      "sha256": "a6f80db4f1f67978586f918c91b4a50a3eec1d0d28e01b05f0a0e44b7f6ff746",
+      "points": 1436284,
+      "center": [
+        -1.313695,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_390.npz",
+      "sha256": "36a5283539caf3d963b06e6a2744051ba9b9be54384eeb27f671963b5eccbdf8",
+      "points": 1435220,
+      "center": [
+        2.582615,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_391.npz",
+      "sha256": "02e56c54a0360f23079da4a552b4ad0a287686088c61abf7ca10a95eaf1e7233",
+      "points": 1509359,
+      "center": [
+        6.478935,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_392.npz",
+      "sha256": "29d0b2652504656c7806f05acf575896b03e17af225da39c0363fbd7d813a173",
+      "points": 1582403,
+      "center": [
+        10.375245,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_393.npz",
+      "sha256": "c3abd83679202705979793543785809f87c43a8fb0ce6ccda931412007b25759",
+      "points": 1616011,
+      "center": [
+        14.271564,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_394.npz",
+      "sha256": "72fa166770a61a55e5868af06fa05ea8063dee401fa7314bdeeed4a384ac0192",
+      "points": 1680126,
+      "center": [
+        18.167875,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_395.npz",
+      "sha256": "6c463e54953a8dfe85aa1bf45fcecbd4534f1f01e3171e102933094e616b5ed8",
+      "points": 1691732,
+      "center": [
+        22.06419,
+        23.282341,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_418.npz",
+      "sha256": "9c3afb17312349070f8e26e7d912f7db6c6df04e824d12d0e5da9361c18a1f94",
+      "points": 1450419,
+      "center": [
+        -32.484215,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_419.npz",
+      "sha256": "c3bb8c68f8a50e31dd9ab05f9bed73fb4b6121a328c5716c5022595721ab630b",
+      "points": 1463795,
+      "center": [
+        -28.587904,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_420.npz",
+      "sha256": "eb983402693ae1f30b1517072f5f557916eacf35c392c9ac3db97b00365eb92f",
+      "points": 1495695,
+      "center": [
+        -24.691586,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_421.npz",
+      "sha256": "1bf3827c68c6297eb582eab3753d1b9f383c7cf144585d68d79a2b0c9677a5a3",
+      "points": 1460217,
+      "center": [
+        -20.795275,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_422.npz",
+      "sha256": "a31494f37223b3a2164c5951632c126c217ed762ddb3da6ce4968c6815ef95c8",
+      "points": 1370519,
+      "center": [
+        -16.898956,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_423.npz",
+      "sha256": "c755dd48ecc736c92673bc1c961b84ca2d9adb56bad0843ea1f07a7429b0cc05",
+      "points": 1356413,
+      "center": [
+        -13.002645,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_424.npz",
+      "sha256": "6914d1393dc4fe3d8f3418c844337c8e3423cbd71df043726774f1922a823a64",
+      "points": 1392005,
+      "center": [
+        -9.106325,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_425.npz",
+      "sha256": "f98917c2a1a158a1eb3349fe723175dee72d64f04fb03dae97617f02f9d71f2f",
+      "points": 1354608,
+      "center": [
+        -5.210015,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_426.npz",
+      "sha256": "6a1410ac92ef00d355d3d1cf23ea1ffb07dd6996e29f764a4ccc6327299e101c",
+      "points": 1411565,
+      "center": [
+        -1.313695,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_427.npz",
+      "sha256": "6ff9c550e9df306c22b72fffda5323a38378a1b5a8bec68cf02fb109c3179445",
+      "points": 1415287,
+      "center": [
+        2.582615,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_428.npz",
+      "sha256": "da66f0f294dd6c13e14d92a17052df3f6424bc262e9084b00765715293f96917",
+      "points": 1477498,
+      "center": [
+        6.478935,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_429.npz",
+      "sha256": "5889d5804adaa798a5958a3d9a7542b5ac0503d67a74ea36930a53c88f7f64e1",
+      "points": 1534428,
+      "center": [
+        10.375245,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_430.npz",
+      "sha256": "4bc5b836710d2d1965e1db18d3245aa478a4d4fee0db5f38f8b9aada1697cadc",
+      "points": 1587709,
+      "center": [
+        14.271564,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_431.npz",
+      "sha256": "636932f4b9b5fb6f483d524a69b75662a98035f86258149a55dcbee24e6fd830",
+      "points": 1648078,
+      "center": [
+        18.167875,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_432.npz",
+      "sha256": "98e0cb53e5f8fba1f646ebfff77d5c604c3c2f6222c24f0012bc75a593bb9946",
+      "points": 1652653,
+      "center": [
+        22.06419,
+        19.20528,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_455.npz",
+      "sha256": "ef9f3c25cdb4217b68049705335a1ab9c87d8862ab307b30c3f95a0b7bfde5a8",
+      "points": 1476822,
+      "center": [
+        -32.484215,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_456.npz",
+      "sha256": "69f8410f42e1a0268f3693701425360b9e22e796d1ec2d336afb44d257f9956a",
+      "points": 1469025,
+      "center": [
+        -28.587904,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_457.npz",
+      "sha256": "3c55b5e94ad442898bb159481d79ed4049b11cfdf6d74788f390b719868cbe15",
+      "points": 1476453,
+      "center": [
+        -24.691586,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_458.npz",
+      "sha256": "f5283d670a1e91b9365516a379a12867c8bbb6d7e2d807d5b45e1a9ddf9a6726",
+      "points": 1444943,
+      "center": [
+        -20.795275,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_459.npz",
+      "sha256": "268d74af1932655f358f8bab64cd217757f52a76d0b99e47856c6b4c23ad2d05",
+      "points": 1382728,
+      "center": [
+        -16.898956,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_460.npz",
+      "sha256": "d8871cfcce5879dbfeb09fb6f499f6456314375acad73a95d5ea2d0599550cd0",
+      "points": 1392744,
+      "center": [
+        -13.002645,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_461.npz",
+      "sha256": "4a20bf0a0f9c0047cb4d8706a200d2848a39f153a64b7dd253c2dc1d9f8eea09",
+      "points": 1453545,
+      "center": [
+        -9.106325,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_462.npz",
+      "sha256": "a5fe4a6316cc8e1a31a0ba0b8cebd7538dd81de23ba3ccc0c0d486037a226819",
+      "points": 1425259,
+      "center": [
+        -5.210015,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_463.npz",
+      "sha256": "7690939de85d8496fa849dac9364a23cd1b32849788607bb7db7f00cc97abed2",
+      "points": 1493066,
+      "center": [
+        -1.313695,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_464.npz",
+      "sha256": "76cb3d8ca302c072b3b12deb12e9fcf07b95ff055b67734fae55abcaa93ac8fe",
+      "points": 1520829,
+      "center": [
+        2.582615,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_465.npz",
+      "sha256": "4e91e46b543f225694adc78c6285271446bfa8af138830f81801088110eca1d8",
+      "points": 1589147,
+      "center": [
+        6.478935,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_466.npz",
+      "sha256": "bca8feb79d23219960b2a784ae450a0420579c6c0f6be110999a4f63a097f1d7",
+      "points": 1631135,
+      "center": [
+        10.375245,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_467.npz",
+      "sha256": "79d0a2b49ed4cde08109ed94b9c400e64c3f606e91130d0d0b1075e52a916d74",
+      "points": 1666205,
+      "center": [
+        14.271564,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_468.npz",
+      "sha256": "46b30a6c18c0374d15caaf26a9bc0770beddeb3bf830921fea9767f9354e0c0c",
+      "points": 1726500,
+      "center": [
+        18.167875,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_469.npz",
+      "sha256": "5c8204f2d3c56f1a1aa54ddb8ab3f92960f2c1838c89febdec2dde5b503d984c",
+      "points": 1710898,
+      "center": [
+        22.06419,
+        15.12822,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_492.npz",
+      "sha256": "a80dad297062d891efc103edb267f340029f39103d44dad602dfa6323a15ae79",
+      "points": 1524745,
+      "center": [
+        -32.484215,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_493.npz",
+      "sha256": "9849d8583fd905bc9a513344dad9791318454828a41eab5ad15debbf9863e2c1",
+      "points": 1502572,
+      "center": [
+        -28.587904,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_494.npz",
+      "sha256": "a0aea016aa8fccabdd2f0613ace8b2576207ff121224d1a306be1cdcdab1a0c8",
+      "points": 1510727,
+      "center": [
+        -24.691586,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_495.npz",
+      "sha256": "96cdfeea53e30e15ad73937a4b3f28024f5763e760ffcaa701e7ee0604869f8c",
+      "points": 1493808,
+      "center": [
+        -20.795275,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_496.npz",
+      "sha256": "afac0095216f8fa7d6901d48c59d52ee8b8a7f4b5ec667ea3af4e557ab00088d",
+      "points": 1458139,
+      "center": [
+        -16.898956,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_497.npz",
+      "sha256": "a2f3e08ce6c0a495383c700f7230cdb30ca7d1d33ab37dedcd61cc2dd9e5cb38",
+      "points": 1454893,
+      "center": [
+        -13.002645,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_498.npz",
+      "sha256": "25577f8fa82f5743f74970c4236492ad855aeb284adfe9d5589695e0050da150",
+      "points": 1490424,
+      "center": [
+        -9.106325,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_499.npz",
+      "sha256": "f90e5664a45f7dbe8626c6856cdf10a26c8900a448d9ffa550bbc59f8d96fec5",
+      "points": 1487810,
+      "center": [
+        -5.210015,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_500.npz",
+      "sha256": "985fe106467cc7085b95bf72db392cbfa8dae64b77d4aeb3dc5a04f38bb47b85",
+      "points": 1564038,
+      "center": [
+        -1.313695,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_501.npz",
+      "sha256": "2ca35b09a42efa254113cc0edc640014b1ce771f5f6d8e7fdc1fe49760fd57a8",
+      "points": 1594854,
+      "center": [
+        2.582615,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_502.npz",
+      "sha256": "8353e10679d5ecb5eedcd0ee52ca535f53d130bd3fbc25bf3b488e54bb4a74af",
+      "points": 1671942,
+      "center": [
+        6.478935,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_503.npz",
+      "sha256": "ee53e64b236de97ee034846f4caac7071ac71af867d14865f65488b11d9a5821",
+      "points": 1687422,
+      "center": [
+        10.375245,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_504.npz",
+      "sha256": "4e902ca27cb73739270934e43a68061044a2576da6da21217105bc29f2ecce68",
+      "points": 1683036,
+      "center": [
+        14.271564,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_505.npz",
+      "sha256": "e8eb0419452409e39f54bde9b513a05081e7e4a4bbd73ea447f396fb3bac1653",
+      "points": 1735511,
+      "center": [
+        18.167875,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_506.npz",
+      "sha256": "1127006b7afe7945527242c1c9fa6d0636af2f6124cc790ec32dcba1b13a309e",
+      "points": 1755914,
+      "center": [
+        22.06419,
+        11.05116,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_529.npz",
+      "sha256": "8ccc1ef5ccf589414761482c63767fb6bdf45de5551d1c5f070054e4fa64da38",
+      "points": 1564517,
+      "center": [
+        -32.484215,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_530.npz",
+      "sha256": "f284720d31bff230153086d9d238ad3c85b228b29741a103dcf7e999c4f9da72",
+      "points": 1530601,
+      "center": [
+        -28.587904,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_531.npz",
+      "sha256": "de73543e5489624fe5c502533f45725673449781906fb20eef9e7b6e49f3f22a",
+      "points": 1557426,
+      "center": [
+        -24.691586,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_532.npz",
+      "sha256": "0cd6c613ad598ce16b33031de7e7278562ee6ba959c7ee9eb63a31a31b061d9b",
+      "points": 1538012,
+      "center": [
+        -20.795275,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_533.npz",
+      "sha256": "1c680ff401a1a648c7f83287a6e791acd03ad5879d1940ccbf5b282acb524e73",
+      "points": 1523413,
+      "center": [
+        -16.898956,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_534.npz",
+      "sha256": "36fb084bafdfb00666cd233e82307ed399a41b0655c962b6ffe9715ace90905c",
+      "points": 1564037,
+      "center": [
+        -13.002645,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_535.npz",
+      "sha256": "8e0713d8a6b0e1c04ca36a27a89386a93dbd657919480846d1b25740f46eaa48",
+      "points": 1611616,
+      "center": [
+        -9.106325,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_536.npz",
+      "sha256": "2f5dba6d655fc1b11c38b5db9f2dba96840760b62d6973983a2a915e00666959",
+      "points": 1601523,
+      "center": [
+        -5.210015,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_537.npz",
+      "sha256": "7c04d819e583919fc9954a5b57a9a3195b3f877c1cc5abc7b0d6602d3560bcb0",
+      "points": 1656376,
+      "center": [
+        -1.313695,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_538.npz",
+      "sha256": "d5df6f1d6228402a8a429656fe92ca78602d83a07351c37cb99ae5417b9f2ba3",
+      "points": 1700120,
+      "center": [
+        2.582615,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_539.npz",
+      "sha256": "3d23862cae95b3fbf0d04a9440dd8e1c9d5d6e0b4771d451f15cabea02ba09a1",
+      "points": 1803883,
+      "center": [
+        6.478935,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_540.npz",
+      "sha256": "dc4c00583da7e14e49cf265077fe99c521aebd6de45e5c9c1886cb1ac8d324ba",
+      "points": 1790426,
+      "center": [
+        10.375245,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_541.npz",
+      "sha256": "7cbfd69e064be2da1ce35e84c55da798ce1dbf2f7a4005f9a4b6637753c48f4e",
+      "points": 1786691,
+      "center": [
+        14.271564,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_542.npz",
+      "sha256": "a14d14cc763cba39ec58ec48bb8fa9679c973d10cf4d9a7f99a146b84bf11497",
+      "points": 1826266,
+      "center": [
+        18.167875,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_543.npz",
+      "sha256": "11f5fa406eeb4ca2447050ea9859927fad84d092a8dfe891dff84404500db7bf",
+      "points": 1826445,
+      "center": [
+        22.06419,
+        6.9741,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_566.npz",
+      "sha256": "b607fb6b6cbd126b98df19c2dd2b76ae01087f9012c45a21386cb6608b599b6d",
+      "points": 1604876,
+      "center": [
+        -32.484215,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_567.npz",
+      "sha256": "bec3bffd248985d6046b7cfcc0bfb2b3144e5e1259f01b1a6c0b276a7465abc7",
+      "points": 1567537,
+      "center": [
+        -28.587904,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_568.npz",
+      "sha256": "8a5794071a9758a06cf9b9c4ea5e4fed8aab471366b02800e69ad535e5e63856",
+      "points": 1603936,
+      "center": [
+        -24.691586,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_569.npz",
+      "sha256": "16941d1bd5257aeb1a30b0603bef9e6c8ffaa32bfeb759886e94e833f744336e",
+      "points": 1568045,
+      "center": [
+        -20.795275,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_570.npz",
+      "sha256": "73c470d3c589b4f9e2265f9e2bdd2e461a12b5fd4e6c7d833bf0c2e192ee104f",
+      "points": 1553420,
+      "center": [
+        -16.898956,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_571.npz",
+      "sha256": "283b36c07851222f8f4ce06b9de635e93c4058b9047be082e64228912c212963",
+      "points": 1585901,
+      "center": [
+        -13.002645,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_572.npz",
+      "sha256": "a8ed1263b93065a20725e5a1512795ddfb739fe60dbc3698d744b995aec088a9",
+      "points": 1616088,
+      "center": [
+        -9.106325,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_573.npz",
+      "sha256": "78d5e6e355bbd44374c8e3203b750f9a3eb9e6f262e9a20b0890a67658ec8c80",
+      "points": 1589682,
+      "center": [
+        -5.210015,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_574.npz",
+      "sha256": "0da0a8814659024b283a90bc9b2fe1abc40b6c62167bc8e73261db038969cf6b",
+      "points": 1636676,
+      "center": [
+        -1.313695,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_575.npz",
+      "sha256": "e092e6d70e4d0c86a5bcb44b47da3283544a2de0214b68920be5700b94ee8d08",
+      "points": 1683758,
+      "center": [
+        2.582615,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_576.npz",
+      "sha256": "4423206d4cec849deba48205f8b75db7f25738a3b549f04c8a2dcd9121b2066e",
+      "points": 1761675,
+      "center": [
+        6.478935,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_577.npz",
+      "sha256": "edc47f30b48e3d4c83afe25622b9a0d744999bbddb03f0d1c75e3f391102dfa4",
+      "points": 1721342,
+      "center": [
+        10.375245,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_578.npz",
+      "sha256": "f9b0d57f71e24022ca7d42d4c61d4dbf4bebf7e9573468d594877e1ad77ff5e0",
+      "points": 1742664,
+      "center": [
+        14.271564,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_579.npz",
+      "sha256": "3e9b96529d504d67bbf53d78a50cd48690ce9906978157df0f86462dc78c158a",
+      "points": 1801288,
+      "center": [
+        18.167875,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_580.npz",
+      "sha256": "5ed6342929ed803f7b555d3e915b4bb4252564ac4810abb321417c52bc3df92b",
+      "points": 1821593,
+      "center": [
+        22.06419,
+        2.89704,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_603.npz",
+      "sha256": "f8170f426d82d36ae33d8f294ad03b0d6e834044ba8e8a86c407c21b1a8cc019",
+      "points": 1659134,
+      "center": [
+        -32.484215,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_604.npz",
+      "sha256": "fe400f5ef154845cd3e30e8d9d306a0cda46512e3ae9a7b0bb7f0b4ebea00092",
+      "points": 1638224,
+      "center": [
+        -28.587904,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_605.npz",
+      "sha256": "9704b44c4cb8817f2356d2415659d021968318714ae1791b741f855e27495a46",
+      "points": 1690251,
+      "center": [
+        -24.691586,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_606.npz",
+      "sha256": "b0908c18f48fbb8f71382e16dd33e7a02f2003bf132161a5a510bef0a686625d",
+      "points": 1648303,
+      "center": [
+        -20.795275,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_607.npz",
+      "sha256": "eed9ad5ac07e056b9a6b8c58ff60304eee7c2a3e3010560abfc87b86654832da",
+      "points": 1600328,
+      "center": [
+        -16.898956,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_608.npz",
+      "sha256": "644cf63ea41eee034569c552852b667c1db687784c3db38ce12f150040171b22",
+      "points": 1604615,
+      "center": [
+        -13.002645,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_609.npz",
+      "sha256": "d73e3c99fb4fc8338bfc64456329fbba80ff5b6642d84a7e3e7654ef5723b688",
+      "points": 1628068,
+      "center": [
+        -9.106325,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_610.npz",
+      "sha256": "0bd1d27416911af3d95e6dc09dc1cbe77b727bf8df30841bb81552fb90b4a890",
+      "points": 1607827,
+      "center": [
+        -5.210015,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_611.npz",
+      "sha256": "95eb47ea42b6362d18be6cbd42732395948686b91a464deafda8367c970cba09",
+      "points": 1662375,
+      "center": [
+        -1.313695,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_612.npz",
+      "sha256": "2532a7d1674d7609bd9b793dee5b99e23213b7e5ba283fff85b65bb72fb38a25",
+      "points": 1694663,
+      "center": [
+        2.582615,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_613.npz",
+      "sha256": "432fed90546ca4a5cd80f59e3625aa28e61229b58d4068e34e03026152f86461",
+      "points": 1781117,
+      "center": [
+        6.478935,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_614.npz",
+      "sha256": "467089f32f83dab957b9ceae2367d654cecef2b9f05aea3f97707445aa73e1ab",
+      "points": 1699921,
+      "center": [
+        10.375245,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_615.npz",
+      "sha256": "23db4702123f45fc2bb7b0a8fa4b40e79ed0dbf3066706c50a0631a9bf9137f6",
+      "points": 1722897,
+      "center": [
+        14.271564,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_616.npz",
+      "sha256": "dafc612a2ab68ab985de164c4fed2cc853292f3c71b63632cd38e82d36c70c6c",
+      "points": 1806636,
+      "center": [
+        18.167875,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_617.npz",
+      "sha256": "a423d30d411d3c1e6625b5895a04f6a9f30c9678c7147967f9a7c42520ed0c75",
+      "points": 1860995,
+      "center": [
+        22.06419,
+        -1.18002,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_640.npz",
+      "sha256": "e2dd38509904a0d74039c13e42d660b00fa38e67817b807e7407bf86590a90dc",
+      "points": 1658346,
+      "center": [
+        -32.484215,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_641.npz",
+      "sha256": "17fc506c6c2b429dc874096ad9226aeff1222f48145d0847c94018605514eb70",
+      "points": 1664616,
+      "center": [
+        -28.587904,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_642.npz",
+      "sha256": "7002a8f9cbb284ce7ffbac402dcde91b68e7e2ca1b7d3c42661bee315fbcd3c8",
+      "points": 1733962,
+      "center": [
+        -24.691586,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_643.npz",
+      "sha256": "835106442ac8a81972fb406abfa4169a3a451d468ff7e82e9297ea0cf322ab6c",
+      "points": 1729214,
+      "center": [
+        -20.795275,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_644.npz",
+      "sha256": "0ab8b67928a610da7b9165f51cd0480929fc39671569ad7428cd9b0ec38002b0",
+      "points": 1689600,
+      "center": [
+        -16.898956,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_645.npz",
+      "sha256": "402d8422835227ea5004d18be184b5e6150eaeedb987a3f809d67f185855c907",
+      "points": 1697352,
+      "center": [
+        -13.002645,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_646.npz",
+      "sha256": "1aa10aaad0559d805cf62131a0ec52e88760ce6f812361fab7576ca53ee5425a",
+      "points": 1736872,
+      "center": [
+        -9.106325,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_647.npz",
+      "sha256": "a1fa933675ec4f399ba15f8647896e3b1701ec6a28eaf5b6bb62dbad5af21487",
+      "points": 1718230,
+      "center": [
+        -5.210015,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_648.npz",
+      "sha256": "de4a14540a81cd992b445ebf02d42705e5167ff1ccf28bcfa76633b5266eb553",
+      "points": 1761750,
+      "center": [
+        -1.313695,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_649.npz",
+      "sha256": "984ceb0e33b33176eaf006db5eab24b3dcd11925b7e06ba72f3184ad8471db9d",
+      "points": 1773687,
+      "center": [
+        2.582615,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_650.npz",
+      "sha256": "c2a8ac47b4d0068bf6478e48227f38286f3fcbadf78f23f4ba3a21254992ee3f",
+      "points": 1858108,
+      "center": [
+        6.478935,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_651.npz",
+      "sha256": "89b798e0116b7b67d25e5dd08b4cde7a960ee85da26d44e8b4230ecce4217ec2",
+      "points": 1764917,
+      "center": [
+        10.375245,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_652.npz",
+      "sha256": "1677d78cc189d313d49576b43bd8e4a4913adebf8bc67eb303bfc2989866eedc",
+      "points": 1745374,
+      "center": [
+        14.271564,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_653.npz",
+      "sha256": "d560e3303534f98c44eadd78c5bfef80ac918ce54f85656934feca19d914cb38",
+      "points": 1821161,
+      "center": [
+        18.167875,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_654.npz",
+      "sha256": "ed4a0efaae46fcccde578e50f8413ddf394b75ee01a8f1d4f4856a9bb43811b0",
+      "points": 1851999,
+      "center": [
+        22.06419,
+        -5.25708,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_677.npz",
+      "sha256": "ccf0f243e4327b805c703fd1b0750823951992ea17291af3cab821848be60710",
+      "points": 1687785,
+      "center": [
+        -32.484215,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_678.npz",
+      "sha256": "522ff94b1cc678082ea7126bd2081d7d3a0ce630781874e5fc9215b1cba6256b",
+      "points": 1688766,
+      "center": [
+        -28.587904,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_679.npz",
+      "sha256": "27058e6bab40aad67d9fe8e9ba12769b5ac25700052277cb5190067a4abc819f",
+      "points": 1746120,
+      "center": [
+        -24.691586,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_680.npz",
+      "sha256": "03925fdfb566a743ab7f53632aa9e766233b66db68848aba2b75b02e04429956",
+      "points": 1737660,
+      "center": [
+        -20.795275,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_681.npz",
+      "sha256": "2b74092dfeb59d02a2493457d4c1aaa9f195b34698a4f86548a00ec238906b47",
+      "points": 1709833,
+      "center": [
+        -16.898956,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_682.npz",
+      "sha256": "c0a6c777529c24e8a370a0f907d9fd5aec96c7fd7696705beafee34c82ea6667",
+      "points": 1730911,
+      "center": [
+        -13.002645,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_683.npz",
+      "sha256": "2b4caa7aa636a511f9321e0a3eb69f05e9c608e7a55ea7f0a0cac28c0929dd0f",
+      "points": 1768674,
+      "center": [
+        -9.106325,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_684.npz",
+      "sha256": "bcd44d657bceeb2d8d92522d02a6057c3fa2190b42492621f4425ecfda9c3acb",
+      "points": 1755995,
+      "center": [
+        -5.210015,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_685.npz",
+      "sha256": "e931c6ef09bac21d8d985fcdb513571990a4da939563fbcd141defe2bdc1d9e5",
+      "points": 1767958,
+      "center": [
+        -1.313695,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_686.npz",
+      "sha256": "2e1e5bb47707d4371cdfd1cb089329ac0bace8e64fcaf4ef423dfe242742f3e8",
+      "points": 1752312,
+      "center": [
+        2.582615,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_687.npz",
+      "sha256": "e45647a6357d894b312022317e1eff5c2c8cdbd67ca627e64e9c299569eb15d5",
+      "points": 1836758,
+      "center": [
+        6.478935,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_688.npz",
+      "sha256": "4c2226f8ba7b41da79ce19d9d234e9d952f802dc4334fb02f90cf52a42115714",
+      "points": 1759471,
+      "center": [
+        10.375245,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_689.npz",
+      "sha256": "700dfb9964ec3c59143f987fba8df4da5532c92e13a09b1dbb45d872b474ad3b",
+      "points": 1742439,
+      "center": [
+        14.271564,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_690.npz",
+      "sha256": "7ff8f0820ad56e29389aabe9c5e775da8963744e46d71523ba7b516df2ce591e",
+      "points": 1793177,
+      "center": [
+        18.167875,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_691.npz",
+      "sha256": "ffa88e164f23c08769723a90ba2191d51fa80c28134f14b487ab65641e25956a",
+      "points": 1799593,
+      "center": [
+        22.06419,
+        -9.33414,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_714.npz",
+      "sha256": "58689ebdc140e48bd1b05fa51a6ccad2f41f574a5e104b489951df976cb8aa51",
+      "points": 1645615,
+      "center": [
+        -32.484215,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_715.npz",
+      "sha256": "3a617c906b7ba0489cbd8322c028f19f4e1640e76ef275160bd73b3a9b867bc1",
+      "points": 1623232,
+      "center": [
+        -28.587904,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_716.npz",
+      "sha256": "82075fe43d597a93cbb4506ac1be7e603a8eeee416bc821519132abd3e236f45",
+      "points": 1662617,
+      "center": [
+        -24.691586,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_717.npz",
+      "sha256": "5000314a44ac1f2ed69b37b3596e49e76d752a3c5ba51270d92ded8fc5803320",
+      "points": 1670365,
+      "center": [
+        -20.795275,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_718.npz",
+      "sha256": "798220717cc185bb51072fc881a0b4659b85f5ce43f459392d9338fda2fb0971",
+      "points": 1672128,
+      "center": [
+        -16.898956,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_719.npz",
+      "sha256": "885d79b2f91161c0646177aad72b01d4b260ea9c4195af0b8bbf47607a87e7cf",
+      "points": 1718061,
+      "center": [
+        -13.002645,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_720.npz",
+      "sha256": "5f3cfc3ac61bf8fa47fec27487648965bce325389f0aff4360f45b7ced0df961",
+      "points": 1752526,
+      "center": [
+        -9.106325,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_721.npz",
+      "sha256": "1eb9749119054194ae9a012d427b2e380b6303bf14bbe80447316458f0251536",
+      "points": 1763147,
+      "center": [
+        -5.210015,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_722.npz",
+      "sha256": "00d16ff23211b436101f98eadd825a3d8bf57a163b9b69850d0ba9e21f5e2cba",
+      "points": 1760100,
+      "center": [
+        -1.313695,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_723.npz",
+      "sha256": "b21ad3c997e95c5758d24325688090f53757bc46eeac29ced1a0103d5f9260e1",
+      "points": 1743820,
+      "center": [
+        2.582615,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_724.npz",
+      "sha256": "5ee15061ac7df268d45778de9b2cdc859d4289046ea8c1be307dd99987d276c8",
+      "points": 1822652,
+      "center": [
+        6.478935,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_725.npz",
+      "sha256": "2d2b8bcd3b0e99c5f59db637c6bf13cf6ea9bdd9b4a11e0e2ac00268d84f6cb7",
+      "points": 1763998,
+      "center": [
+        10.375245,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_726.npz",
+      "sha256": "4ca47aa4001bc6c8789edd3420d074a7267ecd3a8415c00258de3c2a1151aa5f",
+      "points": 1734502,
+      "center": [
+        14.271564,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_727.npz",
+      "sha256": "7166159f6809dd572141102ace0a1d0bf7dd7ac3d7da6957aad95c8f829143cd",
+      "points": 1750858,
+      "center": [
+        18.167875,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_728.npz",
+      "sha256": "633096fcf8a7d6cc9ad97a57a183e3b2a8246976e2285a71152fc7f7890d785b",
+      "points": 1729926,
+      "center": [
+        22.06419,
+        -13.4112,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_751.npz",
+      "sha256": "d798ab183e5eb11d534fa56bd0f61055d7345d8124747bfb23ccdf4ded878ab1",
+      "points": 1636466,
+      "center": [
+        -32.484215,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_752.npz",
+      "sha256": "c5afbd3bbe42c7812598236d5313641fc6af2a0ef53f6ae5fc19655ec73afa52",
+      "points": 1608690,
+      "center": [
+        -28.587904,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_753.npz",
+      "sha256": "b5280bc9eead1be2e9f332b69c05bd91389f3b40310edea6e92ed7a5ff0cd39b",
+      "points": 1639230,
+      "center": [
+        -24.691586,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_754.npz",
+      "sha256": "bd2efaeef09e1202189dd7b518ffea7a51085156f801350da0c7130217c30c00",
+      "points": 1656257,
+      "center": [
+        -20.795275,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_755.npz",
+      "sha256": "4f7b77232dd6811136c4f1339c6cde40c7bcb322ce533501d5ee73033bcc8749",
+      "points": 1651242,
+      "center": [
+        -16.898956,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_756.npz",
+      "sha256": "ce8e237215995ba3669807c9a09bde00226333a761cfebbaa9c7010b1a2ed25a",
+      "points": 1705133,
+      "center": [
+        -13.002645,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_757.npz",
+      "sha256": "b214d1ef09e45926d1f1a13d4df2a5ab897b9c6fdcdca1be70dcc2f8fe7fe0df",
+      "points": 1743837,
+      "center": [
+        -9.106325,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_758.npz",
+      "sha256": "542a7e75f1984b708c41c74da834d8bd954cd39e0d899cbe67b9a7cb88595574",
+      "points": 1768450,
+      "center": [
+        -5.210015,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_759.npz",
+      "sha256": "4bcdda2e4d1ab868b51e4f743d2fc27df326501ca1e329c61b654537280ce164",
+      "points": 1749516,
+      "center": [
+        -1.313695,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_760.npz",
+      "sha256": "bd171b6da4c07ca66fda7653a34119596d9195826ed683003ee1fde6009597f5",
+      "points": 1748104,
+      "center": [
+        2.582615,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_761.npz",
+      "sha256": "14e063372c751baba795a968b2b1c14a0db3b651110754f73a8fc5c22e98e186",
+      "points": 1828607,
+      "center": [
+        6.478935,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_762.npz",
+      "sha256": "d88818ba0b4eb4625e6555a05d142c13c17534d6368283ea3f52263204b52084",
+      "points": 1783773,
+      "center": [
+        10.375245,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_763.npz",
+      "sha256": "1e49121b4cd090e95b7e6c9d35fb10fa893cfe0aab007ebfb30ecaf892c5114e",
+      "points": 1742074,
+      "center": [
+        14.271564,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_764.npz",
+      "sha256": "518b6633b85d462b89df4705bb60d26c64c43a2a96892c5e5bd776d8dd5c0974",
+      "points": 1736040,
+      "center": [
+        18.167875,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_765.npz",
+      "sha256": "d95765f5dddf4c3e289588628a14e2d8766f167cb4820925f44e4cc5a06ac48a",
+      "points": 1737171,
+      "center": [
+        22.06419,
+        -17.488258,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_788.npz",
+      "sha256": "4aa7dae6bc673fbe36b543def61a0169f2fd55f8debbf01e28aa0fffcf61a03f",
+      "points": 1626525,
+      "center": [
+        -32.484215,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_789.npz",
+      "sha256": "1396153fde4f1bc980d94a24e85cacbc863c921dde56879fad448b5311f1ba66",
+      "points": 1595467,
+      "center": [
+        -28.587904,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_790.npz",
+      "sha256": "737ff96bd66d90977648f2c2dd23b48ddaaa73a71b1d68ef52927ae89cf707fe",
+      "points": 1620818,
+      "center": [
+        -24.691586,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_791.npz",
+      "sha256": "d6ae974268276314df06b6211c964fec172e80b71d436ccd210653e544ce7d98",
+      "points": 1624138,
+      "center": [
+        -20.795275,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_792.npz",
+      "sha256": "efddfc9046e5012098fecf96fa582a3cc376da5d245b59519614ac441e38c7db",
+      "points": 1596049,
+      "center": [
+        -16.898956,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_793.npz",
+      "sha256": "1fc8d4482e54fe4f052e33e9d5e78650916a7be8994bc40e739168ec565e0da1",
+      "points": 1633767,
+      "center": [
+        -13.002645,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_794.npz",
+      "sha256": "7a58a451205ece156acea195d3147339e725a732b951601399c208bc1c6fefbc",
+      "points": 1641240,
+      "center": [
+        -9.106325,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_795.npz",
+      "sha256": "15e1af38f655a0f13237dce86c84db36466f058daa006b0b9e0cf621b1917cdb",
+      "points": 1656273,
+      "center": [
+        -5.210015,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_796.npz",
+      "sha256": "23e97905ef50736aa79e6539905956a7129ac38a9be8301be2d8c2db673e2b5d",
+      "points": 1616815,
+      "center": [
+        -1.313695,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_797.npz",
+      "sha256": "6d8dc1ddd673165e24dfdc77430d5380c96c835f4ee0101648b81a72562657a6",
+      "points": 1612287,
+      "center": [
+        2.582615,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_798.npz",
+      "sha256": "436cd70e0657aa52be146a7c5ae300d418a317b14019d646ae465d5eff4ceafd",
+      "points": 1682747,
+      "center": [
+        6.478935,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_799.npz",
+      "sha256": "b69b9fd2e23cfa02c0724856f3205893e07b9e18eaeecdedda36b38f7ee34ffe",
+      "points": 1645894,
+      "center": [
+        10.375245,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_800.npz",
+      "sha256": "a92c20a83ea452fcf020c21201c2791dfbb2c9e164ea50db29ee0938cae2f841",
+      "points": 1626535,
+      "center": [
+        14.271564,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_801.npz",
+      "sha256": "f75168c62bb4aa3cb36094dd6cf4a7cee9199a65cb46f40553bd3ff8184ec116",
+      "points": 1631587,
+      "center": [
+        18.167875,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_802.npz",
+      "sha256": "34a0533364cc8ecbd680f172d8d2cc2c3f524a107847b0191a44cae4e007adc8",
+      "points": 1654541,
+      "center": [
+        22.06419,
+        -21.565319,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_825.npz",
+      "sha256": "b277bc7c2097b36ae7517b87b457fc66219d1bb4aeacf7a4a07a9d6a936d60ba",
+      "points": 1620628,
+      "center": [
+        -32.484215,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_826.npz",
+      "sha256": "6fb3e9175a15cdb800c5066335612e2793457fc52b9d925126d8eaa9798d33e7",
+      "points": 1567028,
+      "center": [
+        -28.587904,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_827.npz",
+      "sha256": "022a0779c92e326e1069da79af8abcd15558ea3b6eaffc574be7f454d1ede91e",
+      "points": 1560438,
+      "center": [
+        -24.691586,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_828.npz",
+      "sha256": "05235982ff0a5aff88927c6f5d1eab948fcad1a81b43c4f520168c0312a72512",
+      "points": 1547297,
+      "center": [
+        -20.795275,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_829.npz",
+      "sha256": "683b5ea55e6b462c06cca9b7955c91196c6b303ed981de6008a295abb785ea91",
+      "points": 1495920,
+      "center": [
+        -16.898956,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_830.npz",
+      "sha256": "46df8eb11f23fee37b27639d9ffdbc9f48723a8731f8ac876531534bf537f1db",
+      "points": 1526478,
+      "center": [
+        -13.002645,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_831.npz",
+      "sha256": "db0a3ac7925a791331b7cf2b007bcf6239b4efff18abc7e7b3edae2710292d0b",
+      "points": 1535156,
+      "center": [
+        -9.106325,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_832.npz",
+      "sha256": "93bac9bbeb6936f731a2ab1e93e39e52bcc87391ee7582eeccf92561aba63595",
+      "points": 1530905,
+      "center": [
+        -5.210015,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_833.npz",
+      "sha256": "9d9b2900419fd2ac47248457af66ba832d173c8c6114ccce1a40512fc87a0e24",
+      "points": 1483279,
+      "center": [
+        -1.313695,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_834.npz",
+      "sha256": "6d89dc8d505726422ab9e6af1330e2686c5a4e08abeafb1d5add8636f7e6f4f7",
+      "points": 1456275,
+      "center": [
+        2.582615,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_835.npz",
+      "sha256": "452112df5b3dd807506cc3c0d2efcde2f0e3d9b7a69f89fe3434abdbe906623c",
+      "points": 1528163,
+      "center": [
+        6.478935,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_836.npz",
+      "sha256": "c2687d7ac0428114d05c0e0e25819359aabc9d95d6d1af81d9c1382580161a87",
+      "points": 1494526,
+      "center": [
+        10.375245,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_837.npz",
+      "sha256": "6b7dc7bd382afbf064bdb95feebd616d3f383767604c610613e2f705539eaa71",
+      "points": 1504105,
+      "center": [
+        14.271564,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_838.npz",
+      "sha256": "37e1179d3a5928c897d3caab86e9475cbde218fa12590921774ecf4ff2b3b1ee",
+      "points": 1536594,
+      "center": [
+        18.167875,
+        -25.64238,
+        0.0
+      ]
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/e2_default_L1W/tiles/npz/L1W_839.npz",
+      "sha256": "ab63bc5ac09cf63e77e83b96ac865e3ff74b394196ffa75a041f99b9bb71f792",
+      "points": 1545870,
+      "center": [
+        22.06419,
+        -25.64238,
+        0.0
+      ]
+    }
+  ],
+  "tile_root": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1/tiles/npz",
+  "tile_count": 195,
+  "complete_tree_ids": [
+    22,
+    36,
+    44,
+    54,
+    73,
+    77,
+    84,
+    88,
+    92,
+    93,
+    99,
+    103,
+    105,
+    109,
+    118,
+    125,
+    130,
+    134,
+    176,
+    179,
+    187,
+    193,
+    225,
+    227
+  ],
+  "complete_trees": 24,
+  "gt_points": 3079275,
+  "excluded_partial_tree_points": 981275,
+  "grouping": {
+    "tree_conf_thresh": 0.5,
+    "tau_vert": 0.6,
+    "tau_off": 4,
+    "tau_group": 0.15,
+    "tau_min": 50,
+    "use_hdbscan": true
+  },
+  "evaluation": {
+    "paths": {
+      "pred_forest_path": "data/pipeline/L1W/results/full_forest/L1W.laz",
+      "gt_forest_path": "data/benchmark/L1W_voxelized01_for_eval.laz"
+    },
+    "thresholds": {
+      "min_iou_for_match": 0.5,
+      "min_precision_for_pred": 0.5,
+      "min_recall_for_gt": 0.5
+    },
+    "partitions": {
+      "xy_partition": [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1
+      ],
+      "z_partition": [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1
+      ]
+    }
+  },
+  "inference_seed": 42,
+  "tile_context": "native complete 35m inputs; native 8m inner masks; stride=0.5",
+  "boundary_policy": "GT trees extending outside the fixed 48m core become unknown, never non-tree",
+  "clustering_scope": "union of selected inner tiles, then evaluate the core; regional, not full-forest grouping",
+  "precision": "main FP32 inference; upstream FlashAttention internal QKV precision unchanged",
+  "checkpoint_nodes": {
+    "completed_training": 2900,
+    "proposed_next": 5000,
+    "warmup_end": 12500,
+    "optional_later": 25000
+  },
+  "continuation_policy": "pause for review after a bounded stage; no automatic 250000-update continuation",
+  "limitation": "24 annotated complete trees in one fixed region; not full L1W or an architecture-fair comparison"
+}

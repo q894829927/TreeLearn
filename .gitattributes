@@ -2,3 +2,6 @@
 tree_learn/experiments/ptv3_treelearn/vendor/** -text -whitespace
 # Preserve captured cumm exception text, including its final blank line.
 docs/experiments/ptv3_memory_stability_v1/evidence/**/exception.txt -text -whitespace
+
+docs/experiments/ptv3_stage_v1/evidence/**/console.log -text -whitespace
+docs/experiments/ptv3_stage_v1/evidence/**/exception.txt -text -whitespace

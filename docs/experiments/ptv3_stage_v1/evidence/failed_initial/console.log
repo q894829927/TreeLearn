@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tools/experiments/ptv3_stage_v1.py", line 18, in <module>
+    main()
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_stage_v1/validation.py", line 265, in main
+    else: evaluate(args)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_stage_v1/validation.py", line 168, in evaluate
+    model.register_forward_hook(omit_features)
+AttributeError: 'NoneType' object has no attribute 'register_forward_hook'

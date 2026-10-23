@@ -1,0 +1,13 @@
+{
+  "pid": 2210387,
+  "command": [
+    "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+    "-u",
+    "tools/experiments/ptv3_stage_queue_v1.py",
+    "--root",
+    "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_full_formal_v1_20261023_s42/stage_validation_v1"
+  ],
+  "launched_unix": 1792753232.5008526,
+  "source_commit": "d1a8e7c3f9a0568fd8d616f86e9868d62ac6dc9a",
+  "automatic_training_resume": false
+}

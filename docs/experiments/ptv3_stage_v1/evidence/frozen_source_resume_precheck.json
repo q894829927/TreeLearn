@@ -1,0 +1,7 @@
+{
+  "expected_code_sha256": "f66eb555d77344d823c3b546fdb6aaa592bf17721a05006570c5c6b19b820574",
+  "actual_code_sha256": "f66eb555d77344d823c3b546fdb6aaa592bf17721a05006570c5c6b19b820574",
+  "source_files_match": true,
+  "full_restore_not_executed": true,
+  "notes": "This validates source identity only; actual optimizer/RNG restoration is checked by the unchanged trainer on the next bounded run."
+}

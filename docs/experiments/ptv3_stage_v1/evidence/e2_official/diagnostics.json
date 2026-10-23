@@ -1,0 +1,379 @@
+{
+  "semantic_tree_recall": 0.9995514625648022,
+  "offset_xy_error_m": 0.31338638348854275,
+  "offset_xyz_error_m": 0.3899789527180741,
+  "foreground_points": 3807689,
+  "seed_points": 71360,
+  "initial_instances": 63,
+  "final_instances": 63,
+  "unassigned_tree_points": 0,
+  "gt_alignment_distance_quantiles_m": [
+    0.00428809059565272,
+    0.018088629795656726,
+    0.05272561243232208,
+    0.11009875408013617
+  ],
+  "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+  "pointwise_sha256": "14be7c0e607cc5345473dd64dded273db81a2ce256e3f2fe9da3ddaaa87922a9",
+  "gt_sha256": "8b23f9d38f06bb6cf383006f64e1b2204c588d1f738b12905f388c36d300f631",
+  "per_instance": [
+    {
+      "instance": 22,
+      "points": 45361,
+      "z_extent_m": 33.39,
+      "semantic_tree_recall": 0.9996252287207072,
+      "seed_fraction_at_gt_points": 0.031635105046185046,
+      "offset_xyz_error_m": 0.3234351937465954,
+      "offset_xy_error_m": 0.2561082006341919,
+      "overlapping_final_instances": [
+        44,
+        50,
+        51,
+        53
+      ]
+    },
+    {
+      "instance": 36,
+      "points": 21810,
+      "z_extent_m": 17.3,
+      "semantic_tree_recall": 0.9998624484181569,
+      "seed_fraction_at_gt_points": 0.06909674461256304,
+      "offset_xyz_error_m": 0.3196026976757586,
+      "offset_xy_error_m": 0.23316664917161015,
+      "overlapping_final_instances": [
+        24,
+        38
+      ]
+    },
+    {
+      "instance": 44,
+      "points": 32773,
+      "z_extent_m": 31.259999999999998,
+      "semantic_tree_recall": 0.9997558966222195,
+      "seed_fraction_at_gt_points": 0.03222164586702469,
+      "offset_xyz_error_m": 0.24699952924652668,
+      "offset_xy_error_m": 0.16007711772060976,
+      "overlapping_final_instances": [
+        40,
+        41
+      ]
+    },
+    {
+      "instance": 54,
+      "points": 106753,
+      "z_extent_m": 30.72,
+      "semantic_tree_recall": 0.9998594887263121,
+      "seed_fraction_at_gt_points": 0.009545399192528546,
+      "offset_xyz_error_m": 0.4628203836895316,
+      "offset_xy_error_m": 0.3886095173947847,
+      "overlapping_final_instances": [
+        39,
+        40,
+        41,
+        43,
+        47
+      ]
+    },
+    {
+      "instance": 73,
+      "points": 23909,
+      "z_extent_m": 15.379999999999999,
+      "semantic_tree_recall": 0.9997072232213811,
+      "seed_fraction_at_gt_points": 0.02931950311598143,
+      "offset_xyz_error_m": 0.5886918616764513,
+      "offset_xy_error_m": 0.3045637886668423,
+      "overlapping_final_instances": [
+        39,
+        40,
+        43,
+        47
+      ]
+    },
+    {
+      "instance": 77,
+      "points": 95450,
+      "z_extent_m": 34.28,
+      "semantic_tree_recall": 0.9998323729701414,
+      "seed_fraction_at_gt_points": 0.012687270822420115,
+      "offset_xyz_error_m": 0.34504582129399014,
+      "offset_xy_error_m": 0.2843762278120653,
+      "overlapping_final_instances": [
+        23,
+        24,
+        30,
+        38,
+        49
+      ]
+    },
+    {
+      "instance": 84,
+      "points": 100194,
+      "z_extent_m": 34.77,
+      "semantic_tree_recall": 0.9994810068467174,
+      "seed_fraction_at_gt_points": 0.01334411242190151,
+      "offset_xyz_error_m": 0.5029419373172443,
+      "offset_xy_error_m": 0.4695553490972466,
+      "overlapping_final_instances": [
+        9,
+        17,
+        19,
+        20,
+        21,
+        33,
+        37
+      ]
+    },
+    {
+      "instance": 88,
+      "points": 105223,
+      "z_extent_m": 33.160000000000004,
+      "semantic_tree_recall": 0.998032749493932,
+      "seed_fraction_at_gt_points": 0.013286068635184323,
+      "offset_xyz_error_m": 0.42278331153456417,
+      "offset_xy_error_m": 0.3514817409894208,
+      "overlapping_final_instances": [
+        12,
+        17,
+        19,
+        37
+      ]
+    },
+    {
+      "instance": 92,
+      "points": 118801,
+      "z_extent_m": 32.44,
+      "semantic_tree_recall": 0.9998905733116724,
+      "seed_fraction_at_gt_points": 0.009435947508859352,
+      "offset_xyz_error_m": 0.2793025132989101,
+      "offset_xy_error_m": 0.212339683625956,
+      "overlapping_final_instances": [
+        17,
+        33,
+        36,
+        37,
+        42
+      ]
+    },
+    {
+      "instance": 93,
+      "points": 44148,
+      "z_extent_m": 34.18,
+      "semantic_tree_recall": 0.9992298631874603,
+      "seed_fraction_at_gt_points": 0.03325178943553502,
+      "offset_xyz_error_m": 0.3271305806153,
+      "offset_xy_error_m": 0.2587196267222067,
+      "overlapping_final_instances": [
+        44,
+        45,
+        46
+      ]
+    },
+    {
+      "instance": 99,
+      "points": 61639,
+      "z_extent_m": 32.81,
+      "semantic_tree_recall": 1.0,
+      "seed_fraction_at_gt_points": 0.018478560651535553,
+      "offset_xyz_error_m": 0.2254175993479562,
+      "offset_xy_error_m": 0.149524308750959,
+      "overlapping_final_instances": [
+        36,
+        44,
+        45,
+        46
+      ]
+    },
+    {
+      "instance": 103,
+      "points": 100015,
+      "z_extent_m": 34.81,
+      "semantic_tree_recall": 0.9981402789581563,
+      "seed_fraction_at_gt_points": 0.018277258411238315,
+      "offset_xyz_error_m": 0.552052978874171,
+      "offset_xy_error_m": 0.4903415773548643,
+      "overlapping_final_instances": [
+        17,
+        19,
+        33,
+        37
+      ]
+    },
+    {
+      "instance": 105,
+      "points": 78191,
+      "z_extent_m": 34.26,
+      "semantic_tree_recall": 0.9997442160862503,
+      "seed_fraction_at_gt_points": 0.016370170479978515,
+      "offset_xyz_error_m": 0.39201108861780115,
+      "offset_xy_error_m": 0.3271688747104543,
+      "overlapping_final_instances": [
+        3,
+        5,
+        10,
+        41
+      ]
+    },
+    {
+      "instance": 109,
+      "points": 100628,
+      "z_extent_m": 31.83,
+      "semantic_tree_recall": 0.9998509361211592,
+      "seed_fraction_at_gt_points": 0.015095202130619708,
+      "offset_xyz_error_m": 0.47263934381000566,
+      "offset_xy_error_m": 0.43168691594948244,
+      "overlapping_final_instances": [
+        26,
+        27,
+        44,
+        45,
+        46,
+        50
+      ]
+    },
+    {
+      "instance": 118,
+      "points": 43264,
+      "z_extent_m": 32.0,
+      "semantic_tree_recall": 0.9998844304733728,
+      "seed_fraction_at_gt_points": 0.026095599112426034,
+      "offset_xyz_error_m": 0.2862696354446223,
+      "offset_xy_error_m": 0.21146546678479167,
+      "overlapping_final_instances": [
+        36,
+        37,
+        42,
+        45
+      ]
+    },
+    {
+      "instance": 125,
+      "points": 26676,
+      "z_extent_m": 34.84,
+      "semantic_tree_recall": 0.9996251312040786,
+      "seed_fraction_at_gt_points": 0.037112010796221326,
+      "offset_xyz_error_m": 0.409775549191589,
+      "offset_xy_error_m": 0.3126509115584836,
+      "overlapping_final_instances": [
+        19,
+        20,
+        21
+      ]
+    },
+    {
+      "instance": 130,
+      "points": 31570,
+      "z_extent_m": 21.68,
+      "semantic_tree_recall": 0.9999049730757048,
+      "seed_fraction_at_gt_points": 0.031992397846056383,
+      "offset_xyz_error_m": 0.4374618075567129,
+      "offset_xy_error_m": 0.27256318485775305,
+      "overlapping_final_instances": [
+        9,
+        16,
+        27,
+        28,
+        29
+      ]
+    },
+    {
+      "instance": 134,
+      "points": 31414,
+      "z_extent_m": 16.04,
+      "semantic_tree_recall": 1.0,
+      "seed_fraction_at_gt_points": 0.0309097854459795,
+      "offset_xyz_error_m": 0.6721152992906559,
+      "offset_xy_error_m": 0.5790124590652218,
+      "overlapping_final_instances": [
+        37,
+        39,
+        42,
+        43
+      ]
+    },
+    {
+      "instance": 176,
+      "points": 81338,
+      "z_extent_m": 35.05,
+      "semantic_tree_recall": 0.9999631168703436,
+      "seed_fraction_at_gt_points": 0.01946199808207726,
+      "offset_xyz_error_m": 0.25196164639343216,
+      "offset_xy_error_m": 0.15643184441500654,
+      "overlapping_final_instances": [
+        23,
+        24
+      ]
+    },
+    {
+      "instance": 179,
+      "points": 88349,
+      "z_extent_m": 31.990000000000002,
+      "semantic_tree_recall": 0.9996604375827683,
+      "seed_fraction_at_gt_points": 0.01522371503921946,
+      "offset_xyz_error_m": 0.4000461045964159,
+      "offset_xy_error_m": 0.3409001315012534,
+      "overlapping_final_instances": [
+        9,
+        12,
+        17
+      ]
+    },
+    {
+      "instance": 187,
+      "points": 38969,
+      "z_extent_m": 34.32,
+      "semantic_tree_recall": 0.9999743385768175,
+      "seed_fraction_at_gt_points": 0.02509687187251405,
+      "offset_xyz_error_m": 0.27194717973860666,
+      "offset_xy_error_m": 0.14431927416207746,
+      "overlapping_final_instances": [
+        37,
+        42,
+        43
+      ]
+    },
+    {
+      "instance": 193,
+      "points": 29296,
+      "z_extent_m": 31.990000000000002,
+      "semantic_tree_recall": 1.0,
+      "seed_fraction_at_gt_points": 0.03113052976515565,
+      "offset_xyz_error_m": 0.19275105327586733,
+      "offset_xy_error_m": 0.1228047755915986,
+      "overlapping_final_instances": [
+        50,
+        52,
+        53,
+        55,
+        56,
+        58
+      ]
+    },
+    {
+      "instance": 225,
+      "points": 21632,
+      "z_extent_m": 15.89,
+      "semantic_tree_recall": 1.0,
+      "seed_fraction_at_gt_points": 0.03226701183431953,
+      "offset_xyz_error_m": 0.43053648377550774,
+      "offset_xy_error_m": 0.2784361892437942,
+      "overlapping_final_instances": [
+        52,
+        60
+      ]
+    },
+    {
+      "instance": 227,
+      "points": 15063,
+      "z_extent_m": 15.99,
+      "semantic_tree_recall": 0.9998672243245037,
+      "seed_fraction_at_gt_points": 0.029874526986656044,
+      "offset_xyz_error_m": 0.4593193010254885,
+      "offset_xy_error_m": 0.25635462038607426,
+      "overlapping_final_instances": [
+        55,
+        56
+      ]
+    }
+  ],
+  "role": "evaluation diagnostics only"
+}

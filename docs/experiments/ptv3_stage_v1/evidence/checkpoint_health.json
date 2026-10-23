@@ -1,0 +1,34 @@
+{
+  "observed_at": "2026-10-23T19:04:18.224649+08:00",
+  "global_update": 2900,
+  "optimizer_steps_min": 2897,
+  "optimizer_steps_max": 2897,
+  "all_model_tensors_finite": true,
+  "bn_buffers_finite": true,
+  "bn_counts": [
+    5800
+  ],
+  "scaler": {
+    "scale": 128.0,
+    "growth_factor": 2.0,
+    "backoff_factor": 0.5,
+    "growth_interval": 2000,
+    "_growth_tracker": 416
+  },
+  "sampler": {
+    "next_sample": 5800
+  },
+  "identity": {
+    "config_sha256": "1c01a60c44a92b31a763603e9574c7e927c1ece065430e34236d31d26036f663",
+    "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+    "plan_sha256": "210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688",
+    "seed": 42,
+    "code_sha256": "f66eb555d77344d823c3b546fdb6aaa592bf17721a05006570c5c6b19b820574",
+    "environment_sha256": "6b7dc30f19fd05d4cbb4f630e085084c459516678f06a49a0ab256fb48e13cbf",
+    "effective_batch_size": 2,
+    "updates_per_epoch": 250,
+    "total_updates": 250000,
+    "phase": "formal",
+    "unverified_smoke": false
+  }
+}

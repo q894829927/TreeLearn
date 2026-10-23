@@ -1,0 +1,8 @@
+Verified 25 full-context validation tiles
+Verified 50 full-context validation tiles
+Verified 75 full-context validation tiles
+Verified 100 full-context validation tiles
+Verified 125 full-context validation tiles
+Verified 150 full-context validation tiles
+Verified 175 full-context validation tiles
+{"tile_count": 195, "gt_points": 3079275, "complete_trees": 24, "excluded_partial_tree_points": 981275}

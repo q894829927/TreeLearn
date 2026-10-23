@@ -1,0 +1,352 @@
+{
+  "semantic_tree_recall": 0.20038600563202183,
+  "offset_xy_error_m": 2.8751745910254334,
+  "offset_xyz_error_m": 16.810574339918695,
+  "foreground_points": 713604,
+  "seed_points": 145726,
+  "initial_instances": 69,
+  "final_instances": 69,
+  "unassigned_tree_points": 0,
+  "gt_alignment_distance_quantiles_m": [
+    0.00428809059565272,
+    0.018088629795656726,
+    0.05272561243232208,
+    0.11009875408013617
+  ],
+  "offset_reference": "main getOffset on whole visible GT; not per-crop training anchors",
+  "pointwise_sha256": "af860d6ddbdb2660b1d7b409bb17eea328a02286539ef195aafe8654bebe47d7",
+  "gt_sha256": "8b23f9d38f06bb6cf383006f64e1b2204c588d1f738b12905f388c36d300f631",
+  "per_instance": [
+    {
+      "instance": 22,
+      "points": 45361,
+      "z_extent_m": 33.39,
+      "semantic_tree_recall": 0.3709794757611164,
+      "seed_fraction_at_gt_points": 0.07905469456140737,
+      "offset_xyz_error_m": 17.895859847178432,
+      "offset_xy_error_m": 2.4713688254240274,
+      "overlapping_final_instances": [
+        33,
+        39,
+        42,
+        43,
+        49,
+        50,
+        62
+      ]
+    },
+    {
+      "instance": 36,
+      "points": 21810,
+      "z_extent_m": 17.3,
+      "semantic_tree_recall": 0.18120128381476386,
+      "seed_fraction_at_gt_points": 0.17767079321412196,
+      "offset_xyz_error_m": 11.874249278846152,
+      "offset_xy_error_m": 2.219455040831679,
+      "overlapping_final_instances": [
+        10
+      ]
+    },
+    {
+      "instance": 44,
+      "points": 32773,
+      "z_extent_m": 31.259999999999998,
+      "semantic_tree_recall": 0.06017148262289079,
+      "seed_fraction_at_gt_points": 0.05522838922283587,
+      "offset_xyz_error_m": 22.29130743038196,
+      "offset_xy_error_m": 1.6917548060981744,
+      "overlapping_final_instances": [
+        12
+      ]
+    },
+    {
+      "instance": 54,
+      "points": 106753,
+      "z_extent_m": 30.72,
+      "semantic_tree_recall": 0.008280797729337817,
+      "seed_fraction_at_gt_points": 0.0011428250259945857,
+      "offset_xyz_error_m": 14.535292371795993,
+      "offset_xy_error_m": 2.6562039985391235,
+      "overlapping_final_instances": [
+        11,
+        12
+      ]
+    },
+    {
+      "instance": 73,
+      "points": 23909,
+      "z_extent_m": 15.379999999999999,
+      "semantic_tree_recall": 0.0,
+      "seed_fraction_at_gt_points": 0.0,
+      "offset_xyz_error_m": 7.5794409164434935,
+      "offset_xy_error_m": 1.8469807552438615,
+      "overlapping_final_instances": []
+    },
+    {
+      "instance": 77,
+      "points": 95450,
+      "z_extent_m": 34.28,
+      "semantic_tree_recall": 0.0648297537977999,
+      "seed_fraction_at_gt_points": 0.03997904662126768,
+      "offset_xyz_error_m": 21.863196645877874,
+      "offset_xy_error_m": 3.11585818748136,
+      "overlapping_final_instances": [
+        9,
+        10,
+        22,
+        26
+      ]
+    },
+    {
+      "instance": 84,
+      "points": 100194,
+      "z_extent_m": 34.77,
+      "semantic_tree_recall": 0.2450146715372178,
+      "seed_fraction_at_gt_points": 0.02705750843363874,
+      "offset_xyz_error_m": 16.445324131050448,
+      "offset_xy_error_m": 3.2568805134249668,
+      "overlapping_final_instances": [
+        16,
+        17,
+        25,
+        29,
+        30,
+        32
+      ]
+    },
+    {
+      "instance": 88,
+      "points": 105223,
+      "z_extent_m": 33.160000000000004,
+      "semantic_tree_recall": 0.4166864658867358,
+      "seed_fraction_at_gt_points": 0.020366269731902722,
+      "offset_xyz_error_m": 13.97288542229165,
+      "offset_xy_error_m": 3.6285011856611438,
+      "overlapping_final_instances": [
+        16,
+        17,
+        29,
+        31,
+        32
+      ]
+    },
+    {
+      "instance": 92,
+      "points": 118801,
+      "z_extent_m": 32.44,
+      "semantic_tree_recall": 0.19090748394373785,
+      "seed_fraction_at_gt_points": 0.016717031001422546,
+      "offset_xyz_error_m": 16.394207552054795,
+      "offset_xy_error_m": 3.452020736377374,
+      "overlapping_final_instances": [
+        17,
+        25,
+        31,
+        32
+      ]
+    },
+    {
+      "instance": 93,
+      "points": 44148,
+      "z_extent_m": 34.18,
+      "semantic_tree_recall": 0.24275165352903869,
+      "seed_fraction_at_gt_points": 0.1576741868261303,
+      "offset_xyz_error_m": 20.842209120505355,
+      "offset_xy_error_m": 2.362756677879628,
+      "overlapping_final_instances": [
+        42
+      ]
+    },
+    {
+      "instance": 99,
+      "points": 61639,
+      "z_extent_m": 32.81,
+      "semantic_tree_recall": 0.2785249598468502,
+      "seed_fraction_at_gt_points": 0.05223965346614968,
+      "offset_xyz_error_m": 16.802646551456977,
+      "offset_xy_error_m": 2.37989193895186,
+      "overlapping_final_instances": [
+        31,
+        33,
+        38,
+        42
+      ]
+    },
+    {
+      "instance": 103,
+      "points": 100015,
+      "z_extent_m": 34.81,
+      "semantic_tree_recall": 0.19685047242913564,
+      "seed_fraction_at_gt_points": 0.012378143278508225,
+      "offset_xyz_error_m": 13.743090896351362,
+      "offset_xy_error_m": 2.4755044965981536,
+      "overlapping_final_instances": [
+        25,
+        29,
+        32
+      ]
+    },
+    {
+      "instance": 105,
+      "points": 78191,
+      "z_extent_m": 34.26,
+      "semantic_tree_recall": 0.0500569119208093,
+      "seed_fraction_at_gt_points": 0.04999296594237188,
+      "offset_xyz_error_m": 22.61745898412019,
+      "offset_xy_error_m": 3.1431561157644112,
+      "overlapping_final_instances": [
+        1
+      ]
+    },
+    {
+      "instance": 109,
+      "points": 100628,
+      "z_extent_m": 31.83,
+      "semantic_tree_recall": 0.44009619588981197,
+      "seed_fraction_at_gt_points": 0.022061454068450132,
+      "offset_xyz_error_m": 14.345487937369775,
+      "offset_xy_error_m": 3.6398474407142576,
+      "overlapping_final_instances": [
+        33,
+        34,
+        38,
+        39,
+        41,
+        42,
+        62,
+        66
+      ]
+    },
+    {
+      "instance": 118,
+      "points": 43264,
+      "z_extent_m": 32.0,
+      "semantic_tree_recall": 0.19632951183431951,
+      "seed_fraction_at_gt_points": 0.03564164201183432,
+      "offset_xyz_error_m": 18.157411388569972,
+      "offset_xy_error_m": 1.9657185216191206,
+      "overlapping_final_instances": [
+        31,
+        38
+      ]
+    },
+    {
+      "instance": 125,
+      "points": 26676,
+      "z_extent_m": 34.84,
+      "semantic_tree_recall": 0.37550607287449395,
+      "seed_fraction_at_gt_points": 0.1310166441745389,
+      "offset_xyz_error_m": 18.979077775708408,
+      "offset_xy_error_m": 1.9028706662438484,
+      "overlapping_final_instances": [
+        29,
+        30
+      ]
+    },
+    {
+      "instance": 130,
+      "points": 31570,
+      "z_extent_m": 21.68,
+      "semantic_tree_recall": 0.011054798859676909,
+      "seed_fraction_at_gt_points": 0.01099144757681343,
+      "offset_xyz_error_m": 12.012424446598017,
+      "offset_xy_error_m": 2.4756294012804103,
+      "overlapping_final_instances": [
+        27,
+        35
+      ]
+    },
+    {
+      "instance": 134,
+      "points": 31414,
+      "z_extent_m": 16.04,
+      "semantic_tree_recall": 0.0025784681988922135,
+      "seed_fraction_at_gt_points": 0.002451136435983956,
+      "offset_xyz_error_m": 8.2676665008655,
+      "offset_xy_error_m": 2.2239798548196976,
+      "overlapping_final_instances": [
+        24
+      ]
+    },
+    {
+      "instance": 176,
+      "points": 81338,
+      "z_extent_m": 35.05,
+      "semantic_tree_recall": 0.10870687747424328,
+      "seed_fraction_at_gt_points": 0.0952322407730704,
+      "offset_xyz_error_m": 23.882505828615347,
+      "offset_xy_error_m": 3.154419305369719,
+      "overlapping_final_instances": [
+        26,
+        42
+      ]
+    },
+    {
+      "instance": 179,
+      "points": 88349,
+      "z_extent_m": 31.990000000000002,
+      "semantic_tree_recall": 0.3012824140624116,
+      "seed_fraction_at_gt_points": 0.01239402822895562,
+      "offset_xyz_error_m": 18.04509848077718,
+      "offset_xy_error_m": 3.946358880826433,
+      "overlapping_final_instances": [
+        16,
+        17,
+        31,
+        32
+      ]
+    },
+    {
+      "instance": 187,
+      "points": 38969,
+      "z_extent_m": 34.32,
+      "semantic_tree_recall": 0.1726243937488773,
+      "seed_fraction_at_gt_points": 0.07141574071698016,
+      "offset_xyz_error_m": 21.307129676725545,
+      "offset_xy_error_m": 1.7457641150700551,
+      "overlapping_final_instances": [
+        23
+      ]
+    },
+    {
+      "instance": 193,
+      "points": 29296,
+      "z_extent_m": 31.990000000000002,
+      "semantic_tree_recall": 0.3791643910431458,
+      "seed_fraction_at_gt_points": 0.055536592026215185,
+      "offset_xyz_error_m": 14.908539969635681,
+      "offset_xy_error_m": 1.8254233778687299,
+      "overlapping_final_instances": [
+        43,
+        49,
+        53
+      ]
+    },
+    {
+      "instance": 225,
+      "points": 21632,
+      "z_extent_m": 15.89,
+      "semantic_tree_recall": 0.00476146449704142,
+      "seed_fraction_at_gt_points": 0.004669008875739645,
+      "offset_xyz_error_m": 8.172038227220618,
+      "offset_xy_error_m": 1.9257944207835527,
+      "overlapping_final_instances": [
+        43,
+        51
+      ]
+    },
+    {
+      "instance": 227,
+      "points": 15063,
+      "z_extent_m": 15.99,
+      "semantic_tree_recall": 0.0026555135099249816,
+      "seed_fraction_at_gt_points": 0.0016596959437031136,
+      "offset_xyz_error_m": 7.177809380139414,
+      "offset_xy_error_m": 1.671853841580658,
+      "overlapping_final_instances": [
+        49
+      ]
+    }
+  ],
+  "role": "evaluation diagnostics only"
+}

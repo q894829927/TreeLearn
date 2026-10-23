@@ -1,0 +1,46 @@
+{
+  "TP": 24,
+  "FP": 0,
+  "FN": 0,
+  "detection_precision": 1.0,
+  "metric_units": "fractions 0..1",
+  "detection_recall": 1.0,
+  "detection_f1": 1.0,
+  "completeness": 1.0,
+  "omission": 0.0,
+  "commission": 0.0,
+  "coverage": 0.9823507627149883,
+  "segmentation_precision": 0.9902998410267472,
+  "segmentation_recall": 0.9919047796059249,
+  "z_extent_bins_m": {
+    "0_10": {
+      "gt": 0,
+      "tp": 0,
+      "fn": 0,
+      "recall": null
+    },
+    "10_20": {
+      "gt": 5,
+      "tp": 5,
+      "fn": 0,
+      "recall": 1.0
+    },
+    "20_inf": {
+      "gt": 19,
+      "tp": 19,
+      "fn": 0,
+      "recall": 1.0
+    }
+  },
+  "gt_trees": 24,
+  "predicted_trees": 57,
+  "unknown_prediction_points": 0,
+  "rules": "main strict IoU>0.5 Hungarian, unmatched summed precision>=0.5 commission, 5NN alignment",
+  "scale_name": "Z Extent; not ground-normalized tree height",
+  "role": "L1W regional development validation",
+  "checkpoint_update": null,
+  "tag": "e2_official",
+  "semantic_tree_recall": 0.9995514625648022,
+  "offset_xy_error_m": 0.31338638348854275,
+  "offset_xyz_error_m": 0.3899789527180741
+}

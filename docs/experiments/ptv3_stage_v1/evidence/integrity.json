@@ -1,0 +1,12 @@
+{
+  "main": "fd240ce7caa4c444fe3418aca454dc578bc557d4",
+  "baseline": "855f831c01089261b93658fa2d9a4507bc43be27",
+  "protected_sources_unchanged": true,
+  "frozen_training_source_clean": true,
+  "training_paused": true,
+  "automatic_resume": false,
+  "complete_validation_comparisons": 3,
+  "tests_passed": 20,
+  "evaluation_source_commit": "a32ec3cd6233f37e050ca03d0f8a1bf959324b91",
+  "training_source_commit": "649c1749ea654cb42add12db2eacff3da9532c09"
+}
