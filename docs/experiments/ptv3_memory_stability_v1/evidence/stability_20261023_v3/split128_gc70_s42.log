@@ -1,0 +1,33 @@
+update=1 loss=54.40432 lr=0.00006980 sec=27.039 points=5354006 peak_GiB=19.073
+update=2 loss=49.04408 lr=0.00006980 sec=1.584 points=1879556 peak_GiB=9.973
+update=3 loss=54.47664 lr=0.00006980 sec=3.234 points=3329493 peak_GiB=18.642
+update=4 loss=53.70456 lr=0.00006980 sec=3.069 points=3933751 peak_GiB=15.582
+update=5 loss=50.45123 lr=0.00006980 sec=3.614 points=3904069 peak_GiB=18.653
+update=6 loss=54.61459 lr=0.00006980 sec=2.950 points=3755630 peak_GiB=14.101
+update=7 loss=53.25183 lr=0.00006980 sec=5.233 points=5354006 peak_GiB=20.518
+update=8 loss=49.47739 lr=0.00006980 sec=1.589 points=1879556 peak_GiB=9.581
+update=9 loss=51.63397 lr=0.00006980 sec=2.959 points=3329493 peak_GiB=18.441
+update=10 loss=51.40448 lr=0.00006980 sec=2.969 points=3933751 peak_GiB=13.519
+update=11 loss=49.37992 lr=0.00006980 sec=3.388 points=3904069 peak_GiB=18.415
+update=12 loss=54.63721 lr=0.00006980 sec=3.211 points=3755630 peak_GiB=15.508
+{
+  "status": "pass",
+  "seed": 42,
+  "maximum_updates": 12,
+  "optimizer_state_steps_min": 12,
+  "optimizer_state_steps_max": 12,
+  "completed_updates": 12,
+  "seconds": 65.27416845969856,
+  "max_allocated": 22030752256,
+  "max_reserved": 22802333696,
+  "final_memory": {
+    "allocated": 819119616,
+    "reserved": 15776874496,
+    "peak_allocated": 16651591168,
+    "peak_reserved": 19182649344
+  },
+  "point_created": 2472,
+  "point_released": 2472,
+  "point_alive": 0,
+  "peak_host_rss_bytes": 3196882944
+}

@@ -1,0 +1,727 @@
+{
+  "status": "prepared",
+  "updates_per_seed": 12,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "variant": "block_nested",
+  "physical_batch": 1,
+  "accumulation": 2,
+  "maximum_points": null,
+  "crop_manifest_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+  "crops": [
+    {
+      "index": 15623,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+      "sha256": "73c0a326d236eec0384ee244ffbc218ebe0560dcd4426fec5f5862011ce32f0c",
+      "source_forest": "L1N",
+      "points": 652490
+    },
+    {
+      "index": 1106,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+      "sha256": "d355542db7df5c51833f8c56cbe7f42ad24106c3c2ede0472d5ad0a578e5e3a0",
+      "source_forest": "A1N",
+      "points": 1227066
+    },
+    {
+      "index": 9922,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+      "sha256": "e7974ff0b6481fee0947a3674ab9d385a7af3246ccaced0031e5c73ee8cb2fd8",
+      "source_forest": "G3W",
+      "points": 1653047
+    },
+    {
+      "index": 7818,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+      "sha256": "2762a6bcec5cba51ba564833cad2381c88c40049cf7bc00470ae535f047ace3a",
+      "source_forest": "G2W",
+      "points": 2677003
+    },
+    {
+      "index": 24396,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_455.npz",
+      "sha256": "951e72dc4af0c0fb903f755f8a991c541cbfa227b31a6e0d74cef64145d07de1",
+      "source_forest": "O1W",
+      "points": 2280704
+    },
+    {
+      "index": 11632,
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+      "sha256": "2f48742ab2ef7927ddf0e7063d9f9a38cb44e42b634eb2e814364654aac1c90f",
+      "source_forest": "G4N",
+      "points": 2102583
+    }
+  ],
+  "plans": {
+    "42": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/stability_20261023_v2/plans/s42.npz",
+      "sha256": "f290dfe8aeddbc97930ff3fe25e8cc19264d1787105de1793542bf87ba634e58",
+      "samples": [
+        {
+          "update": 1,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3373907674
+        },
+        {
+          "update": 1,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3704974268
+        },
+        {
+          "update": 2,
+          "micro": 1,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 2570690601
+        },
+        {
+          "update": 2,
+          "micro": 2,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 1449241211
+        },
+        {
+          "update": 3,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3079598147
+        },
+        {
+          "update": 3,
+          "micro": 2,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 2089549233
+        },
+        {
+          "update": 4,
+          "micro": 1,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 4181767463
+        },
+        {
+          "update": 4,
+          "micro": 2,
+          "role": 4,
+          "crop_index": 24396,
+          "points": 2280704,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_455.npz",
+          "augmentation_seed": 1677097357
+        },
+        {
+          "update": 5,
+          "micro": 1,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 2032912964
+        },
+        {
+          "update": 5,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 635102274
+        },
+        {
+          "update": 6,
+          "micro": 1,
+          "role": 5,
+          "crop_index": 11632,
+          "points": 2102583,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+          "augmentation_seed": 267171871
+        },
+        {
+          "update": 6,
+          "micro": 2,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 1330023167
+        },
+        {
+          "update": 7,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3290747645
+        },
+        {
+          "update": 7,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3414486137
+        },
+        {
+          "update": 8,
+          "micro": 1,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 282198847
+        },
+        {
+          "update": 8,
+          "micro": 2,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 4831929
+        },
+        {
+          "update": 9,
+          "micro": 1,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 3498386667
+        },
+        {
+          "update": 9,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3380744873
+        },
+        {
+          "update": 10,
+          "micro": 1,
+          "role": 4,
+          "crop_index": 24396,
+          "points": 2280704,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_455.npz",
+          "augmentation_seed": 1759330516
+        },
+        {
+          "update": 10,
+          "micro": 2,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 1931948360
+        },
+        {
+          "update": 11,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 1425767783
+        },
+        {
+          "update": 11,
+          "micro": 2,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 564270175
+        },
+        {
+          "update": 12,
+          "micro": 1,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 2410902744
+        },
+        {
+          "update": 12,
+          "micro": 2,
+          "role": 5,
+          "crop_index": 11632,
+          "points": 2102583,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+          "augmentation_seed": 3558807341
+        }
+      ]
+    },
+    "43": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/stability_20261023_v2/plans/s43.npz",
+      "sha256": "ed24466a4d59016d418e264d674a87937cdbe2aae8515e5ef18a172ff48e5af5",
+      "samples": [
+        {
+          "update": 1,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3820472061
+        },
+        {
+          "update": 1,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 3253619676
+        },
+        {
+          "update": 2,
+          "micro": 1,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 46543838
+        },
+        {
+          "update": 2,
+          "micro": 2,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 1193680304
+        },
+        {
+          "update": 3,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 2881643848
+        },
+        {
+          "update": 3,
+          "micro": 2,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 2007879539
+        },
+        {
+          "update": 4,
+          "micro": 1,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 2150296425
+        },
+        {
+          "update": 4,
+          "micro": 2,
+          "role": 4,
+          "crop_index": 24396,
+          "points": 2280704,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_455.npz",
+          "augmentation_seed": 146634968
+        },
+        {
+          "update": 5,
+          "micro": 1,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 3224572655
+        },
+        {
+          "update": 5,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 323552924
+        },
+        {
+          "update": 6,
+          "micro": 1,
+          "role": 5,
+          "crop_index": 11632,
+          "points": 2102583,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+          "augmentation_seed": 428226900
+        },
+        {
+          "update": 6,
+          "micro": 2,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 2370193261
+        },
+        {
+          "update": 7,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 128483633
+        },
+        {
+          "update": 7,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 2589052888
+        },
+        {
+          "update": 8,
+          "micro": 1,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 1667988857
+        },
+        {
+          "update": 8,
+          "micro": 2,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 3205147610
+        },
+        {
+          "update": 9,
+          "micro": 1,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 2901737472
+        },
+        {
+          "update": 9,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 189557070
+        },
+        {
+          "update": 10,
+          "micro": 1,
+          "role": 4,
+          "crop_index": 24396,
+          "points": 2280704,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_455.npz",
+          "augmentation_seed": 3064376250
+        },
+        {
+          "update": 10,
+          "micro": 2,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 3650513050
+        },
+        {
+          "update": 11,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 360388653
+        },
+        {
+          "update": 11,
+          "micro": 2,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 2824378626
+        },
+        {
+          "update": 12,
+          "micro": 1,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 3676338433
+        },
+        {
+          "update": 12,
+          "micro": 2,
+          "role": 5,
+          "crop_index": 11632,
+          "points": 2102583,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+          "augmentation_seed": 861428372
+        }
+      ]
+    },
+    "44": {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/stability_20261023_v2/plans/s44.npz",
+      "sha256": "2c81a807df0ea2a6de06bf082fdbece2306e540680b5d8c257f365e05fd0bc0e",
+      "samples": [
+        {
+          "update": 1,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 2288166362
+        },
+        {
+          "update": 1,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 115124752
+        },
+        {
+          "update": 2,
+          "micro": 1,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 3043942022
+        },
+        {
+          "update": 2,
+          "micro": 2,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 3934892309
+        },
+        {
+          "update": 3,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 2593313344
+        },
+        {
+          "update": 3,
+          "micro": 2,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 2275604217
+        },
+        {
+          "update": 4,
+          "micro": 1,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 3915221454
+        },
+        {
+          "update": 4,
+          "micro": 2,
+          "role": 4,
+          "crop_index": 24396,
+          "points": 2280704,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_455.npz",
+          "augmentation_seed": 2776112638
+        },
+        {
+          "update": 5,
+          "micro": 1,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 3905826343
+        },
+        {
+          "update": 5,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 4246688205
+        },
+        {
+          "update": 6,
+          "micro": 1,
+          "role": 5,
+          "crop_index": 11632,
+          "points": 2102583,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+          "augmentation_seed": 2786162089
+        },
+        {
+          "update": 6,
+          "micro": 2,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 2161550083
+        },
+        {
+          "update": 7,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 950911070
+        },
+        {
+          "update": 7,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 2899749230
+        },
+        {
+          "update": 8,
+          "micro": 1,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 4030738192
+        },
+        {
+          "update": 8,
+          "micro": 2,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 3967428534
+        },
+        {
+          "update": 9,
+          "micro": 1,
+          "role": 0,
+          "crop_index": 15623,
+          "points": 652490,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/L1N_951.npz",
+          "augmentation_seed": 2816913765
+        },
+        {
+          "update": 9,
+          "micro": 2,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 4036993244
+        },
+        {
+          "update": 10,
+          "micro": 1,
+          "role": 4,
+          "crop_index": 24396,
+          "points": 2280704,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/O1W_455.npz",
+          "augmentation_seed": 1751745443
+        },
+        {
+          "update": 10,
+          "micro": 2,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 2348728239
+        },
+        {
+          "update": 11,
+          "micro": 1,
+          "role": 3,
+          "crop_index": 7818,
+          "points": 2677003,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+          "augmentation_seed": 2285474735
+        },
+        {
+          "update": 11,
+          "micro": 2,
+          "role": 1,
+          "crop_index": 1106,
+          "points": 1227066,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/A1N_549.npz",
+          "augmentation_seed": 2545975484
+        },
+        {
+          "update": 12,
+          "micro": 1,
+          "role": 2,
+          "crop_index": 9922,
+          "points": 1653047,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+          "augmentation_seed": 810690338
+        },
+        {
+          "update": 12,
+          "micro": 2,
+          "role": 5,
+          "crop_index": 11632,
+          "points": 2102583,
+          "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+          "augmentation_seed": 2851992605
+        }
+      ]
+    }
+  },
+  "policy": "short stress schedule; first 24 samples only; no pilot/formal execution"
+}

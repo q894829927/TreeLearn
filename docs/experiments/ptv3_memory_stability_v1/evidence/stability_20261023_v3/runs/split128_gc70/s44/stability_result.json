@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "seed": 44,
+  "maximum_updates": 12,
+  "optimizer_state_steps_min": 12,
+  "optimizer_state_steps_max": 12,
+  "completed_updates": 12,
+  "seconds": 65.79304010979831,
+  "max_allocated": 21610452992,
+  "max_reserved": 22498246656,
+  "final_memory": {
+    "allocated": 818988032,
+    "reserved": 17555259392,
+    "peak_allocated": 15553253376,
+    "peak_reserved": 19033751552
+  },
+  "point_created": 2472,
+  "point_released": 2472,
+  "point_alive": 0,
+  "peak_host_rss_bytes": 3147390976
+}

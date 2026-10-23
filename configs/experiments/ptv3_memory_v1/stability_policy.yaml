@@ -20,4 +20,6 @@ allocator_controls:
   split128: native allocator with max_split_size_mb=128, process-local only
   gc70: cache garbage_collection_threshold=0.7, memory fraction=1.0 to enable torch 2.0 GC
   split128_gc70: combine split128 and gc70 after individual controls
-allocator_selection: experimental until the same stress schedule and numerical controls pass
+recommended_allocator: split128_gc70
+allocator_selection: validated for this 12-update stress schedule and fixed-input numerical controls
+long_training_allocator_guarantee: unverified

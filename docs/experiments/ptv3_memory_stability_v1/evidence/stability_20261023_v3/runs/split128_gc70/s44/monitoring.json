@@ -1,0 +1,87 @@
+{
+  "update": 12,
+  "epoch": 1,
+  "semantic_loss": 31.840014457702637,
+  "offset_loss": 21.210671424865723,
+  "lr": 6.98e-05,
+  "gradient_norm": 59.8269591333512,
+  "seconds": 2.833905248902738,
+  "amp_scale": 1024.0,
+  "optimizer_step_skipped": false,
+  "data_and_digest_seconds": 0.08037610910832882,
+  "update_wall_seconds": 2.914287098683417,
+  "semantic_head_bias_delta_l2": 8.808963320916519e-05,
+  "semantic_points": 202738,
+  "offset_points": 150276,
+  "sample_digests": [
+    "24d6961cfc3d5519ad1fd8032fe832ff7e5e75b6bddef52efbd6847bbd158b2b",
+    "91992f14f3c3f7d0dada95bab3b827072aaaae8ba0677877de01439709aeec5c"
+  ],
+  "points": 3755630,
+  "sampling_audit": [
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G3W_1149.npz",
+      "augmentation_seed": 810690338,
+      "points_before": 1653047,
+      "points_after": 1653047,
+      "instances_before": 37,
+      "instances_after": 37,
+      "instance_retention": 1.0,
+      "xyz_extent_before": [
+        56.87417552649811,
+        42.67154043388727,
+        38.809816022464105
+      ],
+      "xyz_extent_after": [
+        56.87417552649811,
+        42.67154043388727,
+        38.809816022464105
+      ],
+      "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+    },
+    {
+      "path": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G4N_501.npz",
+      "augmentation_seed": 2851992605,
+      "points_before": 2102583,
+      "points_after": 2102583,
+      "instances_before": 51,
+      "instances_after": 51,
+      "instance_retention": 1.0,
+      "xyz_extent_before": [
+        35.96671999993001,
+        44.057099237951846,
+        47.87922338547764
+      ],
+      "xyz_extent_after": [
+        35.96671999993001,
+        44.057099237951846,
+        47.87922338547764
+      ],
+      "supervision_order": "main augmentation -> main getOffset/masks on full crop -> shared sample indices"
+    }
+  ],
+  "grid_support": [
+    {
+      "actual_grid_shape": [
+        569,
+        427,
+        389
+      ],
+      "cover_all_input": true,
+      "policy": "PTv3 native sparse shape covers grid with upstream padding",
+      "voxels_outside_main_fixed_shape": 28949
+    },
+    {
+      "actual_grid_shape": [
+        360,
+        441,
+        479
+      ],
+      "cover_all_input": true,
+      "policy": "PTv3 native sparse shape covers grid with upstream padding",
+      "voxels_outside_main_fixed_shape": 0
+    }
+  ],
+  "peak_allocated_bytes": 15553253376,
+  "peak_reserved_bytes": 19033751552
+}

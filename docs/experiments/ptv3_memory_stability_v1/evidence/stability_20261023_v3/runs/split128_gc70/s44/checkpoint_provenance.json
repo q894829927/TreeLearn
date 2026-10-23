@@ -1,0 +1,19 @@
+{
+  "last_sha256": "e16a06eead8f1d2707700902de28efdfa13982c3f510a1b4ad429cd02c4e953d",
+  "final_sha256": null,
+  "identity": {
+    "config_sha256": "b5c78e64c3eefd19cfaf48adc07b6e0f2aad754110e0dbd39cb2b88059d90d85",
+    "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+    "plan_sha256": "2c81a807df0ea2a6de06bf082fdbece2306e540680b5d8c257f365e05fd0bc0e",
+    "seed": 44,
+    "code_sha256": "3cb6a1bbc35b7547d1dbd8a99839feafede4e16df56aaddeb716fde19ce46a42",
+    "environment_sha256": "6b7dc30f19fd05d4cbb4f630e085084c459516678f06a49a0ab256fb48e13cbf",
+    "effective_batch_size": 2,
+    "updates_per_epoch": 250,
+    "total_updates": 250000,
+    "phase": "smoke",
+    "unverified_smoke": false
+  },
+  "global_update": 12,
+  "is_formal_final": false
+}

@@ -1,5 +1,7 @@
 # PTv3 完整点云显存优化审计 v1 · 2026-10-23
 
+后续多增强、混合尺寸验证及 allocator OOM 修复见 [短稳定性报告](../ptv3_memory_stability_v1/README_zh.md)。其中保留默认设置和单项设置的失败对照，并记录三个种子各 12 次更新的验证结果；本页继续保留最初固定增强审计的原始数值。
+
 已在 RTX 4090 上完成 **2,677,003 点真实 35m 裁剪**的完整原始输入测试：`block_nested`、micro-batch=1、梯度累积=2，连续 **3 次 forward/backward/AdamW 更新**成功（每次更新含两次完整 forward/backward）。峰值 allocated **18.707 GiB**，reserved **21.164 GiB**。这是一个裁剪、一个固定增强条件下的短测试结果，不代表所有增强、混合尺寸序列或长期训练均已验证。没有启动 500-step Pilot 或正式训练。
 
 分支 `codex/ptv3-full-cloud-memory-v1` 从 `codex/ptv3-treelearn-baseline` 的 `855f831c01089261b93658fa2d9a4507bc43be27` 分出。实现提交为 `8cf62573ef1ebdda0f81ce3289e80e304845a34d`；最终复测的 manifest 记录该提交和干净工作区。TreeLearn main 引用仍为 `fd240ce7caa4c444fe3418aca454dc578bc557d4`，原工作区仍在 `codex/candidate-mask-mlp-step1`。原 PTv3 实验模块、vendor、原配置及 TreeLearn 核心文件逐字节未改，见 [integrity.json](evidence/integrity.json)。新结果全部写入独立目录，没有写入原实验结果、checkpoint 或正式数据池。

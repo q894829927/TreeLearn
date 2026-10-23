@@ -1,0 +1,12 @@
+update=1 loss=50.08504 lr=0.00006980 sec=20.283 points=5354006 peak_GiB=17.265
+update=2 loss=46.45597 lr=0.00006980 sec=1.486 points=1879556 peak_GiB=8.720
+update=3 loss=50.71408 lr=0.00006980 sec=2.917 points=3329493 peak_GiB=18.243
+update=4 loss=51.88552 lr=0.00006980 sec=3.033 points=3933751 peak_GiB=15.016
+update=5 loss=46.97056 lr=0.00006980 sec=3.702 points=3904069 peak_GiB=19.449
+update=6 loss=51.34569 lr=0.00006980 sec=2.995 points=3755630 peak_GiB=14.261
+update=7 loss=49.40312 lr=0.00006980 sec=4.870 points=5354006 peak_GiB=18.681
+update=8 loss=46.89317 lr=0.00006980 sec=1.565 points=1879556 peak_GiB=9.650
+update=9 loss=50.08340 lr=0.00006980 sec=2.801 points=3329493 peak_GiB=17.698
+update=10 loss=50.85346 lr=0.00006980 sec=3.291 points=3933751 peak_GiB=16.182
+update=11 loss=47.64268 lr=0.00006980 sec=3.227 points=3904069 peak_GiB=18.067
+update=12 loss=51.62791 lr=0.00006980 sec=3.065 points=3755630 peak_GiB=15.859

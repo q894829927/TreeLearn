@@ -1,0 +1,255 @@
+{
+  "variant": "offload",
+  "raw_input": false,
+  "input": {
+    "crop": "/home/szu-stu/projects/zrx/code/TreeLearn/data/ptv3_treelearn_baseline_20261023/v1/random_crops/npz/G2W_529.npz",
+    "crop_sha256": "2762a6bcec5cba51ba564833cad2381c88c40049cf7bc00470ae535f047ace3a",
+    "points": 2677003,
+    "voxels": 2327984,
+    "augmentation_seed": 3414486137,
+    "seed": 42,
+    "batch_digest": "f84cefcfeda38d9bd1f4abeae1e79e36fd56dc4b60b512044c34208f54c27cc4",
+    "input_sha256": "d20f87dcb58635ff54b2e3666ef9b0ca068aeab12c03de68659d0a35c74f8db2",
+    "initial_state_sha256": "6c45dd7eda48548ba4e1512e30325f11f3654584dd41660f20a25bd4b92e5df6",
+    "code_sha256": "3cb6a1bbc35b7547d1dbd8a99839feafede4e16df56aaddeb716fde19ce46a42",
+    "git": {
+      "commit": "06bde214f0948cbd1318c18de065595d1509cb3c",
+      "branch": "codex/ptv3-full-cloud-memory-v1",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "?? docs/experiments/ptv3_memory_stability_v1/"
+    }
+  },
+  "code_sha256": "3cb6a1bbc35b7547d1dbd8a99839feafede4e16df56aaddeb716fde19ce46a42",
+  "git": {
+    "commit": "06bde214f0948cbd1318c18de065595d1509cb3c",
+    "branch": "codex/ptv3-full-cloud-memory-v1",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": "?? docs/experiments/ptv3_memory_stability_v1/"
+  },
+  "environment": {
+    "python": "3.10.19",
+    "python_executable": "/home/szu-stu/miniconda3/envs/TreeLearn/bin/python",
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.35",
+    "driver": "570.144",
+    "packages": {
+      "torch": "2.0.0",
+      "numpy": "1.24.4",
+      "spconv-cu118": "2.3.8",
+      "cumm-cu118": "0.7.11",
+      "scikit-learn": "1.5.0",
+      "timm": "0.6.12",
+      "flash-attn": "2.3.6",
+      "laspy": "2.5.1",
+      "torch-scatter": "2.1.2+pt20cu118",
+      "open3d": "0.17.0",
+      "jakteristics": "0.5.1",
+      "lazrs": "0.5.3",
+      "scipy": "1.15.3",
+      "pandas": "2.0.0",
+      "shapely": "2.0.1",
+      "alphashape": "1.3.1",
+      "geopandas": "0.12.2",
+      "munch": "2.5.0",
+      "addict": "2.4.0"
+    },
+    "cuda": "11.8",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "gpu_total_memory_bytes": 25262096384,
+    "cudnn": 8700,
+    "deterministic_algorithms": false,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": true,
+    "matmul_allow_tf32": false,
+    "cudnn_allow_tf32": false,
+    "spconv_bwd_splitk": null,
+    "cublas_workspace_config": ":4096:8",
+    "note": "CUDA scatter/spconv kernels can remain nondeterministic; exact restart is measured, not assumed."
+  },
+  "config": {
+    "model": {
+      "kernel_size": 3,
+      "channels": 32,
+      "num_blocks": 7,
+      "use_feats": false,
+      "use_coords": false,
+      "dim_coord": 3,
+      "dim_feat": 1,
+      "max_num_points_per_voxel": 3,
+      "fixed_modules": [],
+      "spatial_shape": [
+        500,
+        500,
+        1000
+      ],
+      "voxel_size": 0.1,
+      "backbone": "ptv3",
+      "ptv3": {
+        "order": [
+          "z",
+          "z-trans",
+          "hilbert",
+          "hilbert-trans"
+        ],
+        "stride": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "enc_depths": [
+          2,
+          2,
+          2,
+          6,
+          2
+        ],
+        "enc_channels": [
+          32,
+          64,
+          128,
+          256,
+          512
+        ],
+        "enc_num_head": [
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "enc_patch_size": [
+          1024,
+          1024,
+          1024,
+          1024,
+          1024
+        ],
+        "dec_depths": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "dec_channels": [
+          64,
+          64,
+          128,
+          256
+        ],
+        "dec_num_head": [
+          4,
+          4,
+          8,
+          16
+        ],
+        "dec_patch_size": [
+          1024,
+          1024,
+          1024,
+          1024
+        ],
+        "mlp_ratio": 4,
+        "qkv_bias": true,
+        "qk_scale": null,
+        "attn_drop": 0.0,
+        "proj_drop": 0.0,
+        "drop_path": 0.3,
+        "pre_norm": true,
+        "shuffle_orders": true,
+        "enable_rpe": false,
+        "enable_flash": true,
+        "upcast_attention": false,
+        "upcast_softmax": false,
+        "cls_mode": false,
+        "pdnorm_bn": false,
+        "pdnorm_ln": false
+      },
+      "activation_checkpointing": true
+    },
+    "dataloader": {
+      "train": {
+        "batch_size": 1,
+        "num_workers": 2
+      },
+      "test": {
+        "batch_size": 1,
+        "num_workers": 1
+      }
+    },
+    "optimizer": {
+      "type": "AdamW",
+      "lr": 0.003,
+      "weight_decay": 0.001
+    },
+    "scheduler": {
+      "t_initial": 1000,
+      "lr_min": 5e-05,
+      "cycle_decay": 1,
+      "warmup_lr_init": 1e-05,
+      "warmup_t": 50,
+      "cycle_limit": 1,
+      "t_in_epochs": true
+    },
+    "epochs": 1000,
+    "examples_per_epoch": 500,
+    "fp16": true,
+    "pretrain": null,
+    "grad_norm_clip": true,
+    "save_frequency": 20,
+    "validation_frequency": 20,
+    "dataset_train": {
+      "training": true,
+      "data_root": "data/experiments/ptv3_treelearn/v1/random_crops/npz",
+      "data_augmentations": {
+        "jitter": true,
+        "flip": true,
+        "rot": true,
+        "scaled": true,
+        "point_jitter": true
+      },
+      "inner_square_edge_length": 8
+    },
+    "experiment": {
+      "group": "E1-ptv3",
+      "protocol": "main-backbone-only-v1",
+      "variant": "full-crop-micro1-accum2-tensor-checkpointing",
+      "accumulation_steps": 2,
+      "maximum_points": null,
+      "supported_seeds": [
+        42,
+        43,
+        44
+      ],
+      "crop_manifest": "data/experiments/ptv3_treelearn/v1/crop_manifest.json",
+      "sample_plan": "data/experiments/ptv3_treelearn/plans/s{seed}.npz",
+      "checkpoint_selection": "fixed_final",
+      "external_evaluation_role": "cross-domain development; never training/model selection",
+      "amp_init_scale": 1024.0
+    }
+  },
+  "precision": "same CUDA autocast FP16 and upstream Flash FP16 as baseline",
+  "steps": 1,
+  "accumulation_steps": 1,
+  "effective_batch_size": 1,
+  "physical_batch_size": 1,
+  "audit_sources": {
+    "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/__init__.py": "397fae5859090dd1f6415f811e850536a47405d673bac5614e8c1ef2c0980191",
+    "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/adapters.py": "99496c7c00082d68d50dcd218481c7dc6c74719fe90c0b72c435e744d5d79f28",
+    "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/compare.py": "f3b9c11f8e9e24fa6909643c825f1935f5c269c3df4681840af0797927155219",
+    "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/profile.py": "f2f5bd13413e242df71259ce98233094a109efe7d8240a87018d8f43cc6b3a0d",
+    "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/run.py": "31d9fb671f2f49cca248cec68370115e49f207797d1e1940a6ccfe29b0ab07c4",
+    "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/stability.py": "cad14cb40262af493b7cd66d72f3315e38d9983f7fb5ba62c5ac517edada4732",
+    "tools/experiments/ptv3_memory_v1.py": "56f8390cb0136ab0df115becbfa441da27ce026dedc7dacbd2537ff73855e005"
+  },
+  "command": [
+    "tools/experiments/ptv3_memory_v1.py",
+    "run",
+    "--variant",
+    "offload",
+    "--fixture",
+    "work_dirs/ptv3_memory_v1/stability_20261023_v3/fixture_2328k",
+    "--save-tensors",
+    "--output",
+    "work_dirs/ptv3_memory_v1/stability_20261023_v3/ab_2328k_offload"
+  ]
+}

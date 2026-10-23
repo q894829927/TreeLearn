@@ -1,0 +1,200 @@
+{
+  "config_sha256": "b5c78e64c3eefd19cfaf48adc07b6e0f2aad754110e0dbd39cb2b88059d90d85",
+  "data_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+  "plan_sha256": "f290dfe8aeddbc97930ff3fe25e8cc19264d1787105de1793542bf87ba634e58",
+  "seed": 42,
+  "code_sha256": "3cb6a1bbc35b7547d1dbd8a99839feafede4e16df56aaddeb716fde19ce46a42",
+  "environment_sha256": "6b7dc30f19fd05d4cbb4f630e085084c459516678f06a49a0ab256fb48e13cbf",
+  "effective_batch_size": 2,
+  "updates_per_epoch": 250,
+  "total_updates": 250000,
+  "phase": "smoke",
+  "unverified_smoke": false,
+  "config": {
+    "model": {
+      "kernel_size": 3,
+      "channels": 32,
+      "num_blocks": 7,
+      "use_feats": false,
+      "use_coords": false,
+      "dim_coord": 3,
+      "dim_feat": 1,
+      "max_num_points_per_voxel": 3,
+      "fixed_modules": [],
+      "spatial_shape": [
+        500,
+        500,
+        1000
+      ],
+      "voxel_size": 0.1,
+      "backbone": "ptv3",
+      "ptv3": {
+        "order": [
+          "z",
+          "z-trans",
+          "hilbert",
+          "hilbert-trans"
+        ],
+        "stride": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "enc_depths": [
+          2,
+          2,
+          2,
+          6,
+          2
+        ],
+        "enc_channels": [
+          32,
+          64,
+          128,
+          256,
+          512
+        ],
+        "enc_num_head": [
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "enc_patch_size": [
+          1024,
+          1024,
+          1024,
+          1024,
+          1024
+        ],
+        "dec_depths": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "dec_channels": [
+          64,
+          64,
+          128,
+          256
+        ],
+        "dec_num_head": [
+          4,
+          4,
+          8,
+          16
+        ],
+        "dec_patch_size": [
+          1024,
+          1024,
+          1024,
+          1024
+        ],
+        "mlp_ratio": 4,
+        "qkv_bias": true,
+        "qk_scale": null,
+        "attn_drop": 0.0,
+        "proj_drop": 0.0,
+        "drop_path": 0.3,
+        "pre_norm": true,
+        "shuffle_orders": true,
+        "enable_rpe": false,
+        "enable_flash": true,
+        "upcast_attention": false,
+        "upcast_softmax": false,
+        "cls_mode": false,
+        "pdnorm_bn": false,
+        "pdnorm_ln": false
+      },
+      "activation_checkpointing": true
+    },
+    "dataloader": {
+      "train": {
+        "batch_size": 1,
+        "num_workers": 2
+      },
+      "test": {
+        "batch_size": 1,
+        "num_workers": 1
+      }
+    },
+    "optimizer": {
+      "type": "AdamW",
+      "lr": 0.003,
+      "weight_decay": 0.001
+    },
+    "scheduler": {
+      "t_initial": 1000,
+      "lr_min": 5e-05,
+      "cycle_decay": 1,
+      "warmup_lr_init": 1e-05,
+      "warmup_t": 50,
+      "cycle_limit": 1,
+      "t_in_epochs": true
+    },
+    "epochs": 1000,
+    "examples_per_epoch": 500,
+    "fp16": true,
+    "pretrain": null,
+    "grad_norm_clip": true,
+    "save_frequency": 20,
+    "validation_frequency": 20,
+    "dataset_train": {
+      "training": true,
+      "data_root": "data/experiments/ptv3_treelearn/v1/random_crops/npz",
+      "data_augmentations": {
+        "jitter": true,
+        "flip": true,
+        "rot": true,
+        "scaled": true,
+        "point_jitter": true
+      },
+      "inner_square_edge_length": 8
+    },
+    "experiment": {
+      "group": "E1-ptv3",
+      "protocol": "main-backbone-only-v1",
+      "variant": "full-crop-micro1-accum2-tensor-checkpointing",
+      "accumulation_steps": 2,
+      "maximum_points": null,
+      "supported_seeds": [
+        42,
+        43,
+        44
+      ],
+      "crop_manifest": "data/experiments/ptv3_treelearn/v1/crop_manifest.json",
+      "sample_plan": "/home/szu-stu/projects/zrx/code/TreeLearn/work_dirs/ptv3_memory_v1_20261023/stability_20261023_v3/plans/s{seed}.npz",
+      "checkpoint_selection": "fixed_final",
+      "external_evaluation_role": "cross-domain development; never training/model selection",
+      "amp_init_scale": 1024.0,
+      "memory_adapter": "block_nested",
+      "stability_audit_only": true
+    }
+  },
+  "git": {
+    "commit": "06bde214f0948cbd1318c18de065595d1509cb3c",
+    "branch": "codex/ptv3-full-cloud-memory-v1",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "status": ""
+  },
+  "fairness_sha256": "e382322c6c2101803f81eee8491d071f81c1651e4c52f2246a84c6c6e05e5fb1",
+  "initialization_report_sha256": null,
+  "parameter_count": 46167173,
+  "checkpoint_selection": "fixed full-budget final checkpoint; no L1W/Wytham selection",
+  "validation_policy": "held-out evaluation callbacks disabled; original frequency is retained only as configuration provenance",
+  "voxel_policy": {
+    "deterministic_voxels": false,
+    "cover_input_spatial_shape": false
+  },
+  "training_adaptations": [
+    "separate data RNG and frozen sample plan",
+    "unscale AMP gradients before clip(max_norm=1)",
+    "common AMP initial scale 1024; GradScaler may reject overflow steps and this is logged",
+    "save scheduler/scaler/RNG/data cursor and hashes",
+    "no evaluation-set validation/early stopping"
+  ],
+  "batchnorm_caveat": "microbatch accumulation has different BatchNorm statistics"
+}

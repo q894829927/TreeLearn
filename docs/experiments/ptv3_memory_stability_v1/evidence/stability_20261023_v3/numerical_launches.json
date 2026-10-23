@@ -1,0 +1,85 @@
+[
+  {
+    "name": "ab_1060k_split128",
+    "mode": "split128",
+    "allocator_config": "max_split_size_mb:128",
+    "bootstrap": "import sys,torch,runpy,json,os\nmode=sys.argv.pop(1)\ntorch.cuda.init()\nif 'gc70' in mode:torch.cuda.set_per_process_memory_fraction(1.0)\nprint('allocator_provenance '+json.dumps(dict(mode=mode,config=os.environ.get('PYTORCH_CUDA_ALLOC_CONF'),memory_fraction=1.0 if 'gc70' in mode else None,backend=torch.cuda.memory.get_allocator_backend(),max_split_size=torch.cuda.memory_stats()['max_split_size'])),flush=True)\nsys.argv[0]='tools/experiments/ptv3_memory_v1.py'\nrunpy.run_path(sys.argv[0],run_name='__main__')\n",
+    "args": [
+      "run",
+      "--variant",
+      "block_nested",
+      "--fixture",
+      "work_dirs/ptv3_memory_v1/fixture_1060k",
+      "--save-tensors"
+    ]
+  },
+  {
+    "name": "ab_1060k_gc70",
+    "mode": "gc70",
+    "allocator_config": "garbage_collection_threshold:0.7",
+    "bootstrap": "import sys,torch,runpy,json,os\nmode=sys.argv.pop(1)\ntorch.cuda.init()\nif 'gc70' in mode:torch.cuda.set_per_process_memory_fraction(1.0)\nprint('allocator_provenance '+json.dumps(dict(mode=mode,config=os.environ.get('PYTORCH_CUDA_ALLOC_CONF'),memory_fraction=1.0 if 'gc70' in mode else None,backend=torch.cuda.memory.get_allocator_backend(),max_split_size=torch.cuda.memory_stats()['max_split_size'])),flush=True)\nsys.argv[0]='tools/experiments/ptv3_memory_v1.py'\nrunpy.run_path(sys.argv[0],run_name='__main__')\n",
+    "args": [
+      "run",
+      "--variant",
+      "block_nested",
+      "--fixture",
+      "work_dirs/ptv3_memory_v1/fixture_1060k",
+      "--save-tensors"
+    ]
+  },
+  {
+    "name": "ab_1060k_split128_gc70",
+    "mode": "split128_gc70",
+    "allocator_config": "max_split_size_mb:128,garbage_collection_threshold:0.7",
+    "bootstrap": "import sys,torch,runpy,json,os\nmode=sys.argv.pop(1)\ntorch.cuda.init()\nif 'gc70' in mode:torch.cuda.set_per_process_memory_fraction(1.0)\nprint('allocator_provenance '+json.dumps(dict(mode=mode,config=os.environ.get('PYTORCH_CUDA_ALLOC_CONF'),memory_fraction=1.0 if 'gc70' in mode else None,backend=torch.cuda.memory.get_allocator_backend(),max_split_size=torch.cuda.memory_stats()['max_split_size'])),flush=True)\nsys.argv[0]='tools/experiments/ptv3_memory_v1.py'\nrunpy.run_path(sys.argv[0],run_name='__main__')\n",
+    "args": [
+      "run",
+      "--variant",
+      "block_nested",
+      "--fixture",
+      "work_dirs/ptv3_memory_v1/fixture_1060k",
+      "--save-tensors"
+    ]
+  },
+  {
+    "name": "fixture_2328k",
+    "mode": "default",
+    "allocator_config": null,
+    "bootstrap": "import sys,torch,runpy,json,os\nmode=sys.argv.pop(1)\ntorch.cuda.init()\nif 'gc70' in mode:torch.cuda.set_per_process_memory_fraction(1.0)\nprint('allocator_provenance '+json.dumps(dict(mode=mode,config=os.environ.get('PYTORCH_CUDA_ALLOC_CONF'),memory_fraction=1.0 if 'gc70' in mode else None,backend=torch.cuda.memory.get_allocator_backend(),max_split_size=torch.cuda.memory_stats()['max_split_size'])),flush=True)\nsys.argv[0]='tools/experiments/ptv3_memory_v1.py'\nrunpy.run_path(sys.argv[0],run_name='__main__')\n",
+    "args": [
+      "prepare",
+      "--crop",
+      "data/experiments/ptv3_treelearn/v1/random_crops/npz/G2W_529.npz",
+      "--augmentation-seed",
+      "3414486137"
+    ]
+  },
+  {
+    "name": "ab_2328k_offload",
+    "mode": "default",
+    "allocator_config": null,
+    "bootstrap": "import sys,torch,runpy,json,os\nmode=sys.argv.pop(1)\ntorch.cuda.init()\nif 'gc70' in mode:torch.cuda.set_per_process_memory_fraction(1.0)\nprint('allocator_provenance '+json.dumps(dict(mode=mode,config=os.environ.get('PYTORCH_CUDA_ALLOC_CONF'),memory_fraction=1.0 if 'gc70' in mode else None,backend=torch.cuda.memory.get_allocator_backend(),max_split_size=torch.cuda.memory_stats()['max_split_size'])),flush=True)\nsys.argv[0]='tools/experiments/ptv3_memory_v1.py'\nrunpy.run_path(sys.argv[0],run_name='__main__')\n",
+    "args": [
+      "run",
+      "--variant",
+      "offload",
+      "--fixture",
+      "work_dirs/ptv3_memory_v1/stability_20261023_v3/fixture_2328k",
+      "--save-tensors"
+    ]
+  },
+  {
+    "name": "ab_2328k_split128_gc70",
+    "mode": "split128_gc70",
+    "allocator_config": "max_split_size_mb:128,garbage_collection_threshold:0.7",
+    "bootstrap": "import sys,torch,runpy,json,os\nmode=sys.argv.pop(1)\ntorch.cuda.init()\nif 'gc70' in mode:torch.cuda.set_per_process_memory_fraction(1.0)\nprint('allocator_provenance '+json.dumps(dict(mode=mode,config=os.environ.get('PYTORCH_CUDA_ALLOC_CONF'),memory_fraction=1.0 if 'gc70' in mode else None,backend=torch.cuda.memory.get_allocator_backend(),max_split_size=torch.cuda.memory_stats()['max_split_size'])),flush=True)\nsys.argv[0]='tools/experiments/ptv3_memory_v1.py'\nrunpy.run_path(sys.argv[0],run_name='__main__')\n",
+    "args": [
+      "run",
+      "--variant",
+      "block_nested",
+      "--fixture",
+      "work_dirs/ptv3_memory_v1/stability_20261023_v3/fixture_2328k",
+      "--save-tensors"
+    ]
+  }
+]

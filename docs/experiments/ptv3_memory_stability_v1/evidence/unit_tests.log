@@ -1,0 +1,17 @@
+test_batchnorm_and_interleaved_stage_are_rejected (test_recomputation.RecomputationTests) ... ok
+test_configuration_changes_only_checkpoint_policy (test_recomputation.RecomputationTests) ... ok
+test_differentiable_geometry_is_rejected (test_recomputation.RecomputationTests) ... ok
+test_no_grad_inputs_keep_parameter_gradients (test_recomputation.RecomputationTests) ... ok
+test_profiler_peak_without_inherited_context (test_recomputation.RecomputationTests) ... ok
+test_serialization_exact_for_four_orders_and_multiple_batches (test_recomputation.RecomputationTests) ... ok
+test_two_sparse_inputs_output_gradient_rng_and_no_parent_retention (test_recomputation.RecomputationTests) ... ok
+test_external_spconv_oom_is_classified_without_hiding_other_errors (test_stability.StabilityPlanTests) ... ok
+test_reference_yaml_reader_preserves_all_config_types (test_stability.StabilityPlanTests) ... ok
+test_schedule_is_bounded_reproducible_and_changes_augmentation (test_stability.StabilityPlanTests) ... ok
+test_selected_indices_preserve_real_manifest_records (test_stability.StabilityPlanTests) ... ok
+test_unverified_data_and_unsupported_seeds_are_rejected (test_stability.StabilityPlanTests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.514s
+
+OK

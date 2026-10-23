@@ -1,0 +1,20 @@
+{
+  "status": "error",
+  "completed_steps": 0,
+  "initial": {
+    "allocated": 188400128,
+    "reserved": 205520896,
+    "peak_allocated": 188400128,
+    "peak_reserved": 205520896
+  },
+  "steps": [],
+  "error": "TensorStorage /tmp/pip-build-env-ha4amc74/overlay/lib/python3.10/site-packages/cumm/include/tensorview/tensor.h:223\ncuda failed with error 2 out of memory. use CUDA_LAUNCH_BLOCKING=1 to get correct traceback.\n",
+  "seconds": 4.418896120041609,
+  "final": {
+    "allocated": 12196644352,
+    "reserved": 24075304960,
+    "peak_allocated": 22037353984,
+    "peak_reserved": 24631050240
+  },
+  "peak_host_rss_bytes": 1631731712
+}

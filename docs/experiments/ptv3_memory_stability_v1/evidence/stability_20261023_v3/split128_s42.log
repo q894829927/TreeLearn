@@ -1,0 +1,35 @@
+[Exception|implicit_gemm_backward]feat=torch.Size([2170224, 64]),w=torch.Size([64, 3, 3, 3, 64]),pair=torch.Size([27, 2170224]),issubm=True,do=torch.Size([2170224, 64])
+SPCONV_DEBUG_SAVE_PATH not found, you can specify SPCONV_DEBUG_SAVE_PATH as debug data save path to save debug data which can be attached in a issue.
+{
+  "status": "cuda_oom",
+  "seed": 42,
+  "maximum_updates": 12,
+  "allocator_origin": "spconv/cumm",
+  "error": "TensorStorage /tmp/pip-build-env-ha4amc74/overlay/lib/python3.10/site-packages/cumm/include/tensorview/tensor.h:223\ncuda failed with error 2 out of memory. use CUDA_LAUNCH_BLOCKING=1 to get correct traceback.\n",
+  "failed_update": 1,
+  "active_modules": [],
+  "last_successful_module": "backbone.dec.dec0.block1.attn.proj_drop",
+  "partial_voxels": [
+    2170224
+  ],
+  "failure_memory": {
+    "allocated": 12955138048,
+    "reserved": 24142413824,
+    "peak_allocated": 19147351040,
+    "peak_reserved": 24675090432
+  },
+  "completed_updates": 0,
+  "seconds": 6.01656308490783,
+  "max_allocated": 19147351040,
+  "max_reserved": 24675090432,
+  "final_memory": {
+    "allocated": 255773696,
+    "reserved": 24142413824,
+    "peak_allocated": 19147351040,
+    "peak_reserved": 24675090432
+  },
+  "point_created": 40,
+  "point_released": 40,
+  "point_alive": 0,
+  "peak_host_rss_bytes": 2460614656
+}

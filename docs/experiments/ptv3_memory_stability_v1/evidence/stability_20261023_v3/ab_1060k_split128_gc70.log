@@ -1,0 +1,61 @@
+allocator_provenance {"mode": "split128_gc70", "config": "max_split_size_mb:128,garbage_collection_threshold:0.7", "memory_fraction": 1.0, "backend": "native", "max_split_size": 134217728}
+{
+  "status": "pass",
+  "completed_steps": 1,
+  "initial": {
+    "allocated": 238682112,
+    "reserved": 247463936,
+    "peak_allocated": 238682112,
+    "peak_reserved": 247463936
+  },
+  "steps": [
+    {
+      "step": 1,
+      "loss": 55.843746185302734,
+      "gradients_finite": true,
+      "forward_seconds": 1.3395731365308166,
+      "backward_seconds": 7.563005845993757,
+      "optimizer_seconds": 0.020080135203897953,
+      "compute_seconds": 8.922659117728472,
+      "total_seconds": 9.10544555913657,
+      "micros": [
+        {
+          "micro": 1,
+          "loss": 55.843746185302734,
+          "forward_seconds": 1.3395731365308166,
+          "backward_seconds": 7.563005845993757,
+          "after_forward": {
+            "allocated": 5583323136,
+            "reserved": 10619977728,
+            "peak_allocated": 6106020352,
+            "peak_reserved": 10619977728
+          },
+          "after_backward": {
+            "allocated": 1826008064,
+            "reserved": 14650703872,
+            "peak_allocated": 8482904064,
+            "peak_reserved": 14650703872
+          }
+        }
+      ],
+      "allocated": 2201410560,
+      "reserved": 14803795968,
+      "peak_allocated": 8482904064,
+      "peak_reserved": 14803795968,
+      "after_release": {
+        "allocated": 870083072,
+        "reserved": 14803795968,
+        "peak_allocated": 8482904064,
+        "peak_reserved": 14803795968
+      }
+    }
+  ],
+  "seconds": 9.181007478386164,
+  "final": {
+    "allocated": 870083072,
+    "reserved": 14803795968,
+    "peak_allocated": 8482904064,
+    "peak_reserved": 14803795968
+  },
+  "peak_host_rss_bytes": 1756131328
+}

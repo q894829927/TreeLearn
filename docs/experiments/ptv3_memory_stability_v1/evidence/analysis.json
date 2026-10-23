@@ -1,0 +1,77 @@
+{
+  "default": {
+    "capture_scope": "exception handler, may include partial unwinding; not an exact raw cudaMalloc timestamp",
+    "inactive_split_bytes": 3566433792,
+    "all_inactive_bytes": 3566433792,
+    "largest_inactive_block": 960074240,
+    "wholly_inactive_segment_bytes": 0,
+    "torch_allocation_retries": 3,
+    "torch_num_ooms": 1,
+    "max_split_size": -1
+  },
+  "split128": {
+    "capture_scope": "exception handler, may include partial unwinding; not an exact raw cudaMalloc timestamp",
+    "inactive_split_bytes": 273696768,
+    "all_inactive_bytes": 11187275776,
+    "largest_inactive_block": 1251999744,
+    "wholly_inactive_segment_bytes": 10913579008,
+    "torch_allocation_retries": 0,
+    "torch_num_ooms": 0,
+    "max_split_size": 134217728
+  },
+  "gc70": {
+    "capture_scope": "exception handler, may include partial unwinding; not an exact raw cudaMalloc timestamp",
+    "inactive_split_bytes": 4323170304,
+    "all_inactive_bytes": 4323170304,
+    "largest_inactive_block": 661637632,
+    "wholly_inactive_segment_bytes": 0,
+    "torch_allocation_retries": 1,
+    "torch_num_ooms": 1,
+    "max_split_size": -1
+  },
+  "same_seed_prefix": {
+    "matched_updates": 6,
+    "sample_digests_exact": true,
+    "default_mean_seconds_updates_2_to_6": 2.321997655555606,
+    "combined_mean_seconds_updates_2_to_6": 2.8902711078524588,
+    "maximum_loss_absolute_difference": 0.0014925003051757812
+  },
+  "passed_seeds": {
+    "42": {
+      "full_raw_micro_batches": 24,
+      "bn_layers": 15,
+      "bn_counts_each": 24,
+      "amp_skips": 0,
+      "max_voxels": 2327984,
+      "max_points": 2677003,
+      "complete_input_and_extent_and_instance_retention": true,
+      "seconds_mean_updates_2_to_12": 3.0727578345686197,
+      "optimizer_state_steps_min": 12,
+      "optimizer_state_steps_max": 12
+    },
+    "43": {
+      "full_raw_micro_batches": 24,
+      "bn_layers": 15,
+      "bn_counts_each": 24,
+      "amp_skips": 0,
+      "max_voxels": 2260504,
+      "max_points": 2677003,
+      "complete_input_and_extent_and_instance_retention": true,
+      "seconds_mean_updates_2_to_12": 2.995575203983621,
+      "optimizer_state_steps_min": 12,
+      "optimizer_state_steps_max": 12
+    },
+    "44": {
+      "full_raw_micro_batches": 24,
+      "bn_layers": 15,
+      "bn_counts_each": 24,
+      "amp_skips": 0,
+      "max_voxels": 2292038,
+      "max_points": 2677003,
+      "complete_input_and_extent_and_instance_retention": true,
+      "seconds_mean_updates_2_to_12": 3.134560167620128,
+      "optimizer_state_steps_min": 12,
+      "optimizer_state_steps_max": 12
+    }
+  }
+}

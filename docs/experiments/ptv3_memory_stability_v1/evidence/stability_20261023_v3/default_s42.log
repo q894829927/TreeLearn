@@ -1,0 +1,40 @@
+update=1 loss=54.40458 lr=0.00006980 sec=26.076 points=5354006 peak_GiB=19.027
+update=2 loss=49.04259 lr=0.00006980 sec=1.495 points=1879556 peak_GiB=9.863
+update=3 loss=54.47764 lr=0.00006980 sec=2.414 points=3329493 peak_GiB=18.558
+update=4 loss=53.70475 lr=0.00006980 sec=2.596 points=3933751 peak_GiB=15.524
+update=5 loss=50.45247 lr=0.00006980 sec=2.671 points=3904069 peak_GiB=18.626
+update=6 loss=54.61571 lr=0.00006980 sec=2.433 points=3755630 peak_GiB=14.077
+{
+  "status": "cuda_oom",
+  "seed": 42,
+  "maximum_updates": 12,
+  "allocator_origin": "pytorch",
+  "error": "CUDA out of memory. Tried to allocate 1.11 GiB (GPU 0; 23.53 GiB total capacity; 19.25 GiB already allocated; 411.88 MiB free; 22.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF",
+  "failed_update": 7,
+  "active_modules": [],
+  "last_successful_module": "backbone.dec.dec0.block1.mlp.0.drop",
+  "partial_voxels": [
+    2152002,
+    2327984
+  ],
+  "failure_memory": {
+    "allocated": 20672449024,
+    "reserved": 24238882816,
+    "peak_allocated": 20672450048,
+    "peak_reserved": 24587010048
+  },
+  "completed_updates": 6,
+  "seconds": 43.089002969674766,
+  "max_allocated": 20672450048,
+  "max_reserved": 24587010048,
+  "final_memory": {
+    "allocated": 820298240,
+    "reserved": 24238882816,
+    "peak_allocated": 20672450048,
+    "peak_reserved": 24587010048
+  },
+  "point_created": 1378,
+  "point_released": 1378,
+  "point_alive": 0,
+  "peak_host_rss_bytes": 3163197440
+}

@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_memory_v1/stability.py", line 232, in run
+    reference_train.run(SimpleNamespace(config=str(root/"config.yaml"),seed=seed,work_dir=str(output),
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/tree_learn/experiments/ptv3_treelearn/train.py", line 214, in run
+    scaler.scale(loss).backward()
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/_tensor.py", line 487, in backward
+    torch.autograd.backward(
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/autograd/__init__.py", line 200, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/autograd/function.py", line 274, in apply
+    return user_fn(self, *args)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/utils/checkpoint.py", line 157, in backward
+    torch.autograd.backward(outputs_with_grad, args_with_grad)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/autograd/__init__.py", line 200, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/autograd/function.py", line 274, in apply
+    return user_fn(self, *args)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/utils/checkpoint.py", line 157, in backward
+    torch.autograd.backward(outputs_with_grad, args_with_grad)
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/autograd/__init__.py", line 200, in backward
+    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/home/szu-stu/miniconda3/envs/TreeLearn/lib/python3.10/site-packages/torch/autograd/function.py", line 274, in apply
+    return user_fn(self, *args)
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/work_dirs/ptv3_treelearn/runtime/packages/flash_attn/flash_attn_interface.py", line 285, in backward
+    _flash_attn_varlen_backward(
+  File "/home/szu-stu/.codex/worktrees/ptv3-treelearn-baseline/TreeLearn/work_dirs/ptv3_treelearn/runtime/packages/flash_attn/flash_attn_interface.py", line 168, in _flash_attn_varlen_backward
+    dq, dk, dv, softmax_d, = flash_attn_cuda.varlen_bwd(
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.25 GiB (GPU 0; 23.53 GiB total capacity; 18.77 GiB already allocated; 789.88 MiB free; 23.53 GiB allowed; 22.21 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

@@ -1,0 +1,6 @@
+update=1 loss=54.40433 lr=0.00006980 sec=26.064 points=5354006 peak_GiB=19.027
+update=2 loss=49.04220 lr=0.00006980 sec=1.498 points=1879556 peak_GiB=9.868
+update=3 loss=54.47605 lr=0.00006980 sec=2.420 points=3329493 peak_GiB=18.558
+update=4 loss=53.70765 lr=0.00006980 sec=2.606 points=3933751 peak_GiB=15.526
+update=5 loss=50.45301 lr=0.00006980 sec=2.673 points=3904069 peak_GiB=18.623
+update=6 loss=54.61607 lr=0.00006980 sec=2.440 points=3755630 peak_GiB=14.082

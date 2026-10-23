@@ -1,2 +1,4 @@
 # Preserve the byte-for-byte official PTv3 sources, including their CRLF endings.
 tree_learn/experiments/ptv3_treelearn/vendor/** -text -whitespace
+# Preserve captured cumm exception text, including its final blank line.
+docs/experiments/ptv3_memory_stability_v1/evidence/**/exception.txt -text -whitespace

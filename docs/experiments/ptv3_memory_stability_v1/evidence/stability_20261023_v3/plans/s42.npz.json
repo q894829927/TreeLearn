@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "epochs": 1000,
+  "examples_per_epoch": 500,
+  "crop_manifest_sha256": "0c8a2046d6d17c706bff9bdcb81dfa075bf262b9acf2e9e83df1b6d1421dd66b",
+  "plan_sha256": "f290dfe8aeddbc97930ff3fe25e8cc19264d1787105de1793542bf87ba634e58",
+  "paths_hash": "49ea19a61217b7c0bf749d27d7b58147cce9b7ca2f7d7add9e3b19ecd51d2b98",
+  "parent_plan_sha256": "210d4b44bb6d6e0f190e525d9636867acf3c989183329815d790914712a5b688",
+  "audit_only": true,
+  "modified_prefix_samples": 24,
+  "maximum_executable_updates": 12
+}

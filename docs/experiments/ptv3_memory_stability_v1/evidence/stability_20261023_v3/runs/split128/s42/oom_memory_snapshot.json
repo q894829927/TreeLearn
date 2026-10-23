@@ -1,0 +1,5869 @@
+[
+  {
+    "device": 0,
+    "address": 126691871555584,
+    "total_size": 1251999744,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 1251999744,
+        "requested_size": 1250426880,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126693146624000,
+    "total_size": 834666496,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 834666496,
+        "requested_size": 833617920,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126693985484800,
+    "total_size": 555745280,
+    "allocated_size": 555745280,
+    "active_size": 555745280,
+    "requested_size": 555577344,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126694555910144,
+    "total_size": 469762048,
+    "allocated_size": 469762048,
+    "active_size": 469762048,
+    "requested_size": 468768384,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 469762048,
+        "requested_size": 468768384,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126695193444352,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126695495434240,
+    "total_size": 555745280,
+    "allocated_size": 555745280,
+    "active_size": 555745280,
+    "requested_size": 555577344,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126696636284928,
+    "total_size": 555745280,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126697206710272,
+    "total_size": 35651584,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 35651584,
+        "requested_size": 35317247,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126697374482432,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126697676472320,
+    "total_size": 555745280,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126698381115392,
+    "total_size": 555745280,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126698951540736,
+    "total_size": 555745280,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126699521966080,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126699823955968,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126700125945856,
+    "total_size": 278921216,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126700427935744,
+    "total_size": 121634816,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 121634816,
+        "requested_size": 119708800,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126700562153472,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 0,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126700696371200,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 119708800,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126700830588928,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 0,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126700964806656,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 119708800,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701099024384,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 0,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701233242112,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 120900096,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701367459840,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 120900096,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701501677568,
+    "total_size": 121634816,
+    "allocated_size": 121634816,
+    "active_size": 121634816,
+    "requested_size": 120900096,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 121634816,
+        "requested_size": 120900096,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701635895296,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 120900096,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701770113024,
+    "total_size": 60817408,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60817408,
+        "requested_size": 34734080,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701837221888,
+    "total_size": 98566144,
+    "allocated_size": 90675712,
+    "active_size": 90675712,
+    "requested_size": 90675072,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60450304,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 30225408,
+        "requested_size": 30225024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7890432,
+        "requested_size": 7487488,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701935788032,
+    "total_size": 2097152,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 2097152,
+        "requested_size": 440220,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126701937885184,
+    "total_size": 75497472,
+    "allocated_size": 12214784,
+    "active_size": 12214784,
+    "requested_size": 12214528,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 12214784,
+        "requested_size": 12214528,
+        "state": "active_allocated"
+      },
+      {
+        "size": 63282688,
+        "requested_size": 34734080,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702013382656,
+    "total_size": 2097152,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 2097152,
+        "requested_size": 384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702015479808,
+    "total_size": 2097152,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 2097152,
+        "requested_size": 1048576,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702038548480,
+    "total_size": 98566144,
+    "allocated_size": 90675712,
+    "active_size": 90675712,
+    "requested_size": 90675072,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60450304,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 30225408,
+        "requested_size": 30225024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7890432,
+        "requested_size": 7481800,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702137114624,
+    "total_size": 2097152,
+    "allocated_size": 1048576,
+    "active_size": 1048576,
+    "requested_size": 1045956,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 266752,
+        "requested_size": 266720,
+        "state": "active_allocated"
+      },
+      {
+        "size": 266752,
+        "requested_size": 266720,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 880440,
+        "state": "inactive"
+      },
+      {
+        "size": 131072,
+        "requested_size": 131072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702139211776,
+    "total_size": 75497472,
+    "allocated_size": 73287168,
+    "active_size": 73287168,
+    "requested_size": 73287168,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2210304,
+        "requested_size": 2170224,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702214709248,
+    "total_size": 2097152,
+    "allocated_size": 648704,
+    "active_size": 648704,
+    "requested_size": 645876,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1441792,
+        "requested_size": 880440,
+        "state": "inactive"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49152,
+        "requested_size": 49152,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "inactive"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 4,
+        "state": "inactive"
+      },
+      {
+        "size": 266752,
+        "requested_size": 266720,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 3072,
+        "state": "inactive"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702216806400,
+    "total_size": 2097152,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 2097152,
+        "requested_size": 131072,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702221000704,
+    "total_size": 2097152,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 2097152,
+        "requested_size": 256,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702239875072,
+    "total_size": 98566144,
+    "allocated_size": 98566144,
+    "active_size": 98566144,
+    "requested_size": 97716224,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 48858112,
+        "requested_size": 48858112,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49708032,
+        "requested_size": 48858112,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702338441216,
+    "total_size": 2097152,
+    "allocated_size": 4096,
+    "active_size": 4096,
+    "requested_size": 4096,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1286656,
+        "requested_size": 880440,
+        "state": "inactive"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 806400,
+        "requested_size": 440220,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702340538368,
+    "total_size": 98566144,
+    "allocated_size": 98566144,
+    "active_size": 98566144,
+    "requested_size": 97716224,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49708032,
+        "requested_size": 48858112,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702439104512,
+    "total_size": 2097152,
+    "allocated_size": 3584,
+    "active_size": 3584,
+    "requested_size": 2052,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 712704,
+        "requested_size": 440220,
+        "state": "inactive"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1376768,
+        "requested_size": 256,
+        "state": "inactive"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 2048,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702441201664,
+    "total_size": 75497472,
+    "allocated_size": 73287168,
+    "active_size": 73287168,
+    "requested_size": 73287168,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 48858112,
+        "requested_size": 48858112,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2210304,
+        "requested_size": 1889064,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702516699136,
+    "total_size": 2097152,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 2097152,
+        "requested_size": 524288,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702541864960,
+    "total_size": 73400320,
+    "allocated_size": 73400320,
+    "active_size": 73400320,
+    "requested_size": 73287168,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 48858112,
+        "requested_size": 48858112,
+        "state": "active_allocated"
+      },
+      {
+        "size": 24542208,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702642528256,
+    "total_size": 50331648,
+    "allocated_size": 48858112,
+    "active_size": 48858112,
+    "requested_size": 48858112,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 48858112,
+        "requested_size": 48858112,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1473536,
+        "requested_size": 1108064,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702692859904,
+    "total_size": 2097152,
+    "allocated_size": 105984,
+    "active_size": 105984,
+    "requested_size": 104328,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1572864,
+        "requested_size": 131072,
+        "state": "inactive"
+      },
+      {
+        "size": 67072,
+        "requested_size": 66688,
+        "state": "active_allocated"
+      },
+      {
+        "size": 32768,
+        "requested_size": 32768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7168,
+        "requested_size": 4096,
+        "state": "inactive"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 411136,
+        "requested_size": 1024,
+        "state": "inactive"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702709637120,
+    "total_size": 121634816,
+    "allocated_size": 114786304,
+    "active_size": 114786304,
+    "requested_size": 114786304,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 97716224,
+        "requested_size": 97716224,
+        "state": "active_allocated"
+      },
+      {
+        "size": 17070080,
+        "requested_size": 17070080,
+        "state": "active_allocated"
+      },
+      {
+        "size": 6848512,
+        "requested_size": 6510672,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702831271936,
+    "total_size": 2097152,
+    "allocated_size": 1405440,
+    "active_size": 1405440,
+    "requested_size": 1400256,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 763904,
+        "requested_size": 763408,
+        "state": "active_allocated"
+      },
+      {
+        "size": 381952,
+        "requested_size": 381704,
+        "state": "active_allocated"
+      },
+      {
+        "size": 655360,
+        "requested_size": 440220,
+        "state": "inactive"
+      },
+      {
+        "size": 100352,
+        "requested_size": 100020,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8192,
+        "requested_size": 8192,
+        "state": "active_allocated"
+      },
+      {
+        "size": 135680,
+        "requested_size": 135640,
+        "state": "active_allocated"
+      },
+      {
+        "size": 28160,
+        "requested_size": 24576,
+        "state": "inactive"
+      },
+      {
+        "size": 8192,
+        "requested_size": 8192,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8192,
+        "requested_size": 8192,
+        "state": "inactive"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 12,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126702843854848,
+    "total_size": 243269632,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 243269632,
+        "requested_size": 239417600,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126703112290304,
+    "total_size": 243269632,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 243269632,
+        "requested_size": 241800192,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126703380725760,
+    "total_size": 182452224,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 182452224,
+        "requested_size": 181350144,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126703582052352,
+    "total_size": 182452224,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 182452224,
+        "requested_size": 181665792,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126703783378944,
+    "total_size": 121634816,
+    "allocated_size": 121634816,
+    "active_size": 121634816,
+    "requested_size": 120900096,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60450304,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 61184512,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126703917596672,
+    "total_size": 121634816,
+    "allocated_size": 121634816,
+    "active_size": 121634816,
+    "requested_size": 120900096,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 121634816,
+        "requested_size": 120900096,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126704051814400,
+    "total_size": 121634816,
+    "allocated_size": 121634816,
+    "active_size": 121634816,
+    "requested_size": 120900096,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60450304,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 61184512,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126704186032128,
+    "total_size": 60817408,
+    "allocated_size": 60817408,
+    "active_size": 60817408,
+    "requested_size": 60450048,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60817408,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126704253140992,
+    "total_size": 60817408,
+    "allocated_size": 57393152,
+    "active_size": 57393152,
+    "requested_size": 57393152,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8535040,
+        "requested_size": 8535040,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3424256,
+        "requested_size": 1108064,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126704320249856,
+    "total_size": 243269632,
+    "allocated_size": 243269632,
+    "active_size": 243269632,
+    "requested_size": 241800192,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 243269632,
+        "requested_size": 241800192,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126704563519488,
+    "total_size": 2097152,
+    "allocated_size": 1020416,
+    "active_size": 1020416,
+    "requested_size": 1019804,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 807936,
+        "requested_size": 24576,
+        "state": "inactive"
+      },
+      {
+        "size": 381952,
+        "requested_size": 381712,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 572928,
+        "requested_size": 572556,
+        "state": "active_allocated"
+      },
+      {
+        "size": 268800,
+        "requested_size": 512,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126704588685312,
+    "total_size": 241172480,
+    "allocated_size": 241172480,
+    "active_size": 241172480,
+    "requested_size": 239417600,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 241172480,
+        "requested_size": 239417600,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126704991338496,
+    "total_size": 343932928,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 343932928,
+        "requested_size": 342656384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126705494654976,
+    "total_size": 343932928,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 343932928,
+        "requested_size": 342656384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126705863753728,
+    "total_size": 360710144,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 360710144,
+        "requested_size": 342656384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126706232852480,
+    "total_size": 360710144,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 360710144,
+        "requested_size": 342656384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126706601951232,
+    "total_size": 241172480,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 241172480,
+        "requested_size": 239417600,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126706870386688,
+    "total_size": 241172480,
+    "allocated_size": 241172480,
+    "active_size": 241172480,
+    "requested_size": 239417600,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 241172480,
+        "requested_size": 239417600,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126707138822144,
+    "total_size": 241172480,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 241172480,
+        "requested_size": 239417600,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126707407257600,
+    "total_size": 121634816,
+    "allocated_size": 121634816,
+    "active_size": 121634816,
+    "requested_size": 121597864,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 1889064,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126707541475328,
+    "total_size": 121634816,
+    "allocated_size": 119019520,
+    "active_size": 119019520,
+    "requested_size": 119019264,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60450304,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 24429056,
+        "requested_size": 24429056,
+        "state": "active_allocated"
+      },
+      {
+        "size": 34140160,
+        "requested_size": 34140160,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2615296,
+        "requested_size": 2257919,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126707675693056,
+    "total_size": 121634816,
+    "allocated_size": 119709184,
+    "active_size": 119709184,
+    "requested_size": 119708800,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 1892352,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126707809910784,
+    "total_size": 121634816,
+    "allocated_size": 121634816,
+    "active_size": 121634816,
+    "requested_size": 121597872,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 1889072,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126707944128512,
+    "total_size": 480247808,
+    "allocated_size": 480247808,
+    "active_size": 480247808,
+    "requested_size": 478835200,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 480247808,
+        "requested_size": 478835200,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126708447444992,
+    "total_size": 121634816,
+    "allocated_size": 121634816,
+    "active_size": 121634816,
+    "requested_size": 121597864,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 119709184,
+        "requested_size": 119708800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1925632,
+        "requested_size": 1889064,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126708648771584,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126708950761472,
+    "total_size": 555745280,
+    "allocated_size": 555745280,
+    "active_size": 555745280,
+    "requested_size": 555577344,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126710192275456,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126710494265344,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126710796255232,
+    "total_size": 278921216,
+    "allocated_size": 278921216,
+    "active_size": 278921216,
+    "requested_size": 277788672,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126711131799552,
+    "total_size": 140509184,
+    "allocated_size": 140509184,
+    "active_size": 140509184,
+    "requested_size": 138894336,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 140509184,
+        "requested_size": 138894336,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126711333126144,
+    "total_size": 62914560,
+    "allocated_size": 62914560,
+    "active_size": 62914560,
+    "requested_size": 62339112,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60450304,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2464256,
+        "requested_size": 1889064,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126711396040704,
+    "total_size": 2097152,
+    "allocated_size": 1929216,
+    "active_size": 1929216,
+    "requested_size": 1926848,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 381952,
+        "requested_size": 381704,
+        "state": "active_allocated"
+      },
+      {
+        "size": 100352,
+        "requested_size": 100020,
+        "state": "active_allocated"
+      },
+      {
+        "size": 67072,
+        "requested_size": 66680,
+        "state": "active_allocated"
+      },
+      {
+        "size": 23552,
+        "requested_size": 8484,
+        "state": "inactive"
+      },
+      {
+        "size": 572928,
+        "requested_size": 572556,
+        "state": "active_allocated"
+      },
+      {
+        "size": 381952,
+        "requested_size": 381704,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 132096,
+        "requested_size": 131072,
+        "state": "inactive"
+      },
+      {
+        "size": 133632,
+        "requested_size": 133360,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 221184,
+        "requested_size": 221184,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7168,
+        "requested_size": 8192,
+        "state": "inactive"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 5120,
+        "requested_size": 4608,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126711400235008,
+    "total_size": 31457280,
+    "allocated_size": 31457280,
+    "active_size": 31457280,
+    "requested_size": 31454016,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 29927424,
+        "requested_size": 29927200,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1529856,
+        "requested_size": 1526816,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126711433789440,
+    "total_size": 31457280,
+    "allocated_size": 29927424,
+    "active_size": 29927424,
+    "requested_size": 29927200,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 29927424,
+        "requested_size": 29927200,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1529856,
+        "requested_size": 1108064,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126711467343872,
+    "total_size": 140509184,
+    "allocated_size": 140509184,
+    "active_size": 140509184,
+    "requested_size": 138894336,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 140509184,
+        "requested_size": 138894336,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126711735779328,
+    "total_size": 343932928,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 343932928,
+        "requested_size": 342656384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126712104878080,
+    "total_size": 140509184,
+    "allocated_size": 140509184,
+    "active_size": 140509184,
+    "requested_size": 138894336,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 140509184,
+        "requested_size": 138894336,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126712306204672,
+    "total_size": 2170552320,
+    "allocated_size": 2170552320,
+    "active_size": 2170552320,
+    "requested_size": 2170224000,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 2170552320,
+        "requested_size": 2170224000,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126714487242752,
+    "total_size": 71303168,
+    "allocated_size": 69447168,
+    "active_size": 69447168,
+    "requested_size": 69447168,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 69447168,
+        "requested_size": 69447168,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1856000,
+        "requested_size": 1794559,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126714822787072,
+    "total_size": 278921216,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126715124776960,
+    "total_size": 278921216,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277872640,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126715426766848,
+    "total_size": 278921216,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277872640,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126715728756736,
+    "total_size": 140509184,
+    "allocated_size": 140509184,
+    "active_size": 140509184,
+    "requested_size": 138894336,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 140509184,
+        "requested_size": 138894336,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126715896528896,
+    "total_size": 140509184,
+    "allocated_size": 140509184,
+    "active_size": 140509184,
+    "requested_size": 138894336,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 140509184,
+        "requested_size": 138894336,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126716064301056,
+    "total_size": 58720256,
+    "allocated_size": 48623104,
+    "active_size": 48623104,
+    "requested_size": 47598356,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 8535040,
+        "requested_size": 8535040,
+        "state": "active_allocated"
+      },
+      {
+        "size": 6428672,
+        "requested_size": 4267520,
+        "state": "inactive"
+      },
+      {
+        "size": 7556608,
+        "requested_size": 7556256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8535040,
+        "requested_size": 8535040,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3668480,
+        "requested_size": 2677003,
+        "state": "inactive"
+      },
+      {
+        "size": 11223040,
+        "requested_size": 11222700,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7481856,
+        "requested_size": 7481800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 5291520,
+        "requested_size": 4267520,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126716198518784,
+    "total_size": 343932928,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 343932928,
+        "requested_size": 342656384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126716634726400,
+    "total_size": 343932928,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 343932928,
+        "requested_size": 342656384,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126717205151744,
+    "total_size": 278921216,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 278921216,
+        "requested_size": 277788672,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126717507141632,
+    "total_size": 555745280,
+    "allocated_size": 555745280,
+    "active_size": 555745280,
+    "requested_size": 555577344,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 555745280,
+        "requested_size": 555577344,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126718379556864,
+    "total_size": 834666496,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 834666496,
+        "requested_size": 833366016,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126720359268352,
+    "total_size": 71303168,
+    "allocated_size": 34723840,
+    "active_size": 34723840,
+    "requested_size": 34723584,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 34723840,
+        "requested_size": 17361792,
+        "state": "inactive"
+      },
+      {
+        "size": 34723840,
+        "requested_size": 34723584,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1855488,
+        "requested_size": 1108064,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126720459931648,
+    "total_size": 209715200,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 209715200,
+        "requested_size": 208404480,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126720694812672,
+    "total_size": 52428800,
+    "allocated_size": 17704960,
+    "active_size": 17704960,
+    "requested_size": 17361792,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 34723840,
+        "requested_size": 32124036,
+        "state": "inactive"
+      },
+      {
+        "size": 17704960,
+        "requested_size": 17361792,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126720761921536,
+    "total_size": 104857600,
+    "allocated_size": 101772800,
+    "active_size": 101772800,
+    "requested_size": 101310480,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 60450304,
+        "requested_size": 60450048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8996864,
+        "requested_size": 8535040,
+        "state": "active_allocated"
+      },
+      {
+        "size": 17361920,
+        "requested_size": 17361792,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7481856,
+        "requested_size": 7481800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7481856,
+        "requested_size": 7481800,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3084800,
+        "requested_size": 2097152,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126720866779136,
+    "total_size": 27262976,
+    "allocated_size": 12948480,
+    "active_size": 12948480,
+    "requested_size": 12948416,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 8680960,
+        "requested_size": 8680896,
+        "state": "active_allocated"
+      },
+      {
+        "size": 12735488,
+        "requested_size": 8680896,
+        "state": "inactive"
+      },
+      {
+        "size": 4267520,
+        "requested_size": 4267520,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1579008,
+        "requested_size": 1108064,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126720896139264,
+    "total_size": 23068672,
+    "allocated_size": 1652224,
+    "active_size": 1652224,
+    "requested_size": 1526816,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 21416448,
+        "requested_size": 8680896,
+        "state": "inactive"
+      },
+      {
+        "size": 1652224,
+        "requested_size": 1526816,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721309278208,
+    "total_size": 23068672,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 23068672,
+        "requested_size": 8680896,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721332346880,
+    "total_size": 44040192,
+    "allocated_size": 44040192,
+    "active_size": 44040192,
+    "requested_size": 43869836,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 33554432,
+        "requested_size": 33554432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7481856,
+        "requested_size": 7481808,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3003904,
+        "requested_size": 2833596,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721399455744,
+    "total_size": 33554432,
+    "allocated_size": 33554432,
+    "active_size": 33554432,
+    "requested_size": 33554432,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 33554432,
+        "requested_size": 33554432,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721433010176,
+    "total_size": 33554432,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 33554432,
+        "requested_size": 25165824,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721466564608,
+    "total_size": 20971520,
+    "allocated_size": 15617024,
+    "active_size": 15617024,
+    "requested_size": 15000828,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 5354496,
+        "requested_size": 2677003,
+        "state": "inactive"
+      },
+      {
+        "size": 11223040,
+        "requested_size": 11222700,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4393984,
+        "requested_size": 3778128,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721500119040,
+    "total_size": 23068672,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 23068672,
+        "requested_size": 17367040,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721533673472,
+    "total_size": 23068672,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 23068672,
+        "requested_size": 17367040,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721567227904,
+    "total_size": 23068672,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 23068672,
+        "requested_size": 17367040,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126721600782336,
+    "total_size": 33554432,
+    "allocated_size": 0,
+    "active_size": 0,
+    "requested_size": 0,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 33554432,
+        "requested_size": 17367040,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722607415296,
+    "total_size": 20971520,
+    "allocated_size": 15758848,
+    "active_size": 15758848,
+    "requested_size": 15758784,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8680960,
+        "requested_size": 8680896,
+        "state": "active_allocated"
+      },
+      {
+        "size": 5212672,
+        "requested_size": 10708012,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722628386816,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 196608,
+        "requested_size": 196608,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722630483968,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722632581120,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2086160,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 196608,
+        "requested_size": 196608,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 442368,
+        "requested_size": 442368,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49152,
+        "requested_size": 49152,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 442368,
+        "requested_size": 442368,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49152,
+        "requested_size": 49152,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8192,
+        "requested_size": 8192,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722634678272,
+    "total_size": 2097152,
+    "allocated_size": 1810944,
+    "active_size": 1810944,
+    "requested_size": 1799220,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 442368,
+        "requested_size": 442368,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49152,
+        "requested_size": 49152,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 442368,
+        "requested_size": 442368,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49152,
+        "requested_size": 49152,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 12,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 4,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 500,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 32256,
+        "requested_size": 32000,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 34304,
+        "requested_size": 24576,
+        "state": "inactive"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 13824,
+        "requested_size": 8192,
+        "state": "inactive"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 201216,
+        "requested_size": 768,
+        "state": "inactive"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 221184,
+        "requested_size": 221184,
+        "state": "active_allocated"
+      },
+      {
+        "size": 36864,
+        "requested_size": 24576,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722640969728,
+    "total_size": 20971520,
+    "allocated_size": 20971520,
+    "active_size": 20971520,
+    "requested_size": 20381696,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 3145728,
+        "requested_size": 3145728,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4194304,
+        "requested_size": 4194304,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4194304,
+        "requested_size": 4194304,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2359296,
+        "requested_size": 1769472,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722661941248,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 524288,
+        "requested_size": 524288,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722664038400,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722674524160,
+    "total_size": 29360128,
+    "allocated_size": 29360128,
+    "active_size": 29360128,
+    "requested_size": 28311552,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 29360128,
+        "requested_size": 28311552,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722703884288,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722708078592,
+    "total_size": 29360128,
+    "allocated_size": 29360128,
+    "active_size": 29360128,
+    "requested_size": 28311552,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 29360128,
+        "requested_size": 28311552,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722737438720,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722741633024,
+    "total_size": 20971520,
+    "allocated_size": 20971520,
+    "active_size": 20971520,
+    "requested_size": 20119552,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4194304,
+        "requested_size": 4194304,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2621440,
+        "requested_size": 1769472,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722762604544,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 524288,
+        "requested_size": 524288,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722764701696,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722766798848,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722775187456,
+    "total_size": 20971520,
+    "allocated_size": 18350080,
+    "active_size": 18350080,
+    "requested_size": 18350080,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4194304,
+        "requested_size": 4194304,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2621440,
+        "requested_size": 2097152,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722796158976,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722798256128,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722800353280,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722808741888,
+    "total_size": 20971520,
+    "allocated_size": 20971520,
+    "active_size": 20971520,
+    "requested_size": 20840448,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 1769472,
+        "requested_size": 1769472,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1769472,
+        "requested_size": 1769472,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7077888,
+        "requested_size": 7077888,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3276800,
+        "requested_size": 3145728,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722829713408,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 196608,
+        "requested_size": 196608,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 131072,
+        "requested_size": 131072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722831810560,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722833907712,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2097152,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722836004864,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2092560,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 262144,
+        "requested_size": 262144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 131072,
+        "requested_size": 131072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1536,
+        "requested_size": 1536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1536,
+        "requested_size": 1536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 32768,
+        "requested_size": 32768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722838102016,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2095136,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 1048576,
+        "requested_size": 1048576,
+        "state": "active_allocated"
+      },
+      {
+        "size": 786432,
+        "requested_size": 786432,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 6144,
+        "requested_size": 6144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8192,
+        "requested_size": 8192,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 6144,
+        "requested_size": 6144,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8192,
+        "requested_size": 8192,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722842296320,
+    "total_size": 44040192,
+    "allocated_size": 44040192,
+    "active_size": 44040192,
+    "requested_size": 43404480,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 26042880,
+        "requested_size": 26042688,
+        "state": "active_allocated"
+      },
+      {
+        "size": 17997312,
+        "requested_size": 17361792,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126722886336512,
+    "total_size": 130023424,
+    "allocated_size": 126702592,
+    "active_size": 126702592,
+    "requested_size": 126701408,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 69447168,
+        "requested_size": 69447168,
+        "state": "active_allocated"
+      },
+      {
+        "size": 29927424,
+        "requested_size": 29927200,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7556608,
+        "requested_size": 7556256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7556608,
+        "requested_size": 7556256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 12214784,
+        "requested_size": 12214528,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3320832,
+        "requested_size": 2677003,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126723016359936,
+    "total_size": 33554432,
+    "allocated_size": 26042880,
+    "active_size": 26042880,
+    "requested_size": 26042688,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 26042880,
+        "requested_size": 26042688,
+        "state": "active_allocated"
+      },
+      {
+        "size": 7511552,
+        "requested_size": 3740900,
+        "state": "inactive"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126723049914368,
+    "total_size": 85983232,
+    "allocated_size": 85983232,
+    "active_size": 85983232,
+    "requested_size": 85937584,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 69447168,
+        "requested_size": 69447168,
+        "state": "active_allocated"
+      },
+      {
+        "size": 14963712,
+        "requested_size": 14963600,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1572352,
+        "requested_size": 1526816,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126723135897600,
+    "total_size": 20971520,
+    "allocated_size": 20971520,
+    "active_size": 20971520,
+    "requested_size": 20195388,
+    "stream": 0,
+    "segment_type": "large",
+    "blocks": [
+      {
+        "size": 17361920,
+        "requested_size": 17361792,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3609600,
+        "requested_size": 2833596,
+        "state": "active_allocated"
+      }
+    ]
+  },
+  {
+    "device": 0,
+    "address": 126723156869120,
+    "total_size": 2097152,
+    "allocated_size": 2097152,
+    "active_size": 2097152,
+    "requested_size": 2078248,
+    "stream": 0,
+    "segment_type": "small",
+    "blocks": [
+      {
+        "size": 64000,
+        "requested_size": 64000,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 110592,
+        "requested_size": 110592,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 12288,
+        "requested_size": 12288,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 110592,
+        "requested_size": 110592,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 12288,
+        "requested_size": 12288,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 128,
+        "state": "active_allocated"
+      },
+      {
+        "size": 8192,
+        "requested_size": 8192,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 442368,
+        "requested_size": 442368,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49152,
+        "requested_size": 49152,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 442368,
+        "requested_size": 442368,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 49152,
+        "requested_size": 49152,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 16384,
+        "requested_size": 16384,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 256,
+        "state": "active_allocated"
+      },
+      {
+        "size": 32768,
+        "requested_size": 32768,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 65536,
+        "requested_size": 65536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 196608,
+        "requested_size": 196608,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1536,
+        "requested_size": 1536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1536,
+        "requested_size": 1536,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 2048,
+        "requested_size": 2048,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 512,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 4096,
+        "requested_size": 4096,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 3072,
+        "requested_size": 3072,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 1024,
+        "requested_size": 1024,
+        "state": "active_allocated"
+      },
+      {
+        "size": 512,
+        "requested_size": 8,
+        "state": "active_allocated"
+      }
+    ]
+  }
+]

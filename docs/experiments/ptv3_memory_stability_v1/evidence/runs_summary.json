@@ -1,0 +1,2776 @@
+{
+  "stability_20261023_v2/runs/s42": {
+    "result": {
+      "status": "cuda_oom",
+      "seed": 42,
+      "maximum_updates": 12,
+      "error": "CUDA out of memory. Tried to allocate 1.11 GiB (GPU 0; 23.53 GiB total capacity; 19.25 GiB already allocated; 443.88 MiB free; 22.54 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF",
+      "failed_update": 7,
+      "active_modules": [],
+      "last_successful_module": "backbone.dec.dec0.block1.mlp.0.drop",
+      "partial_voxels": [
+        2152002,
+        2327984
+      ],
+      "failure_memory": {
+        "allocated": 20670739968,
+        "reserved": 24205328384,
+        "peak_allocated": 20670740992,
+        "peak_reserved": 24377294848
+      },
+      "completed_updates": 6,
+      "seconds": 43.06870423909277,
+      "max_allocated": 20670740992,
+      "max_reserved": 24377294848,
+      "final_memory": {
+        "allocated": 819111936,
+        "reserved": 24205328384,
+        "peak_allocated": 20670740992,
+        "peak_reserved": 24377294848
+      },
+      "point_created": 1378,
+      "point_released": 1378,
+      "point_alive": 0,
+      "peak_host_rss_bytes": 3160076288
+    },
+    "steps": [
+      {
+        "update": 1,
+        "memory": {
+          "allocated": 3600759296,
+          "reserved": 24110956544,
+          "peak_allocated": 20430020608,
+          "peak_reserved": 24110956544
+        },
+        "voxels": [
+          2170224,
+          2256910
+        ],
+        "point_created": 206,
+        "point_released": 206,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 2,
+          "backbone.enc.enc1.down.norm.0": 2,
+          "backbone.enc.enc2.down.norm.0": 2,
+          "backbone.enc.enc3.down.norm.0": 2,
+          "backbone.enc.enc4.down.norm.0": 2,
+          "backbone.dec.dec3.up.proj.1": 2,
+          "backbone.dec.dec3.up.proj_skip.1": 2,
+          "backbone.dec.dec2.up.proj.1": 2,
+          "backbone.dec.dec2.up.proj_skip.1": 2,
+          "backbone.dec.dec1.up.proj.1": 2,
+          "backbone.dec.dec1.up.proj_skip.1": 2,
+          "backbone.dec.dec0.up.proj.1": 2,
+          "backbone.dec.dec0.up.proj_skip.1": 2,
+          "semantic_linear.1": 2,
+          "offset_linear.1": 2
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.404327392578125,
+        "lr": 6.98e-05,
+        "seconds": 26.063653217628598,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.11384913789576
+      },
+      {
+        "update": 2,
+        "memory": {
+          "allocated": 2133805056,
+          "reserved": 24110956544,
+          "peak_allocated": 10595981312,
+          "peak_reserved": 24110956544
+        },
+        "voxels": [
+          569632,
+          1051224
+        ],
+        "point_created": 412,
+        "point_released": 412,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 4,
+          "backbone.enc.enc1.down.norm.0": 4,
+          "backbone.enc.enc2.down.norm.0": 4,
+          "backbone.enc.enc3.down.norm.0": 4,
+          "backbone.enc.enc4.down.norm.0": 4,
+          "backbone.dec.dec3.up.proj.1": 4,
+          "backbone.dec.dec3.up.proj_skip.1": 4,
+          "backbone.dec.dec2.up.proj.1": 4,
+          "backbone.dec.dec2.up.proj_skip.1": 4,
+          "backbone.dec.dec1.up.proj.1": 4,
+          "backbone.dec.dec1.up.proj_skip.1": 4,
+          "backbone.dec.dec0.up.proj.1": 4,
+          "backbone.dec.dec0.up.proj_skip.1": 4,
+          "semantic_linear.1": 4,
+          "offset_linear.1": 4
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.04220199584961,
+        "lr": 6.98e-05,
+        "seconds": 1.497871964238584,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 70.22905522336286
+      },
+      {
+        "update": 3,
+        "memory": {
+          "allocated": 1579245056,
+          "reserved": 24113053696,
+          "peak_allocated": 19926910976,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          2200869,
+          592282
+        ],
+        "point_created": 618,
+        "point_released": 618,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 6,
+          "backbone.enc.enc1.down.norm.0": 6,
+          "backbone.enc.enc2.down.norm.0": 6,
+          "backbone.enc.enc3.down.norm.0": 6,
+          "backbone.enc.enc4.down.norm.0": 6,
+          "backbone.dec.dec3.up.proj.1": 6,
+          "backbone.dec.dec3.up.proj_skip.1": 6,
+          "backbone.dec.dec2.up.proj.1": 6,
+          "backbone.dec.dec2.up.proj_skip.1": 6,
+          "backbone.dec.dec1.up.proj.1": 6,
+          "backbone.dec.dec1.up.proj_skip.1": 6,
+          "backbone.dec.dec0.up.proj.1": 6,
+          "backbone.dec.dec0.up.proj_skip.1": 6,
+          "semantic_linear.1": 6,
+          "offset_linear.1": 6
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.476054668426514,
+        "lr": 6.98e-05,
+        "seconds": 2.420362513512373,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 61.670048595015075
+      },
+      {
+        "update": 4,
+        "memory": {
+          "allocated": 3039451648,
+          "reserved": 24113053696,
+          "peak_allocated": 16670586368,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          1362562,
+          1804182
+        ],
+        "point_created": 824,
+        "point_released": 824,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 8,
+          "backbone.enc.enc1.down.norm.0": 8,
+          "backbone.enc.enc2.down.norm.0": 8,
+          "backbone.enc.enc3.down.norm.0": 8,
+          "backbone.enc.enc4.down.norm.0": 8,
+          "backbone.dec.dec3.up.proj.1": 8,
+          "backbone.dec.dec3.up.proj_skip.1": 8,
+          "backbone.dec.dec2.up.proj.1": 8,
+          "backbone.dec.dec2.up.proj_skip.1": 8,
+          "backbone.dec.dec1.up.proj.1": 8,
+          "backbone.dec.dec1.up.proj_skip.1": 8,
+          "backbone.dec.dec0.up.proj.1": 8,
+          "backbone.dec.dec0.up.proj_skip.1": 8,
+          "semantic_linear.1": 8,
+          "offset_linear.1": 8
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 53.70765447616577,
+        "lr": 6.98e-05,
+        "seconds": 2.606112184934318,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 21.779894890784558
+      },
+      {
+        "update": 5,
+        "memory": {
+          "allocated": 3513438720,
+          "reserved": 24113053696,
+          "peak_allocated": 19996303872,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          1045057,
+          2192070
+        ],
+        "point_created": 1030,
+        "point_released": 1030,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 10,
+          "backbone.enc.enc1.down.norm.0": 10,
+          "backbone.enc.enc2.down.norm.0": 10,
+          "backbone.enc.enc3.down.norm.0": 10,
+          "backbone.enc.enc4.down.norm.0": 10,
+          "backbone.dec.dec3.up.proj.1": 10,
+          "backbone.dec.dec3.up.proj_skip.1": 10,
+          "backbone.dec.dec2.up.proj.1": 10,
+          "backbone.dec.dec2.up.proj_skip.1": 10,
+          "backbone.dec.dec1.up.proj.1": 10,
+          "backbone.dec.dec1.up.proj_skip.1": 10,
+          "backbone.dec.dec0.up.proj.1": 10,
+          "backbone.dec.dec0.up.proj_skip.1": 10,
+          "semantic_linear.1": 10,
+          "offset_linear.1": 10
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.453014612197876,
+        "lr": 6.98e-05,
+        "seconds": 2.673267090693116,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 72.60532739761135
+      },
+      {
+        "update": 6,
+        "memory": {
+          "allocated": 2493435904,
+          "reserved": 24113053696,
+          "peak_allocated": 15120100864,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          1669838,
+          1348198
+        ],
+        "point_created": 1236,
+        "point_released": 1236,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 12,
+          "backbone.enc.enc1.down.norm.0": 12,
+          "backbone.enc.enc2.down.norm.0": 12,
+          "backbone.enc.enc3.down.norm.0": 12,
+          "backbone.enc.enc4.down.norm.0": 12,
+          "backbone.dec.dec3.up.proj.1": 12,
+          "backbone.dec.dec3.up.proj_skip.1": 12,
+          "backbone.dec.dec2.up.proj.1": 12,
+          "backbone.dec.dec2.up.proj_skip.1": 12,
+          "backbone.dec.dec1.up.proj.1": 12,
+          "backbone.dec.dec1.up.proj_skip.1": 12,
+          "backbone.dec.dec0.up.proj.1": 12,
+          "backbone.dec.dec0.up.proj_skip.1": 12,
+          "semantic_linear.1": 12,
+          "offset_linear.1": 12
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.61606502532959,
+        "lr": 6.98e-05,
+        "seconds": 2.439857978373766,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 63.6335450560841
+      }
+    ]
+  },
+  "stability_20261023_v3/runs/default/s42": {
+    "result": {
+      "status": "cuda_oom",
+      "seed": 42,
+      "maximum_updates": 12,
+      "allocator_origin": "pytorch",
+      "error": "CUDA out of memory. Tried to allocate 1.11 GiB (GPU 0; 23.53 GiB total capacity; 19.25 GiB already allocated; 411.88 MiB free; 22.57 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF",
+      "failed_update": 7,
+      "active_modules": [],
+      "last_successful_module": "backbone.dec.dec0.block1.mlp.0.drop",
+      "partial_voxels": [
+        2152002,
+        2327984
+      ],
+      "failure_memory": {
+        "allocated": 20672449024,
+        "reserved": 24238882816,
+        "peak_allocated": 20672450048,
+        "peak_reserved": 24587010048
+      },
+      "completed_updates": 6,
+      "seconds": 43.089002969674766,
+      "max_allocated": 20672450048,
+      "max_reserved": 24587010048,
+      "final_memory": {
+        "allocated": 820298240,
+        "reserved": 24238882816,
+        "peak_allocated": 20672450048,
+        "peak_reserved": 24587010048
+      },
+      "point_created": 1378,
+      "point_released": 1378,
+      "point_alive": 0,
+      "peak_host_rss_bytes": 3163197440
+    },
+    "steps": [
+      {
+        "update": 1,
+        "memory": {
+          "allocated": 3600104960,
+          "reserved": 24110956544,
+          "peak_allocated": 20430020608,
+          "peak_reserved": 24110956544
+        },
+        "voxels": [
+          2170224,
+          2256910
+        ],
+        "point_created": 206,
+        "point_released": 206,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 2,
+          "backbone.enc.enc1.down.norm.0": 2,
+          "backbone.enc.enc2.down.norm.0": 2,
+          "backbone.enc.enc3.down.norm.0": 2,
+          "backbone.enc.enc4.down.norm.0": 2,
+          "backbone.dec.dec3.up.proj.1": 2,
+          "backbone.dec.dec3.up.proj_skip.1": 2,
+          "backbone.dec.dec2.up.proj.1": 2,
+          "backbone.dec.dec2.up.proj_skip.1": 2,
+          "backbone.dec.dec1.up.proj.1": 2,
+          "backbone.dec.dec1.up.proj_skip.1": 2,
+          "backbone.dec.dec0.up.proj.1": 2,
+          "backbone.dec.dec0.up.proj_skip.1": 2,
+          "semantic_linear.1": 2,
+          "offset_linear.1": 2
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.40458393096924,
+        "lr": 6.98e-05,
+        "seconds": 26.076240229420364,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.11676354251757,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 6296355328,
+          "inactive_split_bytes.all.peak": 6767201280,
+          "num_alloc_retries": 1,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 2,
+        "memory": {
+          "allocated": 2128704512,
+          "reserved": 24110956544,
+          "peak_allocated": 10590051328,
+          "peak_reserved": 24110956544
+        },
+        "voxels": [
+          569632,
+          1051224
+        ],
+        "point_created": 412,
+        "point_released": 412,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 4,
+          "backbone.enc.enc1.down.norm.0": 4,
+          "backbone.enc.enc2.down.norm.0": 4,
+          "backbone.enc.enc3.down.norm.0": 4,
+          "backbone.enc.enc4.down.norm.0": 4,
+          "backbone.dec.dec3.up.proj.1": 4,
+          "backbone.dec.dec3.up.proj_skip.1": 4,
+          "backbone.dec.dec2.up.proj.1": 4,
+          "backbone.dec.dec2.up.proj_skip.1": 4,
+          "backbone.dec.dec1.up.proj.1": 4,
+          "backbone.dec.dec1.up.proj_skip.1": 4,
+          "backbone.dec.dec0.up.proj.1": 4,
+          "backbone.dec.dec0.up.proj_skip.1": 4,
+          "semantic_linear.1": 4,
+          "offset_linear.1": 4
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.042585372924805,
+        "lr": 6.98e-05,
+        "seconds": 1.4953844640403986,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 70.2110461217521,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 3422456832,
+          "inactive_split_bytes.all.peak": 6641496064,
+          "num_alloc_retries": 1,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 3,
+        "memory": {
+          "allocated": 1584778752,
+          "reserved": 24113053696,
+          "peak_allocated": 19926406144,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          2200869,
+          592282
+        ],
+        "point_created": 618,
+        "point_released": 618,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 6,
+          "backbone.enc.enc1.down.norm.0": 6,
+          "backbone.enc.enc2.down.norm.0": 6,
+          "backbone.enc.enc3.down.norm.0": 6,
+          "backbone.enc.enc4.down.norm.0": 6,
+          "backbone.dec.dec3.up.proj.1": 6,
+          "backbone.dec.dec3.up.proj_skip.1": 6,
+          "backbone.dec.dec2.up.proj.1": 6,
+          "backbone.dec.dec2.up.proj_skip.1": 6,
+          "backbone.dec.dec1.up.proj.1": 6,
+          "backbone.dec.dec1.up.proj_skip.1": 6,
+          "backbone.dec.dec0.up.proj.1": 6,
+          "backbone.dec.dec0.up.proj_skip.1": 6,
+          "semantic_linear.1": 6,
+          "offset_linear.1": 6
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.477638244628906,
+        "lr": 6.98e-05,
+        "seconds": 2.4143536938354373,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 61.651347356263415,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 3330945536,
+          "inactive_split_bytes.all.peak": 6266897920,
+          "num_alloc_retries": 1,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 4,
+        "memory": {
+          "allocated": 3036652032,
+          "reserved": 24113053696,
+          "peak_allocated": 16668280832,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          1362562,
+          1804182
+        ],
+        "point_created": 824,
+        "point_released": 824,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 8,
+          "backbone.enc.enc1.down.norm.0": 8,
+          "backbone.enc.enc2.down.norm.0": 8,
+          "backbone.enc.enc3.down.norm.0": 8,
+          "backbone.enc.enc4.down.norm.0": 8,
+          "backbone.dec.dec3.up.proj.1": 8,
+          "backbone.dec.dec3.up.proj_skip.1": 8,
+          "backbone.dec.dec2.up.proj.1": 8,
+          "backbone.dec.dec2.up.proj_skip.1": 8,
+          "backbone.dec.dec1.up.proj.1": 8,
+          "backbone.dec.dec1.up.proj_skip.1": 8,
+          "backbone.dec.dec0.up.proj.1": 8,
+          "backbone.dec.dec0.up.proj_skip.1": 8,
+          "semantic_linear.1": 8,
+          "offset_linear.1": 8
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 53.70474576950073,
+        "lr": 6.98e-05,
+        "seconds": 2.596216765232384,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 21.81112221953143,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 4777336320,
+          "inactive_split_bytes.all.peak": 6673972736,
+          "num_alloc_retries": 1,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 5,
+        "memory": {
+          "allocated": 3514193920,
+          "reserved": 24113053696,
+          "peak_allocated": 19999362560,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          1045057,
+          2192070
+        ],
+        "point_created": 1030,
+        "point_released": 1030,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 10,
+          "backbone.enc.enc1.down.norm.0": 10,
+          "backbone.enc.enc2.down.norm.0": 10,
+          "backbone.enc.enc3.down.norm.0": 10,
+          "backbone.enc.enc4.down.norm.0": 10,
+          "backbone.dec.dec3.up.proj.1": 10,
+          "backbone.dec.dec3.up.proj_skip.1": 10,
+          "backbone.dec.dec2.up.proj.1": 10,
+          "backbone.dec.dec2.up.proj_skip.1": 10,
+          "backbone.dec.dec1.up.proj.1": 10,
+          "backbone.dec.dec1.up.proj_skip.1": 10,
+          "backbone.dec.dec0.up.proj.1": 10,
+          "backbone.dec.dec0.up.proj_skip.1": 10,
+          "semantic_linear.1": 10,
+          "offset_linear.1": 10
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.4524712562561,
+        "lr": 6.98e-05,
+        "seconds": 2.670639826916158,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 72.57700725238993,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 5023311872,
+          "inactive_split_bytes.all.peak": 7030344704,
+          "num_alloc_retries": 1,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 6,
+        "memory": {
+          "allocated": 2494397952,
+          "reserved": 24113053696,
+          "peak_allocated": 15115368448,
+          "peak_reserved": 24113053696
+        },
+        "voxels": [
+          1669838,
+          1348198
+        ],
+        "point_created": 1236,
+        "point_released": 1236,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 12,
+          "backbone.enc.enc1.down.norm.0": 12,
+          "backbone.enc.enc2.down.norm.0": 12,
+          "backbone.enc.enc3.down.norm.0": 12,
+          "backbone.enc.enc4.down.norm.0": 12,
+          "backbone.dec.dec3.up.proj.1": 12,
+          "backbone.dec.dec3.up.proj_skip.1": 12,
+          "backbone.dec.dec2.up.proj.1": 12,
+          "backbone.dec.dec2.up.proj_skip.1": 12,
+          "backbone.dec.dec1.up.proj.1": 12,
+          "backbone.dec.dec1.up.proj_skip.1": 12,
+          "backbone.dec.dec0.up.proj.1": 12,
+          "backbone.dec.dec0.up.proj_skip.1": 12,
+          "semantic_linear.1": 12,
+          "offset_linear.1": 12
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.61571216583252,
+        "lr": 6.98e-05,
+        "seconds": 2.433393527753651,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 63.619221098315116,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 5275550208,
+          "inactive_split_bytes.all.peak": 7216629248,
+          "num_alloc_retries": 1,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      }
+    ]
+  },
+  "stability_20261023_v3/runs/gc70/s42": {
+    "result": {
+      "status": "cuda_oom",
+      "seed": 42,
+      "maximum_updates": 12,
+      "allocator_origin": "pytorch",
+      "error": "CUDA out of memory. Tried to allocate 1.25 GiB (GPU 0; 23.53 GiB total capacity; 18.77 GiB already allocated; 789.88 MiB free; 23.53 GiB allowed; 22.21 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF",
+      "failed_update": 7,
+      "active_modules": [],
+      "last_successful_module": "backbone.dec.dec0.block1.attn.proj_drop",
+      "partial_voxels": [
+        2152002,
+        2327984
+      ],
+      "failure_memory": {
+        "allocated": 19519350784,
+        "reserved": 23842521088,
+        "peak_allocated": 21890569728,
+        "peak_reserved": 23907532800
+      },
+      "completed_updates": 6,
+      "seconds": 43.04136109817773,
+      "max_allocated": 21890569728,
+      "max_reserved": 23907532800,
+      "final_memory": {
+        "allocated": 823250944,
+        "reserved": 23842521088,
+        "peak_allocated": 21890569728,
+        "peak_reserved": 23907532800
+      },
+      "point_created": 1379,
+      "point_released": 1379,
+      "point_alive": 0,
+      "peak_host_rss_bytes": 3146326016
+    },
+    "steps": [
+      {
+        "update": 1,
+        "memory": {
+          "allocated": 3603209728,
+          "reserved": 14141095936,
+          "peak_allocated": 20431491072,
+          "peak_reserved": 23127392256
+        },
+        "voxels": [
+          2170224,
+          2256910
+        ],
+        "point_created": 206,
+        "point_released": 206,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 2,
+          "backbone.enc.enc1.down.norm.0": 2,
+          "backbone.enc.enc2.down.norm.0": 2,
+          "backbone.enc.enc3.down.norm.0": 2,
+          "backbone.enc.enc4.down.norm.0": 2,
+          "backbone.dec.dec3.up.proj.1": 2,
+          "backbone.dec.dec3.up.proj_skip.1": 2,
+          "backbone.dec.dec2.up.proj.1": 2,
+          "backbone.dec.dec2.up.proj_skip.1": 2,
+          "backbone.dec.dec1.up.proj.1": 2,
+          "backbone.dec.dec1.up.proj_skip.1": 2,
+          "backbone.dec.dec0.up.proj.1": 2,
+          "backbone.dec.dec0.up.proj_skip.1": 2,
+          "semantic_linear.1": 2,
+          "offset_linear.1": 2
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.40363883972168,
+        "lr": 6.98e-05,
+        "seconds": 26.017206291668117,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.10425435917796,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 3873137152,
+          "inactive_split_bytes.all.peak": 7239757824,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 2,
+        "memory": {
+          "allocated": 2131996672,
+          "reserved": 14141095936,
+          "peak_allocated": 10592880128,
+          "peak_reserved": 14141095936
+        },
+        "voxels": [
+          569632,
+          1051224
+        ],
+        "point_created": 412,
+        "point_released": 412,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 4,
+          "backbone.enc.enc1.down.norm.0": 4,
+          "backbone.enc.enc2.down.norm.0": 4,
+          "backbone.enc.enc3.down.norm.0": 4,
+          "backbone.enc.enc4.down.norm.0": 4,
+          "backbone.dec.dec3.up.proj.1": 4,
+          "backbone.dec.dec3.up.proj_skip.1": 4,
+          "backbone.dec.dec2.up.proj.1": 4,
+          "backbone.dec.dec2.up.proj_skip.1": 4,
+          "backbone.dec.dec1.up.proj.1": 4,
+          "backbone.dec.dec1.up.proj_skip.1": 4,
+          "backbone.dec.dec0.up.proj.1": 4,
+          "backbone.dec.dec0.up.proj_skip.1": 4,
+          "semantic_linear.1": 4,
+          "offset_linear.1": 4
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.04112148284912,
+        "lr": 6.98e-05,
+        "seconds": 1.498164008371532,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 70.20650897023172,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 6252417024,
+          "inactive_split_bytes.all.peak": 6252417024,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 3,
+        "memory": {
+          "allocated": 1578982912,
+          "reserved": 11819548672,
+          "peak_allocated": 19929697792,
+          "peak_reserved": 22567452672
+        },
+        "voxels": [
+          2200869,
+          592282
+        ],
+        "point_created": 618,
+        "point_released": 618,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 6,
+          "backbone.enc.enc1.down.norm.0": 6,
+          "backbone.enc.enc2.down.norm.0": 6,
+          "backbone.enc.enc3.down.norm.0": 6,
+          "backbone.enc.enc4.down.norm.0": 6,
+          "backbone.dec.dec3.up.proj.1": 6,
+          "backbone.dec.dec3.up.proj_skip.1": 6,
+          "backbone.dec.dec2.up.proj.1": 6,
+          "backbone.dec.dec2.up.proj_skip.1": 6,
+          "backbone.dec.dec1.up.proj.1": 6,
+          "backbone.dec.dec1.up.proj_skip.1": 6,
+          "backbone.dec.dec0.up.proj.1": 6,
+          "backbone.dec.dec0.up.proj_skip.1": 6,
+          "semantic_linear.1": 6,
+          "offset_linear.1": 6
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.47642135620117,
+        "lr": 6.98e-05,
+        "seconds": 2.488694147206843,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 61.67006016343741,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 3085083136,
+          "inactive_split_bytes.all.peak": 7069444608,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 4,
+        "memory": {
+          "allocated": 3040498688,
+          "reserved": 18660458496,
+          "peak_allocated": 16670603264,
+          "peak_reserved": 18660458496
+        },
+        "voxels": [
+          1362562,
+          1804182
+        ],
+        "point_created": 824,
+        "point_released": 824,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 8,
+          "backbone.enc.enc1.down.norm.0": 8,
+          "backbone.enc.enc2.down.norm.0": 8,
+          "backbone.enc.enc3.down.norm.0": 8,
+          "backbone.enc.enc4.down.norm.0": 8,
+          "backbone.dec.dec3.up.proj.1": 8,
+          "backbone.dec.dec3.up.proj_skip.1": 8,
+          "backbone.dec.dec2.up.proj.1": 8,
+          "backbone.dec.dec2.up.proj_skip.1": 8,
+          "backbone.dec.dec1.up.proj.1": 8,
+          "backbone.dec.dec1.up.proj_skip.1": 8,
+          "backbone.dec.dec0.up.proj.1": 8,
+          "backbone.dec.dec0.up.proj_skip.1": 8,
+          "semantic_linear.1": 8,
+          "offset_linear.1": 8
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 53.7051887512207,
+        "lr": 6.98e-05,
+        "seconds": 2.6075224708765745,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 21.78204670694133,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 5668973568,
+          "inactive_split_bytes.all.peak": 6861468672,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 5,
+        "memory": {
+          "allocated": 3515054592,
+          "reserved": 21449670656,
+          "peak_allocated": 19999813632,
+          "peak_reserved": 21449670656
+        },
+        "voxels": [
+          1045057,
+          2192070
+        ],
+        "point_created": 1030,
+        "point_released": 1030,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 10,
+          "backbone.enc.enc1.down.norm.0": 10,
+          "backbone.enc.enc2.down.norm.0": 10,
+          "backbone.enc.enc3.down.norm.0": 10,
+          "backbone.enc.enc4.down.norm.0": 10,
+          "backbone.dec.dec3.up.proj.1": 10,
+          "backbone.dec.dec3.up.proj_skip.1": 10,
+          "backbone.dec.dec2.up.proj.1": 10,
+          "backbone.dec.dec2.up.proj_skip.1": 10,
+          "backbone.dec.dec1.up.proj.1": 10,
+          "backbone.dec.dec1.up.proj_skip.1": 10,
+          "backbone.dec.dec0.up.proj.1": 10,
+          "backbone.dec.dec0.up.proj_skip.1": 10,
+          "semantic_linear.1": 10,
+          "offset_linear.1": 10
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.44929790496826,
+        "lr": 6.98e-05,
+        "seconds": 2.7807028805837035,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 72.63199507256499,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 3866920448,
+          "inactive_split_bytes.all.peak": 6423036928,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      },
+      {
+        "update": 6,
+        "memory": {
+          "allocated": 2493169664,
+          "reserved": 21449670656,
+          "peak_allocated": 15117466112,
+          "peak_reserved": 21449670656
+        },
+        "voxels": [
+          1669838,
+          1348198
+        ],
+        "point_created": 1236,
+        "point_released": 1236,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 12,
+          "backbone.enc.enc1.down.norm.0": 12,
+          "backbone.enc.enc2.down.norm.0": 12,
+          "backbone.enc.enc3.down.norm.0": 12,
+          "backbone.enc.enc4.down.norm.0": 12,
+          "backbone.dec.dec3.up.proj.1": 12,
+          "backbone.dec.dec3.up.proj_skip.1": 12,
+          "backbone.dec.dec2.up.proj.1": 12,
+          "backbone.dec.dec2.up.proj_skip.1": 12,
+          "backbone.dec.dec1.up.proj.1": 12,
+          "backbone.dec.dec1.up.proj_skip.1": 12,
+          "backbone.dec.dec0.up.proj.1": 12,
+          "backbone.dec.dec0.up.proj_skip.1": 12,
+          "semantic_linear.1": 12,
+          "offset_linear.1": 12
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.61123323440552,
+        "lr": 6.98e-05,
+        "seconds": 2.4424206344410777,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 63.66077585203221,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 4834279424,
+          "inactive_split_bytes.all.peak": 9720408064,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": -1
+        }
+      }
+    ]
+  },
+  "stability_20261023_v3/runs/split128/s42": {
+    "result": {
+      "status": "cuda_oom",
+      "seed": 42,
+      "maximum_updates": 12,
+      "allocator_origin": "spconv/cumm",
+      "error": "TensorStorage /tmp/pip-build-env-ha4amc74/overlay/lib/python3.10/site-packages/cumm/include/tensorview/tensor.h:223\ncuda failed with error 2 out of memory. use CUDA_LAUNCH_BLOCKING=1 to get correct traceback.\n",
+      "failed_update": 1,
+      "active_modules": [],
+      "last_successful_module": "backbone.dec.dec0.block1.attn.proj_drop",
+      "partial_voxels": [
+        2170224
+      ],
+      "failure_memory": {
+        "allocated": 12955138048,
+        "reserved": 24142413824,
+        "peak_allocated": 19147351040,
+        "peak_reserved": 24675090432
+      },
+      "completed_updates": 0,
+      "seconds": 6.01656308490783,
+      "max_allocated": 19147351040,
+      "max_reserved": 24675090432,
+      "final_memory": {
+        "allocated": 255773696,
+        "reserved": 24142413824,
+        "peak_allocated": 19147351040,
+        "peak_reserved": 24675090432
+      },
+      "point_created": 40,
+      "point_released": 40,
+      "point_alive": 0,
+      "peak_host_rss_bytes": 2460614656
+    },
+    "steps": []
+  },
+  "stability_20261023_v3/runs/split128_gc70/s42": {
+    "result": {
+      "status": "pass",
+      "seed": 42,
+      "maximum_updates": 12,
+      "optimizer_state_steps_min": 12,
+      "optimizer_state_steps_max": 12,
+      "completed_updates": 12,
+      "seconds": 65.27416845969856,
+      "max_allocated": 22030752256,
+      "max_reserved": 22802333696,
+      "final_memory": {
+        "allocated": 819119616,
+        "reserved": 15776874496,
+        "peak_allocated": 16651591168,
+        "peak_reserved": 19182649344
+      },
+      "point_created": 2472,
+      "point_released": 2472,
+      "point_alive": 0,
+      "peak_host_rss_bytes": 3196882944
+    },
+    "steps": [
+      {
+        "update": 1,
+        "memory": {
+          "allocated": 3601978880,
+          "reserved": 12314476544,
+          "peak_allocated": 20479348736,
+          "peak_reserved": 21269315584
+        },
+        "voxels": [
+          2170224,
+          2256910
+        ],
+        "point_created": 206,
+        "point_released": 206,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 2,
+          "backbone.enc.enc1.down.norm.0": 2,
+          "backbone.enc.enc2.down.norm.0": 2,
+          "backbone.enc.enc3.down.norm.0": 2,
+          "backbone.enc.enc4.down.norm.0": 2,
+          "backbone.dec.dec3.up.proj.1": 2,
+          "backbone.dec.dec3.up.proj_skip.1": 2,
+          "backbone.dec.dec2.up.proj.1": 2,
+          "backbone.dec.dec2.up.proj_skip.1": 2,
+          "backbone.dec.dec1.up.proj.1": 2,
+          "backbone.dec.dec1.up.proj_skip.1": 2,
+          "backbone.dec.dec0.up.proj.1": 2,
+          "backbone.dec.dec0.up.proj_skip.1": 2,
+          "semantic_linear.1": 2,
+          "offset_linear.1": 2
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.404316902160645,
+        "lr": 6.98e-05,
+        "seconds": 27.039374652318656,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.10894062841241,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 672016896,
+          "inactive_split_bytes.all.peak": 1084300800,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 2,
+        "memory": {
+          "allocated": 2129841152,
+          "reserved": 17519607808,
+          "peak_allocated": 10708744704,
+          "peak_reserved": 17913872384
+        },
+        "voxels": [
+          569632,
+          1051224
+        ],
+        "point_created": 412,
+        "point_released": 412,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 4,
+          "backbone.enc.enc1.down.norm.0": 4,
+          "backbone.enc.enc2.down.norm.0": 4,
+          "backbone.enc.enc3.down.norm.0": 4,
+          "backbone.enc.enc4.down.norm.0": 4,
+          "backbone.dec.dec3.up.proj.1": 4,
+          "backbone.dec.dec3.up.proj_skip.1": 4,
+          "backbone.dec.dec2.up.proj.1": 4,
+          "backbone.dec.dec2.up.proj_skip.1": 4,
+          "backbone.dec.dec1.up.proj.1": 4,
+          "backbone.dec.dec1.up.proj_skip.1": 4,
+          "backbone.dec.dec0.up.proj.1": 4,
+          "backbone.dec.dec0.up.proj_skip.1": 4,
+          "semantic_linear.1": 4,
+          "offset_linear.1": 4
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.04407787322998,
+        "lr": 6.98e-05,
+        "seconds": 1.5839574551209807,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 70.24012982920904,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1607283712,
+          "inactive_split_bytes.all.peak": 1609380352,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 3,
+        "memory": {
+          "allocated": 1576925696,
+          "reserved": 13736345600,
+          "peak_allocated": 20017219072,
+          "peak_reserved": 21030240256
+        },
+        "voxels": [
+          2200869,
+          592282
+        ],
+        "point_created": 618,
+        "point_released": 618,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 6,
+          "backbone.enc.enc1.down.norm.0": 6,
+          "backbone.enc.enc2.down.norm.0": 6,
+          "backbone.enc.enc3.down.norm.0": 6,
+          "backbone.enc.enc4.down.norm.0": 6,
+          "backbone.dec.dec3.up.proj.1": 6,
+          "backbone.dec.dec3.up.proj_skip.1": 6,
+          "backbone.dec.dec2.up.proj.1": 6,
+          "backbone.dec.dec2.up.proj_skip.1": 6,
+          "backbone.dec.dec1.up.proj.1": 6,
+          "backbone.dec.dec1.up.proj_skip.1": 6,
+          "backbone.dec.dec0.up.proj.1": 6,
+          "backbone.dec.dec0.up.proj_skip.1": 6,
+          "semantic_linear.1": 6,
+          "offset_linear.1": 6
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.47664213180542,
+        "lr": 6.98e-05,
+        "seconds": 3.2341524716466665,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 61.681905413046515,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1036125696,
+          "inactive_split_bytes.all.peak": 1207756288,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 4,
+        "memory": {
+          "allocated": 3039825920,
+          "reserved": 15755902976,
+          "peak_allocated": 16730865664,
+          "peak_reserved": 19558039552
+        },
+        "voxels": [
+          1362562,
+          1804182
+        ],
+        "point_created": 824,
+        "point_released": 824,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 8,
+          "backbone.enc.enc1.down.norm.0": 8,
+          "backbone.enc.enc2.down.norm.0": 8,
+          "backbone.enc.enc3.down.norm.0": 8,
+          "backbone.enc.enc4.down.norm.0": 8,
+          "backbone.dec.dec3.up.proj.1": 8,
+          "backbone.dec.dec3.up.proj_skip.1": 8,
+          "backbone.dec.dec2.up.proj.1": 8,
+          "backbone.dec.dec2.up.proj_skip.1": 8,
+          "backbone.dec.dec1.up.proj.1": 8,
+          "backbone.dec.dec1.up.proj_skip.1": 8,
+          "backbone.dec.dec0.up.proj.1": 8,
+          "backbone.dec.dec0.up.proj_skip.1": 8,
+          "semantic_linear.1": 8,
+          "offset_linear.1": 8
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 53.70455598831177,
+        "lr": 6.98e-05,
+        "seconds": 3.069174896925688,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 21.81180337864848,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1404039168,
+          "inactive_split_bytes.all.peak": 1404039168,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 5,
+        "memory": {
+          "allocated": 3514635264,
+          "reserved": 14747172864,
+          "peak_allocated": 20028780544,
+          "peak_reserved": 20891828224
+        },
+        "voxels": [
+          1045057,
+          2192070
+        ],
+        "point_created": 1030,
+        "point_released": 1030,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 10,
+          "backbone.enc.enc1.down.norm.0": 10,
+          "backbone.enc.enc2.down.norm.0": 10,
+          "backbone.enc.enc3.down.norm.0": 10,
+          "backbone.enc.enc4.down.norm.0": 10,
+          "backbone.dec.dec3.up.proj.1": 10,
+          "backbone.dec.dec3.up.proj_skip.1": 10,
+          "backbone.dec.dec2.up.proj.1": 10,
+          "backbone.dec.dec2.up.proj_skip.1": 10,
+          "backbone.dec.dec1.up.proj.1": 10,
+          "backbone.dec.dec1.up.proj_skip.1": 10,
+          "backbone.dec.dec0.up.proj.1": 10,
+          "backbone.dec.dec0.up.proj_skip.1": 10,
+          "semantic_linear.1": 10,
+          "offset_linear.1": 10
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.45123100280762,
+        "lr": 6.98e-05,
+        "seconds": 3.614041061140597,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 72.5895614578106,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1482877952,
+          "inactive_split_bytes.all.peak": 1482877952,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 6,
+        "memory": {
+          "allocated": 2491008000,
+          "reserved": 14780727296,
+          "peak_allocated": 15140666880,
+          "peak_reserved": 19574816768
+        },
+        "voxels": [
+          1669838,
+          1348198
+        ],
+        "point_created": 1236,
+        "point_released": 1236,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 12,
+          "backbone.enc.enc1.down.norm.0": 12,
+          "backbone.enc.enc2.down.norm.0": 12,
+          "backbone.enc.enc3.down.norm.0": 12,
+          "backbone.enc.enc4.down.norm.0": 12,
+          "backbone.dec.dec3.up.proj.1": 12,
+          "backbone.dec.dec3.up.proj_skip.1": 12,
+          "backbone.dec.dec2.up.proj.1": 12,
+          "backbone.dec.dec2.up.proj_skip.1": 12,
+          "backbone.dec.dec1.up.proj.1": 12,
+          "backbone.dec.dec1.up.proj_skip.1": 12,
+          "backbone.dec.dec0.up.proj.1": 12,
+          "backbone.dec.dec0.up.proj_skip.1": 12,
+          "semantic_linear.1": 12,
+          "offset_linear.1": 12
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.61458969116211,
+        "lr": 6.98e-05,
+        "seconds": 2.950029654428363,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 63.63885548692278,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1063664640,
+          "inactive_split_bytes.all.peak": 1216616448,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 7,
+        "memory": {
+          "allocated": 3706104320,
+          "reserved": 13073645568,
+          "peak_allocated": 22030752256,
+          "peak_reserved": 22802333696
+        },
+        "voxels": [
+          2152002,
+          2327984
+        ],
+        "point_created": 1442,
+        "point_released": 1442,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 14,
+          "backbone.enc.enc1.down.norm.0": 14,
+          "backbone.enc.enc2.down.norm.0": 14,
+          "backbone.enc.enc3.down.norm.0": 14,
+          "backbone.enc.enc4.down.norm.0": 14,
+          "backbone.dec.dec3.up.proj.1": 14,
+          "backbone.dec.dec3.up.proj_skip.1": 14,
+          "backbone.dec.dec2.up.proj.1": 14,
+          "backbone.dec.dec2.up.proj_skip.1": 14,
+          "backbone.dec.dec1.up.proj.1": 14,
+          "backbone.dec.dec1.up.proj_skip.1": 14,
+          "backbone.dec.dec0.up.proj.1": 14,
+          "backbone.dec.dec0.up.proj_skip.1": 14,
+          "semantic_linear.1": 14,
+          "offset_linear.1": 14
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 53.251830101013184,
+        "lr": 6.98e-05,
+        "seconds": 5.233071505092084,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 67.04070801897068,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1052333568,
+          "inactive_split_bytes.all.peak": 1492193792,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 8,
+        "memory": {
+          "allocated": 1585234432,
+          "reserved": 14946402304,
+          "peak_allocated": 10287272960,
+          "peak_reserved": 17794334720
+        },
+        "voxels": [
+          987608,
+          598155
+        ],
+        "point_created": 1648,
+        "point_released": 1648,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 16,
+          "backbone.enc.enc1.down.norm.0": 16,
+          "backbone.enc.enc2.down.norm.0": 16,
+          "backbone.enc.enc3.down.norm.0": 16,
+          "backbone.enc.enc4.down.norm.0": 16,
+          "backbone.dec.dec3.up.proj.1": 16,
+          "backbone.dec.dec3.up.proj_skip.1": 16,
+          "backbone.dec.dec2.up.proj.1": 16,
+          "backbone.dec.dec2.up.proj_skip.1": 16,
+          "backbone.dec.dec1.up.proj.1": 16,
+          "backbone.dec.dec1.up.proj_skip.1": 16,
+          "backbone.dec.dec0.up.proj.1": 16,
+          "backbone.dec.dec0.up.proj_skip.1": 16,
+          "semantic_linear.1": 16,
+          "offset_linear.1": 16
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.4773850440979,
+        "lr": 6.98e-05,
+        "seconds": 1.588615482673049,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 67.37943590948106,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1386429952,
+          "inactive_split_bytes.all.peak": 1441326080,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 9,
+        "memory": {
+          "allocated": 3483761152,
+          "reserved": 18215862272,
+          "peak_allocated": 19801324032,
+          "peak_reserved": 20606615552
+        },
+        "voxels": [
+          565819,
+          2169595
+        ],
+        "point_created": 1854,
+        "point_released": 1854,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 18,
+          "backbone.enc.enc1.down.norm.0": 18,
+          "backbone.enc.enc2.down.norm.0": 18,
+          "backbone.enc.enc3.down.norm.0": 18,
+          "backbone.enc.enc4.down.norm.0": 18,
+          "backbone.dec.dec3.up.proj.1": 18,
+          "backbone.dec.dec3.up.proj_skip.1": 18,
+          "backbone.dec.dec2.up.proj.1": 18,
+          "backbone.dec.dec2.up.proj_skip.1": 18,
+          "backbone.dec.dec1.up.proj.1": 18,
+          "backbone.dec.dec1.up.proj_skip.1": 18,
+          "backbone.dec.dec0.up.proj.1": 18,
+          "backbone.dec.dec0.up.proj_skip.1": 18,
+          "semantic_linear.1": 18,
+          "offset_linear.1": 18
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 51.63396859169006,
+        "lr": 6.98e-05,
+        "seconds": 2.9589664172381163,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.80196538956962,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1247413760,
+          "inactive_split_bytes.all.peak": 1249509888,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 10,
+        "memory": {
+          "allocated": 2596455424,
+          "reserved": 15772680192,
+          "peak_allocated": 14515608064,
+          "peak_reserved": 18440257536
+        },
+        "voxels": [
+          1629060,
+          1423799
+        ],
+        "point_created": 2060,
+        "point_released": 2060,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 20,
+          "backbone.enc.enc1.down.norm.0": 20,
+          "backbone.enc.enc2.down.norm.0": 20,
+          "backbone.enc.enc3.down.norm.0": 20,
+          "backbone.enc.enc4.down.norm.0": 20,
+          "backbone.dec.dec3.up.proj.1": 20,
+          "backbone.dec.dec3.up.proj_skip.1": 20,
+          "backbone.dec.dec2.up.proj.1": 20,
+          "backbone.dec.dec2.up.proj_skip.1": 20,
+          "backbone.dec.dec1.up.proj.1": 20,
+          "backbone.dec.dec1.up.proj_skip.1": 20,
+          "backbone.dec.dec0.up.proj.1": 20,
+          "backbone.dec.dec0.up.proj_skip.1": 20,
+          "semantic_linear.1": 20,
+          "offset_linear.1": 20
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 51.40448331832886,
+        "lr": 6.98e-05,
+        "seconds": 2.96876014303416,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 34.78229838585644,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1474116608,
+          "inactive_split_bytes.all.peak": 1484481536,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 11,
+        "memory": {
+          "allocated": 2028726784,
+          "reserved": 14424211456,
+          "peak_allocated": 19773289984,
+          "peak_reserved": 20619198464
+        },
+        "voxels": [
+          2188881,
+          977618
+        ],
+        "point_created": 2266,
+        "point_released": 2266,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 22,
+          "backbone.enc.enc1.down.norm.0": 22,
+          "backbone.enc.enc2.down.norm.0": 22,
+          "backbone.enc.enc3.down.norm.0": 22,
+          "backbone.enc.enc4.down.norm.0": 22,
+          "backbone.dec.dec3.up.proj.1": 22,
+          "backbone.dec.dec3.up.proj_skip.1": 22,
+          "backbone.dec.dec2.up.proj.1": 22,
+          "backbone.dec.dec2.up.proj_skip.1": 22,
+          "backbone.dec.dec1.up.proj.1": 22,
+          "backbone.dec.dec1.up.proj_skip.1": 22,
+          "backbone.dec.dec0.up.proj.1": 22,
+          "backbone.dec.dec0.up.proj_skip.1": 22,
+          "semantic_linear.1": 22,
+          "offset_linear.1": 22
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.37992000579834,
+        "lr": 6.98e-05,
+        "seconds": 3.3884122408926487,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 73.72084071137893,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1465128448,
+          "inactive_split_bytes.all.peak": 1468088832,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 12,
+        "memory": {
+          "allocated": 3009193984,
+          "reserved": 15776874496,
+          "peak_allocated": 16651591168,
+          "peak_reserved": 19182649344
+        },
+        "voxels": [
+          1435516,
+          1774477
+        ],
+        "point_created": 2472,
+        "point_released": 2472,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 24,
+          "backbone.enc.enc1.down.norm.0": 24,
+          "backbone.enc.enc2.down.norm.0": 24,
+          "backbone.enc.enc3.down.norm.0": 24,
+          "backbone.enc.enc4.down.norm.0": 24,
+          "backbone.dec.dec3.up.proj.1": 24,
+          "backbone.dec.dec3.up.proj_skip.1": 24,
+          "backbone.dec.dec2.up.proj.1": 24,
+          "backbone.dec.dec2.up.proj_skip.1": 24,
+          "backbone.dec.dec1.up.proj.1": 24,
+          "backbone.dec.dec1.up.proj_skip.1": 24,
+          "backbone.dec.dec0.up.proj.1": 24,
+          "backbone.dec.dec0.up.proj_skip.1": 24,
+          "semantic_linear.1": 24,
+          "offset_linear.1": 24
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.63720703125,
+        "lr": 6.98e-05,
+        "seconds": 3.2111548520624638,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.1321029147176,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1461934080,
+          "inactive_split_bytes.all.peak": 1841564160,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      }
+    ]
+  },
+  "stability_20261023_v3/runs/split128_gc70/s43": {
+    "result": {
+      "status": "pass",
+      "seed": 43,
+      "maximum_updates": 12,
+      "optimizer_state_steps_min": 12,
+      "optimizer_state_steps_max": 12,
+      "completed_updates": 12,
+      "seconds": 57.805644664913416,
+      "max_allocated": 20883540992,
+      "max_reserved": 21583888384,
+      "final_memory": {
+        "allocated": 820106752,
+        "reserved": 17622368256,
+        "peak_allocated": 17029008384,
+        "peak_reserved": 19631439872
+      },
+      "point_created": 2472,
+      "point_released": 2472,
+      "point_alive": 0,
+      "peak_host_rss_bytes": 3195273216
+    },
+    "steps": [
+      {
+        "update": 1,
+        "memory": {
+          "allocated": 3359963136,
+          "reserved": 17624465408,
+          "peak_allocated": 18538129920,
+          "peak_reserved": 19614662656
+        },
+        "voxels": [
+          1535185,
+          2066904
+        ],
+        "point_created": 206,
+        "point_released": 206,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 2,
+          "backbone.enc.enc1.down.norm.0": 2,
+          "backbone.enc.enc2.down.norm.0": 2,
+          "backbone.enc.enc3.down.norm.0": 2,
+          "backbone.enc.enc4.down.norm.0": 2,
+          "backbone.dec.dec3.up.proj.1": 2,
+          "backbone.dec.dec3.up.proj_skip.1": 2,
+          "backbone.dec.dec2.up.proj.1": 2,
+          "backbone.dec.dec2.up.proj_skip.1": 2,
+          "backbone.dec.dec1.up.proj.1": 2,
+          "backbone.dec.dec1.up.proj_skip.1": 2,
+          "backbone.dec.dec0.up.proj.1": 2,
+          "backbone.dec.dec0.up.proj_skip.1": 2,
+          "semantic_linear.1": 2,
+          "offset_linear.1": 2
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.085041999816895,
+        "lr": 6.98e-05,
+        "seconds": 20.28307186346501,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 61.049808802873194,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 417007616,
+          "inactive_split_bytes.all.peak": 992761856,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 2,
+        "memory": {
+          "allocated": 2008521216,
+          "reserved": 16439574528,
+          "peak_allocated": 9362989568,
+          "peak_reserved": 18484297728
+        },
+        "voxels": [
+          558826,
+          960707
+        ],
+        "point_created": 412,
+        "point_released": 412,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 4,
+          "backbone.enc.enc1.down.norm.0": 4,
+          "backbone.enc.enc2.down.norm.0": 4,
+          "backbone.enc.enc3.down.norm.0": 4,
+          "backbone.enc.enc4.down.norm.0": 4,
+          "backbone.dec.dec3.up.proj.1": 4,
+          "backbone.dec.dec3.up.proj_skip.1": 4,
+          "backbone.dec.dec2.up.proj.1": 4,
+          "backbone.dec.dec2.up.proj_skip.1": 4,
+          "backbone.dec.dec1.up.proj.1": 4,
+          "backbone.dec.dec1.up.proj_skip.1": 4,
+          "backbone.dec.dec0.up.proj.1": 4,
+          "backbone.dec.dec0.up.proj_skip.1": 4,
+          "semantic_linear.1": 4,
+          "offset_linear.1": 4
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 46.45597243309021,
+        "lr": 6.98e-05,
+        "seconds": 1.4856393188238144,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 63.84760386964272,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1139303936,
+          "inactive_split_bytes.all.peak": 1139303936,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 3,
+        "memory": {
+          "allocated": 1520142336,
+          "reserved": 16978542592,
+          "peak_allocated": 19588165120,
+          "peak_reserved": 20363345920
+        },
+        "voxels": [
+          2181754,
+          544694
+        ],
+        "point_created": 618,
+        "point_released": 618,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 6,
+          "backbone.enc.enc1.down.norm.0": 6,
+          "backbone.enc.enc2.down.norm.0": 6,
+          "backbone.enc.enc3.down.norm.0": 6,
+          "backbone.enc.enc4.down.norm.0": 6,
+          "backbone.dec.dec3.up.proj.1": 6,
+          "backbone.dec.dec3.up.proj_skip.1": 6,
+          "backbone.dec.dec2.up.proj.1": 6,
+          "backbone.dec.dec2.up.proj_skip.1": 6,
+          "backbone.dec.dec1.up.proj.1": 6,
+          "backbone.dec.dec1.up.proj_skip.1": 6,
+          "backbone.dec.dec0.up.proj.1": 6,
+          "backbone.dec.dec0.up.proj_skip.1": 6,
+          "semantic_linear.1": 6,
+          "offset_linear.1": 6
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.714075803756714,
+        "lr": 6.98e-05,
+        "seconds": 2.917152897454798,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 60.96350024228426,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1273264128,
+          "inactive_split_bytes.all.peak": 1310251520,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 4,
+        "memory": {
+          "allocated": 2974904832,
+          "reserved": 15307112448,
+          "peak_allocated": 16122800128,
+          "peak_reserved": 19186843648
+        },
+        "voxels": [
+          1352091,
+          1756014
+        ],
+        "point_created": 824,
+        "point_released": 824,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 8,
+          "backbone.enc.enc1.down.norm.0": 8,
+          "backbone.enc.enc2.down.norm.0": 8,
+          "backbone.enc.enc3.down.norm.0": 8,
+          "backbone.enc.enc4.down.norm.0": 8,
+          "backbone.dec.dec3.up.proj.1": 8,
+          "backbone.dec.dec3.up.proj_skip.1": 8,
+          "backbone.dec.dec2.up.proj.1": 8,
+          "backbone.dec.dec2.up.proj_skip.1": 8,
+          "backbone.dec.dec1.up.proj.1": 8,
+          "backbone.dec.dec1.up.proj_skip.1": 8,
+          "backbone.dec.dec0.up.proj.1": 8,
+          "backbone.dec.dec0.up.proj_skip.1": 8,
+          "semantic_linear.1": 8,
+          "offset_linear.1": 8
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 51.88552474975586,
+        "lr": 6.98e-05,
+        "seconds": 3.0332220839336514,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 26.18072062873421,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1433308672,
+          "inactive_split_bytes.all.peak": 1459147264,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 5,
+        "memory": {
+          "allocated": 3608188928,
+          "reserved": 13088325632,
+          "peak_allocated": 20883540992,
+          "peak_reserved": 21583888384
+        },
+        "voxels": [
+          894887,
+          2260504
+        ],
+        "point_created": 1030,
+        "point_released": 1030,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 10,
+          "backbone.enc.enc1.down.norm.0": 10,
+          "backbone.enc.enc2.down.norm.0": 10,
+          "backbone.enc.enc3.down.norm.0": 10,
+          "backbone.enc.enc4.down.norm.0": 10,
+          "backbone.dec.dec3.up.proj.1": 10,
+          "backbone.dec.dec3.up.proj_skip.1": 10,
+          "backbone.dec.dec2.up.proj.1": 10,
+          "backbone.dec.dec2.up.proj_skip.1": 10,
+          "backbone.dec.dec1.up.proj.1": 10,
+          "backbone.dec.dec1.up.proj_skip.1": 10,
+          "backbone.dec.dec0.up.proj.1": 10,
+          "backbone.dec.dec0.up.proj_skip.1": 10,
+          "semantic_linear.1": 10,
+          "offset_linear.1": 10
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 46.970558166503906,
+        "lr": 6.98e-05,
+        "seconds": 3.701848780736327,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.15965949372703,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1469016064,
+          "inactive_split_bytes.all.peak": 1469016064,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 6,
+        "memory": {
+          "allocated": 2509071872,
+          "reserved": 17293115392,
+          "peak_allocated": 15312467968,
+          "peak_reserved": 19702743040
+        },
+        "voxels": [
+          1683900,
+          1362262
+        ],
+        "point_created": 1236,
+        "point_released": 1236,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 12,
+          "backbone.enc.enc1.down.norm.0": 12,
+          "backbone.enc.enc2.down.norm.0": 12,
+          "backbone.enc.enc3.down.norm.0": 12,
+          "backbone.enc.enc4.down.norm.0": 12,
+          "backbone.dec.dec3.up.proj.1": 12,
+          "backbone.dec.dec3.up.proj_skip.1": 12,
+          "backbone.dec.dec2.up.proj.1": 12,
+          "backbone.dec.dec2.up.proj_skip.1": 12,
+          "backbone.dec.dec1.up.proj.1": 12,
+          "backbone.dec.dec1.up.proj_skip.1": 12,
+          "backbone.dec.dec0.up.proj.1": 12,
+          "backbone.dec.dec0.up.proj_skip.1": 12,
+          "semantic_linear.1": 12,
+          "offset_linear.1": 12
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 51.34568643569946,
+        "lr": 6.98e-05,
+        "seconds": 2.994643940590322,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 62.01323912851086,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1607637504,
+          "inactive_split_bytes.all.peak": 1667017728,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 7,
+        "memory": {
+          "allocated": 3480423424,
+          "reserved": 18278776832,
+          "peak_allocated": 20058817536,
+          "peak_reserved": 21057503232
+        },
+        "voxels": [
+          2071883,
+          2152695
+        ],
+        "point_created": 1442,
+        "point_released": 1442,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 14,
+          "backbone.enc.enc1.down.norm.0": 14,
+          "backbone.enc.enc2.down.norm.0": 14,
+          "backbone.enc.enc3.down.norm.0": 14,
+          "backbone.enc.enc4.down.norm.0": 14,
+          "backbone.dec.dec3.up.proj.1": 14,
+          "backbone.dec.dec3.up.proj_skip.1": 14,
+          "backbone.dec.dec2.up.proj.1": 14,
+          "backbone.dec.dec2.up.proj_skip.1": 14,
+          "backbone.dec.dec1.up.proj.1": 14,
+          "backbone.dec.dec1.up.proj_skip.1": 14,
+          "backbone.dec.dec0.up.proj.1": 14,
+          "backbone.dec.dec0.up.proj_skip.1": 14,
+          "semantic_linear.1": 14,
+          "offset_linear.1": 14
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.40312433242798,
+        "lr": 6.98e-05,
+        "seconds": 4.8699650363996625,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 73.50355646374919,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 915207168,
+          "inactive_split_bytes.all.peak": 1380899840,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 8,
+        "memory": {
+          "allocated": 1512200192,
+          "reserved": 14254342144,
+          "peak_allocated": 10361186816,
+          "peak_reserved": 18278776832
+        },
+        "voxels": [
+          1029032,
+          547691
+        ],
+        "point_created": 1648,
+        "point_released": 1648,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 16,
+          "backbone.enc.enc1.down.norm.0": 16,
+          "backbone.enc.enc2.down.norm.0": 16,
+          "backbone.enc.enc3.down.norm.0": 16,
+          "backbone.enc.enc4.down.norm.0": 16,
+          "backbone.dec.dec3.up.proj.1": 16,
+          "backbone.dec.dec3.up.proj_skip.1": 16,
+          "backbone.dec.dec2.up.proj.1": 16,
+          "backbone.dec.dec2.up.proj_skip.1": 16,
+          "backbone.dec.dec1.up.proj.1": 16,
+          "backbone.dec.dec1.up.proj_skip.1": 16,
+          "backbone.dec.dec0.up.proj.1": 16,
+          "backbone.dec.dec0.up.proj_skip.1": 16,
+          "semantic_linear.1": 16,
+          "offset_linear.1": 16
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 46.893166065216064,
+        "lr": 6.98e-05,
+        "seconds": 1.5646615689620376,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 69.86885466614261,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1035839488,
+          "inactive_split_bytes.all.peak": 1217750016,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 9,
+        "memory": {
+          "allocated": 3399578624,
+          "reserved": 17970495488,
+          "peak_allocated": 19003149312,
+          "peak_reserved": 19746783232
+        },
+        "voxels": [
+          570441,
+          2107716
+        ],
+        "point_created": 1854,
+        "point_released": 1854,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 18,
+          "backbone.enc.enc1.down.norm.0": 18,
+          "backbone.enc.enc2.down.norm.0": 18,
+          "backbone.enc.enc3.down.norm.0": 18,
+          "backbone.enc.enc4.down.norm.0": 18,
+          "backbone.dec.dec3.up.proj.1": 18,
+          "backbone.dec.dec3.up.proj_skip.1": 18,
+          "backbone.dec.dec2.up.proj.1": 18,
+          "backbone.dec.dec2.up.proj_skip.1": 18,
+          "backbone.dec.dec1.up.proj.1": 18,
+          "backbone.dec.dec1.up.proj_skip.1": 18,
+          "backbone.dec.dec0.up.proj.1": 18,
+          "backbone.dec.dec0.up.proj_skip.1": 18,
+          "semantic_linear.1": 18,
+          "offset_linear.1": 18
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.083404541015625,
+        "lr": 6.98e-05,
+        "seconds": 2.8008146667853,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 65.18034614298558,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1033800704,
+          "inactive_split_bytes.all.peak": 1243606528,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 10,
+        "memory": {
+          "allocated": 2492533248,
+          "reserved": 13551796224,
+          "peak_allocated": 17375474688,
+          "peak_reserved": 19241369600
+        },
+        "voxels": [
+          1873318,
+          1347649
+        ],
+        "point_created": 2060,
+        "point_released": 2060,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 20,
+          "backbone.enc.enc1.down.norm.0": 20,
+          "backbone.enc.enc2.down.norm.0": 20,
+          "backbone.enc.enc3.down.norm.0": 20,
+          "backbone.enc.enc4.down.norm.0": 20,
+          "backbone.dec.dec3.up.proj.1": 20,
+          "backbone.dec.dec3.up.proj_skip.1": 20,
+          "backbone.dec.dec2.up.proj.1": 20,
+          "backbone.dec.dec2.up.proj_skip.1": 20,
+          "backbone.dec.dec1.up.proj.1": 20,
+          "backbone.dec.dec1.up.proj_skip.1": 20,
+          "backbone.dec.dec0.up.proj.1": 20,
+          "backbone.dec.dec0.up.proj_skip.1": 20,
+          "semantic_linear.1": 20,
+          "offset_linear.1": 20
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.8534574508667,
+        "lr": 6.98e-05,
+        "seconds": 3.2913379967212677,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 51.69975118209779,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1338963456,
+          "inactive_split_bytes.all.peak": 1720971264,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 11,
+        "memory": {
+          "allocated": 2044934656,
+          "reserved": 17389584384,
+          "peak_allocated": 19399290880,
+          "peak_reserved": 20378025984
+        },
+        "voxels": [
+          2161646,
+          986001
+        ],
+        "point_created": 2266,
+        "point_released": 2266,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 22,
+          "backbone.enc.enc1.down.norm.0": 22,
+          "backbone.enc.enc2.down.norm.0": 22,
+          "backbone.enc.enc3.down.norm.0": 22,
+          "backbone.enc.enc4.down.norm.0": 22,
+          "backbone.dec.dec3.up.proj.1": 22,
+          "backbone.dec.dec3.up.proj_skip.1": 22,
+          "backbone.dec.dec2.up.proj.1": 22,
+          "backbone.dec.dec2.up.proj_skip.1": 22,
+          "backbone.dec.dec1.up.proj.1": 22,
+          "backbone.dec.dec1.up.proj_skip.1": 22,
+          "backbone.dec.dec0.up.proj.1": 22,
+          "backbone.dec.dec0.up.proj_skip.1": 22,
+          "semantic_linear.1": 22,
+          "offset_linear.1": 22
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 47.64268207550049,
+        "lr": 6.98e-05,
+        "seconds": 3.226777996867895,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 75.72235401728774,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1667024384,
+          "inactive_split_bytes.all.peak": 1669120512,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 12,
+        "memory": {
+          "allocated": 3041476608,
+          "reserved": 17622368256,
+          "peak_allocated": 17029008384,
+          "peak_reserved": 19631439872
+        },
+        "voxels": [
+          1372975,
+          1789584
+        ],
+        "point_created": 2472,
+        "point_released": 2472,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 24,
+          "backbone.enc.enc1.down.norm.0": 24,
+          "backbone.enc.enc2.down.norm.0": 24,
+          "backbone.enc.enc3.down.norm.0": 24,
+          "backbone.enc.enc4.down.norm.0": 24,
+          "backbone.dec.dec3.up.proj.1": 24,
+          "backbone.dec.dec3.up.proj_skip.1": 24,
+          "backbone.dec.dec2.up.proj.1": 24,
+          "backbone.dec.dec2.up.proj_skip.1": 24,
+          "backbone.dec.dec1.up.proj.1": 24,
+          "backbone.dec.dec1.up.proj_skip.1": 24,
+          "backbone.dec.dec0.up.proj.1": 24,
+          "backbone.dec.dec0.up.proj_skip.1": 24,
+          "semantic_linear.1": 24,
+          "offset_linear.1": 24
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 51.62790536880493,
+        "lr": 6.98e-05,
+        "seconds": 3.065262956544757,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 73.15804568767066,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1593229312,
+          "inactive_split_bytes.all.peak": 1657859584,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      }
+    ]
+  },
+  "stability_20261023_v3/runs/split128_gc70/s44": {
+    "result": {
+      "status": "pass",
+      "seed": 44,
+      "maximum_updates": 12,
+      "optimizer_state_steps_min": 12,
+      "optimizer_state_steps_max": 12,
+      "completed_updates": 12,
+      "seconds": 65.79304010979831,
+      "max_allocated": 21610452992,
+      "max_reserved": 22498246656,
+      "final_memory": {
+        "allocated": 818988032,
+        "reserved": 17555259392,
+        "peak_allocated": 15553253376,
+        "peak_reserved": 19033751552
+      },
+      "point_created": 2472,
+      "point_released": 2472,
+      "point_alive": 0,
+      "peak_host_rss_bytes": 3147390976
+    },
+    "steps": [
+      {
+        "update": 1,
+        "memory": {
+          "allocated": 3528571392,
+          "reserved": 14581497856,
+          "peak_allocated": 19937662464,
+          "peak_reserved": 20497563648
+        },
+        "voxels": [
+          2221531,
+          2200270
+        ],
+        "point_created": 206,
+        "point_released": 206,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 2,
+          "backbone.enc.enc1.down.norm.0": 2,
+          "backbone.enc.enc2.down.norm.0": 2,
+          "backbone.enc.enc3.down.norm.0": 2,
+          "backbone.enc.enc4.down.norm.0": 2,
+          "backbone.dec.dec3.up.proj.1": 2,
+          "backbone.dec.dec3.up.proj_skip.1": 2,
+          "backbone.dec.dec2.up.proj.1": 2,
+          "backbone.dec.dec2.up.proj_skip.1": 2,
+          "backbone.dec.dec1.up.proj.1": 2,
+          "backbone.dec.dec1.up.proj_skip.1": 2,
+          "backbone.dec.dec0.up.proj.1": 2,
+          "backbone.dec.dec0.up.proj_skip.1": 2,
+          "semantic_linear.1": 2,
+          "offset_linear.1": 2
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.002015113830566,
+        "lr": 6.98e-05,
+        "seconds": 26.771604977548122,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 64.13662214745935,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 850281984,
+          "inactive_split_bytes.all.peak": 1154589696,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 2,
+        "memory": {
+          "allocated": 2103979008,
+          "reserved": 16817061888,
+          "peak_allocated": 10296459776,
+          "peak_reserved": 18173919232
+        },
+        "voxels": [
+          537343,
+          1033821
+        ],
+        "point_created": 412,
+        "point_released": 412,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 4,
+          "backbone.enc.enc1.down.norm.0": 4,
+          "backbone.enc.enc2.down.norm.0": 4,
+          "backbone.enc.enc3.down.norm.0": 4,
+          "backbone.enc.enc4.down.norm.0": 4,
+          "backbone.dec.dec3.up.proj.1": 4,
+          "backbone.dec.dec3.up.proj_skip.1": 4,
+          "backbone.dec.dec2.up.proj.1": 4,
+          "backbone.dec.dec2.up.proj_skip.1": 4,
+          "backbone.dec.dec1.up.proj.1": 4,
+          "backbone.dec.dec1.up.proj_skip.1": 4,
+          "backbone.dec.dec0.up.proj.1": 4,
+          "backbone.dec.dec0.up.proj_skip.1": 4,
+          "semantic_linear.1": 4,
+          "offset_linear.1": 4
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.80205059051514,
+        "lr": 6.98e-05,
+        "seconds": 1.7493374664336443,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.04128282929048,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1465373696,
+          "inactive_split_bytes.all.peak": 1465373696,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 3,
+        "memory": {
+          "allocated": 1538077696,
+          "reserved": 12545163264,
+          "peak_allocated": 18791976448,
+          "peak_reserved": 19998441472
+        },
+        "voxels": [
+          2070679,
+          567405
+        ],
+        "point_created": 618,
+        "point_released": 618,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 6,
+          "backbone.enc.enc1.down.norm.0": 6,
+          "backbone.enc.enc2.down.norm.0": 6,
+          "backbone.enc.enc3.down.norm.0": 6,
+          "backbone.enc.enc4.down.norm.0": 6,
+          "backbone.dec.dec3.up.proj.1": 6,
+          "backbone.dec.dec3.up.proj_skip.1": 6,
+          "backbone.dec.dec2.up.proj.1": 6,
+          "backbone.dec.dec2.up.proj_skip.1": 6,
+          "backbone.dec.dec1.up.proj.1": 6,
+          "backbone.dec.dec1.up.proj_skip.1": 6,
+          "backbone.dec.dec0.up.proj.1": 6,
+          "backbone.dec.dec0.up.proj_skip.1": 6,
+          "semantic_linear.1": 6,
+          "offset_linear.1": 6
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 52.264909744262695,
+        "lr": 6.98e-05,
+        "seconds": 2.95715762488544,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 66.27322107910591,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1116916736,
+          "inactive_split_bytes.all.peak": 1119561728,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 4,
+        "memory": {
+          "allocated": 2976710144,
+          "reserved": 18108907520,
+          "peak_allocated": 16181655552,
+          "peak_reserved": 18356371456
+        },
+        "voxels": [
+          1420011,
+          1759598
+        ],
+        "point_created": 824,
+        "point_released": 824,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 8,
+          "backbone.enc.enc1.down.norm.0": 8,
+          "backbone.enc.enc2.down.norm.0": 8,
+          "backbone.enc.enc3.down.norm.0": 8,
+          "backbone.enc.enc4.down.norm.0": 8,
+          "backbone.dec.dec3.up.proj.1": 8,
+          "backbone.dec.dec3.up.proj_skip.1": 8,
+          "backbone.dec.dec2.up.proj.1": 8,
+          "backbone.dec.dec2.up.proj_skip.1": 8,
+          "backbone.dec.dec1.up.proj.1": 8,
+          "backbone.dec.dec1.up.proj_skip.1": 8,
+          "backbone.dec.dec0.up.proj.1": 8,
+          "backbone.dec.dec0.up.proj_skip.1": 8,
+          "semantic_linear.1": 8,
+          "offset_linear.1": 8
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.5996789932251,
+        "lr": 6.98e-05,
+        "seconds": 3.046457097865641,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 14.299957350332397,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1173553664,
+          "inactive_split_bytes.all.peak": 1228051968,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 5,
+        "memory": {
+          "allocated": 3592399360,
+          "reserved": 12486443008,
+          "peak_allocated": 20876713472,
+          "peak_reserved": 21504196608
+        },
+        "voxels": [
+          1036564,
+          2245038
+        ],
+        "point_created": 1030,
+        "point_released": 1030,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 10,
+          "backbone.enc.enc1.down.norm.0": 10,
+          "backbone.enc.enc2.down.norm.0": 10,
+          "backbone.enc.enc3.down.norm.0": 10,
+          "backbone.enc.enc4.down.norm.0": 10,
+          "backbone.dec.dec3.up.proj.1": 10,
+          "backbone.dec.dec3.up.proj_skip.1": 10,
+          "backbone.dec.dec2.up.proj.1": 10,
+          "backbone.dec.dec2.up.proj_skip.1": 10,
+          "backbone.dec.dec1.up.proj.1": 10,
+          "backbone.dec.dec1.up.proj_skip.1": 10,
+          "backbone.dec.dec0.up.proj.1": 10,
+          "backbone.dec.dec0.up.proj_skip.1": 10,
+          "semantic_linear.1": 10,
+          "offset_linear.1": 10
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 49.24959945678711,
+        "lr": 6.98e-05,
+        "seconds": 3.7801849879324436,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 67.34367800182523,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 880825856,
+          "inactive_split_bytes.all.peak": 1076506112,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 6,
+        "memory": {
+          "allocated": 2532558336,
+          "reserved": 14761852928,
+          "peak_allocated": 14317894144,
+          "peak_reserved": 18454937600
+        },
+        "voxels": [
+          1583438,
+          1377005
+        ],
+        "point_created": 1236,
+        "point_released": 1236,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 12,
+          "backbone.enc.enc1.down.norm.0": 12,
+          "backbone.enc.enc2.down.norm.0": 12,
+          "backbone.enc.enc3.down.norm.0": 12,
+          "backbone.enc.enc4.down.norm.0": 12,
+          "backbone.dec.dec3.up.proj.1": 12,
+          "backbone.dec.dec3.up.proj_skip.1": 12,
+          "backbone.dec.dec2.up.proj.1": 12,
+          "backbone.dec.dec2.up.proj_skip.1": 12,
+          "backbone.dec.dec1.up.proj.1": 12,
+          "backbone.dec.dec1.up.proj_skip.1": 12,
+          "backbone.dec.dec0.up.proj.1": 12,
+          "backbone.dec.dec0.up.proj_skip.1": 12,
+          "semantic_linear.1": 12,
+          "offset_linear.1": 12
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 54.03074383735657,
+        "lr": 6.98e-05,
+        "seconds": 2.7721532583236694,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 61.162424093439725,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1122777600,
+          "inactive_split_bytes.all.peak": 1122777600,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 7,
+        "memory": {
+          "allocated": 3664466432,
+          "reserved": 15313403904,
+          "peak_allocated": 21610452992,
+          "peak_reserved": 22498246656
+        },
+        "voxels": [
+          2245496,
+          2292038
+        ],
+        "point_created": 1442,
+        "point_released": 1442,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 14,
+          "backbone.enc.enc1.down.norm.0": 14,
+          "backbone.enc.enc2.down.norm.0": 14,
+          "backbone.enc.enc3.down.norm.0": 14,
+          "backbone.enc.enc4.down.norm.0": 14,
+          "backbone.dec.dec3.up.proj.1": 14,
+          "backbone.dec.dec3.up.proj_skip.1": 14,
+          "backbone.dec.dec2.up.proj.1": 14,
+          "backbone.dec.dec2.up.proj_skip.1": 14,
+          "backbone.dec.dec1.up.proj.1": 14,
+          "backbone.dec.dec1.up.proj_skip.1": 14,
+          "backbone.dec.dec0.up.proj.1": 14,
+          "backbone.dec.dec0.up.proj_skip.1": 14,
+          "semantic_linear.1": 14,
+          "offset_linear.1": 14
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.67978096008301,
+        "lr": 6.98e-05,
+        "seconds": 5.4651517709717155,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 67.45103884051775,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1016376832,
+          "inactive_split_bytes.all.peak": 1140357120,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 8,
+        "memory": {
+          "allocated": 1504329216,
+          "reserved": 13149143040,
+          "peak_allocated": 10610616320,
+          "peak_reserved": 17817403392
+        },
+        "voxels": [
+          1027448,
+          544575
+        ],
+        "point_created": 1648,
+        "point_released": 1648,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 16,
+          "backbone.enc.enc1.down.norm.0": 16,
+          "backbone.enc.enc2.down.norm.0": 16,
+          "backbone.enc.enc3.down.norm.0": 16,
+          "backbone.enc.enc4.down.norm.0": 16,
+          "backbone.dec.dec3.up.proj.1": 16,
+          "backbone.dec.dec3.up.proj_skip.1": 16,
+          "backbone.dec.dec2.up.proj.1": 16,
+          "backbone.dec.dec2.up.proj_skip.1": 16,
+          "backbone.dec.dec1.up.proj.1": 16,
+          "backbone.dec.dec1.up.proj_skip.1": 16,
+          "backbone.dec.dec0.up.proj.1": 16,
+          "backbone.dec.dec0.up.proj_skip.1": 16,
+          "semantic_linear.1": 16,
+          "offset_linear.1": 16
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 47.082045555114746,
+        "lr": 6.98e-05,
+        "seconds": 1.5293097598478198,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 65.91911305212693,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1050001920,
+          "inactive_split_bytes.all.peak": 1184227328,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 9,
+        "memory": {
+          "allocated": 3552391680,
+          "reserved": 18140364800,
+          "peak_allocated": 20393515520,
+          "peak_reserved": 21011365888
+        },
+        "voxels": [
+          544033,
+          2216017
+        ],
+        "point_created": 1854,
+        "point_released": 1854,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 18,
+          "backbone.enc.enc1.down.norm.0": 18,
+          "backbone.enc.enc2.down.norm.0": 18,
+          "backbone.enc.enc3.down.norm.0": 18,
+          "backbone.enc.enc4.down.norm.0": 18,
+          "backbone.dec.dec3.up.proj.1": 18,
+          "backbone.dec.dec3.up.proj_skip.1": 18,
+          "backbone.dec.dec2.up.proj.1": 18,
+          "backbone.dec.dec2.up.proj_skip.1": 18,
+          "backbone.dec.dec1.up.proj.1": 18,
+          "backbone.dec.dec1.up.proj_skip.1": 18,
+          "backbone.dec.dec0.up.proj.1": 18,
+          "backbone.dec.dec0.up.proj_skip.1": 18,
+          "semantic_linear.1": 18,
+          "offset_linear.1": 18
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 50.206159591674805,
+        "lr": 6.98e-05,
+        "seconds": 3.2849153224378824,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 65.46061174526375,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1136840192,
+          "inactive_split_bytes.all.peak": 1159794688,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 10,
+        "memory": {
+          "allocated": 2604682240,
+          "reserved": 15806234624,
+          "peak_allocated": 17369358848,
+          "peak_reserved": 19467862016
+        },
+        "voxels": [
+          1891942,
+          1426408
+        ],
+        "point_created": 2060,
+        "point_released": 2060,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 20,
+          "backbone.enc.enc1.down.norm.0": 20,
+          "backbone.enc.enc2.down.norm.0": 20,
+          "backbone.enc.enc3.down.norm.0": 20,
+          "backbone.enc.enc4.down.norm.0": 20,
+          "backbone.dec.dec3.up.proj.1": 20,
+          "backbone.dec.dec3.up.proj_skip.1": 20,
+          "backbone.dec.dec2.up.proj.1": 20,
+          "backbone.dec.dec2.up.proj_skip.1": 20,
+          "backbone.dec.dec1.up.proj.1": 20,
+          "backbone.dec.dec1.up.proj_skip.1": 20,
+          "backbone.dec.dec0.up.proj.1": 20,
+          "backbone.dec.dec0.up.proj_skip.1": 20,
+          "semantic_linear.1": 20,
+          "offset_linear.1": 20
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 53.68087816238403,
+        "lr": 6.98e-05,
+        "seconds": 3.4324854584410787,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 39.26923890474678,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1155511296,
+          "inactive_split_bytes.all.peak": 1155511296,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 11,
+        "memory": {
+          "allocated": 2036728320,
+          "reserved": 14623440896,
+          "peak_allocated": 21312365056,
+          "peak_reserved": 22106079232
+        },
+        "voxels": [
+          2284668,
+          988421
+        ],
+        "point_created": 2266,
+        "point_released": 2266,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 22,
+          "backbone.enc.enc1.down.norm.0": 22,
+          "backbone.enc.enc2.down.norm.0": 22,
+          "backbone.enc.enc3.down.norm.0": 22,
+          "backbone.enc.enc4.down.norm.0": 22,
+          "backbone.dec.dec3.up.proj.1": 22,
+          "backbone.dec.dec3.up.proj_skip.1": 22,
+          "backbone.dec.dec2.up.proj.1": 22,
+          "backbone.dec.dec2.up.proj_skip.1": 22,
+          "backbone.dec.dec1.up.proj.1": 22,
+          "backbone.dec.dec1.up.proj_skip.1": 22,
+          "backbone.dec.dec0.up.proj.1": 22,
+          "backbone.dec.dec0.up.proj_skip.1": 22,
+          "semantic_linear.1": 22,
+          "offset_linear.1": 22
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 47.463446617126465,
+        "lr": 6.98e-05,
+        "seconds": 3.6291038477793336,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 69.25547619945328,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 865730048,
+          "inactive_split_bytes.all.peak": 1184587264,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      },
+      {
+        "update": 12,
+        "memory": {
+          "allocated": 2890874880,
+          "reserved": 17555259392,
+          "peak_allocated": 15553253376,
+          "peak_reserved": 19033751552
+        },
+        "voxels": [
+          1344947,
+          1687365
+        ],
+        "point_created": 2472,
+        "point_released": 2472,
+        "point_alive": 0,
+        "bn_counts": {
+          "backbone.embedding.stem.norm": 24,
+          "backbone.enc.enc1.down.norm.0": 24,
+          "backbone.enc.enc2.down.norm.0": 24,
+          "backbone.enc.enc3.down.norm.0": 24,
+          "backbone.enc.enc4.down.norm.0": 24,
+          "backbone.dec.dec3.up.proj.1": 24,
+          "backbone.dec.dec3.up.proj_skip.1": 24,
+          "backbone.dec.dec2.up.proj.1": 24,
+          "backbone.dec.dec2.up.proj_skip.1": 24,
+          "backbone.dec.dec1.up.proj.1": 24,
+          "backbone.dec.dec1.up.proj_skip.1": 24,
+          "backbone.dec.dec0.up.proj.1": 24,
+          "backbone.dec.dec0.up.proj_skip.1": 24,
+          "semantic_linear.1": 24,
+          "offset_linear.1": 24
+        },
+        "bn_once_per_micro": true,
+        "bn_finite": true,
+        "loss": 53.05068588256836,
+        "lr": 6.98e-05,
+        "seconds": 2.833905248902738,
+        "amp_scale": 1024.0,
+        "optimizer_step_skipped": false,
+        "gradient_norm": 59.8269591333512,
+        "allocator_stats": {
+          "inactive_split_bytes.all.current": 1483784192,
+          "inactive_split_bytes.all.peak": 1484974080,
+          "num_alloc_retries": 0,
+          "num_ooms": 0,
+          "max_split_size": 134217728
+        }
+      }
+    ]
+  }
+}
