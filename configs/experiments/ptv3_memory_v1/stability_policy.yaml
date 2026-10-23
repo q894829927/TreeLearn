@@ -1,0 +1,17 @@
+purpose: short integration and memory stability; no pilot or formal mode
+parent_commit: 959e9c1ba770f380f9233c9ad7cf98b939b1e537
+reference_config: configs/experiments/ptv3_treelearn/e1_ptv3_micro_checkpoint.yaml
+entrypoint: tools/experiments/ptv3_memory_stability_v1.py
+variant: block_nested
+training_loop: unchanged tree_learn.experiments.ptv3_treelearn.train.run
+seeds: [42, 43, 44]
+updates_per_seed: 12
+physical_batch_size: 1
+accumulation_steps: 2
+crop_selection: point-count p10/p50/p90 and maximum crops in three distinct forests
+maximum_crop_occurrences_per_seed: 8
+augmentation: independent per sample, using original full-crop augmentations
+loss_accumulation: original per-valid-point semantic/offset weights
+maximum_points: null
+write_existing_runs: false
+formal_or_pilot_started: false
