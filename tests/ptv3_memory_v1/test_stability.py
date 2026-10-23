@@ -3,7 +3,7 @@ import unittest
 import tempfile
 from pathlib import Path
 
-from tree_learn.experiments.ptv3_memory_v1.stability import selected_crops, schedule, write_config, UPDATES
+from tree_learn.experiments.ptv3_memory_v1.stability import selected_crops, schedule, write_config, is_cuda_oom, UPDATES
 from tree_learn.experiments.ptv3_memory_v1.run import config
 from tree_learn.experiments.ptv3_treelearn.train import load_config
 
@@ -50,6 +50,10 @@ class StabilityPlanTests(unittest.TestCase):
             loaded=load_config(path)
             self.assertEqual(loaded,options)
             self.assertIsInstance(loaded["scheduler"]["warmup_lr_init"],float)
+
+    def test_external_spconv_oom_is_classified_without_hiding_other_errors(self):
+        self.assertTrue(is_cuda_oom(RuntimeError("TensorStorage: cuda failed with error 2 out of memory.")))
+        self.assertFalse(is_cuda_oom(RuntimeError("shape mismatch")))
 
 
 if __name__=="__main__":unittest.main()

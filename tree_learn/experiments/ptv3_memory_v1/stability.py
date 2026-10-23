@@ -2,6 +2,7 @@
 import argparse
 import gc
 import json
+import os
 import resource
 import shutil
 import sys
@@ -27,6 +28,10 @@ SEEDS = (42, 43, 44)
 # p10, p50, p90, largest crop, largest crops in two other forests.
 PAIRS = ((3,3), (0,1), (3,0), (2,4), (1,3), (5,2),
          (3,3), (1,0), (0,3), (4,2), (3,1), (2,5))
+
+
+def is_cuda_oom(error):
+    return isinstance(error,torch.cuda.OutOfMemoryError) or "cuda failed with error 2 out of memory" in str(error).lower()
 
 
 def selected_crops(manifest):
@@ -152,6 +157,9 @@ class Probe:
             loss=record["semantic_loss"]+record["offset_loss"],lr=record["lr"],
             seconds=record["seconds"],amp_scale=record["amp_scale"],
             optimizer_step_skipped=record["optimizer_step_skipped"],gradient_norm=record["gradient_norm"])
+        stats=torch.cuda.memory_stats()
+        row["allocator_stats"]={name:stats[name] for name in
+            ("inactive_split_bytes.all.current","inactive_split_bytes.all.peak","num_alloc_retries","num_ooms","max_split_size")}
         self.records.append(row)
         with (output/"stability_steps.jsonl").open("a") as stream:
             stream.write(json.dumps(row,allow_nan=False)+"\n")
@@ -163,7 +171,7 @@ class Probe:
                 raise RuntimeError("Point reduction is forbidden")
 
 
-def run(plan_dir,seed):
+def run(plan_dir,seed,allocator="default"):
     root=Path(plan_dir).resolve(); plan=json.loads((root/"plan.json").read_text())
     if plan["updates_per_seed"]!=UPDATES or seed not in SEEDS:
         raise ValueError("This entry point is restricted to 12 updates per seed")
@@ -177,7 +185,10 @@ def run(plan_dir,seed):
         raise ValueError("Require full input, physical batch=1, accumulation=2")
     if sha256(plan["plans"][str(seed)]["path"])!=plan["plans"][str(seed)]["sha256"]:
         raise ValueError("Changed stress schedule")
-    output=root/"runs"/f"s{seed}"
+    required=None if allocator=="default" else "max_split_size_mb:128"
+    if allocator not in ("default","split128") or os.environ.get("PYTORCH_CUDA_ALLOC_CONF")!=required:
+        raise ValueError("Allocator must be selected in the isolated CLI before importing torch")
+    output=root/"runs"/allocator/f"s{seed}"
     if output.exists(): raise FileExistsError(output)
     probe=Probe(); originals=(reference_train.build_model,reference_train.build_optimizer,reference_train.write_json,Point.__init__)
     def builder(config):
@@ -186,6 +197,7 @@ def run(plan_dir,seed):
         provenance=dict(seed=seed,variant="block_nested",updates=UPDATES,phase="smoke",pilot=False,
             plan_sha256=sha256(root/"plan.json"),config_sha256=sha256(root/"config.yaml"),
             git=git_state(),environment=environment(),command=sys.argv,
+            allocator_config=required,allocator_backend=torch.cuda.memory.get_allocator_backend(),
             source_sha256={str(p):sha256(p) for p in sources},
             integration="unchanged reference_train.run with model factory substitution and scalar telemetry",
             optimizer="unchanged baseline optimizer/scheduler, per-valid-point accumulation, GradScaler and clipping",
@@ -219,10 +231,17 @@ def run(plan_dir,seed):
             raise FloatingPointError("Nonfinite parameters")
         result.update(status="pass",optimizer_state_steps_min=min(steps),optimizer_state_steps_max=max(steps))
     except BaseException as error:
-        result.update(status="cuda_oom" if isinstance(error,torch.cuda.OutOfMemoryError) else "error",
+        result.update(status="cuda_oom" if is_cuda_oom(error) else "error",
+                      allocator_origin="spconv/cumm" if is_cuda_oom(error) and not isinstance(error,torch.cuda.OutOfMemoryError) else "pytorch",
                       error=str(error),failed_update=probe.current_update,active_modules=list(probe.active),
                       last_successful_module=probe.last_module,partial_voxels=list(probe.voxels),failure_memory=memory())
         output.mkdir(parents=True,exist_ok=True);(output/"exception.txt").write_text(traceback.format_exc())
+        if is_cuda_oom(error):
+            try:
+                write_json(output/"oom_allocator_stats.json",dict(torch.cuda.memory_stats()))
+                write_json(output/"oom_memory_snapshot.json",torch.cuda.memory_snapshot())
+            except Exception as snapshot_error:
+                (output/"snapshot_error.txt").write_text(str(snapshot_error))
     finally:
         reference_train.build_model,reference_train.build_optimizer,reference_train.write_json,Point.__init__=originals
         for handle in probe.handles:handle.remove()
@@ -243,5 +262,6 @@ def main():
     parser.add_argument("command",choices=("prepare","run"))
     parser.add_argument("--plan-dir",required=True)
     parser.add_argument("--seed",type=int,choices=SEEDS,default=42)
+    parser.add_argument("--allocator",choices=("default","split128"),default="default")
     args=parser.parse_args()
-    prepare(args.plan_dir) if args.command=="prepare" else run(args.plan_dir,args.seed)
+    prepare(args.plan_dir) if args.command=="prepare" else run(args.plan_dir,args.seed,args.allocator)
