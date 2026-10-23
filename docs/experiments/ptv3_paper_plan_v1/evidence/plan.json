@@ -1,0 +1,72 @@
+{
+  "version": "ptv3-treelearn-paper-plan-v1",
+  "date": "2026-10-24",
+  "status": "literature_review_complete_future_experiments_not_started",
+  "active_training": false,
+  "formal_update": 5000,
+  "optimizer_steps_in_this_review": 0,
+  "gpu_forwards_in_this_review": 0,
+  "gpu_backwards_in_this_review": 0,
+  "primary_recommendation": "Diagnose seed-specific vote separability and training-domain learnability before adding a bounded training budget.",
+  "confirmed_recipe_difference": {
+    "local_optimizer_groups": 1,
+    "local_lr_at_5000": 0.001206,
+    "local_parameter_tensor_count": 459,
+    "ptv3_author_block_lr_ratio": 0.1,
+    "causal_status": "hypothesis requiring a controlled test; not an established implementation bug"
+  },
+  "steps": [
+    {
+      "id": "D0",
+      "status": "planned_not_started",
+      "inputs": "Six complete existing training crops from three source regions, fixed augmentation and voxel fixtures; selected without model-result filtering",
+      "training_updates": 0,
+      "ordinary_full_forwards_max": 18,
+      "independent_diagnostic_backwards_max": 4,
+      "cpu_oracle_grouping_replays_max": 6,
+      "outputs": ["GT/sign/units/masks/map", "zero and mean Offset controls", "seed/crown stratification", "within-tree and between-tree votes", "BN versus DropPath", "feature/residual scale and gradient contributions"],
+      "gate": "Resolve interface failures first; separate learned XY failure from inference-statistics failure"
+    },
+    {
+      "id": "D1",
+      "status": "conditional_not_started",
+      "purpose": "Two-complete-crop micro-fit; optional matched-parent LR ratio 1.0 versus 0.1 arms",
+      "checkpoints_trial_steps": [50, 100, 200],
+      "maximum_trial_steps_per_arm": 200,
+      "formal_sample_cursor_changed": false,
+      "proposed_engineering_gate": "At least 50 percent lower XY error than zero prediction on both fitting inputs, more compact same-tree votes, finite and stable states; report separate non-fitting crop behavior",
+      "negative_result_interpretation": "Failed within the fixed diagnostic budget, not proof that the architecture can never learn",
+      "lr_variant_rules": "Preserve identical parent net/Adam state/RNG/input; change only keyword-block relative LR; verify exhaustive name mapping and scheduler ratios; version independently"
+    },
+    {
+      "id": "D2",
+      "status": "conditional_not_started",
+      "purpose": "U-Net scratch pipeline learnability sanity check if needed",
+      "maximum_trial_steps": 200,
+      "memory_gate": "Use the same complete selected inputs only if they fit; no point cap disguised as a matched control",
+      "limitation": "A scratch U-Net versus an already-trained PTv3 is not an architecture-fair performance experiment"
+    },
+    {
+      "id": "T0",
+      "status": "proposed_budget_not_started",
+      "requires": "D0 mechanism report and diagnostic learnability evidence",
+      "parent_formal_update": 5000,
+      "proposed_stop_update": 5500,
+      "evaluation_nodes": [5250, 5500],
+      "calibration": "Same frozen 72 training-domain complete crops; inference artifacts only",
+      "evaluation": "Same frozen 195 tiles, 48m region and 24 complete trees on L1W",
+      "stop_rule": "No new TP and no seed-vote improvement at both nodes, or numerical/statistical failure; no automatic extension",
+      "automatic_extension_to_12500_or_250000": false
+    }
+  ],
+  "scientific_boundaries": [
+    "Current main's 3D GT/loss/heads/grouping remain the baseline; do not silently substitute historical paper settings",
+    "A PTv3-specific optimizer recipe is a new training variant, not the strict backbone-only control",
+    "Do not infer geometry is missing merely because feature channels are constant; xCPE/grid/serialization are present",
+    "Do not use overall XY error as the sole failure threshold; paper Appendix D losses use a different reference",
+    "Oracle arrays are diagnostic, never model performance or training input",
+    "Never resume training from the calibrated inference-only net",
+    "Wytham is excluded from current diagnosis, calibration and selection, and is not historically pristine in this project",
+    "No automatic concurrent launch of Local Split, other seeds or unrelated experiments"
+  ]
+}

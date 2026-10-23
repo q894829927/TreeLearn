@@ -1,0 +1,52 @@
+{
+  "global_update": 5000,
+  "optimizer_group_count": 1,
+  "groups": [
+    {
+      "lr": 0.001206,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-8,
+      "weight_decay": 0.001,
+      "amsgrad": false,
+      "foreach": null,
+      "maximize": false,
+      "capturable": false,
+      "differentiable": false,
+      "fused": null,
+      "initial_lr": 0.003,
+      "parameter_tensor_count": 459
+    }
+  ],
+  "scheduler_keys": [
+    "param_group_field",
+    "_initial_param_group_field",
+    "base_values",
+    "metric",
+    "noise_range_t",
+    "noise_pct",
+    "noise_type",
+    "noise_std",
+    "noise_seed",
+    "t_initial",
+    "lr_min",
+    "cycle_mul",
+    "cycle_decay",
+    "cycle_limit",
+    "warmup_t",
+    "warmup_lr_init",
+    "warmup_prefix",
+    "t_in_epochs",
+    "k_decay",
+    "warmup_steps"
+  ],
+  "scaler": {
+    "scale": 2,
+    "growth_factor": 2,
+    "backoff_factor": 0.5,
+    "growth_interval": 2000,
+    "_growth_tracker": 659
+  }
+}
