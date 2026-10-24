@@ -348,7 +348,12 @@ def get_instances(coords, offset, upper_offset, semantic_prediction_logits, grou
         threshold=seed_confidence_threshold,
         mode=seed_confidence_filter_mode,
         keep_ratio=seed_confidence_keep_ratio,
-        random_seed=seed_confidence_random_seed)
+        random_seed=seed_confidence_random_seed,
+        seed_vote_xy=(coords[:, :2] + offset[:, :2]
+                      if seed_confidence_filter_mode == 'spatial_top_ratio'
+                      else None),
+        spatial_cell_size=float(getattr(
+            grouping_cfg, 'seed_confidence_spatial_cell_size', 2.0)))
     if use_seed_confidence_filter and logger is not None:
         if seed_confidence_filter_mode == 'threshold':
             filter_description = (
@@ -356,6 +361,10 @@ def get_instances(coords, offset, upper_offset, semantic_prediction_logits, grou
         elif seed_confidence_filter_mode == 'top_ratio':
             filter_description = (
                 f'top-ratio: {seed_confidence_keep_ratio:.3f}')
+        elif seed_confidence_filter_mode == 'spatial_top_ratio':
+            filter_description = (
+                f'spatial-top-ratio: {seed_confidence_keep_ratio:.3f}, '
+                f'cell: {float(getattr(grouping_cfg, "seed_confidence_spatial_cell_size", 2.0)):.2f}m')
         else:
             filter_description = (
                 f'random-ratio: {seed_confidence_keep_ratio:.3f}, '
